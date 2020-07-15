@@ -1,0 +1,68 @@
+@import "../styles/variables.sass";
+.por-smamo-common{
+  .page-content{
+    min-height: calc(100vh - 110px);
+    background: $white;
+    .menu-content{
+      position: relative;
+      .account-info{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 57px;
+        color: $porsche-dark-grey-10;
+        .icon-user {
+          margin-right: 8px;
+          width: 24px;
+          height: 24px;
+          font-size: $middlingFontSize;
+          color: $white;
+        }
+        .message-icon{
+          position: relative;
+          top: 6px;
+          right: 6px;
+        }
+        .name-text {
+          font-size: $moderateFontSize;
+          padding-right: 15px;
+          display: inline-block;
+          line-height: 57px;
+        }
+        .role-text {
+          font-size: $moderateFontSize;
+          line-height: 57px;
+        }
+        .logout-link{
+          color: $porsche-dark-grey-10;
+          text-decoration: underline;
+          background: transparent;
+          border: 0;
+          cursor: pointer;
+        }
+        .logout-link:hover{
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1760px){
+  .por-smamo-common{
+    box-sizing: border-box;
+  }
+}
+@media screen and (min-width: 1300px) and (max-width: 1759px){
+  .por-smamo-common{
+    min-width: 1550px;
+    box-sizing: border-box;
+  }
+
+}
+@media screen and (max-width: 1299px){
+  .por-smamo-common{
+    min-width: 1172px;
+    box-sizing: border-box;
+  }
+}

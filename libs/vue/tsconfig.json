@@ -1,0 +1,20 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "module": "es6",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "types": ["react"]
+  },
+  "files": ["./src/index.js", "./typings/index.d.ts"],
+  "include": ["src/**/*", "src/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

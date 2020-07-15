@@ -1,0 +1,334 @@
+[
+  {
+    "assetCode": "pc",
+    "assetName": "Parking & Charging",
+    "routePath": "https://develop.porsche-preview.cn/pc/",
+    "redirectBlankFlag": 0,
+    "redirectTokenFlag": 0,
+    "children": [
+      {
+        "type": "MENU",
+        "assetCode": "PublicCharging",
+        "assetName": "公共充电",
+        "routePath": "/publicCharging",
+        "permissionList": [
+          {
+            "permissionCode": "第三方士大夫",
+            "permissionName": "速度快解放路看记录数据",
+            "permissionUri": null
+          }
+        ],
+        "children": [
+          {
+            "type": "MENU",
+            "assetCode": "ServiceUnit",
+            "assetName": "充电服务点数",
+            "routePath": "/publicCharging/serviceUnit",
+            "permissionList": [
+              {
+                "permissionCode": "service-unit-add",
+                "permissionName": "充电服务点数-新增",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "service-unit-edit",
+                "permissionName": "充电服务点数-编辑描述",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "service-unit-delete",
+                "permissionName": "充电服务点数-删除",
+                "permissionUri": null
+              }
+            ],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "ServicePackage",
+            "assetName": "充电服务包",
+            "routePath": "/publicCharging/servicePackage",
+            "permissionList": [
+              {
+                "permissionCode": "svcpkg-add",
+                "permissionName": "充电服务包-新增",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "svcpkg-edit",
+                "permissionName": "充电服务包-编辑描述",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "svcpkg-delete",
+                "permissionName": "充电服务包-删除",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "svcpkg-publish",
+                "permissionName": "充电服务包-上架",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "svcpkg-unpublish",
+                "permissionName": "充电服务包-下架",
+                "permissionUri": null
+              }
+            ],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Order",
+            "assetName": "订单管理",
+            "routePath": "/publicCharging/order",
+            "permissionList": [],
+            "children": [
+              {
+                "type": "MENU",
+                "assetCode": "ChargingOrder",
+                "assetName": "充电订单管理",
+                "routePath": "/publicCharging/order/chargingOrder",
+                "permissionList": [
+                  {
+                    "permissionCode": "goodWill-add",
+                    "permissionName": "充电订单管理-新增Goodwill",
+                    "permissionUri": null
+                  }
+                ],
+                "children": []
+              },
+              {
+                "type": "MENU",
+                "assetCode": "PackageOrder",
+                "assetName": "充电服务包订单",
+                "routePath": "/publicCharging/order/packageOrder",
+                "permissionList": [
+                  {
+                    "permissionCode": "refund-request",
+                    "permissionName": "充电服务包订单-申请退款",
+                    "permissionUri": null
+                  },
+                  {
+                    "permissionCode": "orderRemark-add",
+                    "permissionName": "充电服务订单-新增订单备注",
+                    "permissionUri": null
+                  }
+                ],
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Goodwill",
+            "assetName": "Goodwill查询",
+            "routePath": "/publicCharging/goodwill",
+            "permissionList": [
+              {
+                "permissionCode": "goodWill-export",
+                "permissionName": "Goodwill查询-导出",
+                "permissionUri": null
+              }
+            ],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Information",
+            "assetName": "保时捷资讯",
+            "routePath": "/publicCharging/information",
+            "permissionList": [
+              {
+                "permissionCode": "porscheInformation-add",
+                "permissionName": "保时捷资讯-新增",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "porscheInformation-edit",
+                "permissionName": "保时捷资讯-编辑",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "porscheInformation-delete",
+                "permissionName": "保时捷资讯-删除",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "porscheInformation-publish",
+                "permissionName": "保时捷资讯-上架",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "porscheInformation-undo",
+                "permissionName": "保时捷资讯-撤回",
+                "permissionUri": null
+              }
+            ],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "FailureReporting",
+            "assetName": "故障上报列表",
+            "routePath": "/publicCharging/failureReporting",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "CustomerAccount",
+            "assetName": "客户管理",
+            "routePath": "/publicCharging/customerAccount",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Payment",
+            "assetName": "支付管理",
+            "routePath": "/publicCharging/payment",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Receipt",
+            "assetName": "发票管理",
+            "routePath": "/publicCharging/receipt",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Dashboard",
+            "assetName": "充电订单报表",
+            "routePath": "/publicCharging/dashboard",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "Merchant",
+            "assetName": "商户管理",
+            "routePath": "/publicCharging/merchant",
+            "permissionList": [
+              {
+                "permissionCode": "merchant-add",
+                "permissionName": "商户管理-新增",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "merchant-edit",
+                "permissionName": "商户管理-编辑",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "merchant-freeze",
+                "permissionName": "商户管理-冻结",
+                "permissionUri": null
+              },
+              {
+                "permissionCode": "merchant-unfreeze",
+                "permissionName": "商户管理-解冻",
+                "permissionUri": null
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "assetCode": "hc",
+    "assetName": "Home Charging",
+    "routePath": "https://develop.porsche-preview.cn/hc/",
+    "redirectBlankFlag": 0,
+    "redirectTokenFlag": 0,
+    "children": [
+      {
+        "type": "MENU",
+        "assetCode": "home",
+        "assetName": "客户管理",
+        "routePath": "/home",
+        "permissionList": [],
+        "children": []
+      },
+      {
+        "type": "MENU",
+        "assetCode": "ticketManage",
+        "assetName": "工单管理",
+        "routePath": "/ticketManage",
+        "permissionList": [],
+        "children": [
+          {
+            "type": "MENU",
+            "assetCode": "ticketManage/serviceTicket",
+            "assetName": "服务工单",
+            "routePath": "/ticketManage/serviceTicket",
+            "permissionList": [],
+            "children": []
+          },
+          {
+            "type": "MENU",
+            "assetCode": "ticketManage/shippingTicket",
+            "assetName": "物流工单",
+            "routePath": "/ticketManage/shippingTicket",
+            "permissionList": [],
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "assetCode": "cpoc",
+    "assetName": "CPOC",
+    "routePath": "https://develop.porsche-preview.cn/pdc-api-gateway/ss-usercenter/oauth/redirect/cpoc",
+    "redirectBlankFlag": 1,
+    "redirectTokenFlag": 1,
+    "children": []
+  },
+  {
+    "assetCode": "ir",
+    "assetName": "Rental",
+    "routePath": "https://develop.porsche-preview.cn/ir/",
+    "redirectBlankFlag": 0,
+    "redirectTokenFlag": 0,
+    "children": [
+      {
+        "type": "MENU",
+        "assetCode": "/vehiclemanagement",
+        "assetName": "车辆管理",
+        "routePath": "/#/ir/vehiclemanagement",
+        "permissionList": [],
+        "children": []
+      },
+      {
+        "type": "MENU",
+        "assetCode": "site",
+        "assetName": "站点管理",
+        "routePath": "/#/ir/site",
+        "permissionList": [],
+        "children": []
+      },
+      {
+        "type": "MENU",
+        "assetCode": "/rentalpricetable",
+        "assetName": "价格管理",
+        "routePath": "/#/ir/rentalpricetable",
+        "permissionList": [],
+        "children": []
+      },
+      {
+        "type": "MENU",
+        "assetCode": "/orders",
+        "assetName": "订单管理",
+        "routePath": "/#/ir/orders",
+        "permissionList": [],
+        "children": []
+      }
+    ]
+  }
+]
