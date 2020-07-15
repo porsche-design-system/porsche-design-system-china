@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+    <defs>
+        <path id="prefix__a_1" d="M10.4 3.8l1.8 1.8L5 12.8 2 14l1.2-3 7.2-7.2zM12.2 2L11 3.2 12.8 5 14 3.8 12.2 2z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(8 8)">
+            <path d="M0 0H16V16H0z"/>
+            <use fill="#626669" fill-rule="nonzero" xlink:href="#prefix__a_1"/>
+        </g>
+        <path fill-rule="nonzero" stroke="#626669" d="M16 .5C11.72.5 7.845 2.235 5.04 5.04 2.235 7.845.5 11.72.5 16c0 4.28 1.735 8.155 4.54 10.96C7.845 29.765 11.72 31.5 16 31.5c4.28 0 8.155-1.735 10.96-4.54 2.805-2.805 4.54-6.68 4.54-10.96 0-4.28-1.735-8.155-4.54-10.96C24.155 2.235 20.28.5 16 .5z"/>
+    </g>
+</svg>
