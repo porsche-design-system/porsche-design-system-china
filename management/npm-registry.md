@@ -14,13 +14,13 @@ SASS_BINARY_SITE=https://npm.taobao.org/mirrors/node-sass
 ```bash
 $ npm adduser --registry  http://52.83.74.69:4111/
 ```
-use your ldap account to login, the account name like:  **dihui.wang**
+add your ldap account to it, the account name like:  **dihui.wang**
 Then use the same account to login
 
 ```bash
 $ npm login --registry  http://52.83.74.69:4111/
 ```
-3. add "@pui/helper" to package.json:
+1. add "@pui/helper" to package.json:
 
 `
   "dependencies": {

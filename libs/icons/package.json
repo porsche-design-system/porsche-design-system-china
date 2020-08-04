@@ -1,6 +1,6 @@
 {
   "name": "@pui/icons",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1",
   "description": "@pui/icons",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",

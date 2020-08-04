@@ -1,6 +1,6 @@
 {
   "name": "@pui/helper",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "description": "pui: helper centralized",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
