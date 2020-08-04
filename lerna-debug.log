@@ -1,6 +1,0 @@
-68 warn complete Waiting for 4 child processes to exit. CTRL-C to exit immediately.
-69 error Error: Command failed: git tag @pui/core@0.0.2 -m @pui/core@0.0.2
-69 error fatal: tag '@pui/core@0.0.2' already exists
-69 error
-69 error     at makeError (/Users/rockwang/develop/spike/lerna-projects/pui/node_modules/execa/index.js:174:9)
-69 error     at /Users/rockwang/develop/spike/lerna-projects/pui/node_modules/execa/index.js:278:16

@@ -1,16 +1,6 @@
 import { URL_service, URL_userCenter, URL_ppnLogin } from './constants';
 import {request} from './requests';
 import {titleCase} from './common';
-const {
-	$USER_CODE,
-	$USER_TOKEN,
-	$USER_ID,
-	$USER_CLIENT_ID,
-	$USER_PROFILE,
-	$ROLE_ASSET_DIGEST,
-	// $CUR_BREAD_CRUMB,
-	$CUR_PRIVILEGES
-} = constants;
 const local = window.localStorage;
 
 const storageProfile = (user) => {
