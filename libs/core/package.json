@@ -1,6 +1,6 @@
 {
   "name": "@pui/core",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.1",
   "description": "pui: core",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
