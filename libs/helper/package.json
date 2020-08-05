@@ -70,5 +70,6 @@
     "redux-thunk": "^2.3.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "gitHead": "1d7e67b8f16feff61e8203cfabca14668b664fe0"
 }

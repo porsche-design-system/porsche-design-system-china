@@ -95,5 +95,5 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-merge": "^4.2.2"
   },
-  "gitHead": "1a164be8742d02eb1152a78adde9150f6fd03d0b"
+  "gitHead": "1d7e67b8f16feff61e8203cfabca14668b664fe0"
 }
