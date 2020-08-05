@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {PorLogo, PorBackdrop, PorMenu, PorBreadCrumb, PorFooter} from '../../kits';
 import Account from './account';
-import {fetchTokenAndMenu, $USER_TOKEN, $USER_CODE, queryObject, getProjectData, getSmamoLocalMenu} from '@pui/helper'
+import {fetchTokenAndMenu, $USER_TOKEN, $USER_CODE, queryObject, getProjectData, getSmamoLocalMenu} from '@pui/core'
 
 import './index.scss';
 

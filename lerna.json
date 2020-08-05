@@ -6,7 +6,7 @@
   "command": {
     "publish": {
       "message": "chore(release): publish",
-      "registry": "http://localhost:4800/",
+      "registry": "http://52.83.74.69:4111",
       "allowBranch": ["master", "feature/*", "develop", "staging"]
     },
     "bootstrap": {

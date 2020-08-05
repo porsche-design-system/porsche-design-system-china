@@ -1,0 +1,6 @@
+52 warn complete Waiting for 3 child processes to exit. CTRL-C to exit immediately.
+53 error Error: Command failed: git tag @pui/core@0.0.1 -m @pui/core@0.0.1
+53 error fatal: tag '@pui/core@0.0.1' already exists
+53 error
+53 error     at makeError (/Users/rockwang/develop/libs/pui/node_modules/execa/index.js:174:9)
+53 error     at /Users/rockwang/develop/libs/pui/node_modules/execa/index.js:278:16
