@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import $images from '@pui/icons';
-import {logout} from '@pui/helper';
+import {$IDP} from '@pui/core';
+import * as core from '@pui/core';
+console.log('IDP:', $IDP, core);
 
 export default class Account extends Component {
 
@@ -13,7 +15,8 @@ export default class Account extends Component {
   };
 
   render() {
-    const {firstName, lastName, roleName} = this.props;
+		const {firstName, lastName, roleName} = this.props;
+		console.log(this.props, 'in Account', $images);
     return (
       <div className="account-info">
         <$images.SvgIconContact className="message-icon" />
@@ -26,7 +29,7 @@ export default class Account extends Component {
         <span className="role-text">
           <button
             className="logout-link"
-            onClick={logout}
+            onClick={$IDP.logout}
           >
             注销
           </button>

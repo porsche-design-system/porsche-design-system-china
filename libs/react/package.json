@@ -11,9 +11,9 @@
     "release": "npm run prod && npm publish --registry  https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "prodWatch": "webpack -p --watch --config webpack.prod.js",
     "server": "node server.js",
-    "vinstall": "npm install --registry http://localhost:4800",
-    "vremove": "npm unpublish @pui/react --registry http://localhost:4800 --force",
-    "vrelease": "npm run prod && npm publish --registry http://localhost:4800",
+    "vinstall": "npm install --registry http://52.83.74.69:4111",
+    "vremove": "npm unpublish @pui/react@0.0.2 --registry http://52.83.74.69:4111 --force",
+    "vrelease": "npm run prod && npm publish --registry http://52.83.74.69:4111",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -69,8 +69,8 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
-    "@pui/helper": "^0.0.1",
-    "@pui/icons": "^0.0.1",
+    "@pui/utilities": "^0.0.2",
+    "@pui/icons": "^0.0.2",
     "antd": "^3.26.6",
     "axios": "^0.19.1",
     "history": "^4.10.1",
@@ -85,6 +85,5 @@
     "redux-thunk": "^2.3.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-merge": "^4.2.2"
-  },
-  "gitHead": "1d7e67b8f16feff61e8203cfabca14668b664fe0"
+  }
 }
