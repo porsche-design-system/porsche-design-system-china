@@ -1,6 +1,6 @@
 {
   "name": "@pui/react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pui: react",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
@@ -69,8 +69,8 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
-    "@pui/helper": "^0.0.1",
-    "@pui/icons": "^0.0.1",
+    "@pui/helper": "^0.0.2",
+    "@pui/icons": "^0.0.2",
     "antd": "^3.26.6",
     "axios": "^0.19.1",
     "history": "^4.10.1",

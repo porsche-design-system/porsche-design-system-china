@@ -1,6 +1,6 @@
 {
   "name": "@pui/vue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pui: vue",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
