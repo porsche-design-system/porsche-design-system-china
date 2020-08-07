@@ -1,5 +1,5 @@
 import * as $utilities from './utilities'
-import $IDP from './IDP'
+import * as $IDP from './IDP'
 import {request as $request} from './requests'
 import * as $CONSTANTS from './constants';
 

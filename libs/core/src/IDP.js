@@ -1,4 +1,4 @@
-import { URL_service, URL_userCenter, URL_ppnLogin } from './constants';
+import { URL_service, URL_userCenter, URL_ppnLogin, $USER_PROFILE, $ROLE_ASSET_DIGEST, $CUR_PRIVILEGES,$USER_CODE, $USER_TOKEN, $USER_ID, $USER_CLIENT_ID } from './constants';
 import {request} from './requests';
 import {titleCase} from './common';
 const local = window.localStorage;
@@ -138,10 +138,9 @@ const getSmamoLocalMenu= () =>{
   return {userProfile, roleAssetDigest, assetPermission, assetCurrentMenu};
 };
 
-const IDP = {
+export {
 	logout,
 	fetchTokenAndMenu,
 	fetchRoleAssetDigest,
 	getSmamoLocalMenu
 }
-export default IDP;

@@ -1,5 +1,11 @@
 
-import {fetchTokenAndMenu} from './index';
+import {$IDP,
+	$utilities,
+	$request,
+	$CONSTANTS,} from './index';
 
-console.log('fetchTokenAndMenu:', fetchTokenAndMenu);
+console.log($IDP,
+	$utilities,
+	$request,
+	$CONSTANTS,);
 

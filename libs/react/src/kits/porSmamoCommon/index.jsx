@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {PorLogo, PorBackdrop, PorMenu, PorBreadCrumb, PorFooter} from '../../kits';
+import {PorLogo, PorBackdrop, PorMenu, PorBreadCrumb, PorFooter} from '../';
 import Account from './account';
 import {fetchTokenAndMenu, $USER_TOKEN, $USER_CODE, queryObject, getProjectData, getSmamoLocalMenu} from '@pui/core'
-
 import './index.scss';
 
 export default class PorSmamoCommon extends Component{
@@ -41,14 +40,16 @@ export default class PorSmamoCommon extends Component{
 
   componentDidMount = () =>{
     const sessionCode = queryObject().code;
-    const userCode = window.localStorage.getItem($USER_CODE);
-    if(sessionCode && sessionCode !== userCode){//无code时，通过接口获取数据
+		const userCode = window.localStorage.getItem($USER_CODE);
+
+		if(sessionCode && sessionCode !== userCode){//无code时，通过接口获取数据
+
       this.getTokenAndMenu();
     }else{//页面刷新时，重新从缓存中获取数据赋值
       this.getLocalMenu();
     }
 
-    this.props.history.listen((route)=>{
+    this.props.history.listen && this.props.history.listen((route)=>{
       let item = this.getCurrentMenu(route.pathname);
       this.assignmentMenu(item);
     })

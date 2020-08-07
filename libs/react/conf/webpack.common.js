@@ -44,8 +44,15 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif|ico)$/i,
-        use: ['file-loader'],
+				test: /\.(png|jpg|gif|ico)$/i,
+				use: [
+					{
+							loader: 'url-loader',
+							options: {
+									limit: '6024'
+							}
+					},
+				]
       },
       {
         test: /\.svg$/,
