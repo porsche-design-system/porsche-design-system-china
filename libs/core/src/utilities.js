@@ -1,3 +1,4 @@
+import {$USER_PROFILE} from './constants';
 const local = window.localStorage;
 
 const storageProfile = (user) => {

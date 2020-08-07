@@ -69,7 +69,7 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
-    "@pui/utilities": "^0.0.2",
+    "@pui/core": "^0.0.2",
     "@pui/icons": "^0.0.2",
     "antd": "^3.26.6",
     "axios": "^0.19.1",
