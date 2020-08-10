@@ -12,7 +12,15 @@ module.exports = merge(common, {
   },
   devServer: {
     contentBase: '../dist',
-    hot: true,
+		hot: true,
+		open: true,
+		proxy: {
+      '/pdc-api-gateway': {
+        target: 'https://develop.porsche-preview.cn',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   plugins: [
     // equivalent to "mode: 'production' and is part of '-p'"
