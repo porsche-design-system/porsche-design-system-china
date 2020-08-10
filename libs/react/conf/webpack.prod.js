@@ -38,7 +38,8 @@ module.exports = merge(common, {
       commonjs2: 'webpack',
       amd: 'webpack',
       root: 'webpack',
-    },
+		},
+		'react-router-dom': 'react-router-dom'
   },
   optimization: {
     splitChunks: {
