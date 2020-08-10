@@ -5,6 +5,8 @@ import {withRouter, BrowserRouter} from "react-router-dom";
 import PorSmamoCommon from './kits/porSmamoCommon'
 import {getSmamoLocalMenu} from '@pui/core'
 
+import {routesTest} from './experiment'
+
 
 class Welcome extends Component {
   render() {
