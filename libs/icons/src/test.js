@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-import Icons from './index'
+import Icons from './svg'
 
 class IconList extends Component {
   render() {
-    console.log(Icons, 'Icons')
-    const { dispatch } = this.props
-    console.log(dispatch)
-    return <div>{/* TODO：list the icons */}</div>
+    return (
+      <div>
+        <Icons></Icons>
+      </div>
+    )
   }
 }
 
