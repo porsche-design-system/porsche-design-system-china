@@ -18,8 +18,8 @@ After cloning PUI, you can run below commands:
 
 ```bash
 # install node packages:
-$ npm bootstrap
+$ npm run bootstrap
 $ npm start
-$ npm run all
+# deploy all sub packages:
+$ npm run rp
 ```
-
