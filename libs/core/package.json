@@ -18,6 +18,28 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "changelog": {
+    "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/libs/core",
+    "labels": {
+      "enhancement": ":rocket Enhancement",
+      "fix": ":bug: Bug Fix",
+      "doc": "Refine Doc",
+      "feat": "New Feature",
+      "style": "Style change"
+    },
+    "cacheDir": ".changelog"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ]
+  },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
   "license": "ISC",
@@ -63,6 +85,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
+    "lerna-changelog": "^1.0.1",
     "less-loader": "^4.1.0",
     "node-sass": "^4.9.0",
     "prettier": "^1.19.1",
