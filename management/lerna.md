@@ -223,6 +223,10 @@ lerna diff
 ```
 $ lerna exec --scope my-component -- ls -la
 
+```
+lerna exec --scope @pui/react -- npm run prod
+```
+
 $ lerna exec -- <command> [..args] # runs the command in all packages
 $ lerna exec -- rm -rf ./node_modules
 $ lerna exec -- protractor conf.js
