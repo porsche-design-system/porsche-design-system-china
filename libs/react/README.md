@@ -43,13 +43,13 @@ export type ButtonProps = {
   size?: SizeType;
   /** 是否加载 */
   loading?: boolean | { delay?: number };
-  /** 传入数字 */
+  /** 传入参数 */
   prefixCls?: string;
-  /** 样式 */
+  /** 类名 */
   className?: string;
-  /** 传入数字 */
+  /** 传入子组件列表 */
   children?: React.ReactNode;
-  /** 样式 */
+  /** 样式object */
   style?: any;
 };
 ```
@@ -108,40 +108,20 @@ export const MyBtn = () => <Button type="ghost">按钮</Button>;
 
 ## 编写测试用例
 
-```tsx
-describe('test Button component', () => {
-  it('should render the correct default button', () => {
-    const wrapper = render(<Button {...defaultProps}>hello</Button>);
-    const ele = wrapper.getByTestId('button');
-    expect(ele).toBeInTheDocument();
-    //正确渲染文本
-    const text = wrapper.getByText('hello');
-    expect(text).toBeTruthy();
-    //button标签
-    expect(ele.tagName).toEqual('BUTTON');
-    expect(ele).not.toHaveAttribute('isdisabled');
-    expect(ele).not.toHaveAttribute('isLinked');
-    //正常添加classname
-    expect(ele.getAttribute('class')?.split(' ').includes('testprops')).toEqual(true);
-    //正常click
-    fireEvent.click(ele);
-    expect(defaultProps.onClick).toHaveBeenCalled();
-    //span正常显示
-    expect(ele.getElementsByTagName('span')).toBeTruthy();
-    //正常默认属性
-    expect(ele).toHaveStyle(`background:${color.tertiary}`);
-    expect(ele).toHaveStyle(`color: ${color.darkest}`);
-    //正常大小
-    expect(ele).toHaveStyle(`padding: ${btnPadding.medium}`);
-    expect(ele).toHaveStyle(`font-size:${typography.size.s2}px`);
-  });
-});
-```
+#### 测试开发范围：
+* 原子型组件不需要书写单元测试
+* 逻辑性utility 需要书写：Plane function logic test;
+* 基础展示组件需要书写的测试种类：Snapshot Test 、Unit/Integration test;
+* 复杂逻辑组件需包含：Snapshot Test 、Unit/Integration test、甚至 e2e test;
 
-## 测试
+**[测试开发介绍](./management/ut-intro.md)** and [more >>](./management/ut-more.md)
+
+
+## 测试开发
 
 ```
 npm run test
+npm run test:watch
 ```
 
 ## 打包

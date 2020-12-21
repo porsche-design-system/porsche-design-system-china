@@ -19,12 +19,11 @@ module.exports = function (plop) {
         path: 'src/kits/{{name}}/index.tsx',
         templateFile: 'plop-template/componentIndex.hbs',
       },
-      // 暂时去掉 测试文件
-      // {
-      //   type: 'add',
-      //   path: 'src/kits/{{name}}/__test__/{{name}}.test.tsx',
-      //   templateFile: 'plop-template/componentTest.hbs',
-      // },
+      {
+        type: 'add',
+        path: 'src/kits/{{name}}/{{name}}.spec.tsx',
+        templateFile: 'plop-template/componentTest.hbs',
+      },
       {
         type: 'add',
         path: 'src/kits/{{name}}/{{name}}.stories.tsx',

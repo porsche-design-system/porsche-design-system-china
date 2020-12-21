@@ -1,7 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack')
 
 module.exports = {
@@ -18,17 +18,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-          use: ['css-loader', 'sass-loader'],
-        }),
-      },
+        test: /\.(sa|sc|c)ss$/,
+        use: [{
+					loader: MiniCssExtractPlugin.loader,
+				},
+					'css-loader',
+					'sass-loader',
+        ],
+    	},
       {
         test: /\.less$/,
         use: [
@@ -44,15 +41,15 @@ module.exports = {
         ],
       },
       {
-				test: /\.(png|jpg|gif|ico)$/i,
-				use: [
-					{
-							loader: 'url-loader',
-							options: {
-									limit: '6024'
-							}
-					},
-				]
+        test: /\.(png|jpg|gif|ico)$/i,
+        use: [
+          {
+              loader: 'url-loader',
+              options: {
+                  limit: '6024'
+              }
+          },
+        ]
       },
       {
         test: /\.svg$/,
@@ -108,12 +105,13 @@ module.exports = {
       title: 'PUI: Porsche Digital China UI: others',
       template: 'index.html',
     }),
-    new ExtractTextPlugin({
-      filename: getPath => {
-        return 'style.css'
-      },
-      allChunks: true,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: getPath => {
+    //     return 'style.css'
+    //   },
+    //   allChunks: true,
+		// }),
+		new MiniCssExtractPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 }
