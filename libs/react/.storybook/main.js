@@ -1,14 +1,31 @@
+const webpackConf = require('../conf/webpack.common');
+
 module.exports = {
-  stories: ['../stories/**/*.stories.js'],
+  stories: ['../src/**/*.stories.(tsx|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-viewport',
     '@storybook/addon-knobs',
-    '@storybook/addon-docs',
+    { name: '@storybook/addon-docs', options: { configureJSX: true } },
+    '@storybook/addon-a11y',
+    '@storybook/addon-storysource',
   ],
   webpackFinal: async config => {
-    // do mutation to the config
-
-    return config
+    config.resolve = webpackConf.resolve;
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      use: [
+        {
+          // loader: require.resolve('react-docgen-typescript-loader'),
+          loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+        },
+      ],
+    });
+    return config;
   },
-}
+};
