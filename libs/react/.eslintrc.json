@@ -20,7 +20,7 @@
     "block-scoped-var": "error",
     "brace-style": "error",
     "callback-return": "error",
-    "comma-dangle": "error",
+    "comma-dangle": ["error", "error"],
     "comma-spacing": "off",
     "comma-style": [
       "error",
