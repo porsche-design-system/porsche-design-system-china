@@ -1,8 +1,8 @@
-const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -102,11 +102,9 @@ module.exports = {
       template: 'index.html',
     }),
     new ExtractTextPlugin({
-      filename: getPath => {
-        return 'style.css'
-      },
+      filename: () => 'style.css',
       allChunks: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-}
+};

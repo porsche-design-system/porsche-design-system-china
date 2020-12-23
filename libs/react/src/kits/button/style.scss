@@ -1,0 +1,150 @@
+@import './constants.scss';
+
+.pos-button {
+  border-radius: 0;
+  height: $comHeight;
+  text-align: center;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+
+  &.pr-18 {
+    padding-right: 18px;
+  }
+
+  &.fixed-width {
+    min-width: 128px;
+  }
+
+  &-primary {
+    border: none;
+    background-color: $blue;
+    color: white;
+    &:hover,
+    &:active {
+      background-color: #11496a;
+      color: rgba($color: #fff, $alpha: 0.6);
+      border: none;
+    }
+    &:focus-within {
+      background-color: $blue;
+      color: white;
+      border-color: $blue;
+    }
+    &[disabled] {
+      background-color: $blue;
+      color: white;
+      opacity: 0.5;
+    }
+  }
+  &-ghost {
+    color: $lightBlue;
+    border-color: $lightBlue;
+    background-color: transparent;
+    &:hover,
+    &:active {
+      color: #15577e;
+      border-color: #15577e;
+    }
+    &:focus-within {
+      border-color: $lightBlue;
+      color: $lightBlue;
+    }
+    &[disabled] {
+      color: $lightBlue;
+      border-color: $lightBlue;
+      opacity: 0.5;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  &-default {
+    color: black !important;
+    border: none;
+    background-color: white !important;
+    &:hover,
+    &:active {
+      color: black;
+      background-color: #ccc;
+    }
+    &:focus-within {
+      color: black;
+      background-color: #ccc;
+    }
+    &[disabled] {
+      background-color: white;
+      opacity: 0.5;
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+  &-dashed {
+    color: white !important;
+    border-color: white !important;
+    background-color: transparent;
+    border-style: solid;
+    &:hover,
+    &:active {
+      color: #7c7f81;
+      border-color: #7c7f81;
+    }
+    &:focus-within {
+      border-color: white;
+      color: white;
+    }
+    &[disabled] {
+      color: white;
+      border-color: white;
+      opacity: 0.5;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  &-danger {
+    border: none;
+    background-color: $danger;
+    color: white;
+    &:hover,
+    &:active {
+      background-color: $darkDanger;
+      color: rgba($color: #fff, $alpha: 0.6);
+      border: none;
+    }
+    &:focus-within {
+      background-color: $danger;
+      color: white;
+      border-color: $danger;
+    }
+    &[disabled] {
+      background-color: $danger;
+      color: white;
+      opacity: 0.5;
+    }
+  }
+  &-link {
+    padding: 0;
+    &:hover,
+    &:active,
+    &:focus-within,
+    &[disabled] {
+      color: white;
+      background-color: transparent;
+      border: none;
+    }
+    &::before {
+      content: none;
+    }
+  }
+
+  &.ant-btn-sm {
+    &.fixed-width {
+      min-width: 118px;
+    }
+    height: 36px;
+    padding-left: 10px;
+  }
+}
