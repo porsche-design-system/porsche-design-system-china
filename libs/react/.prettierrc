@@ -10,7 +10,7 @@
   "arrowParens": "avoid",
   "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "overrides": [
     {
       "files": ".prettierrc",

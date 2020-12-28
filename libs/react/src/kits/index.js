@@ -1,2 +1,4 @@
+import { Layout } from './layout/layout.tsx';
+import { Button } from './button/button.tsx';
 
-export {default as Button} from './button';
+export { Button, Layout };

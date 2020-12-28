@@ -1,71 +1,74 @@
-const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
     index: './src/index.js',
+    dark: './src/dark.js',
+    light: './src/light.js'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss']
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist')
   },
   module: {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: [{
-					loader: MiniCssExtractPlugin.loader,
-				},
-					'css-loader',
-					'sass-loader',
-        ],
-    	},
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader',
+          'sass-loader'
+        ]
+      },
       {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: 'style-loader'
           },
           {
-            loader: 'css-loader',
+            loader: 'css-loader'
           },
           {
-            loader: 'less-loader',
-          },
-        ],
+            loader: 'less-loader'
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif|ico)$/i,
         use: [
           {
-              loader: 'url-loader',
-              options: {
-                  limit: '6024'
-              }
-          },
+            loader: 'url-loader',
+            options: {
+              limit: '6024'
+            }
+          }
         ]
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack', 'url-loader'],
+        use: ['@svgr/webpack', 'url-loader']
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
+        use: ['file-loader']
       },
       {
         test: /\.(csv|tsv)$/,
-        use: ['csv-loader'],
+        use: ['csv-loader']
       },
       {
         test: /\.xml$/,
-        use: ['xml-loader'],
+        use: ['xml-loader']
       },
       /**
        * Without any configuration options, babel-preset-env behaves exactly the same as:
@@ -78,9 +81,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
-        },
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       },
       {
         test: /\.tsx?$/,
@@ -88,30 +91,30 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              transpileOnly: true,
-            },
-          },
-        ],
-      },
+              transpileOnly: true
+            }
+          }
+        ]
+      }
       // {
       //   test: /\.html$/,
       //   loader: 'html-loader'
       // }
-    ],
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'PUI: Porsche Digital China UI: others',
-      template: 'index.html',
+      template: 'index.html'
     }),
     // new ExtractTextPlugin({
     //   filename: getPath => {
     //     return 'style.css'
     //   },
     //   allChunks: true,
-		// }),
-		new MiniCssExtractPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-}
+    // }),
+    new MiniCssExtractPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ]
+};

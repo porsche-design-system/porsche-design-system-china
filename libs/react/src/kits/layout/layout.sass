@@ -1,0 +1,65 @@
+@import "../../styles/index.sass"
+
+//S: local definition
+.margin-side-24px
+	margin: 0 24px
+.align-items-center
+	align-items: center
+.align-self-start
+	align-self: flex-start
+//E: local definition
+
+.pui-layout
+	height: 100vh
+	display: flex
+	flex-direction: column
+	font-size: 14px
+	&.align-center
+		align-items: center
+	&.landing
+		filter: blur(3px)
+
+	header
+		width: 100%
+		background: $neutral-contrast-low-light
+		.bar
+			@extend .margin-side-24px
+			height: 48px
+
+		.top
+			@extend .margin-side-24px
+			height: 104px
+			background: #ddd
+
+		// &.with-top
+		// 	height: 152px
+
+	>div
+		@extend .margin-side-24px
+		flex: 1
+		display: flex
+		background: green
+		&.flex-container
+			@media (max-width: 1440px)
+				margin: 0 24px
+				width: 100%
+				//TODO: case when smaller
+			@media (min-width: 1440px)
+				max-width: 1440px
+		&.fix-container
+			aside
+				height: 100%
+				flex-basis: 475px
+				background: blue
+				overflow-wrap: break-word
+				overflow-y: auto
+			.content
+				flex: 1
+				margin-left: 24px
+				background: yellow
+		&.flex-container
+
+	footer
+		width: calc(100% - 48px)
+		flex-basis: 104px
+		background: #eee
