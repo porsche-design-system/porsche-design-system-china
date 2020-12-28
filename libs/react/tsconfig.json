@@ -1,6 +1,19 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": ".",
+    "importHelpers": false,
+    "jsx": "preserve",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "paths": {
+      "*": ["./node_modules/@types/*", "*"]
+    },
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+
     "target": "es5",
     "lib": [
       "dom",
@@ -19,7 +32,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
     "outDir": "./dist/",
     "noImplicitAny": true,
     "removeComments": true,
@@ -34,7 +46,8 @@
     "./typings/index.d.ts"
   ],
   "include": [
-    "src"
+    "src",
+    "stories"
   ],
   "exclude": [
     "node_modules",
