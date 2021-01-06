@@ -5,7 +5,6 @@ module.exports = {
   stories: ['../src/**/*.stories.(tsx|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-essentials',
-    '@storybook/preset-typescript',
     'storybook-addon-jsx',
     '@storybook/addon-knobs/register',
     'storybook-addon-paddings',

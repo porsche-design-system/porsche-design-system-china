@@ -1,3 +1,3 @@
 {
-  "testRegex": "((\\.|/*.)(spec))\\.js?$"
+  "testRegex": "((\\.|/*.)(spec))\\.(js|ts)?$"
 }

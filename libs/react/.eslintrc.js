@@ -11,6 +11,9 @@ module.exports = {
   },
   settings: {
     'import/resolver': 'webpack',
+    webpack: {
+      config: 'conf/webpack.dev.js' // 这是你设置alias的配置文件路径
+    },
     alias: {
       map: [
         ['@src', './src'],
@@ -27,7 +30,7 @@ module.exports = {
     {
       files: ['cypress-base/**/*'],
       rules: {
-        'import/no-unresolved': 0,
+        'import/no-unresolved': [2, { commonjs: true, amd: true, caseSensitive: true }],
         'global-require': 0
       }
     },

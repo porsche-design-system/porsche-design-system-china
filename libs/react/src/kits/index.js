@@ -1,4 +1,5 @@
-import { Layout } from './layout/layout.tsx';
-import { Button } from './button/button.tsx';
+/* eslint-disable import/no-unresolved */
+import Layout from './layout';
+import Button from './button';
 
 export { Button, Layout };

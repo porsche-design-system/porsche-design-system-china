@@ -14,7 +14,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
 
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -30,8 +30,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
+    "noEmitOnError": true,
     "outDir": "./dist/",
     "noImplicitAny": true,
     "removeComments": true,
@@ -46,8 +46,7 @@
     "./typings/index.d.ts"
   ],
   "include": [
-    "src",
-    "stories"
+    "src"
   ],
   "exclude": [
     "node_modules",

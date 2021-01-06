@@ -1,15 +1,4 @@
-## web team npm guide:
-
-1. Change the .npmrc in your project root to :
-
-```
-strict-ssl=false
-electron_mirror=https://npm.taobao.org/mirrors/electron/
-registry=http://52.83.74.69:4111/
-SASS_BINARY_SITE=https://npm.taobao.org/mirrors/node-sass
-```
-
-1. After Ldap setup, npm scripts:
+1. [Ldap setup](./ldap.md), npm scripts:
 
 ```bash
 $ npm adduser --registry  http://52.83.74.69:4111/
@@ -23,6 +12,7 @@ $ npm login --registry  http://52.83.74.69:4111/
 
 2. 安装包 📦 
 
+* 直接安装
 ```bash
 npm i @pui/xxx -S 
 ```
@@ -30,6 +20,8 @@ npm i @pui/xxx -S
 ```bash
 yarn add @pui/xxx 
 ```
+
+* 通过修改`package.json` 安装：
 Or:
 
 add "@pui/xxx" to package.json:
@@ -46,17 +38,17 @@ Run the installation:
 ```bash
 npm install
 ```
-If not using .npmrc, please run below script:
+
+* If not using .npmrc, please run below script:
 ```bash
 npm install pui@xxx --registry  http://52.83.74.69:4111/
 ```
 
 
-3. 示例 🔨 
+3. 使用示例 🔨 
 
 ```jsx
-import {api} from '@pui/xxx'
-
+import {$IDP} from '@pui/core'
 ```
 
 引入样式：
@@ -64,7 +56,4 @@ import {api} from '@pui/xxx'
 ```jsx
 ```
 
-***start development*** 
-
-
-
+***Enjoy development*** 

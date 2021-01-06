@@ -2,7 +2,7 @@ import React from 'react';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 import { ButtonType, ButtonTypes, SizeType, SIZES } from './types';
 
-import Button from './button';
+import Button from '.';
 
 export default {
   title: 'Button',
@@ -12,7 +12,7 @@ export default {
 
 export const knobsButton = () => (
   <Button
-    size={select<SizeType>('size', SIZES, 'large')}
+    size={select<SizeType>('size', SIZES as any, 'large')}
     type={select<ButtonType>('type', ButtonTypes, 'primary')}
   >
     {text('123', '123')}

@@ -10,7 +10,7 @@ module.exports = merge(common, {
     index: './src/index.js',
     dark: './src/dark.js',
     light: './src/light.js',
-    demo: './src/demo.tsx',
+    demo: './src/demo.tsx'
   },
   devServer: {
     contentBase: '../dist',
@@ -20,14 +20,14 @@ module.exports = merge(common, {
       '/pdc-api-gateway': {
         target: 'https://develop.porsche-preview.cn',
         changeOrigin: true,
-        secure: false,
-      },
-    },
+        secure: false
+      }
+    }
   },
   plugins: [
     // equivalent to "mode: 'production' and is part of '-p'"
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-    }),
-  ],
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ]
 });
