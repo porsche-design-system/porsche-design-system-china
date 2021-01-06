@@ -14,6 +14,17 @@
     "rp": "npm run remove \n npm run publish:nogit",
     "all": "npm-run-all remove publish:nogit"
   },
+  "changelog": {
+    "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/",
+    "labels": {
+      "enhancement": ":rocket Enhancement",
+      "fix": ":bug: Bug Fix",
+      "doc": "Refine Doc",
+      "feat": "New Feature",
+      "style": "Style change"
+    },
+    "cacheDir": ".changelog"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",

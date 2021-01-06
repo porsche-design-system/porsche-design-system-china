@@ -1,6 +1,6 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Layout } from './index';
+import Layout from './index';
 
 export default {
   title: 'Layout',

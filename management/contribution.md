@@ -12,14 +12,14 @@ $ cd pui
 
 ## 🤝 Contribution [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-## Development Workflow
+## Development Workflow	TODO
 
 After cloning PUI, you can run below commands:
 
 ```bash
 # install node packages:
 $ npm run bootstrap
-$ npm start
+$ lerna run 
 # deploy all sub packages:
 $ npm run rp
 ```

@@ -1,7 +1,5 @@
 import React, { PropsWithChildren, FC } from 'react';
 import cn from 'classnames';
-import { Button } from '@storybook/react/demo';
-
 import { ButtonType, SizeType } from './types';
 
 import './style.scss';
@@ -25,7 +23,7 @@ export type ButtonProps = {
   style?: object;
 };
 
-const TheButton: FC<ButtonProps> = (props: PropsWithChildren<ButtonProps>) => {
+const Button: FC<ButtonProps> = (props: PropsWithChildren<ButtonProps>) => {
   const { children, className, type = 'default', style } = props;
 
   return (
@@ -41,6 +39,6 @@ const TheButton: FC<ButtonProps> = (props: PropsWithChildren<ButtonProps>) => {
 
 Button.defaultProps = {
   type: 'primary'
-};
+} as any;
 
-export default TheButton;
+export default Button;

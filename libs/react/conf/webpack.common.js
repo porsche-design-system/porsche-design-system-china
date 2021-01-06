@@ -11,7 +11,13 @@ module.exports = {
     light: './src/light.js'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss'],
+    // modules: [path.join(__dirname, './src'), 'node_modules'],
+    alias: {
+      '@src': path.resolve(__dirname, 'src'),
+      '@kits': path.resolve(__dirname, 'src/kits'),
+      '@styles': path.resolve(__dirname, 'src/styles')
+    }
   },
   output: {
     filename: '[name].js',
@@ -87,19 +93,30 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
+        // exclude: [/\.spec.tsx?$/],
         use: [
+          'thread-loader',
+          'babel-loader',
           {
             loader: 'ts-loader',
             options: {
-              transpileOnly: true
+              // transpile only in happyPack mode
+              // type checking is done via fork-ts-checker-webpack-plugin
+              happyPackMode: true,
+              transpileOnly: true,
+              // must override compiler options here, even though we have set
+              // the same options in `tsconfig.json`, because they may still
+              // be overriden by `tsconfig.json` in node_modules subdirectories.
+              compilerOptions: {
+                esModuleInterop: false,
+                importHelpers: false,
+                module: 'esnext',
+                target: 'esnext'
+              }
             }
           }
         ]
       }
-      // {
-      //   test: /\.html$/,
-      //   loader: 'html-loader'
-      // }
     ]
   },
   plugins: [

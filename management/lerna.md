@@ -1,63 +1,77 @@
-#### 常用命令
 
+### lerna常用命令
+[Lerna入门](https://lernajs.bootcss.com/#command-changed)
+
+* 创建一个新的 lerna 仓库（repo）或将现有的仓库升级为适配当前 版本的 Lerna
+  
 ```
-lerna init #初始化
-lerna bootstrap #下载依赖包或者生成本地软连接
-lerna add axios #所有包都添加axios
-lerna add prpr-lerna-core --scope=prpr-lerna-popular #给包prpr-lerna-popularx添加prpr-lerna-core依赖
-lerna list
+lerna init
+```
+**参数**
+`--independent/-i ` – 使用独立的 版本控制模式。
+
+* 在当前 Lerna 仓库中执行引导流程（bootstrap）。安装所有依赖项并链接任何交叉依赖。让你可以 在 require() 中直接通过软件包的名称加载交叉依赖的包，就好像此软件包已经存在于 你的 node_modules 目录下一样。
+
+* 清除所有包的 node_packages
+```
 lerna clean
 ```
 
-#### 添加依赖
-
-* 第一种方法是修改prpr-lerna-popular/package.json，添加
-
+* 导包(根据文件夹路径pathToRepo把本地开发的npm组件导入lerna 项目中作为依赖)
 ```
-{
-  "dependencies": {
-    "core": "^1.0.0"
-  }
-}
-```
-然后运行: 
-```
-lerna bootstrap 
-lerna bootstrap --hoist
+lerna import <pathToRepo>
 ```
 
-* 第二种方法是直接使用命令add
+* 安装package 到 依赖
+  
+```
+#所有子包统一添加packageName
+lerna add packageName 
+
+#指定在子 package  @pui/react 中添加依赖 packageName
+lerna add packageName --scope=@pui/react
+```
+`即：类似在@pui/react 的 package.json中添加依赖 或npm install的效果`
+
+* 发布版本: 为已经更新过的软件包创建一个新版本。`会提示 输入新版本号并更新：git 和 npm 上的所有软件包`
 
 ```
-lerna add prpr-lerna-core --scope=prpr-lerna-popular
-```
+# 先检查从上次发版以来已经变更的包
+lerna changed	
 
-```
-lerna add @tpui/utils --scope=@tpui/others
-```
+# 列出 所有或某个软件包的修改情况
+lerna diff [package?]
 
-prpr-lerna-popular除了依赖prpr-lerna-core，还可以依赖其他开源的库，比如我们使用axios:
-
-```
-lerna add axios --scope=prpr-lerna-popular
-```
-
-#### 发布到npm
-
-```
+#登录npm 仓库
 npm login
+# 发布
 lerna publish --registry http://52.83.74.69:411
+```
+**参数**
+
+--npm-tag [tagname] — 使用给定的 npm dist-tag （默认为 latest）发布到 npm。
+
+--canary/-c – 创建一个 canary 版本`(不建议使用)`
+
+--skip-git – 不要运行任何 git 命令。
+
+--force-publish [packages] — 强制发布 指定的一个或多个软件包（以逗号分隔）或使用 * 表示所有软件包`（对于修改过的软件包跳过 git diff 检查）`。
+
+* 在每一个包含 [script] 脚本的软件包中运行此 npm 脚本
 
 ```
-![de71c8b19f1d2cb1dfd1b98fe26c5a1e.png](evernotecid://FFB9913C-DAAE-4BEC-B878-D3E705BA7C40/wwwevernotecom/10776835/ENResource/p5098)
-
-
-#### 自动生成changelog
-
+lerna run [script]
 ```
-<!-- npm install lerna-changelog -g -->
+
+* 列出当前 Lerna 仓库中的所有公共软件包（public packages）
 ```
-然后在lerna.json添加对应配置项：
+lerna ls
+```
+
+
+### 自动生成changelog
+
+在lerna.json中已添加对应配置项：
 
 ```
 "changelog": {
@@ -75,13 +89,13 @@ repo是必填的
 labels里，key是要在Github配置的标签，用来给Issue/PR分类，value里的:bug:只是调皮的emoji，会作为changelog里该类change的标题
 
 
-
 #### lerna-changelog
 
 Install
 ```
 yarn add lerna-changelog --dev
 
+# or:
 npm install --save-dev lerna-changelog
 ```
 
@@ -99,14 +113,6 @@ lerna-changelog --from=v1.0.0 --to=v2.0.0
 ```
 Lerna-changelog 会自动把 对应子包的包名放在changelog 每条的前面
 
-
-#### import 包和commits
-
-how-to-import-a-local-git-repo-in-lerna
-```
-git commit -a -m 'message'
-git import path/to/import
-```
 
 #### 发布
 options
@@ -187,7 +193,7 @@ lint-staged
 prettier
 eslint
 
-#### lerna version
+#### lerna FAQ
 这个命令 识别出修改的包 --> 创建新的版本号 --> 修改package.json --> 提交修改 打上版本的tag --> 推送到git上。
 
 问题：
@@ -201,30 +207,16 @@ lerna create
 lerna import <pathToRepo>
 ```
 
-怎么发单独包的version？
-```
-lerna publish --contents dist   // 指定dist目录为发布目录
-# 他妈的就是扯淡，浪费时间. 直接使用independent的模式。这样只有有更新才publish上去
-```
-
 怎么把共同依赖的库安装到根目录的node_modules下，以统一版本依赖?
 ```
 rockwang@rocks-MacBook-Pro pui (master) $ lerna bootstrap --hoist
-```
-怎么显示至上次release tag以来有修改的包？
-```
-lerna changed
-```
-怎么显示至上次release tag以来有修改包的差异？
-```
-lerna diff
 ```
 怎么在每个包目录下执行任意命令？
 ```
 $ lerna exec --scope my-component -- ls -la
 
 ```
-lerna exec --scope @pui/react -- npm run prod
+lerna exec --scope @pui/react -- npm install  axios
 ```
 
 $ lerna exec -- <command> [..args] # runs the command in all packages
