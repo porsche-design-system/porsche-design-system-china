@@ -255,6 +255,7 @@ lerna link
 
 ```
 #常用的仓库地址
+	pdc-npm- http://52.83.74.69:4111/
   npm ---- https://registry.npmjs.org/
   cnpm --- http://r.cnpmjs.org/
   taobao - https://registry.npm.taobao.org/

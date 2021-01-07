@@ -9,8 +9,7 @@ module.exports = merge(common, {
   entry: {
     index: './src/index.js',
     dark: './src/dark.js',
-    light: './src/light.js',
-    demo: './src/demo.tsx'
+    light: './src/light.js'
   },
   devServer: {
     contentBase: '../dist',
