@@ -13,32 +13,35 @@
 	height: 100vh
 	display: flex
 	flex-direction: column
+	justify-content: flex-start
 	font-size: 14px
+	line-height: 22px
 	&.align-center
 		align-items: center
 	&.landing
 		filter: blur(3px)
 
-	header
+	header.pui-header
 		width: 100%
-		background: $neutral-contrast-low-light
-		.bar
+		// background: $neutral-contrast-low-light
+
+		.pui-top
 			@extend .margin-side-24px
 			height: 48px
+			line-height: 48px
+			background: $neutral-contrast-low-light
 
-		.top
+		.pui-bar
 			@extend .margin-side-24px
 			height: 104px
-			background: #ddd
 
-		// &.with-top
-		// 	height: 152px
+		&.pui-with-top
+			height: 152px
 
 	>div
 		@extend .margin-side-24px
 		flex: 1
 		display: flex
-		background: green
 		&.flex-container
 			@media (max-width: 1440px)
 				margin: 0 24px
@@ -50,16 +53,14 @@
 			aside
 				height: 100%
 				flex-basis: 475px
-				background: blue
 				overflow-wrap: break-word
 				overflow-y: auto
-			.content
-				flex: 1
-				margin-left: 24px
-				background: yellow
-		&.flex-container
+			// .content
+			// 	flex: 1
+			// 	margin-left: 24px
+			// 	background: yellow
 
-	footer
+	footer.pui-footer
 		width: calc(100% - 48px)
 		flex-basis: 104px
 		background: #eee

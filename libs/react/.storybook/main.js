@@ -1,4 +1,5 @@
 const path = require('path');
+const webpackConf = require('../conf/webpack.common');
 
 // Export a function. Accept the base config as the only param.
 module.exports = {
@@ -21,12 +22,26 @@ module.exports = {
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
 
-    // Make whatever fine-grained changes you need
+		// Make whatever fine-grained changes you need
+		config.resolve = webpackConf.resolve;
     config.module.rules.push({
       test: /\.(scss|sass)$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../')
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            indentedSynctax: true
+          }
+        }
+      ],
+      include: path.resolve(__dirname, '../src')
     });
+    config.module.rules.push({
+			test: /\.svg$/,
+			use: ['@svgr/webpack', 'url-loader']
+		});
     return config;
   }
 };
