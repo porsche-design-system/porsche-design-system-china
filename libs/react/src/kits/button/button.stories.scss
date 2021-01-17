@@ -1,0 +1,30 @@
+@import '../../styles/index.sass';
+@import '../../styles/stories/layout.scss';
+
+dl.ps-btns{
+	padding: 0 0 30px 0;
+
+	dt{
+		color: $bg-white;
+		padding: 20px 0 ;
+		text-align: center;
+		border-bottom: 1px #ddd dashed;
+	}
+	.labels{
+		color: $bg-white;
+		li{
+			text-align: center;
+			margin-top: 30px;
+		}
+	}
+	.btns, .labels{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		li{
+			list-style: none;
+		}
+	}
+
+}
+
