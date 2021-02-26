@@ -1,0 +1,9 @@
+#icons project
+--fix
+lib
+es
+dist
+font
+src/asn
+src/icons
+storybook-static

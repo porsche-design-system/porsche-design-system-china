@@ -1,0 +1,155 @@
+
+<h3>通用图标</h3>
+
+<table>
+  <thead>
+    <tr>
+      <td>参数</td>
+      <td>说明</td>
+      <td>类型</td>
+      <td>默认值</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>className</td>
+      <td>设置图标的样式名</td>
+      <td>string</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>rotate</td>
+      <td>图标旋转角度（IE9 无效）</td>
+      <td>number</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spin</td>
+      <td>是否有旋转动画</td>
+      <td>boolean</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>设置图标的样式，例如 fontSize 和 color</td>
+      <td>CSSProperties</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+
+```jsx
+import {
+  Asterisk,
+  Icon360,
+  Iconadd
+} from '@pui/icons';
+
+ReactDOM.render(
+  <div>
+    <Asterisk spin />
+    <Icon360 rotate={180} />
+    <Iconadd />
+  </div>,
+  mountNode,
+);
+```
+
+<h3>自定义 Icon</h3>
+
+<table>
+  <thead>
+    <tr>
+      <td>参数</td>
+      <td>说明</td>
+      <td>类型</td>
+      <td>默认值</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>component</td>
+      <td>控制如何渲染图标，通常是一个渲染根标签为 &lt;svg&gt; 的 React 组件</td>
+      <td>ComponentType &lt; CustomIconComponentProps &gt;</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>rotate</td>
+      <td>图标旋转角度（IE9 无效）</td>
+      <td>number</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>spin</td>
+      <td>是否有旋转动画</td>
+      <td>boolean</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>设置图标的样式，例如 fontSize 和 color</td>
+      <td>CSSProperties</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+
+`Icon` 中的 `component` 组件的接受的属性如下：
+
+| 字段 | 说明 | 类型 | 只读值 | 版本 |
+| --- | --- | --- | --- | --- |
+| className | 计算后的 `svg` 类名 | string | - |  |
+| fill | `svg` 元素填充的颜色 | string | `currentColor` |  |
+| height | `svg` 元素高度 | string \| number | `1em` |  |
+| style | 计算后的 `svg` 元素样式 | CSSProperties | - |  |
+| width | `svg` 元素宽度 | string \| number | `1em` |  |
+
+<h3>自定义 font 图标</h3>
+
+我们提供了一个 createFromIconfontCN 方法，方便开发者调用在 iconfont.cn 上自行管理的图标。
+
+```jsx
+import { createFromIconfontCN } from '@pui/icons';
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
+});
+
+ReactDOM.render(
+  <div className="icons-list">
+    <IconFont type="icon-tuichu" />
+    <IconFont type="icon-facebook" />
+    <IconFont type="icon-twitter" />
+  </div>,
+  mountNode,
+);
+```
+
+其本质上是创建了一个使用 <use\> 标签来渲染图标的组件。
+
+options 的配置项如下：
+
+<table>
+  <thead>
+    <tr>
+      <td>参数</td>
+      <td>说明</td>
+      <td>类型</td>
+      <td>默认值</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>extraCommonProps</td>
+      <td>给所有的 svg 图标 &lt;Icon /&gt; 组件设置额外的属性</td>
+      <td>[key: string]: any</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>scriptUrl</td>
+      <td>iconfont.cn 项目在线生成的 js 地址</td>
+      <td>string | string[]</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
