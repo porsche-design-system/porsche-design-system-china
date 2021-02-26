@@ -1,20 +1,19 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "./dist/",
-    "jsx": "react",
+    "strict": true,
+    "target": "esnext",
     "allowSyntheticDefaultImports": true,
-    "module": "es6",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "target": "es5",
+    "esModuleInterop": true,
+    "module": "commonjs",
     "moduleResolution": "node",
-    "allowJs": true,
-    "types": ["react"]
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "jsx": "react"
   },
-  "files": ["./src/index.js", "./typings/index.d.ts"],
-  "include": ["src/**/*", "src/*"],
+  "include": ["./src", "./plugins", "./tasks", "./conf"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
+
