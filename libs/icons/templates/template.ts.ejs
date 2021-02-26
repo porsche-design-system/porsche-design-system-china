@@ -1,0 +1,12 @@
+
+import * as React from 'react'
+import <%= identifier %>Svg from '../asn/<%= path %>';
+import PorscheIcon, { IconBaseProps } from '../components/PorscheIcon';
+
+const <%= identifier %> = (
+  props: IconBaseProps,
+  ref: React.MutableRefObject<HTMLSpanElement>,
+) => <PorscheIcon {...props} ref={ref} icon={<%= identifier %>Svg}/>;
+
+<%= identifier %>.displayName = '<%= identifier %>';
+export default React.forwardRef(<%= identifier %>);
