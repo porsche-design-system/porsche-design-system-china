@@ -1,0 +1,68 @@
+.pui-button {
+  border: none;
+  cursor: pointer;
+  padding: 0 20px;
+  transition: color 0.2s, background-color 0.2s;
+
+  /* type */
+  &-type-default {
+    color: $default-text-color;
+    border: $default-border;
+    background-color: $default-color;
+    &:active {
+      background-color: black;
+      color: white;
+    }
+  }
+  &-type-dark {
+    background-color: black;
+    color: white;
+    &:active {
+      background-color: lighten(black, 20);
+    }
+  }
+  &-type-primary {
+    background-color: $primary-color;
+    color: white;
+    &:hover {
+      background-color: lighten($primary-color, 6);
+    }
+    &:active {
+      background-color: darken($primary-color, 12);
+    }
+  }
+  &-type-text {
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+  }
+
+  /* size */
+  &-size-small {
+    font-size: 12px;
+    height: 40px;
+  }
+  &-size-middle {
+    font-size: 16px;
+    height: 48px;
+  }
+  &-size-large {
+    font-size: 20px;
+    height: 56px;
+  }
+
+  /* shape */
+  &-shape-default {
+    border-radius: 0;
+  }
+  &-shape-round {
+    border-radius: 10px;
+  }
+  &-shape-circle {
+    border-radius: 100px;
+  }
+}
+
+.pui-button:disabled {
+  opacity: 0.7;
+}
