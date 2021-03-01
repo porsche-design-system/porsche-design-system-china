@@ -1,0 +1,18 @@
+.pui-search {
+  input {
+    border: 1px solid black;
+    padding: 12px;
+    width: 272px;
+  }
+
+  .pui-search-button {
+    width: 44px;
+    height: 44px;
+    background-color: $secondary-color;
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+  }
+}
