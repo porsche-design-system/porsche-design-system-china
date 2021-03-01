@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "importHelpers": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
@@ -38,7 +38,8 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "types": [
-      "react"
+      "react",
+      "jest"
     ]
   },
   "files": [
@@ -46,7 +47,7 @@
     "./typings/index.d.ts"
   ],
   "include": [
-    "src"
+    "src", "pui-theme.ts"
   ],
   "exclude": [
     "node_modules",
