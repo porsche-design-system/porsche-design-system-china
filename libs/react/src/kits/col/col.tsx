@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-import './column.scss';
+import './col.scss';
 
 export interface Props {
   // 组件属性 //
@@ -12,10 +12,8 @@ export interface Props {
   /** 样式 */
   style?: CSSProperties;
 
-  /** 大小 */
-  size?: 'large' | 'middle' | 'small';
-  /** 是否禁用 */
-  disabled?: boolean;
+  /* 跨度，最大为24 */
+  span?: number;
 
   // 组件事件 //
 
@@ -26,11 +24,12 @@ export interface Props {
 /**
  * Primary UI component for user interaction
  */
-const Column = ({ className, style, size = 'middle', children, onClick }: Props) => {
+const Col = ({ className, style, children, span = 24, onClick }: Props) => {
+  const colStyle: CSSProperties = { width: (span / 24) * 100 + '%' };
   return (
     <div
-      className={componentClassNames('pui-example', { size }, className)}
-      style={style}
+      className={componentClassNames('pui-col', {}, className)}
+      style={{ ...colStyle, ...style }}
       onClick={onClick}
     >
       {children}
@@ -38,4 +37,4 @@ const Column = ({ className, style, size = 'middle', children, onClick }: Props)
   );
 };
 
-export { Column };
+export { Col };

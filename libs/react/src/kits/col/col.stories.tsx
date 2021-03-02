@@ -1,22 +1,22 @@
 import React from 'react';
-import { Col } from '../col/col';
-import { Row } from './row';
-import './row.stories.scss';
+import { Row } from '../row/row';
+import { Col } from './col';
+import './col.stories.scss';
 
 export default {
-  title: 'Layout/Row',
-  component: Row
+  title: 'Layout/Col',
+  component: Col
 };
 
-export const RowStoryBook = () => {
+export const ColStoryBook = () => {
   return (
     <div>
       <Row>
-        <Col span={12} className="col1">
-          12
+        <Col span={6} className="col1">
+          6
         </Col>
-        <Col span={12} className="col2">
-          12
+        <Col span={18} className="col2">
+          18
         </Col>
       </Row>
       <Row>

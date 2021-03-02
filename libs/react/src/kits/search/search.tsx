@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, InputHTMLAttributes, useRef } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './search.scss';
 
