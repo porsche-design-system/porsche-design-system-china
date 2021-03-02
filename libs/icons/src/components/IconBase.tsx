@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { useInsertStyles } from "../utils";
-
 import { AbstractNode } from "../../plugins/svg2Definition";
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {

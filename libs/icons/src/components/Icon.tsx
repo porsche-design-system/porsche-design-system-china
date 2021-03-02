@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames";
 
-import { svgBaseProps, useInsertStyles } from "../utils";
+import { svgBaseProps } from "../utils";
 export interface IconBaseProps extends React.HTMLProps<HTMLSpanElement> {
   spin?: boolean;
   rotate?: number;
