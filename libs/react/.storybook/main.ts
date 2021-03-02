@@ -17,7 +17,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-storysource'
   ],
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config: any) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.

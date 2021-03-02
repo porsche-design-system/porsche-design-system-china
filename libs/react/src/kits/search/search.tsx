@@ -1,5 +1,6 @@
 import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import icons, { SvgIconSearch } from '@pui/icons';
 import './search.scss';
 
 export interface Props {
@@ -35,9 +36,7 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
             onSearch(inputRef.current!.value);
           }
         }}
-      >
-        🔍
-      </div>
+      ></div>
     </div>
   );
 };
