@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { insertCss } from "insert-css";
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {

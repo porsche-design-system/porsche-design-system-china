@@ -1,7 +1,6 @@
 import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-// @ts-ignore
-import { Icon360 } from '@pui/icons';
+import { Iconsearch } from '../../../../icons/lib/';
 import './search.scss';
 
 export interface Props {
@@ -27,8 +26,6 @@ export interface Props {
 const Search = ({ className, style, placeHolder, disabled = false, onChange, onSearch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // console.log(icons);
-
   return (
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
       <input ref={inputRef} placeholder={placeHolder} onChange={onChange} disabled={disabled} />
@@ -40,7 +37,7 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
           }
         }}
       >
-        sss
+        <Iconsearch />
       </div>
     </div>
   );
