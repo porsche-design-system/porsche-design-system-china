@@ -39,7 +39,8 @@
     "sourceMap": true,
     "types": [
       "react",
-      "jest"
+      "jest",
+      "node"
     ]
   },
   "files": [
