@@ -1,61 +1,42 @@
-.pui-row {
-  border: 1px solid black;
-  cursor: pointer;
-  padding: 0 20px;
-  transition: color 0.2s, background-color 0.2s;
+.pui-textarea {
+  margin-right: $element-margin-right;
+  margin-bottom: $element-margin-bottom;
 
-  /* type */
-  &-type-default {
-    color: $default-text-color;
-    border: $default-border;
-    background-color: $default-color;
-    &:active {
-      background-color: black;
-      color: white;
-    }
-  }
-  &-type-dark {
-    background-color: #323639;
-    color: white;
-    &:active {
-      background-color: black;
-    }
-  }
-  &-type-primary {
-    background-color: $primary-color;
-    color: white;
-    &:active {
-      background-color: #960014;
-    }
-  }
-  &-type-text {
-    color: $primary-color;
-    background-color: transparent;
-    border: none;
-  }
-
-  /* size */
-  &-size-small {
-    font-size: 12px;
-    height: 40px;
-  }
-  &-size-middle {
+  .label {
     font-size: 16px;
-    height: 48px;
-  }
-  &-size-large {
-    font-size: 20px;
-    height: 56px;
+    margin-bottom: 5px;
+    span {
+      color: $danger-color;
+      font-size: 23px;
+      position: absolute;
+    }
   }
 
-  /* shape */
-  &-shape-default {
-    border-radius: 0;
+  &-labelPosition-left {
+    .label {
+      float: left;
+      padding-top: 14px;
+      margin-right: 15px;
+    }
   }
-  &-shape-round {
-    border-radius: 10px;
+
+  textarea {
+    border: 1px solid black;
+    padding: 12px;
+    transition: color 0.2s, background-color 0.2s;
+    width: 272px;
+    resize: none;
   }
-  &-shape-circle {
-    border-radius: 100px;
+
+  &-error-true {
+    input {
+      border-color: $danger-color;
+    }
+  }
+
+  .error-text {
+    font-size: 14px;
+    color: $danger-color;
+    margin-top: 5px;
   }
 }

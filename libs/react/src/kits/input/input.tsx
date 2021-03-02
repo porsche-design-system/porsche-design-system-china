@@ -14,8 +14,6 @@ export interface Props {
   label?: string;
   /* 标签位置 */
   labelPosition?: 'left' | 'top';
-  /* 大小 */
-  size?: 'large' | 'middle' | 'small';
   /* 占位符 */
   placeHolder?: string;
   /* 错误 */
@@ -37,7 +35,6 @@ export interface Props {
 const Input = ({
   className,
   style,
-  size = 'middle',
   label,
   labelPosition = 'top',
   placeHolder,
@@ -50,7 +47,7 @@ const Input = ({
     <div
       className={componentClassNames(
         'pui-input',
-        { size, labelPosition, error: error.show + '' },
+        { labelPosition, error: error.show + '' },
         className
       )}
       style={style}
