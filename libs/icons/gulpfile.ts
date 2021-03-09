@@ -18,12 +18,6 @@ const template = readFileSync(resolve(__dirname, "./templates/template.ts.ejs"),
 
 const exportTemplate = readFileSync(resolve(__dirname, "./templates/export.ts.ejs"), "utf8");
 
-function firstUpperCase(str) {
-  return str.toLowerCase().replace(/\b[a-z]/g, function (s) {
-    return s.toUpperCase();
-  });
-}
-
 export default series(
   clean(["font", "src/asn", "src/icons"]),
   parallel(

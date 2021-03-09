@@ -1,4 +1,5 @@
 import * as React from "react";
+import camelCase from "lodash.camelcase";
 
 import { useInsertStyles } from "../utils";
 
@@ -11,7 +12,7 @@ export function normalizeAttrs(attrs: Attrs = {}): Attrs {
         delete acc.class;
         break;
       default:
-        acc[key] = val;
+        acc[camelCase(key)] = val;
     }
     return acc;
   }, {});

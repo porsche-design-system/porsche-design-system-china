@@ -54,12 +54,12 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
   } = props;
 
   const classString = classNames(
-    "anticon",
+    "porscheicon",
     {
-      [`anticon-${icon.name}`]: Boolean(icon.name)
+      [`porscheicon-${icon.name}`]: Boolean(icon.name)
     },
     {
-      "anticon-spin": !!spin || icon.name === "loading"
+      "porscheicon-spin": !!spin || icon.name === "loading"
     },
     className
   );
@@ -85,7 +85,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
       tabIndex={iconTabIndex}
       onClick={onClick}
       className={classString}
-      aria-hidden="true"
     >
       <ReactIcon icon={icon} style={svgStyle} />
     </span>

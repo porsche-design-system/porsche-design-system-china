@@ -1,9 +1,4 @@
-import * as React from "react";
 import { insertCss } from "insert-css";
-
-const { useEffect } = React;
-
-console.log('useEffect', useEffect);
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {
   return Object.keys(attrs).reduce((acc: Attrs, key) => {
@@ -35,7 +30,7 @@ export const svgBaseProps = {
 };
 
 export const iconStyles = `
-.anticon {
+.porscheicon {
   display: inline-block;
   color: inherit;
   font-style: normal;
@@ -48,28 +43,28 @@ export const iconStyles = `
   -moz-osx-font-smoothing: grayscale;
 }
 
-.anticon > * {
+.porscheicon > * {
   line-height: 1;
 }
 
-.anticon svg {
+.porscheicon svg {
   display: inline-block;
 }
 
-.anticon::before {
+.porscheicon::before {
   display: none;
 }
 
-.anticon .anticon-icon {
+.porscheicon .porscheicon-icon {
   display: block;
 }
 
-.anticon[tabindex] {
+.porscheicon[tabindex] {
   cursor: pointer;
 }
 
-.anticon-spin::before,
-.anticon-spin {
+.porscheicon-spin::before,
+.porscheicon-spin {
   display: inline-block;
   -webkit-animation: loadingCircle 1s infinite linear;
   animation: loadingCircle 1s infinite linear;
