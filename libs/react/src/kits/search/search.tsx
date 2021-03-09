@@ -1,6 +1,5 @@
 import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-import { Iconsearch } from '../../../../icons/lib/';
 import './search.scss';
 
 export interface Props {
@@ -37,7 +36,7 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
           }
         }}
       >
-        <Iconsearch />
+        S
       </div>
     </div>
   );

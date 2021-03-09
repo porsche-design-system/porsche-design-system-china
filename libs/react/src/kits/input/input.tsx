@@ -1,4 +1,12 @@
-import React, { ChangeEventHandler, CSSProperties } from 'react';
+import { kMaxLength } from 'buffer';
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './input.scss';
 
@@ -16,6 +24,8 @@ export interface Props {
   labelPosition?: 'left' | 'top';
   /* 占位符 */
   placeHolder?: string;
+  /* 最多输入字符数 */
+  maxLength?: number;
   /* 错误 */
   error?: { show: boolean; text: string };
   /* 是否必填 */
@@ -38,11 +48,14 @@ const Input = ({
   label,
   labelPosition = 'top',
   placeHolder,
+  maxLength,
   error = { show: false, text: '' },
   required = false,
   disabled = false,
   onChange
 }: Props) => {
+  const [valueLength, setValueLength] = useState(0);
+
   return (
     <div
       className={componentClassNames(
@@ -56,7 +69,29 @@ const Input = ({
         {label}
         <span>{label && required ? '*' : ''}</span>
       </div>
-      <input placeholder={placeHolder} onChange={onChange} disabled={disabled} />
+      <input
+        ref={inputRef => {
+          if (inputRef && maxLength) {
+            inputRef.style.paddingRight = (maxLength + '').length * 23 + 12 + 'px';
+          }
+        }}
+        placeholder={placeHolder}
+        maxLength={maxLength}
+        onChange={onChange}
+        disabled={disabled}
+        onInput={event => {
+          if (maxLength) {
+            const inputLength = (event.target as any).value.length;
+            setValueLength(inputLength < maxLength ? inputLength : maxLength);
+          }
+        }}
+      />
+      {maxLength && (
+        <div className="pui-input-char-count">
+          {valueLength}
+          <span>/{maxLength}</span>
+        </div>
+      )}
       <div className="error-text">{error.text}</div>
     </div>
   );

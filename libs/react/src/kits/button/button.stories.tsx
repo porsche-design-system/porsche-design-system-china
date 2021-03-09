@@ -15,7 +15,7 @@ export const ButtonStoryBook = () => {
         <div className="show-case">
           <Button type="default">Default Button</Button>
           <Button type="primary">Primary Button</Button>
-          <Button type="dark">Dark Button</Button>
+          <Button type="secondary">Secondary Button</Button>
           <Button type="text">Text Button</Button>
         </div>
       </div>

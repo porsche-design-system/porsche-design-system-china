@@ -48,7 +48,7 @@
     "./typings/index.d.ts"
   ],
   "include": [
-    "src", "pui-theme.ts"
+    "src", "pui-theme.ts", "typings/custom-typings.d.ts"
   ],
   "exclude": [
     "node_modules",
