@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { AbstractNode } from "../../plugins/svg2Definition";
+import { useInsertStyles } from "../utils";
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {
   return Object.keys(attrs).reduce((acc: Attrs, key) => {
@@ -26,6 +26,13 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<SVGSVGElement>;
   style?: React.CSSProperties;
   focusable?: string;
+}
+export interface AbstractNode {
+  tag: string;
+  attrs: {
+    [key: string]: string;
+  };
+  children?: AbstractNode[];
 }
 
 export interface IconDefinition {
@@ -54,7 +61,7 @@ const IconBase = (props: IconProps) => {
 
   const target = icon;
 
-  // useInsertStyles();
+  useInsertStyles();
 
   return generate(target.icon, `svg-${target.name}`, {
     "data-icon": target.name,
