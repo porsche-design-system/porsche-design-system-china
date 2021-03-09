@@ -3,19 +3,13 @@ const webpackConf = require('../conf/webpack.common');
 
 // Export a function. Accept the base config as the only param.
 module.exports = {
-  stories: ['../src/**/*.stories.(tsx|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
-    'storybook-addon-jsx',
-    '@storybook/addon-knobs/register',
-    'storybook-addon-paddings',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-viewport',
-    '@storybook/addon-knobs',
     { name: '@storybook/addon-docs', options: { configureJSX: true } },
+    '@storybook/addon-essentials',
+    '@storybook/addon-viewport',
     '@storybook/addon-a11y',
-    '@storybook/addon-storysource'
+    '@storybook/addon-knobs/register'
   ],
   webpackFinal: async (config: any) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'

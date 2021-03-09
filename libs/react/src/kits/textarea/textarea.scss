@@ -37,6 +37,8 @@
   }
 
   textarea {
+    color: $text-color-1;
+    background-color: $background-color-2;
     border: 1px solid $border-color-3;
     padding: 12px;
     width: 272px;
@@ -44,11 +46,11 @@
   }
 
   textarea:hover {
-    border-color: black;
+    border-color: $border-color-4;
   }
 
   textarea:disabled {
-    background: #f2f2f2;
+    background: $container-bg-color-1;
     border: 1px solid #c9cacb;
     cursor: not-allowed;
   }
