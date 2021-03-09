@@ -9,9 +9,8 @@ import {
   generateExport,
   generateStorybook
 } from "./tasks";
-import { assignAttrsAtTag } from "./plugins";
 
-const { watch } = require("gulp");
+import { assignAttrsAtTag } from "./plugins";
 
 const iconTemplate = readFileSync(resolve(__dirname, "./templates/icon.ts.ejs"), "utf8");
 
@@ -25,7 +24,7 @@ function firstUpperCase(str) {
   });
 }
 
-const task = series(
+export default series(
   clean(["font", "src/asn", "src/icons"]),
   parallel(
     series(
@@ -89,12 +88,6 @@ const task = series(
       identifier: name,
       path: `./${name}`
     })
-  }),
-  generateStorybook()
+  })
+  // generateStorybook()
 );
-
-const watcher = function () {
-  watch(["tasks/*", "plugins/**/*"], task);
-};
-
-export default parallel(task, watcher);

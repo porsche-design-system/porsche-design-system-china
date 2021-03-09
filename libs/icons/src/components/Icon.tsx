@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from "react";
 import classNames from "classnames";
 
-import { svgBaseProps } from "../utils";
+import { svgBaseProps, useInsertStyles } from "../utils";
 export interface IconBaseProps extends React.HTMLProps<HTMLSpanElement> {
   spin?: boolean;
   rotate?: number;
@@ -40,7 +40,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
     ...restProps
   } = props;
 
-  // useInsertStyles();
+  useInsertStyles();
 
   const classString = classNames("anticon", className);
 

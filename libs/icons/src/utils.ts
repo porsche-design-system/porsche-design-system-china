@@ -1,5 +1,9 @@
-import { useEffect } from "react";
+import * as React from "react";
 import { insertCss } from "insert-css";
+
+const { useEffect } = React;
+
+console.log('useEffect', useEffect);
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {
   return Object.keys(attrs).reduce((acc: Attrs, key) => {
@@ -89,12 +93,10 @@ export const iconStyles = `
 let cssInjectedFlag = false;
 
 export const useInsertStyles = (styleStr: string = iconStyles) => {
-  useEffect(() => {
-    if (!cssInjectedFlag) {
-      insertCss(styleStr, {
-        prepend: true
-      });
-      cssInjectedFlag = true;
-    }
-  }, []);
+  if (!cssInjectedFlag) {
+    insertCss(styleStr, {
+      prepend: true
+    });
+    cssInjectedFlag = true;
+  }
 };

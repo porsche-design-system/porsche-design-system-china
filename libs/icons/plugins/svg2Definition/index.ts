@@ -25,14 +25,13 @@ import parseXML, { Element } from "@rgrove/parse-xml";
 
 import { createTrasformStream } from "../creator";
 
+type Dictionary = Record<string, string>;
 export interface SVG2DefinitionOptions {
   extraNodeTransformFactories: TransformFactory[];
 }
-
 export interface TransformFactory {
-  (meta: { asn: AbstractNode }): AbstractNode;
+  (asn: AbstractNode): AbstractNode;
 }
-
 export interface AbstractNode {
   tag: string;
   attrs: {
@@ -116,7 +115,7 @@ export const svg2Definition = ({ extraNodeTransformFactories }: SVG2DefinitionOp
     )
   );
 
-export function assignAttrsAtTag(tag: string, extraProps: Record<string, string>) {
+export function assignAttrsAtTag(tag: string, extraProps: Dictionary) {
   return (asn: AbstractNode) =>
     when(
       where({

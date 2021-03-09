@@ -1,5 +1,7 @@
 iconfont
+font
 lib
 es
 dist
 storybook-static
+src/**/**/*

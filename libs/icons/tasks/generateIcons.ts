@@ -9,7 +9,6 @@ import { UseTemplatePluginOptions } from "../plugins/useTemplate";
 export interface GenerateIcons extends SVG2DefinitionOptions, UseTemplatePluginOptions {
   from: string[];
   toDir: string;
-  entryName: string;
 }
 
 export interface RenameFile {

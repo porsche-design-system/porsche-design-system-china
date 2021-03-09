@@ -4,7 +4,6 @@ import classNames from "classnames";
 import ReactIcon from "./IconBase";
 
 export interface IconBaseProps extends React.HTMLProps<HTMLSpanElement> {
-  /**test */
   spin?: boolean;
   rotate?: number;
 }
@@ -18,10 +17,24 @@ export interface CustomIconComponentProps {
   style?: React.CSSProperties;
 }
 
+export interface AbstractNode {
+  tag: string;
+  attrs: {
+    [key: string]: string;
+  };
+  children?: AbstractNode[];
+}
+
+export interface IconDefinition {
+  name: string; // kebab-case-style
+  icon: AbstractNode;
+}
+
 export interface IconComponentProps extends IconBaseProps {
   viewBox?: string;
   component?: React.ComponentType<CustomIconComponentProps | React.SVGProps<SVGSVGElement>>;
   ariaLabel?: React.AriaAttributes["aria-label"];
+  icon: IconDefinition;
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) => {
