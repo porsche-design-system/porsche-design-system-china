@@ -1,3 +1,3 @@
-import './styles/index.sass';
+import './styles/index.scss';
 
 export * from './kits';

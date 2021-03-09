@@ -7,7 +7,7 @@ import { TextArea } from '../textarea/textarea';
 import './example.stories.scss';
 
 export default {
-  title: 'Example/Example'
+  title: 'Page Show/Example'
 };
 
 export const ExampleStoryBook = () => {
@@ -31,7 +31,7 @@ export const ExampleStoryBook = () => {
       <Row>
         <Col>
           <Button type="primary">提交</Button>
-          <Button type="dark">取消</Button>
+          <Button type="default">取消</Button>
         </Col>
       </Row>
     </div>

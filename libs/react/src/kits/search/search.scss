@@ -1,14 +1,19 @@
 .pui-search {
   input {
-    border: 1px solid black;
+    border: 1px solid $border-color-3;
+    border-right: none;
     padding: 12px;
     width: 272px;
+  }
+
+  input:hover {
+    border-color: $border-color-4;
   }
 
   .pui-search-button {
     width: 44px;
     height: 44px;
-    background-color: $secondary-color;
+    background-color: $container-bg-color-7;
     color: white;
     display: inline-block;
     vertical-align: top;

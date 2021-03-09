@@ -9,7 +9,7 @@
     "lint": "eslint --ignore-path=.eslintignore --ext .js,.jsx,.ts,.tsx .",
     "lint-fix": "eslint --fix --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
     "storybook": "start-storybook -p 6006 -s public --no-manager-cache --docs",
-    "build-storybook":"build-storybook",
+    "build-storybook":"build-storybook -s public --docs",
     "tinstall": "npm install --registry http://localhost:4873",
     "start": "webpack-dev-server --open --config ./conf/webpack.dev.js",
     "prod": "webpack -p --config ./conf/webpack.prod.js",

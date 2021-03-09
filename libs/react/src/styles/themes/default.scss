@@ -1,23 +1,57 @@
-// https://github.com/ant-design/ant-design/blob/master/components/style/color/colorPalette.less
+// Brand Colors
+$brand-color-1: #d50b00;
+$brand-color-1-hover: #e5001e;
+$brand-color-1-active: #990014;
 
-// theme color
-$default-color: white;
-$primary-color: #d5001c;
-$secondary-color: black;
-$link-color: #d5001c;
+// Background Colors
+$background-color-1: #f2f2f2;
+$background-color-2: #ffffff;
 
-// text color
-$default-text-color: black;
-$primary-text-color: white;
-$secondary-text-color: black;
+// Container Colors
+$container-bg-color-1: #f2f2f2;
+$container-bg-color-2: #e6e6e6;
+$container-bg-color-3: #c9cacb;
+$container-bg-color-4: #b0b1b2;
+$container-bg-color-5: #626669;
+$container-bg-color-6: #4a4e51;
+$container-bg-color-7: #323639;
+$container-bg-color-8: #000000;
+$container-bg-active-color: #323639;
 
-// border
-$default-border: 1px solid black;
-$primary-border: none;
-$secondary-border: none;
+$container-opacity-color-1: rgba(0, 0, 0, 0.02);
+$container-opacity-color-2: rgba(0, 0, 0, 0.04);
+$container-opacity-color-3: rgba(0, 0, 0, 0.06);
+$container-opacity-color-4: rgba(0, 0, 0, 0.15);
 
-// other
-$danger-color: #d5001c;
+// Text Colors
+$text-color-1: #000000;
+$text-color-2: rgba(0, 0, 0, 0.65);
+$text-color-3: rgba(0, 0, 0, 0.4);
+$text-color-4: rgba(0, 0, 0, 0.2);
+
+$text-color-5: white;
+
+$text-white-color: white;
+$text-link-color: #0061bd;
+$text-link-color-hover: #0080fa;
+$text-link-color-active: #003466;
+
+// Border Colors
+$border-color-1: rgba(0, 0, 0, 0.08);
+$border-color-2: rgba(0, 0, 0, 0.2);
+$border-color-3: rgba(0, 0, 0, 0.4);
+$border-color-4: rgba(0, 0, 0, 0.85);
+
+// Status Colors
+$status-error-color: #e00000;
+$status-success-color: #018a16;
+$status-warning-color: #ff9b00;
+$status-neutral-color: #0061bd;
+
+$status-bg-error-color: #fae6e6;
+$status-bg-success-color: #e5f3e7;
+$status-bg-warning-color: #fff5e5;
+$status-bg-neutral-color: #e5eff8;
 
 // element-margin
 $element-margin-right: 8px;
