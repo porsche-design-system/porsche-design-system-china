@@ -26,7 +26,7 @@
     position: absolute;
     right: 2px;
     margin-top: -42px;
-    background-color: white;
+    background-color: $background-color-2;
     height: 40px;
     line-height: 42px;
     padding: 0 6px;
@@ -36,6 +36,8 @@
   }
 
   input {
+    color: $text-color-1;
+    background-color: $background-color-2;
     border: 1px solid $border-color-3;
     padding: 12px;
     transition: color 0.2s, background-color 0.2s;

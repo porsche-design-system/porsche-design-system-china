@@ -35,9 +35,7 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
             onSearch(inputRef.current!.value);
           }
         }}
-      >
-        S
-      </div>
+      ></div>
     </div>
   );
 };

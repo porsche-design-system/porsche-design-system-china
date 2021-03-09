@@ -1,0 +1,28 @@
+<style>
+  .theme-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+  }
+  .theme-button button {
+    font-size: 13px;
+    color: #777;
+    border: 1px solid #777;
+    background-color: white;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+
+  .theme-button button:hover {
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="theme-button">
+  <button onclick="window.parent.location.href='../storybook-static-light/index.html'">
+    Light Mode
+  </button>
+  <button onclick="window.parent.location.href='../storybook-static-dark/index.html'">
+    Dark Mode
+  </button>
+</div>
