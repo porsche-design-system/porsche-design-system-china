@@ -43,16 +43,19 @@
     padding: 12px;
     width: 272px;
     resize: none;
+    caret-color: $brand-color;
+    line-height: 27px;
   }
 
   textarea:hover {
-    border-color: $border-color-4;
+    border-color: $border-color-5;
   }
 
   textarea:disabled {
-    background: $container-bg-color-1;
-    border: 1px solid #c9cacb;
+    background: $container-bg-opacity-color-3;
+    border: 1px solid $border-color-2;
     cursor: not-allowed;
+    opacity: 1;
   }
 
   &-error-true {
@@ -60,7 +63,7 @@
       border: 2px solid $status-error-color;
     }
     textarea:hover {
-      border: 2px solid $status-error-color;
+      border: 2px solid $status-error-color-hover;
     }
   }
 

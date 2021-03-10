@@ -1,4 +1,6 @@
 import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
+import { Button } from '../button/button';
+import { Input } from '../input/input';
 import { componentClassNames } from '../../shared/class-util';
 import './search.scss';
 
@@ -27,15 +29,17 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
 
   return (
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
-      <input ref={inputRef} placeholder={placeHolder} onChange={onChange} disabled={disabled} />
-      <div
-        className="pui-search-button"
-        onClick={evt => {
+      <Input onChange={onChange} disabled={disabled} placeHolder={placeHolder} />
+      <Button
+        type="secondary"
+        onClick={() => {
           if (inputRef !== null && onSearch) {
             onSearch(inputRef.current!.value);
           }
         }}
-      ></div>
+      >
+        S
+      </Button>
     </div>
   );
 };

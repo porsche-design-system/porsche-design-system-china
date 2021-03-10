@@ -1,7 +1,7 @@
 // Brand Colors
-$brand-color-1: #d50b00;
-$brand-color-1-hover: #e5001e;
-$brand-color-1-active: #990014;
+$brand-color: #d50b00;
+$brand-color-hover: #e5001e;
+$brand-color-active: #990014;
 
 // Background Colors
 $background-color-1: #f2f2f2;
@@ -18,20 +18,21 @@ $container-bg-color-7: #323639;
 $container-bg-color-8: #000000;
 $container-bg-active-color: #323639;
 
-$container-opacity-color-1: rgba(0, 0, 0, 0.02);
-$container-opacity-color-2: rgba(0, 0, 0, 0.04);
-$container-opacity-color-3: rgba(0, 0, 0, 0.06);
-$container-opacity-color-4: rgba(0, 0, 0, 0.15);
+$container-bg-opacity-color-1: rgba(0, 0, 0, 0.02);
+$container-bg-opacity-color-2: rgba(0, 0, 0, 0.04);
+$container-bg-opacity-color-3: rgba(0, 0, 0, 0.06);
+$container-bg-opacity-color-4: rgba(0, 0, 0, 0.15);
 
 // Text Colors
 $text-color-1: #000000;
-$text-color-2: rgba(0, 0, 0, 0.65);
-$text-color-3: rgba(0, 0, 0, 0.4);
-$text-color-4: rgba(0, 0, 0, 0.2);
+$text-color-2: #ffffff;
 
-$text-color-5: white;
+$text-opacity-color-1: rgba(0, 0, 0, 0.65);
+$text-opacity-color-2: rgba(0, 0, 0, 0.4);
+$text-opacity-color-3: rgba(0, 0, 0, 0.2);
 
 $text-white-color: white;
+
 $text-link-color: #0061bd;
 $text-link-color-hover: #0080fa;
 $text-link-color-active: #003466;
@@ -45,6 +46,7 @@ $border-color-5: rgba(0, 0, 0, 0.85);
 
 // Status Colors
 $status-error-color: #e00000;
+$status-error-color-hover: #a30000;
 $status-success-color: #018a16;
 $status-warning-color: #ff9b00;
 $status-neutral-color: #0061bd;
