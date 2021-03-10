@@ -23,8 +23,9 @@
     padding: 2px 6px;
     width: calc(100% - 4px);
     box-sizing: border-box;
+    color: $text-color-1;
     span {
-      color: #7c7f81;
+      color: $text-opacity-color-2;
     }
   }
 
@@ -44,7 +45,7 @@
     width: 272px;
     resize: none;
     caret-color: $brand-color;
-    line-height: 27px;
+    line-height: 24px;
   }
 
   textarea:hover {

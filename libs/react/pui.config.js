@@ -1,5 +1,5 @@
 module.exports = {
-  baseTheme: 'dark',
+  baseTheme: 'light',
   overrideVars: {
     // '$primary-color': 'blue'
     // "button-border-color":
