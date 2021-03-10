@@ -1,5 +1,6 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+
 import './button.scss';
 
 export interface Props {

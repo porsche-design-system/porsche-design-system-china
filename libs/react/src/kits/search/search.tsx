@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
 import { Button } from '../button/button';
 import { Input } from '../input/input';
 import { componentClassNames } from '../../shared/class-util';
+import { Search as Search2 } from '@pui/icons';
 import './search.scss';
 
 export interface Props {
@@ -31,15 +32,14 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
       <Input onChange={onChange} disabled={disabled} placeHolder={placeHolder} />
       <Button
+        icon={<Search2 style={{ transform: 'rotateY(180deg)' }} />}
         type="secondary"
         onClick={() => {
           if (inputRef !== null && onSearch) {
             onSearch(inputRef.current!.value);
           }
         }}
-      >
-        S
-      </Button>
+      />
     </div>
   );
 };
