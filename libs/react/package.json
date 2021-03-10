@@ -9,7 +9,7 @@
     "lint": "eslint --ignore-path=.eslintignore --ext .js,.jsx,.ts,.tsx .",
     "lint-fix": "eslint --fix --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
     "storybook": "start-storybook -p 6006 -s public --no-manager-cache --docs",
-    "build-storybook":"build-storybook -s public --docs",
+    "build-storybook": "build-storybook -s public --docs",
     "tinstall": "npm install --registry http://localhost:4873",
     "start": "webpack-dev-server --open --config ./conf/webpack.dev.js",
     "prod": "webpack -p --config ./conf/webpack.prod.js",
@@ -135,14 +135,14 @@
     "url-loader": "^3.0.0",
     "webpack-dev-server": "^3.11.0",
     "xml-loader": "^1.2.1",
-    "react-test-renderer":"^17.0.1",
-    "@types/react-test-renderer":"^17.0.0",
-    "ts-jest":"^26.4.4",
-    "sass-resources-loader":"^2.1.1"
+    "react-test-renderer": "^17.0.1",
+    "@types/react-test-renderer": "^17.0.0",
+    "ts-jest": "^26.4.4",
+    "sass-resources-loader": "^2.1.1"
   },
   "dependencies": {
     "@pui/core": "^0.0.1",
-    "@pui/icons": "^0.0.4",
+    "@pui/icons": "0.0.4",
     "@testing-library/react": "^11.2.2",
     "bizcharts": "^3.5.7",
     "braft-editor": "^2.3.8",
