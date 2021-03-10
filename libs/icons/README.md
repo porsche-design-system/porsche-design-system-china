@@ -13,18 +13,13 @@ yarn add @pui/icons
 You can import it directly or destructure from `@pui/icons` when tree-shaking enabled.
 
 ```ts
-import Alert from "@pui/icons/Alert";
-import { Alert } from "@pui/icons";
-
-import SmileFilled from "@pui/icons/SmileFilled";
-import SmileTwoTone from "@pui/icons/SmileTwoTone";
-import { SmileFilled, SmileTwoTone } from "@pui/icons";
+import { Icon360, Add } from "@pui/icons";
 ```
 
 ## Component Interface
 
 ```ts
-interface AntdIconProps {
+interface PorscheIconProps {
   className?: string;
   onClick?: React.MouseEventHandler<SVGSVGElement>;
   style?: React.CSSProperties;
@@ -35,6 +30,6 @@ interface AntdIconProps {
 
 ```bash
 npm run generate
-npm run compile
+npm run build
 npm publish
 ```
