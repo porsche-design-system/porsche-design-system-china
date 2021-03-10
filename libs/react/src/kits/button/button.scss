@@ -14,19 +14,19 @@
   /* type */
   &-type-default {
     color: $text-color-1;
-    border: 1px solid $border-color-4;
+    border: 1px solid $border-color-5;
     background-color: transparent;
 
     &:hover,
     &-hover {
       background-color: $container-bg-color-6;
-      color: $text-color-5;
+      color: $text-color-2;
       border-color: $container-bg-color-6;
     }
     &:active,
     &-active {
       background-color: $container-bg-color-8;
-      color: $text-color-5;
+      color: $text-color-2;
       border-color: $container-bg-color-8;
     }
 
@@ -41,19 +41,19 @@
   }
 
   &-type-primary {
-    background-color: $brand-color-1;
+    background-color: $brand-color;
     color: $text-white-color;
     &:hover,
     &-hover {
-      background-color: $brand-color-1-hover;
+      background-color: $brand-color-hover;
     }
     &:active,
     &-active {
-      background-color: $brand-color-1-active;
+      background-color: $brand-color-active;
     }
     &:disabled,
     &-disabled {
-      background-color: $brand-color-1;
+      background-color: $brand-color;
       cursor: not-allowed;
       opacity: 0.5;
     }
@@ -61,7 +61,7 @@
 
   &-type-secondary {
     background-color: $container-bg-color-7;
-    color: $text-color-5;
+    color: $text-color-2;
     &:hover,
     &-hover {
       background-color: $container-bg-color-6;

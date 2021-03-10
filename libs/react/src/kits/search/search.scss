@@ -1,25 +1,9 @@
 .pui-search {
+  .pui-input {
+    margin-right: 0;
+  }
+
   input {
-    color: $text-color-1;
-    background-color: $background-color-2;
-    border: 1px solid $border-color-3;
     border-right: none;
-    padding: 12px;
-    width: 272px;
-  }
-
-  input:hover {
-    border-color: $border-color-4;
-  }
-
-  .pui-search-button {
-    width: 44px;
-    height: 44px;
-    background-color: $container-bg-active-color;
-    color: white;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    cursor: pointer;
   }
 }
