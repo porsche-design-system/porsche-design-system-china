@@ -66,8 +66,8 @@ const IconBase = (props: IconProps) => {
 
   return generate(target.icon, `svg-${target.name}`, {
     "data-icon": target.name,
-    width: "24px",
-    height: "24px",
+    width: "1em",
+    height: "1em",
     fill: "currentColor",
     "aria-hidden": "true",
     style
