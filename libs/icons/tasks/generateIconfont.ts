@@ -43,10 +43,9 @@ export const generateIconfont = () =>
           const symbol = svg[i].querySelectorAll("symbol") || [];
           for (let y = 0; y < symbol.length; y++) {
             const id = symbol[y].getAttribute("id") || "";
-            const isNumber = !isNaN(id[4]);
             icons.push({
               icon: symbol[y].innerHTML,
-              name: isNumber ? id : replace(id, "icon", ""),
+              name: `icon_${replace(id, "icon", "")}`,
               viewbox: symbol[y].getAttribute("viewBox") || "",
               style
             });
