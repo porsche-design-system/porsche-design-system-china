@@ -14,12 +14,12 @@
     "*.{js,jsx,ts,tsx,html,css}": "npm run eslint --cache"
   },
   "scripts": {
-    "clean": "./script/cleanup.sh",
+    "clean": "./scripts/cleanup.sh",
     "entry": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp entry --require ts-node/register/transpile-only",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx,.html,.css --fix",
-    "generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
-    "start": "./script/cleanup.sh && npm run entry && tools build --watch",
-    "build": "./script/cleanup.sh && npm run eslint && tools build && npm run entry",
+    "generate": "./scripts/cleanup.sh && cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
+    "start": "npm run entry && tools build --watch",
+    "build": "npm run eslint && tools build && npm run entry",
     "vinstall": "npm install --registry http://52.83.74.69:4111",
     "vremove": "npm unpublish @pui/icons@0.0.4 --registry http://52.83.74.69:4111",
     "vrelease": "npm run build && npm publish --registry http://52.83.74.69:4111",
