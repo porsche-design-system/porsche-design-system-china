@@ -88,24 +88,25 @@ export default series(
       identifier: name,
       path: `./${name}`
     })
-  }),
-  parallel(
-    generatePostCompile({
-      from: ["src/asn/font/*"],
-      toDir: resolve(__dirname, "../icons"),
-      template: postCompileTemplate,
-      mapToInterpolate: ({ name }) => ({
-        identifier: name
-      })
-    }),
-    generatePostCompile({
-      from: ["src/asn/svg/*"],
-      toDir: resolve(__dirname, "../icons"),
-      template: postCompileTemplate,
-      mapToInterpolate: ({ name }) => ({
-        identifier: name
-      })
-    })
-  )
+  })
   // generateStorybook()
+);
+
+export const entry = series(
+  generatePostCompile({
+    from: ["src/asn/font/*"],
+    toDir: resolve(__dirname, "../icons"),
+    template: postCompileTemplate,
+    mapToInterpolate: ({ name }) => ({
+      identifier: name
+    })
+  }),
+  generatePostCompile({
+    from: ["src/asn/svg/*"],
+    toDir: resolve(__dirname, "../icons"),
+    template: postCompileTemplate,
+    mapToInterpolate: ({ name }) => ({
+      identifier: name
+    })
+  })
 );

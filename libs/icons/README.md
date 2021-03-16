@@ -13,9 +13,9 @@ yarn add @pui/icons
 You can import it directly or destructure from `@pui/icons` when tree-shaking enabled.
 
 ```ts
-import { Icon360, Add } from "@pui/icons";
+import { Icon360, IconAdd } from "@pui/icons";
 import Icon360 from "@pui/icons/Icon360";
-import Add from "@pui/icons/Add";
+import IconAdd from "@pui/icons/IconAdd";
 ```
 
 ## Component Interface
