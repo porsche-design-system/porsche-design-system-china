@@ -7,6 +7,7 @@ import {
   generateIcons,
   generateTemplate,
   generateExport,
+  generatePostCompile,
   generateStorybook
 } from "./tasks";
 
@@ -17,6 +18,11 @@ const iconTemplate = readFileSync(resolve(__dirname, "./templates/icon.ts.ejs"),
 const template = readFileSync(resolve(__dirname, "./templates/template.ts.ejs"), "utf8");
 
 const exportTemplate = readFileSync(resolve(__dirname, "./templates/export.ts.ejs"), "utf8");
+
+const postCompileTemplate = readFileSync(
+  resolve(__dirname, "./templates/postCompile.ts.ejs"),
+  "utf8"
+);
 
 export default series(
   clean(["font", "src/asn", "src/icons"]),
@@ -82,6 +88,24 @@ export default series(
       identifier: name,
       path: `./${name}`
     })
-  })
+  }),
+  parallel(
+    generatePostCompile({
+      from: ["src/asn/font/*"],
+      toDir: resolve(__dirname, "../icons"),
+      template: postCompileTemplate,
+      mapToInterpolate: ({ name }) => ({
+        identifier: name
+      })
+    }),
+    generatePostCompile({
+      from: ["src/asn/svg/*"],
+      toDir: resolve(__dirname, "../icons"),
+      template: postCompileTemplate,
+      mapToInterpolate: ({ name }) => ({
+        identifier: name
+      })
+    })
+  )
   // generateStorybook()
 );

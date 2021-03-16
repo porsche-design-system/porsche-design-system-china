@@ -5,11 +5,6 @@
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "unpkg": "./dist/index.umd.js",
-  "files": [
-    "/es",
-    "/lib",
-    "/dist"
-  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -19,8 +14,9 @@
     "*.{js,jsx,ts,tsx,html,css}": "npm run eslint --cache"
   },
   "scripts": {
+    "clean": "./script/cleanup.sh",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx,.html,.css --fix",
-    "generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
+    "generate": "./script/cleanup.sh && cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "tools build --watch",
     "build": "npm run eslint && tools build",
     "vinstall": "npm install --registry http://52.83.74.69:4111",

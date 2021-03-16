@@ -14,6 +14,8 @@ You can import it directly or destructure from `@pui/icons` when tree-shaking en
 
 ```ts
 import { Icon360, Add } from "@pui/icons";
+import Icon360 from "@pui/icons/Icon360";
+import Add from "@pui/icons/Add";
 ```
 
 ## Component Interface

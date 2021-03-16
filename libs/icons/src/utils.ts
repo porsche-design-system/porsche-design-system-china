@@ -34,6 +34,7 @@ export const iconStyles = `
   display: inline-block;
   color: inherit;
   font-style: normal;
+  font-size: 24px;
   line-height: 0;
   text-align: center;
   text-transform: none;
