@@ -1,8 +1,8 @@
 font
 iconfont
-plugins/
-scripts/
-src/
+plugins
+scripts
+src
 svg
 tasks
 templates
