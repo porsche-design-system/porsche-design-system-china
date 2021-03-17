@@ -6,4 +6,7 @@ dist
 font
 src/asn
 src/icons
+package-lock.json
 storybook-static
+*.js
+!ptoolsrc.js

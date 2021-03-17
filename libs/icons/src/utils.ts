@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { insertCss } from "insert-css";
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {
@@ -31,10 +30,11 @@ export const svgBaseProps = {
 };
 
 export const iconStyles = `
-.anticon {
+.porscheicon {
   display: inline-block;
   color: inherit;
   font-style: normal;
+  font-size: 24px;
   line-height: 0;
   text-align: center;
   text-transform: none;
@@ -44,28 +44,28 @@ export const iconStyles = `
   -moz-osx-font-smoothing: grayscale;
 }
 
-.anticon > * {
+.porscheicon > * {
   line-height: 1;
 }
 
-.anticon svg {
+.porscheicon svg {
   display: inline-block;
 }
 
-.anticon::before {
+.porscheicon::before {
   display: none;
 }
 
-.anticon .anticon-icon {
+.porscheicon .porscheicon-icon {
   display: block;
 }
 
-.anticon[tabindex] {
+.porscheicon[tabindex] {
   cursor: pointer;
 }
 
-.anticon-spin::before,
-.anticon-spin {
+.porscheicon-spin::before,
+.porscheicon-spin {
   display: inline-block;
   -webkit-animation: loadingCircle 1s infinite linear;
   animation: loadingCircle 1s infinite linear;
@@ -89,12 +89,10 @@ export const iconStyles = `
 let cssInjectedFlag = false;
 
 export const useInsertStyles = (styleStr: string = iconStyles) => {
-  useEffect(() => {
-    if (!cssInjectedFlag) {
-      insertCss(styleStr, {
-        prepend: true
-      });
-      cssInjectedFlag = true;
-    }
-  }, []);
+  if (!cssInjectedFlag) {
+    insertCss(styleStr, {
+      prepend: true
+    });
+    cssInjectedFlag = true;
+  }
 };

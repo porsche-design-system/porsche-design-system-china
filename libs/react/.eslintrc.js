@@ -91,8 +91,11 @@ module.exports = {
         'no-mixed-operators': 0,
         'no-multi-assign': 0,
         'no-multi-spaces': 0,
+        'prefer-template': 0,
         'no-prototype-builtins': 0,
         'no-restricted-properties': 0,
+        'no-plusplus': 0,
+        'jsx-a11y/no-static-element-interactions': 0,
         'no-restricted-imports': [
           'error',
           {

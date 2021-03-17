@@ -14,6 +14,7 @@ node_modules
 # production
 /dist
 /libs/**/dist
+/libs/**/storybook-static
 
 # misc
 .DS_Store

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import * as React from "react";
 import classNames from "classnames";
 
 import { svgBaseProps, useInsertStyles } from "../utils";
@@ -40,12 +40,12 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
     ...restProps
   } = props;
 
-  // useInsertStyles();
+  useInsertStyles();
 
-  const classString = classNames("anticon", className);
+  const classString = classNames("porscheicon", className);
 
   const svgClassString = classNames({
-    "anticon-spin": !!spin
+    "porscheicon-spin": !!spin
   });
 
   const svgStyle = rotate
@@ -92,7 +92,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
       tabIndex={iconTabIndex}
       onClick={onClick}
       className={classString}
-      aria-hidden="true"
     >
       {renderInnerNode()}
     </span>

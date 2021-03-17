@@ -9,4 +9,4 @@ const <%= identifier %> = (
 ) => <PorscheIcon {...props} ref={ref} icon={<%= identifier %>Svg}/>;
 
 <%= identifier %>.displayName = '<%= identifier %>';
-export default React.forwardRef(<%= identifier %>);
+export default React.forwardRef<HTMLSpanElement, IconBaseProps>(<%= identifier %>);
