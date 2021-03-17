@@ -1,8 +1,8 @@
 import React from 'react';
+import { IconArrowHeadRight } from '@pui/icons';
+
 import { Button } from './button';
 import './button.stories.scss';
-
-import { ArrowHeadRight } from '@pui/icons';
 
 export default {
   title: 'General/Button',
@@ -15,7 +15,7 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Types</div>
         <div className="show-case">
-          <Button type="default" icon={<ArrowHeadRight />}>
+          <Button type="default" icon={<IconArrowHeadRight />}>
             Default Button
           </Button>
           <Button type="primary">Primary Button</Button>

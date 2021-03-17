@@ -46,6 +46,19 @@
     resize: none;
     caret-color: $brand-color;
     line-height: 24px;
+
+    &::placeholder {
+      color: $text-opacity-color-2;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
+
+    &::-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
   }
 
   textarea:hover {

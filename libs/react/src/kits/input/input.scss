@@ -44,6 +44,19 @@
     transition: color 0.2s, background-color 0.2s;
     width: 272px;
     caret-color: $brand-color;
+
+    &::placeholder {
+      color: $text-opacity-color-2;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
+
+    &::-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
   }
 
   input:hover {

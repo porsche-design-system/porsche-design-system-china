@@ -6,10 +6,7 @@ module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     { name: '@storybook/addon-docs', options: { configureJSX: true } },
-    '@storybook/addon-essentials',
-    '@storybook/addon-viewport',
-    '@storybook/addon-a11y',
-    '@storybook/addon-knobs/register'
+    '@storybook/addon-essentials'
   ],
   webpackFinal: async (config: any) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
