@@ -12,13 +12,6 @@ export interface Props {
   /** 样式 */
   style?: CSSProperties;
 
-  /** 大小 */
-  size?: 'large' | 'middle' | 'small';
-  /** 是否禁用 */
-  disabled?: boolean;
-
-  // 组件事件 //
-
   /* 点击事件 */
   onClick?: React.MouseEventHandler;
 }
@@ -26,13 +19,9 @@ export interface Props {
 /**
  * Primary UI component for user interaction
  */
-const Row = ({ className, style, size = 'middle', children, onClick }: Props) => {
+const Row = ({ className, style, children, onClick }: Props) => {
   return (
-    <div
-      className={componentClassNames('pui-example', { size }, className)}
-      style={style}
-      onClick={onClick}
-    >
+    <div className={componentClassNames('pui-row', {}, className)} style={style} onClick={onClick}>
       {children}
     </div>
   );

@@ -7,11 +7,11 @@ import {
   generateIcons,
   generateTemplate,
   generateExport,
+  generatePostCompile,
   generateStorybook
 } from "./tasks";
-import { assignAttrsAtTag } from "./plugins";
 
-const { watch } = require("gulp");
+import { assignAttrsAtTag } from "./plugins";
 
 const iconTemplate = readFileSync(resolve(__dirname, "./templates/icon.ts.ejs"), "utf8");
 
@@ -19,7 +19,12 @@ const template = readFileSync(resolve(__dirname, "./templates/template.ts.ejs"),
 
 const exportTemplate = readFileSync(resolve(__dirname, "./templates/export.ts.ejs"), "utf8");
 
-const task = series(
+const postCompileTemplate = readFileSync(
+  resolve(__dirname, "./templates/postCompile.ts.ejs"),
+  "utf8"
+);
+
+export default series(
   clean(["font", "src/asn", "src/icons"]),
   parallel(
     series(
@@ -83,12 +88,25 @@ const task = series(
       identifier: name,
       path: `./${name}`
     })
-  }),
-  generateStorybook()
+  })
+  // generateStorybook()
 );
 
-const watcher = function () {
-  watch(["tasks/*", "plugins/**/*"], task);
-};
-
-export default parallel(task, watcher);
+export const entry = series(
+  generatePostCompile({
+    from: ["src/asn/font/*"],
+    toDir: resolve(__dirname, "../icons"),
+    template: postCompileTemplate,
+    mapToInterpolate: ({ name }) => ({
+      identifier: name
+    })
+  }),
+  generatePostCompile({
+    from: ["src/asn/svg/*"],
+    toDir: resolve(__dirname, "../icons"),
+    template: postCompileTemplate,
+    mapToInterpolate: ({ name }) => ({
+      identifier: name
+    })
+  })
+);

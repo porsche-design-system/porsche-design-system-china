@@ -1,15 +1,61 @@
-// theme color
-$default-color: white;
-$primary-color: #333;
-$secondary-color: black;
-$link-color: #d5001c;
+// Brand Colors
+$brand-color: #2193ff;
+$brand-color-hover: #52abff;
+$brand-color-active: #0064c2;
 
-// text color
-$default-text-color: black;
-$primary-text-color: white;
-$secondary-text-color: black;
+// Background Colors
+$background-color-1: #0e1418;
+$background-color-2: #0e1418;
 
-// border
-$default-border: 1px solid black;
-$primary-border: none;
-$secondary-border: none;
+// Container Colors
+$container-bg-color-1: #323639;
+$container-bg-color-2: #4a4e51;
+$container-bg-color-3: #626669;
+$container-bg-color-4: #b0b1b2;
+$container-bg-color-5: #c9cacb;
+$container-bg-color-6: #e6e6e6;
+$container-bg-color-7: #f2f2f2;
+$container-bg-color-8: #ffffff;
+$container-bg-active-color: #2193ff;
+
+$container-bg-opacity-color-1: rgba(255, 255, 255, 0.04);
+$container-bg-opacity-color-2: rgba(255, 255, 255, 0.08);
+$container-bg-opacity-color-3: rgba(255, 255, 255, 0.12);
+$container-bg-opacity-color-4: rgba(255, 255, 255, 0.2);
+
+// Text Colors
+$text-color-1: #ffffff;
+$text-color-2: #000000;
+
+$text-opacity-color-1: rgba(255, 255, 255, 0.65);
+$text-opacity-color-2: rgba(255, 255, 255, 0.5);
+$text-opacity-color-3: rgba(255, 255, 255, 0.25);
+
+$text-white-color: white;
+
+$text-link-color: #2193ff;
+$text-link-color-hover: #5cb0ff;
+$text-link-color-active: #0064c2;
+
+// Border Colors
+$border-color-1: rgba(255, 255, 255, 0.15);
+$border-color-2: rgba(255, 255, 255, 0.25);
+$border-color-3: rgba(255, 255, 255, 0.5);
+$border-color-4: rgba(255, 255, 255, 0.7);
+$border-color-5: rgba(255, 255, 255, 0.85);
+
+// Status Colors
+$status-error-color: #fc1717;
+$status-error-color-hover: #b50202;
+$status-success-color: #01ba1d;
+$status-warning-color: #ff9b00;
+$status-neutral-color: #2193ff;
+
+$status-bg-error-color: #fdd8d8;
+$status-bg-success-color: #d0f1d5;
+$status-bg-warning-color: #ffebcc;
+$status-bg-neutral-color: #c7e4ff;
+
+// element-margin
+$element-margin-right: 8px;
+$element-margin-bottom: 12px;

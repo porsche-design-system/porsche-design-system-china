@@ -1,19 +1,24 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "strict": true,
-    "target": "esnext",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "module": "commonjs",
+    "declaration": true,
+    "module": "esnext",
+    "target": "esnext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "preserveConstEnums": true,
-    "removeComments": true,
-    "skipLibCheck": true,
-    "jsx": "react"
+    "jsx": "react",
+    "skipLibCheck": true
   },
-  "include": ["./src", "./plugins", "./tasks", "./conf"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["./src"],
+  // "typings": "./typings/index.d.ts",
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "tslint:latest",
+    "tslint-config-prettier"
+  ]
 }
-

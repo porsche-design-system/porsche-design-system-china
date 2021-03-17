@@ -1,8 +1,7 @@
 import * as React from "react";
+import camelCase from "lodash.camelcase";
 
 import { useInsertStyles } from "../utils";
-
-import { AbstractNode } from "../../plugins/svg2Definition";
 
 export function normalizeAttrs(attrs: Attrs = {}): Attrs {
   return Object.keys(attrs).reduce((acc: Attrs, key) => {
@@ -13,7 +12,7 @@ export function normalizeAttrs(attrs: Attrs = {}): Attrs {
         delete acc.class;
         break;
       default:
-        acc[key] = val;
+        acc[camelCase(key)] = val;
     }
     return acc;
   }, {});
@@ -28,6 +27,13 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<SVGSVGElement>;
   style?: React.CSSProperties;
   focusable?: string;
+}
+export interface AbstractNode {
+  tag: string;
+  attrs: {
+    [key: string]: string;
+  };
+  children?: AbstractNode[];
 }
 
 export interface IconDefinition {
@@ -56,12 +62,12 @@ const IconBase = (props: IconProps) => {
 
   const target = icon;
 
-  // useInsertStyles();
+  useInsertStyles();
 
   return generate(target.icon, `svg-${target.name}`, {
     "data-icon": target.name,
-    width: "1rem",
-    height: "1rem",
+    width: "1em",
+    height: "1em",
     fill: "currentColor",
     "aria-hidden": "true",
     style

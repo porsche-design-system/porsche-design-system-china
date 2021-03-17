@@ -1,9 +1,14 @@
 .pui-input {
+  margin-right: $element-margin-right;
+  margin-bottom: $element-margin-bottom;
+  position: relative;
+  display: inline-block;
+
   .label {
     font-size: 16px;
     margin-bottom: 5px;
     span {
-      color: $danger-color;
+      color: $status-error-color;
       font-size: 23px;
       position: absolute;
     }
@@ -17,22 +22,66 @@
     }
   }
 
+  &-char-count {
+    position: absolute;
+    right: 2px;
+    margin-top: -42px;
+    background-color: $background-color-2;
+    height: 40px;
+    line-height: 42px;
+    padding: 0 6px;
+    color: $text-color-1;
+    span {
+      color: $text-opacity-color-2;
+    }
+  }
+
   input {
-    border: 1px solid black;
-    padding: 12px;
+    color: $text-color-1;
+    background-color: $background-color-2;
+    border: 1px solid $border-color-3;
+    padding: 14px;
     transition: color 0.2s, background-color 0.2s;
     width: 272px;
+    caret-color: $brand-color;
+
+    &::placeholder {
+      color: $text-opacity-color-2;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
+
+    &::-ms-input-placeholder {
+      color: $text-opacity-color-2;
+    }
+  }
+
+  input:hover {
+    border-color: $border-color-5;
+  }
+
+  input:disabled {
+    background: $container-bg-opacity-color-3;
+    border: 1px solid $border-color-2;
+    cursor: not-allowed;
+    opacity: 1;
   }
 
   &-error-true {
     input {
-      border-color: $danger-color;
+      border: 2px solid $status-error-color;
+    }
+    input:hover {
+      border: 2px solid $status-error-color-hover;
     }
   }
 
   .error-text {
     font-size: 14px;
-    color: $danger-color;
+    color: $status-error-color;
     margin-top: 5px;
   }
 }

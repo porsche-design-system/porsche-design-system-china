@@ -4,7 +4,6 @@ import classNames from "classnames";
 import ReactIcon from "./IconBase";
 
 export interface IconBaseProps extends React.HTMLProps<HTMLSpanElement> {
-  /**test */
   spin?: boolean;
   rotate?: number;
 }
@@ -18,10 +17,24 @@ export interface CustomIconComponentProps {
   style?: React.CSSProperties;
 }
 
+export interface AbstractNode {
+  tag: string;
+  attrs: {
+    [key: string]: string;
+  };
+  children?: AbstractNode[];
+}
+
+export interface IconDefinition {
+  name: string; // kebab-case-style
+  icon: AbstractNode;
+}
+
 export interface IconComponentProps extends IconBaseProps {
   viewBox?: string;
   component?: React.ComponentType<CustomIconComponentProps | React.SVGProps<SVGSVGElement>>;
   ariaLabel?: React.AriaAttributes["aria-label"];
+  icon: IconDefinition;
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) => {
@@ -41,12 +54,12 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
   } = props;
 
   const classString = classNames(
-    "anticon",
+    "porscheicon",
     {
-      [`anticon-${icon.name}`]: Boolean(icon.name)
+      [`porscheicon-${icon.name}`]: Boolean(icon.name)
     },
     {
-      "anticon-spin": !!spin || icon.name === "loading"
+      "porscheicon-spin": !!spin || icon.name === "loading"
     },
     className
   );
@@ -72,7 +85,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconComponentProps>((props, ref) 
       tabIndex={iconTabIndex}
       onClick={onClick}
       className={classString}
-      aria-hidden="true"
     >
       <ReactIcon icon={icon} style={svgStyle} />
     </span>

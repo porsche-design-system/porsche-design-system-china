@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+
 import './button.scss';
 
 export interface Props {
@@ -12,15 +13,13 @@ export interface Props {
   /** 样式 */
   style?: CSSProperties;
   /** 类型 */
-  type?: 'default' | 'primary' | 'dark' | 'text';
+  type?: 'default' | 'primary' | 'secondary' | 'text';
   /** 大小 */
   size?: 'large' | 'middle' | 'small';
   /** 图标 */
-  icon?: string;
+  icon?: ReactElement;
   /** 是否加载中 */
   loading?: boolean;
-  /** 原生HTML按钮类型 */
-  htmlType?: 'button' | 'submit' | 'reset';
   /** 是否禁用 */
   disabled?: boolean;
 
@@ -28,6 +27,7 @@ export interface Props {
 
   /* 点击事件 */
   onClick?: React.MouseEventHandler;
+  onMouseDown?: React.MouseEventHandler;
 }
 
 /**
@@ -41,20 +41,21 @@ const Button = ({
   size = 'middle',
   icon,
   loading = false,
-  htmlType = 'button',
   disabled = false,
-  onClick
+  onClick,
+  onMouseDown
 }: Props) => {
   return (
     <button
-      type={htmlType}
+      type="button"
       className={componentClassNames('pui-button', { type, size }, className)}
       style={style}
       onClick={onClick}
-      disabled={disabled}
+      onMouseDown={onMouseDown}
+      disabled={disabled || loading}
     >
-      {loading && <div>LOADING</div>}
-      {icon && <div>ICON</div>}
+      {loading && <span className="pui-button-icon">O</span>}
+      {icon && <span className="pui-button-icon">{icon}</span>}
       {children}
     </button>
   );

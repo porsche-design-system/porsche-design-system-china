@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import jsdom from "jsdom";
 import ramda from "ramda";
+import replace from "lodash.replace";
 
 const { JSDOM } = jsdom;
 const { gt, length } = ramda;
@@ -41,9 +42,10 @@ export const generateIconfont = () =>
           const style = svg[i].getAttribute("style") || "";
           const symbol = svg[i].querySelectorAll("symbol") || [];
           for (let y = 0; y < symbol.length; y++) {
+            const id = symbol[y].getAttribute("id") || "";
             icons.push({
               icon: symbol[y].innerHTML,
-              name: symbol[y].getAttribute("id") || "",
+              name: `icon_${replace(id, "icon", "")}`,
               viewbox: symbol[y].getAttribute("viewBox") || "",
               style
             });

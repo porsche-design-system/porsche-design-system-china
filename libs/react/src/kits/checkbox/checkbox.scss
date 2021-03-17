@@ -1,0 +1,30 @@
+.pui-checkbox {
+  display: inline-block;
+  padding: 12px;
+  font-size: 16px;
+  user-select: none;
+  cursor: pointer;
+  color: $text-color-1;
+
+  &:hover {
+    background-color: $container-bg-opacity-color-2;
+    font-weight: 600;
+  }
+
+  input {
+    border: 1px solid $border-color-3;
+    background-color: transparent;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  input:hover {
+    border: 1px solid $border-color-5;
+  }
+
+  input:checked {
+    background-color: $container-bg-active-color;
+  }
+}
