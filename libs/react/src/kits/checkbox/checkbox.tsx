@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './checkbox.scss';
 
@@ -12,27 +12,37 @@ export interface Props {
   /** 样式 */
   style?: CSSProperties;
 
+  /* 标签 */
+  label?: string;
+
   /** 是否禁用 */
   disabled?: boolean;
 
   // 组件事件 //
 
   /* 点击事件 */
-  onClick?: React.MouseEventHandler;
+  onChange?: ChangeEventHandler;
 }
 
 /**
  * Primary UI component for user interaction
  */
-const CheckBox = ({ className, style, children, onClick }: Props) => {
+
+let idCounter = 0;
+const generateId = () => {
+  idCounter++;
+  return 'checkbox-' + idCounter;
+};
+const CheckBox = ({ className, style, label = '', onChange }: Props) => {
+  const id = useMemo(() => generateId(), []);
   return (
-    <div
+    <label
+      htmlFor={id}
       className={componentClassNames('pui-checkbox', {}, className)}
       style={style}
-      onClick={onClick}
     >
-      <input type="radio" />
-    </div>
+      <input id={id} type="checkbox" onChange={onChange} /> {label}
+    </label>
   );
 };
 

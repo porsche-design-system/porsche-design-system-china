@@ -20,8 +20,6 @@ export interface Props {
   icon?: ReactElement;
   /** 是否加载中 */
   loading?: boolean;
-  /** 原生HTML按钮类型 */
-  htmlType?: 'button' | 'submit' | 'reset';
   /** 是否禁用 */
   disabled?: boolean;
 
@@ -43,14 +41,13 @@ const Button = ({
   size = 'middle',
   icon,
   loading = false,
-  htmlType = 'button',
   disabled = false,
   onClick,
   onMouseDown
 }: Props) => {
   return (
     <button
-      type={htmlType}
+      type="button"
       className={componentClassNames('pui-button', { type, size }, className)}
       style={style}
       onClick={onClick}

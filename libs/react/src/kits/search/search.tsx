@@ -1,8 +1,10 @@
 import React, { ChangeEventHandler, CSSProperties, useRef } from 'react';
+import { IconSearch } from '@pui/icons';
+
 import { Button } from '../button/button';
 import { Input } from '../input/input';
 import { componentClassNames } from '../../shared/class-util';
-import { Search as Search2 } from '@pui/icons';
+
 import './search.scss';
 
 export interface Props {
@@ -32,11 +34,11 @@ const Search = ({ className, style, placeHolder, disabled = false, onChange, onS
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
       <Input onChange={onChange} disabled={disabled} placeHolder={placeHolder} />
       <Button
-        icon={<Search2 style={{ transform: 'rotateY(180deg)' }} />}
+        icon={<IconSearch style={{ transform: 'rotateY(180deg)' }} />}
         type="secondary"
         onClick={() => {
-          if (inputRef !== null && onSearch) {
-            onSearch(inputRef.current!.value);
+          if (inputRef.current !== null && onSearch) {
+            onSearch(inputRef.current.value);
           }
         }}
       />

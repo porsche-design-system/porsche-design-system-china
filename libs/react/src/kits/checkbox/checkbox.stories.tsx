@@ -10,7 +10,8 @@ export default {
 export const CheckBoxStoryBook = () => {
   return (
     <div>
-      <CheckBox />
+      <CheckBox label="选项1" />
+      <CheckBox label="选项2" />
     </div>
   );
 };
