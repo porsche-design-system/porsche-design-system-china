@@ -96,7 +96,7 @@
     "react-router-dom": "^5.2.0"
   },
   "dependencies": {
-    "@pui/icons": "0.0.5",
+    "@pui/icons": "latest",
     "@types/classnames": "^2.2.9",
     "classnames": "^2.2.6"
   }
