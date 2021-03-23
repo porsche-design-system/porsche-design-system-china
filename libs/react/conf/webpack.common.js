@@ -1,26 +1,27 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
+// https://stackoverflow.com/questions/40096470/get-webpack-not-to-bundle-files
+
 const path = require('path');
+const DeclarationBundlerPlugin = require('declaration-bundler-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const { getSassResources } = require('./webpack-utils');
 
 module.exports = {
   entry: {
-    index: './src/index.js',
-    dark: './src/dark.js',
-    light: './src/light.js'
+    'shared/class-util': './src/shared/class-util.ts',
+    'kits/button/button': './src/kits/button/button.tsx',
+    'kits/input/input': './src/kits/input/input.tsx',
+    'kits/row/row': './src/kits/row/row.tsx',
+    'kits/test/test': './src/kits/test/test.tsx'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss'],
-    // modules: [path.join(__dirname, './src'), 'node_modules'],
-    alias: {
-      '@src': path.resolve(__dirname, 'src'),
-      '@kits': path.resolve(__dirname, 'src/kits'),
-      '@styles': path.resolve(__dirname, 'src/styles')
-    }
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.sass', '.scss']
   },
   output: {
-    filename: '[name].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
@@ -32,20 +33,12 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader
           },
           'css-loader',
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.less$/,
-        use: [
+          'sass-loader',
           {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'less-loader'
+            loader: 'sass-resources-loader',
+            options: {
+              resources: getSassResources()
+            }
           }
         ]
       },
@@ -93,45 +86,27 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        // exclude: [/\.spec.tsx?$/],
         use: [
-          'thread-loader',
-          'babel-loader',
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react']
+            }
+          },
           {
             loader: 'ts-loader',
             options: {
               // transpile only in happyPack mode
               // type checking is done via fork-ts-checker-webpack-plugin
-              happyPackMode: true,
-              transpileOnly: true,
+              onlyCompileBundledFiles: true
               // must override compiler options here, even though we have set
               // the same options in `tsconfig.json`, because they may still
               // be overriden by `tsconfig.json` in node_modules subdirectories.
-              compilerOptions: {
-                esModuleInterop: false,
-                importHelpers: false,
-                module: 'esnext',
-                target: 'esnext'
-              }
             }
           }
         ]
       }
     ]
   },
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'PUI: Porsche Digital China UI: others',
-      template: 'index.html'
-    }),
-    // new ExtractTextPlugin({
-    //   filename: getPath => {
-    //     return 'style.css'
-    //   },
-    //   allChunks: true,
-    // }),
-    new MiniCssExtractPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  plugins: [new CleanWebpackPlugin(['./dist']), new MiniCssExtractPlugin()]
 };

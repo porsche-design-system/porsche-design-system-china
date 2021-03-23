@@ -1,12 +1,4 @@
-import { kMaxLength } from 'buffer';
-import React, {
-  ChangeEventHandler,
-  CSSProperties,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './input.scss';
 

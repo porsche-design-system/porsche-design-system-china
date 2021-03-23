@@ -1,30 +1,19 @@
-## 安装
+## 安装 lerna（只需要做一次）
 
 ```
-npm install
+npm run intall
+```
+
+## 安装依赖
+
+```
+npm run bootstrap
 ```
 
 ## 本地开发
 
 ```
-npm run storybook
-```
-
-## 添加新组件
-
-```
-npx plop Button(组件名)
-```
-
-## 文件结构
-
-```
-├── __test__
-│   └── button.test.tsx   测试文件
-├── button.stories.tsx   story文件
-├── index.tsx   组件
-├── style.scss  样式
-└── types.tsx   ts类型声明
+npm run start-storybook
 ```
 
 ## 组件结构
@@ -68,16 +57,6 @@ function Button(props: PropsWithChildren<ButtonProps>) {
 }
 ```
 
-### 3、配置默认属性值，并默认导出
-
-```ts
-Button.defaultProps = {
-  type: 'primary',
-};
-
-export default Button;
-```
-
 ## 编写 storybook
 
 ### Storybook 文档: https://storybook.js.org/
@@ -88,7 +67,7 @@ import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
 export default {
   title: 'Button',
   component: Button,
-  decorators: [withKnobs],
+  decorators: [withKnobs]
 };
 
 // storybook可控组件
@@ -109,23 +88,22 @@ export const MyBtn = () => <Button type="ghost">按钮</Button>;
 ## 编写测试用例
 
 #### 测试开发范围：
-* 原子型组件不需要书写单元测试
-* 逻辑性utility 需要书写：Plane function logic test;
-* 基础展示组件需要书写的测试种类：Snapshot Test 、Unit/Integration test;
-* 复杂逻辑组件需包含：Snapshot Test 、Unit/Integration test、甚至 e2e test;
+
+- 原子型组件不需要书写单元测试
+- 逻辑性 utility 需要书写：Plane function logic test;
+- 基础展示组件需要书写的测试种类：Snapshot Test 、Unit/Integration test;
+- 复杂逻辑组件需包含：Snapshot Test 、Unit/Integration test、甚至 e2e test;
 
 **[测试开发介绍](./management/ut-intro.md)** and [more >>](./management/ut-more.md)
-
-
-## 测试开发
-
-```
-npm run test
-npm run test:watch
-```
 
 ## 打包
 
 ```
-npm run prod
+npm run build-all
+```
+
+## 发布
+
+```
+npm run version-publish
 ```

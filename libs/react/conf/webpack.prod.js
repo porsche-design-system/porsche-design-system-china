@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -9,29 +10,19 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
-  // mode: 'development',
-  // devtool: 'cheap-module-eval-source-map',
 
   output: {
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
-    library: '@pui/react',
-    libraryTarget: 'umd',
-    path: path.resolve(__dirname, '../dist')
+    library: 'libpack',
+    libraryTarget: 'umd'
   },
   externals: {
-    axios: 'axios',
     react: {
-      // /^react\/.+$/,
       commonjs: 'react',
       commonjs2: 'react',
       amd: 'react',
       root: 'react'
-    },
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_'
     },
     webpack: {
       commonjs: 'webpack',
@@ -39,7 +30,8 @@ module.exports = merge(common, {
       amd: 'webpack',
       root: 'webpack'
     },
-    'react-router-dom': 'react-router-dom'
+    'react-router-dom': 'react-router-dom',
+    classnames: 'classnames'
   },
   optimization: {
     splitChunks: {

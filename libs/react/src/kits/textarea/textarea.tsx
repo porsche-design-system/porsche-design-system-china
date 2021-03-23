@@ -1,5 +1,4 @@
-import { element } from 'prop-types';
-import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './textarea.scss';
 
