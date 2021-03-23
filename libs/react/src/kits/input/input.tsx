@@ -57,10 +57,12 @@ const Input = ({
       )}
       style={style}
     >
-      <div className="label">
-        {label}
-        <span>{label && required ? '*' : ''}</span>
-      </div>
+      {label && (
+        <div className="label">
+          {label}
+          <span>{label && required ? '*' : ''}</span>
+        </div>
+      )}
       <input
         ref={inputRef => {
           if (inputRef && maxLength) {
