@@ -1,5 +1,8 @@
 const path = require('path');
 const webpackConf = require('../conf/webpack.common');
+const { getSassResources } = require('../conf/webpack-utils');
+
+console.log(getSassResources());
 
 // Export a function. Accept the base config as the only param.
 module.exports = {
@@ -13,26 +16,6 @@ module.exports = {
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
 
-    const fs = require('fs');
-    let theme = 'default';
-
-    const configPath = path.resolve(__dirname, '../pui.config.js');
-    const sassResources = [];
-    if (fs.existsSync(configPath)) {
-      const puiConfig = require(configPath);
-      theme = puiConfig.baseTheme || 'default';
-      sassResources.push(path.resolve(__dirname, '../src/styles/themes/' + theme + '.scss'));
-      const overrideVars = puiConfig.overrideVars;
-      if (overrideVars) {
-        let overrideScss = '';
-        for (const key in overrideVars) {
-          overrideScss += key + ' :' + overrideVars[key] + ';\n';
-        }
-        fs.writeFileSync('override.scss', overrideScss);
-        sassResources.push('override.scss');
-      }
-    }
-
     // Make whatever fine-grained changes you need
     config.resolve = webpackConf.resolve;
     config.module.rules.push({
@@ -43,13 +26,14 @@ module.exports = {
         {
           loader: 'sass-loader',
           options: {
-            indentedSynctax: true
+            indentedSynctax: true,
+            additionalData: `$pui-theme: dark;`
           }
         },
         {
           loader: 'sass-resources-loader',
           options: {
-            resources: sassResources
+            resources: getSassResources()
           }
         }
       ],

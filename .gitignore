@@ -16,6 +16,9 @@ node_modules
 /libs/**/dist
 /libs/**/storybook-static
 
+/libs/react/es
+/libs/react/lib
+
 # misc
 .DS_Store
 .env.local

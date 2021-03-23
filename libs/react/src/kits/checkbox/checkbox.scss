@@ -1,3 +1,5 @@
+@import '../../styles/themes/';
+
 .pui-checkbox {
   display: inline-block;
   padding: 12px;
@@ -26,5 +28,27 @@
 
   input:checked {
     background-color: $container-bg-active-color;
+  }
+
+  input:disabled {
+    border: 1px solid $border-color-3;
+    cursor: not-allowed;
+  }
+
+  &-disabled-true {
+    opacity: 0.5;
+    color: $text-color-1;
+    input {
+      border: 1px solid $border-color-3;
+    }
+  }
+  &-disabled-true:hover {
+    background-color: transparent;
+    font-weight: normal;
+    cursor: not-allowed;
+  }
+
+  &-checked-true {
+    font-weight: 600;
   }
 }

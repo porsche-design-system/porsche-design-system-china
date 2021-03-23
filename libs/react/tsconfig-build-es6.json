@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "jsx": "react",
+    "declaration": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports":true,
+    "outDir": "./es"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.stories.tsx","src/**/*.stories.scss"],
+}
+ 

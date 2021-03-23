@@ -1,0 +1,8 @@
+@import 'dark';
+@import 'light';
+
+@if not(variable-exists(pui-theme)) or $pui-theme == 'light' {
+  @include light;
+} @else if($pui-theme == 'dark') {
+  @include dark;
+}

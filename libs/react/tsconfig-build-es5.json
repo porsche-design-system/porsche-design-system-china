@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+      "jsx": "react",
+      "target": "es5",
+      "declaration": true,
+      "emitDeclarationOnly": true,
+      "isolatedModules": true,
+      "moduleResolution": "node",
+      "esModuleInterop":true,
+      "outDir":"lib",
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.stories.tsx","src/**/*.stories.scss"],
+}
