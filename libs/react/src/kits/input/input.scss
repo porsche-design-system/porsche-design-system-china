@@ -1,10 +1,11 @@
-@import '../../styles/themes/';
+@import '../../styles/theme/';
 
 .pui-input {
   margin-right: $element-margin-right;
   margin-bottom: $element-margin-bottom;
   position: relative;
   display: inline-block;
+  vertical-align: top;
 
   .label {
     font-size: 16px;
@@ -42,7 +43,8 @@
     color: $text-color-1;
     background-color: $background-color-2;
     border: 1px solid $border-color-3;
-    padding: 14px;
+    padding: 13px;
+    line-height: 20px;
     transition: color 0.2s, background-color 0.2s;
     width: 272px;
     caret-color: $brand-color;
