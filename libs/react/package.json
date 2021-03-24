@@ -91,11 +91,11 @@
     "@lottiefiles/react-lottie-player": "3.0.4",
     "jest": "^26.6.3",
     "copyfiles": "^2.4.1",
-    "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0"
   },
   "dependencies": {
+    "react": "^17.0.1",
     "@pui/icons": "latest",
     "@types/classnames": "^2.2.9",
     "classnames": "^2.2.6"
