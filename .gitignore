@@ -18,6 +18,7 @@ node_modules
 
 /libs/react/es
 /libs/react/lib
+/libs/react/override.scss
 
 # misc
 .DS_Store
