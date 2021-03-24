@@ -1,6 +1,6 @@
-module.exports = function (plop) {
+module.exports = function (plop: any) {
   // controller generator
-  plop.addHelper('headCaps', function (param) {
+  plop.addHelper('headCaps', function (param: string) {
     const p = param.trim();
     return p.slice(0, 1).toUpperCase() + p.slice(1);
   });
