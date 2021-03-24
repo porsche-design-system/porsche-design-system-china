@@ -1,7 +1,6 @@
 import React, { ReactNode, useMemo, useState, useEffect } from 'react';
 import ReactDom, { unmountComponentAtNode } from 'react-dom';
 import './message.scss';
-
 export type MessageType = 'info' | 'success' | 'error' | 'warning' | 'loading' | 'default';
 
 export interface MessageConfig {
@@ -19,7 +18,7 @@ export interface MessageConfig {
 
 const defaultConfig: MessageConfig = {
   mount: document.body,
-  delay: 2000,
+  delay: 1000,
   callback: null,
   background: '',
   color: ''
@@ -88,7 +87,7 @@ export function Message(props: MessageProps) {
 
   useEffect(() => {
     //结束操作
-    let closeStart = fconfig.delay - 0.2;
+    let closeStart = fconfig.delay - 0.2 * 1000;
     let timer1 = window.setTimeout(
       () => {
         setClose(true);
@@ -109,8 +108,8 @@ export function Message(props: MessageProps) {
   }, [unmount, fconfig]);
 
   return (
-    <div className={`pui-message ${close ? 'close' : 'open'}-animate`}>
-      <span className="message-text">{content}</span>
+    <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
+      <span className={`message-text ${iconType}`}>{content}</span>
     </div>
   );
 }
@@ -119,7 +118,5 @@ export const message = {
   info: createMessage('info'),
   success: createMessage('success'),
   error: createMessage('error'),
-  warning: createMessage('warning'),
-  loading: createMessage('loading'),
-  default: createMessage('default')
+  warning: createMessage('warning')
 };

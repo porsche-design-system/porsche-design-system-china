@@ -4,7 +4,7 @@ const { getSassResources } = require('../conf/webpack-utils');
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [{ name: '@storybook/addon-docs', options: { configureJSX: true } }],
-  webpackFinal: config => {
+  webpackFinal: (config: any) => {
     config.module.rules.push(
       {
         test: /\.(scss|sass)$/,
