@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextArea } from './textarea';
-import './textarea.stories.scss';
+
+import '../../styles/index.scss';
 
 export default {
   title: 'General/TextArea',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from './input';
-import './input.stories.scss';
+
+import '../../styles/index.scss';
 
 export default {
   title: 'General/Input',
