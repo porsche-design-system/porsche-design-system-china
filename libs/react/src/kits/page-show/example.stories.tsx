@@ -1,11 +1,5 @@
 import React from 'react';
-import { Button } from '../button/button';
-import { Col } from '../col/col';
-import { Input } from '../input/input';
-import { Row } from '../row/row';
-import { TextArea } from '../textarea/textarea';
-
-import '../../styles/index.scss';
+import { Button, Col, Input, Row, TextArea } from '../../';
 
 export default {
   title: 'Page Show/Example'

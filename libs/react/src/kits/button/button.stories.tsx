@@ -1,8 +1,7 @@
 import React from 'react';
 import { IconChat, IconArrowHeadRight } from '@pui/icons';
 
-import { Button } from './button';
-import '../../styles/index.scss';
+import { Button } from '../../';
 import './button.stories.scss';
 
 export default {

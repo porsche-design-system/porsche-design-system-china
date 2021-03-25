@@ -1,7 +1,5 @@
 import React from 'react';
-import { Select } from './select';
-
-import '../../styles/index.scss';
+import { Select } from '../../';
 
 export default {
   title: 'General/Select',

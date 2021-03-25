@@ -1,7 +1,5 @@
 import React from 'react';
-import { Radio } from './radio';
-
-import '../../styles/index.scss';
+import { Radio } from '../../';
 
 export default {
   title: 'General/Radio',

@@ -1,5 +1,4 @@
 const path = require('path');
-const { getSassResources } = require('../conf/webpack-utils');
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -16,12 +15,6 @@ module.exports = {
             options: {
               indentedSynctax: true,
               additionalData: `$pui-theme: dark;`
-            }
-          },
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: getSassResources()
             }
           }
         ],

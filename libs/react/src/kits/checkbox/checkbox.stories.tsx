@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { CheckBox } from './checkbox';
+import { CheckBox } from '../../';
 
-import '../../styles/index.scss';
 import './checkbox.stories.scss';
 
 export default {

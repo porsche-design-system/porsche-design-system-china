@@ -1,8 +1,7 @@
 import React from 'react';
 import { Row } from '../row/row';
-import { Col } from './col';
+import { Col } from '../../';
 
-import '../../styles/index.scss';
 import './col.stories.scss';
 
 export default {

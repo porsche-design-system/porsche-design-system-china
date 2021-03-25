@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button } from '../button/button';
-import { Input } from '../input/input';
+import { Button, Input } from '../../';
 
-import '../../styles/index.scss';
 import './login-form.stories.scss';
 
 export default {

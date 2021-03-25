@@ -1,7 +1,6 @@
 import React from 'react';
-import { TextArea } from '../textarea/textarea';
+import { TextArea } from '../../';
 
-import '../../styles/index.scss';
 import './textareas.stories.scss';
 
 export default {

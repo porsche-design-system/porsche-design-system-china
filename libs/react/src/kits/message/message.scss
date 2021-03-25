@@ -1,36 +1,42 @@
 @import '../../styles/theme/';
 
-.pui-message {
-  &.open-animate {
-    animation: openAnimate 0.2s ease-in;
-  }
-  &.close-animate {
-    animation: closeAnimate 0.2s ease-in;
-  }
-  .message-text {
-    display: inline-block;
-    line-height: 40px;
-    padding: 10px 16px;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 10px;
-    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
-      0 9px 28px 8px rgba(0, 0, 0, 0.05);
-    &.error {
-      background: $status-bg-error-color;
-    }
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
 
-    &.success {
-      background: $status-bg-success-color;
-    }
+    .pui-message {
+      &.open-animate {
+        animation: openAnimate 0.2s ease-in;
+      }
+      &.close-animate {
+        animation: closeAnimate 0.2s ease-in;
+      }
+      .message-text {
+        display: inline-block;
+        line-height: 40px;
+        padding: 10px 16px;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px;
+        box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+          0 9px 28px 8px rgba(0, 0, 0, 0.05);
+        &.error {
+          background: $status-bg-error-color;
+        }
 
-    &.warning {
-      background: $status-bg-warning-color;
-    }
+        &.success {
+          background: $status-bg-success-color;
+        }
 
-    &.info {
-      background: $status-bg-neutral-color;
+        &.warning {
+          background: $status-bg-warning-color;
+        }
+
+        &.info {
+          background: $status-bg-neutral-color;
+        }
+      }
     }
   }
 }
