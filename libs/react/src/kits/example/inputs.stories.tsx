@@ -1,7 +1,6 @@
 import React from 'react';
-import { Input } from '../input/input';
+import { Input } from '../../';
 
-import '../../styles/index.scss';
 import './inputs.stories.scss';
 
 export default {
@@ -13,24 +12,24 @@ export const InputsStoryBook = () => {
     <div>
       <div className="states">Default</div>
       <div>
-        <Input placeHolder="请输入" />
+        <Input placeholder="请输入" />
       </div>
       <br />
       <div className="states">Disabled</div>
       <div>
-        <Input placeHolder="请输入" disabled />
+        <Input placeholder="请输入" disabled />
       </div>
       <br />
       <div className="states">Max Length</div>
       <div>
-        <Input placeHolder="最多输入10个字符" maxLength={50} />
+        <Input placeholder="最多输入10个字符" maxLength={50} />
       </div>
       <br />
       <div className="states">Label Top</div>
       <div>
         <Input
           label="姓名"
-          placeHolder="请输入"
+          placeholder="请输入"
           error={{ show: true, text: '输入信息有误' }}
           required
         />
@@ -38,7 +37,7 @@ export const InputsStoryBook = () => {
       <br />
       <div className="states">Label Left</div>
       <div>
-        <Input label="姓名" labelPosition="left" placeHolder="请输入" required />
+        <Input label="姓名" labelPosition="left" placeholder="请输入" required />
       </div>
     </div>
   );

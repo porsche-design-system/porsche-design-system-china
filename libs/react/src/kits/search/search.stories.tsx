@@ -1,7 +1,5 @@
 import React from 'react';
-import { Search } from './search';
-
-import '../../styles/index.scss';
+import { Search } from '../../';
 
 export default {
   title: 'General/Search',

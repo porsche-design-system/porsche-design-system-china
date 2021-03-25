@@ -1,2 +1,9 @@
-.pui-select {
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    // your code
+  }
 }

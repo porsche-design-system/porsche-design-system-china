@@ -1,6 +1,15 @@
 @import 'dark';
 @import 'light';
 
+$themes: light, dark;
+@mixin theme($themeName) {
+  @if ($themeName == 'light') {
+    @include light;
+  } @else if ($themeName == 'dark') {
+    @include dark;
+  }
+}
+
 @if not(variable-exists(pui-theme)) or $pui-theme == 'light' {
   @include light;
 } @else if($pui-theme == 'dark') {
