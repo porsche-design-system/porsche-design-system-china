@@ -6,7 +6,6 @@ import { Row } from '../row/row';
 import { TextArea } from '../textarea/textarea';
 
 import '../../styles/index.scss';
-import './example.stories.scss';
 
 export default {
   title: 'Page Show/Example'

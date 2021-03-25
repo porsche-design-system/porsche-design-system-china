@@ -46,7 +46,8 @@
     padding: 13px;
     line-height: 20px;
     transition: color 0.2s, background-color 0.2s;
-    width: 272px;
+    min-width: 272px;
+    width: 100%;
     caret-color: $brand-color;
 
     &::placeholder {
