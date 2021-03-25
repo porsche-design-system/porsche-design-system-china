@@ -4,6 +4,8 @@ import { Col } from '../col/col';
 import { Input } from '../input/input';
 import { Row } from '../row/row';
 import { TextArea } from '../textarea/textarea';
+
+import '../../styles/index.scss';
 import './example.stories.scss';
 
 export default {

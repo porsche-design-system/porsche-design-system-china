@@ -1,6 +1,7 @@
 import React from 'react';
 import { Select } from './select';
-import './select.stories.scss';
+
+import '../../styles/index.scss';
 
 export default {
   title: 'General/Select',

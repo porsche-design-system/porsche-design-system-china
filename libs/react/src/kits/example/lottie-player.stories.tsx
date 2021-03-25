@@ -1,6 +1,8 @@
 import React from 'react';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 
+import '../../styles/index.scss';
+
 export default {
   title: 'Component Show/LottiePlayer'
 };

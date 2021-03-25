@@ -2,6 +2,8 @@ import React from 'react';
 import { Button } from '../button/button';
 import { Col } from '../col/col';
 import { Row } from '../row/row';
+
+import '../../styles/index.scss';
 import './buttons.stories.scss';
 
 export default {
