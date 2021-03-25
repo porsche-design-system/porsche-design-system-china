@@ -28,7 +28,7 @@
   &-char-count {
     position: absolute;
     right: 2px;
-    margin-top: -42px;
+    margin-top: -44px;
     background-color: $background-color-2;
     height: 40px;
     line-height: 42px;
@@ -40,6 +40,7 @@
   }
 
   input {
+    font-size: 16px;
     color: $text-color-1;
     background-color: $background-color-2;
     border: 1px solid $border-color-3;
