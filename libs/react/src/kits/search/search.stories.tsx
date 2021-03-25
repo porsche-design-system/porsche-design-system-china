@@ -9,7 +9,7 @@ export default {
 export const InputStoryBook = () => {
   return (
     <div>
-      <Search placeHolder="请输入" />
+      <Search placeholder="请输入" />
     </div>
   );
 };

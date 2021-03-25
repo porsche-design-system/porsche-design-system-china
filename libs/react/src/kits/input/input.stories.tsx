@@ -12,20 +12,20 @@ export const InputStoryBook = () => {
   return (
     <div>
       <div>
-        <Input label="姓名" placeHolder="请输入" />
+        <Input label="姓名" placeholder="请输入" />
       </div>
       <br />
       <div>
         <Input
           label="姓名"
-          placeHolder="请输入"
+          placeholder="请输入"
           error={{ show: true, text: '输入信息有误' }}
           required
         />
       </div>
       <br />
       <div>
-        <Input label="姓名" labelPosition="left" placeHolder="请输入" required />
+        <Input label="姓名" labelPosition="left" placeholder="请输入" required />
       </div>
     </div>
   );
