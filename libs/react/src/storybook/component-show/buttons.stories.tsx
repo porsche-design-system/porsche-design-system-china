@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '../button/button';
-import { Col, Row } from '../../';
+import { Col, Row, Button } from '../../';
 
 import './buttons.stories.scss';
 
