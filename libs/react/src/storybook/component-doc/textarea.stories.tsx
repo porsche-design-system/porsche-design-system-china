@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea } from '../../';
+import { TextArea } from '../..';
 
 export default {
   title: 'General/TextArea',
