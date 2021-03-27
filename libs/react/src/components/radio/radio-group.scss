@@ -1,0 +1,9 @@
+.pui-radio-group {
+  &-disabled-true {
+    pointer-events: none;
+    cursor: not-allowed;
+    label {
+      opacity: 0.5;
+    }
+  }
+}

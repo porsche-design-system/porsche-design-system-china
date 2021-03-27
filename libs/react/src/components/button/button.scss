@@ -7,7 +7,7 @@
     .pui-button {
       border: none;
       cursor: pointer;
-      padding: 0 20px;
+      padding: 0 16px;
       margin-right: $element-margin-right;
       margin-bottom: $element-margin-bottom;
       transition: color 0.2s, background-color 0.2s;
@@ -15,9 +15,12 @@
 
       &-icon {
         pointer-events: none;
-        .porscheicon {
-          vertical-align: text-bottom;
-        }
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: sub;
+        vertical-align: text-top;
       }
 
       /* type */

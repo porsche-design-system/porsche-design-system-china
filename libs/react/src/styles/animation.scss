@@ -1,12 +1,12 @@
-@keyframes rotate
-  0%
-    transform: rotate(0deg)
+.pui-spin {
+  animation: spin 1s linear infinite;
+}
 
-  50%
-    transform: rotate(180deg)
-
-  100%
-    transform: rotate(360deg)
-
-.rotate
-  animation: first-rotate 1s linear infinite
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -19,6 +19,9 @@ export interface Props {
   /** 是否禁用 */
   disabled?: boolean;
 
+  /* 是否选定 */
+  checked?: boolean;
+
   // 组件事件 //
 
   /* 点击事件 */
@@ -33,7 +36,7 @@ const generateId = () => {
   idCounter++;
   return 'checkbox-' + idCounter;
 };
-const Radio = ({ className, style, disabled, label, onChange }: Props) => {
+const Radio = ({ className, style, disabled, value, label, onChange, checked }: Props) => {
   const id = useMemo(() => generateId(), []);
   return (
     <label
@@ -41,7 +44,16 @@ const Radio = ({ className, style, disabled, label, onChange }: Props) => {
       className={componentClassNames('pui-radio', { disabled: disabled + '' }, className)}
       style={style}
     >
-      <input id={id} name="default" type="radio" onChange={onChange} disabled={disabled} /> {label}
+      <input
+        id={id}
+        name="default"
+        type="radio"
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        defaultChecked={checked}
+      />{' '}
+      {label}
     </label>
   );
 };
