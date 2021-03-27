@@ -1,117 +1,125 @@
-.pui-button {
-  border: none;
-  cursor: pointer;
-  padding: 0 20px;
-  margin-right: $element-margin-right;
-  margin-bottom: $element-margin-bottom;
-  transition: color 0.2s, background-color 0.2s;
-  box-sizing: border-box;
+@import '../../styles/theme/';
 
-  &-icon {
-    pointer-events: none;
-    .porscheicon {
-      vertical-align: text-bottom;
-    }
-  }
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
 
-  /* type */
-  &-type-default {
-    color: $text-color-1;
-    border: 1px solid $border-color-5;
-    background-color: transparent;
+    .pui-button {
+      border: none;
+      cursor: pointer;
+      padding: 0 20px;
+      margin-right: $element-margin-right;
+      margin-bottom: $element-margin-bottom;
+      transition: color 0.2s, background-color 0.2s;
+      box-sizing: border-box;
 
-    &:hover,
-    &-hover {
-      background-color: $container-bg-color-6;
-      color: $text-color-2;
-      border-color: $container-bg-color-6;
-    }
-    &:active,
-    &-active {
-      background-color: $container-bg-color-8;
-      color: $text-color-2;
-      border-color: $container-bg-color-8;
-    }
+      &-icon {
+        pointer-events: none;
+        .porscheicon {
+          vertical-align: text-bottom;
+        }
+      }
 
-    &:disabled,
-    &-disabled {
-      color: $text-color-1;
-      border: 1px solid $border-color-4;
-      background-color: transparent;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
+      /* type */
+      &-type-default {
+        color: $text-color-1;
+        border: 1px solid $border-color-5;
+        background-color: transparent;
 
-  &-type-primary {
-    background-color: $brand-color;
-    color: $text-white-color;
-    &:hover,
-    &-hover {
-      background-color: $brand-color-hover;
-    }
-    &:active,
-    &-active {
-      background-color: $brand-color-active;
-    }
-    &:disabled,
-    &-disabled {
-      background-color: $brand-color;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-6;
+          color: $text-color-2;
+          border-color: $container-bg-color-6;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-8;
+          color: $text-color-2;
+          border-color: $container-bg-color-8;
+        }
 
-  &-type-secondary {
-    background-color: $container-bg-color-7;
-    color: $text-color-2;
-    &:hover,
-    &-hover {
-      background-color: $container-bg-color-6;
-    }
-    &:active,
-    &-active {
-      background-color: $container-bg-color-8;
-    }
-    &:disabled,
-    &-disabled {
-      background-color: $container-bg-color-7;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
+        &:disabled,
+        &-disabled {
+          color: $text-color-1;
+          border: 1px solid $border-color-4;
+          background-color: transparent;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
 
-  &-type-text {
-    color: $text-link-color;
-    background-color: transparent;
-    border: none;
-    &:hover,
-    &-hover {
-      color: $text-link-color-hover;
-    }
-    &:active,
-    &-active {
-      color: $text-link-color-active;
-    }
-    &:disabled,
-    &-disabled {
-      color: $text-link-color;
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
+      &-type-primary {
+        background-color: $brand-color;
+        color: $text-white-color;
+        &:hover,
+        &-hover {
+          background-color: $brand-color-hover;
+        }
+        &:active,
+        &-active {
+          background-color: $brand-color-active;
+        }
+        &:disabled,
+        &-disabled {
+          background-color: $brand-color;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
 
-  /* size */
-  &-size-small {
-    font-size: 12px;
-    height: 40px;
-  }
-  &-size-middle {
-    font-size: 16px;
-    height: 48px;
-  }
-  &-size-large {
-    font-size: 20px;
-    height: 56px;
+      &-type-secondary {
+        background-color: $container-bg-color-7;
+        color: $text-color-2;
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-6;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-8;
+        }
+        &:disabled,
+        &-disabled {
+          background-color: $container-bg-color-7;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      &-type-text {
+        color: $text-link-color;
+        background-color: transparent;
+        border: none;
+        &:hover,
+        &-hover {
+          color: $text-link-color-hover;
+        }
+        &:active,
+        &-active {
+          color: $text-link-color-active;
+        }
+        &:disabled,
+        &-disabled {
+          color: $text-link-color;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+
+      /* size */
+      &-size-small {
+        font-size: 12px;
+        height: 40px;
+      }
+      &-size-middle {
+        font-size: 16px;
+        height: 48px;
+      }
+      &-size-large {
+        font-size: 20px;
+        height: 56px;
+      }
+    }
   }
 }

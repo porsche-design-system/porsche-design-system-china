@@ -1,5 +1,4 @@
-import { element } from 'prop-types';
-import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './textarea.scss';
 
@@ -16,7 +15,7 @@ export interface Props {
   /* 标签位置 */
   labelPosition?: 'left' | 'top';
   /* 占位符 */
-  placeHolder?: string;
+  placeholder?: string;
   /* 错误 */
   error?: { show: boolean; text: string };
   /* 是否必填 */
@@ -40,7 +39,7 @@ const TextArea = ({
   style,
   label,
   labelPosition = 'top',
-  placeHolder,
+  placeholder,
   error = { show: false, text: '' },
   required = false,
   disabled = false,
@@ -74,7 +73,7 @@ const TextArea = ({
           }
         }}
         maxLength={maxLength}
-        placeholder={placeHolder}
+        placeholder={placeholder}
         onChange={onChange}
         disabled={disabled}
         onInput={event => {

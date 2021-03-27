@@ -1,0 +1,19 @@
+.form-wrap {
+  width: 400px;
+  border: 1px solid #aaa;
+  padding: 30px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.top-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.pui-theme-dark .form-wrap {
+  background-color: black;
+  color: white;
+}

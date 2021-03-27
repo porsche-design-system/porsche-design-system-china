@@ -17,12 +17,26 @@
     color: black;
     border: 1px solid black;
   }
+
+  .pui-theme-dark .docs-story {
+    background-color: black;
+    color: white;
+  }
+  .pui-theme-light .docs-story {
+    background-color: white;
+    color: black;
+  }
+
+  .pui-theme-dark .sbdocs-wrapper,
+  .pui-theme-dark .sbdocs-title,
+  .pui-theme-dark .os-content,
+  .pui-theme-dark .sbdocs-p,
+  .pui-theme-dark .docblock-argstable * {
+    background-color: #333 !important;
+    color: white !important;
+  }
 </style>
 <div class="theme-button">
-  <button onclick="window.parent.location.href='../storybook-static-light/index.html'">
-    Light Mode
-  </button>
-  <button onclick="window.parent.location.href='../storybook-static-dark/index.html'">
-    Dark Mode
-  </button>
+  <button onclick="PUITheme.set('light')">Light Mode</button>
+  <button onclick="PUITheme.set('dark')">Dark Mode</button>
 </div>

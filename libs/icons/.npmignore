@@ -1,9 +1,9 @@
-font
+/font
+/svg
 iconfont
 plugins
 scripts
 src
-svg
 tasks
 templates
 gulpfile.ts

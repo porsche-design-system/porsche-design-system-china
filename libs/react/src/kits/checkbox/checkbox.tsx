@@ -15,13 +15,16 @@ export interface Props {
   /* 标签 */
   label?: string;
 
+  /* 是否选定 */
+  checked?: boolean;
+
   /** 是否禁用 */
   disabled?: boolean;
 
   // 组件事件 //
 
   /* 点击事件 */
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 /**
@@ -33,15 +36,20 @@ const generateId = () => {
   idCounter++;
   return 'checkbox-' + idCounter;
 };
-const CheckBox = ({ className, style, label = '', onChange }: Props) => {
+const CheckBox = ({ className, style, checked = false, label = '', disabled, onChange }: Props) => {
   const id = useMemo(() => generateId(), []);
   return (
     <label
       htmlFor={id}
-      className={componentClassNames('pui-checkbox', {}, className)}
+      className={componentClassNames(
+        'pui-checkbox',
+        { disabled: disabled + '', checked: checked + '' },
+        className
+      )}
       style={style}
     >
-      <input id={id} type="checkbox" onChange={onChange} /> {label}
+      <input id={id} type="checkbox" onChange={onChange} disabled={disabled} checked={checked} />{' '}
+      {label}
     </label>
   );
 };

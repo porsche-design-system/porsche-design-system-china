@@ -9,5 +9,6 @@
       }
     ],
     "@babel/preset-env"
-  ]
+  ],
+  "ignore": ["src/**/*.stories.tsx"]
 }

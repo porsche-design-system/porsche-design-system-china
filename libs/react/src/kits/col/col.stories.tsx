@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row } from '../row/row';
-import { Col } from './col';
+import { Col } from '../../';
+
 import './col.stories.scss';
 
 export default {

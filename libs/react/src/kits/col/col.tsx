@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-import './col.scss';
 
 export interface Props {
   // 组件属性 //

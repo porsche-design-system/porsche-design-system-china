@@ -1,12 +1,4 @@
-import { kMaxLength } from 'buffer';
-import React, {
-  ChangeEventHandler,
-  CSSProperties,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './input.scss';
 
@@ -23,7 +15,7 @@ export interface Props {
   /* 标签位置 */
   labelPosition?: 'left' | 'top';
   /* 占位符 */
-  placeHolder?: string;
+  placeholder?: string;
   /* 最多输入字符数 */
   maxLength?: number;
   /* 错误 */
@@ -47,7 +39,7 @@ const Input = ({
   style,
   label,
   labelPosition = 'top',
-  placeHolder,
+  placeholder,
   maxLength,
   error = { show: false, text: '' },
   required = false,
@@ -65,17 +57,19 @@ const Input = ({
       )}
       style={style}
     >
-      <div className="label">
-        {label}
-        <span>{label && required ? '*' : ''}</span>
-      </div>
+      {label && (
+        <div className="label">
+          {label}
+          <span>{label && required ? '*' : ''}</span>
+        </div>
+      )}
       <input
         ref={inputRef => {
           if (inputRef && maxLength) {
             inputRef.style.paddingRight = (maxLength + '').length * 23 + 12 + 'px';
           }
         }}
-        placeholder={placeHolder}
+        placeholder={placeholder}
         maxLength={maxLength}
         onChange={onChange}
         disabled={disabled}

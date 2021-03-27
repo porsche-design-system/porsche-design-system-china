@@ -1,0 +1,63 @@
+@mixin dark {
+  // Brand Colors
+  $brand-color: #2193ff !global;
+  $brand-color-hover: #52abff !global;
+  $brand-color-active: #0064c2 !global;
+
+  // Background Colors
+  $background-color-1: #0e1418 !global;
+  $background-color-2: #0e1418 !global;
+
+  // Container Colors
+  $container-bg-color-1: #323639 !global;
+  $container-bg-color-2: #4a4e51 !global;
+  $container-bg-color-3: #626669 !global;
+  $container-bg-color-4: #b0b1b2 !global;
+  $container-bg-color-5: #c9cacb !global;
+  $container-bg-color-6: #e6e6e6 !global;
+  $container-bg-color-7: #f2f2f2 !global;
+  $container-bg-color-8: #ffffff !global;
+  $container-bg-active-color: #2193ff !global;
+
+  $container-bg-opacity-color-1: rgba(255, 255, 255, 0.04) !global;
+  $container-bg-opacity-color-2: rgba(255, 255, 255, 0.08) !global;
+  $container-bg-opacity-color-3: rgba(255, 255, 255, 0.12) !global;
+  $container-bg-opacity-color-4: rgba(255, 255, 255, 0.2) !global;
+
+  // Text Colors
+  $text-color-1: #ffffff !global;
+  $text-color-2: #000000 !global;
+
+  $text-opacity-color-1: rgba(255, 255, 255, 0.65) !global;
+  $text-opacity-color-2: rgba(255, 255, 255, 0.5) !global;
+  $text-opacity-color-3: rgba(255, 255, 255, 0.25) !global;
+
+  $text-white-color: white !global;
+
+  $text-link-color: #2193ff !global;
+  $text-link-color-hover: #5cb0ff !global;
+  $text-link-color-active: #0064c2 !global;
+
+  // Border Colors
+  $border-color-1: rgba(255, 255, 255, 0.15) !global;
+  $border-color-2: rgba(255, 255, 255, 0.25) !global;
+  $border-color-3: rgba(255, 255, 255, 0.5) !global;
+  $border-color-4: rgba(255, 255, 255, 0.7) !global;
+  $border-color-5: rgba(255, 255, 255, 0.85) !global;
+
+  // Status Colors
+  $status-error-color: #fc1717 !global;
+  $status-error-color-hover: #b50202 !global;
+  $status-success-color: #01ba1d !global;
+  $status-warning-color: #ff9b00 !global;
+  $status-neutral-color: #2193ff !global;
+
+  $status-bg-error-color: #fdd8d8 !global;
+  $status-bg-success-color: #d0f1d5 !global;
+  $status-bg-warning-color: #ffebcc !global;
+  $status-bg-neutral-color: #c7e4ff !global;
+
+  // element-margin
+  $element-margin-right: 8px !global;
+  $element-margin-bottom: 12px !global;
+}

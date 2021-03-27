@@ -1,6 +1,5 @@
 import React from 'react';
-import { Search } from './search';
-import './search.stories.scss';
+import { Search } from '../../';
 
 export default {
   title: 'General/Search',
@@ -10,7 +9,7 @@ export default {
 export const InputStoryBook = () => {
   return (
     <div>
-      <Search placeHolder="请输入" />
+      <Search placeholder="请输入" />
     </div>
   );
 };

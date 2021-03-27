@@ -1,89 +1,100 @@
-.pui-textarea {
-  margin-right: $element-margin-right;
-  margin-bottom: $element-margin-bottom;
-  position: relative;
-  display: inline-block;
+@import '../../styles/theme/';
 
-  .label {
-    font-size: 16px;
-    margin-bottom: 5px;
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
 
-    span {
-      color: $status-error-color;
-      font-size: 23px;
-      position: absolute;
+    .pui-textarea {
+      margin-right: $element-margin-right;
+      margin-bottom: $element-margin-bottom;
+      position: relative;
+      display: inline-block;
+
+      .label {
+        font-size: 16px;
+        margin-bottom: 5px;
+
+        span {
+          color: $status-error-color;
+          font-size: 23px;
+          position: absolute;
+        }
+      }
+
+      &-char-count {
+        position: absolute;
+        right: 2px;
+        margin-top: -35px;
+        text-align: right;
+        padding: 2px 6px;
+        width: calc(100% - 4px);
+        box-sizing: border-box;
+        color: $text-color-1;
+        span {
+          color: $text-opacity-color-2;
+        }
+      }
+
+      &-labelPosition-left {
+        .label {
+          float: left;
+          padding-top: 14px;
+          margin-right: 15px;
+        }
+      }
+
+      textarea {
+        color: $text-color-1;
+        font-size: 16px;
+        background-color: $background-color-2;
+        border: 1px solid $border-color-3;
+        padding: 12px;
+        min-width: 272px;
+        width: 100%;
+        resize: none;
+        caret-color: $brand-color;
+        line-height: 24px;
+        min-height: 72px;
+
+        &::placeholder {
+          color: $text-opacity-color-2;
+          opacity: 1; /* Firefox */
+        }
+
+        &:-ms-input-placeholder {
+          color: $text-opacity-color-2;
+        }
+
+        &::-ms-input-placeholder {
+          color: $text-opacity-color-2;
+        }
+      }
+
+      textarea:hover {
+        border-color: $border-color-5;
+      }
+
+      textarea:disabled {
+        background: $container-bg-opacity-color-3;
+        border: 1px solid $border-color-2;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+
+      &-error-true {
+        textarea {
+          border: 2px solid $status-error-color;
+        }
+        textarea:hover {
+          border: 2px solid $status-error-color-hover;
+        }
+      }
+
+      .error-text {
+        font-size: 14px;
+        color: $status-error-color;
+        margin-top: 5px;
+      }
     }
-  }
-
-  &-char-count {
-    position: absolute;
-    right: 2px;
-    margin-top: -28px;
-    text-align: right;
-    padding: 2px 6px;
-    width: calc(100% - 4px);
-    box-sizing: border-box;
-    color: $text-color-1;
-    span {
-      color: $text-opacity-color-2;
-    }
-  }
-
-  &-labelPosition-left {
-    .label {
-      float: left;
-      padding-top: 14px;
-      margin-right: 15px;
-    }
-  }
-
-  textarea {
-    color: $text-color-1;
-    background-color: $background-color-2;
-    border: 1px solid $border-color-3;
-    padding: 12px;
-    width: 272px;
-    resize: none;
-    caret-color: $brand-color;
-    line-height: 24px;
-
-    &::placeholder {
-      color: $text-opacity-color-2;
-      opacity: 1; /* Firefox */
-    }
-
-    &:-ms-input-placeholder {
-      color: $text-opacity-color-2;
-    }
-
-    &::-ms-input-placeholder {
-      color: $text-opacity-color-2;
-    }
-  }
-
-  textarea:hover {
-    border-color: $border-color-5;
-  }
-
-  textarea:disabled {
-    background: $container-bg-opacity-color-3;
-    border: 1px solid $border-color-2;
-    cursor: not-allowed;
-    opacity: 1;
-  }
-
-  &-error-true {
-    textarea {
-      border: 2px solid $status-error-color;
-    }
-    textarea:hover {
-      border: 2px solid $status-error-color-hover;
-    }
-  }
-
-  .error-text {
-    font-size: 14px;
-    color: $status-error-color;
-    margin-top: 5px;
   }
 }

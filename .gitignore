@@ -16,6 +16,10 @@ node_modules
 /libs/**/dist
 /libs/**/storybook-static
 
+/libs/react/es
+/libs/react/lib
+/libs/react/override.scss
+
 # misc
 .DS_Store
 .env.local
