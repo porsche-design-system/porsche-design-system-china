@@ -12,12 +12,8 @@
       cursor: pointer;
       color: $text-color-1;
 
-      &:hover {
-        background-color: $container-bg-opacity-color-2;
-        font-weight: 600;
-      }
-
       input {
+        cursor: pointer;
         border: 1px solid $border-color-3;
         background-color: transparent;
         width: 16px;

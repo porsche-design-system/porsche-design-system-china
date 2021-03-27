@@ -1,7 +1,7 @@
 import React from 'react';
-import { MessageType } from './message';
+import { MessageType } from '../../kits/message/message';
 import { withKnobs, text, color, select, number } from '@storybook/addon-knobs';
-import { Button, message } from '../../';
+import { Button, message } from '../..';
 
 const Options: MessageType[] = ['info', 'success', 'error', 'warning', 'loading', 'default'];
 
