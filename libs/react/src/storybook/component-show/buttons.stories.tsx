@@ -1,3 +1,4 @@
+import { IconAdd, IconArrowRight, IconBell, IconEdit } from '@pui/icons';
 import React from 'react';
 import { Col, Row, Button } from '../../';
 
@@ -58,6 +59,30 @@ export const ButtonsStoryBook = () => {
       {buttonTypes.map(type => {
         return renderButtonType(type);
       })}
+      <br />
+      <br />
+      <div>
+        <div>ICON BUTTON</div>
+        <br />
+        <div>
+          <Button icon={<IconArrowRight />} />
+          <Button type="primary" icon={<IconAdd />} />
+          <Button type="secondary" icon={<IconEdit />} />
+          <Button type="text" icon={<IconArrowRight />} />
+        </div>
+        <div>
+          <Button icon={<IconArrowRight />}>进入</Button>
+          <Button type="primary" icon={<IconAdd />}>
+            添加
+          </Button>
+          <Button type="secondary" icon={<IconEdit />}>
+            编辑
+          </Button>
+          <Button type="text" icon={<IconBell />}>
+            提醒
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

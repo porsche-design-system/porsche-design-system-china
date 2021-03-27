@@ -1,5 +1,6 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { IconDuration } from '@pui/icons';
 
 import './button.scss';
 
@@ -45,16 +46,27 @@ const Button = ({
   onClick,
   onMouseDown
 }: Props) => {
+  let paddingStyle = {};
+  if (!children) {
+    paddingStyle = { padding: '0 11px' };
+  } else if (icon || loading) {
+    paddingStyle = { paddingLeft: '11px' };
+  }
+
   return (
     <button
       type="button"
       className={componentClassNames('pui-button', { type, size }, className)}
-      style={style}
+      style={{ ...paddingStyle, ...style }}
       onClick={onClick}
       onMouseDown={onMouseDown}
       disabled={disabled || loading}
     >
-      {loading && <span className="pui-button-icon">O</span>}
+      {loading && (
+        <span className="pui-button-icon">
+          <IconDuration className="pui-spin" />
+        </span>
+      )}
       {icon && <span className="pui-button-icon">{icon}</span>}
       {children}
     </button>

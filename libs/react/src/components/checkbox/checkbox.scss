@@ -12,11 +12,6 @@
       cursor: pointer;
       color: $text-color-1;
 
-      &:hover {
-        background-color: $container-bg-opacity-color-2;
-        font-weight: 600;
-      }
-
       input {
         border: 1px solid $border-color-3;
         background-color: transparent;
@@ -50,10 +45,6 @@
         background-color: transparent;
         font-weight: normal;
         cursor: not-allowed;
-      }
-
-      &-checked-true {
-        font-weight: 600;
       }
     }
   }
