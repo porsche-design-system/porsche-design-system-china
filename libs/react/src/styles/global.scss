@@ -3,9 +3,15 @@
   font-family: 'Porsche Next', '黑体', '微软雅黑', 'SimHei', 'Helvetica', 'sans-serif';
   outline: none;
   -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
 
-.docs-story {
-  background-color: $background-color-2;
-  color: $text-color-1;
+.pui-theme-light {
+  background-color: white;
+  color: black;
+}
+
+.pui-theme-dark {
+  background-color: black;
+  color: white;
 }

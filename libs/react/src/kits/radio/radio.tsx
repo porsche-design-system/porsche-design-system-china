@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './radio.scss';
 
@@ -7,34 +7,42 @@ export interface Props {
 
   /** 类名 */
   className?: string;
-  /** 子组件 */
-  children?: React.ReactNode;
   /** 样式 */
   style?: CSSProperties;
 
-  /** 大小 */
-  size?: 'large' | 'middle' | 'small';
+  /* 标签 */
+  label?: string;
+
+  /* 值 */
+  value?: string | number;
+
   /** 是否禁用 */
   disabled?: boolean;
 
   // 组件事件 //
 
   /* 点击事件 */
-  onClick?: React.MouseEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 /**
  * Primary UI component for user interaction
  */
-const Radio = ({ className, style, size = 'middle', children, onClick }: Props) => {
+let idCounter = 0;
+const generateId = () => {
+  idCounter++;
+  return 'checkbox-' + idCounter;
+};
+const Radio = ({ className, style, disabled, label, onChange }: Props) => {
+  const id = useMemo(() => generateId(), []);
   return (
-    <div
-      className={componentClassNames('pui-radio', { size }, className)}
+    <label
+      htmlFor={id}
+      className={componentClassNames('pui-radio', { disabled: disabled + '' }, className)}
       style={style}
-      onClick={onClick}
     >
-      <input type="radio" />
-    </div>
+      <input id={id} name="default" type="radio" onChange={onChange} disabled={disabled} /> {label}
+    </label>
   );
 };
 

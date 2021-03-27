@@ -16,7 +16,7 @@ export interface Props {
   style?: CSSProperties;
 
   /* 占位符 */
-  placeHolder?: string;
+  placeholder?: string;
   /* 是否禁用 */
   disabled?: boolean;
 
@@ -27,12 +27,12 @@ export interface Props {
   onSearch?: (value: string) => void;
 }
 
-const Search = ({ className, style, placeHolder, disabled = false, onChange, onSearch }: Props) => {
+const Search = ({ className, style, placeholder, disabled = false, onChange, onSearch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
-      <Input onChange={onChange} disabled={disabled} placeHolder={placeHolder} />
+      <Input onChange={onChange} disabled={disabled} placeholder={placeholder} />
       <Button
         icon={<IconSearch style={{ transform: 'rotateY(180deg)' }} />}
         type="secondary"

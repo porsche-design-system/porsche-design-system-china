@@ -1,9 +1,17 @@
-.pui-search {
-  .pui-input {
-    margin-right: 0;
-  }
+@import '../../styles/theme/';
 
-  input {
-    border-right: none;
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-search {
+      .pui-input {
+        margin-right: 0;
+      }
+
+      input {
+        border-right: none;
+      }
+    }
   }
 }
