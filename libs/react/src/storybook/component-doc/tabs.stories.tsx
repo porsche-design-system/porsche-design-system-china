@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from '../../';
+import { Tabs, Input } from '../../';
 const { TabPane } = Tabs;
 
 export default {
@@ -25,7 +25,9 @@ export const TabsStoryBook = () => {
         </Tabs>
 
         <Tabs activeKey="0" size="small">
-          <TabPane tab="标题一" key="0"></TabPane>
+          <TabPane tab="标题一" key="0">
+            <Input />
+          </TabPane>
           <TabPane tab="标题二" key="1"></TabPane>
           <TabPane tab="标题三" key="2"></TabPane>
         </Tabs>
