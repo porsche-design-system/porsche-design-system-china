@@ -27,22 +27,25 @@ const Tabs = ({ className, style, size = 'middle', activeKey = '0', children }: 
   useEffect(() => {
     if (children) {
       let found = false;
-      children.forEach((child: React.ReactChild, index: number) => {
-        console.log('child', child);
-
+      children.forEach((child: React.ReactChild, index: number) => {   
         if (child.key === currentKey) {
-          setContent(child.props.children);
-          found = true;
+            found = true;
+            if(child.props.disabled){
+               return;
+            }else{
+                setContent(child.props.children);
+            }
         }
       });
 
       if (!found) {
-        console.log('not found currentKey', currentKey, children);
-        setContent(
-          children[currentKey].props.children
-            ? children[currentKey].props.children
-            : children[0].props.children
-        );
+          if(!children[currentKey].props.disabled){
+            setContent(
+                children[currentKey].props.children
+                  ? children[currentKey].props.children
+                  : children[0].props.children
+              );
+          }      
       }
     }
   }, [currentKey]);
@@ -52,16 +55,21 @@ const Tabs = ({ className, style, size = 'middle', activeKey = '0', children }: 
         {children &&
           children.length &&
           children.map((child: React.ReactNode, index: number) => {
+            
             return (
               <div
                 className={componentClassNames(
                   'pui-tab',
                   { size },
-                  { active: currentKey === child.key || currentKey === index + '' }
+                  { active: currentKey === child.key || currentKey === index + '',  disabled:child.props.disabled}
+                 
                 )}
                 style={child.props.style}
                 key={child.key || index + ''}
                 onClick={() => {
+                   if(child.props.disabled){
+                       return ;
+                   }
                    if(child.props.onClick){
                        child.props.onClick();   
                    }
@@ -88,13 +96,16 @@ interface TabPaneProps {
   /** 样式 */
   style?: CSSProperties;
 
+    /** 是否禁用 */
+  disabled?: boolean;
+
   /* 点击事件 */
   onClick?: React.MouseEventHandler;
 }
 
-Tabs.TabPane = ({ tab, style, children, key, onClick }: TabPaneProps) => {
+Tabs.TabPane = ({ tab, style, children, key, disabled,onClick }: TabPaneProps) => {
   return (
-    <div style={style} onClick={onClick} key={key}>
+    <div style={style} onClick={onClick} key={key} disabled={disabled}>
       <div>{tab}</div>
       <div>{children}</div>
     </div>
