@@ -1,0 +1,57 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .pui-tabs {
+      .pui-tabs-header {
+        display: flex;
+        align-items: center;
+
+        .pui-tab {
+          margin-right: 8px;
+          padding: 8px;
+          cursor: pointer;
+
+          &-size-large{
+            font-size: 24px;
+          }
+
+          &-size-middle{
+            font-size:20px;
+          }
+          &-size-small{
+            font-size:16px;
+
+          }
+
+          &.active {
+            &::after {
+              display: block;
+              content: '';
+              height: 3px;
+              background-color: $brand-color;
+            }
+          }
+
+          &.disabled{
+            color:$text-opacity-color-2;
+            cursor:not-allowed;
+
+            &.active {
+              &::after {
+                display: block;
+                content: '';
+                height: 3px;
+                background-color: transparent;
+              }
+            }
+          }
+        }
+      }
+
+      .pui-tabs-body {
+      }
+    }
+  }
+}
