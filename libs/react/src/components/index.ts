@@ -8,5 +8,7 @@ export { Row } from './row/row';
 export { Search } from './search/search';
 export { Select } from './select/select';
 export { TextArea } from './textarea/textarea';
+export { Tabs } from './tabs/tabs';
+export { Modal } from './modal/modal';
 export { message } from './message/message';
 export { PUITheme } from './pui-theme/pui-theme';
