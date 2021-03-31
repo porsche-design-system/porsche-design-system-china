@@ -4,4 +4,3 @@ export { generateIcons } from "./generateIcons";
 export { generateTemplate } from "./generateTemplate";
 export { generateExport } from "./generateExport";
 export { generatePostCompile } from "./generatePostCompile";
-export { generateStorybook } from "./generateStorybook";
