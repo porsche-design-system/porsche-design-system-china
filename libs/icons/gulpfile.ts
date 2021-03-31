@@ -7,8 +7,7 @@ import {
   generateIcons,
   generateTemplate,
   generateExport,
-  generatePostCompile,
-  generateStorybook
+  generatePostCompile
 } from "./tasks";
 
 import { assignAttrsAtTag } from "./plugins";
@@ -89,7 +88,6 @@ export default series(
       path: `./${name}`
     })
   })
-  // generateStorybook()
 );
 
 export const entry = series(
