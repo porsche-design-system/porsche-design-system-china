@@ -26,6 +26,12 @@ export interface Props {
   /** 对话框是否可见 */
   visible?: boolean;
 
+  /** 确认按钮文字 */
+  okText?:string; 
+
+  /** 取消按钮文字 */
+  cancelText?:string;
+
   // 组件事件 //
 
   /* 点击确定回调 */
@@ -42,6 +48,8 @@ const Modal = ({
   visible = false,
   title,
   children,
+  okText='确认',
+  cancelText='取消',
   onOk,
   onCancel
 }: Props) => {
@@ -68,9 +76,9 @@ const Modal = ({
             </div>
             <div className="pui-modal-body">{children}</div>
             <div className="pui-modal-footer">
-              <Button onClick={() => onCancel && onCancel()} icon={<IconClose/>}>取消</Button>{' '}
+              <Button onClick={() => onCancel && onCancel()} icon={<IconClose/>}>{cancelText}</Button>{' '}
               <Button type="primary" icon={<IconArrowHeadRight />} onClick={() => onOk && onOk()}>
-                确定
+                {okText}
               </Button>
             </div>
           </div>

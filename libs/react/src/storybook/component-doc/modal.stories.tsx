@@ -16,14 +16,10 @@ export const ModalStoryBook = () => {
     setIsModalVisible(false);
   }
   return <>
-  <Modal title='模式框标题' visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-    内容
-    <p>
-    <Input label="用户名" />
-    </p>
-    <p>
-      <Input label="密码" />
-    </p>
+  <Modal title='用户协议' okText='同意' cancelText='我考虑一下' visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+   
+      根据中华人民共和国...
+   
   </Modal>
   <Button onClick={()=>setIsModalVisible(true)} type="primary">显示模式框</Button>
   </>;
