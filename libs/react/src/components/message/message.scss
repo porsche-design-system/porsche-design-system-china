@@ -12,15 +12,23 @@
         animation: closeAnimate 0.2s ease-in;
       }
       .message-text {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         line-height: 40px;
         padding: 10px 16px;
         color: black;
         font-size: 16px;
         font-weight: bold;
         margin: 10px;
-        box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
-          0 9px 28px 8px rgba(0, 0, 0, 0.05);
+        // box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        //   0 9px 28px 8px rgba(0, 0, 0, 0.05);
+        .porscheicon {
+          font-size: 28px;
+        }
+        .text-content {
+          margin-right: 20px;
+          margin-left: 10px;
+        }
         &.error {
           background: $status-bg-error-color;
         }
