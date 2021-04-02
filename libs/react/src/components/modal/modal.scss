@@ -1,0 +1,100 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-modal-root{
+        display: relative;
+        &.hide{
+            display:none;
+        }
+
+
+        .pui-modal-mask{
+            position: fixed;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+            height:100%;
+            z-index:1000;
+            background: $mask-color;
+        }
+
+        .pui-modal-wrap{
+            position: fixed;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+            z-index:1000;
+            overflow: hidden;
+
+            .pui-modal{
+                box-sizing: border-box;
+                position: relative;
+                top:100px;
+                width:540px;
+                max-width:calc(100vw - 32px);
+                max-height:calc(100vh - 200px);
+                margin:0 auto;
+                overflow: hidden; 
+                
+                .pui-modal-content{
+                    position: relative;
+                    background-color:$background-color-2;
+                    border:1px solid #979797;
+                    box-shadow:0px 8px 16px rgba(0, 0, 0, 0.15);
+
+                    .pui-modal-close{
+                        color:$text-color-1;
+                        position: absolute;
+                        display:flex;
+                        justify-content: center;
+                        align-items: center;
+                        top:17px;
+                        right:34px;
+                        z-index:10;
+                        padding:0;
+                        cursor: pointer;
+                        transition: color .3s;
+
+                        &:focus,&:hover{
+                            color:$text-opacity-color-1;
+                        }
+                     }
+
+                     .pui-modal-header{
+                        padding:40px 40px 24px 40px;
+                        color:$container-bg-active-color;
+                        .pui-modal-title{
+                            word-wrap: break-word;
+                            font-size:22px;
+                            line-height:32px;                 
+                        }
+                  
+                    }
+
+                    .pui-modal-body{
+                        padding: 0 40px;
+                        min-height:40px;
+                        max-height:calc(100vh - 400px);
+                        overflow: auto;
+                        -webkit-overflow-scrolling:touch;
+              
+                    }
+              
+                    .pui-modal-footer{
+                        padding: 24px;
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+
+
+   
+  }
+}
