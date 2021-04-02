@@ -1,5 +1,5 @@
-import React from 'react';
-import { Tabs, Input } from '../../';
+import React, { useState } from 'react';
+import { Tabs, Input,Button } from '../../';
 const { TabPane } = Tabs;
 
 export default {
@@ -8,29 +8,29 @@ export default {
 };
 
 export const TabsStoryBook = () => {
+  const [activeKey,setActiveKey]=useState('0');
   return (
     <div className="group">
       <div className="type">Sizes</div>
       <div className="showcase">
-        <Tabs activeKey="0" size="large">
-          <TabPane tab="标题一" key="0" disabled={true}></TabPane>
-          <TabPane tab="标题二" key="1"></TabPane>
-          <TabPane tab="标题三" key="2"></TabPane>
-        </Tabs>
+        
 
-        <Tabs size="middle">
-          <TabPane tab="标题一"></TabPane>
-          <TabPane tab="标题二" disabled={true}></TabPane>
-          <TabPane tab="标题三"></TabPane>
-        </Tabs>
-
-        <Tabs activeKey="0" size="small">
-          <TabPane tab="标题一" key="0">
-            <Input />
+        <Tabs size="middle" >
+          <TabPane tab="标题一">
+              内容一
           </TabPane>
-          <TabPane tab="标题二" key="1"></TabPane>
-          <TabPane tab="标题三" key="2"></TabPane>
+          <TabPane tab="标题二" disabled={true}>内容二</TabPane>
+          <TabPane tab="标题三"><Input label="用户名" /></TabPane>
         </Tabs>
+
+        <Tabs defaultActiveKey="2" size="small">
+          <TabPane tab="标题一" key="0">
+          内容一
+          </TabPane>
+          <TabPane tab="标题二" key="1"><Input label="用户名" /></TabPane>
+          <TabPane tab="标题三" key="2">内容三</TabPane>
+        </Tabs>
+       
       </div>
     </div>
   );

@@ -4,46 +4,66 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
     .pui-tabs {
+      position: relative;
       .pui-tabs-header {
         display: flex;
         align-items: center;
 
         .pui-tab {
-          margin-right: 8px;
-          padding: 8px;
+          color: $text-color-1;
+          position: relative;
           cursor: pointer;
+          margin: 12px 16px;
 
-          &-size-large{
+          &-size-middle {
             font-size: 24px;
           }
-
-          &-size-middle{
-            font-size:20px;
-          }
-          &-size-small{
-            font-size:16px;
-
+          &-size-small {
+            font-size: 16px;
           }
 
-          &.active {
+          &:hover {
+            color: $brand-color;
+
             &::after {
-              display: block;
               content: '';
-              height: 3px;
+              height: 2px;
+              width: 100%;
+              display: block;
+              position: absolute;
+              bottom: -12px;
+              left: 0px;
               background-color: $brand-color;
             }
           }
 
-          &.disabled{
-            color:$text-opacity-color-2;
-            cursor:not-allowed;
+          &.active {
+            color: $brand-color;
+            &::after {
+              content: '';
+              height: 2px;
+              width: 100%;
+              display: block;
+              position: absolute;
+              bottom: -12px;
+              left: 0px;
+              background-color: $brand-color;
+            }
+          }
 
-            &.active {
+          &.disabled {
+            color: $text-color-1;
+            opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
               &::after {
-                display: block;
-                content: '';
-                height: 3px;
-                background-color: transparent;
+                display: none;
+              }
+            }
+
+            &.active{
+              &::after{
+                display: none;
               }
             }
           }
@@ -51,6 +71,16 @@
       }
 
       .pui-tabs-body {
+        padding: 12px 16px;
+
+        .pui-tabs-content{
+          display: none;
+
+          &.active{
+            display:block;
+          }
+        }
+
       }
     }
   }
