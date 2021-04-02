@@ -61,8 +61,8 @@
               }
             }
 
-            &.active{
-              &::after{
+            &.active {
+              &::after {
                 display: none;
               }
             }
@@ -73,14 +73,13 @@
       .pui-tabs-body {
         padding: 12px 16px;
 
-        .pui-tabs-content{
+        .pui-tabs-content {
           display: none;
 
-          &.active{
-            display:block;
+          &.active {
+            display: block;
           }
         }
-
       }
     }
   }
