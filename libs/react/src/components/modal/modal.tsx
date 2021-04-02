@@ -1,4 +1,4 @@
-import { IconArrowHeadRight,IconClose } from '@pui/icons';
+import { IconArrowHeadRight, IconClose } from '@pui/icons';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from '..';
@@ -21,16 +21,16 @@ export interface Props {
   size?: 'large' | 'middle' | 'small';
 
   /** 标题 */
-  title?:string;
+  title?: string;
 
   /** 对话框是否可见 */
   visible?: boolean;
 
   /** 确认按钮文字 */
-  okText?:string; 
+  okText?: string;
 
   /** 取消按钮文字 */
-  cancelText?:string;
+  cancelText?: string;
 
   // 组件事件 //
 
@@ -48,8 +48,8 @@ const Modal = ({
   visible = false,
   title,
   children,
-  okText='确认',
-  cancelText='取消',
+  okText = '确认',
+  cancelText = '取消',
   onOk,
   onCancel
 }: Props) => {
@@ -69,14 +69,16 @@ const Modal = ({
                 onCancel && onCancel();
               }}
             >
-              <IconClose/>
+              <IconClose />
             </div>
             <div className="pui-modal-header">
               <div className="pui-modal-title">{title}</div>
             </div>
             <div className="pui-modal-body">{children}</div>
             <div className="pui-modal-footer">
-              <Button onClick={() => onCancel && onCancel()} icon={<IconClose/>}>{cancelText}</Button>{' '}
+              <Button onClick={() => onCancel && onCancel()} icon={<IconClose />}>
+                {cancelText}
+              </Button>{' '}
               <Button type="primary" icon={<IconArrowHeadRight />} onClick={() => onOk && onOk()}>
                 {okText}
               </Button>
