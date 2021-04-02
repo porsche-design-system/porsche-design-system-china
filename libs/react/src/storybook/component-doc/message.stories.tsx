@@ -1,9 +1,6 @@
 import React from 'react';
-import { MessageType } from '../../kits/message/message';
-import { withKnobs, text, color, select, number } from '@storybook/addon-knobs';
+import { withKnobs, text, number } from '@storybook/addon-knobs';
 import { Button, message } from '../..';
-
-const Options: MessageType[] = ['info', 'success', 'error', 'warning', 'loading', 'default'];
 
 export default {
   title: 'General/Message',
@@ -11,16 +8,13 @@ export default {
 };
 
 export const knobsMessage = () => {
-  const se = select<MessageType>('iconType', Options, 'default');
   const op = {
     delay: number('delay', 2000),
-    animationDuring: number('animationDuring', 300),
-    background: color('background', '#fff'),
-    color: color('color', '#333')
+    animationDuring: number('animationDuring', 300)
   };
   const tx = text('content', 'hello message');
-  const onClick = (type: string) => {
-    message[type](tx, op);
+  const onClick = (type: string, config?: any) => {
+    message[type](tx, config || op);
   };
 
   return (
@@ -36,6 +30,9 @@ export const knobsMessage = () => {
       </Button>
       <Button onClick={() => onClick('error')} type="primary">
         Error
+      </Button>
+      <Button onClick={() => onClick('info', { closeble: true })} type="default">
+        Closeable
       </Button>
     </div>
   );

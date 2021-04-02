@@ -1,5 +1,6 @@
-import React, { ReactNode, useMemo, useState, useEffect } from 'react';
+import React, { ReactNode, useMemo, useState, useEffect, useCallback } from 'react';
 import ReactDom, { unmountComponentAtNode } from 'react-dom';
+import { IconInformation, IconClose } from '@pui/icons';
 import './message.scss';
 export type MessageType = 'info' | 'success' | 'error' | 'warning' | 'loading' | 'default';
 
@@ -14,12 +15,15 @@ export interface MessageConfig {
   background: string;
   /** 文字颜色*/
   color: string;
+  /** 是否手动关闭 */
+  closeble: boolean;
 }
 
 const defaultConfig: MessageConfig = {
   mount: document.body,
   delay: 1000,
   callback: null,
+  closeble: false,
   background: '',
   color: ''
 };
@@ -42,8 +46,7 @@ export const createMessage = (type: MessageType) => {
       z-index: 100000;
       width: 100%;
       top: 16px;
-      left: 0;
-      pointer-events: none;`;
+      left: 0;`;
       if (wrap) {
         fconfig.mount.appendChild(wrap); //挂body上
       }
@@ -86,30 +89,54 @@ export function Message(props: MessageProps) {
   }, [parentDom, rootDom]);
 
   useEffect(() => {
-    //结束操作
-    let closeStart = fconfig.delay - 0.2 * 1000;
-    let timer1 = window.setTimeout(
-      () => {
-        setClose(true);
-      },
-      closeStart > 0 ? closeStart : 0
-    );
-    let timer2 = window.setTimeout(() => {
-      setClose(false);
-      unmount();
-      if (fconfig.callback) {
-        fconfig.callback();
-      }
-    }, fconfig.delay);
+    let timer1: number;
+    let timer2: number;
+    if (!fconfig.closeble) {
+      // 自动关闭
+      let closeStart = fconfig.delay - 0.2 * 1000;
+      // 关闭动画
+      timer1 = window.setTimeout(
+        () => {
+          setClose(true);
+        },
+        closeStart > 0 ? closeStart : 0
+      );
+      // 卸载
+      timer2 = window.setTimeout(() => {
+        setClose(false);
+        unmount();
+        if (fconfig.callback) {
+          fconfig.callback();
+        }
+      }, fconfig.delay);
+    }
     return () => {
       window.clearTimeout(timer1);
       window.clearTimeout(timer2);
     };
   }, [unmount, fconfig]);
 
+  // 手动卸载
+  const handleClose = useCallback(() => {
+    if (fconfig.closeble) {
+      setClose(true);
+      setTimeout(() => {
+        unmount();
+        if (fconfig.callback) {
+          fconfig.callback();
+        }
+      }, 200);
+    }
+  }, [fconfig, unmount]);
+
   return (
     <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
-      <span className={`message-text ${iconType}`}>{content}</span>
+      <span className={`message-text ${iconType}`}>
+        {/* TODO: 图标根据类型匹配 */}
+        <IconInformation />
+        <span className="text-content">{content}</span>
+        {fconfig.closeble && <IconClose onClick={handleClose} />}
+      </span>
     </div>
   );
 }
