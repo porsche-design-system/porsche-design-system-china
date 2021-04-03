@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactElement } from 'react';
+import { IconLoadingDark, IconLoadingLight } from '@pui/icons';
 import { componentClassNames } from '../../shared/class-util';
-import { IconLoadingLight } from '@pui/icons';
 
 import './button.scss';
 
@@ -64,10 +64,18 @@ const Button = ({
     >
       {loading && (
         <span className="pui-button-icon">
-          <IconLoadingLight className="pui-spin" />
+          {type === 'default' && (
+            <IconLoadingLight className="pui-spin" style={{ color: 'transparent' }} />
+          )}
+          {(type === 'primary' || type === 'secondary') && (
+            <IconLoadingDark className="pui-spin" style={{ color: 'transparent' }} />
+          )}
+          {type === 'text' && (
+            <IconLoadingLight className="pui-spin" style={{ color: 'transparent' }} />
+          )}
         </span>
       )}
-      {icon && <span className="pui-button-icon">{icon}</span>}
+      {icon && !loading && <span className="pui-button-icon">{icon}</span>}
       {children}
     </button>
   );
