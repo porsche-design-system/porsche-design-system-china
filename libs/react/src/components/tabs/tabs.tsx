@@ -1,11 +1,9 @@
-import { chdir } from 'node:process';
 import React, {
   CSSProperties,
   ReactPortal,
   useEffect,
   useState,
   useMemo,
-  useLayoutEffect
 } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './tabs.scss';
