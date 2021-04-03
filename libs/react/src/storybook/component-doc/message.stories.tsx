@@ -1,18 +1,16 @@
 import React from 'react';
-import { withKnobs, text, number } from '@storybook/addon-knobs';
 import { Button, message } from '../..';
 
 export default {
-  title: 'General/Message',
-  decorators: [withKnobs]
+  title: 'General/Message'
 };
 
 export const knobsMessage = () => {
   const op = {
-    delay: number('delay', 2000),
-    animationDuring: number('animationDuring', 300)
+    delay: 2000,
+    animationDuring: 300
   };
-  const tx = text('content', 'hello message');
+  const tx = 'hello message';
   const onClick = (type: string, config?: any) => {
     message[type](tx, config || op);
   };
