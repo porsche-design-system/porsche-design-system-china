@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-import { IconDuration } from '@pui/icons';
+import { IconLoadingLight } from '@pui/icons';
 
 import './button.scss';
 
@@ -64,7 +64,7 @@ const Button = ({
     >
       {loading && (
         <span className="pui-button-icon">
-          <IconDuration className="pui-spin" />
+          <IconLoadingLight className="pui-spin" />
         </span>
       )}
       {icon && <span className="pui-button-icon">{icon}</span>}
