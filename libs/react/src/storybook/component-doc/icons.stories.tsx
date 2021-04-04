@@ -4,7 +4,7 @@ import * as Icons from '@pui/icons';
 import './icons.stories.scss';
 
 export default {
-  title: 'Icons/Icons'
+  title: 'Icon/Icons'
 };
 
 export const IconsStoryBook = () => {
