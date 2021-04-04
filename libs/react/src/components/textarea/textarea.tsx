@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
+import { IconAsterisk } from '@pui/icons';
 import { componentClassNames } from '../../shared/class-util';
 import './textarea.scss';
 
@@ -64,7 +65,9 @@ const TextArea = ({
     >
       <div className="label">
         {label}
-        <span>{label && required ? '*' : ''}</span>
+        <span>
+          {label && required ? <IconAsterisk style={{ fontSize: '10px', marginTop: '7px' }} /> : ''}
+        </span>
       </div>
       <textarea
         ref={(element: HTMLTextAreaElement) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Search } from '../..';
 
 export default {
-  title: 'General/Search',
+  title: 'Data Entry/Search',
   component: Search
 };
 

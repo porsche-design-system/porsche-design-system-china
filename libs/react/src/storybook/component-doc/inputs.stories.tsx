@@ -4,7 +4,7 @@ import { Input } from '../../';
 import './inputs.stories.scss';
 
 export default {
-  title: 'Component Show/Inputs'
+  title: 'Data Entry/Inputs'
 };
 
 export const InputsStoryBook = () => {

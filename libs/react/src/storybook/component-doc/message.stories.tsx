@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, message } from '../..';
 
 export default {
-  title: 'General/Message'
+  title: 'Feedback/Message'
 };
 
 export const knobsMessage = () => {

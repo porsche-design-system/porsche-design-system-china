@@ -2,7 +2,7 @@ import React from 'react';
 import { Radio, RadioGroup } from '../..';
 
 export default {
-  title: 'General/Radio',
+  title: 'Data Entry/Radio',
   component: Radio
 };
 
