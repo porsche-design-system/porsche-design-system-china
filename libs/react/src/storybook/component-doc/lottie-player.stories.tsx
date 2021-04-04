@@ -4,7 +4,7 @@ import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import '../../styles/index.scss';
 
 export default {
-  title: 'Component Show/LottiePlayer'
+  title: 'Other/LottiePlayer'
 };
 
 export const LottiePlayerStoryBook = () => {

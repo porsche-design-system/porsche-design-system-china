@@ -16,7 +16,7 @@ export interface Props {
   /** 类型 */
   type?: 'default' | 'primary' | 'secondary' | 'text';
   /** 大小 */
-  size?: 'large' | 'middle' | 'small';
+  size?: 'default' | 'small';
   /** 图标 */
   icon?: ReactElement;
   /** 是否加载中 */
@@ -39,7 +39,7 @@ const Button = ({
   children,
   style,
   type = 'default',
-  size = 'middle',
+  size = 'default',
   icon,
   loading = false,
   disabled = false,
@@ -64,14 +64,11 @@ const Button = ({
     >
       {loading && (
         <span className="pui-button-icon">
-          {type === 'default' && (
+          {(type === 'default' || type === 'text') && (
             <IconLoadingLight className="pui-spin" style={{ color: 'transparent' }} />
           )}
-          {(type === 'primary' || type === 'secondary') && (
+          {type === 'primary' && (
             <IconLoadingDark className="pui-spin" style={{ color: 'transparent' }} />
-          )}
-          {type === 'text' && (
-            <IconLoadingLight className="pui-spin" style={{ color: 'transparent' }} />
           )}
         </span>
       )}
