@@ -51,7 +51,7 @@ const TextArea = ({
 
   const updateHeight = (element: HTMLTextAreaElement) => {
     element.style.height = '5px';
-    element.style.height = element.scrollHeight + 'px';
+    element.style.height = element.scrollHeight + 20 + 'px';
   };
 
   return (
@@ -64,9 +64,20 @@ const TextArea = ({
       style={style}
     >
       <div className="label">
+        <span>
+          {label && required && labelPosition === 'left' ? (
+            <IconAsterisk style={{ fontSize: '10px' }} />
+          ) : (
+            ''
+          )}
+        </span>
         {label}
         <span>
-          {label && required ? <IconAsterisk style={{ fontSize: '10px', marginTop: '7px' }} /> : ''}
+          {label && required && labelPosition === 'top' ? (
+            <IconAsterisk style={{ fontSize: '10px' }} />
+          ) : (
+            ''
+          )}
         </span>
       </div>
       <textarea
