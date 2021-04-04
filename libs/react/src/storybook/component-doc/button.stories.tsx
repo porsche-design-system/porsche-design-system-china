@@ -12,7 +12,7 @@ import { Button, Col, Row } from '../../';
 import './button.stories.scss';
 
 export default {
-  title: 'General/Button',
+  title: 'Action/Button',
   component: Button
 };
 

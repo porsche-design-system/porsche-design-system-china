@@ -4,7 +4,7 @@ import { CheckBox } from '../../';
 import './checkbox.stories.scss';
 
 export default {
-  title: 'General/CheckBox',
+  title: 'Data Entry/CheckBox',
   component: CheckBox
 };
 
