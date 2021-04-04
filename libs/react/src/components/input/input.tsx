@@ -11,10 +11,15 @@ export interface Props {
   /* 样式 */
   style?: CSSProperties;
 
+  /* 类型 */
+  type?: 'text' | 'password';
+
   /* 标签 */
   label?: string;
   /* 标签位置 */
   labelPosition?: 'left' | 'top';
+  /* 标签宽度 */
+  labelWidth?: string;
   /* 占位符 */
   placeholder?: string;
   /* 最多输入字符数 */
@@ -39,31 +44,33 @@ const Input = ({
   className,
   style,
   label,
+  type = 'text',
   labelPosition = 'top',
   placeholder,
   maxLength,
   error = { show: false, text: '' },
   required = false,
   disabled = false,
+  labelWidth = 'auto',
   onChange
 }: Props) => {
   const [valueLength, setValueLength] = useState(0);
 
   return (
-    <div
-      className={componentClassNames(
-        'pui-input',
-        { labelPosition, error: error.show + '' },
-        className
-      )}
-      style={style}
-    >
+    <div className={componentClassNames('pui-input', { labelPosition, error: error.show + '' })}>
       {label && (
-        <div className="label">
+        <div className="pui-input-label" style={{ width: labelWidth }}>
+          <span>
+            {label && required && labelPosition === 'left' ? (
+              <IconAsterisk style={{ fontSize: '10px' }} />
+            ) : (
+              ''
+            )}
+          </span>
           {label}
           <span>
-            {label && required ? (
-              <IconAsterisk style={{ fontSize: '10px', marginTop: '7px' }} />
+            {label && required && labelPosition === 'top' ? (
+              <IconAsterisk style={{ fontSize: '10px' }} />
             ) : (
               ''
             )}
@@ -78,8 +85,11 @@ const Input = ({
         }}
         placeholder={placeholder}
         maxLength={maxLength}
+        type={type}
         onChange={onChange}
         disabled={disabled}
+        style={style}
+        className={className}
         onInput={event => {
           if (maxLength) {
             const inputLength = (event.target as any).value.length;
@@ -93,7 +103,7 @@ const Input = ({
           <span>/{maxLength}</span>
         </div>
       )}
-      <div className="error-text">{error.text}</div>
+      <div className="pui-input-error-text">{error.text}</div>
     </div>
   );
 };

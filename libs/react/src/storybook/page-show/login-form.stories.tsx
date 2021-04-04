@@ -11,13 +11,9 @@ export const LoginStoryBook = () => {
   return (
     <div className="form-wrap">
       <div className="top-title">用户登录</div>
-      <Input placeholder="用户名" className="full-width" />
-      <br />
-      <Input placeholder="密码" className="full-width" />
-      <br />
-      <Button type="primary" className="full-width">
-        提交
-      </Button>
+      <Input placeholder="用户名" />
+      <Input placeholder="密码" />
+      <Button type="primary">提 交</Button>
     </div>
   );
 };

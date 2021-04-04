@@ -32,6 +32,9 @@ const RadioGroup = ({ className, style, disabled = false, children, onChange, va
   const radioButtons = useRef<HTMLInputElement[]>();
 
   const refLoaded = (radioGroup: HTMLDivElement) => {
+    if (!radioGroup) {
+      return;
+    }
     radioButtons.current = [].slice.call(radioGroup.getElementsByTagName('input'));
     const radioGroupName = generateId();
     radioButtons.current.forEach(radioButton => {

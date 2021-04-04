@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Input, Row, TextArea } from '../../';
+import { Button, Col, Input, Row, TextArea } from '../..';
 
 export default {
   title: 'Page Show/Example'
@@ -19,7 +19,7 @@ export const ExampleStoryBook = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col span={12}>
           <TextArea label="家庭地址" />
         </Col>
       </Row>
