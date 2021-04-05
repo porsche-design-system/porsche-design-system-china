@@ -75,11 +75,14 @@ export const ButtonStoryBook = () => {
         <div className="show-case">
           <Button size="default">Default Size Button</Button>
           <Button size="small">Small Size Button</Button>
+          <Button size="small" type="primary">
+            Small Size Primary Button
+          </Button>
         </div>
       </div>
 
       <div className="group">
-        <div className="title">ICON BUTTON</div>
+        <div className="title">Icon Button</div>
         <br />
         <div>
           <Button icon={<IconArrowRight />} />
@@ -96,6 +99,27 @@ export const ButtonStoryBook = () => {
             编辑
           </Button>
           <Button type="text" icon={<IconBell />}>
+            提醒
+          </Button>
+        </div>
+      </div>
+
+      <div className="group">
+        <div className="title">Small Size Icon Button</div>
+        <div>
+          <Button icon={<IconArrowRight />} size="small" />
+          <Button type="primary" icon={<IconAdd />} size="small" />
+          <Button type="secondary" icon={<IconEdit />} size="small" />
+          <Button type="text" icon={<IconArrowRight />} size="small" />
+        </div>
+        <div>
+          <Button type="primary" icon={<IconAdd />} size="small">
+            添加
+          </Button>
+          <Button type="secondary" icon={<IconEdit />} size="small">
+            编辑
+          </Button>
+          <Button type="text" icon={<IconBell />} size="small">
             提醒
           </Button>
         </div>

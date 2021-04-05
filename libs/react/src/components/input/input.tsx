@@ -99,8 +99,10 @@ const Input = ({
       />
       {maxLength && (
         <div className="pui-input-char-count">
-          {valueLength}
-          <span>/{maxLength}</span>
+          {valueLength > 0 && valueLength}
+          <span>
+            {valueLength === 0 && valueLength}/{maxLength}
+          </span>
         </div>
       )}
       <div className="pui-input-error-text">{error.text}</div>

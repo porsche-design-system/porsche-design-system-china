@@ -11,6 +11,7 @@
       user-select: none;
       cursor: pointer;
       color: $text-color-1;
+      position: relative;
 
       input {
         cursor: pointer;
@@ -28,7 +29,17 @@
       }
 
       input:checked {
-        background-color: $container-bg-active-color;
+        border-color: $border-color-5;
+      }
+
+      input:checked ~ .pui-radio-checkmark {
+        border-radius: 50%;
+        background-color: $border-color-5;
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        left: 21px;
+        top: 19px;
       }
 
       input:disabled {
