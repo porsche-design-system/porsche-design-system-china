@@ -103,8 +103,10 @@ const TextArea = ({
       />
       {maxLength && (
         <div className="pui-textarea-char-count">
-          {valueLength}
-          <span>/{maxLength}</span>
+          {valueLength > 0 && valueLength}
+          <span>
+            {valueLength === 0 && valueLength}/{maxLength}
+          </span>
         </div>
       )}
       <div className="error-text">{error.text}</div>
