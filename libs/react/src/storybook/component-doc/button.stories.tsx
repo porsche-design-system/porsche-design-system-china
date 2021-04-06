@@ -75,6 +75,7 @@ export const ButtonStoryBook = () => {
         <div className="show-case">
           <Button size="default">Default Size Button</Button>
           <Button size="small">Small Size Button</Button>
+          <Button size="small">中文小按钮</Button>
           <Button size="small" type="primary">
             Small Size Primary Button
           </Button>
@@ -122,37 +123,43 @@ export const ButtonStoryBook = () => {
           <Button type="text" icon={<IconBell />} size="small">
             提醒
           </Button>
+          <Button type="primary" icon={<IconArrowRight />} size="small">
+            提交
+          </Button>
         </div>
       </div>
 
       <div className="group">
         <div className="title">Loading Button</div>
-        <Button
-          loading={loading}
-          type="primary"
-          icon={<IconArrowHeadRight />}
-          onClick={() => {
-            setLoading(true);
-            setTimeout(() => {
-              setLoading(false);
-            }, 2000);
-          }}
-        >
-          提交
-        </Button>
-        <Button
-          loading={loading2}
-          type="secondary"
-          icon={<IconArrowRight />}
-          onClick={() => {
-            setLoading2(true);
-            setTimeout(() => {
-              setLoading2(false);
-            }, 2000);
-          }}
-        >
-          提交
-        </Button>
+        <div>
+          <Button
+            loading={loading}
+            type="primary"
+            icon={<IconArrowHeadRight />}
+            onClick={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            }}
+          >
+            提交
+          </Button>
+          <Button
+            loading={loading2}
+            type="secondary"
+            icon={<IconArrowRight />}
+            size="small"
+            onClick={() => {
+              setLoading2(true);
+              setTimeout(() => {
+                setLoading2(false);
+              }, 2000);
+            }}
+          >
+            提交
+          </Button>
+        </div>
       </div>
 
       <div className="group">

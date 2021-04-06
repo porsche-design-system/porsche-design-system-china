@@ -12,6 +12,7 @@
       margin-bottom: $element-margin-bottom;
       transition: color 0.2s, background-color 0.2s;
       box-sizing: border-box;
+      overflow: hidden;
 
       &-icon {
         pointer-events: none;
@@ -19,7 +20,13 @@
         height: 24px;
         display: inline-block;
         overflow: hidden;
-        vertical-align: text-top;
+        vertical-align: middle;
+        position: relative;
+        .porscheicon {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
       }
 
       /* type */
@@ -112,16 +119,6 @@
         }
       }
 
-      /* size */
-      &-size-small {
-        font-size: 14px;
-        height: 36px;
-      }
-      &-size-default {
-        font-size: 16px;
-        height: 48px;
-      }
-
       &-loading-circle {
         fill: transparent;
         stroke: $text-color-1;
@@ -138,6 +135,7 @@
         stroke-width: 2;
         stroke-dasharray: 38;
         transform-origin: center;
+        transform: translate(0px, -1px);
         opacity: 0.3;
       }
 
@@ -155,9 +153,36 @@
         }
       }
 
+      /* size */
+      &-size-small {
+        font-size: 14px;
+        height: 36px;
+        padding: 0 11px;
+        line-height: 27px;
+        .porscheicon {
+          font-size: 20px;
+        }
+        .pui-button-icon {
+          width: 20px;
+          height: 20px;
+        }
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke-dasharray: 32;
+        }
+      }
+      &-size-default {
+        font-size: 16px;
+        height: 48px;
+        line-height: 25px;
+      }
+
       @keyframes pui-button-loading-rotate {
+        0% {
+          transform: translate(0px, -1px);
+        }
         100% {
-          transform: rotate(360deg);
+          transform: translate(0px, -1px) rotate(360deg);
         }
       }
 
