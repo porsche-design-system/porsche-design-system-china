@@ -5,7 +5,8 @@ import {
   IconArrowRight,
   IconEdit,
   IconAdd,
-  IconBell
+  IconBell,
+  IconClose
 } from '@pui/icons';
 
 import { Button, Col, Row } from '../../';
@@ -92,6 +93,7 @@ export const ButtonStoryBook = () => {
         </div>
         <div>
           <Button icon={IconArrowRight}>进入</Button>
+          <Button icon={IconClose}>关闭</Button>
           <Button type="primary" icon={IconAdd}>
             添加
           </Button>
