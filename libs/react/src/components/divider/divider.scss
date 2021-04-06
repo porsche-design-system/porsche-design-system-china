@@ -1,0 +1,34 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+	.pui-theme-#{$theme} {
+		@include theme($theme);
+
+		.pui-divider {
+
+			/* type */
+			&-type-vertical {
+				width: 1px;
+				height: 60px;
+			}
+
+			&-type-horizontal {
+				width: 200px;
+				height: 1px;
+			}
+
+			/* background */
+			&-background-low {
+				background: $border-color-1;
+			}
+
+			&-background-medium {
+				background: $border-color-2;
+			}
+
+			&-background-high {
+				background: $border-color-3;
+			}
+		}
+	}
+}
