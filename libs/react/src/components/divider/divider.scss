@@ -6,25 +6,27 @@
 
 		.pui-divider {
 
-			&.vertical {
+			/* type */
+			&-type-vertical {
 				width: 1px;
 				height: 60px;
 			}
 
-			&.horizontal {
+			&-type-horizontal {
 				width: 200px;
 				height: 1px;
 			}
 
-			&.low {
+			/* background */
+			&-background-low {
 				background: $border-color-1;
 			}
 
-			&.medium {
+			&-background-medium {
 				background: $border-color-2;
 			}
 
-			&.high {
+			&-background-high {
 				background: $border-color-3;
 			}
 		}

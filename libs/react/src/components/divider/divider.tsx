@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 import './divider.scss';
+import { componentClassNames } from '../../shared/class-util';
 
 export interface Props {
   /** 类名 */
@@ -16,7 +17,12 @@ export interface Props {
  * Primary UI component for user interaction
  */
 const Divider = ({ className, style, type = 'horizontal', background = 'low' }: Props) => {
-  return <div className={`pui-divider ${className} ${type} ${background}`} style={style}></div>;
+  return (
+    <div
+      className={componentClassNames('pui-divider', { type, background }, className)}
+      style={style}
+    ></div>
+  );
 };
 
 export { Divider };
