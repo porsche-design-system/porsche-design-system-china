@@ -52,7 +52,7 @@ const Radio = ({ className, style, disabled, value, label, onChange, checked }: 
         onChange={onChange}
         disabled={disabled}
         defaultChecked={checked}
-      />{' '}
+      />
       <span className="pui-radio-checkmark" />
       {label}
     </label>

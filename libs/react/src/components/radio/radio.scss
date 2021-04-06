@@ -17,11 +17,13 @@
         cursor: pointer;
         border: 1px solid $border-color-3;
         background-color: transparent;
-        width: 16px;
-        height: 16px;
+        width: 24px;
+        height: 24px;
         display: inline-block;
         vertical-align: top;
         border-radius: 50%;
+        margin: 0;
+        margin-right: 8px;
       }
 
       input:hover {
@@ -34,12 +36,12 @@
 
       input:checked ~ .pui-radio-checkmark {
         border-radius: 50%;
-        background-color: $border-color-5;
-        width: 8px;
-        height: 8px;
+        background-color: $container-bg-active-color;
+        width: 12px;
+        height: 12px;
         position: absolute;
-        left: 21px;
-        top: 19px;
+        left: 18px;
+        top: 18px;
       }
 
       input:disabled {
