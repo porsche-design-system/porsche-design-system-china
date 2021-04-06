@@ -100,7 +100,7 @@ const Button = ({
           )}
         </span>
       )}
-      {children}
+      <span className="pui-button-content">{children}</span>
     </button>
   );
 };

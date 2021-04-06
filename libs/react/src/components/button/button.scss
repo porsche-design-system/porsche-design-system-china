@@ -168,10 +168,21 @@
         .pui-button-loading-circle2 {
           stroke-dasharray: 32;
         }
+        .pui-button-content {
+          line-height: 22px;
+          display: inline-block;
+          vertical-align: top;
+        }
       }
+
       &-size-default {
         font-size: 16px;
         height: 48px;
+        .pui-button-content {
+          line-height: 24px;
+          display: inline-block;
+          vertical-align: top;
+        }
       }
 
       @keyframes pui-button-loading-rotate {
