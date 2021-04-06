@@ -46,11 +46,14 @@ const Button = ({
   onMouseDown
 }: Props) => {
   let paddingStyle = {};
+  const padding = size === 'default' ? '11px' : '7px';
   if (!children) {
-    paddingStyle = { padding: '0 11px' };
+    paddingStyle = { padding: '0 ' + padding };
   } else if (icon || loading) {
-    paddingStyle = { paddingLeft: '11px' };
+    paddingStyle = { paddingLeft: padding };
   }
+
+  const loadingSize = size === 'default' ? 24 : 20;
 
   return (
     <button
@@ -67,9 +70,19 @@ const Button = ({
     >
       {loading && (
         <span className="pui-button-icon">
-          <svg height="24" width="24">
-            <circle className="pui-button-loading-circle2" cx="12" cy="12" r="6" />
-            <circle className="pui-button-loading-circle" cx="12" cy="12" r="6" />
+          <svg height={loadingSize} width={loadingSize}>
+            <circle
+              className="pui-button-loading-circle2"
+              cx={loadingSize / 2}
+              cy={loadingSize / 2}
+              r={loadingSize / 4}
+            />
+            <circle
+              className="pui-button-loading-circle"
+              cx={loadingSize / 2}
+              cy={loadingSize / 2}
+              r={loadingSize / 4}
+            />
           </svg>
         </span>
       )}
