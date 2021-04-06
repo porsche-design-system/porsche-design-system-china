@@ -1,7 +1,12 @@
+type ThemeName = 'light' | 'dark';
 export const PUITheme = {
-  set(themeName: 'light' | 'dark') {
+  set(themeName: ThemeName) {
+    this['_themeName'] = themeName;
     document.body.className =
       document.body.className.replace(/pui-theme-[^ ]+/, '') + ' pui-theme-' + themeName;
+  },
+  get() {
+    return this['_themeName'] as ThemeName;
   }
 };
 

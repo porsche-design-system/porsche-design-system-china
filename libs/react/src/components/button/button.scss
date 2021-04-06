@@ -19,7 +19,6 @@
         height: 24px;
         display: inline-block;
         overflow: hidden;
-        vertical-align: sub;
         vertical-align: text-top;
       }
 
@@ -54,6 +53,7 @@
 
       &-type-primary {
         background-color: $brand-color;
+        border: 1px solid $brand-color;
         color: $text-white-color;
         &:hover,
         &-hover {
@@ -73,6 +73,7 @@
 
       &-type-secondary {
         background-color: $container-bg-color-7;
+        border: 1px solid $container-bg-color-7;
         color: $text-color-2;
         &:hover,
         &-hover {
@@ -93,6 +94,7 @@
       &-type-text {
         color: $text-link-color;
         background-color: transparent;
+        border: 1px solid transparent;
         border: none;
         &:hover,
         &-hover {
@@ -112,12 +114,63 @@
 
       /* size */
       &-size-small {
-        font-size: 15px;
-        height: 40px;
+        font-size: 14px;
+        height: 36px;
       }
       &-size-default {
         font-size: 16px;
         height: 48px;
+      }
+
+      &-loading-circle {
+        fill: transparent;
+        stroke: $text-color-1;
+        stroke-width: 2;
+        stroke-dasharray: 38;
+        transform-origin: center;
+        animation: pui-button-loading-rotate 1s linear infinite,
+          pui-button-loading-lenth-change 3s linear infinite;
+      }
+
+      &-loading-circle2 {
+        fill: transparent;
+        stroke: $text-color-1;
+        stroke-width: 2;
+        stroke-dasharray: 38;
+        transform-origin: center;
+        opacity: 0.3;
+      }
+
+      &-type-primary {
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke: $text-white-color;
+        }
+      }
+
+      &-type-secondary {
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke: $text-color-2;
+        }
+      }
+
+      @keyframes pui-button-loading-rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pui-button-loading-lenth-change {
+        0% {
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 20;
+        }
+        100% {
+          stroke-dashoffset: 0;
+        }
       }
     }
   }
