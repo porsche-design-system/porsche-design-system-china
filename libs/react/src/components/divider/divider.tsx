@@ -10,16 +10,16 @@ export interface Props {
   /** 样式 */
   style?: CSSProperties;
   /** 底色*/
-  background?: 'low' | 'medium' | 'high';
+  contrast?: 'low' | 'medium' | 'high';
 }
 
 /**
  * Primary UI component for user interaction
  */
-const Divider = ({ className, style, type = 'horizontal', background = 'low' }: Props) => {
+const Divider = ({ className, style, type = 'horizontal', contrast = 'low' }: Props) => {
   return (
     <div
-      className={componentClassNames('pui-divider', { type, background }, className)}
+      className={componentClassNames('pui-divider', { type, contrast }, className)}
       style={style}
     ></div>
   );
