@@ -14,7 +14,7 @@ export const LoginStoryBook = () => {
       <div className="top-title">用户登录</div>
       <Input placeholder="用户名" />
       <Input placeholder="密码" />
-      <Button type="primary" icon={IconArrowHeadRight}>
+      <Button type="primary" icon={IconArrowHeadRight} style={{ width: '100%' }}>
         提 交
       </Button>
     </div>
