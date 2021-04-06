@@ -1,5 +1,7 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { IconAdd } from '@pui/icons';
+type PUIIcon = typeof IconAdd;
 
 import './button.scss';
 
@@ -17,7 +19,7 @@ export interface Props {
   /** 大小 */
   size?: 'default' | 'small';
   /** 图标 */
-  icon?: ReactElement;
+  icon?: PUIIcon | ReactElement;
   /** 是否加载中 */
   loading?: boolean;
   /** 是否禁用 */
@@ -55,6 +57,8 @@ const Button = ({
 
   const loadingSize = size === 'default' ? 24 : 20;
 
+  const IconComponent = icon as any;
+
   return (
     <button
       type="button"
@@ -70,7 +74,7 @@ const Button = ({
     >
       {loading && (
         <span className="pui-button-icon">
-          <svg height={loadingSize} width={loadingSize}>
+          <svg height={loadingSize} width={loadingSize} className="pui-button-loading-svg">
             <circle
               className="pui-button-loading-circle2"
               cx={loadingSize / 2}
@@ -86,7 +90,16 @@ const Button = ({
           </svg>
         </span>
       )}
-      {icon && !loading && <span className="pui-button-icon">{icon}</span>}
+
+      {icon && !loading && (
+        <span className="pui-button-icon">
+          {IconComponent['$$typeof'].toString() === 'Symbol(react.element)' ? (
+            IconComponent
+          ) : (
+            <IconComponent />
+          )}
+        </span>
+      )}
       {children}
     </button>
   );

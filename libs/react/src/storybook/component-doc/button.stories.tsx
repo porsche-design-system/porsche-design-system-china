@@ -60,7 +60,7 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Types</div>
         <div className="show-case">
-          <Button type="default" icon={<IconArrowHeadRight />}>
+          <Button type="default" icon={IconArrowHeadRight}>
             Default Button
           </Button>
           <Button type="primary">Primary Button</Button>
@@ -86,20 +86,20 @@ export const ButtonStoryBook = () => {
         <div className="title">Icon Button</div>
         <br />
         <div>
-          <Button icon={<IconArrowRight />} />
-          <Button type="primary" icon={<IconAdd />} />
-          <Button type="secondary" icon={<IconEdit />} />
-          <Button type="text" icon={<IconArrowRight />} />
+          <Button icon={IconArrowRight} />
+          <Button type="primary" icon={IconAdd} />
+          <Button type="secondary" icon={IconEdit} />
+          <Button type="text" icon={IconArrowRight} />
         </div>
         <div>
-          <Button icon={<IconArrowRight />}>进入</Button>
-          <Button type="primary" icon={<IconAdd />}>
+          <Button icon={IconArrowRight}>进入</Button>
+          <Button type="primary" icon={IconAdd}>
             添加
           </Button>
-          <Button type="secondary" icon={<IconEdit />}>
+          <Button type="secondary" icon={IconEdit}>
             编辑
           </Button>
-          <Button type="text" icon={<IconBell />}>
+          <Button type="text" icon={IconBell}>
             提醒
           </Button>
         </div>
@@ -108,22 +108,22 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Small Size Icon Button</div>
         <div>
-          <Button icon={<IconArrowRight />} size="small" />
-          <Button type="primary" icon={<IconAdd />} size="small" />
-          <Button type="secondary" icon={<IconEdit />} size="small" />
-          <Button type="text" icon={<IconArrowRight />} size="small" />
+          <Button icon={IconArrowRight} size="small" />
+          <Button type="primary" icon={IconAdd} size="small" />
+          <Button type="secondary" icon={IconEdit} size="small" />
+          <Button type="text" icon={IconArrowRight} size="small" />
         </div>
         <div>
-          <Button type="primary" icon={<IconAdd />} size="small">
+          <Button type="primary" icon={IconAdd} size="small">
             添加
           </Button>
-          <Button type="secondary" icon={<IconEdit />} size="small">
+          <Button type="secondary" icon={IconEdit} size="small">
             编辑
           </Button>
-          <Button type="text" icon={<IconBell />} size="small">
+          <Button type="text" icon={IconBell} size="small">
             提醒
           </Button>
-          <Button type="primary" icon={<IconArrowRight />} size="small">
+          <Button type="primary" icon={IconArrowRight} size="small">
             提交
           </Button>
         </div>
@@ -135,7 +135,7 @@ export const ButtonStoryBook = () => {
           <Button
             loading={loading}
             type="primary"
-            icon={<IconArrowHeadRight />}
+            icon={IconArrowHeadRight}
             onClick={() => {
               setLoading(true);
               setTimeout(() => {
@@ -148,7 +148,7 @@ export const ButtonStoryBook = () => {
           <Button
             loading={loading2}
             type="secondary"
-            icon={<IconArrowRight />}
+            icon={IconArrowRight}
             size="small"
             onClick={() => {
               setLoading2(true);
