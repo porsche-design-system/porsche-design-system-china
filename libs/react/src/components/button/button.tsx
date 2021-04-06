@@ -1,5 +1,4 @@
 import React, { CSSProperties, ReactElement } from 'react';
-import { IconLoadingDark, IconLoadingLight } from '@pui/icons';
 import { componentClassNames } from '../../shared/class-util';
 
 import './button.scss';
@@ -58,18 +57,20 @@ const Button = ({
       type="button"
       className={componentClassNames('pui-button', { type, size }, className)}
       style={{ ...paddingStyle, ...style }}
-      onClick={onClick}
+      onClick={evt => {
+        if (!loading) {
+          onClick && onClick(evt);
+        }
+      }}
       onMouseDown={onMouseDown}
       disabled={disabled || loading}
     >
       {loading && (
         <span className="pui-button-icon">
-          {(type === 'default' || type === 'text') && (
-            <IconLoadingLight className="pui-spin" style={{ color: 'transparent' }} />
-          )}
-          {type === 'primary' && (
-            <IconLoadingDark className="pui-spin" style={{ color: 'transparent' }} />
-          )}
+          <svg height="24" width="24">
+            <circle className="pui-button-loading-circle2" cx="12" cy="12" r="6" />
+            <circle className="pui-button-loading-circle" cx="12" cy="12" r="6" />
+          </svg>
         </span>
       )}
       {icon && !loading && <span className="pui-button-icon">{icon}</span>}
