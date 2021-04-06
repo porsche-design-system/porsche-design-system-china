@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconArrowHeadRight } from '@pui/icons';
 import { Button, Input } from '../../';
 
 import './login-form.stories.scss';
@@ -13,7 +14,9 @@ export const LoginStoryBook = () => {
       <div className="top-title">用户登录</div>
       <Input placeholder="用户名" />
       <Input placeholder="密码" />
-      <Button type="primary">提 交</Button>
+      <Button type="primary" icon={IconArrowHeadRight}>
+        提 交
+      </Button>
     </div>
   );
 };
