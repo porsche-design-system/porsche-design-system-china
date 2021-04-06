@@ -17,16 +17,16 @@
 				height: 1px;
 			}
 
-			/* background */
-			&-background-low {
+			/* contrast */
+			&-contrast-low {
 				background: $border-color-1;
 			}
 
-			&-background-medium {
+			&-contrast-medium {
 				background: $border-color-2;
 			}
 
-			&-background-high {
+			&-contrast-high {
 				background: $border-color-3;
 			}
 		}
