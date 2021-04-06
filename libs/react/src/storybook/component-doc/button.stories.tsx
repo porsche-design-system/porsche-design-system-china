@@ -24,9 +24,8 @@ export const ButtonStoryBook = () => {
   const renderButtonType = (type: any) => {
     return (
       <Row key={type}>
-        <Col>
-          <br />
-          {type}
+        <Col className="type-name">
+          <div>{type}</div>
         </Col>
         <Col>
           <Button type={type}>按钮</Button>
