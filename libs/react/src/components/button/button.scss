@@ -25,7 +25,7 @@
         .porscheicon {
           position: absolute;
           left: 0;
-          top: 1px;
+          top: 0;
         }
       }
 
@@ -162,9 +162,7 @@
         .pui-button-icon {
           width: 20px;
           height: 20px;
-          .pui-button-loading-svg {
-            margin-top: 1px;
-          }
+          margin-top: 1px;
         }
         .pui-button-loading-circle,
         .pui-button-loading-circle2 {
