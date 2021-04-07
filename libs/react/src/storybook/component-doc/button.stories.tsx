@@ -24,7 +24,7 @@ export const ButtonStoryBook = () => {
 
   const renderButtonType = (type: any) => {
     return (
-      <Row key={type}>
+      <Row key={type} style={{ marginBottom: '10px' }}>
         <Col className="type-name">
           <div>{type}</div>
         </Col>
@@ -91,6 +91,7 @@ export const ButtonStoryBook = () => {
           <Button type="secondary" icon={IconEdit} />
           <Button type="text" icon={IconArrowRight} />
         </div>
+        <br />
         <div>
           <Button icon={IconArrowRight}>进入</Button>
           <Button icon={IconClose}>关闭</Button>
@@ -114,6 +115,7 @@ export const ButtonStoryBook = () => {
           <Button type="secondary" icon={IconEdit} size="small" />
           <Button type="text" icon={IconArrowRight} size="small" />
         </div>
+        <br />
         <div>
           <Button type="primary" icon={IconAdd} size="small">
             添加
