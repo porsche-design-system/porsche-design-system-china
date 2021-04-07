@@ -13,7 +13,7 @@ export const TabsStoryBook = () => {
     <div className="group">
       <div className="type">Sizes</div>
       <div className="showcase">
-        <Tabs size="middle">
+        <Tabs>
           <TabPane tab="标题一">内容一</TabPane>
           <TabPane tab="标题二" disabled={true}>
             内容二

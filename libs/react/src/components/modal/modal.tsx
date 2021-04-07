@@ -7,18 +7,11 @@ import './modal.scss';
 
 export interface Props {
   // 组件属性 //
-
-  /** 类名 */
-  className?: string;
-
   /** 子组件 */
   children?: React.ReactNode;
 
   /** 样式 */
   style?: CSSProperties;
-
-  /** 大小 */
-  size?: 'large' | 'middle' | 'small';
 
   /** 标题 */
   title?: string;
@@ -42,9 +35,7 @@ export interface Props {
 }
 
 const Modal = ({
-  className,
   style,
-  size = 'middle',
   visible = false,
   title,
   children,
@@ -58,7 +49,7 @@ const Modal = ({
     setShow(visible);
   }, [visible]);
   return ReactDOM.createPortal(
-    <div className={componentClassNames('pui-modal-root', { size }, { hide: !show })} style={style}>
+    <div className={componentClassNames('pui-modal-root', { hide:!show+'' })} style={style}>
       <div className="pui-modal-mask"></div>
       <div className="pui-modal-wrap">
         <div className="pui-modal">
