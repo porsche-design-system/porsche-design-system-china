@@ -15,7 +15,11 @@
           cursor: pointer;
           margin: 12px 16px;
 
-          &-size-middle {
+          &:first-child{
+            margin-left:0;
+          }
+
+          &-size-default {
             font-size: 24px;
           }
           &-size-small {
@@ -37,7 +41,7 @@
             }
           }
 
-          &.active {
+          &-active-true {
             color: $brand-color;
             &::after {
               content: '';
@@ -51,17 +55,19 @@
             }
           }
 
-          &.disabled {
+          &-disabled-true {
             color: $text-color-1;
             opacity: 0.5;
             cursor: not-allowed;
             &:hover {
+              color: $text-color-1;
+               opacity: 0.5;
               &::after {
                 display: none;
               }
             }
 
-            &.active {
+            .pui-tab-active-true {
               &::after {
                 display: none;
               }
@@ -71,12 +77,12 @@
       }
 
       .pui-tabs-body {
-        padding: 12px 16px;
+        padding: 12px 16px 12px 0;
 
         .pui-tabs-content {
           display: none;
 
-          &.active {
+          &-active-true {
             display: block;
           }
         }

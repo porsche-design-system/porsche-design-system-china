@@ -19,13 +19,13 @@ export interface Props {
   style?: CSSProperties;
 
   /** 大小 */
-  size?: 'large' | 'middle' | 'small';
+  size?: 'default' | 'small';
 
   /** 初始化选中面板的 key，如果没有设置 activeKey  */
-  defaultActiveKey: string;
+  defaultActiveKey?: string;
 
   /** 当前激活 tab 面板的 key  */
-  activeKey: string;
+  activeKey?: string;
 
   // 组件事件 //
 }
@@ -33,7 +33,7 @@ export interface Props {
 const Tabs = ({
   className,
   style,
-  size = 'middle',
+  size = 'default',
   defaultActiveKey,
   activeKey,
   children
@@ -78,9 +78,7 @@ const Tabs = ({
               key={child.key || index}
               className={componentClassNames(
                 'pui-tab',
-                { size },
-                // @ts-ignore
-                { active: index === acitveIndex, disabled: child.props.disabled }
+                { size ,active:(index === acitveIndex)+'',disabled: child.props.disabled?'true':'false'},
               )}
               onClick={() => {
                 if (child.props.disabled) {
@@ -101,8 +99,7 @@ const Tabs = ({
               key={child.key || index}
               className={componentClassNames(
                 'pui-tabs-content',
-                {},
-                index === acitveIndex ? 'active' : ''
+                {active:( index === acitveIndex)+''}
               )}
             >
               {child.props.children}
