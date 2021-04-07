@@ -1,0 +1,13 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-pane {
+      background-color: $container-bg-color-1;
+      padding: 40px;
+      width: 100%;
+    }
+  }
+}
