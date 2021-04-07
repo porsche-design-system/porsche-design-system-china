@@ -13,3 +13,4 @@ export { Modal } from './modal/modal';
 export { message } from './message/message';
 export { PUITheme } from './pui-theme/pui-theme';
 export { Divider } from './divider/divider';
+export { Pane } from './pane/pane';
