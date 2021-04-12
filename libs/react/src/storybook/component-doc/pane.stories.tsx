@@ -1,6 +1,6 @@
 import { IconArrowHeadRight } from '@pui/icons';
 import React from 'react';
-import { Pane, Input, Col, Row, Button } from '../..';
+import { Pane, Input, Col, Row, Button, Form } from '../..';
 
 export default {
   title: 'Data Display/Pane',
@@ -16,18 +16,20 @@ export const RadioStoryBook = () => {
         </Col>
         <Col>
           <Pane>
-            <Row>
-              <Col>
-                <Input label="姓名" labelPosition="left" labelWidth="80px" />
-                <Input label="手机号码" labelPosition="left" labelWidth="80px" required />
-                <Input label="邮箱地址" labelPosition="left" labelWidth="80px" />
-              </Col>
-              <Col>
-                <Input label="国家" labelPosition="left" labelWidth="80px" />
-                <Input label="邮编" labelPosition="left" labelWidth="80px" />
-                <Input label="公司名称" labelPosition="left" labelWidth="80px" />
-              </Col>
-            </Row>
+            <Form>
+              <Row>
+                <Col>
+                  <Input label="姓名" />
+                  <Input label="手机号码" required />
+                  <Input label="邮箱地址" />
+                </Col>
+                <Col style={{ paddingLeft: '10px' }}>
+                  <Input label="国家" />
+                  <Input label="邮编" />
+                  <Input label="公司名称" />
+                </Col>
+              </Row>
+            </Form>
           </Pane>
           <Pane padding="10px" style={{ backgroundColor: '#4A4E51', textAlign: 'right' }}>
             <Button icon={IconArrowHeadRight}>返回</Button>
