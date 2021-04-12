@@ -39,27 +39,31 @@ export const InputsStoryBook = () => {
         <br />
         <div className="states">Label Left</div>
         <div>
+          <Input label={{ text: '姓名', position: 'left' }} placeholder="请输入" required />
           <Input
-            label="姓名"
-            labelPosition="left"
-            placeholder="请输入"
-            required
-            labelWidth="100px"
-            style={{ width: '300px' }}
-          />
-          <Input
-            label="家庭地址"
-            labelPosition="left"
+            label={{ text: '家庭地址', position: 'left' }}
             placeholder="请输入"
             required
             error={{ show: true, text: '输入信息有误' }}
-            labelWidth="100px"
-            style={{ width: '300px' }}
+          />
+        </div>
+        <div className="states">Label Left / Text Align Right</div>
+        <div>
+          <Input
+            label={{ text: '姓名', textAlign: 'right', position: 'left' }}
+            placeholder="请输入"
+            required
+          />
+          <Input
+            label={{ text: '家庭地址', textAlign: 'right', position: 'left' }}
+            placeholder="请输入"
+            required
+            error={{ show: true, text: '输入信息有误' }}
           />
         </div>
         <div className="states">Password</div>
         <div>
-          <Input type="password" placeholder="请输入" />
+          <Input type="password" placeholder="请输入密码" />
         </div>
       </Col>
     </Row>

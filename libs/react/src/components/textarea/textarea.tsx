@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
-import { IconAsterisk } from '@pui/icons';
 import { componentClassNames } from '../../shared/class-util';
+import { FormItemLabelProps } from '../form/form';
+import { getLabelWidth, Label, toLabelProps } from '../label/label';
 import './textarea.scss';
 
 export interface Props {
@@ -12,9 +13,8 @@ export interface Props {
   style?: CSSProperties;
 
   /* 标签 */
-  label?: string;
-  /* 标签位置 */
-  labelPosition?: 'left' | 'top';
+  label?: FormItemLabelProps | string;
+
   /* 占位符 */
   placeholder?: string;
   /* 错误 */
@@ -26,7 +26,8 @@ export interface Props {
   /* 是否禁用 */
   disabled?: boolean;
 
-  // 组件事件 //
+  /* 表单绑定key，需要配合<Form>使用 */
+  name?: string;
 
   /* 值改变事件 */
   onChange?: ChangeEventHandler;
@@ -39,7 +40,6 @@ const TextArea = ({
   className,
   style,
   label,
-  labelPosition = 'top',
   placeholder,
   error = { show: false, text: '' },
   required = false,
@@ -48,6 +48,7 @@ const TextArea = ({
   onChange
 }: Props) => {
   const [valueLength, setValueLength] = useState(0);
+  const labelWidth = getLabelWidth(label);
 
   const updateHeight = (element: HTMLTextAreaElement) => {
     element.style.height = '5px';
@@ -55,31 +56,8 @@ const TextArea = ({
   };
 
   return (
-    <div
-      className={componentClassNames(
-        'pui-textarea',
-        { labelPosition, error: error.show + '' },
-        className
-      )}
-      style={style}
-    >
-      <div className="label">
-        <span>
-          {label && required && labelPosition === 'left' ? (
-            <IconAsterisk style={{ fontSize: '10px' }} />
-          ) : (
-            ''
-          )}
-        </span>
-        {label}
-        <span>
-          {label && required && labelPosition === 'top' ? (
-            <IconAsterisk style={{ fontSize: '10px' }} />
-          ) : (
-            ''
-          )}
-        </span>
-      </div>
+    <div className={componentClassNames('pui-textarea', { error: error.show + '' }, className)}>
+      {label && <Label {...toLabelProps(label)} requiredMark={required} />}
       <textarea
         ref={(element: HTMLTextAreaElement) => {
           if (maxLength && element) {
@@ -90,6 +68,7 @@ const TextArea = ({
         placeholder={placeholder}
         onChange={onChange}
         disabled={disabled}
+        style={{ width: `calc(100% - ${labelWidth})`, ...style }}
         onInput={event => {
           if (maxLength) {
             const inputLength = (event.target as any).value.length;
@@ -109,7 +88,9 @@ const TextArea = ({
           </span>
         </div>
       )}
-      <div className="error-text">{error.text}</div>
+      <div className="error-text" style={{ marginLeft: labelWidth }}>
+        {error.text}
+      </div>
     </div>
   );
 };

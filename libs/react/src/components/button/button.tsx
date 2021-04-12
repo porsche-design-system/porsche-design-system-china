@@ -4,8 +4,9 @@ import { IconAdd } from '@pui/icons';
 type PUIIcon = typeof IconAdd;
 
 import './button.scss';
+import classNames from 'classnames';
 
-export interface Props {
+export interface ButtonProps {
   // 组件属性 //
 
   /** 类名 */
@@ -24,6 +25,9 @@ export interface Props {
   loading?: boolean;
   /** 是否禁用 */
   disabled?: boolean;
+
+  /* 是否是表单提交按钮 */
+  formSubmit?: boolean;
 
   // 组件事件 //
 
@@ -46,7 +50,7 @@ const Button = ({
   disabled = false,
   onClick,
   onMouseDown
-}: Props) => {
+}: ButtonProps) => {
   let paddingStyle = {};
   const padding = size === 'default' ? '11px' : '7px';
   if (!children) {
@@ -56,7 +60,6 @@ const Button = ({
   }
 
   const loadingSize = size === 'default' ? 24 : 20;
-
   const IconComponent = icon as any;
 
   return (
@@ -73,7 +76,7 @@ const Button = ({
       disabled={disabled || loading}
     >
       {loading && (
-        <span className="pui-button-icon">
+        <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
           <svg height={loadingSize} width={loadingSize} className="pui-button-loading-svg">
             <circle
               className="pui-button-loading-circle2"
@@ -92,7 +95,7 @@ const Button = ({
       )}
 
       {icon && !loading && (
-        <span className="pui-button-icon">
+        <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
           {IconComponent['$$typeof'].toString() === 'Symbol(react.element)' ? (
             IconComponent
           ) : (

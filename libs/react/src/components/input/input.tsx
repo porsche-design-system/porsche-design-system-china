@@ -1,9 +1,10 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
-import { IconAsterisk } from '@pui/icons';
+import { getLabelWidth, Label, toLabelProps } from '../label/label';
 import { componentClassNames } from '../../shared/class-util';
+import { FormItemLabelProps } from '../form/form';
 import './input.scss';
 
-export interface Props {
+export interface InputProps {
   // 组件属性 //
 
   /* 类名 */
@@ -15,11 +16,10 @@ export interface Props {
   type?: 'text' | 'password';
 
   /* 标签 */
-  label?: string;
-  /* 标签位置 */
-  labelPosition?: 'left' | 'top';
-  /* 标签宽度 */
-  labelWidth?: string;
+  label?: FormItemLabelProps | string;
+
+  /* 输入值 */
+  value?: string | number;
   /* 占位符 */
   placeholder?: string;
   /* 最多输入字符数 */
@@ -31,10 +31,11 @@ export interface Props {
   /* 是否禁用 */
   disabled?: boolean;
 
-  // 组件事件 //
+  /* 表单绑定key，需要配合<Form>使用 */
+  name?: string;
 
   /* 点击事件 */
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 /**
@@ -45,38 +46,24 @@ const Input = ({
   style,
   label,
   type = 'text',
-  labelPosition = 'top',
   placeholder,
   maxLength,
   error = { show: false, text: '' },
   required = false,
   disabled = false,
-  labelWidth = 'auto',
+  value,
   onChange
-}: Props) => {
+}: InputProps) => {
   const [valueLength, setValueLength] = useState(0);
+  const labelWidth = getLabelWidth(label);
 
   return (
-    <div className={componentClassNames('pui-input', { labelPosition, error: error.show + '' })}>
-      {label && (
-        <div className="pui-input-label" style={{ width: labelWidth }}>
-          <span>
-            {label && required && labelPosition === 'left' ? (
-              <IconAsterisk style={{ fontSize: '10px' }} />
-            ) : (
-              ''
-            )}
-          </span>
-          {label}
-          <span>
-            {label && required && labelPosition === 'top' ? (
-              <IconAsterisk style={{ fontSize: '10px' }} />
-            ) : (
-              ''
-            )}
-          </span>
-        </div>
-      )}
+    <div
+      className={componentClassNames('pui-input', {
+        error: error.show + ''
+      })}
+    >
+      {label && <Label {...toLabelProps(label)} requiredMark={required} />}
       <input
         ref={inputRef => {
           if (inputRef && maxLength) {
@@ -88,7 +75,8 @@ const Input = ({
         type={type}
         onChange={onChange}
         disabled={disabled}
-        style={style}
+        style={{ width: `calc(100% - ${labelWidth})`, ...style }}
+        value={value}
         className={className}
         onInput={event => {
           if (maxLength) {
@@ -105,7 +93,9 @@ const Input = ({
           </span>
         </div>
       )}
-      <div className="pui-input-error-text">{error.text}</div>
+      <div className="pui-input-error-text" style={{ marginLeft: labelWidth }}>
+        {error.text}
+      </div>
     </div>
   );
 };

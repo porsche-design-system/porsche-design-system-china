@@ -1,20 +1,25 @@
-import React, { ChangeEventHandler, CSSProperties, useEffect, useRef } from 'react';
+import React, { ChangeEventHandler, useEffect, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { FormItemLabelProps } from '../form/form';
+import { Label, toLabelProps } from '../label/label';
 import './radio-group.scss';
 
-export interface Props {
+export interface RadioGroupProps {
   // 组件属性 //
 
-  /** 类名 */
-  className?: string;
-  /** 样式 */
-  style?: CSSProperties;
+  label?: FormItemLabelProps | string;
 
   /* 值 */
   value?: string | number;
 
   /** 是否禁用 */
   disabled?: boolean;
+
+  /* 表单绑定key，需要配合<Form>使用 */
+  name?: string;
+
+  /* 是否必填 */
+  required?: boolean;
 
   /* 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -28,7 +33,15 @@ const generateId = () => {
   idCounter++;
   return 'radio-group-' + idCounter;
 };
-const RadioGroup = ({ className, style, disabled = false, children, onChange, value }: Props) => {
+
+const RadioGroup = ({
+  label,
+  disabled = false,
+  children,
+  onChange,
+  value,
+  required = false
+}: RadioGroupProps) => {
   const radioButtons = useRef<HTMLInputElement[]>();
 
   const refLoaded = (radioGroup: HTMLDivElement) => {
@@ -59,10 +72,10 @@ const RadioGroup = ({ className, style, disabled = false, children, onChange, va
 
   return (
     <div
-      className={componentClassNames('pui-radio-group', { disabled: disabled + '' }, className)}
-      style={style}
+      className={componentClassNames('pui-radio-group', { disabled: disabled + '' })}
       ref={refLoaded}
     >
+      {label && <Label {...toLabelProps(label)} requiredMark={required} />}
       {children}
     </div>
   );
