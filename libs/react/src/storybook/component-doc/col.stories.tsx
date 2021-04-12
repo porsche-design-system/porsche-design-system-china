@@ -27,6 +27,15 @@ export const ColStoryBook = () => {
           20
         </Col>
       </Row>
+      <Row>
+        <Col span={4} className="col1">
+          4
+        </Col>
+        <Col className="col2">自动宽度</Col>
+      </Row>
+      <Row>
+        <Col className="col2">自动宽度</Col>
+      </Row>
     </div>
   );
 };
