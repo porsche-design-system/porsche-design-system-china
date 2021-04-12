@@ -25,7 +25,7 @@ export const ButtonStoryBook = () => {
   const renderButtonType = (type: any) => {
     return (
       <Row key={type} style={{ marginBottom: '10px' }}>
-        <Col className="type-name">
+        <Col className="type-name" span={4}>
           <div>{type}</div>
         </Col>
         <Col>
@@ -168,7 +168,7 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Styles</div>
         <Row className="headline">
-          <Col>Type</Col>
+          <Col span={4}>Type</Col>
           <Col>Default</Col>
           <Col>Hover</Col>
           <Col>Pressed</Col>
