@@ -23,8 +23,11 @@ export interface Props {
 /**
  * Primary UI component for user interaction
  */
-const Col = ({ className, style, children, span = 24, onClick }: Props) => {
-  const colStyle: CSSProperties = { width: (span / 24) * 100 + '%' };
+const Col = ({ className, style, children, span, onClick }: Props) => {
+  const colStyle: CSSProperties = {
+    width: span ? (span / 24) * 100 + '%' : '',
+    flex: span ? '' : 'auto'
+  };
   return (
     <div
       className={componentClassNames('pui-col', {}, className)}
