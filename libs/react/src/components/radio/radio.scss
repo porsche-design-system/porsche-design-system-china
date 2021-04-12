@@ -6,7 +6,7 @@
 
     .pui-radio {
       display: inline-block;
-      padding: 12px;
+      padding-right: 12px;
       font-size: 16px;
       user-select: none;
       cursor: pointer;
@@ -40,8 +40,8 @@
         width: 12px;
         height: 12px;
         position: absolute;
-        left: 18px;
-        top: 18px;
+        left: 6px;
+        top: 6px;
       }
 
       input:disabled {

@@ -29,7 +29,7 @@ export const InputsStoryBook = () => {
         <div className="states">Label Top</div>
         <div>
           <TextArea
-            label="姓名"
+            label="备注"
             placeholder="请输入"
             error={{ show: true, text: '输入信息有误' }}
             required
@@ -38,7 +38,16 @@ export const InputsStoryBook = () => {
         <br />
         <div className="states">Label Left</div>
         <div>
-          <TextArea label="姓名" labelPosition="left" placeholder="请输入" required />
+          <TextArea label={{ text: '备注', position: 'left' }} placeholder="请输入" required />
+        </div>
+
+        <div className="states">Label Left / Text Align Right</div>
+        <div>
+          <TextArea
+            label={{ text: '备注', textAlign: 'right', position: 'left' }}
+            placeholder="请输入"
+            required
+          />
         </div>
       </Col>
     </Row>

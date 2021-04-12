@@ -9,7 +9,7 @@
       cursor: pointer;
       padding: 0 16px;
       margin-right: $element-margin-right;
-      transition: color 0.2s, background-color 0.2s;
+      transition: color 0.2s, background-color 0.2s, border 0.2s;
       box-sizing: border-box;
       overflow: hidden;
 
@@ -26,6 +26,10 @@
           left: 0;
           top: 0;
         }
+      }
+
+      &-icon-content {
+        margin-right: 4px;
       }
 
       /* type */
@@ -64,10 +68,12 @@
         &:hover,
         &-hover {
           background-color: $brand-color-hover;
+          border-color: $brand-color-hover;
         }
         &:active,
         &-active {
           background-color: $brand-color-active;
+          border-color: $brand-color-active;
         }
         &:disabled,
         &-disabled {
@@ -84,20 +90,24 @@
         &:hover,
         &-hover {
           background-color: $container-bg-color-6;
+          border-color: $container-bg-color-6;
         }
         &:active,
         &-active {
           background-color: $container-bg-color-8;
+          border-color: $container-bg-color-8;
         }
         &:disabled,
         &-disabled {
           background-color: $container-bg-color-7;
+          border-color: $container-bg-color-7;
           cursor: not-allowed;
           opacity: 0.5;
         }
       }
 
       &-type-text {
+        font-weight: bold;
         color: $text-link-color;
         background-color: transparent;
         border: 1px solid transparent;
@@ -163,6 +173,11 @@
           height: 20px;
           margin-top: 1px;
         }
+
+        .pui-button-icon-content {
+          margin-right: 2px;
+        }
+
         .pui-button-loading-circle,
         .pui-button-loading-circle2 {
           stroke-dasharray: 32;

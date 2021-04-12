@@ -1,0 +1,22 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-label {
+      margin-bottom: 5px;
+      padding-right: 10px;
+
+      &-position-left {
+        float: left;
+      }
+
+      &-star {
+        display: inline-block;
+        line-height: 21px;
+        vertical-align: top;
+      }
+    }
+  }
+}
