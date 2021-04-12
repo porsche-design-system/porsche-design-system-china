@@ -12,13 +12,19 @@ export interface ButtonGroupProps {
   /** 是否禁用 */
   disabled?: boolean;
 
+  /* 按钮位置 */
+  align?: 'left' | 'right' | 'center';
+
   /** 子组件 */
   children?: React.ReactNode;
 }
 
-const ButtonGroup = ({ label, disabled = false, children }: ButtonGroupProps) => {
+const ButtonGroup = ({ label, disabled = false, children, align = 'left' }: ButtonGroupProps) => {
   return (
-    <div className={componentClassNames('pui-button-group', { disabled: disabled + '' })}>
+    <div
+      className={componentClassNames('pui-button-group', { disabled: disabled + '' })}
+      style={{ textAlign: align }}
+    >
       {label && <Label {...toLabelProps(label)} />}
       {children}
     </div>

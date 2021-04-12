@@ -20,6 +20,7 @@ export default {
 
 export const ExampleStoryBook = () => {
   const [labelStyle, setLabelStyle] = useState({});
+  const [buttonAlign, setButtonAlign] = useState('left');
   const [data, setData] = useState({});
 
   return (
@@ -39,6 +40,18 @@ export const ExampleStoryBook = () => {
           label="标签文字在左边，文字向右对齐"
           value={JSON.stringify({ position: 'left', textAlign: 'right' })}
         />
+      </RadioGroup>
+      <Divider contrast="medium" />
+      <br />
+      <RadioGroup
+        label={{ text: '按钮位置', style: { fontWeight: 'bold' } }}
+        onChange={evt => {
+          setButtonAlign(evt.target.value);
+        }}
+      >
+        <Radio label="左" value="left" checked />
+        <Radio label="中" value="center" />
+        <Radio label="右" value="right" />
       </RadioGroup>
       <Divider contrast="medium" />
       <br />
@@ -63,7 +76,7 @@ export const ExampleStoryBook = () => {
               <Radio label="律师" value="律师" />
             </RadioGroup>
             <TextArea label="家庭地址" required name="address" />
-            <ButtonGroup>
+            <ButtonGroup align={buttonAlign}>
               <Button type="primary" icon={IconArrowHeadRight} formSubmit>
                 提交
               </Button>
