@@ -1,6 +1,5 @@
 module.exports = {
-  extends: ['airbnb', 'prettier', 'prettier/react', 'plugin:react-hooks/recommended'],
-  parser: 'babel-eslint',
+  extends: ['prettier', 'prettier/react'],
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true
@@ -49,7 +48,6 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
       extends: [
-        'airbnb',
         'plugin:@typescript-eslint/recommended',
         'prettier',
         'prettier/@typescript-eslint',
@@ -143,19 +141,6 @@ module.exports = {
         // this is to keep eslint from complaining about storybook addons,
         // since they are included as dev dependencies rather than direct dependencies.
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }]
-      }
-    },
-    {
-      files: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/**/*.test.js', 'src/**/*.test.jsx'],
-      plugins: ['jest', 'jest-dom', 'no-only-tests'],
-      env: {
-        'jest/globals': true
-      },
-      extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
-      rules: {
-        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-        'jest/consistent-test-it': 'error',
-        'no-only-tests/no-only-tests': 'error'
       }
     }
   ],

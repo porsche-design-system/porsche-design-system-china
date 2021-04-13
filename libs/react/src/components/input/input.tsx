@@ -35,8 +35,11 @@ export interface InputProps {
   /* 表单绑定key，需要配合<Form>使用 */
   name?: string;
 
-  /* 点击事件 */
+  /* 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
+
+  /* 值改变事件 */
+  onValueChange?: (value: string) => void;
 }
 
 /**
@@ -53,7 +56,8 @@ const Input = ({
   required = false,
   disabled = false,
   value,
-  onChange
+  onChange,
+  onValueChange
 }: InputProps) => {
   const [valueLength, setValueLength] = useState(0);
   const labelWidth = getLabelWidth(label);
@@ -74,7 +78,10 @@ const Input = ({
         placeholder={placeholder}
         maxLength={maxLength}
         type={type}
-        onChange={onChange}
+        onChange={evt => {
+          onChange && onChange(evt);
+          onValueChange && onValueChange(evt.target.value);
+        }}
         disabled={disabled}
         style={{ width: `calc(100% - ${labelWidth})`, ...style }}
         value={value}

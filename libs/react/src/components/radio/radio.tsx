@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './radio.scss';
 
-export interface Props {
+export interface RadioProps {
   // 组件属性 //
 
   /** 类名 */
@@ -13,14 +13,17 @@ export interface Props {
   /* 标签 */
   label?: string;
 
+  /* 分组名 */
+  name?: string;
+
   /* 值 */
-  value?: string | number;
+  value?: string;
 
   /** 是否禁用 */
   disabled?: boolean;
 
   /* 是否选定 */
-  checked?: boolean;
+  defaultChecked?: boolean;
 
   /* 大小 */
   size?: 'default' | 'small';
@@ -44,11 +47,12 @@ const Radio = ({
   style,
   disabled,
   value,
+  name = '',
   label,
   onChange,
-  checked,
+  defaultChecked = false,
   size = 'default'
-}: Props) => {
+}: RadioProps) => {
   const id = useMemo(() => generateId(), []);
   return (
     <label
@@ -58,12 +62,12 @@ const Radio = ({
     >
       <input
         id={id}
-        name="default"
+        name={name}
         type="radio"
         value={value}
         onChange={onChange}
         disabled={disabled}
-        defaultChecked={checked}
+        defaultChecked={defaultChecked}
       />
       <span className="pui-radio-checkmark" />
       {label}

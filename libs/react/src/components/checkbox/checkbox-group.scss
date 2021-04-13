@@ -1,0 +1,29 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-checkbox-group {
+      margin-bottom: $element-margin-bottom;
+      &-disabled-true {
+        pointer-events: none;
+        cursor: not-allowed;
+        label {
+          opacity: 0.5;
+        }
+      }
+
+      &-error-true {
+        .pui-checkbox {
+          input {
+            border: 2px solid $status-error-color;
+          }
+          input:hover {
+            border: 2px solid $status-error-color-hover;
+          }
+        }
+      }
+    }
+  }
+}

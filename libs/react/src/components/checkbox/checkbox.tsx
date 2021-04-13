@@ -1,8 +1,9 @@
+import { IconCheck } from '@pui/icons';
 import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './checkbox.scss';
 
-export interface Props {
+export interface CheckBoxProps {
   // 组件属性 //
 
   /** 类名 */
@@ -15,13 +16,17 @@ export interface Props {
   /* 标签 */
   label?: string;
 
-  /* 是否选定 */
-  checked?: boolean;
+  /*选项值 */
+  value?: string;
+
+  /* 是否默认选定 */
+  defaultChecked?: boolean;
 
   /** 是否禁用 */
   disabled?: boolean;
 
-  // 组件事件 //
+  /* 大小 */
+  size?: 'default' | 'small';
 
   /* 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -36,19 +41,34 @@ const generateId = () => {
   idCounter++;
   return 'checkbox-' + idCounter;
 };
-const CheckBox = ({ className, style, checked = false, label = '', disabled, onChange }: Props) => {
+const CheckBox = ({
+  className,
+  style,
+  defaultChecked = false,
+  label = '',
+  value = '',
+  disabled = false,
+  size = 'default',
+  onChange
+}: CheckBoxProps) => {
   const id = useMemo(() => generateId(), []);
   return (
     <label
       htmlFor={id}
-      className={componentClassNames(
-        'pui-checkbox',
-        { disabled: disabled + '', checked: checked + '' },
-        className
-      )}
+      className={componentClassNames('pui-checkbox', { disabled: disabled + '', size }, className)}
       style={style}
     >
-      <input id={id} type="checkbox" onChange={onChange} disabled={disabled} checked={checked} />{' '}
+      <input
+        id={id}
+        type="checkbox"
+        onChange={onChange}
+        disabled={disabled}
+        defaultChecked={defaultChecked}
+        value={value}
+      />
+      <span className="pui-checkbox-checkmark">
+        <IconCheck style={{ color: 'white' }} />
+      </span>
       {label}
     </label>
   );
