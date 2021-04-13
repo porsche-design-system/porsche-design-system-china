@@ -6,7 +6,7 @@
 
     .pui-radio {
       display: inline-block;
-      padding-right: 12px;
+      padding-right: 20px;
       font-size: 16px;
       user-select: none;
       cursor: pointer;
@@ -42,6 +42,21 @@
         position: absolute;
         left: 6px;
         top: 6px;
+      }
+
+      &-size-small {
+        input {
+          width: 16px;
+          height: 16px;
+          margin-top: 4px;
+        }
+
+        input:checked ~ .pui-radio-checkmark {
+          width: 8px;
+          height: 8px;
+          left: 4px;
+          top: 8px;
+        }
       }
 
       input:disabled {

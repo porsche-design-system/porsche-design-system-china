@@ -22,6 +22,9 @@ export interface Props {
   /* 是否选定 */
   checked?: boolean;
 
+  /* 大小 */
+  size?: 'default' | 'small';
+
   // 组件事件 //
 
   /* 点击事件 */
@@ -36,12 +39,21 @@ const generateId = () => {
   idCounter++;
   return 'checkbox-' + idCounter;
 };
-const Radio = ({ className, style, disabled, value, label, onChange, checked }: Props) => {
+const Radio = ({
+  className,
+  style,
+  disabled,
+  value,
+  label,
+  onChange,
+  checked,
+  size = 'default'
+}: Props) => {
   const id = useMemo(() => generateId(), []);
   return (
     <label
       htmlFor={id}
-      className={componentClassNames('pui-radio', { disabled: disabled + '' }, className)}
+      className={componentClassNames('pui-radio', { disabled: disabled + '', size }, className)}
       style={style}
     >
       <input

@@ -19,7 +19,7 @@ export default {
 };
 
 export const ExampleStoryBook = () => {
-  const [labelStyle, setLabelStyle] = useState({});
+  const [labelLayout, setLabelLayout] = useState({});
   const [buttonAlign, setButtonAlign] = useState('left');
   const [data, setData] = useState({});
 
@@ -28,17 +28,24 @@ export const ExampleStoryBook = () => {
       <RadioGroup
         label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
         onChange={evt => {
-          setLabelStyle(JSON.parse(evt.target.value));
+          setLabelLayout(JSON.parse(evt.target.value));
         }}
       >
-        <Radio label="标签文字在上面" value={JSON.stringify({ position: 'top' })} checked />
+        <Radio
+          label="标签文字在上面"
+          value={JSON.stringify({ position: 'top' })}
+          checked
+          size="small"
+        />
         <Radio
           label="标签文字在左边"
           value={JSON.stringify({ position: 'left', textAlign: 'left' })}
+          size="small"
         />
         <Radio
           label="标签文字在左边，文字向右对齐"
           value={JSON.stringify({ position: 'left', textAlign: 'right' })}
+          size="small"
         />
       </RadioGroup>
       <Divider contrast="medium" />
@@ -49,16 +56,16 @@ export const ExampleStoryBook = () => {
           setButtonAlign(evt.target.value);
         }}
       >
-        <Radio label="左" value="left" checked />
-        <Radio label="中" value="center" />
-        <Radio label="右" value="right" />
+        <Radio label="左" value="left" checked size="small" />
+        <Radio label="中" value="center" size="small" />
+        <Radio label="右" value="right" size="small" />
       </RadioGroup>
       <Divider contrast="medium" />
       <br />
       <Row>
         <Col span={15}>
           <Form
-            labelStyle={labelStyle}
+            labelLayout={labelLayout}
             data={data}
             onDataChange={d => {
               setData(d);
@@ -76,7 +83,7 @@ export const ExampleStoryBook = () => {
               <Radio label="律师" value="律师" />
             </RadioGroup>
             <TextArea label="家庭地址" required name="address" />
-            <ButtonGroup align={buttonAlign}>
+            <ButtonGroup align={buttonAlign as any}>
               <Button type="primary" icon={IconArrowHeadRight} formSubmit>
                 提交
               </Button>

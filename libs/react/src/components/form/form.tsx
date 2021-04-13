@@ -41,7 +41,7 @@ export interface FormProps {
   data?: any;
 
   /* 表单内所有Label样式 */
-  labelStyle?: FormLabelStyle;
+  labelLayout?: FormLabelStyle;
 
   /* 数据改变回调 */
   onDataChange?: (data: any) => void;
@@ -57,7 +57,7 @@ const Form = ({
   data = {},
   onDataChange,
   onSubmit,
-  labelStyle
+  labelLayout
 }: FormProps) => {
   const [formData, setFormData] = useState(data);
   useEffect(() => {
@@ -87,8 +87,8 @@ const Form = ({
 
         const combinedLabelStyle: FormItemLabelProps =
           typeof inputProps.label === 'object'
-            ? { ...labelStyle, ...inputProps.label }
-            : { ...labelStyle, text: inputProps.label || '' };
+            ? { ...labelLayout, ...inputProps.label }
+            : { ...labelLayout, text: inputProps.label || '' };
         inputProps = {
           ...inputProps,
           label: combinedLabelStyle
@@ -99,8 +99,8 @@ const Form = ({
         let inputProps = props as InputProps;
         const combinedLabelStyle: FormItemLabelProps =
           typeof inputProps.label === 'object'
-            ? { ...labelStyle, ...inputProps.label }
-            : { ...labelStyle, text: inputProps.label || '' };
+            ? { ...labelLayout, ...inputProps.label }
+            : { ...labelLayout, text: inputProps.label || '' };
         inputProps = {
           ...inputProps,
           label: combinedLabelStyle

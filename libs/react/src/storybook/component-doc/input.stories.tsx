@@ -32,7 +32,7 @@ export const InputsStoryBook = () => {
           <Input
             label="姓名"
             placeholder="请输入"
-            error={{ show: true, text: '输入信息有误' }}
+            error={{ show: true, message: '输入信息有误' }}
             required
           />
         </div>
@@ -44,7 +44,7 @@ export const InputsStoryBook = () => {
             label={{ text: '家庭地址', position: 'left' }}
             placeholder="请输入"
             required
-            error={{ show: true, text: '输入信息有误' }}
+            error={{ show: true, message: '输入信息有误' }}
           />
         </div>
         <div className="states">Label Left / Text Align Right</div>
@@ -58,7 +58,7 @@ export const InputsStoryBook = () => {
             label={{ text: '家庭地址', textAlign: 'right', position: 'left' }}
             placeholder="请输入"
             required
-            error={{ show: true, text: '输入信息有误' }}
+            error={{ show: true, message: '输入信息有误' }}
           />
         </div>
         <div className="states">Password</div>

@@ -1,5 +1,6 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { ErrorText, FormErrorText } from '../error-text/error-text';
 import { FormItemLabelProps } from '../form/form';
 import { getLabelWidth, Label, toLabelProps } from '../label/label';
 import './textarea.scss';
@@ -18,7 +19,7 @@ export interface Props {
   /* 占位符 */
   placeholder?: string;
   /* 错误 */
-  error?: { show: boolean; text: string };
+  error?: FormErrorText;
   /* 是否必填 */
   required?: boolean;
   /* 最多输入字符 */
@@ -41,7 +42,7 @@ const TextArea = ({
   style,
   label,
   placeholder,
-  error = { show: false, text: '' },
+  error,
   required = false,
   disabled = false,
   maxLength,
@@ -56,7 +57,13 @@ const TextArea = ({
   };
 
   return (
-    <div className={componentClassNames('pui-textarea', { error: error.show + '' }, className)}>
+    <div
+      className={componentClassNames(
+        'pui-textarea',
+        { error: error ? error.show + '' : 'fasle' },
+        className
+      )}
+    >
       {label && <Label {...toLabelProps(label)} requiredMark={required} />}
       <textarea
         ref={(element: HTMLTextAreaElement) => {
@@ -88,9 +95,7 @@ const TextArea = ({
           </span>
         </div>
       )}
-      <div className="error-text" style={{ marginLeft: labelWidth }}>
-        {error.text}
-      </div>
+      <ErrorText {...error} label={label} />
     </div>
   );
 };
