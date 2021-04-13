@@ -1,5 +1,6 @@
 import React, { ChangeEventHandler, useEffect, useRef } from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { ErrorText, FormErrorText } from '../error-text/error-text';
 import { FormItemLabelProps } from '../form/form';
 import { Label, toLabelProps } from '../label/label';
 import './radio-group.scss';
@@ -26,6 +27,9 @@ export interface RadioGroupProps {
 
   /** 子组件 */
   children?: React.ReactNode;
+
+  /* 错误 */
+  error?: FormErrorText;
 }
 
 let idCounter = 0;
@@ -40,7 +44,8 @@ const RadioGroup = ({
   children,
   onChange,
   value,
-  required = false
+  required = false,
+  error
 }: RadioGroupProps) => {
   const radioButtons = useRef<HTMLInputElement[]>();
 
@@ -72,11 +77,15 @@ const RadioGroup = ({
 
   return (
     <div
-      className={componentClassNames('pui-radio-group', { disabled: disabled + '' })}
+      className={componentClassNames('pui-radio-group', {
+        disabled: disabled + '',
+        error: error ? error.show + '' : 'fasle'
+      })}
       ref={refLoaded}
     >
       {label && <Label {...toLabelProps(label)} requiredMark={required} />}
       {children}
+      <ErrorText {...error} label={label} />
     </div>
   );
 };

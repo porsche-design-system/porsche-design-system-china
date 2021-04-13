@@ -3,6 +3,7 @@ import { getLabelWidth, Label, toLabelProps } from '../label/label';
 import { componentClassNames } from '../../shared/class-util';
 import { FormItemLabelProps } from '../form/form';
 import './input.scss';
+import { ErrorText, FormErrorText } from '../error-text/error-text';
 
 export interface InputProps {
   // 组件属性 //
@@ -25,7 +26,7 @@ export interface InputProps {
   /* 最多输入字符数 */
   maxLength?: number;
   /* 错误 */
-  error?: { show: boolean; text: string };
+  error?: FormErrorText;
   /* 是否必填 */
   required?: boolean;
   /* 是否禁用 */
@@ -48,7 +49,7 @@ const Input = ({
   type = 'text',
   placeholder,
   maxLength,
-  error = { show: false, text: '' },
+  error,
   required = false,
   disabled = false,
   value,
@@ -60,7 +61,7 @@ const Input = ({
   return (
     <div
       className={componentClassNames('pui-input', {
-        error: error.show + ''
+        error: error ? error.show + '' : 'fasle'
       })}
     >
       {label && <Label {...toLabelProps(label)} requiredMark={required} />}
@@ -93,9 +94,7 @@ const Input = ({
           </span>
         </div>
       )}
-      <div className="pui-input-error-text" style={{ marginLeft: labelWidth }}>
-        {error.text}
-      </div>
+      <ErrorText {...error} label={label} />
     </div>
   );
 };

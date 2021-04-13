@@ -1,0 +1,13 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-error-text {
+      font-size: 14px;
+      color: $status-error-color;
+      margin-top: 5px;
+    }
+  }
+}

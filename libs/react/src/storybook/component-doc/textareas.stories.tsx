@@ -4,7 +4,7 @@ import { Col, Row, TextArea } from '../../';
 import './textareas.stories.scss';
 
 export default {
-  title: 'Data Entry/TextAreas'
+  title: 'Data Entry/TextArea'
 };
 
 export const InputsStoryBook = () => {
@@ -31,7 +31,7 @@ export const InputsStoryBook = () => {
           <TextArea
             label="备注"
             placeholder="请输入"
-            error={{ show: true, text: '输入信息有误' }}
+            error={{ show: true, message: '输入信息有误' }}
             required
           />
         </div>
