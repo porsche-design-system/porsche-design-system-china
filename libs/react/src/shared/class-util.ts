@@ -20,6 +20,9 @@ export const overrideChildren = (
   children: ReactNode,
   overrideProps: (elementType: string, elementProps: any, elementIndex?: number) => any
 ) => {
+  if (!children) {
+    return null;
+  }
   const newChildrenArray: any = [];
   const childrenArray = React.Children.toArray(children);
 

@@ -1,6 +1,5 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useEffect, useState } from 'react';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
-import { InputProps } from '../input/input';
 import { ButtonProps } from '../button/button';
 
 export interface FormLabelStyle {
@@ -64,62 +63,82 @@ const Form = ({
     setFormData(data);
   }, [data]);
 
-  let newChildren = children;
-  if (children) {
-    newChildren = overrideChildren(children, (elementName, props) => {
-      if (elementName === 'Input' || elementName === 'TextArea' || elementName === 'RadioGroup') {
-        let inputProps = props as InputProps;
+  let newChildren = overrideChildren(children, (elementName, props) => {
+    if (
+      elementName === 'Input' ||
+      elementName === 'TextArea' ||
+      elementName === 'CheckBox' ||
+      elementName === 'RadioGroup' ||
+      elementName === 'CheckBoxGroup'
+    ) {
+      let inputProps = props as {
+        name?: string;
+        onChange?: ChangeEventHandler<HTMLInputElement>;
+        onValueChange?: (val: string) => void;
+        label?: FormItemLabelProps | string;
+        value?: any;
+      };
 
-        if (inputProps.name) {
-          const inputOnChange = inputProps.onChange;
+      if (inputProps.name) {
+        const inputOnChange = inputProps.onChange;
+        const inputOnValueChange = inputProps.onValueChange;
 
-          inputProps = {
-            ...inputProps,
-            value: formData[inputProps.name] || '',
-            onChange: evt => {
-              const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
-              setFormData(newFormData);
-              inputOnChange && inputOnChange(evt);
-              onDataChange && onDataChange(newFormData);
-            }
-          };
-        }
-
-        const combinedLabelStyle: FormItemLabelProps =
-          typeof inputProps.label === 'object'
-            ? { ...labelLayout, ...inputProps.label }
-            : { ...labelLayout, text: inputProps.label || '' };
         inputProps = {
           ...inputProps,
-          label: combinedLabelStyle
+          value: formData[inputProps.name]
         };
 
-        return inputProps;
-      } else if (elementName === 'ButtonGroup') {
-        let inputProps = props as InputProps;
-        const combinedLabelStyle: FormItemLabelProps =
-          typeof inputProps.label === 'object'
-            ? { ...labelLayout, ...inputProps.label }
-            : { ...labelLayout, text: inputProps.label || '' };
-        inputProps = {
-          ...inputProps,
-          label: combinedLabelStyle
-        };
-        return inputProps;
-      } else if (elementName === 'Button') {
-        let buttonProps = props as ButtonProps;
-        if (buttonProps.formSubmit) {
-          const buttonOnClick = buttonProps.onClick;
-          buttonProps.onClick = evt => {
-            buttonOnClick && buttonOnClick(evt);
-            onSubmit && onSubmit(formData, null);
+        if (['Input', 'TextArea', 'CheckBox'].includes(elementName)) {
+          inputProps.onChange = evt => {
+            const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
+            setFormData(newFormData);
+            inputOnChange && inputOnChange(evt);
+            onDataChange && onDataChange(newFormData);
+          };
+        } else if (['RadioGroup', 'CheckBoxGroup'].includes(elementName)) {
+          inputProps.onValueChange = value => {
+            const newFormData = { ...formData, [inputProps.name!]: value };
+            setFormData(newFormData);
+            inputOnValueChange && inputOnValueChange(value);
+            onDataChange && onDataChange(newFormData);
           };
         }
-        return buttonProps;
       }
-      return props;
-    });
-  }
+
+      const combinedLabelStyle: FormItemLabelProps =
+        typeof inputProps.label === 'object'
+          ? { ...labelLayout, ...inputProps.label }
+          : { ...labelLayout, text: inputProps.label || '' };
+      inputProps = {
+        ...inputProps,
+        label: combinedLabelStyle
+      };
+
+      return inputProps;
+    } else if (elementName === 'ButtonGroup') {
+      let inputProps = props;
+      const combinedLabelStyle: FormItemLabelProps =
+        typeof inputProps.label === 'object'
+          ? { ...labelLayout, ...inputProps.label }
+          : { ...labelLayout, text: inputProps.label || '' };
+      inputProps = {
+        ...inputProps,
+        label: combinedLabelStyle
+      };
+      return inputProps;
+    } else if (elementName === 'Button') {
+      let buttonProps = props as ButtonProps;
+      if (buttonProps.formSubmit) {
+        const buttonOnClick = buttonProps.onClick;
+        buttonProps.onClick = evt => {
+          buttonOnClick && buttonOnClick(evt);
+          onSubmit && onSubmit(formData, null);
+        };
+      }
+      return buttonProps;
+    }
+    return props;
+  });
 
   return (
     <div className={componentClassNames('pui-form', {}, className)} style={style}>

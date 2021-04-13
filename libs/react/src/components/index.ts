@@ -1,6 +1,7 @@
 export { Button } from './button/button';
 export { Input } from './input/input';
 export { CheckBox } from './checkbox/checkbox';
+export { CheckBoxGroup } from './checkbox/checkbox-group';
 export { Col } from './col/col';
 export { RadioGroup } from './radio/radio-group';
 export { Radio } from './radio/radio';

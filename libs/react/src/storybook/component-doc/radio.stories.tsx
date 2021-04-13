@@ -8,16 +8,17 @@ export default {
 
 export const RadioStoryBook = () => {
   const [showError, setShowError] = useState(true);
+  const [pickedValue, setPickedValue] = useState('医生');
 
   return (
     <div>
       <RadioGroup
-        onChange={evt => {
-          console.log(evt.target.value);
+        onValueChange={value => {
+          console.log(value);
         }}
         value="val3"
       >
-        <Radio label="选项1" value="val1" checked />
+        <Radio label="选项1" value="val1" />
         <Radio label="选项2" value="val2" />
         <Radio label="选项3" value="val3" />
         <Radio label="选项4" value="val4" disabled />
@@ -48,7 +49,7 @@ export const RadioStoryBook = () => {
         label={{ text: '职业', position: 'left' }}
         required
         error={{ show: showError, message: '请选择' }}
-        onChange={() => {
+        onValueChange={() => {
           setShowError(false);
         }}
       >
@@ -61,12 +62,20 @@ export const RadioStoryBook = () => {
       <br />
 
       <div>With Label</div>
-      <RadioGroup label={{ text: '职业', position: 'left' }} required>
-        <Radio label="教师" />
-        <Radio label="医生" />
-        <Radio label="警察" />
-        <Radio label="律师" />
+      <RadioGroup
+        label={{ text: '职业', position: 'left' }}
+        required
+        value={pickedValue}
+        onValueChange={value => {
+          setPickedValue(value);
+        }}
+      >
+        <Radio label="教师" value="教师" />
+        <Radio label="医生" value="医生" />
+        <Radio label="警察" value="警察" />
+        <Radio label="律师" value="律师" />
       </RadioGroup>
+      {pickedValue}
     </div>
   );
 };

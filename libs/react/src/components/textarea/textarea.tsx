@@ -30,8 +30,11 @@ export interface Props {
   /* 表单绑定key，需要配合<Form>使用 */
   name?: string;
 
-  /* 值改变事件 */
+  /* 控件值改变事件 */
   onChange?: ChangeEventHandler;
+
+  /* 值改变事件 */
+  onValueChange?: (value: string) => void;
 }
 
 /**
@@ -46,7 +49,8 @@ const TextArea = ({
   required = false,
   disabled = false,
   maxLength,
-  onChange
+  onChange,
+  onValueChange
 }: Props) => {
   const [valueLength, setValueLength] = useState(0);
   const labelWidth = getLabelWidth(label);
@@ -73,7 +77,10 @@ const TextArea = ({
         }}
         maxLength={maxLength}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={evt => {
+          onChange && onChange(evt);
+          onValueChange && onValueChange(evt.target.value);
+        }}
         disabled={disabled}
         style={{ width: `calc(100% - ${labelWidth})`, ...style }}
         onInput={event => {

@@ -27,16 +27,12 @@ export const ExampleStoryBook = () => {
     <div>
       <RadioGroup
         label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
-        onChange={evt => {
-          setLabelLayout(JSON.parse(evt.target.value));
+        onValueChange={value => {
+          setLabelLayout(JSON.parse(value));
         }}
+        value={JSON.stringify({ position: 'top' })}
       >
-        <Radio
-          label="标签文字在上面"
-          value={JSON.stringify({ position: 'top' })}
-          checked
-          size="small"
-        />
+        <Radio label="标签文字在上面" value={JSON.stringify({ position: 'top' })} size="small" />
         <Radio
           label="标签文字在左边"
           value={JSON.stringify({ position: 'left', textAlign: 'left' })}
@@ -52,11 +48,12 @@ export const ExampleStoryBook = () => {
       <br />
       <RadioGroup
         label={{ text: '按钮位置', style: { fontWeight: 'bold' } }}
-        onChange={evt => {
-          setButtonAlign(evt.target.value);
+        onValueChange={value => {
+          setButtonAlign(value);
         }}
+        value={buttonAlign}
       >
-        <Radio label="左" value="left" checked size="small" />
+        <Radio label="左" value="left" size="small" />
         <Radio label="中" value="center" size="small" />
         <Radio label="右" value="right" size="small" />
       </RadioGroup>
