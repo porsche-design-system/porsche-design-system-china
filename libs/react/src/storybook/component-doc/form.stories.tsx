@@ -31,6 +31,7 @@ export const ExampleStoryBook = () => {
         label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
           setLabelLayout(JSON.parse(value));
+          console.log(123);
         }}
         value={JSON.stringify({ position: 'top' })}
       >
@@ -73,15 +74,16 @@ export const ExampleStoryBook = () => {
               console.log('submit', data);
             }}
           >
-            <Input label="姓名" name="name" required />
+            <Input label="姓" name="lastName" width="40%" required marginRight="10%" />
+            <Input label="名" name="firstName" width="50%" required />
             <Input label="年龄" name="age" />
-            <RadioGroup name="job" label="职业" required>
-              <Radio text="教师" value="教师" />
-              <Radio text="医生" value="医生" />
-              <Radio text="警察" value="警察" />
-              <Radio text="律师" value="律师" />
+            <RadioGroup name="job" label="职业" required textIsValue>
+              <Radio text="教师" />
+              <Radio text="医生" />
+              <Radio text="警察" />
+              <Radio text="律师" />
             </RadioGroup>
-            <CheckBoxGroup label="兴趣爱好" name="hobby">
+            <CheckBoxGroup label="兴趣爱好" name="hobbies">
               <CheckBox text="唱歌" value="唱歌" />
               <CheckBox text="玩游戏" value="玩游戏" />
               <CheckBox text="跳舞" value="跳舞" />
@@ -98,7 +100,7 @@ export const ExampleStoryBook = () => {
             </ButtonGroup>
           </Form>
         </Col>
-        <Col span={9} style={{ padding: '15px', whiteSpace: 'pre' }}>
+        <Col span={9} style={{ paddingLeft: '15px', whiteSpace: 'pre' }}>
           {JSON.stringify(data, null, 2)}
         </Col>
       </Row>

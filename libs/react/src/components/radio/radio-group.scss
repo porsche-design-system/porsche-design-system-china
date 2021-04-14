@@ -6,6 +6,8 @@
 
     .pui-radio-group {
       margin-bottom: $element-margin-bottom;
+      display: inline-block;
+
       &-disabled-true {
         pointer-events: none;
         cursor: not-allowed;

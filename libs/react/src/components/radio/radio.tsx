@@ -40,7 +40,7 @@ export interface RadioProps {
 let idCounter = 0;
 const generateId = () => {
   idCounter++;
-  return 'checkbox-' + idCounter;
+  return 'radio-' + idCounter;
 };
 const Radio = ({
   className,
