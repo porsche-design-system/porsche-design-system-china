@@ -5,9 +5,9 @@
     @include theme($theme);
 
     .pui-input {
-      margin-bottom: $element-margin-bottom;
       position: relative;
       display: inline-block;
+      margin-bottom: 12px;
 
       &-char-count {
         position: absolute;

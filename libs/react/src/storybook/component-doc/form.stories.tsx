@@ -23,22 +23,25 @@ export default {
 export const ExampleStoryBook = () => {
   const [labelLayout, setLabelLayout] = useState({});
   const [buttonAlign, setButtonAlign] = useState('left');
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ lastName: '李' });
 
   return (
     <div>
       <RadioGroup
-        label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
+        label={{ text: '表单标签显示方式' }}
         onValueChange={value => {
           setLabelLayout(JSON.parse(value));
-          console.log(123);
         }}
         value={JSON.stringify({ position: 'top' })}
       >
         <Radio text="标签文字在上面" value={JSON.stringify({ position: 'top' })} size="small" />
         <Radio
           text="标签文字在左边"
-          value={JSON.stringify({ position: 'left', textAlign: 'left' })}
+          value={JSON.stringify({
+            position: 'left',
+            textAlign: 'left',
+            style: { fontWeight: 'bold' }
+          })}
           size="small"
         />
         <Radio
@@ -74,22 +77,51 @@ export const ExampleStoryBook = () => {
               console.log('submit', data);
             }}
           >
-            <Input label="姓" name="lastName" width="40%" required marginRight="10%" />
-            <Input label="名" name="firstName" width="50%" required />
-            <Input label="年龄" name="age" />
-            <RadioGroup name="job" label="职业" required textIsValue>
+            <Input
+              label="姓"
+              name="lastName"
+              width="40%"
+              rules={{ required: true, message: '必须填写' }}
+              marginRight="10%"
+            />
+            <Input
+              label="名"
+              name="firstName"
+              width="50%"
+              rules={{ required: true, message: '必须填写' }}
+            />
+            <Input
+              label="电子邮件"
+              name="email"
+              rules={{ type: 'email', message: '邮件格式不正确' }}
+            />
+            <Input
+              label="手机号"
+              name="mobile"
+              rules={{ type: 'number', message: '手机号必须是数字' }}
+            />
+            <RadioGroup name="job" label="职业" textIsValue>
               <Radio text="教师" />
               <Radio text="医生" />
               <Radio text="警察" />
               <Radio text="律师" />
             </RadioGroup>
-            <CheckBoxGroup label="兴趣爱好" name="hobbies">
-              <CheckBox text="唱歌" value="唱歌" />
-              <CheckBox text="玩游戏" value="玩游戏" />
-              <CheckBox text="跳舞" value="跳舞" />
-              <CheckBox text="游泳" value="游泳" />
+            <CheckBoxGroup
+              label="兴趣爱好"
+              name="hobbies"
+              textIsValue
+              rules={{ required: true, message: '必须填写' }}
+            >
+              <CheckBox text="唱歌" />
+              <CheckBox text="玩游戏" />
+              <CheckBox text="跳舞" />
+              <CheckBox text="游泳" />
             </CheckBoxGroup>
-            <TextArea label="家庭地址" required name="address" />
+            <TextArea
+              label="家庭地址"
+              rules={{ required: true, message: '必须填写' }}
+              name="address"
+            />
             <ButtonGroup align={buttonAlign as any}>
               <Button type="primary" icon={IconArrowHeadRight} formSubmit>
                 提交

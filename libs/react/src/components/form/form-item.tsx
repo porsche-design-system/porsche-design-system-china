@@ -2,6 +2,7 @@ import React from 'react';
 import { getLabelWidth, Label, getLabelProps } from '../label/label';
 import { FormItemLabelProps } from './form';
 import { ErrorText, FormErrorText } from '../error-text/error-text';
+import { RuleItem } from 'src/shared/validation-rules';
 
 import './form-item.scss';
 
@@ -15,8 +16,8 @@ export interface FormItemProps {
   /* 错误 */
   error?: FormErrorText;
 
-  /* 是否必填 */
-  required?: boolean;
+  /* 验证规则 */
+  rules?: RuleItem[] | RuleItem;
 
   /* 宽度 */
   width?: string;
@@ -29,7 +30,22 @@ export interface FormItemProps {
 }
 
 const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormItemProps & T) => {
-  const { label, error, required, width, marginLeft, marginRight } = props;
+  const { label, error, width, marginLeft, marginRight, rules } = props;
+
+  let required = false;
+  if (rules) {
+    if (Array.isArray(rules)) {
+      rules.forEach(rule => {
+        if (rule.required) {
+          required = true;
+        }
+      });
+    } else {
+      if (rules.required) {
+        required = true;
+      }
+    }
+  }
 
   const labelWidth = getLabelWidth(label);
   const labelProps = getLabelProps(label);
@@ -44,7 +60,13 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
 
   return (
     <div className="pui-form-item" style={{ width, marginLeft, marginRight }}>
-      {label && <Label requiredMark={required} style={labelStyle} {...labelProps} />}
+      {label && (
+        <Label
+          requiredMark={required}
+          {...labelProps}
+          style={{ ...labelProps.style, ...labelStyle }}
+        />
+      )}
       {React.cloneElement(comp, { style: { width: `calc(100% - ${labelWidth})` } })}
       {error && error.show && <ErrorText {...error} label={label} />}
     </div>

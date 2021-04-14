@@ -33,17 +33,21 @@ export const InputsStoryBook = () => {
             label="姓名"
             placeholder="请输入"
             error={{ show: true, message: '输入信息有误' }}
-            required
+            rules={{ required: true, message: '必须填写' }}
           />
         </div>
         <br />
         <div className="states">Label Left</div>
         <div>
-          <Input label={{ text: '姓名', position: 'left' }} placeholder="请输入" required />
+          <Input
+            label={{ text: '姓名', position: 'left' }}
+            placeholder="请输入"
+            rules={{ required: true, message: '必须填写' }}
+          />
           <Input
             label={{ text: '家庭地址', position: 'left' }}
             placeholder="请输入"
-            required
+            rules={{ required: true, message: '必须填写' }}
             error={{ show: true, message: '输入信息有误' }}
           />
         </div>
@@ -52,12 +56,12 @@ export const InputsStoryBook = () => {
           <Input
             label={{ text: '姓名', textAlign: 'right', position: 'left' }}
             placeholder="请输入"
-            required
+            rules={{ required: true, message: '必须填写' }}
           />
           <Input
             label={{ text: '家庭地址', textAlign: 'right', position: 'left' }}
             placeholder="请输入"
-            required
+            rules={{ required: true, message: '必须填写' }}
             error={{ show: true, message: '输入信息有误' }}
           />
         </div>

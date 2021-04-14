@@ -5,9 +5,10 @@
     @include theme($theme);
 
     .pui-textarea {
-      margin-right: $element-margin-right;
-      margin-bottom: $element-margin-bottom;
       position: relative;
+      margin-bottom: 12px;
+      display: inline-block;
+      vertical-align: top;
 
       .pui-label-position-left {
         margin-top: 11px;
