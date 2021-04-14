@@ -85,7 +85,7 @@ const Form = ({
 
         inputProps = {
           ...inputProps,
-          value: formData[inputProps.name]
+          value: formData[inputProps.name] || (elementName === 'CheckBoxGroup' ? [] : '')
         };
 
         if (['Input', 'TextArea', 'CheckBox'].includes(elementName)) {
