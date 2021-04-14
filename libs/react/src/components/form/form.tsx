@@ -68,10 +68,19 @@ const Form = ({
   const [formData, setFormData] = useState(data);
   const [formErrors, setFormErrors] = useState([] as ErrorList);
   const formDataValidators = useRef({} as any);
+  const shouldAutoValidForm = useRef(false);
 
   useEffect(() => {
     setFormData(data);
   }, [data]);
+
+  const validForm = (newFormData: any) => {
+    if (shouldAutoValidForm.current) {
+      validate(formDataValidators.current, newFormData, errorList => {
+        setFormErrors(errorList);
+      });
+    }
+  };
 
   let newChildren = overrideChildren(children, (elementName, props) => {
     if (
@@ -92,8 +101,13 @@ const Form = ({
       };
 
       if (inputProps.name) {
-        const inputOnChange = inputProps.onChange;
-        const inputOnValueChange = inputProps.onValueChange;
+        if (formData[inputProps.name] === undefined) {
+          if (elementName === 'CheckBoxGroup') {
+            formData[inputProps.name] = [];
+          } else {
+            formData[inputProps.name] = '';
+          }
+        }
 
         inputProps.error = undefined;
         if (formErrors) {
@@ -130,17 +144,20 @@ const Form = ({
           value: formData[inputProps.name] || (elementName === 'CheckBoxGroup' ? [] : '')
         };
 
-        const clearError = () => {
-          if (formErrors) {
-            for (let i = 0; i < formErrors.length; i++) {
-              if (formErrors[i].field === inputProps.name) {
-                formErrors.splice(i, 1);
-                setFormErrors(formErrors);
-                break;
-              }
-            }
-          }
-        };
+        // const clearError = () => {
+        //   if (formErrors) {
+        //     for (let i = 0; i < formErrors.length; i++) {
+        //       if (formErrors[i].field === inputProps.name) {
+        //         formErrors.splice(i, 1);
+        //         setFormErrors(formErrors);
+        //         break;
+        //       }
+        //     }
+        //   }
+        // };
+
+        const inputOnChange = inputProps.onChange;
+        const inputOnValueChange = inputProps.onValueChange;
 
         if (['Input', 'TextArea', 'CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
@@ -148,7 +165,7 @@ const Form = ({
             setFormData(newFormData);
             inputOnChange && inputOnChange(evt);
             onDataChange && onDataChange(newFormData);
-            clearError();
+            validForm(newFormData);
           };
         } else if (['RadioGroup', 'CheckBoxGroup'].includes(elementName)) {
           inputProps.onValueChange = value => {
@@ -156,7 +173,7 @@ const Form = ({
             setFormData(newFormData);
             inputOnValueChange && inputOnValueChange(value);
             onDataChange && onDataChange(newFormData);
-            clearError();
+            validForm(newFormData);
           };
         }
       }
@@ -189,6 +206,7 @@ const Form = ({
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt);
           validate(formDataValidators.current, formData, errorList => {
+            shouldAutoValidForm.current = true;
             setFormErrors(errorList);
             onSubmit && onSubmit(formData, errorList);
           });
