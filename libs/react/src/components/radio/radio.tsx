@@ -10,8 +10,8 @@ export interface RadioProps {
   /** 样式 */
   style?: CSSProperties;
 
-  /* 标签 */
-  label?: string;
+  /* 显示文字 */
+  text?: string;
 
   /* 分组名 */
   name?: string;
@@ -48,7 +48,7 @@ const Radio = ({
   disabled,
   value,
   name = '',
-  label,
+  text,
   onChange,
   defaultChecked = false,
   size = 'default'
@@ -70,7 +70,7 @@ const Radio = ({
         defaultChecked={defaultChecked}
       />
       <span className="pui-radio-checkmark" />
-      {label}
+      {text}
     </label>
   );
 };

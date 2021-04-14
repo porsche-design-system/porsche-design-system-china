@@ -10,7 +10,9 @@ import {
   Col,
   Form,
   ButtonGroup,
-  Divider
+  Divider,
+  CheckBoxGroup,
+  CheckBox
 } from '../..';
 
 export default {
@@ -32,14 +34,14 @@ export const ExampleStoryBook = () => {
         }}
         value={JSON.stringify({ position: 'top' })}
       >
-        <Radio label="标签文字在上面" value={JSON.stringify({ position: 'top' })} size="small" />
+        <Radio text="标签文字在上面" value={JSON.stringify({ position: 'top' })} size="small" />
         <Radio
-          label="标签文字在左边"
+          text="标签文字在左边"
           value={JSON.stringify({ position: 'left', textAlign: 'left' })}
           size="small"
         />
         <Radio
-          label="标签文字在左边，文字向右对齐"
+          text="标签文字在左边，文字向右对齐"
           value={JSON.stringify({ position: 'left', textAlign: 'right' })}
           size="small"
         />
@@ -53,9 +55,9 @@ export const ExampleStoryBook = () => {
         }}
         value={buttonAlign}
       >
-        <Radio label="左" value="left" size="small" />
-        <Radio label="中" value="center" size="small" />
-        <Radio label="右" value="right" size="small" />
+        <Radio text="左" value="left" size="small" />
+        <Radio text="中" value="center" size="small" />
+        <Radio text="右" value="right" size="small" />
       </RadioGroup>
       <Divider contrast="medium" />
       <br />
@@ -74,11 +76,17 @@ export const ExampleStoryBook = () => {
             <Input label="姓名" name="userName" required />
             <Input label="年龄" name="age" />
             <RadioGroup name="job" label="职业" required>
-              <Radio label="教师" value="教师" />
-              <Radio label="医生" value="医生" />
-              <Radio label="警察" value="警察" />
-              <Radio label="律师" value="律师" />
+              <Radio text="教师" value="教师" />
+              <Radio text="医生" value="医生" />
+              <Radio text="警察" value="警察" />
+              <Radio text="律师" value="律师" />
             </RadioGroup>
+            <CheckBoxGroup label="兴趣爱好" name="hobby">
+              <CheckBox text="唱歌" value="唱歌" />
+              <CheckBox text="玩游戏" value="玩游戏" />
+              <CheckBox text="跳舞" value="跳舞" />
+              <CheckBox text="游泳" value="游泳" />
+            </CheckBoxGroup>
             <TextArea label="家庭地址" required name="address" />
             <ButtonGroup align={buttonAlign as any}>
               <Button type="primary" icon={IconArrowHeadRight} formSubmit>
