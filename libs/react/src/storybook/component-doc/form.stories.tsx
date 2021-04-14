@@ -73,7 +73,7 @@ export const ExampleStoryBook = () => {
               console.log('submit', data);
             }}
           >
-            <Input label="姓名" name="userName" required />
+            <Input label="姓名" name="name" required />
             <Input label="年龄" name="age" />
             <RadioGroup name="job" label="职业" required>
               <Radio text="教师" value="教师" />
