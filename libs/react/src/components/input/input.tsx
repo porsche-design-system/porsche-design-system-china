@@ -1,13 +1,11 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
-import { getLabelWidth, Label, toLabelProps } from '../label/label';
 import { componentClassNames } from '../../shared/class-util';
-import { FormItemLabelProps } from '../form/form';
+import { ValidationRule } from 'src/shared/validation-rules';
+import { FormItem } from '../form/form-item';
+import { FormErrorText } from '../error-text/error-text';
 import './input.scss';
-import { ErrorText, FormErrorText } from '../error-text/error-text';
 
 export interface InputProps {
-  // 组件属性 //
-
   /* 类名 */
   className?: string;
   /* 样式 */
@@ -16,24 +14,23 @@ export interface InputProps {
   /* 类型 */
   type?: 'text' | 'password';
 
-  /* 标签 */
-  label?: FormItemLabelProps | string;
-
   /* 输入值 */
   value?: string | number;
   /* 占位符 */
   placeholder?: string;
   /* 最多输入字符数 */
   maxLength?: number;
-  /* 错误 */
-  error?: FormErrorText;
+
   /* 是否必填 */
   required?: boolean;
+
+  /* 错误 */
+  error?: FormErrorText;
+
   /* 是否禁用 */
   disabled?: boolean;
 
-  /* 表单绑定key，需要配合<Form>使用 */
-  name?: string;
+  rules?: ValidationRule[];
 
   /* 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -45,65 +42,60 @@ export interface InputProps {
 /**
  * Primary UI component for user interaction
  */
-const Input = ({
-  className,
-  style,
-  label,
-  type = 'text',
-  placeholder,
-  maxLength,
-  error,
-  required = false,
-  disabled = false,
-  value,
-  onChange,
-  onValueChange
-}: InputProps) => {
-  const [valueLength, setValueLength] = useState(0);
-  const labelWidth = getLabelWidth(label);
+const Input = FormItem(
+  ({
+    className,
+    style,
+    type = 'text',
+    placeholder,
+    maxLength,
+    disabled = false,
+    value,
+    onChange,
+    error,
+    onValueChange
+  }: InputProps) => {
+    const [valueLength, setValueLength] = useState(0);
 
-  return (
-    <div
-      className={componentClassNames('pui-input', {
-        error: error ? error.show + '' : 'fasle'
-      })}
-    >
-      {label && <Label {...toLabelProps(label)} requiredMark={required} />}
-      <input
-        ref={inputRef => {
-          if (inputRef && maxLength) {
-            inputRef.style.paddingRight = (maxLength + '').length * 23 + 12 + 'px';
-          }
-        }}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        type={type}
-        onChange={evt => {
-          onChange && onChange(evt);
-          onValueChange && onValueChange(evt.target.value);
-        }}
-        disabled={disabled}
-        style={{ width: `calc(100% - ${labelWidth})`, ...style }}
-        value={value}
-        className={className}
-        onInput={event => {
-          if (maxLength) {
-            const inputLength = (event.target as any).value.length;
-            setValueLength(inputLength < maxLength ? inputLength : maxLength);
-          }
-        }}
-      />
-      {maxLength && (
-        <div className="pui-input-char-count">
-          {valueLength > 0 && valueLength}
-          <span>
-            {valueLength === 0 && valueLength}/{maxLength}
-          </span>
-        </div>
-      )}
-      <ErrorText {...error} label={label} />
-    </div>
-  );
-};
+    return (
+      <div
+        className={componentClassNames('pui-input', { error: error ? error.show + '' : 'fasle' })}
+      >
+        <input
+          ref={inputRef => {
+            if (inputRef && maxLength) {
+              inputRef.style.paddingRight = (maxLength + '').length * 23 + 12 + 'px';
+            }
+          }}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          type={type}
+          onChange={evt => {
+            onChange && onChange(evt);
+            onValueChange && onValueChange(evt.target.value);
+          }}
+          disabled={disabled}
+          style={style}
+          value={value}
+          className={className}
+          onInput={event => {
+            if (maxLength) {
+              const inputLength = (event.target as any).value.length;
+              setValueLength(inputLength < maxLength ? inputLength : maxLength);
+            }
+          }}
+        />
+        {maxLength && (
+          <div className="pui-input-char-count">
+            {valueLength > 0 && valueLength}
+            <span>
+              {valueLength === 0 && valueLength}/{maxLength}
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
 export { Input };

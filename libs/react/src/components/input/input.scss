@@ -7,10 +7,7 @@
     .pui-input {
       margin-bottom: $element-margin-bottom;
       position: relative;
-
-      .pui-label-position-left {
-        margin-top: 11px;
-      }
+      display: inline-block;
 
       &-char-count {
         position: absolute;

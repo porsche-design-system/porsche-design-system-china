@@ -1,7 +1,7 @@
 import React from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import { FormItemLabelProps } from '../form/form';
-import { Label, toLabelProps } from '../label/label';
+import { Label, getLabelProps } from '../label/label';
 import './button-group.scss';
 
 export interface ButtonGroupProps {
@@ -25,7 +25,7 @@ const ButtonGroup = ({ label, disabled = false, children, align = 'left' }: Butt
       className={componentClassNames('pui-button-group', { disabled: disabled + '' })}
       style={{ textAlign: align }}
     >
-      {label && <Label {...toLabelProps(label)} />}
+      {label && <Label {...getLabelProps(label)} />}
       {children}
     </div>
   );

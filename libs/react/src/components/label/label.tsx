@@ -81,11 +81,14 @@ const getLabelWidth = (props?: LabelProps | string) => {
   return width || '100px';
 };
 
-const toLabelProps = (props: LabelProps | string): LabelProps => {
+const getLabelProps = (props?: LabelProps | string): LabelProps => {
+  if (!props) {
+    return { text: '' };
+  }
   if (typeof props === 'string') {
     return { text: props };
   }
   return props;
 };
 
-export { Label, getLabelWidth, toLabelProps };
+export { Label, getLabelWidth, getLabelProps };

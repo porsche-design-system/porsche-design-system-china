@@ -28,7 +28,7 @@ export const overrideChildren = (
 
   childrenArray.forEach((node: any, index: number) => {
     if (node.type) {
-      const type: string = node.type.name || node.type;
+      const type: string = node.type.displayName || node.type;
       node = React.cloneElement(
         node,
         overrideProps(

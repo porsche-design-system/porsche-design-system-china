@@ -98,6 +98,7 @@
     "react": "^17.0.1",
     "@pui/icons": "latest",
     "@types/classnames": "^2.2.9",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "async-validator": "^3.5.1"
   }
 }

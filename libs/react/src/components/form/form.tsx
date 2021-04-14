@@ -39,6 +39,9 @@ export interface FormProps {
   /* 表单数据 */
   data?: any;
 
+  /* 宽度 */
+  width?: string;
+
   /* 表单内所有Label样式 */
   labelLayout?: FormLabelStyle;
 
@@ -56,7 +59,8 @@ const Form = ({
   data = {},
   onDataChange,
   onSubmit,
-  labelLayout
+  labelLayout,
+  width
 }: FormProps) => {
   const [formData, setFormData] = useState(data);
   useEffect(() => {
@@ -141,7 +145,7 @@ const Form = ({
   });
 
   return (
-    <div className={componentClassNames('pui-form', {}, className)} style={style}>
+    <div className={componentClassNames('pui-form', {}, className)} style={{ width, ...style }}>
       {newChildren}
     </div>
   );
