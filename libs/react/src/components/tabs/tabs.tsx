@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  ReactPortal,
-  useEffect,
-  useState,
-  useMemo,
-} from 'react';
+import React, { CSSProperties, ReactPortal, useEffect, useState, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './tabs.scss';
 
@@ -76,10 +70,11 @@ const Tabs = ({
           return (
             <div
               key={child.key || index}
-              className={componentClassNames(
-                'pui-tab',
-                { size ,active:(index === acitveIndex)+'',disabled: child.props.disabled?'true':'false'},
-              )}
+              className={componentClassNames('pui-tab', {
+                size,
+                active: (index === acitveIndex) + '',
+                disabled: child.props.disabled ? 'true' : 'false'
+              })}
               onClick={() => {
                 if (child.props.disabled) {
                   return;
@@ -97,10 +92,9 @@ const Tabs = ({
           return (
             <div
               key={child.key || index}
-              className={componentClassNames(
-                'pui-tabs-content',
-                {active:( index === acitveIndex)+''}
-              )}
+              className={componentClassNames('pui-tabs-content', {
+                active: (index === acitveIndex) + ''
+              })}
             >
               {child.props.children}
             </div>

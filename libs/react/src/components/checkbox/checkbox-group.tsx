@@ -23,10 +23,20 @@ export interface CheckBoxGroupProps {
 
   /* 错误 */
   error?: FormErrorText;
+
+  /* 显示文字即Value */
+  textIsValue?: boolean;
 }
 
 const CheckBoxGroup = FormItem(
-  ({ disabled = false, children, onValueChange, value = [], error }: CheckBoxGroupProps) => {
+  ({
+    disabled = false,
+    children,
+    onValueChange,
+    value = [],
+    error,
+    textIsValue = false
+  }: CheckBoxGroupProps) => {
     const checkBoxValues = useRef<string[]>(value);
 
     let newChildren = useMemo(() => {
@@ -35,6 +45,7 @@ const CheckBoxGroup = FormItem(
         if (elementName === 'CheckBox') {
           const checkboxProp: CheckBoxProps = props;
           const checkBoxOnChange = checkboxProp.onChange;
+          checkboxProp.value = checkboxProp.value || (textIsValue ? checkboxProp.text : '');
           checkboxProp.value && allValues.push(checkboxProp.value);
           checkboxProp.defaultChecked =
             checkboxProp.value !== undefined &&

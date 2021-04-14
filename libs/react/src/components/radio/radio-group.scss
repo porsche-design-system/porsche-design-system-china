@@ -7,6 +7,7 @@
     .pui-radio-group {
       margin-bottom: $element-margin-bottom;
       display: inline-block;
+      vertical-align: top;
 
       &-disabled-true {
         pointer-events: none;

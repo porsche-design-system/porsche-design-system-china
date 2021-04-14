@@ -1,6 +1,9 @@
-import React, { ChangeEventHandler, CSSProperties, useEffect, useState } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
+import { validate, RuleItem } from '../../shared/validation-rules';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import { ButtonProps } from '../button/button';
+import { ErrorList } from 'async-validator';
+import { FormErrorText } from '../error-text/error-text';
 
 export interface FormLabelStyle {
   // 组件属性 //
@@ -63,6 +66,9 @@ const Form = ({
   width
 }: FormProps) => {
   const [formData, setFormData] = useState(data);
+  const [formErrors, setFormErrors] = useState([] as ErrorList);
+  const formDataValidators = useRef({} as any);
+
   useEffect(() => {
     setFormData(data);
   }, [data]);
@@ -81,15 +87,59 @@ const Form = ({
         onValueChange?: (val: string) => void;
         label?: FormItemLabelProps | string;
         value?: any;
+        rules?: RuleItem[] | RuleItem;
+        error?: FormErrorText;
       };
 
       if (inputProps.name) {
         const inputOnChange = inputProps.onChange;
         const inputOnValueChange = inputProps.onValueChange;
 
+        inputProps.error = undefined;
+        if (formErrors) {
+          formErrors.forEach(error => {
+            if (error.field === inputProps.name) {
+              inputProps.error = { show: true, message: error.message };
+            }
+          });
+        }
+
+        if (inputProps.rules) {
+          const updateRule = (rule: RuleItem) => {
+            if (rule.type === 'number' || rule.type === 'integer' || rule.type === 'float') {
+              rule.transform = value => {
+                if (!rule.required && !value) {
+                  return '';
+                }
+                return Number(value);
+              };
+            }
+          };
+          if (Array.isArray(inputProps.rules)) {
+            inputProps.rules.forEach(rule => {
+              updateRule(rule);
+            });
+          } else {
+            updateRule(inputProps.rules);
+          }
+          formDataValidators.current[inputProps.name] = inputProps.rules;
+        }
+
         inputProps = {
           ...inputProps,
           value: formData[inputProps.name] || (elementName === 'CheckBoxGroup' ? [] : '')
+        };
+
+        const clearError = () => {
+          if (formErrors) {
+            for (let i = 0; i < formErrors.length; i++) {
+              if (formErrors[i].field === inputProps.name) {
+                formErrors.splice(i, 1);
+                setFormErrors(formErrors);
+                break;
+              }
+            }
+          }
         };
 
         if (['Input', 'TextArea', 'CheckBox'].includes(elementName)) {
@@ -98,6 +148,7 @@ const Form = ({
             setFormData(newFormData);
             inputOnChange && inputOnChange(evt);
             onDataChange && onDataChange(newFormData);
+            clearError();
           };
         } else if (['RadioGroup', 'CheckBoxGroup'].includes(elementName)) {
           inputProps.onValueChange = value => {
@@ -105,6 +156,7 @@ const Form = ({
             setFormData(newFormData);
             inputOnValueChange && inputOnValueChange(value);
             onDataChange && onDataChange(newFormData);
+            clearError();
           };
         }
       }
@@ -136,7 +188,10 @@ const Form = ({
         const buttonOnClick = buttonProps.onClick;
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt);
-          onSubmit && onSubmit(formData, null);
+          validate(formDataValidators.current, formData, errorList => {
+            setFormErrors(errorList);
+            onSubmit && onSubmit(formData, errorList);
+          });
         };
       }
       return buttonProps;

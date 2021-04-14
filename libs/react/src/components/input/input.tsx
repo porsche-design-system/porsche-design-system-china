@@ -1,6 +1,5 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
-import { ValidationRule } from 'src/shared/validation-rules';
 import { FormItem } from '../form/form-item';
 import { FormErrorText } from '../error-text/error-text';
 import './input.scss';
@@ -21,16 +20,11 @@ export interface InputProps {
   /* 最多输入字符数 */
   maxLength?: number;
 
-  /* 是否必填 */
-  required?: boolean;
-
   /* 错误 */
   error?: FormErrorText;
 
   /* 是否禁用 */
   disabled?: boolean;
-
-  rules?: ValidationRule[];
 
   /* 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
