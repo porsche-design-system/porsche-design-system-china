@@ -28,7 +28,7 @@ export const ExampleStoryBook = () => {
   return (
     <div>
       <RadioGroup
-        label={{ text: '表单标签显示方式' }}
+        label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
           setLabelLayout(JSON.parse(value));
         }}
@@ -110,7 +110,14 @@ export const ExampleStoryBook = () => {
               label="兴趣爱好"
               name="hobbies"
               textIsValue
-              rules={{ required: true, message: '必须填写' }}
+              rules={[
+                {
+                  validator: (_, val) => {
+                    return val.length >= 3;
+                  },
+                  message: '请选择至少3个爱好'
+                }
+              ]}
             >
               <CheckBox text="唱歌" />
               <CheckBox text="玩游戏" />
