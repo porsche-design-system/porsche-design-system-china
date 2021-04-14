@@ -15,16 +15,16 @@ export const CheckBoxStoryBook = () => {
   return (
     <div>
       <div>
-        <CheckBox label="选项1" defaultChecked />
-        <CheckBox label="选项2" />
-        <CheckBox label="失效选项" disabled />
+        <CheckBox text="选项1" defaultChecked />
+        <CheckBox text="选项2" />
+        <CheckBox text="失效选项" disabled />
       </div>
       <br />
       <div>
         <div>Small Size</div>
         <div>
-          <CheckBox label="选项1" size="small" defaultChecked />
-          <CheckBox label="选项2" size="small" />
+          <CheckBox text="选项1" size="small" defaultChecked />
+          <CheckBox text="选项2" size="small" />
         </div>
       </div>
       <br />
@@ -39,11 +39,11 @@ export const CheckBoxStoryBook = () => {
               setPickedValues(values);
             }}
           >
-            <CheckBox label="唱歌" value="singing" />
-            <CheckBox label="玩游戏" value="gaming" />
-            <CheckBox label="跳舞" value="dance" />
-            <CheckBox label="游泳" value="swimming" />
-            <CheckBox label="游泳" value="swimming" />
+            <CheckBox text="唱歌" value="singing" />
+            <CheckBox text="玩游戏" value="gaming" />
+            <CheckBox text="跳舞" value="dance" />
+            <CheckBox text="游泳" value="swimming" />
+            <CheckBox text="游泳" value="swimming" />
           </CheckBoxGroup>
         </div>
         <div>{JSON.stringify(pickedValues)}</div>
@@ -60,10 +60,10 @@ export const CheckBoxStoryBook = () => {
               setShowError(false);
             }}
           >
-            <CheckBox label="阿甘正传" />
-            <CheckBox label="肖申克的救赎" />
-            <CheckBox label="寻龙传说" />
-            <CheckBox label="复仇者联盟" />
+            <CheckBox text="阿甘正传" />
+            <CheckBox text="肖申克的救赎" />
+            <CheckBox text="寻龙传说" />
+            <CheckBox text="复仇者联盟" />
           </CheckBoxGroup>
         </div>
       </div>

@@ -13,8 +13,8 @@ export interface CheckBoxProps {
   /** 样式 */
   style?: CSSProperties;
 
-  /* 标签 */
-  label?: string;
+  /* 显示文字 */
+  text?: string;
 
   /*选项值 */
   value?: string;
@@ -45,7 +45,7 @@ const CheckBox = ({
   className,
   style,
   defaultChecked = false,
-  label = '',
+  text = '',
   value = '',
   disabled = false,
   size = 'default',
@@ -69,7 +69,7 @@ const CheckBox = ({
       <span className="pui-checkbox-checkmark">
         <IconCheck style={{ color: 'white' }} />
       </span>
-      {label}
+      {text}
     </label>
   );
 };

@@ -1,5 +1,6 @@
 module.exports = {
-  extends: ['prettier', 'prettier/react'],
+  extends: ['airbnb', 'prettier', 'prettier/react', 'plugin:react-hooks/recommended'],
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true
@@ -48,6 +49,7 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
       extends: [
+        'airbnb',
         'plugin:@typescript-eslint/recommended',
         'prettier',
         'prettier/@typescript-eslint',
