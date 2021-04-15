@@ -13,23 +13,34 @@
           table-layout: fixed;
           border-spacing: 0;
           border-collapse: collapse;
-          width: 2000px;
           min-width: 100%;
 
           .measure {
-            width: 140px;
-            height: 0px;
+            width: 200px;
+            height: 0;
             border: none;
+            padding: 0;
           }
           .fixed {
             position: sticky;
             left: 0;
             text-align: center;
+            overflow: visible;
           }
 
           td {
             border-bottom: 1px solid $border-color-1;
             height: 60px;
+            padding-left: 30px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+
+          .pui-table-cell-multiline {
+            text-overflow: initial;
+            overflow: auto;
+            white-space: initial;
           }
         }
         overflow: hidden;
@@ -40,12 +51,12 @@
           .fixed,
           td {
             background-color: $container-bg-color-1;
+            font-weight: bold;
           }
         }
       }
 
       &-body {
-        max-height: 200px;
         overflow-x: auto;
         overflow-y: scroll;
         table {
@@ -54,6 +65,16 @@
             background-color: $background-color-2;
           }
         }
+      }
+
+      &-scrollLeft-true table .fixed::after {
+        height: 60px;
+        content: '';
+        width: 10px;
+        position: absolute;
+        right: -10px;
+        box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+        top: 0px;
       }
     }
   }
