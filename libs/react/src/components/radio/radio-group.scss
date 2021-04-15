@@ -5,7 +5,6 @@
     @include theme($theme);
 
     .pui-radio-group {
-      margin-bottom: $element-margin-bottom;
       display: inline-block;
       vertical-align: top;
 
@@ -20,10 +19,12 @@
       &-error-true {
         .pui-radio {
           input {
-            border: 2px solid $status-error-color;
+            border: 1px solid $status-error-color;
+            box-shadow: 0 0 0 1px $status-error-color;
           }
           input:hover {
-            border: 2px solid $status-error-color-hover;
+            border: 1px solid $status-error-color-hover;
+            box-shadow: 0 0 0 1px $status-error-color-hover;
           }
         }
       }

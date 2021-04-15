@@ -1,7 +1,21 @@
 @import '../../styles/theme/';
 
 .pui-button-group {
-  margin-bottom: $element-margin-bottom;
+  margin-bottom: $form-element-margin-bottom;
+
+  &-align-left,
+  &-align-center {
+    button {
+      margin-right: $form-element-margin-right;
+    }
+  }
+
+  &-align-right {
+    button {
+      margin-left: $form-element-margin-right;
+    }
+  }
+
   &-disabled-true {
     pointer-events: none;
     cursor: not-allowed;

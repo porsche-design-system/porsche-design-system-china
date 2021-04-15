@@ -35,7 +35,7 @@ const CheckBoxGroup = FormItem(
     onValueChange,
     value = [],
     error,
-    textIsValue = false
+    textIsValue = true
   }: CheckBoxGroupProps) => {
     const checkBoxValues = useRef<string[]>(value);
 

@@ -22,7 +22,7 @@ export interface ButtonGroupProps {
 const ButtonGroup = ({ label, disabled = false, children, align = 'left' }: ButtonGroupProps) => {
   return (
     <div
-      className={componentClassNames('pui-button-group', { disabled: disabled + '' })}
+      className={componentClassNames('pui-button-group', { disabled: disabled + '', align })}
       style={{ textAlign: align }}
     >
       {label && <Label {...getLabelProps(label)} />}

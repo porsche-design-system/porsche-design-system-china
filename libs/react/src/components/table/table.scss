@@ -1,0 +1,42 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-table {
+      &-fixed-left,
+      &-fixed-right,
+      &-middle {
+        float: left;
+        overflow: auto;
+      }
+
+      &-middle,
+      &-main {
+        width: 500px;
+      }
+
+      &-fixed-left,
+      &-fixed-right,
+      &-main {
+        border-spacing: 0;
+        border-collapse: collapse;
+        th {
+          text-align: left;
+          position: relative;
+        }
+
+        tr {
+          position: relative;
+          display: block;
+        }
+
+        tr td {
+          border-top: 1px solid #ddd;
+          height: 40px;
+        }
+      }
+    }
+  }
+}

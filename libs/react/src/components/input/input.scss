@@ -7,7 +7,6 @@
     .pui-input {
       position: relative;
       display: inline-block;
-      margin-bottom: 12px;
 
       &-char-count {
         position: absolute;
@@ -61,10 +60,12 @@
 
       &-error-true {
         input {
-          border: 2px solid $status-error-color;
+          border: 1px solid $status-error-color;
+          box-shadow: 0 0 0 1px $status-error-color;
         }
         input:hover {
-          border: 2px solid $status-error-color-hover;
+          border: 1px solid $status-error-color-hover;
+          box-shadow: 0 0 0 1px $status-error-color-hover;
         }
       }
     }
