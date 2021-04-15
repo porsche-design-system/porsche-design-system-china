@@ -39,8 +39,7 @@ export const ExampleStoryBook = () => {
           text="标签文字在左边"
           value={JSON.stringify({
             position: 'left',
-            textAlign: 'left',
-            style: { fontWeight: 'bold' }
+            textAlign: 'left'
           })}
           size="small"
         />
@@ -98,7 +97,10 @@ export const ExampleStoryBook = () => {
             <Input
               label="手机号"
               name="mobile"
-              rules={{ type: 'number', message: '手机号必须是数字' }}
+              rules={[
+                { required: true, message: '必须填写' },
+                { type: 'number', message: '手机号必须是数字' }
+              ]}
             />
             <RadioGroup name="job" label="职业" textIsValue>
               <Radio text="教师" />
