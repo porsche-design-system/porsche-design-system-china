@@ -5,36 +5,54 @@
     @include theme($theme);
 
     .pui-table {
-      &-fixed-left,
-      &-fixed-right,
-      &-middle {
-        float: left;
-        overflow: auto;
+      overflow: hidden;
+
+      &-head,
+      &-body {
+        table {
+          table-layout: fixed;
+          border-spacing: 0;
+          border-collapse: collapse;
+          width: 2000px;
+          min-width: 100%;
+
+          .measure {
+            width: 140px;
+            height: 0px;
+            border: none;
+          }
+          .fixed {
+            position: sticky;
+            left: 0;
+            text-align: center;
+          }
+
+          td {
+            border-bottom: 1px solid $border-color-1;
+            height: 60px;
+          }
+        }
+        overflow: hidden;
       }
 
-      &-middle,
-      &-main {
-        width: 500px;
+      &-head {
+        table {
+          .fixed,
+          td {
+            background-color: $container-bg-color-1;
+          }
+        }
       }
 
-      &-fixed-left,
-      &-fixed-right,
-      &-main {
-        border-spacing: 0;
-        border-collapse: collapse;
-        th {
-          text-align: left;
-          position: relative;
-        }
-
-        tr {
-          position: relative;
-          display: block;
-        }
-
-        tr td {
-          border-top: 1px solid #ddd;
-          height: 40px;
+      &-body {
+        max-height: 200px;
+        overflow-x: auto;
+        overflow-y: scroll;
+        table {
+          background-color: $background-color-2;
+          .fixed {
+            background-color: $background-color-2;
+          }
         }
       }
     }
