@@ -1,18 +1,14 @@
 import React from 'react';
-import { Button, message } from '../..';
+import { Button, Message } from '../..';
 
 export default {
   title: 'Feedback/Message'
 };
 
 export const knobsMessage = () => {
-  const op = {
-    delay: 2000,
-    animationDuring: 300
-  };
-  const tx = 'hello message';
-  const onClick = (type: string, config?: any) => {
-    message[type](tx, config || op);
+  const tx = 'Hello, this is a message from PUI';
+  const onClick = (type: any, config?: any) => {
+    Message.pop(type, tx, config);
   };
 
   return (
