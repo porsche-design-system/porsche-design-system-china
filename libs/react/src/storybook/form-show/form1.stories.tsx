@@ -1,6 +1,6 @@
-import { IconArrowHeadLeft, IconArrowHeadRight, IconClose } from '@pui/icons';
+import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons';
 import React, { useState } from 'react';
-import { Button, Input, TextArea, Row, Col, Form, ButtonGroup } from '../..';
+import { Button, Input, TextArea, Form, ButtonGroup } from '../..';
 
 export default {
   title: 'Form Example/Form 1',
@@ -8,8 +8,6 @@ export default {
 };
 
 export const ExampleStoryBook = () => {
-  const [labelLayout, setLabelLayout] = useState({});
-  const [buttonAlign, setButtonAlign] = useState('left');
   const [data, setData] = useState({});
 
   return (
