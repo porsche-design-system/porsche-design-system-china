@@ -70,11 +70,12 @@
       &-scrollLeft-true table .fixed::after {
         height: 60px;
         content: '';
-        width: 10px;
+        width: 24px;
         position: absolute;
-        right: -10px;
+        right: -24px;
         box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
         top: 0px;
+        pointer-events: none;
       }
     }
   }
