@@ -16,5 +16,5 @@ export { PUITheme } from './pui-theme/pui-theme';
 export { Divider } from './divider/divider';
 export { Pane } from './pane/pane';
 export { Form } from './form/form';
-export { Table } from './table/table';
+export { Table, TableColumn } from './table/table';
 export { ButtonGroup } from './button/button-group';
