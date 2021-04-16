@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState, useMemo } from 'react';
-import { componentClassNames,filterChildren } from '../../shared/class-util';
+import { componentClassNames, filterChildren } from '../../shared/class-util';
 import './tabs.scss';
 
 export interface Props {
@@ -34,27 +34,25 @@ const Tabs = ({
 }: Props) => {
   const [acitveIndex, setActiveIndex] = useState(0);
   const [tabChildren, setTabChildren] = useState([]);
-  useMemo(() => { 
-    setTabChildren(filterChildren(children,'TabPane',false) || []);
+  useMemo(() => {
+    setTabChildren(filterChildren(children, 'TabPane', false) || []);
   }, [children]);
 
   useEffect(() => {
-      console.log('tabChildren',tabChildren);
-      tabChildren.forEach((child:any, index:number) => {
-        if (
-          (defaultActiveKey || activeKey) &&
-          (child.key === '.$'+defaultActiveKey || child.key === '.$'+activeKey)
-        ) {
-          setActiveIndex(index);
-        }
-      });
-    
+    tabChildren.forEach((child: any, index: number) => {
+      if (
+        (defaultActiveKey || activeKey) &&
+        (child.key === '.$' + defaultActiveKey || child.key === '.$' + activeKey)
+      ) {
+        setActiveIndex(index);
+      }
+    });
   }, [activeKey, tabChildren]);
 
   return (
     <div className={componentClassNames('pui-tabs', {}, className)} style={style}>
       <div className={componentClassNames('pui-tabs-header', {})}>
-        {tabChildren.map((child:any, index: number) => {
+        {tabChildren.map((child: any, index: number) => {
           return (
             <div
               key={child.key || index}
@@ -70,13 +68,15 @@ const Tabs = ({
                 setActiveIndex(index);
               }}
             >
-              <span data-text={child.props.tab || '未定义Tab头'}>{child.props.tab || '未定义Tab头'}</span>
+              <span data-text={child.props.tab || '未定义Tab头'}>
+                {child.props.tab || '未定义Tab头'}
+              </span>
             </div>
-          ); 
+          );
         })}
       </div>
       <div className={componentClassNames('pui-tabs-body', {})}>
-        {tabChildren.map((child:any, index: number) => {
+        {tabChildren.map((child: any, index: number) => {
           return (
             <div
               key={child.key || index}
@@ -105,7 +105,6 @@ interface TabPaneProps {
 
   /** 是否禁用 */
   disabled?: boolean;
-
 }
 
 const TabPane = ({ tab, children, disabled = false }: TabPaneProps) => {
@@ -116,4 +115,4 @@ const TabPane = ({ tab, children, disabled = false }: TabPaneProps) => {
     </div>
   );
 };
-export { Tabs ,TabPane};
+export { Tabs, TabPane };
