@@ -34,19 +34,17 @@ export const ExampleStoryBook = () => {
         }}
         value={JSON.stringify({ position: 'top' })}
       >
-        <Radio text="标签文字在上面" value={JSON.stringify({ position: 'top' })} size="small" />
+        <Radio text="标签文字在上面" value={JSON.stringify({ position: 'top' })} />
         <Radio
           text="标签文字在左边"
           value={JSON.stringify({
             position: 'left',
             textAlign: 'left'
           })}
-          size="small"
         />
         <Radio
           text="标签文字在左边，文字向右对齐"
           value={JSON.stringify({ position: 'left', textAlign: 'right' })}
-          size="small"
         />
       </RadioGroup>
       <Divider contrast="medium" />
@@ -58,9 +56,9 @@ export const ExampleStoryBook = () => {
         }}
         value={buttonAlign}
       >
-        <Radio text="左" value="left" size="small" />
-        <Radio text="中" value="center" size="small" />
-        <Radio text="右" value="right" size="small" />
+        <Radio text="左" value="left" />
+        <Radio text="中" value="center" />
+        <Radio text="右" value="right" />
       </RadioGroup>
       <Divider contrast="medium" />
       <br />
