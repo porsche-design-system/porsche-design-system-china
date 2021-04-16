@@ -1,0 +1,41 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-progress {
+      width: 100%;
+      align-items: center;
+      display: inline-flex;
+      .pui-progress-outer {
+        width: 100%;
+        height: 4px;
+        background-color: $container-bg-color-1;
+        border-radius: 2px;
+        display: inline-block;
+        margin-right: 12px;
+        .pui-progress-inner {
+          height: 100%;
+          background-color: $container-bg-color-7;
+          border-radius: 3px;
+        }
+      }
+      .pui-progress-text {
+        display: inline-block;
+        width: 18px;
+        font-size: 12px;
+      }
+      &.pui-progress-status-success {
+        .pui-progress-inner {
+          background-color: $status-success-color;
+        }
+      }
+      &.pui-progress-status-error {
+        .pui-progress-inner {
+          background-color: $status-error-color;
+        }
+      }
+    }
+  }
+}
