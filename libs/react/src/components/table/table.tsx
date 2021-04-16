@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import { CheckBox } from '../checkbox/checkbox';
 import './table.scss';
@@ -30,15 +30,31 @@ export interface TableProps {
 
   /* 排序事件 */
   onSort?: (columnName: string) => void;
+
+  /* 选定事件 */
+  onSelect?: (selectedRowData: any[]) => void;
 }
 
 /**
  * Primary UI component for user interaction
  */
-const Table = ({ className, style, columns, data, onSort, selectable = false }: TableProps) => {
+const Table = ({
+  className,
+  style,
+  columns,
+  data,
+  onSort,
+  onSelect,
+  selectable = false
+}: TableProps) => {
   const middleColumns: TableColumn[] = [];
   const leftColumns: TableColumn[] = [];
   const rightColumns: TableColumn[] = [];
+
+  const [seletedRows, setSelectedRows] = useState<number[]>([]);
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [data]);
 
   columns.forEach(col => {
     if (col.fixed === 'left') {
@@ -166,6 +182,15 @@ const Table = ({ className, style, columns, data, onSort, selectable = false }: 
   });
   fixColumnRight.reverse().splice(0, 1);
 
+  const selectCallback = (sRows: number[]) => {
+    const rowData: any[] = [];
+    sRows.forEach(rowInx => {
+      rowData.push(JSON.parse(JSON.stringify(data[rowInx])));
+    });
+    setSelectedRows([...sRows]);
+    onSelect && onSelect(rowData);
+  };
+
   return (
     <div
       className={componentClassNames(
@@ -194,7 +219,22 @@ const Table = ({ className, style, columns, data, onSort, selectable = false }: 
               <tr>
                 {selectable && (
                   <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
-                    <CheckBox size="small" />
+                    <CheckBox
+                      size="small"
+                      onCheckedChange={checked => {
+                        if (checked) {
+                          const fullSeletedRows: number[] = [];
+                          for (let i = 0; i < data.length; i++) {
+                            fullSeletedRows.push(i);
+                          }
+                          setSelectedRows(fullSeletedRows);
+                          selectCallback(fullSeletedRows);
+                        } else {
+                          setSelectedRows([]);
+                          selectCallback([]);
+                        }
+                      }}
+                    />
                   </td>
                 )}
                 {leftColumns.map((column, inx) => {
@@ -226,10 +266,24 @@ const Table = ({ className, style, columns, data, onSort, selectable = false }: 
                   .map((column, inx) => renderMeasureCell(column, inx))}
               </tr>
               {data.map((rowData, inx) => (
-                <tr key={'row' + inx}>
+                <tr
+                  key={'row' + inx}
+                  className={seletedRows.includes(inx) ? 'pui-table-selected-row' : ''}
+                >
                   {selectable && (
                     <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
-                      <CheckBox size="small" />
+                      <CheckBox
+                        size="small"
+                        onCheckedChange={checked => {
+                          if (checked) {
+                            seletedRows.push(inx);
+                          } else {
+                            seletedRows.splice(seletedRows.indexOf(inx), 1);
+                          }
+                          selectCallback(seletedRows);
+                        }}
+                        checked={seletedRows.includes(inx)}
+                      />
                     </td>
                   )}
                   {leftColumns.map((column, inx) =>
