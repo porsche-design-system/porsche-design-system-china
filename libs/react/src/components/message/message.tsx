@@ -1,8 +1,8 @@
 import React, { ReactNode, useMemo, useState, useEffect, useCallback } from 'react';
 import ReactDom, { unmountComponentAtNode } from 'react-dom';
-import { IconInformation, IconClose } from '@pui/icons';
+import { IconInformation2, IconClose, IconCorrect, IconWarning2, IconError } from '@pui/icons';
 import './message.scss';
-export type MessageType = 'info' | 'success' | 'error' | 'warning' | 'loading' | 'default';
+export type MessageType = 'info' | 'success' | 'error' | 'warning';
 
 export interface MessageConfig {
   /** 挂载点*/
@@ -21,7 +21,7 @@ export interface MessageConfig {
 
 const defaultConfig: MessageConfig = {
   mount: document.body,
-  delay: 1000,
+  delay: 2000,
   callback: null,
   closeble: false,
   background: '',
@@ -55,7 +55,7 @@ export const createMessage = (type: MessageType) => {
     const divs = document.createElement('div');
     wrap.appendChild(divs);
     ReactDom.render(
-      <Message
+      <MessageBox
         rootDom={wrap}
         parentDom={divs}
         content={content}
@@ -75,7 +75,7 @@ export type MessageProps = {
   iconType: MessageType;
 };
 
-export function Message(props: MessageProps) {
+export function MessageBox(props: MessageProps) {
   const { rootDom, parentDom, content, fconfig, iconType } = props;
   const [close, setClose] = useState(false);
 
@@ -132,8 +132,10 @@ export function Message(props: MessageProps) {
   return (
     <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
       <span className={`message-text ${iconType}`}>
-        {/* TODO: 图标根据类型匹配 */}
-        <IconInformation />
+        {props.iconType === 'info' && <IconInformation2 />}
+        {props.iconType === 'success' && <IconCorrect />}
+        {props.iconType === 'warning' && <IconWarning2 />}
+        {props.iconType === 'error' && <IconError />}
         <span className="text-content">{content}</span>
         {fconfig.closeble && <IconClose onClick={handleClose} />}
       </span>
@@ -141,9 +143,8 @@ export function Message(props: MessageProps) {
   );
 }
 
-export const message = {
-  info: createMessage('info'),
-  success: createMessage('success'),
-  error: createMessage('error'),
-  warning: createMessage('warning')
+export const Message = {
+  pop(type: MessageType, content: ReactNode, config: Partial<MessageConfig> = {}) {
+    createMessage(type)(content, config);
+  }
 };

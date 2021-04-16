@@ -85,14 +85,14 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Icon Button</div>
         <br />
-        <div>
+        <div className="show-case">
           <Button icon={IconArrowRight} />
           <Button type="primary" icon={IconAdd} />
           <Button type="secondary" icon={IconEdit} />
           <Button type="text" icon={IconArrowRight} />
         </div>
         <br />
-        <div>
+        <div className="show-case">
           <Button icon={IconArrowRight}>进入</Button>
           <Button icon={IconClose}>关闭</Button>
           <Button type="primary" icon={IconAdd}>
@@ -109,14 +109,14 @@ export const ButtonStoryBook = () => {
 
       <div className="group">
         <div className="title">Small Size Icon Button</div>
-        <div>
+        <div className="show-case">
           <Button icon={IconArrowRight} size="small" />
           <Button type="primary" icon={IconAdd} size="small" />
           <Button type="secondary" icon={IconEdit} size="small" />
           <Button type="text" icon={IconArrowRight} size="small" />
         </div>
         <br />
-        <div>
+        <div className="show-case">
           <Button type="primary" icon={IconAdd} size="small">
             添加
           </Button>
@@ -134,7 +134,7 @@ export const ButtonStoryBook = () => {
 
       <div className="group">
         <div className="title">Loading Button</div>
-        <div>
+        <div className="show-case">
           <Button
             loading={loading}
             type="primary"

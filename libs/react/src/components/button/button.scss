@@ -8,7 +8,6 @@
       border: none;
       cursor: pointer;
       padding: 0 16px;
-      margin-right: $element-margin-right;
       transition: color 0.2s, background-color 0.2s, border 0.2s;
       box-sizing: border-box;
       overflow: hidden;
@@ -112,6 +111,8 @@
         background-color: transparent;
         border: 1px solid transparent;
         border: none;
+        padding-left: 0;
+        padding-right: 0;
         &:hover,
         &-hover {
           color: $text-link-color-hover;

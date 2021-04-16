@@ -5,9 +5,10 @@
     @include theme($theme);
 
     .pui-error-text {
+      margin-top: 4px;
       font-size: 14px;
       color: $status-error-color;
-      margin-top: -10px;
+      position: absolute;
     }
   }
 }

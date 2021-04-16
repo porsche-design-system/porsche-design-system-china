@@ -30,6 +30,12 @@ export interface CheckBoxProps {
 
   /* 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
+
+  /* 值改变事件 */
+  onCheckedChange?: (checked: boolean) => void;
+
+  /* 是否选定 */
+  checked?: boolean;
 }
 
 /**
@@ -49,7 +55,9 @@ const CheckBox = ({
   value = '',
   disabled = false,
   size = 'default',
-  onChange
+  checked,
+  onChange,
+  onCheckedChange
 }: CheckBoxProps) => {
   const id = useMemo(() => generateId(), []);
   return (
@@ -61,9 +69,13 @@ const CheckBox = ({
       <input
         id={id}
         type="checkbox"
-        onChange={onChange}
+        onChange={evt => {
+          onChange && onChange(evt);
+          onCheckedChange && onCheckedChange(evt.target.checked);
+        }}
         disabled={disabled}
         defaultChecked={defaultChecked}
+        checked={checked}
         value={value}
       />
       <span className="pui-checkbox-checkmark">
