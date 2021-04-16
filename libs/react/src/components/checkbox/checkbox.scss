@@ -42,6 +42,7 @@
       }
 
       input:checked {
+        border: none;
         background-color: $container-bg-active-color;
       }
 

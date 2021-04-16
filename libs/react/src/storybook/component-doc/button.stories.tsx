@@ -20,11 +20,10 @@ export default {
 export const ButtonStoryBook = () => {
   const buttonTypes = ['default', 'primary', 'secondary', 'text'];
   const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
 
   const renderButtonType = (type: any) => {
     return (
-      <Row key={type} style={{ marginBottom: '10px' }}>
+      <Row key={type} style={{ marginBottom: '10px', textAlign: 'center' }}>
         <Col className="type-name" span={4}>
           <div>{type}</div>
         </Col>
@@ -148,18 +147,7 @@ export const ButtonStoryBook = () => {
           >
             提交
           </Button>
-          <Button
-            loading={loading2}
-            type="secondary"
-            icon={IconArrowRight}
-            size="small"
-            onClick={() => {
-              setLoading2(true);
-              setTimeout(() => {
-                setLoading2(false);
-              }, 2000);
-            }}
-          >
+          <Button loadingWhenClick type="secondary" icon={IconArrowRight} size="small">
             提交
           </Button>
         </div>
@@ -167,7 +155,7 @@ export const ButtonStoryBook = () => {
 
       <div className="group">
         <div className="title">Styles</div>
-        <Row className="headline">
+        <Row className="headline" style={{ textAlign: 'center' }}>
           <Col span={4}>Type</Col>
           <Col>Default</Col>
           <Col>Hover</Col>

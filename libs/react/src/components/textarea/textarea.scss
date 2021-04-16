@@ -30,7 +30,7 @@
       textarea {
         color: $text-color-1;
         font-size: 16px;
-        background-color: $background-color-2;
+        background-color: transparent;
         border: 1px solid $border-color-3;
         padding: 12px;
         width: 100%;
@@ -54,7 +54,8 @@
         }
       }
 
-      textarea:hover {
+      textarea:hover,
+      textarea:focus {
         border-color: $border-color-5;
       }
 

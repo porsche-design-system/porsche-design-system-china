@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement } from 'react';
+import React, { CSSProperties, ReactElement, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import { IconAdd } from '@pui/icons';
 type PUIIcon = typeof IconAdd;
@@ -29,6 +29,9 @@ export interface ButtonProps {
   /* 是否是表单提交按钮 */
   formSubmit?: boolean;
 
+  /* 点击变成Loading状态 */
+  loadingWhenClick?: boolean;
+
   // 组件事件 //
 
   /* 点击事件 */
@@ -48,6 +51,7 @@ const Button = ({
   icon,
   loading = false,
   disabled = false,
+  loadingWhenClick = false,
   onClick,
   onMouseDown
 }: ButtonProps) => {
@@ -61,6 +65,7 @@ const Button = ({
 
   const loadingSize = size === 'default' ? 24 : 20;
   const IconComponent = icon as any;
+  const [clickToLoadingState, setClickToLoading] = useState(false);
 
   return (
     <button
@@ -70,12 +75,15 @@ const Button = ({
       onClick={evt => {
         if (!loading) {
           onClick && onClick(evt);
+          if (loadingWhenClick) {
+            setClickToLoading(true);
+          }
         }
       }}
       onMouseDown={onMouseDown}
-      disabled={disabled || loading}
+      disabled={disabled || loading || clickToLoadingState}
     >
-      {loading && (
+      {(loading || clickToLoadingState) && (
         <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
           <svg height={loadingSize} width={loadingSize} className="pui-button-loading-svg">
             <circle
@@ -94,7 +102,7 @@ const Button = ({
         </span>
       )}
 
-      {icon && !loading && (
+      {icon && !(loading || clickToLoadingState) && (
         <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
           {IconComponent['$$typeof'].toString() === 'Symbol(react.element)' ? (
             IconComponent
