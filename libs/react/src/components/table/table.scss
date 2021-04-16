@@ -70,7 +70,7 @@
           .pui-table-fixed-right {
             background-color: $background-color-2;
           }
-          tr:hover td {
+          .pui-table-selected-row td {
             background-color: $container-bg-color-1;
           }
         }

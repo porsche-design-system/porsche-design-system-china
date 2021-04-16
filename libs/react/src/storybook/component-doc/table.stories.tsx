@@ -44,7 +44,14 @@ const columns: TableColumn[] = [
 export const TableStoryBook = () => {
   return (
     <div>
-      <Table data={tableData} columns={columns} selectable />
+      <Table
+        data={tableData}
+        columns={columns}
+        selectable
+        onSelect={data => {
+          console.log(data);
+        }}
+      />
     </div>
   );
 };
