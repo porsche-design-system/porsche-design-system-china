@@ -147,7 +147,7 @@ export const ButtonStoryBook = () => {
           >
             提交
           </Button>
-          <Button loadingWhenClick type="secondary" icon={IconArrowRight} size="small">
+          <Button type="secondary" icon={IconArrowRight} size="small">
             提交
           </Button>
         </div>
