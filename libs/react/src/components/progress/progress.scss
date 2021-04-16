@@ -1,0 +1,62 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-progress {
+      width: 100%;
+      height: 28px;
+      align-items: center;
+      display: inline-flex;
+      padding: 0 4px;
+      &:hover {
+        background-color: $container-bg-opacity-color-1;
+        .pui-progress-close {
+          display: inline-block;
+        }
+      }
+      .pui-progress-close {
+        display: none;
+        cursor: pointer;
+        margin-top: 3px;
+        margin-left: 12px;
+        color: $text-opacity-color-3;
+      }
+      .pui-progress-outer {
+        width: 100%;
+        height: 4px;
+        background-color: $container-bg-color-3;
+        display: inline-block;
+        margin-right: 8px;
+        .pui-progress-inner {
+          height: 100%;
+          background-color: $container-bg-active-color;
+        }
+      }
+      .pui-progress-text {
+        display: inline-block;
+        width: 24px;
+        text-align: center;
+        color: $text-opacity-color-1;
+        font-size: 12px;
+        &.pui-progress-text-status-success {
+          color: $status-success-color;
+        }
+        &.pui-progress-text-status-error {
+          color: $status-error-color;
+        }
+      }
+      &.pui-progress-status-success {
+        .pui-progress-inner {
+          background-color: $status-success-color;
+        }
+      }
+      &.pui-progress-status-error {
+        .pui-progress-inner {
+          background-color: $status-error-color;
+        }
+      }
+    }
+  }
+}
