@@ -43,7 +43,7 @@ const RadioGroup = FormItem(
     onValueChange,
     value = '',
     error,
-    textIsValue = false
+    textIsValue = true
   }: RadioGroupProps) => {
     const radioValue = useRef<string>(value);
 

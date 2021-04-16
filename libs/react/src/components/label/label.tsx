@@ -40,7 +40,7 @@ const Label = (props: LabelProps) => {
 
   const star = (
     <span className="pui-label-star">
-      <IconAsterisk style={{ fontSize: '10px' }} />
+      <IconAsterisk style={{ fontSize: '13px' }} />
     </span>
   );
 

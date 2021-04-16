@@ -6,7 +6,6 @@
 
     .pui-textarea {
       position: relative;
-      margin-bottom: 12px;
       display: inline-block;
       vertical-align: top;
 
@@ -68,10 +67,12 @@
 
       &-error-true {
         textarea {
-          border: 2px solid $status-error-color;
+          border: 1px solid $status-error-color;
+          box-shadow: 0 0 0 1px $status-error-color;
         }
         textarea:hover {
-          border: 2px solid $status-error-color-hover;
+          border: 1px solid $status-error-color-hover;
+          box-shadow: 0 0 0 1px $status-error-color-hover;
         }
       }
 

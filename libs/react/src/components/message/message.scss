@@ -12,6 +12,7 @@
         animation: closeAnimate 0.2s ease-in;
       }
       .message-text {
+        user-select: none;
         display: inline-flex;
         align-items: center;
         line-height: 40px;
@@ -31,18 +32,30 @@
         }
         &.error {
           background: $status-bg-error-color;
+          .porscheicon {
+            color: $status-error-color;
+          }
         }
 
         &.success {
           background: $status-bg-success-color;
+          .porscheicon {
+            color: $status-success-color;
+          }
         }
 
         &.warning {
           background: $status-bg-warning-color;
+          .porscheicon {
+            color: $status-warning-color;
+          }
         }
 
         &.info {
           background: $status-bg-neutral-color;
+          .porscheicon {
+            color: $status-neutral-color;
+          }
         }
       }
     }

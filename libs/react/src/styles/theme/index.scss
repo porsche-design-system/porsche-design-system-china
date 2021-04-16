@@ -15,3 +15,7 @@ $themes: light, dark;
 } @else if($pui-theme == 'dark') {
   @include dark;
 }
+
+// share style
+$form-element-margin-right: 24px !global;
+$form-element-margin-bottom: 36px !global;

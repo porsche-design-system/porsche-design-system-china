@@ -1,0 +1,102 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-table {
+      overflow: hidden;
+
+      &-head,
+      &-body {
+        table {
+          table-layout: fixed;
+          border-spacing: 0;
+          border-collapse: collapse;
+          min-width: 100%;
+
+          td {
+            border-bottom: 1px solid $border-color-1;
+            height: 60px;
+            padding-left: 30px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+
+          .pui-table-measure {
+            width: 200px;
+            height: 0;
+            border: none;
+            padding: 0;
+          }
+
+          .pui-table-fixed-left,
+          .pui-table-fixed-right {
+            position: sticky;
+            overflow: visible;
+          }
+
+          .pui-table-selectable {
+            padding-left: 17px;
+          }
+
+          .pui-table-cell-multiline {
+            text-overflow: initial;
+            overflow: auto;
+            white-space: initial;
+          }
+        }
+        overflow: hidden;
+      }
+
+      &-head {
+        table {
+          .pui-table-fixed-left,
+          .pui-table-fixed-right,
+          td {
+            background-color: $container-bg-color-1;
+            font-weight: bold;
+          }
+        }
+      }
+
+      &-body {
+        overflow-x: auto;
+        overflow-y: scroll;
+        table {
+          background-color: $background-color-2;
+          .pui-table-fixed-left,
+          .pui-table-fixed-right {
+            background-color: $background-color-2;
+          }
+          .pui-table-selected-row td {
+            background-color: $container-bg-color-1;
+          }
+        }
+      }
+
+      &-scrollLeft-true table .pui-table-fixed-left::after {
+        height: 60px;
+        content: '';
+        width: 24px;
+        position: absolute;
+        right: -24px;
+        box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.15);
+        top: 0px;
+        pointer-events: none;
+      }
+
+      &-scrollRight-true table .pui-table-fixed-right::before {
+        height: 60px;
+        content: '';
+        width: 24px;
+        position: absolute;
+        left: -24px;
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, 0.15);
+        top: 0px;
+        pointer-events: none;
+      }
+    }
+  }
+}
