@@ -1,5 +1,6 @@
-import React, { CSSProperties, useState, useEffect } from 'react';
+import React from 'react';
 import { componentClassNames } from '../../shared/class-util';
+import { IconCorrect, IconError } from '@pui/icons';
 import './progress.scss';
 
 function validProgress(progress: number | undefined) {
@@ -21,7 +22,8 @@ export interface ProgressProps {
   showInfo?: boolean
   /** 状态 */
   status?: 'success' | 'error' | 'normal';
-
+  /** 停止上传回调函数 */
+  onStop?: () => void
 }
 
 const Info = ({
@@ -29,25 +31,25 @@ const Info = ({
   percent = 0,
 }:ProgressProps) => {
 
+  if (status === 'success') {
+    return <IconCorrect />
+  }
 
+  if (status === 'error') {
+    return <IconError />
+  }
 
+  return <span>{percent}%</span> 
 }
 
 const Progress = ({
   status = 'normal',
   percent = 0,
-  showInfo = true
+  showInfo = true,
+  onStop
 }:ProgressProps) => {
-  const prPercent = validProgress(percent);
-  const [useStatus, setUseProgress] = useState(status)
-  useEffect(() => {
-    setUseProgress(() => {
-      if (percent >= 100) {
-        return 'success'
-      }
-      return status
-    })
-  }, [percent])
+  const usePercent = validProgress(percent);
+  const useStatus = percent >= 100 ? 'success' : status;
 
   return (
     <div className={componentClassNames('pui-progress', {
@@ -57,12 +59,17 @@ const Progress = ({
       <div className="pui-progress-outer">
         <div 
           className="pui-progress-inner"
-          style={{width: `${prPercent}%`}}
+          style={{width: `${usePercent}%`}}
         />
       </div>
-      <span className="pui-progress-text">
-        {showInfo ? <span>{prPercent}%</span> : null}
+      <span className={componentClassNames('pui-progress-text', {status: useStatus})}>
+        {showInfo ? <Info percent={usePercent} status={useStatus} /> : null}
       </span>
+      {useStatus === 'normal' ? (
+        <span onClick={onStop} className="pui-progress-close">
+          <IconError />
+        </span>
+      ) : null }
     </div>
   )
 }

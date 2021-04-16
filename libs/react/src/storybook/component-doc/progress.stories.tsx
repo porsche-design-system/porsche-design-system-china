@@ -11,11 +11,11 @@ export default {
 export const ProgressStoryBook = () => {
   return (
    <div className="progress-demo">
-    <Progress percent={ 15 } />
+    <Progress percent={ 15 } onStop={() => console.log('======🔥')}/>
     <br/>
     <Progress percent={100} />
     <br/>
-    <Progress percent={50} showInfo={false} status="error" />
+    <Progress percent={50} status="error" />
    </div>
   )
 }
