@@ -6,7 +6,7 @@
 
     .pui-radio {
       display: inline-block;
-      margin-right: 20px;
+      margin-right: 28px;
       font-size: 16px;
       user-select: none;
       cursor: pointer;
@@ -17,8 +17,6 @@
         cursor: pointer;
         border: 1px solid $border-color-3;
         background-color: transparent;
-        width: 24px;
-        height: 24px;
         display: inline-block;
         vertical-align: top;
         border-radius: 50%;
@@ -37,11 +35,7 @@
       input:checked ~ .pui-radio-checkmark {
         border-radius: 50%;
         background-color: $container-bg-active-color;
-        width: 12px;
-        height: 12px;
         position: absolute;
-        left: 6px;
-        top: 6px;
       }
 
       &-size-small {
@@ -56,6 +50,21 @@
           height: 8px;
           left: 4px;
           top: 8px;
+        }
+      }
+
+      &-size-default {
+        input {
+          width: 20px;
+          height: 20px;
+          margin-top: 2px;
+        }
+
+        input:checked ~ .pui-radio-checkmark {
+          width: 10px;
+          height: 10px;
+          left: 5px;
+          top: 7px;
         }
       }
 

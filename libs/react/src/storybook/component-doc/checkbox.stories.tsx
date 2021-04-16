@@ -33,7 +33,6 @@ export const CheckBoxStoryBook = () => {
         <div>
           <CheckBoxGroup
             label="兴趣爱好"
-            required
             value={pickedValues}
             onValueChange={values => {
               setPickedValues(values);
@@ -54,7 +53,6 @@ export const CheckBoxStoryBook = () => {
         <div>
           <CheckBoxGroup
             label={{ text: '热门电影', position: 'left' }}
-            required
             error={{ show: showError, message: '必须勾选3个电影' }}
             onValueChange={() => {
               setShowError(false);

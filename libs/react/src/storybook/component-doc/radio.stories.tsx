@@ -47,7 +47,6 @@ export const RadioStoryBook = () => {
       <div>Error</div>
       <RadioGroup
         label={{ text: '职业', position: 'left' }}
-        required
         error={{ show: showError, message: '请选择' }}
         onValueChange={() => {
           setShowError(false);
@@ -64,7 +63,6 @@ export const RadioStoryBook = () => {
       <div>With Label</div>
       <RadioGroup
         label={{ text: '职业', position: 'left' }}
-        required
         value={pickedValue}
         onValueChange={value => {
           setPickedValue(value);
