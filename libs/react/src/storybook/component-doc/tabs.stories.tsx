@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, TabPane, Input, Button } from '../../';
-
+import { Tabs, TabPane, Input } from '../../';
 
 export default {
   title: 'Data Display/Tabs',

@@ -30,7 +30,7 @@
           > span {
             display: inline-flex;
             flex-direction: column;
-            
+
             &::after {
               content: attr(data-text);
               content: attr(data-text) / '';
@@ -70,12 +70,11 @@
               left: 0px;
               background-color: $brand-color;
             }
-            &:hover{
+            &:hover {
               &::after {
                 height: 3px;
               }
             }
-           
           }
 
           &-disabled-true {
