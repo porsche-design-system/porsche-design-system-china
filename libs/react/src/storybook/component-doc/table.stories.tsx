@@ -1,3 +1,4 @@
+import { IconEdit } from '@pui/icons';
 import React from 'react';
 import { Table, Button, TableColumn } from '../..';
 
@@ -21,7 +22,7 @@ for (let i = 0; i < 15; i++) {
 }
 
 const columns: TableColumn[] = [
-  { title: '经销商', key: 'dealerName' },
+  { title: '经销商', key: 'dealerName', fixed: 'left' },
   { title: '号码', customCell: (rowData: any) => <u>{rowData.dealerCode}</u> },
   { title: '联系号码', key: 'phoneNumber' },
   { title: '地址', key: 'address' },
@@ -29,9 +30,12 @@ const columns: TableColumn[] = [
   { title: '在售车型', key: 'saleModel' },
   {
     title: '操作',
+    fixed: 'right',
+    width: 150,
     customCell: () => (
       <>
-        <Button type="text">修改</Button>
+        <Button type="text">修改</Button> <Button type="text">删除</Button>
+        <Button icon={IconEdit} type="text"></Button>
       </>
     )
   }
@@ -40,7 +44,7 @@ const columns: TableColumn[] = [
 export const TableStoryBook = () => {
   return (
     <div>
-      <Table data={tableData} columns={columns} />
+      <Table data={tableData} columns={columns} selectable />
     </div>
   );
 };
