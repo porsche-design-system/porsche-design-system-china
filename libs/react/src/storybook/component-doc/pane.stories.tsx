@@ -20,7 +20,7 @@ export const RadioStoryBook = () => {
               <Row>
                 <Col>
                   <Input label="姓名" />
-                  <Input label="手机号码" required />
+                  <Input label="手机号码" />
                   <Input label="邮箱地址" />
                 </Col>
                 <Col style={{ paddingLeft: '10px' }}>
