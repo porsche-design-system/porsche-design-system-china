@@ -19,3 +19,4 @@ export { Form } from './form/form';
 export { Table, TableColumn } from './table/table';
 export { ButtonGroup } from './button/button-group';
 export { Progress } from './progress/progress';
+export { DatePicker } from './date-picker/date-picker';
