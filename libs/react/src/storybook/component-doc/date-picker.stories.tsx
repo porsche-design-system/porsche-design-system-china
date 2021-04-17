@@ -10,6 +10,7 @@ export const DatePickerStoryBook = () => {
   return (
     <div style={{ height: '500px' }}>
       <DatePicker
+        width="300px"
         label="来访日期"
         placeholder="请选择"
         onValueChange={v => {
@@ -17,7 +18,7 @@ export const DatePickerStoryBook = () => {
         }}
       />
       <br />
-      <DatePicker label="来访日期" placeholder="请选择" disabled />
+      <DatePicker width="300px" label="来访日期" placeholder="请选择" disabled />
     </div>
   );
 };

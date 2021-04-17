@@ -53,8 +53,10 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
   const comp = func(props) as any;
   const labelStyle =
     labelProps.position === 'left' &&
+    comp.props.className &&
     (comp.props.className.indexOf('pui-input') >= 0 ||
-      comp.props.className.indexOf('pui-textarea') >= 0)
+      comp.props.className.indexOf('pui-textarea') >= 0 ||
+      comp.props.className.indexOf('date-picker') >= 0)
       ? { marginTop: '11px' }
       : {};
 
