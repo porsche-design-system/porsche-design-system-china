@@ -12,7 +12,8 @@ import {
   ButtonGroup,
   Divider,
   CheckBoxGroup,
-  CheckBox
+  CheckBox,
+  DatePicker
 } from '../..';
 
 export default {
@@ -87,6 +88,7 @@ export const ExampleStoryBook = () => {
               width="50%"
               rules={{ required: true, message: '必须填写' }}
             />
+            <DatePicker name="birthday" label="生日" />
             <Input
               label="电子邮件"
               name="email"

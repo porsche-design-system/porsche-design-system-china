@@ -119,106 +119,104 @@ const DatePicker = FormItem(
     };
 
     return (
-      <div>
-        <div
-          className={componentClassNames('pui-date-picker', { disabled: disabled + '' }, className)}
-          style={style}
-        >
-          <input
-            className={'pui-date-picker-box ' + (calenderOpen ? 'pui-date-picker-box-active' : '')}
-            readOnly
-            placeholder={placeholder}
-            value={displayValue}
-            disabled={disabled}
-            onClick={() => {
-              setCalendarOpen(!calenderOpen);
-              setCurrentDate(new Date());
-              setDisplayDate(pickedDate || new Date());
-              updateCalendar();
+      <div
+        className={componentClassNames('pui-date-picker', { disabled: disabled + '' }, className)}
+        style={style}
+      >
+        <input
+          className={'pui-date-picker-box ' + (calenderOpen ? 'pui-date-picker-box-active' : '')}
+          readOnly
+          placeholder={placeholder}
+          value={displayValue}
+          disabled={disabled}
+          onClick={() => {
+            setCalendarOpen(!calenderOpen);
+            setCurrentDate(new Date());
+            setDisplayDate(pickedDate || new Date());
+            updateCalendar();
+          }}
+        />
+        <IconCalendar className="pui-date-picker-icon" />
+        {calenderOpen && (
+          <div
+            className="pui-date-picker-calendar"
+            onClick={evt => {
+              evt.stopPropagation();
             }}
-          />
-          <IconCalendar className="pui-date-picker-icon" />
-          {calenderOpen && (
-            <div
-              className="pui-date-picker-calendar"
-              onClick={evt => {
-                evt.stopPropagation();
-              }}
-            >
-              <div className="pui-date-picker-calendar-head">
-                <div className="pui-date-picker-calendar-head-left">
-                  <IconArrowDoubleLeft
-                    onClick={() => {
-                      displayDate.setFullYear(displayDate.getFullYear() - 1);
-                      setDisplayDate(new Date(displayDate));
-                      updateCalendar();
-                    }}
-                  />
-                  <IconArrowHeadLeft
-                    onClick={() => {
-                      displayDate.setMonth(displayDate.getMonth() - 1);
-                      setDisplayDate(new Date(displayDate));
-                      updateCalendar();
-                    }}
-                  />
-                </div>
-                {displayDate.getFullYear()}年{displayDate.getMonth() + 1}月
-                <div className="pui-date-picker-calendar-head-right">
-                  <IconArrowHeadRight
-                    onClick={() => {
-                      displayDate.setMonth(displayDate.getMonth() + 1);
-                      setDisplayDate(new Date(displayDate));
-                      updateCalendar();
-                    }}
-                  />
-                  <IconArrowDoubleRight
-                    onClick={() => {
-                      displayDate.setFullYear(displayDate.getFullYear() + 1);
-                      setDisplayDate(new Date(displayDate));
-                      updateCalendar();
-                    }}
-                  />
-                </div>
+          >
+            <div className="pui-date-picker-calendar-head">
+              <div className="pui-date-picker-calendar-head-left">
+                <IconArrowDoubleLeft
+                  onClick={() => {
+                    displayDate.setFullYear(displayDate.getFullYear() - 1);
+                    setDisplayDate(new Date(displayDate));
+                    updateCalendar();
+                  }}
+                />
+                <IconArrowHeadLeft
+                  onClick={() => {
+                    displayDate.setMonth(displayDate.getMonth() - 1);
+                    setDisplayDate(new Date(displayDate));
+                    updateCalendar();
+                  }}
+                />
               </div>
-              <div className="pui-date-picker-calendar-weekdays">
-                {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
-                  <div key={weekday} className="pui-date-picker-calendar-weekday">
-                    {weekday}
-                  </div>
-                ))}
-              </div>
-              <div className="pui-date-picker-calendar-dates">
-                {calendarDates.map(date => {
-                  return (
-                    <div
-                      key={date.getTime() + ''}
-                      className={
-                        'pui-date-picker-calendar-block ' +
-                        (date.getMonth() !== displayDate.getMonth()
-                          ? 'pui-date-picker-calendar-other-month'
-                          : '') +
-                        ' ' +
-                        (sameDate(date, currentDate) ? 'pui-date-picker-calendar-today' : '') +
-                        ' ' +
-                        (pickedDate && sameDate(date, pickedDate)
-                          ? 'pui-date-picker-calendar-picked'
-                          : '')
-                      }
-                      onClick={() => {
-                        setPickedDate(new Date(date));
-                        setCalendarOpen(false);
-                        setDisplayValue(dateToStr(date));
-                        onValueChange && onValueChange(dateToStr(date));
-                      }}
-                    >
-                      {date.getDate()}
-                    </div>
-                  );
-                })}
+              {displayDate.getFullYear()}年{displayDate.getMonth() + 1}月
+              <div className="pui-date-picker-calendar-head-right">
+                <IconArrowHeadRight
+                  onClick={() => {
+                    displayDate.setMonth(displayDate.getMonth() + 1);
+                    setDisplayDate(new Date(displayDate));
+                    updateCalendar();
+                  }}
+                />
+                <IconArrowDoubleRight
+                  onClick={() => {
+                    displayDate.setFullYear(displayDate.getFullYear() + 1);
+                    setDisplayDate(new Date(displayDate));
+                    updateCalendar();
+                  }}
+                />
               </div>
             </div>
-          )}
-        </div>
+            <div className="pui-date-picker-calendar-weekdays">
+              {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
+                <div key={weekday} className="pui-date-picker-calendar-weekday">
+                  {weekday}
+                </div>
+              ))}
+            </div>
+            <div className="pui-date-picker-calendar-dates">
+              {calendarDates.map(date => {
+                return (
+                  <div
+                    key={date.getTime() + ''}
+                    className={
+                      'pui-date-picker-calendar-block ' +
+                      (date.getMonth() !== displayDate.getMonth()
+                        ? 'pui-date-picker-calendar-other-month'
+                        : '') +
+                      ' ' +
+                      (sameDate(date, currentDate) ? 'pui-date-picker-calendar-today' : '') +
+                      ' ' +
+                      (pickedDate && sameDate(date, pickedDate)
+                        ? 'pui-date-picker-calendar-picked'
+                        : '')
+                    }
+                    onClick={() => {
+                      setPickedDate(new Date(date));
+                      setCalendarOpen(false);
+                      setDisplayValue(dateToStr(date));
+                      onValueChange && onValueChange(dateToStr(date));
+                    }}
+                  >
+                    {date.getDate()}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
