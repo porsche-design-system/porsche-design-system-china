@@ -66,6 +66,18 @@ const DatePicker = FormItem(
     };
 
     useEffect(() => {
+      const docClick = (evt: MouseEvent) => {
+        if (calenderOpen) {
+          setCalendarOpen(false);
+        }
+      };
+      document.addEventListener('click', docClick);
+      return () => {
+        document.removeEventListener('click', docClick);
+      };
+    }, [calenderOpen]);
+
+    useEffect(() => {
       if (value) {
         const datePart = value?.split('-');
         if (datePart.length === 3) {
@@ -127,7 +139,12 @@ const DatePicker = FormItem(
           />
           <IconCalendar className="pui-date-picker-icon" />
           {calenderOpen && (
-            <div className="pui-date-picker-calendar">
+            <div
+              className="pui-date-picker-calendar"
+              onClick={evt => {
+                evt.stopPropagation();
+              }}
+            >
               <div className="pui-date-picker-calendar-head">
                 <div className="pui-date-picker-calendar-head-left">
                   <IconArrowDoubleLeft
