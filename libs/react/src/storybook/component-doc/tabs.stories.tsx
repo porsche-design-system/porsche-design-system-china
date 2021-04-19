@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Input, Button } from '../../';
-const { TabPane } = Tabs;
+import { Tabs, TabPane, Input } from '../../';
 
 export default {
   title: 'Data Display/Tabs',
@@ -23,7 +22,7 @@ export const TabsStoryBook = () => {
           </TabPane>
         </Tabs>
 
-        <Tabs defaultActiveKey="2" size="small">
+        <Tabs defaultActiveKey="1" size="small">
           <TabPane tab="标题一" key="0">
             内容一
           </TabPane>
