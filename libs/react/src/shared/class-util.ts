@@ -46,29 +46,3 @@ export const overrideChildren = (
 
   return newChildrenArray;
 };
-
-export const filterChildren = (children: ReactNode, type: string, recursive: boolean = false) => {
-  if (!children) {
-    return null;
-  }
-
-  if (!type) {
-    return React.Children.toArray(children);
-  }
-
-  const newChildrenArray: any = [];
-  const childrenArray = React.Children.toArray(children);
-  childrenArray.forEach((node: any) => {
-    if (node.type && (type === node.type.displayName || type === node.type.name)) {
-      if (recursive) {
-        node = React.cloneElement(node, {
-          ...node.props,
-          children: filterChildren(node.props.children, type, recursive)
-        });
-      }
-      newChildrenArray.push(node);
-    }
-  });
-
-  return newChildrenArray;
-};
