@@ -10,6 +10,9 @@ export default {
 export const IconsStoryBook = () => {
   return (
     <div>
+      <div>
+        <b>Total: {Object.keys(Icons).length}</b>
+      </div>
       {Object.keys(Icons).map(icon => {
         const IconComponent = Icons[icon];
         if (icon === 'default' || icon === 'createFromIconfontCN') {
