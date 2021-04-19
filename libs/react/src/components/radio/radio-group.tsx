@@ -88,7 +88,7 @@ const RadioGroup = FormItem(
       <div
         className={componentClassNames('pui-radio-group', {
           disabled: disabled + '',
-          error: error ? error.show + '' : 'fasle'
+          error: error ? error.show + '' : 'false'
         })}
       >
         {newChildren}

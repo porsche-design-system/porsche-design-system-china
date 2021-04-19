@@ -53,7 +53,7 @@ const Input = FormItem(
 
     return (
       <div
-        className={componentClassNames('pui-input', { error: error ? error.show + '' : 'fasle' })}
+        className={componentClassNames('pui-input', { error: error ? error.show + '' : 'false' })}
       >
         <input
           ref={inputRef => {

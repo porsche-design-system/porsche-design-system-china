@@ -7,9 +7,11 @@ import {
   IconArrowDoubleRight
 } from '@pui/icons';
 
+import { FormItem } from '../form/form-item';
+import { FormErrorText } from '../error-text/error-text';
+import { usePopShowState } from '../../shared/hooks';
 import { componentClassNames } from '../../shared/class-util';
 import './date-picker.scss';
-import { FormItem } from '../form/form-item';
 
 export interface DatePickerProps {
   // 组件属性 //
@@ -31,11 +33,13 @@ export interface DatePickerProps {
 
   /* 值改变事件 */
   onValueChange?: (value: string) => void;
+
+  error?: FormErrorText;
 }
 
 const DatePicker = FormItem(
-  ({ className, style, disabled, value, onValueChange, placeholder }: DatePickerProps) => {
-    const [calenderOpen, setCalendarOpen] = useState(false);
+  ({ className, style, disabled, value, onValueChange, error, placeholder }: DatePickerProps) => {
+    const [calenderOpen, setCalendarOpen] = usePopShowState();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [pickedDate, setPickedDate] = useState<Date>();
     const [displayValue, setDisplayValue] = useState('');
@@ -64,18 +68,6 @@ const DatePicker = FormItem(
       }
       setCalendarDates(calDates);
     };
-
-    useEffect(() => {
-      const docClick = () => {
-        if (calenderOpen) {
-          setCalendarOpen(false);
-        }
-      };
-      document.addEventListener('click', docClick);
-      return () => {
-        document.removeEventListener('click', docClick);
-      };
-    }, [calenderOpen]);
 
     useEffect(() => {
       if (value) {
@@ -120,7 +112,11 @@ const DatePicker = FormItem(
 
     return (
       <div
-        className={componentClassNames('pui-date-picker', { disabled: disabled + '' }, className)}
+        className={componentClassNames(
+          'pui-date-picker',
+          { disabled: disabled + '', error: error ? error.show + '' : 'false' },
+          className
+        )}
         style={style}
       >
         <input

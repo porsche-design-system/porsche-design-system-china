@@ -89,7 +89,8 @@ const Form = ({
       elementName === 'CheckBox' ||
       elementName === 'RadioGroup' ||
       elementName === 'CheckBoxGroup' ||
-      elementName === 'DatePicker'
+      elementName === 'DatePicker' ||
+      elementName === 'Select'
     ) {
       let inputProps = props as {
         name?: string;
@@ -168,7 +169,7 @@ const Form = ({
             onDataChange && onDataChange(newFormData);
             validForm(newFormData);
           };
-        } else if (['RadioGroup', 'CheckBoxGroup', 'DatePicker'].includes(elementName)) {
+        } else if (['RadioGroup', 'CheckBoxGroup', 'DatePicker', 'Select'].includes(elementName)) {
           inputProps.onValueChange = value => {
             const newFormData = { ...formData, [inputProps.name!]: value };
             setFormData(newFormData);
