@@ -1,5 +1,5 @@
-import React, { CSSProperties, useEffect, useState, useMemo } from 'react';
-import { componentClassNames, filterChildren } from '../../shared/class-util';
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import './tabs.scss';
 
 export interface Props {
@@ -17,102 +17,79 @@ export interface Props {
 
   /** 初始化选中面板的 key，如果没有设置 activeKey  */
   defaultActiveKey?: string;
-
-  /** 当前激活 tab 面板的 key  */
-  activeKey?: string;
-
-  // 组件事件 //
 }
 
-const Tabs = ({
-  className,
-  style,
-  size = 'default',
-  defaultActiveKey,
-  activeKey,
-  children
-}: Props) => {
-  const [acitveIndex, setActiveIndex] = useState(0);
-  const [tabChildren, setTabChildren] = useState([]);
-  useMemo(() => {
-    setTabChildren(filterChildren(children, 'TabPane', false) || []);
-  }, [children]);
+const Tabs = ({ className, style, size = 'default', defaultActiveKey = '', children }: Props) => {
+  const [activeKey, setActiveKey] = useState(defaultActiveKey);
+
+  const tabHead: TabPaneProps[] = [];
+  let keyIndex = 0;
+
+  const newChildren = overrideChildren(children, (elementName, props: TabPaneProps) => {
+    if (elementName === 'TabPane') {
+      if (!props.tabKey) {
+        props.tabKey = '$TabKey' + keyIndex;
+        keyIndex++;
+      }
+      tabHead.push(props);
+      (props as any).show = activeKey === props.tabKey;
+    }
+    return props;
+  });
 
   useEffect(() => {
-    tabChildren.forEach((child: any, index: number) => {
-      if (
-        (defaultActiveKey || activeKey) &&
-        (child.key === '.$' + defaultActiveKey || child.key === '.$' + activeKey)
-      ) {
-        setActiveIndex(index);
-      }
-    });
-  }, [activeKey, tabChildren]);
+    if (!defaultActiveKey) {
+      setActiveKey(tabHead[0].tabKey!);
+    }
+  }, []);
 
   return (
     <div className={componentClassNames('pui-tabs', {}, className)} style={style}>
-      <div className={componentClassNames('pui-tabs-header', {})}>
-        {tabChildren.map((child: any, index: number) => {
-          return (
-            <div
-              key={child.key || index}
-              className={componentClassNames('pui-tab', {
-                size,
-                active: (index === acitveIndex) + '',
-                disabled: child.props && child.props.disabled ? 'true' : 'false'
-              })}
-              onClick={() => {
-                if (child.props.disabled) {
-                  return;
-                }
-                setActiveIndex(index);
-              }}
-            >
-              <span data-text={child.props.tab || '未定义Tab头'}>
-                {child.props.tab || '未定义Tab头'}
-              </span>
-            </div>
-          );
-        })}
+      <div className="pui-tabs-header">
+        {tabHead.map((tabProps, inx) => (
+          <div
+            className={componentClassNames('pui-tab', {
+              size,
+              active: (tabProps.tabKey === activeKey) + ''
+            })}
+            key={'TabKey' + inx}
+            onClick={() => {
+              setActiveKey(tabProps.tabKey!);
+            }}
+          >
+            <span>{tabProps.tabTitle}</span>
+          </div>
+        ))}
       </div>
-      <div className={componentClassNames('pui-tabs-body', {})}>
-        {tabChildren.map((child: any, index: number) => {
-          return (
-            <div
-              key={child.key || index}
-              className={componentClassNames('pui-tabs-content', {
-                active: (index === acitveIndex) + ''
-              })}
-            >
-              {child.props.children}
-            </div>
-          );
-        })}
-      </div>
+      <div className="pui-tabs-body">{newChildren}</div>
     </div>
   );
 };
 
 interface TabPaneProps {
   /** 选项卡头显示文字 */
-  tab: string;
+  tabTitle: string;
 
   /** 对应 activeKey */
-  key: string;
+  tabKey?: string;
 
   /** 子组件 */
   children?: React.ReactNode;
-
-  /** 是否禁用 */
-  disabled?: boolean;
 }
 
-const TabPane = ({ tab, children, disabled = false }: TabPaneProps) => {
+const TabPane = (props: TabPaneProps) => {
   return (
-    <div>
-      <div>{tab}</div>
-      <div>{children}</div>
-    </div>
+    <>
+      {
+        <div
+          style={{ display: (props as any).show ? 'block' : 'none' }}
+          className="pui-tabs-content"
+        >
+          {props.children}
+        </div>
+      }
+    </>
   );
 };
+
 export { Tabs, TabPane };
