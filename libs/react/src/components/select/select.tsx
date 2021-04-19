@@ -115,8 +115,9 @@ const Select = FormItem(
         <IconArrowHeadDown className="pui-select-icon" />
         {showOptionList && (
           <div className="pui-select-list">
-            {selectOptions.map(option => (
+            {selectOptions.map((option, inx) => (
               <div
+                key={option.value + ' ' + inx}
                 className="pui-select-option"
                 onClick={() => {
                   setStateValue(option.value);
