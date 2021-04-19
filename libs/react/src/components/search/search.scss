@@ -5,18 +5,16 @@
     @include theme($theme);
 
     .pui-search {
-      width: 380px;
+      .pui-form-item {
+        width: 380px;
+        margin-bottom: 0;
+      }
 
       .pui-input {
         margin-right: 0;
-        float: left;
         input {
           border-right: none;
         }
-      }
-
-      .pui-button {
-        float: left;
       }
     }
   }
