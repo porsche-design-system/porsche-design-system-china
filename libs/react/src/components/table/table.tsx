@@ -51,7 +51,7 @@ const Table = ({
   const leftColumns: TableColumn[] = [];
   const rightColumns: TableColumn[] = [];
 
-  const [seletedRows, setSelectedRows] = useState<number[]>([]);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
   useEffect(() => {
     setSelectedRows([]);
   }, [data]);
@@ -222,12 +222,12 @@ const Table = ({
                     <CheckBox
                       onCheckedChange={checked => {
                         if (checked) {
-                          const fullSeletedRows: number[] = [];
+                          const fullSelectedRows: number[] = [];
                           for (let i = 0; i < data.length; i++) {
-                            fullSeletedRows.push(i);
+                            fullSelectedRows.push(i);
                           }
-                          setSelectedRows(fullSeletedRows);
-                          selectCallback(fullSeletedRows);
+                          setSelectedRows(fullSelectedRows);
+                          selectCallback(fullSelectedRows);
                         } else {
                           setSelectedRows([]);
                           selectCallback([]);
@@ -267,20 +267,20 @@ const Table = ({
               {data.map((rowData, inx) => (
                 <tr
                   key={'row' + inx}
-                  className={seletedRows.includes(inx) ? 'pui-table-selected-row' : ''}
+                  className={selectedRows.includes(inx) ? 'pui-table-selected-row' : ''}
                 >
                   {selectable && (
                     <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
                       <CheckBox
                         onCheckedChange={checked => {
                           if (checked) {
-                            seletedRows.push(inx);
+                            selectedRows.push(inx);
                           } else {
-                            seletedRows.splice(seletedRows.indexOf(inx), 1);
+                            selectedRows.splice(selectedRows.indexOf(inx), 1);
                           }
-                          selectCallback(seletedRows);
+                          selectCallback(selectedRows);
                         }}
-                        checked={seletedRows.includes(inx)}
+                        checked={selectedRows.includes(inx)}
                       />
                     </td>
                   )}
