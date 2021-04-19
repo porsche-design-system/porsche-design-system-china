@@ -33,7 +33,6 @@ const Search = ({ className, style, placeholder, disabled = false, onChange, onS
   return (
     <div className={componentClassNames('pui-search', {}, className)} style={style}>
       <Input onChange={onChange} disabled={disabled} placeholder={placeholder} />
-      <IconSearch />
       <Button
         icon={<IconSearch style={{ transform: 'rotateY(180deg)' }} />}
         type="secondary"
