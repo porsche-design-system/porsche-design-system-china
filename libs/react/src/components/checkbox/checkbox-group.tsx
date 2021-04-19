@@ -88,7 +88,7 @@ const CheckBoxGroup = FormItem(
       <div
         className={componentClassNames('pui-checkbox-group', {
           disabled: disabled + '',
-          error: error ? error.show + '' : 'fasle'
+          error: error ? error.show + '' : 'false'
         })}
       >
         {newChildren}

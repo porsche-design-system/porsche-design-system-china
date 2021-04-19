@@ -60,7 +60,7 @@ const TextArea = FormItem(
       <div
         className={componentClassNames(
           'pui-textarea',
-          { error: error ? error.show + '' : 'fasle' },
+          { error: error ? error.show + '' : 'false' },
           className
         )}
       >

@@ -2,7 +2,7 @@ import React from 'react';
 import { getLabelWidth, Label, getLabelProps } from '../label/label';
 import { FormItemLabelProps } from './form';
 import { ErrorText, FormErrorText } from '../error-text/error-text';
-import { RuleItem } from 'src/shared/validation-rules';
+import { RuleItem } from '../../shared/validation-rules';
 
 import './form-item.scss';
 

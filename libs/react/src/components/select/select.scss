@@ -4,6 +4,69 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
 
-    // your code
+    .pui-select {
+      position: relative;
+
+      input {
+        width: 100%;
+        height: 48px;
+        border: 1px solid $border-color-3;
+        cursor: pointer;
+        padding: 13px;
+        font-size: 16px;
+        color: $text-color-1;
+        background-color: transparent;
+      }
+
+      input:hover,
+      &-active-true input {
+        border-color: $border-color-5;
+      }
+
+      &-disabled-true {
+        .porscheicon {
+          opacity: 0.5;
+        }
+      }
+
+      input:disabled {
+        background: $container-bg-opacity-color-3;
+        border: 1px solid $border-color-2;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+
+      &-list {
+        font-size: 16px;
+        width: 100%;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        left: 0;
+        top: 52px;
+        z-index: 10;
+        background-color: $background-color-2;
+      }
+
+      &-option {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      &-option:hover {
+        background-color: $container-bg-color-2;
+        color: $text-color-1;
+      }
+
+      &-error-true {
+        input {
+          border: 1px solid $status-error-color;
+          box-shadow: inset 0 0 0 1px $status-error-color;
+        }
+        input:hover {
+          border: 1px solid $status-error-color-hover;
+          box-shadow: inset 0 0 0 1px $status-error-color-hover;
+        }
+      }
+    }
   }
 }

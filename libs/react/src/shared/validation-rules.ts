@@ -1,6 +1,6 @@
 import Schema, { ErrorList, Rules } from 'async-validator';
 
-export { RuleItem } from 'async-validator';
+export type { RuleItem } from 'async-validator';
 
 export const validate = (
   descriptor: Rules,

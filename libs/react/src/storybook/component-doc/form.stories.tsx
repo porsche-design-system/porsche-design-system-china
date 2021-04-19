@@ -1,6 +1,8 @@
 import { IconArrowHeadRight, IconClose } from '@pui/icons';
 import React, { useState } from 'react';
+
 import {
+  Select,
   Button,
   Input,
   TextArea,
@@ -88,7 +90,8 @@ export const ExampleStoryBook = () => {
               width="50%"
               rules={{ required: true, message: '必须填写' }}
             />
-            <DatePicker name="birthday" label="生日" />
+            <DatePicker name="birthday" label="生日" width="40%" marginRight="10%" />
+            <Select options="男:male,女:female" label="性别" width="50%" name="gender" />
             <Input
               label="电子邮件"
               name="email"
