@@ -90,7 +90,8 @@ const Form = ({
       elementName === 'RadioGroup' ||
       elementName === 'CheckBoxGroup' ||
       elementName === 'DatePicker' ||
-      elementName === 'Select'
+      elementName === 'Select' ||
+      elementName === 'Switch'
     ) {
       let inputProps = props as {
         name?: string;
@@ -161,7 +162,7 @@ const Form = ({
         const inputOnChange = inputProps.onChange;
         const inputOnValueChange = inputProps.onValueChange;
 
-        if (['Input', 'TextArea', 'CheckBox'].includes(elementName)) {
+        if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
             const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
             setFormData(newFormData);
@@ -169,7 +170,17 @@ const Form = ({
             onDataChange && onDataChange(newFormData);
             validForm(newFormData);
           };
-        } else if (['RadioGroup', 'CheckBoxGroup', 'DatePicker', 'Select'].includes(elementName)) {
+        } else if (
+          [
+            'RadioGroup',
+            'CheckBoxGroup',
+            'DatePicker',
+            'Select',
+            'Switch',
+            'Input',
+            'TextArea'
+          ].includes(elementName)
+        ) {
           inputProps.onValueChange = value => {
             const newFormData = { ...formData, [inputProps.name!]: value };
             setFormData(newFormData);

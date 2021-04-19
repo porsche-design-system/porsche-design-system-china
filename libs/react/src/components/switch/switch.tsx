@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { IconCheck, IconClose } from '@pui/icons';
 
 import { FormErrorText } from '../error-text/error-text';
@@ -25,42 +25,67 @@ export interface SwitchProps {
   /* 错误 */
   error?: FormErrorText;
 
+  /* 修改开关值 */
+  alterValues?:
+    | 'FalseAndTrue'
+    | 'ZeroAndOne'
+    | [string | boolean | number, string | boolean | number];
+
   /* 值改变事件 */
   onValueChange?: (value: boolean) => void;
 }
 
-const Switch = FormItem(({ className, style, disabled, value, onValueChange }: SwitchProps) => {
-  const [stateValue, setStateValue] = useState(false);
-  const switchValue = value === undefined ? stateValue : value;
+const Switch = FormItem(
+  ({ className, style, disabled, value, onValueChange, alterValues }: SwitchProps) => {
+    const [stateValue, setStateValue] = useState(value);
 
-  return (
-    <div
-      className={componentClassNames(
-        'pui-switch',
-        {
-          disabled: disabled + '',
-          enabled: switchValue + ''
-        },
-        className
-      )}
-      style={style}
-    >
+    let switchValues: [any, any] = [false, true];
+    if (alterValues === 'FalseAndTrue') {
+      switchValues = [false, true];
+    } else if (alterValues === 'ZeroAndOne') {
+      switchValues = [0, 1];
+    } else if (alterValues) {
+      switchValues = alterValues;
+    }
+
+    useEffect(() => {
+      if (value === switchValues[1]) {
+        setStateValue(true);
+      } else {
+        setStateValue(false);
+      }
+    }, [value]);
+
+    return (
       <div
-        className="pui-switch-bar"
-        onClick={() => {
-          if (disabled) {
-            return;
-          }
-          setStateValue(!switchValue);
-          onValueChange && onValueChange(switchValue);
-        }}
+        className={componentClassNames(
+          'pui-switch',
+          {
+            disabled: disabled + '',
+            enabled: stateValue + ''
+          },
+          className
+        )}
+        style={style}
       >
-        <IconClose className="pui-switch-disable-icon" />
-        <IconCheck className="pui-switch-enable-icon" />
-        <div className="pui-switch-button"></div>
+        <div
+          className="pui-switch-bar"
+          onClick={() => {
+            if (disabled) {
+              return;
+            }
+            const newStateValue = !stateValue;
+            setStateValue(newStateValue);
+            onValueChange && onValueChange(newStateValue ? switchValues[1] : switchValues[0]);
+          }}
+        >
+          <IconClose className="pui-switch-disable-icon" />
+          <IconCheck className="pui-switch-enable-icon" />
+          <div className="pui-switch-button"></div>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export { Switch };

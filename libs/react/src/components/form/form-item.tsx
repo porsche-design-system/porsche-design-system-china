@@ -56,7 +56,8 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
     comp.props.className &&
     (comp.props.className.indexOf('pui-input') >= 0 ||
       comp.props.className.indexOf('pui-textarea') >= 0 ||
-      comp.props.className.indexOf('date-picker') >= 0)
+      comp.props.className.indexOf('pui-select') >= 0 ||
+      comp.props.className.indexOf('pui-date-picker') >= 0)
       ? { marginTop: '11px' }
       : {};
 

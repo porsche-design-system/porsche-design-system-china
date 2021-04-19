@@ -12,23 +12,23 @@ export const TabsStoryBook = () => {
       <div className="type">Sizes</div>
       <div className="showcase">
         <Tabs>
-          <TabPane tabTitle="标题一">内容一</TabPane>
-          <TabPane tabTitle="标题二">内容二</TabPane>
-          <TabPane tabTitle="标题三">
+          <TabPane title="标题一">内容一</TabPane>
+          <TabPane title="标题二">内容二</TabPane>
+          <TabPane title="标题三">
             <Input label="用户名" />
           </TabPane>
         </Tabs>
 
-        <Tabs size="small" defaultActiveKey="1">
-          <TabPane tabTitle="标题一" tabKey="sssss">
+        <Tabs size="small" activeKey="1">
+          <TabPane title="标题一" tabKey="1">
             内容一
           </TabPane>
 
-          <TabPane tabTitle="标题二" tabKey="2">
+          <TabPane title="标题二" tabKey="2">
             内容二
             <Input label="用户名" />
           </TabPane>
-          <TabPane tabTitle="标题三">内容三</TabPane>
+          <TabPane title="标题三">内容三</TabPane>
         </Tabs>
       </div>
     </div>
