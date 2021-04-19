@@ -1,10 +1,20 @@
 import React from 'react';
 import * as Icons from '@pui/icons';
 
+import { Message } from '../../';
 import './icons.stories.scss';
 
 export default {
   title: 'Icon/Icons'
+};
+
+const copyToClipboard = (str: string) => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
 };
 
 export const IconsStoryBook = () => {
@@ -19,8 +29,16 @@ export const IconsStoryBook = () => {
           return null;
         }
         return (
-          <div key={icon} className="icon-block">
-            <IconComponent style={{ fontSize: 30 }} size={50} />{' '}
+          <div
+            key={icon}
+            className="icon-block"
+            onClick={() => {
+              const text = '<' + icon + ' />';
+              copyToClipboard(text);
+              Message.pop('info', text + ' copied');
+            }}
+          >
+            <IconComponent style={{ fontSize: 30 }} size={50} />
             <span className="icon-text">{icon}</span>
           </div>
         );

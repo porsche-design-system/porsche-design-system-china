@@ -3,9 +3,16 @@
   padding: 10px;
   padding-left: 0;
   width: 230px;
+  cursor: pointer;
+
   .porscheicon {
     border: 1px solid #eee;
-    margin-right: 3px;
+    margin-right: 10px;
+    transition: all 0.1s;
+    background-color: white;
+  }
+  .porscheicon:hover {
+    transform: scale(1.5);
   }
 }
 
