@@ -56,7 +56,7 @@ const Tabs = ({ className, style, size = 'default', activeKey = '', children }: 
           <div
             className={componentClassNames('pui-tab', {
               size,
-              active: (tabProps.tabKey === activeKey) + ''
+              active: (tabProps.tabKey === tabActiveKey) + ''
             })}
             key={'TabKey' + inx}
             onClick={() => {
