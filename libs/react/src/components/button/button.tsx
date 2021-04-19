@@ -29,11 +29,16 @@ export interface ButtonProps {
   /* 是否是表单提交按钮 */
   formSubmit?: boolean;
 
+  /* 左边距 */
+  marginLeft?: string;
+
+  /* 右边距 */
+  marginRight?: string;
+
   // 组件事件 //
 
   /* 点击事件 */
   onClick?: React.MouseEventHandler;
-  onMouseDown?: React.MouseEventHandler;
 }
 
 /**
@@ -48,8 +53,9 @@ const Button = ({
   icon,
   loading = false,
   disabled = false,
-  onClick,
-  onMouseDown
+  marginRight,
+  marginLeft,
+  onClick
 }: ButtonProps) => {
   let paddingStyle = {};
   const padding = size === 'default' ? '11px' : '7px';
@@ -65,13 +71,12 @@ const Button = ({
     <button
       type="button"
       className={componentClassNames('pui-button', { type, size }, className)}
-      style={{ ...paddingStyle, ...style }}
+      style={{ ...paddingStyle, marginLeft, marginRight, ...style }}
       onClick={evt => {
         if (!loading) {
           onClick && onClick(evt);
         }
       }}
-      onMouseDown={onMouseDown}
       disabled={disabled || loading}
     >
       {loading && (
