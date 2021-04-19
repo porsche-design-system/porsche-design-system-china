@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -38,12 +38,12 @@ const DatePicker = FormItem(
     const [calenderOpen, setCalendarOpen] = useState(false);
     const [currentDate, setCurrentDate] = useState(new Date());
     const [pickedDate, setPickedDate] = useState<Date>();
-    const [displayDate, setDisplayDate] = useState<Date>(new Date());
     const [displayValue, setDisplayValue] = useState('');
     const [calendarDates, setCalendarDates] = useState<Date[]>([]);
+    const displayDate = useRef<Date>(new Date());
 
     const updateCalendar = () => {
-      const calenderFirstDate = new Date(displayDate);
+      const calenderFirstDate = new Date(displayDate.current);
       calenderFirstDate.setDate(1);
       while (calenderFirstDate.getDay() !== 0) {
         calenderFirstDate.setDate(calenderFirstDate.getDate() - 1);
@@ -57,7 +57,7 @@ const DatePicker = FormItem(
         calDate.setDate(calDate.getDate() + 1);
         const nextDay = new Date(calDate);
         nextDay.setDate(nextDay.getDate() + 1);
-        if (calDate.getDay() === 6 && nextDay.getMonth() !== displayDate.getMonth()) {
+        if (calDate.getDay() === 6 && nextDay.getMonth() !== displayDate.current.getMonth()) {
           calDates.push(new Date(calDate));
           break;
         }
@@ -66,7 +66,7 @@ const DatePicker = FormItem(
     };
 
     useEffect(() => {
-      const docClick = (evt: MouseEvent) => {
+      const docClick = () => {
         if (calenderOpen) {
           setCalendarOpen(false);
         }
@@ -129,10 +129,11 @@ const DatePicker = FormItem(
           placeholder={placeholder}
           value={displayValue}
           disabled={disabled}
-          onClick={() => {
+          onClick={evt => {
+            evt.stopPropagation();
             setCalendarOpen(!calenderOpen);
             setCurrentDate(new Date());
-            setDisplayDate(pickedDate || new Date());
+            displayDate.current = pickedDate ? new Date(pickedDate) : new Date();
             updateCalendar();
           }}
         />
@@ -148,32 +149,29 @@ const DatePicker = FormItem(
               <div className="pui-date-picker-calendar-head-left">
                 <IconArrowDoubleLeft
                   onClick={() => {
-                    displayDate.setFullYear(displayDate.getFullYear() - 1);
-                    setDisplayDate(new Date(displayDate));
+                    displayDate.current.setFullYear(displayDate.current.getFullYear() - 1);
+
                     updateCalendar();
                   }}
                 />
                 <IconArrowHeadLeft
                   onClick={() => {
-                    displayDate.setMonth(displayDate.getMonth() - 1);
-                    setDisplayDate(new Date(displayDate));
+                    displayDate.current.setMonth(displayDate.current.getMonth() - 1);
                     updateCalendar();
                   }}
                 />
               </div>
-              {displayDate.getFullYear()}年{displayDate.getMonth() + 1}月
+              {displayDate.current.getFullYear()}年{displayDate.current.getMonth() + 1}月
               <div className="pui-date-picker-calendar-head-right">
                 <IconArrowHeadRight
                   onClick={() => {
-                    displayDate.setMonth(displayDate.getMonth() + 1);
-                    setDisplayDate(new Date(displayDate));
+                    displayDate.current.setMonth(displayDate.current.getMonth() + 1);
                     updateCalendar();
                   }}
                 />
                 <IconArrowDoubleRight
                   onClick={() => {
-                    displayDate.setFullYear(displayDate.getFullYear() + 1);
-                    setDisplayDate(new Date(displayDate));
+                    displayDate.current.setFullYear(displayDate.current.getFullYear() + 1);
                     updateCalendar();
                   }}
                 />
@@ -193,7 +191,7 @@ const DatePicker = FormItem(
                     key={date.getTime() + ''}
                     className={
                       'pui-date-picker-calendar-block ' +
-                      (date.getMonth() !== displayDate.getMonth()
+                      (date.getMonth() !== displayDate.current.getMonth()
                         ? 'pui-date-picker-calendar-other-month'
                         : '') +
                       ' ' +

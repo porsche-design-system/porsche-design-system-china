@@ -49,7 +49,7 @@ const Modal = ({
     setShow(visible);
   }, [visible]);
   return ReactDOM.createPortal(
-    <div className={componentClassNames('pui-modal-root', { hide:!show+'' })} style={style}>
+    <div className={componentClassNames('pui-modal-root', { hide: !show + '' })} style={style}>
       <div className="pui-modal-mask"></div>
       <div className="pui-modal-wrap">
         <div className="pui-modal">
