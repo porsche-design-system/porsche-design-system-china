@@ -86,14 +86,21 @@ const Table = ({
           headRef.current.scrollLeft /
           (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth);
 
-        setIsScrollLeft(scrollXPercentage > 0.01);
-        setIsScrollRight(scrollXPercentage < 0.99);
+        setIsScrollLeft(scrollXPercentage > 0.02);
+        setIsScrollRight(scrollXPercentage < 0.98);
 
         const scrollYPercentage =
           bodyRef.current.scrollTop /
           (bodyRef.current.children[0].offsetHeight - bodyRef.current.offsetHeight);
 
         if (scrollYPercentage > 0.01 && scrollYPercentage < 0.99) {
+          evt.preventDefault();
+        }
+
+        if (
+          (scrollXPercentage === 0 && variationX < 0) ||
+          (scrollXPercentage === 1 && variationX > 0)
+        ) {
           evt.preventDefault();
         }
       };
@@ -106,7 +113,6 @@ const Table = ({
       elem.onscroll = (evt: any) => {
         if (headRef.current) {
           headRef.current.scrollLeft = evt.target.scrollLeft;
-          setIsScrollLeft(bodyRef.current.scrollLeft !== 0);
         }
       };
     }

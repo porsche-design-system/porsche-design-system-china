@@ -13,7 +13,7 @@
         height: 48px;
         border: 1px solid $border-color-3;
         cursor: pointer;
-        padding: 13px;
+        padding: 12px;
         font-size: 16px;
         color: $text-color-1;
         background-color: transparent;
@@ -63,7 +63,7 @@
         left: 0;
         top: 52px;
         z-index: 10;
-        background-color: $background-color-2;
+        background-color: $float-layer-bg-color;
         padding-bottom: 10px;
 
         &-head {
@@ -105,7 +105,7 @@
           text-align: center;
           line-height: 36px;
           box-sizing: content-box;
-          border: 4px solid $background-color-2;
+          border: 4px solid $float-layer-bg-color;
         }
         &-block {
           cursor: pointer;

@@ -1,5 +1,5 @@
 import { IconCheck } from '@pui/icons';
-import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useEffect, useMemo, useState } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './checkbox.scss';
 
@@ -50,7 +50,6 @@ const generateId = () => {
 const CheckBox = ({
   className,
   style,
-  defaultChecked = false,
   text = '',
   value = '',
   disabled = false,
@@ -60,6 +59,12 @@ const CheckBox = ({
   onCheckedChange
 }: CheckBoxProps) => {
   const id = useMemo(() => generateId(), []);
+  const [boxChecked, setBoxChecked] = useState(checked || false);
+
+  useEffect(() => {
+    setBoxChecked(checked || false);
+  }, [checked]);
+
   return (
     <label
       htmlFor={id}
@@ -72,10 +77,10 @@ const CheckBox = ({
         onChange={evt => {
           onChange && onChange(evt);
           onCheckedChange && onCheckedChange(evt.target.checked);
+          setBoxChecked(evt.target.checked);
         }}
         disabled={disabled}
-        defaultChecked={defaultChecked}
-        checked={checked}
+        checked={boxChecked}
         value={value}
       />
       <span className="pui-checkbox-checkmark">

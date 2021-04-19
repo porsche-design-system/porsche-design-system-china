@@ -16,11 +16,11 @@ export interface Props {
   size?: 'default' | 'small';
 
   /** 初始化选中面板的 key，如果没有设置 activeKey  */
-  defaultActiveKey?: string;
+  activeKey?: string;
 }
 
-const Tabs = ({ className, style, size = 'default', defaultActiveKey = '', children }: Props) => {
-  const [activeKey, setActiveKey] = useState(defaultActiveKey);
+const Tabs = ({ className, style, size = 'default', activeKey = '', children }: Props) => {
+  const [tabActiveKey, setTabActiveKey] = useState(activeKey);
 
   const tabHead: TabPaneProps[] = [];
   let keyIndex = 0;
@@ -32,14 +32,20 @@ const Tabs = ({ className, style, size = 'default', defaultActiveKey = '', child
         keyIndex++;
       }
       tabHead.push(props);
-      (props as any).show = activeKey === props.tabKey;
+      (props as any).show = tabActiveKey === props.tabKey;
     }
     return props;
   });
 
   useEffect(() => {
-    if (!defaultActiveKey) {
-      setActiveKey(tabHead[0].tabKey!);
+    if (activeKey) {
+      setTabActiveKey(activeKey);
+    }
+  }, [activeKey]);
+
+  useEffect(() => {
+    if (!activeKey) {
+      setTabActiveKey(tabHead[0].tabKey!);
     }
   }, []);
 
@@ -54,10 +60,10 @@ const Tabs = ({ className, style, size = 'default', defaultActiveKey = '', child
             })}
             key={'TabKey' + inx}
             onClick={() => {
-              setActiveKey(tabProps.tabKey!);
+              setTabActiveKey(tabProps.tabKey!);
             }}
           >
-            <span>{tabProps.tabTitle}</span>
+            <span>{tabProps.title}</span>
           </div>
         ))}
       </div>
@@ -68,7 +74,7 @@ const Tabs = ({ className, style, size = 'default', defaultActiveKey = '', child
 
 interface TabPaneProps {
   /** 选项卡头显示文字 */
-  tabTitle: string;
+  title: string;
 
   /** 对应 activeKey */
   tabKey?: string;

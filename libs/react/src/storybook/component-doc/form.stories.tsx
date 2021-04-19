@@ -15,7 +15,8 @@ import {
   Divider,
   CheckBoxGroup,
   CheckBox,
-  DatePicker
+  DatePicker,
+  Switch
 } from '../..';
 
 export default {
@@ -53,7 +54,7 @@ export const ExampleStoryBook = () => {
       <Divider contrast="medium" />
       <br />
       <RadioGroup
-        label={{ text: '按钮位置', style: { fontWeight: 'bold' } }}
+        label={{ text: '底部按钮位置', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
           setButtonAlign(value);
         }}
@@ -80,18 +81,18 @@ export const ExampleStoryBook = () => {
             <Input
               label="姓"
               name="lastName"
-              width="40%"
+              width="44%"
               rules={{ required: true, message: '必须填写' }}
-              marginRight="10%"
+              marginRight="2%"
             />
             <Input
               label="名"
               name="firstName"
-              width="50%"
+              width="54%"
               rules={{ required: true, message: '必须填写' }}
             />
-            <DatePicker name="birthday" label="生日" width="40%" marginRight="10%" />
-            <Select options="男:male,女:female" label="性别" width="50%" name="gender" />
+            <DatePicker name="birthday" label="生日" width="44%" marginRight="2%" />
+            <Select options="男:male,女:female" label="性别" width="54%" name="gender" />
             <Input
               label="电子邮件"
               name="email"
@@ -105,6 +106,7 @@ export const ExampleStoryBook = () => {
                 { type: 'number', message: '手机号必须是数字' }
               ]}
             />
+            <Switch label="保时捷车主" name="ownCar" />
             <RadioGroup name="job" label="职业" textIsValue>
               <Radio text="教师" />
               <Radio text="医生" />
