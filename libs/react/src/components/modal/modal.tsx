@@ -67,9 +67,13 @@ const Modal = ({
             </div>
             <div className="pui-modal-body">{children}</div>
             <div className="pui-modal-footer">
-              <Button onClick={() => onCancel && onCancel()} icon={<IconClose />}>
+              <Button
+                onClick={() => onCancel && onCancel()}
+                icon={<IconClose />}
+                marginRight="10px"
+              >
                 {cancelText}
-              </Button>{' '}
+              </Button>
               <Button type="primary" icon={<IconArrowHeadRight />} onClick={() => onOk && onOk()}>
                 {okText}
               </Button>
