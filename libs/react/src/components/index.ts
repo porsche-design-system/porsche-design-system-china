@@ -17,6 +17,7 @@ export { Divider } from './divider/divider';
 export { Pane } from './pane/pane';
 export { Form } from './form/form';
 export { Table } from './table/table';
+export { Switch } from './switch/switch';
 export type { TableColumn } from './table/table';
 export { ButtonGroup } from './button/button-group';
 export { Progress } from './progress/progress';

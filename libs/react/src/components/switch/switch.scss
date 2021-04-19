@@ -1,0 +1,66 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-switch {
+      display: inline-block;
+
+      &-bar {
+        position: relative;
+        border-radius: 22px;
+        background-color: $container-bg-color-4;
+        width: 44px;
+        height: 22px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      &-button {
+        width: 18px;
+        height: 18px;
+        background-color: white;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        border-radius: 50%;
+        pointer-events: none;
+        transition: all 0.2s;
+        z-index: 10;
+      }
+
+      &-disable-icon {
+        color: white;
+        position: absolute;
+        right: 6px;
+        font-size: 14px;
+        top: 4px;
+      }
+
+      &-enable-icon {
+        color: white;
+        position: absolute;
+        left: 6px;
+        font-size: 14px;
+        top: 4px;
+      }
+
+      &-enabled-true {
+        .pui-switch-button {
+          left: 24px;
+        }
+        .pui-switch-bar {
+          background-color: $status-success-color;
+        }
+      }
+
+      &-disabled-true {
+        opacity: 0.5;
+        .pui-switch-bar {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
