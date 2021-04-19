@@ -112,7 +112,7 @@ const Select = FormItem(
           }}
           disabled={disabled}
         />
-        <IconArrowHeadDown className="pui-date-picker-icon" />
+        <IconArrowHeadDown className="pui-select-icon" />
         {showOptionList && (
           <div className="pui-select-list">
             {selectOptions.map(option => (
