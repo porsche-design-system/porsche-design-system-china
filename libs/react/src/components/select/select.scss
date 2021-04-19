@@ -53,6 +53,13 @@
         cursor: pointer;
       }
 
+      &-icon {
+        position: absolute;
+        right: 11px;
+        top: 12px;
+        pointer-events: none;
+      }
+
       &-option:hover {
         background-color: $container-bg-opacity-color-2;
         color: $text-color-1;
