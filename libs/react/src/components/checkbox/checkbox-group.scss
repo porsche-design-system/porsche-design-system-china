@@ -20,11 +20,9 @@
         .pui-checkbox {
           input {
             border: 1px solid $status-error-color;
-            box-shadow: inset 0 0 0 1px $status-error-color;
           }
           input:hover {
             border: 1px solid $status-error-color-hover;
-            box-shadow: inset 0 0 0 1px $status-error-color-hover;
           }
         }
       }

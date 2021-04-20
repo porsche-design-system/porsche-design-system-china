@@ -115,6 +115,13 @@ const Table = ({
           headRef.current.scrollLeft = evt.target.scrollLeft;
         }
       };
+
+      const scrollXPercentage =
+        headRef.current.scrollLeft /
+        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth);
+
+      setIsScrollLeft(scrollXPercentage > 0.02);
+      setIsScrollRight(scrollXPercentage < 0.98);
     }
   };
 

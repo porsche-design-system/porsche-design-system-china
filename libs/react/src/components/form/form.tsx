@@ -59,19 +59,21 @@ const Form = ({
   className,
   style,
   children,
-  data = {},
+  data,
   onDataChange,
   onSubmit,
   labelLayout,
   width
 }: FormProps) => {
-  const [formData, setFormData] = useState(data);
+  const [formData, setFormData] = useState(data || {});
   const [formErrors, setFormErrors] = useState([] as ErrorList);
   const formDataValidators = useRef({} as any);
   const shouldAutoValidForm = useRef(false);
 
   useEffect(() => {
-    setFormData(data);
+    if (data) {
+      setFormData(data);
+    }
   }, [data]);
 
   const validForm = (newFormData: any) => {

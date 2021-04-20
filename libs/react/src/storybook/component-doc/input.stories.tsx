@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Row, Col } from '../..';
+import { Input, Row, Col, Form } from '../..';
 
 import './input.stories.scss';
 
@@ -36,35 +36,41 @@ export const InputsStoryBook = () => {
             rules={{ required: true, message: '必须填写' }}
           />
         </div>
-        <br />
+        <br /> <br />
         <div className="states">Label Left</div>
         <div>
-          <Input
-            label={{ text: '姓名', position: 'left' }}
-            placeholder="请输入"
-            rules={{ required: true, message: '必须填写' }}
-          />
-          <Input
-            label={{ text: '家庭地址', position: 'left' }}
-            placeholder="请输入"
-            rules={{ required: true, message: '必须填写' }}
-            error={{ show: true, message: '输入信息有误' }}
-          />
+          <Form>
+            <Input
+              label={{ text: '姓名', position: 'left' }}
+              placeholder="请输入"
+              rules={{ required: true, message: '必须填写' }}
+            />
+            <Input
+              label={{ text: '家庭地址', position: 'left' }}
+              placeholder="请输入"
+              rules={{ required: true, message: '必须填写' }}
+              error={{ show: true, message: '输入信息有误' }}
+            />
+          </Form>
         </div>
+        <br />
         <div className="states">Label Left / Text Align Right</div>
         <div>
-          <Input
-            label={{ text: '姓名', textAlign: 'right', position: 'left' }}
-            placeholder="请输入"
-            rules={{ required: true, message: '必须填写' }}
-          />
-          <Input
-            label={{ text: '家庭地址', textAlign: 'right', position: 'left' }}
-            placeholder="请输入"
-            rules={{ required: true, message: '必须填写' }}
-            error={{ show: true, message: '输入信息有误' }}
-          />
+          <Form>
+            <Input
+              label={{ text: '姓名', textAlign: 'right', position: 'left' }}
+              placeholder="请输入"
+              rules={{ required: true, message: '必须填写' }}
+            />
+            <Input
+              label={{ text: '家庭地址', textAlign: 'right', position: 'left' }}
+              placeholder="请输入"
+              rules={{ required: true, message: '必须填写' }}
+              error={{ show: true, message: '输入信息有误' }}
+            />
+          </Form>
         </div>
+        <br />
         <div className="states">Password</div>
         <div>
           <Input type="password" placeholder="请输入密码" />

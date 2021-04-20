@@ -54,15 +54,12 @@ export const CheckBoxStoryBook = () => {
           <CheckBoxGroup
             label={{ text: '热门电影', position: 'left' }}
             error={{ show: showError, message: '必须勾选3个电影' }}
-            onValueChange={() => {
+            onValueChange={val => {
+              console.log(val);
               setShowError(false);
             }}
-          >
-            <CheckBox text="阿甘正传" />
-            <CheckBox text="肖申克的救赎" />
-            <CheckBox text="寻龙传说" />
-            <CheckBox text="复仇者联盟" />
-          </CheckBoxGroup>
+            options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
+          />
         </div>
       </div>
     </div>

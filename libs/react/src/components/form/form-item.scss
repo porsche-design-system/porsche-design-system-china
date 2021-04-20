@@ -3,6 +3,11 @@
 .pui-form-item {
   display: inline-block;
   width: 100%;
-  margin-bottom: $form-element-margin-bottom;
   vertical-align: top;
+}
+
+.pui-form {
+  .pui-form-item {
+    margin-bottom: $form-element-margin-bottom;
+  }
 }

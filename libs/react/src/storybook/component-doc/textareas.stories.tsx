@@ -32,13 +32,12 @@ export const InputsStoryBook = () => {
             label="备注"
             placeholder="请输入"
             error={{ show: true, message: '输入信息有误' }}
-            required
           />
         </div>
         <br />
         <div className="states">Label Left</div>
         <div>
-          <TextArea label={{ text: '备注', position: 'left' }} placeholder="请输入" required />
+          <TextArea label={{ text: '备注', position: 'left' }} placeholder="请输入" />
         </div>
 
         <div className="states">Label Left / Text Align Right</div>
@@ -46,7 +45,6 @@ export const InputsStoryBook = () => {
           <TextArea
             label={{ text: '备注', textAlign: 'right', position: 'left' }}
             placeholder="请输入"
-            required
           />
         </div>
       </Col>
