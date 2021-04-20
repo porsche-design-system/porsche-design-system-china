@@ -69,6 +69,20 @@
           border: 1px solid $status-error-color-hover;
         }
       }
+
+      &-right-button {
+        position: absolute;
+        right: 10px;
+        top: 12px;
+      }
+
+      &-clear {
+        color: $text-opacity-color-3;
+      }
+
+      &-view {
+        color: $text-opacity-color-1;
+      }
     }
   }
 }

@@ -31,9 +31,6 @@ export interface CheckBoxGroupProps {
 
   /* 错误 */
   error?: FormErrorText;
-
-  /* 显示文字即Value */
-  textIsValue?: boolean;
 }
 
 const CheckBoxGroup = FormItem(

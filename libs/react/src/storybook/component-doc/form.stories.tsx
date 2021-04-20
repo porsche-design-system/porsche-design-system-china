@@ -105,7 +105,7 @@ export const ExampleStoryBook = () => {
               ]}
             />
             <Switch label="保时捷车主" name="ownCar" />
-            <RadioGroup name="job" label="职业" textIsValue>
+            <RadioGroup name="job" label="职业">
               <Radio text="教师" />
               <Radio text="医生" />
               <Radio text="警察" />
@@ -114,7 +114,6 @@ export const ExampleStoryBook = () => {
             <CheckBoxGroup
               label="兴趣爱好"
               name="hobbies"
-              textIsValue
               rules={[
                 {
                   validator: (_, val) => {
