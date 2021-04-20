@@ -21,6 +21,7 @@
         margin: 0;
         margin-right: 8px;
         cursor: pointer;
+        transition: all 0.1s;
       }
 
       input:hover {
@@ -34,18 +35,19 @@
 
       &-checkmark {
         position: absolute;
-        display: none;
+        opacity: 0;
         top: 0px;
         left: 0px;
+        transition: all 0.1s;
       }
 
       input:checked {
-        border: none;
+        border-color: transparent;
         background-color: $container-bg-active-color;
       }
 
       input:checked ~ .pui-checkbox-checkmark {
-        display: block;
+        opacity: 1;
       }
 
       &-size-small {

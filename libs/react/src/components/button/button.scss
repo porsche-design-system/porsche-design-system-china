@@ -140,7 +140,7 @@
 
       &-loading-circle {
         animation: pui-button-loading-rotate 1s linear infinite,
-          pui-button-loading-lenth-change 3s linear infinite;
+          pui-button-loading-length-change 3s linear infinite;
       }
 
       &-loading-circle2 {
@@ -208,7 +208,7 @@
         }
       }
 
-      @keyframes pui-button-loading-lenth-change {
+      @keyframes pui-button-loading-length-change {
         0% {
           stroke-dashoffset: 0;
         }

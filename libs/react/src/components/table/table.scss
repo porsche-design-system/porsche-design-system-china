@@ -18,7 +18,7 @@
           td {
             border-bottom: 1px solid $border-color-1;
             height: 60px;
-            padding-left: 30px;
+            padding-left: 20px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -69,15 +69,33 @@
           .pui-table-fixed-left,
           .pui-table-fixed-right {
             background-color: $background-color-2;
+            z-index: 1;
           }
           .pui-table-selected-row td {
             background-color: $container-bg-color-1;
+          }
+
+          td {
+            transition: background-color 0.1s;
+            position: relative;
+          }
+
+          tr:hover td::before {
+            content: '';
+            background-color: $container-bg-opacity-color-2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
           }
         }
       }
 
       &-scrollLeft-true table .pui-table-fixed-left::after,
-      &-scrollRight-true table .pui-table-fixed-right::before {
+      &-scrollRight-true table .pui-table-fixed-right::before,
+      &-scrollRight-true table tr:hover .pui-table-fixed-right::before {
         height: 60px;
         content: '';
         width: 24px;
@@ -86,14 +104,27 @@
         pointer-events: none;
       }
 
-      &-scrollLeft-true table .pui-table-fixed-left::after {
+      &-scrollLeft-true table tr .pui-table-fixed-left::after {
         right: -24px;
         box-shadow: inset 10px 0 8px -8px $container-bg-opacity-color-4;
       }
 
-      &-scrollRight-true table .pui-table-fixed-right::before {
+      &-scrollRight-true table .pui-table-fixed-right::before,
+      &-scrollRight-true table tr:hover .pui-table-fixed-right::before {
         left: -24px;
         box-shadow: inset -10px 0 8px -8px $container-bg-opacity-color-4;
+        background-color: transparent;
+      }
+
+      &-scrollRight-true table tr:hover .pui-table-fixed-right::after {
+        content: '';
+        background-color: $container-bg-opacity-color-2;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
       }
     }
   }

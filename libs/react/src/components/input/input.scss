@@ -32,6 +32,7 @@
         transition: color 0.2s, background-color 0.2s;
         width: 100%;
         caret-color: $brand-color;
+        transition: all 0.1s;
 
         &::placeholder {
           color: $text-opacity-color-2;
