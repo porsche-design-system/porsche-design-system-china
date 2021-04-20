@@ -4,6 +4,78 @@
   outline: none;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+blockquote {
+  display: block;
+}
+ul,
+ol {
+  list-style: none;
+}
+img {
+  border: 0 none;
+  vertical-align: top;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+strong,
+em,
+i {
+  font-style: normal;
+  font-weight: normal;
+}
+ins {
+  text-decoration: underline;
+}
+del {
+  text-decoration: line-through;
+}
+mark {
+  background: none;
+}
+input::-ms-clear {
+  display: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .pui-theme-light {

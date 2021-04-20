@@ -17,10 +17,10 @@ export const DatePickerStoryBook = () => {
           console.log(v);
         }}
       />
-      <br />
+      <br /> <br /> <br />
       <div>禁用状态</div>
       <DatePicker width="300px" label="来访日期" placeholder="请选择" disabled />
-      <br />
+      <br /> <br /> <br />
       <div>出错状态</div>
       <DatePicker
         width="300px"

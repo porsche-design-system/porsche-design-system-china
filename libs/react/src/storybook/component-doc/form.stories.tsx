@@ -51,8 +51,7 @@ export const ExampleStoryBook = () => {
           value={JSON.stringify({ position: 'left', textAlign: 'right' })}
         />
       </RadioGroup>
-      <Divider contrast="medium" />
-      <br />
+      <br /> <br />
       <RadioGroup
         label={{ text: '底部按钮位置', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
@@ -64,7 +63,7 @@ export const ExampleStoryBook = () => {
         <Radio text="中" value="center" />
         <Radio text="右" value="right" />
       </RadioGroup>
-      <Divider contrast="medium" />
+      <br />
       <br />
       <Row>
         <Col span={15}>
