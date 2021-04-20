@@ -1,0 +1,62 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      left: 0;
+      top: 0;
+      text-align: center;
+      z-index: 100;
+
+      &-svg {
+        margin-top: calc(50% - 20px);
+      }
+
+      &-circle,
+      &-circle2 {
+        fill: transparent;
+        stroke: $text-color-1;
+        stroke-width: 3;
+        stroke-dasharray: 30;
+        transform-origin: center;
+        stroke: $text-white-color;
+      }
+
+      &-circle {
+        animation: pui-loading-rotate 1s linear infinite,
+          pui-loading-length-change 3s linear infinite;
+      }
+
+      &-circle2 {
+        opacity: 0.3;
+        stroke-dasharray: 0;
+      }
+    }
+
+    @keyframes pui-loading-rotate {
+      0% {
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pui-loading-length-change {
+      0% {
+        stroke-dasharray: 30;
+      }
+      50% {
+        stroke-dasharray: 64;
+      }
+      100% {
+        stroke-dasharray: 30;
+      }
+    }
+  }
+}

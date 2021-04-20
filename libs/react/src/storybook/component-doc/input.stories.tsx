@@ -24,7 +24,7 @@ export const InputsStoryBook = () => {
         <br />
         <div className="states">Max Length</div>
         <div>
-          <Input placeholder="最多输入50个字符" maxLength={50} />
+          <Input placeholder="最多输入150个字符" maxLength={150} />
         </div>
         <br />
         <div className="states">Label Top</div>
@@ -74,6 +74,16 @@ export const InputsStoryBook = () => {
         <div className="states">Password</div>
         <div>
           <Input type="password" placeholder="请输入密码" />
+        </div>
+        <br />
+        <div className="states">Show Clear Button</div>
+        <div>
+          <Input placeholder="点击右侧按钮清除" showClearButton />
+        </div>
+        <br />
+        <div className="states">Show View Password Button</div>
+        <div>
+          <Input type="password" placeholder="点击右侧按钮显示密码" showViewPasswordButton />
         </div>
       </Col>
     </Row>

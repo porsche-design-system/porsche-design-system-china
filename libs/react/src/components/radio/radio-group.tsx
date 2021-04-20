@@ -25,9 +25,6 @@ export interface RadioGroupProps {
   /* 错误 */
   error?: FormErrorText;
 
-  /* 显示文字即Value值 */
-  textIsValue?: boolean;
-
   /* 点击事件 */
   onValueChange?: (val: string) => void;
 
@@ -45,15 +42,7 @@ const generateId = () => {
 };
 
 const RadioGroup = FormItem(
-  ({
-    disabled = false,
-    children,
-    onValueChange,
-    value = '',
-    error,
-    textIsValue = true,
-    options
-  }: RadioGroupProps) => {
+  ({ disabled = false, children, onValueChange, value = '', error, options }: RadioGroupProps) => {
     const radioValue = useRef<string>(value);
 
     let radioOptions: SelectOption[] = [];
@@ -92,7 +81,7 @@ const RadioGroup = FormItem(
             radioProp.value && allValues.push(radioProp.value);
             radioProp.defaultChecked = radioProp.value === value;
             radioProp.name = radioName;
-            radioProp.value = radioProp.value || (textIsValue ? radioProp.text : '');
+            radioProp.value = radioProp.value || radioProp.text;
             radioProp.onChange = evt => {
               radioOnChange && radioOnChange(evt);
               if (evt.target.value) {
