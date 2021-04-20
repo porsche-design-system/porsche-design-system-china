@@ -30,6 +30,30 @@ export const ModalStoryBook = () => {
       <Button onClick={() => setIsModalVisible(true)} type="primary">
         显示模式框
       </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          Modal.alert('你看到了一个弹出框', () => {
+            console.log('关闭');
+          })
+        }
+        type="secondary"
+      >
+        显示提示信息
+      </Button>
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          Modal.confirm('你看到了一个弹出框', () => {
+            console.log('关闭');
+          })
+        }
+        type="secondary"
+      >
+        显示确认信息
+      </Button>
     </>
   );
 };

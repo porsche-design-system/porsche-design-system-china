@@ -29,6 +29,7 @@
         bottom: 0;
         z-index: 1000;
         overflow: hidden;
+        animation: pui-modal-zoom 0.2s;
 
         .pui-modal {
           box-sizing: border-box;
@@ -91,6 +92,18 @@
               }
               .pui-button:last-child {
                 margin-right: 0;
+              }
+            }
+
+            @keyframes pui-modal-zoom {
+              0% {
+                transform: scale(0.9);
+                opacity: 0;
+              }
+
+              100% {
+                transform: scale(1);
+                opacity: 1;
               }
             }
           }

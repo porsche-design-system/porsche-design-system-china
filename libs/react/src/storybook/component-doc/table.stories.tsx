@@ -1,6 +1,6 @@
 import { IconEdit } from '@pui/icons';
 import React from 'react';
-import { Table, Button, TableColumn } from '../..';
+import { Table, Button, TableColumn, Modal } from '../..';
 
 export default {
   title: 'Data Display/Table',
@@ -32,9 +32,19 @@ const columns: TableColumn[] = [
     title: '操作',
     fixed: 'right',
     width: 150,
-    customCell: () => (
+    customCell: rowData => (
       <>
-        <Button type="text">修改</Button> <Button type="text">删除</Button>
+        <Button type="text">修改</Button>{' '}
+        <Button
+          type="text"
+          onClick={() => {
+            Modal.confirm('确认要删除吗?', () => {
+              Modal.alert(rowData.dealerName + ' 已删除！');
+            });
+          }}
+        >
+          删除
+        </Button>
         <Button icon={IconEdit} type="text"></Button>
       </>
     )
