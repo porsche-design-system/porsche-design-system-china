@@ -22,6 +22,7 @@
         border-radius: 50%;
         margin: 0;
         margin-right: 8px;
+        transition: all 0.1s;
       }
 
       input:hover {
@@ -32,10 +33,16 @@
         border-color: $border-color-5;
       }
 
-      input:checked ~ .pui-radio-checkmark {
+      &-checkmark {
         border-radius: 50%;
+        transition: all 0.1s;
+        opacity: 0;
+      }
+
+      input:checked ~ .pui-radio-checkmark {
         background-color: $container-bg-active-color;
         position: absolute;
+        opacity: 1;
       }
 
       &-size-small {

@@ -226,6 +226,7 @@ const Table = ({
                 {selectable && (
                   <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
                     <CheckBox
+                      size="small"
                       onCheckedChange={checked => {
                         if (checked) {
                           const fullSelectedRows: number[] = [];
@@ -278,6 +279,7 @@ const Table = ({
                   {selectable && (
                     <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
                       <CheckBox
+                        size="small"
                         onCheckedChange={checked => {
                           if (checked) {
                             selectedRows.push(inx);
