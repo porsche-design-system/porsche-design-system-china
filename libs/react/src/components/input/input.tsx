@@ -146,4 +146,5 @@ const Input = FormItem(
   }
 );
 
+(Input as any).displayName = 'Input';
 export { Input };

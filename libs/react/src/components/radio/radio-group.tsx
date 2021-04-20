@@ -122,4 +122,5 @@ const RadioGroup = FormItem(
   }
 );
 
+(RadioGroup as any).displayName = 'RadioGroup';
 export { RadioGroup };

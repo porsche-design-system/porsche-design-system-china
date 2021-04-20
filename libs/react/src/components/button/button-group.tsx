@@ -31,4 +31,5 @@ const ButtonGroup = ({ label, disabled = false, children, align = 'left' }: Butt
   );
 };
 
+ButtonGroup.displayName = 'ButtonGroup';
 export { ButtonGroup };

@@ -75,4 +75,5 @@ const Radio = ({
   );
 };
 
+Radio.displayName = 'Radio';
 export { Radio };

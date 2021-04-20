@@ -91,4 +91,5 @@ const CheckBox = ({
   );
 };
 
+CheckBox.displayName = 'CheckBox';
 export { CheckBox };

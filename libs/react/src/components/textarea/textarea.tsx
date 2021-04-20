@@ -101,4 +101,5 @@ const TextArea = FormItem(
   }
 );
 
+(TextArea as any).displayName = 'TextArea';
 export { TextArea };
