@@ -134,4 +134,5 @@ const Select = FormItem(
   }
 );
 
+(Select as any).displayName = 'Radio';
 export { Select };

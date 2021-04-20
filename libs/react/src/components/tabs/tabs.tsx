@@ -98,4 +98,5 @@ const TabPane = (props: TabPaneProps) => {
   );
 };
 
+TabPane.displayName = 'TabPane';
 export { Tabs, TabPane };

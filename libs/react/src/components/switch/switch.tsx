@@ -88,4 +88,5 @@ const Switch = FormItem(
   }
 );
 
+(Switch as any).displayName = 'Switch';
 export { Switch };

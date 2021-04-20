@@ -129,4 +129,5 @@ const CheckBoxGroup = FormItem(
   }
 );
 
+(CheckBoxGroup as any).displayName = 'CheckBoxGroup';
 export { CheckBoxGroup };
