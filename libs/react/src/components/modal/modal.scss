@@ -19,6 +19,7 @@
         height: 100%;
         z-index: 1000;
         background: $mask-color;
+        animation: pui-modal-fade-in 0.2s ease-out;
       }
 
       .pui-modal-wrap {
@@ -29,7 +30,7 @@
         bottom: 0;
         z-index: 1000;
         overflow: hidden;
-        animation: pui-modal-zoom 0.2s;
+        animation: pui-modal-zoom 0.2s ease-out;
 
         .pui-modal {
           box-sizing: border-box;
@@ -103,6 +104,16 @@
 
               100% {
                 transform: scale(1);
+                opacity: 1;
+              }
+            }
+
+            @keyframes pui-modal-fade-in {
+              0% {
+                opacity: 0;
+              }
+
+              100% {
                 opacity: 1;
               }
             }
