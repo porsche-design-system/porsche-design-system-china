@@ -4,14 +4,14 @@ import cn from 'classnames';
 export const componentClassNames = (
   prefix: string,
   classNames: { [key: string]: string },
-  overideClassName: string = ''
+  overrideClassName: string = ''
 ) => {
   const args: string[] = [prefix];
   for (const k in classNames) {
     args.push(prefix + '-' + k + '-' + classNames[k]);
   }
-  if (overideClassName) {
-    args.push(overideClassName);
+  if (overrideClassName) {
+    args.push(overrideClassName);
   }
   return cn(...args);
 };
