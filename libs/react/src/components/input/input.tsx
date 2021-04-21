@@ -60,12 +60,14 @@ const Input = FormItem(
     showViewPasswordButton
   }: InputProps) => {
     const [valueLength, setValueLength] = useState(0);
-    const [inputValue, setInputValue] = useState(value);
+    const [inputValue, setInputValue] = useState(value || '');
     const [inputType, setInputType] = useState(type);
     const inputReference = useRef<HTMLInputElement>();
 
     useEffect(() => {
-      setInputValue(value);
+      if (value !== undefined) {
+        setInputValue(value);
+      }
     }, [value]);
 
     useEffect(() => {
