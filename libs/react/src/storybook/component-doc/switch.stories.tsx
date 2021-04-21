@@ -22,14 +22,14 @@ export const SwitchBook = () => {
         />
         <Switch
           label={{ text: '修改值为 0/1', position: 'left', width: '120px' }}
-          alterValues="ZeroAndOne"
+          alterValues="ZeroOrOne"
           onValueChange={val => {
             console.log(val);
           }}
         />
         <Switch
           label={{ text: '修改值为 false/true', position: 'left', width: '120px' }}
-          alterValues="FalseAndTrue"
+          alterValues="FalseOrTrue"
           onValueChange={val => {
             console.log(val);
           }}

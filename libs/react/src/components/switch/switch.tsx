@@ -27,8 +27,8 @@ export interface SwitchProps {
 
   /* 修改开关值 */
   alterValues?:
-    | 'FalseAndTrue'
-    | 'ZeroAndOne'
+    | 'FalseOrTrue'
+    | 'ZeroOrOne'
     | [string | boolean | number, string | boolean | number];
 
   /* 值改变事件 */
@@ -40,10 +40,13 @@ const Switch = FormItem(
     const [stateValue, setStateValue] = useState(value);
 
     let switchValues: [any, any] = [false, true];
-    if (alterValues === 'FalseAndTrue') {
+    if (alterValues === 'FalseOrTrue') {
       switchValues = [false, true];
-    } else if (alterValues === 'ZeroAndOne') {
+    } else if (alterValues === 'ZeroOrOne') {
       switchValues = [0, 1];
+    } else if (typeof alterValues === 'string') {
+      const vals = (alterValues as string).split(',');
+      switchValues = [vals[0], vals.length > 1 ? vals[1] : vals[0]];
     } else if (alterValues) {
       switchValues = alterValues;
     }
