@@ -31,12 +31,23 @@ export interface RadioGroupProps {
   /* 选项 */
   options?: string | string[] | Option[];
 
+  /* 允许取消选项 */
+  allowCancelSelection?: boolean;
+
   /** 子组件 */
   children?: React.ReactNode;
 }
 
 const RadioGroup = FormItem(
-  ({ disabled = false, children, onValueChange, value = '', error, options }: RadioGroupProps) => {
+  ({
+    disabled = false,
+    children,
+    onValueChange,
+    value = '',
+    allowCancelSelection = false,
+    error,
+    options
+  }: RadioGroupProps) => {
     const [radioValue, setRadioValue] = useState<string>(value);
 
     useEffect(() => {
@@ -89,6 +100,13 @@ const RadioGroup = FormItem(
               }
               onValueChange && onValueChange(radioValue);
             };
+            if (allowCancelSelection) {
+              (radioProp as any).onClick = (evt: any) => {
+                if (allowCancelSelection && evt.target.value === radioValue) {
+                  setRadioValue('');
+                }
+              };
+            }
           }
           return props;
         }
