@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './row.scss';
 
-export interface Props {
+export interface RowProps {
   // 组件属性 //
 
   /** 类名 */
@@ -19,7 +19,7 @@ export interface Props {
 /**
  * Primary UI component for user interaction
  */
-const Row = ({ className, style, children, onClick }: Props) => {
+const Row = ({ className, style, children, onClick }: RowProps) => {
   return (
     <div className={componentClassNames('pui-row', {}, className)} style={style} onClick={onClick}>
       {children}

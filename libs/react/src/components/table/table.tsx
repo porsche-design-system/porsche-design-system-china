@@ -28,6 +28,9 @@ export interface TableProps {
   /* 可选定行 */
   selectable?: boolean;
 
+  /* 最大行数 */
+  maxRows?: number;
+
   /* 排序事件 */
   onSort?: (columnName: string) => void;
 
@@ -45,6 +48,7 @@ const Table = ({
   data,
   onSort,
   onSelect,
+  maxRows,
   selectable = false
 }: TableProps) => {
   const middleColumns: TableColumn[] = [];
@@ -129,7 +133,7 @@ const Table = ({
   const selectColumnWidth = 50;
   const tableWidth =
     middleColumns.length * defaultWidth + (selectable ? selectColumnWidth : 0) + 'px';
-  const tableHeight = 60 * 10 + 'px';
+  const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto';
 
   const renderMeasureCell = (column: TableColumn, inx: number) => {
     return (

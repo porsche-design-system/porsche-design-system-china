@@ -9,6 +9,7 @@ import './input.scss';
 export interface InputProps {
   /* 类名 */
   className?: string;
+
   /* 样式 */
   style?: CSSProperties;
 
@@ -17,8 +18,10 @@ export interface InputProps {
 
   /* 输入值 */
   value?: string | number;
+
   /* 占位符 */
   placeholder?: string;
+
   /* 最多输入字符数 */
   maxLength?: number;
 
@@ -47,7 +50,6 @@ export interface InputProps {
 const Input = FormItem(
   ({
     className,
-    style,
     type = 'text',
     placeholder,
     maxLength,
@@ -93,7 +95,6 @@ const Input = FormItem(
             onValueChange && onValueChange(evt.target.value);
           }}
           disabled={disabled}
-          style={style}
           value={inputValue}
           className={className}
           onInput={event => {

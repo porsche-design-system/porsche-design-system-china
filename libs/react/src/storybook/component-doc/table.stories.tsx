@@ -58,6 +58,7 @@ export const TableStoryBook = () => {
         data={tableData}
         columns={columns}
         selectable
+        maxRows={10}
         onSelect={data => {
           console.log(data);
         }}

@@ -7,6 +7,7 @@ export interface RadioProps {
 
   /** 类名 */
   className?: string;
+
   /** 样式 */
   style?: CSSProperties;
 
@@ -23,12 +24,13 @@ export interface RadioProps {
   disabled?: boolean;
 
   /* 是否选定 */
-  defaultChecked?: boolean;
+  checked?: boolean;
 
   /* 大小 */
   size?: 'default' | 'small';
 
-  // 组件事件 //
+  /* 选定事件 */
+  onCheckedChange?: (checked: boolean) => void;
 
   /* 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -50,10 +52,12 @@ const Radio = ({
   name = '',
   text,
   onChange,
-  defaultChecked = false,
+  onCheckedChange,
+  checked = false,
   size = 'default'
 }: RadioProps) => {
   const id = useMemo(() => generateId(), []);
+
   return (
     <label
       htmlFor={id}
@@ -65,9 +69,12 @@ const Radio = ({
         name={name}
         type="radio"
         value={value}
-        onChange={onChange}
+        onChange={evt => {
+          onChange && onChange(evt);
+          onCheckedChange && onCheckedChange(evt.target.checked);
+        }}
         disabled={disabled}
-        defaultChecked={defaultChecked}
+        checked={checked}
       />
       <span className="pui-radio-checkmark" />
       {text}

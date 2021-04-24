@@ -5,11 +5,12 @@ import { FormItemLabelProps } from '../form/form';
 import { FormItem } from '../form/form-item';
 import './textarea.scss';
 
-export interface Props {
+export interface TextAreaProps {
   // 组件属性 //
 
   /* 类名 */
   className?: string;
+
   /* 样式 */
   style?: CSSProperties;
 
@@ -23,11 +24,15 @@ export interface Props {
 
   /* 最多输入字符 */
   maxLength?: number;
+
   /* 是否禁用 */
   disabled?: boolean;
 
   /* 表单绑定key，需要配合<Form>使用 */
   name?: string;
+
+  /* 值 */
+  value?: string;
 
   /* 控件值改变事件 */
   onChange?: ChangeEventHandler;
@@ -44,11 +49,12 @@ const TextArea = FormItem(
     className,
     placeholder,
     error,
+    value,
     disabled = false,
     maxLength,
     onChange,
     onValueChange
-  }: Props) => {
+  }: TextAreaProps) => {
     const [valueLength, setValueLength] = useState(0);
 
     const updateHeight = (element: HTMLTextAreaElement) => {
@@ -65,6 +71,7 @@ const TextArea = FormItem(
         )}
       >
         <textarea
+          value={value}
           ref={(element: HTMLTextAreaElement) => {
             if (maxLength && element) {
               updateHeight(element);

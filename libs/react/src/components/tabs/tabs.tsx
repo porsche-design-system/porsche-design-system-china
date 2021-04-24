@@ -2,7 +2,7 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import './tabs.scss';
 
-export interface Props {
+export interface TabsProps {
   // 组件属性 //
 
   /** 类名 */
@@ -19,7 +19,7 @@ export interface Props {
   activeKey?: string;
 }
 
-const Tabs = ({ className, style, size = 'default', activeKey = '', children }: Props) => {
+const Tabs = ({ className, style, size = 'default', activeKey = '', children }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(activeKey);
 
   const tabHead: TabPaneProps[] = [];

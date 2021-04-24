@@ -5,7 +5,7 @@ import { Button } from '..';
 import { componentClassNames } from '../../shared/class-util';
 import './modal.scss';
 
-export interface Props {
+export interface ModalProps {
   // 组件属性 //
   /** 子组件 */
   children?: React.ReactNode;
@@ -54,7 +54,7 @@ const Modal = ({
   showCancel = true,
   showClose = true,
   rootRef
-}: Props) => {
+}: ModalProps) => {
   const [show, setShow] = useState(visible);
   useEffect(() => {
     setShow(visible);

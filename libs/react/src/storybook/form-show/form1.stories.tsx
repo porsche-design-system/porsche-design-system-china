@@ -1,62 +1,132 @@
 import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons';
 import React, { useState } from 'react';
-import { Button, Input, TextArea, Form, ButtonGroup } from '../..';
+
+import {
+  Button,
+  RadioGroup,
+  Switch,
+  Input,
+  TextArea,
+  Form,
+  ButtonGroup,
+  DatePicker,
+  Select,
+  CheckBoxGroup
+} from '../..';
 
 export default {
   title: 'Form Example/Form 1',
   component: Form
 };
 
+interface FormData {
+  contact: string;
+  address: string;
+  mobile: string;
+  dealer: string;
+  date: string;
+  services: string[];
+  invoice: boolean;
+  invoiceType: string;
+}
+
 export const ExampleStoryBook = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<FormData>({} as any);
 
   return (
-    <Form
-      labelLayout={{ textAlign: 'right', position: 'left' }}
-      data={data}
-      width="80%"
-      onDataChange={d => {
-        setData(d);
-      }}
-      onSubmit={(data, error) => {
-        console.log('submit', data);
-      }}
-    >
-      <Input
-        label="联系人"
-        name="contact"
-        width="45%"
-        rules={{ required: true, message: '必须填写' }}
-        marginRight="10%"
-        placeholder="请填写"
-      />
-      <Input label="手机号" name="mobile" width="45%" placeholder="请填写" />
-      <Input
-        label="勘察地址"
-        name="address"
-        width="45%"
-        rules={{ required: true, message: '必须填写' }}
-        placeholder="请填写"
-      />
+    <div>
+      <Button
+        onClick={() => {
+          setData({
+            contact: '李云',
+            address: '上海东方路123号',
+            mobile: '15000232222',
+            dealer: 'PC',
+            date: '2021-12-12',
+            services: ['上漆'],
+            invoice: true,
+            invoiceType: '电子发票'
+          });
+        }}
+        type="text"
+      >
+        测试载入数据
+      </Button>
       <br />
-      <Input label="小区/写字楼" name="area" width="45%" placeholder="请填写" />
       <br />
-      <TextArea
-        label="详细地址"
-        rules={{ required: true, message: '必须填写' }}
-        name="detailAddress"
-        placeholder="请填写"
-      />
-      <Input label="勘察日期" name="date" width="45%" marginRight="10%" placeholder="请填写" />
-      <Input label="勘察时间" name="date" width="45%" placeholder="请填写" />
-      <ButtonGroup align="right">
-        <Button type="default" icon={IconArrowHeadLeft}>
-          上一步
-        </Button>
-        <Button type="primary" icon={IconArrowHeadRight} formSubmit>
-          保存
-        </Button>
-      </ButtonGroup>
-    </Form>
+      <br />
+      <Form
+        labelLayout={{ textAlign: 'right', position: 'left' }}
+        data={data}
+        width="80%"
+        onDataChange={setData}
+        onSubmit={(data, error) => {
+          console.log('submit', data);
+        }}
+      >
+        <Input
+          label="联系人"
+          name="contact"
+          width="45%"
+          rules={{ required: true, message: '必须填写' }}
+          marginRight="10%"
+          placeholder="请填写"
+        />
+        <Input label="手机号" name="mobile" width="45%" placeholder="请填写" />
+        <Select
+          label="经销商"
+          name="dealer"
+          width="45%"
+          options="上海浦东保时捷中心:PD,上海浦西保时捷中心:PC"
+          rules={{ required: true, message: '必须填写' }}
+          placeholder="请填写"
+          marginRight="10%"
+        />
+        <DatePicker
+          label="来访日期"
+          name="date"
+          width="45%"
+          rules={{ required: true, message: '必须填写' }}
+          placeholder="请填写"
+        />
+        <CheckBoxGroup
+          label="服务类型"
+          name="services"
+          options="维修,上漆,更换轮胎,轮轴润滑,机车整装"
+        />
+        <Switch
+          label="开具发票"
+          name="invoice"
+          onValueChange={val => {
+            if (!val) {
+              data.invoiceType = '';
+              data.invoice = val;
+              setData({ ...data });
+            }
+          }}
+        />
+        <RadioGroup
+          disabled={!data.invoice}
+          label="发票类型"
+          name="invoiceType"
+          options="纸质发票,电子发票"
+        />
+        <TextArea
+          label="详细地址"
+          rules={{ required: true, message: '必须填写' }}
+          name="address"
+          placeholder="请填写"
+        />
+        <ButtonGroup align="right">
+          <Button type="default" icon={IconArrowHeadLeft}>
+            上一步
+          </Button>
+          <Button type="primary" icon={IconArrowHeadRight} submit>
+            保存
+          </Button>
+        </ButtonGroup>
+      </Form>
+      <div>{JSON.stringify(data)}</div>
+    </div>
   );
 };

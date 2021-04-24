@@ -11,23 +11,30 @@ export interface ButtonProps {
 
   /** 类名 */
   className?: string;
+
   /** 子组件 */
   children?: React.ReactNode;
+
   /** 样式 */
   style?: CSSProperties;
+
   /** 类型 */
   type?: 'default' | 'primary' | 'secondary' | 'text';
+
   /** 大小 */
   size?: 'default' | 'small';
+
   /** 图标 */
   icon?: PUIIcon | ReactElement;
+
   /** 是否加载中 */
   loading?: boolean;
+
   /** 是否禁用 */
   disabled?: boolean;
 
   /* 是否是表单提交按钮 */
-  formSubmit?: boolean;
+  submit?: boolean;
 
   /* 左边距 */
   marginLeft?: string;
@@ -41,9 +48,6 @@ export interface ButtonProps {
   onClick?: React.MouseEventHandler;
 }
 
-/**
- * Primary UI component for user interaction
- */
 const Button = ({
   className,
   children,

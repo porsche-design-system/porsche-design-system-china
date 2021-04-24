@@ -134,7 +134,7 @@ export const ExampleStoryBook = () => {
               name="address"
             />
             <ButtonGroup align={buttonAlign as any}>
-              <Button type="primary" icon={IconArrowHeadRight} formSubmit>
+              <Button type="primary" icon={IconArrowHeadRight} submit>
                 提交
               </Button>
               <Button type="default" icon={IconClose}>
