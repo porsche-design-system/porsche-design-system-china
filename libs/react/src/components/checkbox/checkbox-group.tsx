@@ -69,6 +69,7 @@ const CheckBoxGroup = FormItem(
     ));
 
     let newChildren = useMemo(() => {
+      checkBoxValues.current = value;
       const allValues: string[] = [];
       const newChildren = overrideChildren(
         [...optionsNodes, ...React.Children.toArray(children)],
@@ -76,13 +77,15 @@ const CheckBoxGroup = FormItem(
           if (elementName === 'CheckBox') {
             const checkboxProp: CheckBoxProps = props;
             const checkBoxOnChange = checkboxProp.onChange;
+            const checkBoxOnCheckedChange = checkboxProp.onCheckedChange;
             checkboxProp.value = checkboxProp.value || checkboxProp.text;
             checkboxProp.value && allValues.push(checkboxProp.value);
-            checkboxProp.defaultChecked =
+            checkboxProp.checked =
               checkboxProp.value !== undefined &&
               checkBoxValues.current.indexOf(checkboxProp.value) >= 0;
             checkboxProp.onChange = evt => {
               checkBoxOnChange && checkBoxOnChange(evt);
+              checkBoxOnCheckedChange && checkBoxOnCheckedChange(evt.target.checked);
               if (evt.target.value) {
                 if (evt.target.checked) {
                   checkBoxValues.current.push(evt.target.value);
@@ -108,7 +111,7 @@ const CheckBoxGroup = FormItem(
       });
       checkBoxValues.current = filteredValues;
       return newChildren;
-    }, [onValueChange]);
+    }, [onValueChange, value]);
 
     useEffect(() => {
       if (JSON.stringify(checkBoxValues.current.sort()) !== JSON.stringify(value)) {

@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './pane.scss';
 
-export interface Props {
+export interface PaneProps {
   // 组件属性 //
 
   /** 类名 */
@@ -18,7 +18,7 @@ export interface Props {
   padding?: string;
 }
 
-const Pane = ({ className, style, children, padding = '40px' }: Props) => {
+const Pane = ({ className, style, children, padding = '40px' }: PaneProps) => {
   return (
     <div className={componentClassNames('pui-pane', {}, className)} style={{ padding, ...style }}>
       {children}

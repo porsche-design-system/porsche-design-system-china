@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { getLabelWidth, Label, getLabelProps } from '../label/label';
 import { FormItemLabelProps } from './form';
 import { ErrorText, FormErrorText } from '../error-text/error-text';
@@ -27,10 +27,13 @@ export interface FormItemProps {
 
   /* 右边距 */
   marginRight?: string;
+
+  /* 样式 */
+  style?: CSSProperties;
 }
 
 const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormItemProps & T) => {
-  const { label, error, width, marginLeft, marginRight, rules } = props;
+  const { label, error, width, marginLeft, marginRight, rules, style } = props;
 
   let required = false;
   if (rules) {
@@ -62,7 +65,7 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
       : {};
 
   return (
-    <div className="pui-form-item" style={{ width, marginLeft, marginRight }}>
+    <div className="pui-form-item" style={{ ...style, width, marginLeft, marginRight }}>
       {label && (
         <Label
           requiredMark={required}

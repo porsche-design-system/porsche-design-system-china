@@ -43,7 +43,6 @@ export interface SelectProps {
 const Select = FormItem(
   ({
     className,
-    style,
     disabled,
     value,
     error,
@@ -101,7 +100,6 @@ const Select = FormItem(
           },
           className
         )}
-        style={style}
       >
         <input
           readOnly

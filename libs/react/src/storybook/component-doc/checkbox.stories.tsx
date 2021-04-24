@@ -15,16 +15,20 @@ export const CheckBoxStoryBook = () => {
   return (
     <div>
       <div>
-        <CheckBox text="选项1" defaultChecked />
-        <CheckBox text="选项2" />
-        <CheckBox text="失效选项" disabled />
+        <CheckBoxGroup>
+          <CheckBox text="选项1" checked />
+          <CheckBox text="选项2" />
+          <CheckBox text="失效选项" disabled />
+        </CheckBoxGroup>
       </div>
       <br />
       <div>
         <div>Small Size</div>
         <div>
-          <CheckBox text="选项1" size="small" defaultChecked />
-          <CheckBox text="选项2" size="small" />
+          <CheckBoxGroup>
+            <CheckBox text="选项1" size="small" checked />
+            <CheckBox text="选项2" size="small" />
+          </CheckBoxGroup>
         </div>
       </div>
       <br />
@@ -34,15 +38,15 @@ export const CheckBoxStoryBook = () => {
           <CheckBoxGroup
             label="兴趣爱好"
             value={pickedValues}
-            onValueChange={values => {
-              setPickedValues(values);
-            }}
+            onValueChange={setPickedValues}
+            width="300px"
           >
             <CheckBox text="唱歌" value="singing" />
             <CheckBox text="玩游戏" value="gaming" />
             <CheckBox text="跳舞" value="dance" />
             <CheckBox text="游泳" value="swimming" />
-            <CheckBox text="游泳" value="swimming" />
+            <CheckBox text="听音乐" value="music" />
+            <CheckBox text="瑜伽" value="yoga" />
           </CheckBoxGroup>
         </div>
         <div>{JSON.stringify(pickedValues)}</div>

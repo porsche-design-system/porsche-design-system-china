@@ -4,12 +4,12 @@ import { componentClassNames } from '../../shared/class-util';
 import './checkbox.scss';
 
 export interface CheckBoxProps {
-  // 组件属性 //
-
   /** 类名 */
   className?: string;
+
   /** 子组件 */
   children?: React.ReactNode;
+
   /** 样式 */
   style?: CSSProperties;
 
@@ -18,9 +18,6 @@ export interface CheckBoxProps {
 
   /*选项值 */
   value?: string;
-
-  /* 是否默认选定 */
-  defaultChecked?: boolean;
 
   /** 是否禁用 */
   disabled?: boolean;
@@ -49,9 +46,8 @@ const generateId = () => {
 };
 const CheckBox = ({
   className,
-  style,
   text = '',
-  value = '',
+  value,
   disabled = false,
   size = 'default',
   checked,
@@ -69,7 +65,6 @@ const CheckBox = ({
     <label
       htmlFor={id}
       className={componentClassNames('pui-checkbox', { disabled: disabled + '', size }, className)}
-      style={style}
     >
       <input
         id={id}
@@ -90,6 +85,5 @@ const CheckBox = ({
     </label>
   );
 };
-
-CheckBox.displayName = 'CheckBox';
+(CheckBox as any).displayName = 'CheckBox';
 export { CheckBox };

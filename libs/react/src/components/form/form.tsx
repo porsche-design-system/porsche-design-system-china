@@ -6,13 +6,12 @@ import { ErrorList } from 'async-validator';
 import { FormErrorText } from '../error-text/error-text';
 
 export interface FormLabelStyle {
-  // 组件属性 //
-
   /* 标签位置 */
   position?: 'top' | 'left';
 
   /* 类名 */
   className?: string;
+
   /* 样式 */
   style?: CSSProperties;
 
@@ -29,13 +28,12 @@ export interface FormItemLabelProps extends FormLabelStyle {
 }
 
 export interface FormProps {
-  // 组件属性 //
-
   /* 子组件 */
   children?: React.ReactNode;
 
   /* 类名 */
   className?: string;
+
   /* 样式 */
   style?: CSSProperties;
 
@@ -44,6 +42,12 @@ export interface FormProps {
 
   /* 宽度 */
   width?: string;
+
+  /* 高度 */
+  height?: string;
+
+  /* 行间距 */
+  lineGap?: string;
 
   /* 表单内所有Label样式 */
   labelLayout?: FormLabelStyle;
@@ -63,7 +67,9 @@ const Form = ({
   onDataChange,
   onSubmit,
   labelLayout,
-  width
+  width,
+  height,
+  lineGap
 }: FormProps) => {
   const [formData, setFormData] = useState(data || {});
   const [formErrors, setFormErrors] = useState([] as ErrorList);
@@ -73,6 +79,9 @@ const Form = ({
   useEffect(() => {
     if (data) {
       setFormData(data);
+      if (shouldAutoValidForm.current) {
+        validForm(data);
+      }
     }
   }, [data]);
 
@@ -103,7 +112,12 @@ const Form = ({
         value?: any;
         rules?: RuleItem[] | RuleItem;
         error?: FormErrorText;
+        style?: CSSProperties;
       };
+
+      if (lineGap) {
+        inputProps.style = { marginBottom: lineGap, ...inputProps.style };
+      }
 
       if (inputProps.name) {
         if (formData[inputProps.name] === undefined) {
@@ -161,15 +175,15 @@ const Form = ({
         //   }
         // };
 
-        const inputOnChange = inputProps.onChange;
-        const inputOnValueChange = inputProps.onValueChange;
+        const formItemOnChange = inputProps.onChange;
+        const formItemOnValueChange = inputProps.onValueChange;
 
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
             const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
             setFormData(newFormData);
-            inputOnChange && inputOnChange(evt);
             onDataChange && onDataChange(newFormData);
+            formItemOnChange && formItemOnChange(evt);
             validForm(newFormData);
           };
         } else if (
@@ -186,8 +200,8 @@ const Form = ({
           inputProps.onValueChange = value => {
             const newFormData = { ...formData, [inputProps.name!]: value };
             setFormData(newFormData);
-            inputOnValueChange && inputOnValueChange(value);
             onDataChange && onDataChange(newFormData);
+            formItemOnValueChange && formItemOnValueChange(value);
             validForm(newFormData);
           };
         }
@@ -216,7 +230,7 @@ const Form = ({
       return inputProps;
     } else if (elementName === 'Button') {
       let buttonProps = props as ButtonProps;
-      if (buttonProps.formSubmit) {
+      if (buttonProps.submit) {
         const buttonOnClick = buttonProps.onClick;
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt);
@@ -233,7 +247,10 @@ const Form = ({
   });
 
   return (
-    <div className={componentClassNames('pui-form', {}, className)} style={{ width, ...style }}>
+    <div
+      className={componentClassNames('pui-form', {}, className)}
+      style={{ width, height, ...style }}
+    >
       {newChildren}
     </div>
   );

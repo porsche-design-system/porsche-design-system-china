@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import { FormErrorText } from '../error-text/error-text';
 import { FormItem } from '../form/form-item';
 import { Radio, RadioProps } from './radio';
 import './radio-group.scss';
 
-interface SelectOption {
+interface Option {
   text: string;
   value: string;
 }
@@ -29,23 +29,21 @@ export interface RadioGroupProps {
   onValueChange?: (val: string) => void;
 
   /* 选项 */
-  options?: string | string[] | SelectOption[];
+  options?: string | string[] | Option[];
 
   /** 子组件 */
   children?: React.ReactNode;
 }
 
-let idCounter = 0;
-const generateId = () => {
-  idCounter++;
-  return 'radio-group-' + idCounter;
-};
-
 const RadioGroup = FormItem(
   ({ disabled = false, children, onValueChange, value = '', error, options }: RadioGroupProps) => {
-    const radioValue = useRef<string>(value);
+    const [radioValue, setRadioValue] = useState<string>(value);
 
-    let radioOptions: SelectOption[] = [];
+    useEffect(() => {
+      setRadioValue(value);
+    }, [value]);
+
+    let radioOptions: Option[] = [];
     if (typeof options === 'string') {
       const optionParts = options.split(',');
       optionParts.forEach(optionPart => {
@@ -57,7 +55,7 @@ const RadioGroup = FormItem(
       });
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        radioOptions = options as SelectOption[];
+        radioOptions = options as Option[];
       } else {
         (options as string[]).forEach(option => {
           radioOptions.push({ text: option, value: option });
@@ -70,7 +68,6 @@ const RadioGroup = FormItem(
     ));
 
     let newChildren = useMemo(() => {
-      const radioName = generateId();
       const allValues: string[] = [];
       const newChildren = overrideChildren(
         [...optionRadios, ...React.Children.toArray(children)],
@@ -78,34 +75,35 @@ const RadioGroup = FormItem(
           if (elementName === 'Radio') {
             const radioProp: RadioProps = props;
             const radioOnChange = radioProp.onChange;
-            radioProp.value && allValues.push(radioProp.value);
-            radioProp.defaultChecked = radioProp.value === value;
-            radioProp.name = radioName;
+            const radioOnCheckedChange = radioProp.onCheckedChange;
             radioProp.value = radioProp.value || radioProp.text;
+            radioProp.value && allValues.push(radioProp.value);
+            radioProp.checked = radioProp.value === radioValue;
             radioProp.onChange = evt => {
               radioOnChange && radioOnChange(evt);
+              radioOnCheckedChange && radioOnCheckedChange(evt.target.checked);
               if (evt.target.value) {
                 if (evt.target.checked) {
-                  radioValue.current = evt.target.value;
+                  setRadioValue(evt.target.value);
                 }
               }
-              onValueChange && onValueChange(radioValue.current);
+              onValueChange && onValueChange(radioValue);
             };
           }
           return props;
         }
       );
 
-      if (allValues.indexOf(radioValue.current) < 0) {
-        radioValue.current = '';
+      if (allValues.indexOf(radioValue) < 0) {
+        setRadioValue('');
       }
 
       return newChildren;
-    }, [onValueChange]);
+    }, [onValueChange, value, radioValue]);
 
     useEffect(() => {
-      if (radioValue.current !== value) {
-        onValueChange && onValueChange(radioValue.current);
+      if (radioValue !== value) {
+        onValueChange && onValueChange(radioValue);
       }
     }, []);
 

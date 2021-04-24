@@ -25,7 +25,7 @@ export interface SwitchProps {
   /* 错误 */
   error?: FormErrorText;
 
-  /* 修改开关值 */
+  /* 开关值 */
   alterValues?:
     | 'FalseOrTrue'
     | 'ZeroOrOne'
@@ -36,7 +36,7 @@ export interface SwitchProps {
 }
 
 const Switch = FormItem(
-  ({ className, style, disabled, value, onValueChange, alterValues }: SwitchProps) => {
+  ({ className, disabled, value, onValueChange, alterValues }: SwitchProps) => {
     const [stateValue, setStateValue] = useState(value);
 
     let switchValues: [any, any] = [false, true];
@@ -69,7 +69,6 @@ const Switch = FormItem(
           },
           className
         )}
-        style={style}
       >
         <div
           className="pui-switch-bar"

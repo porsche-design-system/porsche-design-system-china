@@ -7,27 +7,32 @@ import { componentClassNames } from '../../shared/class-util';
 
 import './search.scss';
 
-export interface Props {
-  // 组件属性 //
-
+export interface SearchProps {
   /* 类名 */
   className?: string;
+
   /* 样式 */
   style?: CSSProperties;
 
   /* 占位符 */
   placeholder?: string;
+
   /* 是否禁用 */
   disabled?: boolean;
-
-  // 组件事件 //
 
   /* 点击事件 */
   onChange?: ChangeEventHandler;
   onSearch?: (value: string) => void;
 }
 
-const Search = ({ className, style, placeholder, disabled = false, onChange, onSearch }: Props) => {
+const Search = ({
+  className,
+  style,
+  placeholder,
+  disabled = false,
+  onChange,
+  onSearch
+}: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (

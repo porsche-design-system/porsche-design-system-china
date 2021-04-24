@@ -1,20 +1,18 @@
 import React, { CSSProperties } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 
-export interface Props {
-  // 组件属性 //
-
+export interface ColProps {
   /** 类名 */
   className?: string;
+
   /** 子组件 */
   children?: React.ReactNode;
+
   /** 样式 */
   style?: CSSProperties;
 
   /* 跨度，最大为24 */
   span?: number;
-
-  // 组件事件 //
 
   /* 点击事件 */
   onClick?: React.MouseEventHandler;
@@ -23,7 +21,7 @@ export interface Props {
 /**
  * Primary UI component for user interaction
  */
-const Col = ({ className, style, children, span, onClick }: Props) => {
+const Col = ({ className, style, children, span, onClick }: ColProps) => {
   const colStyle: CSSProperties = {
     width: span ? (span / 24) * 100 + '%' : '',
     flex: span ? '' : 'auto'

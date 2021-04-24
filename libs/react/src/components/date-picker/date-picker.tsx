@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -19,9 +19,6 @@ export interface DatePickerProps {
   /** 类名 */
   className?: string;
 
-  /** 样式 */
-  style?: CSSProperties;
-
   /** 是否禁用 */
   disabled?: boolean;
 
@@ -38,7 +35,7 @@ export interface DatePickerProps {
 }
 
 const DatePicker = FormItem(
-  ({ className, style, disabled, value, onValueChange, error, placeholder }: DatePickerProps) => {
+  ({ className, disabled, value, onValueChange, error, placeholder }: DatePickerProps) => {
     const [calenderOpen, setCalendarOpen] = usePopShowState();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [pickedDate, setPickedDate] = useState<Date>();
@@ -80,7 +77,7 @@ const DatePicker = FormItem(
           ) {
             const date = new Date(
               parseInt(datePart[0]),
-              parseInt(datePart[1]),
+              parseInt(datePart[1]) - 1,
               parseInt(datePart[2])
             );
             setPickedDate(date);
@@ -117,7 +114,6 @@ const DatePicker = FormItem(
           { disabled: disabled + '', error: error ? error.show + '' : 'false' },
           className
         )}
-        style={style}
       >
         <input
           className={'pui-date-picker-box ' + (calenderOpen ? 'pui-date-picker-box-active' : '')}

@@ -7,23 +7,28 @@ export type MessageType = 'info' | 'success' | 'error' | 'warning';
 export interface MessageConfig {
   /** 挂载点*/
   mount: HTMLElement;
+
   /** 动画延迟时间 */
   delay: number;
+
   /** 结束后回调 */
   callback: any;
+
   /** 底色*/
   background: string;
+
   /** 文字颜色*/
   color: string;
+
   /** 是否手动关闭 */
-  closeble: boolean;
+  closable: boolean;
 }
 
 const defaultConfig: MessageConfig = {
   mount: document.body,
   delay: 2000,
   callback: null,
-  closeble: false,
+  closable: false,
   background: '',
   color: ''
 };
@@ -52,17 +57,17 @@ export const createMessage = (type: MessageType) => {
       }
     }
 
-    const divs = document.createElement('div');
-    wrap.appendChild(divs);
+    const div = document.createElement('div');
+    wrap.appendChild(div);
     ReactDom.render(
       <MessageBox
         rootDom={wrap}
-        parentDom={divs}
+        parentDom={div}
         content={content}
         fconfig={fconfig}
         iconType={type}
       />,
-      divs
+      div
     );
   };
 };
@@ -91,7 +96,7 @@ export function MessageBox(props: MessageProps) {
   useEffect(() => {
     let timer1: number;
     let timer2: number;
-    if (!fconfig.closeble) {
+    if (!fconfig.closable) {
       // 自动关闭
       let closeStart = fconfig.delay - 0.2 * 1000;
       // 关闭动画
@@ -118,7 +123,7 @@ export function MessageBox(props: MessageProps) {
 
   // 手动卸载
   const handleClose = useCallback(() => {
-    if (fconfig.closeble) {
+    if (fconfig.closable) {
       setClose(true);
       setTimeout(() => {
         unmount();
@@ -137,7 +142,7 @@ export function MessageBox(props: MessageProps) {
         {props.iconType === 'warning' && <IconWarning2 />}
         {props.iconType === 'error' && <IconError />}
         <span className="text-content">{content}</span>
-        {fconfig.closeble && <IconClose onClick={handleClose} />}
+        {fconfig.closable && <IconClose onClick={handleClose} />}
       </span>
     </div>
   );
