@@ -114,8 +114,13 @@
           background-color: $container-bg-opacity-color-2;
         }
 
-        &-other-month {
+        &-unavailable {
           color: $text-opacity-color-3;
+          cursor: not-allowed;
+        }
+
+        &-unavailable:hover {
+          background-color: transparent;
         }
 
         &-today {

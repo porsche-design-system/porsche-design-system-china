@@ -105,7 +105,8 @@ const Select = FormItem(
           readOnly
           value={displayText}
           placeholder={placeholder}
-          onClick={() => {
+          onClick={evt => {
+            evt.stopPropagation();
             setShowOptionList(true);
           }}
           disabled={disabled}
