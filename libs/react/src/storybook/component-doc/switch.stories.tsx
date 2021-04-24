@@ -36,7 +36,7 @@ export const SwitchBook = () => {
         />
         <Switch
           label={{ text: '修改值为 male/female', position: 'left', width: '120px' }}
-          alterValues={['Male', 'Female']}
+          alterValues="Male,Female"
           onValueChange={val => {
             console.log(val);
           }}

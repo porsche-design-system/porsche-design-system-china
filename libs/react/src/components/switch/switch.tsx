@@ -26,10 +26,7 @@ export interface SwitchProps {
   error?: FormErrorText;
 
   /* 开关值 */
-  alterValues?:
-    | 'FalseOrTrue'
-    | 'ZeroOrOne'
-    | [string | boolean | number, string | boolean | number];
+  alterValues?: string | [string | boolean | number, string | boolean | number];
 
   /* 值改变事件 */
   onValueChange?: (value: boolean) => void;

@@ -14,8 +14,6 @@ import { componentClassNames } from '../../shared/class-util';
 import './date-picker.scss';
 
 export interface DatePickerProps {
-  // 组件属性 //
-
   /** 类名 */
   className?: string;
 
@@ -31,17 +29,67 @@ export interface DatePickerProps {
   /* 值改变事件 */
   onValueChange?: (value: string) => void;
 
+  /* 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
+  range?: string | [string, string] | [Date, Date];
+
+  /* 提示错误 */
   error?: FormErrorText;
 }
 
 const DatePicker = FormItem(
-  ({ className, disabled, value, onValueChange, error, placeholder }: DatePickerProps) => {
+  ({ className, disabled, value, onValueChange, error, range, placeholder }: DatePickerProps) => {
     const [calenderOpen, setCalendarOpen] = usePopShowState();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [pickedDate, setPickedDate] = useState<Date>();
     const [displayValue, setDisplayValue] = useState('');
     const [calendarDates, setCalendarDates] = useState<Date[]>([]);
     const displayDate = useRef<Date>(new Date());
+
+    const strToDate = (dateStr: string) => {
+      const datePart = dateStr?.split('-');
+      if (datePart.length === 3) {
+        if (/\d+/.test(datePart[0]) && /\d+/.test(datePart[1]) && /\d+/.test(datePart[2])) {
+          const date = new Date(
+            parseInt(datePart[0]),
+            parseInt(datePart[1]) - 1,
+            parseInt(datePart[2])
+          );
+          return date;
+        }
+      }
+      return null;
+    };
+
+    if (typeof range === 'string') {
+      if (/InNext(\d)Days/.test(range)) {
+        const days = RegExp.$1;
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + parseInt(days));
+        range = [new Date(), endDate];
+      } else {
+        range = range.split(',') as [string, string];
+      }
+    }
+
+    if (Array.isArray(range) && range.length === 2) {
+      if (typeof range[0] === 'string' && typeof range[1] === 'string') {
+        const startDate = strToDate(range[0]);
+        const endDate = strToDate(range[1]);
+        if (!startDate) {
+          console.error('Format Incorrect', range[0]);
+        }
+        if (!endDate) {
+          console.error('Format Incorrect', range[1]);
+        }
+        if (startDate && endDate) {
+          range = [startDate, endDate];
+        }
+      } else {
+        range = range as [Date, Date];
+      }
+    } else {
+      range = undefined;
+    }
 
     const updateCalendar = () => {
       const calenderFirstDate = new Date(displayDate.current);
@@ -66,23 +114,26 @@ const DatePicker = FormItem(
       setCalendarDates(calDates);
     };
 
+    const inDateRange = (date: Date) => {
+      if (range) {
+        range = range as [Date, Date];
+        range[0].setHours(0);
+        range[0].setMinutes(0);
+        range[0].setSeconds(0);
+        range[1].setHours(23);
+        range[1].setMinutes(59);
+        range[1].setSeconds(59);
+        return date.getTime() >= range[0].getTime() && date.getTime() <= range[1].getTime();
+      }
+      return true;
+    };
+
     useEffect(() => {
       if (value) {
-        const datePart = value?.split('-');
-        if (datePart.length === 3) {
-          if (
-            parseInt(datePart[0]) + '' == datePart[0] &&
-            parseInt(datePart[1]) + '' == datePart[1] &&
-            parseInt(datePart[2]) + '' == datePart[2]
-          ) {
-            const date = new Date(
-              parseInt(datePart[0]),
-              parseInt(datePart[1]) - 1,
-              parseInt(datePart[2])
-            );
-            setPickedDate(date);
-            setDisplayValue(dateToStr(date));
-          }
+        const date = strToDate(value);
+        if (date) {
+          setPickedDate(date);
+          setDisplayValue(dateToStr(date));
         }
       }
     }, [value]);
@@ -125,7 +176,11 @@ const DatePicker = FormItem(
             evt.stopPropagation();
             setCalendarOpen(!calenderOpen);
             setCurrentDate(new Date());
-            displayDate.current = pickedDate ? new Date(pickedDate) : new Date();
+            displayDate.current = pickedDate
+              ? new Date(pickedDate)
+              : range
+              ? (range as [Date, Date])[0]
+              : new Date();
             updateCalendar();
           }}
         />
@@ -183,9 +238,7 @@ const DatePicker = FormItem(
                     key={date.getTime() + ''}
                     className={
                       'pui-date-picker-calendar-block ' +
-                      (date.getMonth() !== displayDate.current.getMonth()
-                        ? 'pui-date-picker-calendar-other-month'
-                        : '') +
+                      (!inDateRange(date) ? 'pui-date-picker-calendar-unavailable' : '') +
                       ' ' +
                       (sameDate(date, currentDate) ? 'pui-date-picker-calendar-today' : '') +
                       ' ' +
@@ -194,6 +247,9 @@ const DatePicker = FormItem(
                         : '')
                     }
                     onClick={() => {
+                      if (!inDateRange(date)) {
+                        return;
+                      }
                       setPickedDate(new Date(date));
                       setCalendarOpen(false);
                       setDisplayValue(dateToStr(date));
