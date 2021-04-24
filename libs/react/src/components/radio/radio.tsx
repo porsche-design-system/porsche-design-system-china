@@ -44,19 +44,20 @@ const generateId = () => {
   idCounter++;
   return 'radio-' + idCounter;
 };
-const Radio = ({
-  className,
-  style,
-  disabled,
-  value,
-  name = '',
-  text,
-  onChange,
-  onCheckedChange,
-  checked = false,
-  size = 'default'
-}: RadioProps) => {
+const Radio = (props: RadioProps) => {
   const id = useMemo(() => generateId(), []);
+  const {
+    className,
+    style,
+    disabled,
+    value,
+    name = '',
+    text,
+    onChange,
+    onCheckedChange,
+    checked = false,
+    size = 'default'
+  } = props;
 
   return (
     <label
@@ -69,6 +70,7 @@ const Radio = ({
         name={name}
         type="radio"
         value={value}
+        onClick={(props as any).onClick}
         onChange={evt => {
           onChange && onChange(evt);
           onCheckedChange && onCheckedChange(evt.target.checked);

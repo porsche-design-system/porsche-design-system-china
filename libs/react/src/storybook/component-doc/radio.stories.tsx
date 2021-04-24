@@ -36,6 +36,15 @@ export const RadioStoryBook = () => {
 
         <br />
 
+        <RadioGroup allowCancelSelection>
+          <Radio text="选项1(允许取消)" />
+          <Radio text="选项2(允许取消)" />
+          <Radio text="选项3(允许取消)" />
+          <Radio text="选项4(允许取消)" />
+        </RadioGroup>
+
+        <br />
+
         <div>Small Size</div>
         <RadioGroup>
           <Radio text="选项1" size="small" />
