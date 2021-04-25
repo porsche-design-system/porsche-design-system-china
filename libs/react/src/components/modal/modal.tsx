@@ -159,6 +159,9 @@ Modal.alert = (
             document.body.removeChild(modalContainer!);
             document.body.removeChild(currentPop);
           }
+        } else {
+          document.body.removeChild(modalContainer!);
+          document.body.removeChild(currentPop);
         }
       }}
       visible
@@ -170,6 +173,7 @@ Modal.alert = (
   );
 };
 
+let modalCounter = 0;
 Modal.confirm = (
   title: string,
   content: ReactNode,
@@ -178,7 +182,8 @@ Modal.confirm = (
   okText: string = '确认',
   cancelText: string = '取消'
 ) => {
-  const modalId = '$ModalContainer';
+  modalCounter++;
+  const modalId = '$ModalContainer-' + modalCounter;
   let modalContainer = document.getElementById(modalId);
   if (!modalContainer) {
     modalContainer = document.createElement('div');
@@ -204,7 +209,7 @@ Modal.confirm = (
       onOk={() => {
         if (onOk) {
           const loadingPromise = onOk();
-          if (typeof loadingPromise === 'object') {
+          if (loadingPromise) {
             modalSetIsLoading(true);
             (loadingPromise as Promise<unknown>).then(() => {
               document.body.removeChild(modalContainer!);
@@ -215,6 +220,9 @@ Modal.confirm = (
             document.body.removeChild(modalContainer!);
             document.body.removeChild(currentPop);
           }
+        } else {
+          document.body.removeChild(modalContainer!);
+          document.body.removeChild(currentPop);
         }
       }}
       visible
