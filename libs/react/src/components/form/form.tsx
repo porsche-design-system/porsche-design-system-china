@@ -56,7 +56,7 @@ export interface FormProps {
   onDataChange?: (data: any) => void;
 
   /* 数据提交事件 */
-  onSubmit?: (data: any, error: any) => void;
+  onSubmit?: (data: any, error: any) => void | Promise<any>;
 }
 
 const Form = ({
@@ -75,6 +75,7 @@ const Form = ({
   const [formErrors, setFormErrors] = useState([] as ErrorList);
   const formDataValidators = useRef({} as any);
   const shouldAutoValidForm = useRef(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -232,12 +233,22 @@ const Form = ({
       let buttonProps = props as ButtonProps;
       if (buttonProps.submit) {
         const buttonOnClick = buttonProps.onClick;
+        buttonProps.loading = submitting;
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt);
           validate(formDataValidators.current, formData, errorList => {
             shouldAutoValidForm.current = true;
             setFormErrors(errorList);
-            onSubmit && onSubmit(formData, errorList);
+            if (onSubmit) {
+              const loadingPromise = onSubmit(formData, errorList);
+              if (loadingPromise && typeof loadingPromise === 'object') {
+                setSubmitting(true);
+                ((loadingPromise as unknown) as Promise<unknown>).then(() => {
+                  buttonProps.loading = false;
+                  setSubmitting(false);
+                });
+              }
+            }
           });
         };
       }
