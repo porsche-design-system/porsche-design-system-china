@@ -38,8 +38,13 @@ const columns: TableColumn[] = [
         <Button
           type="text"
           onClick={() => {
-            Modal.confirm('确认要删除吗?', () => {
-              Modal.alert(rowData.dealerName + ' 已删除！');
+            Modal.confirm('警告', '确认要删除吗?', () => {
+              Modal.alert(
+                '提示信息',
+                <div>
+                  <b>{rowData.dealerName}</b> 已删除！
+                </div>
+              );
             });
           }}
         >
