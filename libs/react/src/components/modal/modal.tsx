@@ -25,7 +25,7 @@ export interface ModalProps {
   cancelText?: string;
 
   /* 点击确定回调 */
-  onOk?: () => void;
+  onOk?: () => void | Promise<unknown>;
 
   /* 点击遮罩层或右上角叉或取消按钮的回调 */
   onCancel?: () => void;
@@ -99,7 +99,17 @@ const Modal = ({
                 type="primary"
                 loading={isLoading}
                 icon={<IconArrowHeadRight />}
-                onClick={() => onOk && onOk()}
+                onClick={() => {
+                  if (onOk) {
+                    const loadingPromise = onOk();
+                    if (typeof loadingPromise === 'object') {
+                      setIsLoading(true);
+                      (loadingPromise as Promise<unknown>).then(() => {
+                        setIsLoading(false);
+                      });
+                    }
+                  }
+                }}
               >
                 {okText}
               </Button>

@@ -9,7 +9,12 @@ export const ModalStoryBook = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleOk = () => {
-    setIsModalVisible(false);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('');
+        setIsModalVisible(false);
+      }, 1000);
+    });
   };
 
   const handleCancel = () => {

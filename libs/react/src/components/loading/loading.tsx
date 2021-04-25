@@ -2,11 +2,11 @@ import React from 'react';
 
 import './loading.scss';
 
-export const Loading = ({ show = false }: { show?: boolean }) => {
+export const Loading = ({ visible = false }: { visible?: boolean }) => {
   const loadingSize = 40;
   return (
     <>
-      {show && (
+      {visible && (
         <div className="pui-loading">
           <svg height={loadingSize} width={loadingSize} className="pui-loading-svg">
             <circle
