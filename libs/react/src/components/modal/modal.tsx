@@ -6,7 +6,6 @@ import { componentClassNames } from '../../shared/class-util';
 import './modal.scss';
 
 export interface ModalProps {
-  // 组件属性 //
   /** 子组件 */
   children?: React.ReactNode;
 
@@ -25,8 +24,6 @@ export interface ModalProps {
   /** 取消按钮文字 */
   cancelText?: string;
 
-  // 组件事件 //
-
   /* 点击确定回调 */
   onOk?: () => void;
 
@@ -39,9 +36,10 @@ export interface ModalProps {
   /* 显示关闭按钮 */
   showClose?: boolean;
 
-  rootRef?: any;
+  modalRef?: any;
 }
 
+let modalSetIsLoading: (val: boolean) => void;
 const Modal = ({
   style,
   visible = false,
@@ -53,15 +51,18 @@ const Modal = ({
   onCancel,
   showCancel = true,
   showClose = true,
-  rootRef
+  modalRef
 }: ModalProps) => {
   const [show, setShow] = useState(visible);
+  const [isLoading, setIsLoading] = useState(false);
+  modalSetIsLoading = setIsLoading;
+
   useEffect(() => {
     setShow(visible);
   }, [visible]);
   return ReactDOM.createPortal(
     <div
-      ref={rootRef}
+      ref={modalRef}
       className={componentClassNames('pui-modal-root', { hide: !show + '' })}
       style={style}
     >
@@ -94,7 +95,12 @@ const Modal = ({
                   {cancelText}
                 </Button>
               )}
-              <Button type="primary" icon={<IconArrowHeadRight />} onClick={() => onOk && onOk()}>
+              <Button
+                type="primary"
+                loading={isLoading}
+                icon={<IconArrowHeadRight />}
+                onClick={() => onOk && onOk()}
+              >
                 {okText}
               </Button>
             </div>
@@ -107,8 +113,9 @@ const Modal = ({
 };
 
 Modal.alert = (
+  title: string,
   content: ReactNode,
-  onOk: (() => void) | undefined = undefined,
+  onOk: (() => void | Promise<unknown>) | undefined = undefined,
   okText: string = '确认'
 ) => {
   const modalId = '$ModalContainer';
@@ -122,15 +129,27 @@ Modal.alert = (
   let currentPop: any = null;
   ReactDOM.render(
     <Modal
+      title={title}
       okText={okText}
       showClose={false}
-      rootRef={(r: any) => {
+      modalRef={(r: any) => {
         currentPop = r;
       }}
       onOk={() => {
-        document.body.removeChild(modalContainer!);
-        document.body.removeChild(currentPop);
-        onOk && onOk();
+        if (onOk) {
+          const loadingPromise = onOk();
+          if (typeof loadingPromise === 'object') {
+            modalSetIsLoading(true);
+            (loadingPromise as Promise<unknown>).then(() => {
+              modalSetIsLoading(false);
+              document.body.removeChild(modalContainer!);
+              document.body.removeChild(currentPop);
+            });
+          } else {
+            document.body.removeChild(modalContainer!);
+            document.body.removeChild(currentPop);
+          }
+        }
       }}
       visible
       showCancel={false}
@@ -142,8 +161,9 @@ Modal.alert = (
 };
 
 Modal.confirm = (
+  title: string,
   content: ReactNode,
-  onOk: (() => void) | undefined = undefined,
+  onOk: (() => void | Promise<unknown>) | undefined = undefined,
   onCancel: (() => void) | undefined = undefined,
   okText: string = '确认',
   cancelText: string = '取消'
@@ -159,6 +179,7 @@ Modal.confirm = (
   let currentPop: any = null;
   ReactDOM.render(
     <Modal
+      title={title}
       okText={okText}
       showClose={false}
       onCancel={() => {
@@ -167,13 +188,24 @@ Modal.confirm = (
         onCancel && onCancel();
       }}
       cancelText={cancelText}
-      rootRef={(r: any) => {
+      modalRef={(r: any) => {
         currentPop = r;
       }}
       onOk={() => {
-        document.body.removeChild(modalContainer!);
-        document.body.removeChild(currentPop);
-        onOk && onOk();
+        if (onOk) {
+          const loadingPromise = onOk();
+          if (typeof loadingPromise === 'object') {
+            modalSetIsLoading(true);
+            (loadingPromise as Promise<unknown>).then(() => {
+              document.body.removeChild(modalContainer!);
+              document.body.removeChild(currentPop);
+              modalSetIsLoading(false);
+            });
+          } else {
+            document.body.removeChild(modalContainer!);
+            document.body.removeChild(currentPop);
+          }
+        }
       }}
       visible
     >

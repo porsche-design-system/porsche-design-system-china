@@ -34,7 +34,7 @@ export const ModalStoryBook = () => {
       <br />
       <Button
         onClick={() =>
-          Modal.alert('你看到了一个弹出框', () => {
+          Modal.alert('提示信息', '你看到了一个弹出框', () => {
             console.log('关闭');
           })
         }
@@ -46,8 +46,13 @@ export const ModalStoryBook = () => {
       <br />
       <Button
         onClick={() =>
-          Modal.confirm('你看到了一个弹出框', () => {
+          Modal.confirm('确认信息', '你看到了一个弹出框', () => {
             console.log('关闭');
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve('');
+              }, 1500);
+            });
           })
         }
         type="secondary"

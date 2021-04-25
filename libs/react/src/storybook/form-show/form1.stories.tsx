@@ -11,7 +11,8 @@ import {
   ButtonGroup,
   DatePicker,
   Select,
-  CheckBoxGroup
+  CheckBoxGroup,
+  Modal
 } from '../..';
 
 export default {
@@ -61,7 +62,15 @@ export const ExampleStoryBook = () => {
         width="80%"
         onDataChange={setData}
         onSubmit={(data, error) => {
-          console.log('submit', data);
+          if (!error) {
+            Modal.confirm('确定吗?', () => {});
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve('');
+              }, 2000);
+            });
+          }
+          return;
         }}
       >
         <Input
