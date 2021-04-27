@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Row, Col, Form } from '../..';
+import React, { useState } from 'react';
+import { Input, Row, Col, Form, Button } from '../..';
 
 import './input.stories.scss';
 
@@ -9,6 +9,8 @@ export default {
 };
 
 export const InputsStoryBook = () => {
+  const [value, setValue] = useState('');
+
   return (
     <Row>
       <Col span={12}>
@@ -84,6 +86,22 @@ export const InputsStoryBook = () => {
         <div className="states">Show View Password Button</div>
         <div>
           <Input type="password" placeholder="点击右侧按钮显示密码" showViewPasswordButton />
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
+          <Input value={value} onValueChange={setValue} placeholder="测试" />
+        </div>
+        <div>
+          <Button
+            onClick={() => {
+              setValue('123');
+            }}
+            type="text"
+          >
+            测试赋值
+          </Button>
         </div>
       </Col>
     </Row>
