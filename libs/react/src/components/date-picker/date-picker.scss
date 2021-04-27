@@ -66,6 +66,7 @@
         background-color: $float-layer-bg-color;
         padding-bottom: 10px;
         animation: pui-fade-in 0.1s;
+        user-select: none;
 
         &-head {
           text-align: center;

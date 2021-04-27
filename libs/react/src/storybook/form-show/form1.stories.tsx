@@ -63,7 +63,6 @@ export const ExampleStoryBook = () => {
         onDataChange={setData}
         onSubmit={(data, error) => {
           if (!error) {
-            Modal.confirm('确定吗?', () => {});
             return new Promise(resolve => {
               setTimeout(() => {
                 resolve('');
