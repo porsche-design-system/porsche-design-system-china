@@ -1,0 +1,31 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-pagination {
+      display: flex;
+      &-item{
+        padding:8px 15px;
+        cursor: pointer;
+      }
+      &-item-active{
+        color: $brand-color-active;
+      }
+      &-item-ellipsis{
+        pointer-events: none;
+      }
+      &-item:hover{
+        color: $brand-color-hover;
+      }
+      &-disabled{
+        color: $container-bg-color-3;
+        cursor: not-allowed;
+      }
+      &-disabled:hover{
+        color: $container-bg-color-3;
+      }
+    }
+  }
+}
