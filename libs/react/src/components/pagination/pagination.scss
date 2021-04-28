@@ -9,6 +9,7 @@
       &-item{
         padding:8px 15px;
         cursor: pointer;
+        user-select: none;
       }
       &-item-active{
         color: $brand-color;
