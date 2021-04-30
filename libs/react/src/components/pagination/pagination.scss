@@ -9,15 +9,17 @@
       &-item{
         padding:8px 15px;
         cursor: pointer;
+        user-select: none;
       }
       &-item-active{
-        color: $brand-color-active;
+        color: $brand-color;
+        font-weight: bold;
       }
       &-item-ellipsis{
         pointer-events: none;
       }
       &-item:hover{
-        color: $brand-color-hover;
+        color: $brand-color;
       }
       &-disabled{
         color: $container-bg-color-3;
