@@ -55,12 +55,13 @@ const Button = ({
   type = 'default',
   size = 'default',
   icon,
-  loading = false,
+  loading,
   disabled = false,
   marginRight,
   marginLeft,
   onClick
 }: ButtonProps) => {
+  loading = loading || false;
   let paddingStyle = {};
   const padding = size === 'default' ? '11px' : '7px';
   if (!children) {
