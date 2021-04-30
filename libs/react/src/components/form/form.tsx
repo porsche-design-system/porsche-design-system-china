@@ -1,4 +1,11 @@
-import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { validate, RuleItem } from '../../shared/validation-rules';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import { ButtonProps } from '../button/button';
@@ -27,7 +34,7 @@ export interface FormItemLabelProps extends FormLabelStyle {
   text: string;
 }
 
-export interface FormProps {
+export interface FormProps<T> {
   /* 子组件 */
   children?: React.ReactNode;
 
@@ -38,7 +45,7 @@ export interface FormProps {
   style?: CSSProperties;
 
   /* 表单数据 */
-  data?: any;
+  data?: T;
 
   /* 宽度 */
   width?: string;
@@ -52,25 +59,34 @@ export interface FormProps {
   /* 表单内所有Label样式 */
   labelLayout?: FormLabelStyle;
 
+  /* 表单名字，可以用Form['{name}']获取表单，调用提交 */
+  name?: string;
+
   /* 数据改变回调 */
-  onDataChange?: (data: any) => void;
+  onDataChange?: (data: T) => void;
 
   /* 数据提交事件 */
-  onSubmit?: (data: any, error: any) => void | Promise<any>;
+  onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>;
 }
 
-const Form = ({
+export interface FormRef {
+  data: any;
+  submit: () => void;
+}
+
+const Form = <T extends object>({
   className,
   style,
   children,
   data,
   onDataChange,
   onSubmit,
+  name,
   labelLayout,
   width,
   height,
   lineGap
-}: FormProps) => {
+}: FormProps<T>) => {
   const [formData, setFormData] = useState(data || {});
   const [formErrors, setFormErrors] = useState([] as ErrorList);
   const formDataValidators = useRef({} as any);
@@ -93,6 +109,21 @@ const Form = ({
       });
     }
   };
+
+  if (name) {
+    Form[name] = {
+      get data() {
+        return formData;
+      },
+      submit() {
+        validate(formDataValidators.current, formData, errorList => {
+          shouldAutoValidForm.current = true;
+          setFormErrors(errorList);
+          onSubmit && onSubmit(formData as T, errorList);
+        });
+      }
+    };
+  }
 
   let newChildren = overrideChildren(children, (elementName, props) => {
     if (
@@ -183,7 +214,7 @@ const Form = ({
           inputProps.onChange = evt => {
             const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
             setFormData(newFormData);
-            onDataChange && onDataChange(newFormData);
+            onDataChange && onDataChange(newFormData as T);
             formItemOnChange && formItemOnChange(evt);
             validForm(newFormData);
           };
@@ -201,7 +232,7 @@ const Form = ({
           inputProps.onValueChange = value => {
             const newFormData = { ...formData, [inputProps.name!]: value };
             setFormData(newFormData);
-            onDataChange && onDataChange(newFormData);
+            onDataChange && onDataChange(newFormData as T);
             formItemOnValueChange && formItemOnValueChange(value);
             validForm(newFormData);
           };
@@ -233,14 +264,16 @@ const Form = ({
       let buttonProps = props as ButtonProps;
       if (buttonProps.submit) {
         const buttonOnClick = buttonProps.onClick;
-        buttonProps.loading = submitting;
+        if (buttonProps.loading === undefined) {
+          buttonProps.loading = submitting;
+        }
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt);
           validate(formDataValidators.current, formData, errorList => {
             shouldAutoValidForm.current = true;
             setFormErrors(errorList);
             if (onSubmit) {
-              const loadingPromise = onSubmit(formData, errorList);
+              const loadingPromise = onSubmit(formData as T, errorList);
               if (loadingPromise && typeof loadingPromise === 'object') {
                 setSubmitting(true);
                 ((loadingPromise as unknown) as Promise<unknown>).then(() => {

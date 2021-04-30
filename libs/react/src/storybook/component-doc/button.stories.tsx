@@ -147,7 +147,18 @@ export const ButtonStoryBook = () => {
           >
             提交
           </Button>
-          <Button type="secondary" icon={IconArrowRight} size="small">
+          <Button
+            loading={loading}
+            type="secondary"
+            icon={IconArrowRight}
+            size="small"
+            onClick={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            }}
+          >
             提交
           </Button>
         </div>

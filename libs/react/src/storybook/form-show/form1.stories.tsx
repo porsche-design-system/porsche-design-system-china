@@ -11,8 +11,7 @@ import {
   ButtonGroup,
   DatePicker,
   Select,
-  CheckBoxGroup,
-  Modal
+  CheckBoxGroup
 } from '../..';
 
 export default {
@@ -33,6 +32,7 @@ interface FormData {
 
 export const ExampleStoryBook = () => {
   const [data, setData] = useState<FormData>({} as any);
+  // const formRef = useRef<FormRef>();
 
   return (
     <div>
@@ -57,12 +57,13 @@ export const ExampleStoryBook = () => {
       <br />
       <br />
       <Form
+        name="form1"
         labelLayout={{ textAlign: 'right', position: 'left' }}
         data={data}
         width="80%"
         onDataChange={setData}
-        onSubmit={(data, error) => {
-          if (!error) {
+        onSubmit={(data, errors) => {
+          if (!errors) {
             return new Promise(resolve => {
               setTimeout(() => {
                 resolve('');
@@ -134,6 +135,14 @@ export const ExampleStoryBook = () => {
           </Button>
         </ButtonGroup>
       </Form>
+      <Button
+        type="primary"
+        onClick={() => {
+          Form['form1'].submit();
+        }}
+      >
+        外部按钮提交
+      </Button>
       <div>{JSON.stringify(data)}</div>
     </div>
   );
