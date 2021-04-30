@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons';
+import { componentClassNames } from '../../shared/class-util';
 import classNames from 'classnames';
 import './pagination.scss';
 
 export interface PaginationProps {
+  /** 类名 */
+  className?: string;
+
   /** 当前页码 */
   current?: number;
 
-  /** 当前页码 */
+  /** 默认当前页码 */
   defaultCurrent?: number;
 
   /** 每页条数 */
@@ -15,6 +19,9 @@ export interface PaginationProps {
 
   /** 页码 改变的回调，参数是改变后的页码及每页条数 */
   onChange?: (page: number) => void;
+
+  /** 样式 */
+  style?: CSSProperties;
 
   /** 数据总数 */
   total: number;
@@ -25,11 +32,13 @@ const prefixCls = 'pui-pagination';
 const ellipsis = '...';
 
 const Pagination = ({
+  className,
   current,
   defaultCurrent = 1,
-  pageSize = 10,
+  pageSize = 1,
+  onChange,
+  style,
   total,
-  onChange
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent;
   const [currentPage, setCurrentPage] = useState(initialCurrent);
@@ -109,7 +118,7 @@ const Pagination = ({
     onChange && onChange(nextPage);
   }
   return (
-    <ul className={prefixCls}>
+    <ul className={componentClassNames('pui-pagination', {}, className)} style={style}>
       <li
         className={classNames(`${prefixCls}-item`, {
           'pui-pagination-disabled': currentPage === 1
