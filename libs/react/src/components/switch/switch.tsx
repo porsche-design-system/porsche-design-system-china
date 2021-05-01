@@ -19,6 +19,9 @@ export interface SwitchProps {
   /** 是否禁用 */
   disabled?: boolean;
 
+  /* 默认值 */
+  defaultValue?: boolean;
+
   /* 值 */
   value?: boolean;
 
@@ -33,8 +36,8 @@ export interface SwitchProps {
 }
 
 const Switch = FormItem(
-  ({ className, disabled, value, onValueChange, alterValues }: SwitchProps) => {
-    const [stateValue, setStateValue] = useState(value);
+  ({ className, disabled, value, onValueChange, alterValues, defaultValue }: SwitchProps) => {
+    const [switchValue, setSwitchValue] = useState(value || defaultValue);
 
     let switchValues: [any, any] = [false, true];
     if (alterValues === 'FalseOrTrue') {
@@ -50,9 +53,9 @@ const Switch = FormItem(
 
     useEffect(() => {
       if (value === switchValues[1]) {
-        setStateValue(true);
-      } else {
-        setStateValue(false);
+        setSwitchValue(true);
+      } else if (value === switchValues[0]) {
+        setSwitchValue(false);
       }
     }, [value]);
 
@@ -62,7 +65,7 @@ const Switch = FormItem(
           'pui-switch',
           {
             disabled: disabled + '',
-            enabled: stateValue + ''
+            enabled: switchValue + ''
           },
           className
         )}
@@ -73,8 +76,10 @@ const Switch = FormItem(
             if (disabled) {
               return;
             }
-            const newStateValue = !stateValue;
-            setStateValue(newStateValue);
+            const newStateValue = !switchValue;
+            if (value === undefined) {
+              setSwitchValue(newStateValue);
+            }
             onValueChange && onValueChange(newStateValue ? switchValues[1] : switchValues[0]);
           }}
         >

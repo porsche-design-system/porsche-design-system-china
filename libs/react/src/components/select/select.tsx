@@ -27,6 +27,9 @@ export interface SelectProps {
   /* 值 */
   value?: string;
 
+  /* 默认值 */
+  defaultValue?: string;
+
   /* 占位符 */
   placeholder?: string;
 
@@ -45,13 +48,13 @@ const Select = FormItem(
     className,
     disabled,
     value,
+    defaultValue,
     error,
     options = [],
-
     onValueChange,
     placeholder
   }: SelectProps) => {
-    const [stateValue, setStateValue] = useState(value);
+    const [selectValue, setSelectValue] = useState(value || defaultValue || '');
     const [showOptionList, setShowOptionList] = usePopShowState();
 
     let selectOptions: SelectOption[] = [];
@@ -83,7 +86,7 @@ const Select = FormItem(
       });
     } else {
       selectOptions.forEach(option => {
-        if (option.value === stateValue) {
+        if (option.value === selectValue) {
           displayText = option.text;
         }
       });
@@ -119,7 +122,7 @@ const Select = FormItem(
                 key={option.value + ' ' + inx}
                 className="pui-select-option"
                 onClick={() => {
-                  setStateValue(option.value);
+                  setSelectValue(option.value);
                   onValueChange && onValueChange(option.value);
                 }}
               >

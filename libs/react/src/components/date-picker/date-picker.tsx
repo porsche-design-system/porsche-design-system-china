@@ -20,6 +20,9 @@ export interface DatePickerProps {
   /** 是否禁用 */
   disabled?: boolean;
 
+  /* 默认值 */
+  defaultValue?: string;
+
   /* 值 */
   value?: string;
 
@@ -37,18 +40,24 @@ export interface DatePickerProps {
 }
 
 const DatePicker = FormItem(
-  ({ className, disabled, value, onValueChange, error, range, placeholder }: DatePickerProps) => {
-    const [calenderOpen, setCalendarOpen] = usePopShowState();
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [pickedDate, setPickedDate] = useState<Date>();
-    const [displayValue, setDisplayValue] = useState('');
-    const [calendarDates, setCalendarDates] = useState<Date[]>([]);
-    const displayDate = useRef<Date>(new Date());
-
+  ({
+    className,
+    disabled,
+    value,
+    defaultValue,
+    onValueChange,
+    error,
+    range,
+    placeholder
+  }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr?.split('-');
       if (datePart.length === 3) {
-        if (/\d+/.test(datePart[0]) && /\d+/.test(datePart[1]) && /\d+/.test(datePart[2])) {
+        if (
+          /^\d{4}$/.test(datePart[0]) &&
+          /^\d{2}$/.test(datePart[1]) &&
+          /^\d{2}$/.test(datePart[2])
+        ) {
           const date = new Date(
             parseInt(datePart[0]),
             parseInt(datePart[1]) - 1,
@@ -57,8 +66,22 @@ const DatePicker = FormItem(
           return date;
         }
       }
+      if (dateStr !== '') {
+        console.error('"' + dateStr + '" 不是正确的日期');
+      }
       return null;
     };
+
+    const initDate = strToDate(value || defaultValue || '');
+    const [calenderOpen, setCalendarOpen] = usePopShowState();
+    // 当前日期
+    const [currentDate, setCurrentDate] = useState(new Date());
+    // 选中的Date
+    const [pickedDate, setPickedDate] = useState<Date | null>(initDate);
+    const [displayValue, setDisplayValue] = useState(initDate ? value || defaultValue || '' : '');
+    const [calendarDates, setCalendarDates] = useState<Date[]>([]);
+    // 日历上显示的Date
+    const displayDate = useRef<Date>(initDate || new Date());
 
     if (typeof range === 'string') {
       if (/InNext(\d)Days/.test(range)) {
@@ -250,9 +273,11 @@ const DatePicker = FormItem(
                       if (!inDateRange(date)) {
                         return;
                       }
-                      setPickedDate(new Date(date));
+                      if (value === undefined) {
+                        setPickedDate(new Date(date));
+                        setDisplayValue(dateToStr(date));
+                      }
                       setCalendarOpen(false);
-                      setDisplayValue(dateToStr(date));
                       onValueChange && onValueChange(dateToStr(date));
                     }}
                   >

@@ -16,8 +16,11 @@ export interface InputProps {
   /* 类型 */
   type?: 'text' | 'password';
 
+  /* 默认输入值 */
+  defaultValue?: string;
+
   /* 输入值 */
-  value?: string | number;
+  value?: string;
 
   /* 占位符 */
   placeholder?: string;
@@ -54,6 +57,7 @@ const Input = FormItem(
     placeholder,
     maxLength,
     disabled = false,
+    defaultValue,
     value,
     onChange,
     error,
@@ -62,7 +66,7 @@ const Input = FormItem(
     showViewPasswordButton
   }: InputProps) => {
     const [valueLength, setValueLength] = useState(0);
-    const [inputValue, setInputValue] = useState(value || '');
+    const [inputValue, setInputValue] = useState(value || defaultValue || '');
     const [inputType, setInputType] = useState(type);
     const inputReference = useRef<HTMLInputElement>();
 
@@ -105,7 +109,9 @@ const Input = FormItem(
             if (showClearButton) {
               setValueLength(inputLength);
             }
-            setInputValue((event.target as any).value);
+            if (value === undefined) {
+              setInputValue((event.target as any).value);
+            }
           }}
         />
         {maxLength && !showClearButton && !showViewPasswordButton && (

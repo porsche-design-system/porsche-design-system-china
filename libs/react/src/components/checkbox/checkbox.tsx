@@ -33,6 +33,9 @@ export interface CheckBoxProps {
 
   /* 是否选定 */
   checked?: boolean;
+
+  /* 是否默认选定 */
+  defaultChecked?: boolean;
 }
 
 /**
@@ -51,15 +54,11 @@ const CheckBox = ({
   disabled = false,
   size = 'default',
   checked,
+  defaultChecked,
   onChange,
   onCheckedChange
 }: CheckBoxProps) => {
   const id = useMemo(() => generateId(), []);
-  const [boxChecked, setBoxChecked] = useState(checked || false);
-
-  useEffect(() => {
-    setBoxChecked(checked || false);
-  }, [checked]);
 
   return (
     <label
@@ -72,10 +71,10 @@ const CheckBox = ({
         onChange={evt => {
           onChange && onChange(evt);
           onCheckedChange && onCheckedChange(evt.target.checked);
-          setBoxChecked(evt.target.checked);
         }}
         disabled={disabled}
-        checked={boxChecked}
+        checked={checked}
+        defaultChecked={defaultChecked}
         value={value}
       />
       <span className="pui-checkbox-checkmark">

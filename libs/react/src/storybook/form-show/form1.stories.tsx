@@ -32,7 +32,6 @@ interface FormData {
 
 export const ExampleStoryBook = () => {
   const [data, setData] = useState<FormData>({} as any);
-  // const formRef = useRef<FormRef>();
 
   return (
     <div>

@@ -19,6 +19,7 @@ export interface TextAreaProps {
 
   /* 占位符 */
   placeholder?: string;
+
   /* 错误 */
   error?: FormErrorText;
 
@@ -30,6 +31,9 @@ export interface TextAreaProps {
 
   /* 表单绑定key，需要配合<Form>使用 */
   name?: string;
+
+  /* 默认值 */
+  defaultValue?: string;
 
   /* 值 */
   value?: string;
@@ -49,6 +53,7 @@ const TextArea = FormItem(
     className,
     placeholder,
     error,
+    defaultValue,
     value,
     disabled = false,
     maxLength,
@@ -72,6 +77,7 @@ const TextArea = FormItem(
       >
         <textarea
           value={value}
+          defaultValue={defaultValue}
           ref={(element: HTMLTextAreaElement) => {
             if (maxLength && element) {
               updateHeight(element);

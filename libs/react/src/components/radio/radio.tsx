@@ -26,6 +26,9 @@ export interface RadioProps {
   /* 是否选定 */
   checked?: boolean;
 
+  /* 默认选定 */
+  defaultChecked?: boolean;
+
   /* 大小 */
   size?: 'default' | 'small';
 
@@ -55,7 +58,8 @@ const Radio = (props: RadioProps) => {
     text,
     onChange,
     onCheckedChange,
-    checked = false,
+    checked,
+    defaultChecked,
     size = 'default'
   } = props;
 
@@ -77,6 +81,7 @@ const Radio = (props: RadioProps) => {
         }}
         disabled={disabled}
         checked={checked}
+        defaultChecked={defaultChecked}
       />
       <span className="pui-radio-checkmark" />
       {text}

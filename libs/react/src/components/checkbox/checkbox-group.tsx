@@ -11,6 +11,9 @@ interface SelectOption {
 }
 
 export interface CheckBoxGroupProps {
+  /* 默认值 */
+  defaultValue?: string[];
+
   /* 值 */
   value?: string[];
 
@@ -38,11 +41,12 @@ const CheckBoxGroup = FormItem(
     disabled = false,
     children,
     onValueChange,
-    value = [],
+    value,
+    defaultValue,
     error,
     options
   }: CheckBoxGroupProps) => {
-    const checkBoxValues = useRef<string[]>(value);
+    const checkBoxValues = useRef<string[]>(value || defaultValue || []);
 
     let checkBoxOptions: SelectOption[] = [];
     if (typeof options === 'string') {
@@ -69,7 +73,7 @@ const CheckBoxGroup = FormItem(
     ));
 
     let newChildren = useMemo(() => {
-      checkBoxValues.current = value;
+      checkBoxValues.current = value || [];
       const allValues: string[] = [];
       const newChildren = overrideChildren(
         [...optionsNodes, ...React.Children.toArray(children)],
@@ -80,9 +84,11 @@ const CheckBoxGroup = FormItem(
             const checkBoxOnCheckedChange = checkboxProp.onCheckedChange;
             checkboxProp.value = checkboxProp.value || checkboxProp.text;
             checkboxProp.value && allValues.push(checkboxProp.value);
-            checkboxProp.checked =
-              checkboxProp.value !== undefined &&
-              checkBoxValues.current.indexOf(checkboxProp.value) >= 0;
+            if (value !== undefined) {
+              checkboxProp.checked =
+                checkboxProp.value !== undefined &&
+                checkBoxValues.current.indexOf(checkboxProp.value) >= 0;
+            }
             checkboxProp.onChange = evt => {
               checkBoxOnChange && checkBoxOnChange(evt);
               checkBoxOnCheckedChange && checkBoxOnCheckedChange(evt.target.checked);
@@ -114,7 +120,10 @@ const CheckBoxGroup = FormItem(
     }, [onValueChange, value]);
 
     useEffect(() => {
-      if (JSON.stringify(checkBoxValues.current.sort()) !== JSON.stringify(value)) {
+      if (
+        value !== undefined &&
+        JSON.stringify(checkBoxValues.current.sort()) !== JSON.stringify(value)
+      ) {
         onValueChange && onValueChange(checkBoxValues.current);
       }
     }, []);

@@ -13,6 +13,9 @@ interface Option {
 export interface RadioGroupProps {
   // 组件属性 //
 
+  /* 默认值 */
+  defaultValue?: string;
+
   /* 值 */
   value?: string;
 
@@ -43,15 +46,18 @@ const RadioGroup = FormItem(
     disabled = false,
     children,
     onValueChange,
-    value = '',
+    value,
+    defaultValue,
     allowCancelSelection = false,
     error,
     options
   }: RadioGroupProps) => {
-    const [radioValue, setRadioValue] = useState<string>(value);
+    const [radioValue, setRadioValue] = useState<string>(value || defaultValue || '');
 
     useEffect(() => {
-      setRadioValue(value);
+      if (value !== undefined) {
+        setRadioValue(value);
+      }
     }, [value]);
 
     let radioOptions: Option[] = [];
@@ -89,7 +95,7 @@ const RadioGroup = FormItem(
             const radioOnCheckedChange = radioProp.onCheckedChange;
             radioProp.value = radioProp.value || radioProp.text;
             radioProp.value && allValues.push(radioProp.value);
-            radioProp.checked = radioProp.value === radioValue;
+            radioProp.checked = radioProp.value === (value || radioValue);
             radioProp.onChange = evt => {
               radioOnChange && radioOnChange(evt);
               radioOnCheckedChange && radioOnCheckedChange(evt.target.checked);
