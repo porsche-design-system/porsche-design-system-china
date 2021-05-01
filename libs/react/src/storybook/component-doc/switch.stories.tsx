@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Form } from '../..';
 
 export default {
@@ -7,6 +7,8 @@ export default {
 };
 
 export const SwitchBook = () => {
+  const [value, setValue] = useState(true);
+
   return (
     <div>
       <Form>

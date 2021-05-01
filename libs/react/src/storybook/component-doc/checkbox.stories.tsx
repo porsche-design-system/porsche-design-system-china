@@ -11,15 +11,16 @@ export default {
 export const CheckBoxStoryBook = () => {
   const [pickedValues, setPickedValues] = useState<string[]>(['singing', 'swimming', 'xxxx']);
   const [showError, setShowError] = useState(true);
+  const [values, setValues] = useState(['男', '女']);
 
   return (
     <div>
       <div>
-        <CheckBoxGroup>
-          <CheckBox text="选项1" checked />
-          <CheckBox text="选项2" />
-          <CheckBox text="失效选项" disabled />
-        </CheckBoxGroup>
+        <CheckBox text="选项1" defaultChecked />
+        <br />
+        <CheckBox text="选项2" />
+        <br />
+        <CheckBox text="失效选项" disabled />
       </div>
       <br />
       <div>
@@ -59,7 +60,7 @@ export const CheckBoxStoryBook = () => {
             label={{ text: '热门电影', position: 'left' }}
             error={{ show: showError, message: '必须勾选3个电影' }}
             onValueChange={val => {
-              console.log(val);
+              console.log('val', val);
               setShowError(false);
             }}
             options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"

@@ -39,7 +39,6 @@ export const InputsStoryBook = () => {
         <div>
           <TextArea label={{ text: '备注', position: 'left' }} placeholder="请输入" />
         </div>
-
         <div className="states">Label Left / Text Align Right</div>
         <div>
           <TextArea

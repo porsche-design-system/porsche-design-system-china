@@ -15,12 +15,18 @@ export interface TabsProps {
   /** 大小 */
   size?: 'default' | 'small';
 
-  /** 初始化选中面板的 key，如果没有设置 activeKey  */
-  activeKey?: string;
+  /** 默认选中的面板  */
+  defaultActiveKey?: string;
 }
 
-const Tabs = ({ className, style, size = 'default', activeKey = '', children }: TabsProps) => {
-  const [tabActiveKey, setTabActiveKey] = useState(activeKey);
+const Tabs = ({
+  className,
+  style,
+  size = 'default',
+  defaultActiveKey = '',
+  children
+}: TabsProps) => {
+  const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey);
 
   const tabHead: TabPaneProps[] = [];
   let keyIndex = 0;
@@ -38,13 +44,7 @@ const Tabs = ({ className, style, size = 'default', activeKey = '', children }: 
   });
 
   useEffect(() => {
-    if (activeKey) {
-      setTabActiveKey(activeKey);
-    }
-  }, [activeKey]);
-
-  useEffect(() => {
-    if (!activeKey) {
+    if (!defaultActiveKey) {
       setTabActiveKey(tabHead[0].tabKey!);
     }
   }, []);

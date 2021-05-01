@@ -1,11 +1,4 @@
-import React, {
-  ChangeEventHandler,
-  CSSProperties,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
 import { validate, RuleItem } from '../../shared/validation-rules';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import { ButtonProps } from '../button/button';
@@ -192,7 +185,7 @@ const Form = <T extends object>({
 
         inputProps = {
           ...inputProps,
-          value: formData[inputProps.name] || (elementName === 'CheckBoxGroup' ? [] : '')
+          value: formData[inputProps.name]
         };
 
         // const clearError = () => {
