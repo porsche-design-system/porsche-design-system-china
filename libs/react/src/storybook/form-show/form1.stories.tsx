@@ -26,7 +26,7 @@ interface FormData {
   dealer: string;
   date: string;
   services: string[];
-  invoice: boolean;
+  invoice: string;
   invoiceType: string;
 }
 
@@ -44,7 +44,7 @@ export const ExampleStoryBook = () => {
             dealer: 'PC',
             date: '2021-12-12',
             services: ['上漆'],
-            invoice: true,
+            invoice: 'yes',
             invoiceType: '电子发票'
           });
         }}
@@ -59,8 +59,8 @@ export const ExampleStoryBook = () => {
         name="form1"
         labelLayout={{ textAlign: 'right', position: 'left' }}
         data={data}
-        width="80%"
         onDataChange={setData}
+        width="80%"
         onSubmit={(data, errors) => {
           if (!errors) {
             return new Promise(resolve => {
@@ -105,8 +105,9 @@ export const ExampleStoryBook = () => {
         <Switch
           label="开具发票"
           name="invoice"
+          alterValues="no,yes"
           onValueChange={val => {
-            if (!val) {
+            if (val === 'no') {
               data.invoiceType = '';
               data.invoice = val;
               setData({ ...data });
@@ -114,7 +115,7 @@ export const ExampleStoryBook = () => {
           }}
         />
         <RadioGroup
-          disabled={!data.invoice}
+          disabled={data.invoice === 'no'}
           label="发票类型"
           name="invoiceType"
           options="纸质发票,电子发票"

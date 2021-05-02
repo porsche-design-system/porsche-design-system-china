@@ -7,7 +7,7 @@ import { FormItem } from '../form/form-item';
 
 import './switch.scss';
 
-export interface SwitchProps {
+export interface SwitchProps<T> {
   // 组件属性 //
 
   /** 类名 */
@@ -20,25 +20,30 @@ export interface SwitchProps {
   disabled?: boolean;
 
   /* 默认值 */
-  defaultValue?: boolean;
+  defaultValue?: T;
 
   /* 值 */
-  value?: boolean;
+  value?: T;
 
   /* 错误 */
   error?: FormErrorText;
 
   /* 开关值 */
-  alterValues?: string | [string | boolean | number, string | boolean | number];
+  alterValues?: T | [T, T];
 
   /* 值改变事件 */
-  onValueChange?: (value: boolean) => void;
+  onValueChange?: (value: T) => void;
 }
 
 const Switch = FormItem(
-  ({ className, disabled, value, onValueChange, alterValues, defaultValue }: SwitchProps) => {
-    const [switchValue, setSwitchValue] = useState(value || defaultValue);
-
+  <T extends any>({
+    className,
+    disabled,
+    value,
+    onValueChange,
+    alterValues,
+    defaultValue
+  }: SwitchProps<T>) => {
     let switchValues: [any, any] = [false, true];
     if (alterValues === 'FalseOrTrue') {
       switchValues = [false, true];
@@ -48,14 +53,26 @@ const Switch = FormItem(
       const vals = (alterValues as string).split(',');
       switchValues = [vals[0], vals.length > 1 ? vals[1] : vals[0]];
     } else if (alterValues) {
-      switchValues = alterValues;
+      switchValues = alterValues as [T, T];
     }
 
+    let dValue: T = '' as T;
+    if (value !== undefined) {
+      dValue = value;
+    } else if (defaultValue !== undefined) {
+      dValue = defaultValue;
+    }
+    if (dValue !== switchValues[0] && dValue !== switchValues[1]) {
+      dValue = switchValues[0];
+      setTimeout(() => {
+        onValueChange && onValueChange(dValue);
+      });
+    }
+    const [switchValue, setSwitchValue] = useState(dValue);
+
     useEffect(() => {
-      if (value === switchValues[1]) {
-        setSwitchValue(true);
-      } else if (value === switchValues[0]) {
-        setSwitchValue(false);
+      if (switchValues.includes(value)) {
+        setSwitchValue(value as T);
       }
     }, [value]);
 
@@ -65,7 +82,7 @@ const Switch = FormItem(
           'pui-switch',
           {
             disabled: disabled + '',
-            enabled: switchValue + ''
+            enabled: (switchValue === switchValues[1]) + ''
           },
           className
         )}
@@ -76,11 +93,14 @@ const Switch = FormItem(
             if (disabled) {
               return;
             }
-            const newStateValue = !switchValue;
+
+            const newStateValue =
+              switchValue === switchValues[0] ? switchValues[1] : switchValues[0];
             if (value === undefined) {
               setSwitchValue(newStateValue);
             }
-            onValueChange && onValueChange(newStateValue ? switchValues[1] : switchValues[0]);
+
+            onValueChange && onValueChange(newStateValue);
           }}
         >
           <IconClose className="pui-switch-disable-icon" />
