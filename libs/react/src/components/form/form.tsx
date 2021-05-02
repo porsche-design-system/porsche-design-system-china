@@ -37,6 +37,9 @@ export interface FormProps<T> {
   /* 样式 */
   style?: CSSProperties;
 
+  /* 默认表单数据 */
+  defaultData?: T;
+
   /* 表单数据 */
   data?: T;
 
@@ -71,6 +74,7 @@ const Form = <T extends object>({
   className,
   style,
   children,
+  defaultData,
   data,
   onDataChange,
   onSubmit,
@@ -80,7 +84,7 @@ const Form = <T extends object>({
   height,
   lineGap
 }: FormProps<T>) => {
-  const [formData, setFormData] = useState(data || {});
+  const [formData, setFormData] = useState(data || defaultData || {});
   const [formErrors, setFormErrors] = useState([] as ErrorList);
   const formDataValidators = useRef({} as any);
   const shouldAutoValidForm = useRef(false);
@@ -206,7 +210,9 @@ const Form = <T extends object>({
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
             const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
-            setFormData(newFormData);
+            if (data === undefined) {
+              setFormData(newFormData);
+            }
             onDataChange && onDataChange(newFormData as T);
             formItemOnChange && formItemOnChange(evt);
             validForm(newFormData);
@@ -224,7 +230,9 @@ const Form = <T extends object>({
         ) {
           inputProps.onValueChange = value => {
             const newFormData = { ...formData, [inputProps.name!]: value };
-            setFormData(newFormData);
+            if (data === undefined) {
+              setFormData(newFormData);
+            }
             onDataChange && onDataChange(newFormData as T);
             formItemOnValueChange && formItemOnValueChange(value);
             validForm(newFormData);
