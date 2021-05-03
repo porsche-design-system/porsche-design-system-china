@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --config ./conf/webpack.dev.js",
     "build": "webpack",
-    "prod": "webpack -p --config ./conf/webpack.prod.js",
+    "prod": "",
     "release": "npm run prod && npm publish --registry  https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "prodWatch": "webpack -p --watch --config webpack.prod.js",
     "server": "node server.js",
