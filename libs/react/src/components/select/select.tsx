@@ -111,7 +111,7 @@ const Select = FormItem(
           placeholder={placeholder}
           onClick={evt => {
             evt.stopPropagation();
-            setShowOptionList(true);
+            setShowOptionList(!showOptionList);
           }}
           disabled={disabled}
         />
