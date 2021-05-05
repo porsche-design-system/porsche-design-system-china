@@ -53,6 +53,15 @@
       &-option {
         padding: 12px;
         cursor: pointer;
+        &-selected {
+          font-weight: bold;
+          .porscheicon {
+            float: right;
+            font-size: 20px;
+            margin-top: 2px;
+            margin-right: -2px;
+          }
+        }
       }
 
       &-icon {
@@ -60,6 +69,13 @@
         right: 11px;
         top: 12px;
         pointer-events: none;
+        transition: 0.2s transform;
+      }
+
+      &-active-true {
+        .pui-select-icon {
+          transform: scaleY(-1);
+        }
       }
 
       &-option:hover {

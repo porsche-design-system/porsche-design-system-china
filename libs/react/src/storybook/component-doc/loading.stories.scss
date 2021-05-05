@@ -1,3 +1,9 @@
 .pui-loading {
   position: absolute !important;
 }
+
+.pui-loading {
+  .pui-loading-svg {
+    margin-top: calc(50% - 20px) !important;
+  }
+}

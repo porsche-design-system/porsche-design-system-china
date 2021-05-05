@@ -32,9 +32,9 @@ export const DatePickerStoryBook = () => {
       <br /> <br /> <br />
       <DatePicker
         width="600px"
-        label="来访日期(限定时间，InNext{num}Days 写法)"
+        label="来访日期(限定时间，In{num}Days 写法)"
         placeholder="请选择"
-        range="InNext5Days"
+        range="In5Days"
       />
       <br /> <br /> <br />
       <DatePicker
