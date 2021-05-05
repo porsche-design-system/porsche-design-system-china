@@ -5,7 +5,7 @@ import { Button, Input, Form } from '../../';
 import './login-form.stories.scss';
 
 export default {
-  title: 'Page Show/Login Form'
+  title: 'Form Example/Login Form'
 };
 
 export const LoginStoryBook = () => {
@@ -14,8 +14,8 @@ export const LoginStoryBook = () => {
       <div className="top-title">用户登录</div>
       <Form>
         <div>
-          <Input placeholder="用户名" required />
-          <Input placeholder="密码" required />
+          <Input placeholder="用户名" />
+          <Input placeholder="密码" />
           <Button type="primary" icon={IconArrowHeadRight} style={{ width: '100%' }}>
             提 交
           </Button>

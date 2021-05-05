@@ -84,10 +84,10 @@ const DatePicker = FormItem(
     const displayDate = useRef<Date>(initDate || new Date());
 
     if (typeof range === 'string') {
-      if (/InNext(\d)Days/.test(range)) {
+      if (/In(\d)Days/.test(range)) {
         const days = RegExp.$1;
         const endDate = new Date();
-        endDate.setDate(endDate.getDate() + parseInt(days));
+        endDate.setDate(endDate.getDate() + parseInt(days) - 1);
         range = [new Date(), endDate];
       } else {
         range = range.split(',') as [string, string];

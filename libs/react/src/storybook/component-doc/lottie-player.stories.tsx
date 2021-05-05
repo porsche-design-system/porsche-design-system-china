@@ -1,5 +1,5 @@
 import React from 'react';
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 import '../../styles/index.scss';
 
@@ -13,11 +13,15 @@ export const LottiePlayerStoryBook = () => {
       <Player
         autoplay
         loop
+        src="https://assets6.lottiefiles.com/packages/lf20_mdbdc5l7.json"
+        style={{ height: '500px', width: '500px' }}
+      ></Player>
+      <Player
+        autoplay
+        loop
         src="https://assets8.lottiefiles.com/packages/lf20_az2y8tee.json"
-        style={{ height: '300px', width: '300px' }}
-      >
-        <Controls visible buttons={['play', 'repeat', 'frame', 'debug']} />
-      </Player>
+        style={{ height: '500px', width: '500px' }}
+      ></Player>
     </div>
   );
 };

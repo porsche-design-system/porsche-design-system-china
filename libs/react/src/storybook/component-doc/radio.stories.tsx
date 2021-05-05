@@ -17,7 +17,7 @@ export const RadioStoryBook = () => {
           onValueChange={value => {
             console.log(value);
           }}
-          value="val3"
+          defaultValue="val3"
         >
           <Radio text="选项1" value="val1" />
           <Radio text="选项2" value="val2" />

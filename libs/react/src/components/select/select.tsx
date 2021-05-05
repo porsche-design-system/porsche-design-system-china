@@ -1,10 +1,11 @@
 import React, { CSSProperties, useState } from 'react';
-import { IconArrowHeadDown } from '@pui/icons';
+import { IconArrowHeadDown, IconCheck } from '@pui/icons';
 
 import { FormErrorText } from '../error-text/error-text';
 import { componentClassNames } from '../../shared/class-util';
 import { FormItem } from '../form/form-item';
 import { usePopShowState } from '../../shared/hooks';
+
 import './select.scss';
 
 interface SelectOption {
@@ -120,13 +121,17 @@ const Select = FormItem(
             {selectOptions.map((option, inx) => (
               <div
                 key={option.value + ' ' + inx}
-                className="pui-select-option"
+                className={
+                  'pui-select-option ' +
+                  (option.text === displayText ? 'pui-select-option-selected' : '')
+                }
                 onClick={() => {
                   setSelectValue(option.value);
                   onValueChange && onValueChange(option.value);
                 }}
               >
                 {option.text}
+                {option.text === displayText && <IconCheck />}
               </div>
             ))}
           </div>
