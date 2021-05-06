@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import { renderToString } from 'react-dom/server';
 import { componentClassNames } from '../../shared/class-util';
 import { CheckBox } from '../checkbox/checkbox';
 import './table.scss';
@@ -129,10 +130,56 @@ const Table = ({
     }
   };
 
-  const defaultWidth = 200;
+  const getByteLength = (str: string) => {
+    var count = str.length;
+    for (var i = 0; i < str.length; i++) {
+      if (str.charCodeAt(i) > 255) {
+        count++;
+      }
+    }
+    return count;
+  };
+
+  const removeHtml = (str: string) => {
+    return str.replace(/<[^>]+>/g, '');
+  };
+
+  const defaultWidth = 150;
+  const charWidth = 8;
   const selectColumnWidth = 50;
-  const tableWidth =
-    middleColumns.length * defaultWidth + (selectable ? selectColumnWidth : 0) + 'px';
+  const paddingLeftRight = 40;
+  let columnsTableWidth = 0;
+  columns.forEach(col => {
+    if (col.width === undefined) {
+      col.width = 0;
+
+      if (col.customCell) {
+        data.forEach(d => {
+          const dataColWidth =
+            getByteLength(removeHtml(renderToString(col.customCell!(d) as any))) * charWidth;
+          col.width = col.width! < dataColWidth ? dataColWidth : col.width;
+        });
+      } else {
+        if (!col.key) {
+          col.width = defaultWidth;
+        } else {
+          data.forEach(d => {
+            if (d[col.key!]) {
+              const dataColWidth = getByteLength(d[col.key!]) * charWidth;
+              col.width = col.width! < dataColWidth ? dataColWidth : col.width;
+            }
+          });
+        }
+      }
+      const headColWidth = getByteLength(col.title || '') * charWidth;
+      col.width = col.width < headColWidth ? headColWidth : col.width;
+      col.width += paddingLeftRight;
+    }
+    columnsTableWidth += col.width;
+  });
+
+  columnsTableWidth += selectable ? selectColumnWidth : 0;
+  const tableWidth = columnsTableWidth + 'px';
   const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto';
 
   const renderMeasureCell = (column: TableColumn, inx: number) => {
@@ -140,7 +187,7 @@ const Table = ({
       <td
         key={'measure' + inx}
         className={'pui-table-measure'}
-        style={{ width: column.width || defaultWidth + 'px' }}
+        style={{ width: column.width + 'px' }}
       />
     );
   };
@@ -187,14 +234,14 @@ const Table = ({
     fixColumnLeft.push(accumulateLeft);
   }
   leftColumns.forEach(col => {
-    accumulateLeft += col.width || defaultWidth;
+    accumulateLeft += col.width!;
     fixColumnLeft.push(accumulateLeft);
   });
 
   const fixColumnRight: number[] = [0];
   let accumulateRight = 0;
   rightColumns.forEach(col => {
-    accumulateRight += col.width || defaultWidth;
+    accumulateRight += col.width!;
     fixColumnRight.push(accumulateRight);
   });
   fixColumnRight.reverse().splice(0, 1);

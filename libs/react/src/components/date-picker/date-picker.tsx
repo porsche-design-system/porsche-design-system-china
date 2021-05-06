@@ -51,7 +51,7 @@ const DatePicker = FormItem(
     placeholder
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
-      const datePart = dateStr?.split('-');
+      const datePart = dateStr.split('-');
       if (datePart.length === 3) {
         if (
           /^\d{4}$/.test(datePart[0]) &&
