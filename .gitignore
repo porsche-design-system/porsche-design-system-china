@@ -17,7 +17,9 @@ node_modules
 /libs/**/storybook-static
 
 /libs/react/es
+/libs/react/es/**/*
 /libs/react/lib
+/libs/react/lib/**/*
 /libs/react/override.scss
 
 # misc

@@ -1,47 +1,47 @@
-import React, { CSSProperties, useState } from 'react';
-import { IconArrowHeadDown, IconCheck } from '@pui/icons';
+import React, { CSSProperties, useState } from 'react'
+import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
-import { FormErrorText } from '../error-text/error-text';
-import { componentClassNames } from '../../shared/class-util';
-import { FormItem } from '../form/form-item';
-import { usePopShowState } from '../../shared/hooks';
+import { FormErrorText } from '../error-text/error-text'
+import { componentClassNames } from '../../shared/class-util'
+import { FormItem } from '../form/form-item'
+import { usePopShowState } from '../../shared/hooks'
 
-import './select.scss';
+import './select.scss'
 
 interface SelectOption {
-  text: string;
-  value: string;
+  text: string
+  value: string
 }
 
 export interface SelectProps {
   // 组件属性 //
 
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 值 */
-  value?: string;
+  value?: string
 
   /* 默认值 */
-  defaultValue?: string;
+  defaultValue?: string
 
   /* 占位符 */
-  placeholder?: string;
+  placeholder?: string
 
   /* 选项 */
-  options?: string | string[] | SelectOption[];
+  options?: string | string[] | SelectOption[]
 
   /* 错误 */
-  error?: FormErrorText;
+  error?: FormErrorText
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string) => void
 }
 
 const Select = FormItem(
@@ -55,42 +55,43 @@ const Select = FormItem(
     onValueChange,
     placeholder
   }: SelectProps) => {
-    const [selectValue, setSelectValue] = useState(value || defaultValue || '');
-    const [showOptionList, setShowOptionList] = usePopShowState();
+    const [selectValue, setSelectValue] = useState(value || defaultValue || '')
+    const [showOptionList, setShowOptionList] = usePopShowState()
 
-    let selectOptions: SelectOption[] = [];
+    let selectOptions: SelectOption[] = []
     if (typeof options === 'string') {
-      const optionParts = options.split(',');
+      const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
-        const optionTextValue = optionPart.split(':');
+        const optionTextValue = optionPart.split(':')
         selectOptions.push({
           text: optionTextValue[0],
-          value: optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
-        });
-      });
+          value:
+            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+        })
+      })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        selectOptions = options as SelectOption[];
+        selectOptions = options as SelectOption[]
       } else {
-        (options as string[]).forEach(option => {
-          selectOptions.push({ text: option, value: option });
-        });
+        ;(options as string[]).forEach(option => {
+          selectOptions.push({ text: option, value: option })
+        })
       }
     }
 
-    let displayText = '';
+    let displayText = ''
     if (value !== undefined) {
       selectOptions.forEach(option => {
         if (option.value === value) {
-          displayText = option.text;
+          displayText = option.text
         }
-      });
+      })
     } else {
       selectOptions.forEach(option => {
         if (option.value === selectValue) {
-          displayText = option.text;
+          displayText = option.text
         }
-      });
+      })
     }
 
     return (
@@ -110,8 +111,8 @@ const Select = FormItem(
           value={displayText}
           placeholder={placeholder}
           onClick={evt => {
-            evt.stopPropagation();
-            setShowOptionList(!showOptionList);
+            evt.stopPropagation()
+            setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
         />
@@ -123,11 +124,13 @@ const Select = FormItem(
                 key={option.value + ' ' + inx}
                 className={
                   'pui-select-option ' +
-                  (option.text === displayText ? 'pui-select-option-selected' : '')
+                  (option.text === displayText
+                    ? 'pui-select-option-selected'
+                    : '')
                 }
                 onClick={() => {
-                  setSelectValue(option.value);
-                  onValueChange && onValueChange(option.value);
+                  setSelectValue(option.value)
+                  onValueChange && onValueChange(option.value)
                 }}
               >
                 {option.text}
@@ -137,9 +140,9 @@ const Select = FormItem(
           </div>
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-(Select as any).displayName = 'Radio';
-export { Select };
+;(Select as any).displayName = 'Radio'
+export { Select }

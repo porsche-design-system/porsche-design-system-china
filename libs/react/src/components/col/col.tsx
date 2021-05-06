@@ -1,21 +1,21 @@
-import React, { CSSProperties } from 'react';
-import { componentClassNames } from '../../shared/class-util';
+import React, { CSSProperties } from 'react'
+import { componentClassNames } from '../../shared/class-util'
 
 export interface ColProps {
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 跨度，最大为24 */
-  span?: number;
+  span?: number
 
   /* 点击事件 */
-  onClick?: React.MouseEventHandler;
+  onClick?: React.MouseEventHandler
 }
 
 /**
@@ -25,7 +25,7 @@ const Col = ({ className, style, children, span, onClick }: ColProps) => {
   const colStyle: CSSProperties = {
     width: span ? (span / 24) * 100 + '%' : '',
     flex: span ? '' : 'auto'
-  };
+  }
   return (
     <div
       className={componentClassNames('pui-col', {}, className)}
@@ -34,7 +34,7 @@ const Col = ({ className, style, children, span, onClick }: ColProps) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export { Col };
+export { Col }

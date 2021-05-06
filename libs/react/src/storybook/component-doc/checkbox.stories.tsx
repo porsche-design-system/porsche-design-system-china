@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { CheckBox, CheckBoxGroup } from '../../';
+import React, { useState } from 'react'
+import { CheckBox, CheckBoxGroup } from '../../'
 
-import './checkbox.stories.scss';
+import './checkbox.stories.scss'
 
 export default {
   title: 'Data Entry/CheckBox',
   component: CheckBox
-};
+}
 
 export const CheckBoxStoryBook = () => {
   const [pickedValues, setPickedValues] = useState<string[]>([
     'singing',
     'swimming',
     'xxxx'
-  ]);
-  const [showError, setShowError] = useState(true);
+  ])
+  const [showError, setShowError] = useState(true)
 
   return (
     <div>
@@ -63,13 +63,13 @@ export const CheckBoxStoryBook = () => {
             label={{ text: '热门电影', position: 'left' }}
             error={{ show: showError, message: '必须勾选3个电影' }}
             onValueChange={val => {
-              console.log('val', val);
-              setShowError(false);
+              console.log('val', val)
+              setShowError(false)
             }}
             options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

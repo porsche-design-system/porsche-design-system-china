@@ -1,45 +1,45 @@
-import { IconArrowHeadRight, IconClose } from '@pui/icons';
-import React, { CSSProperties, ReactNode, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from '..';
-import { componentClassNames } from '../../shared/class-util';
-import './modal.scss';
+import { IconArrowHeadRight, IconClose } from '@pui/icons'
+import React, { CSSProperties, ReactNode, useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
+import { Button } from '..'
+import { componentClassNames } from '../../shared/class-util'
+import './modal.scss'
 
 export interface ModalProps {
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /** 标题 */
-  title?: string;
+  title?: string
 
   /** 对话框是否可见 */
-  visible?: boolean;
+  visible?: boolean
 
   /** 确认按钮文字 */
-  okText?: string;
+  okText?: string
 
   /** 取消按钮文字 */
-  cancelText?: string;
+  cancelText?: string
 
   /* 点击确定回调 */
-  onOk?: () => void | Promise<unknown>;
+  onOk?: () => void | Promise<unknown>
 
   /* 点击遮罩层或右上角叉或取消按钮的回调 */
-  onCancel?: () => void;
+  onCancel?: () => void
 
   /* 显示取消按钮 */
-  showCancel?: boolean;
+  showCancel?: boolean
 
   /* 显示关闭按钮 */
-  showClose?: boolean;
+  showClose?: boolean
 
-  modalRef?: any;
+  modalRef?: any
 }
 
-let modalSetIsLoading: (val: boolean) => void;
+let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
   visible = false,
@@ -53,20 +53,20 @@ const Modal = ({
   showClose = true,
   modalRef
 }: ModalProps) => {
-  const [show, setShow] = useState(visible);
-  const [isLoading, setIsLoading] = useState(false);
-  modalSetIsLoading = setIsLoading;
+  const [show, setShow] = useState(visible)
+  const [isLoading, setIsLoading] = useState(false)
+  modalSetIsLoading = setIsLoading
 
   useEffect(() => {
-    setShow(visible);
-  }, [visible]);
+    setShow(visible)
+  }, [visible])
   return ReactDOM.createPortal(
     <div
       ref={modalRef}
       className={componentClassNames('pui-modal-root', { hide: !show + '' })}
       style={style}
     >
-      <div className="pui-modal-mask"></div>
+      <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
         <div className="pui-modal">
           <div className="pui-modal-content">
@@ -74,7 +74,7 @@ const Modal = ({
               <div
                 className="pui-modal-close"
                 onClick={() => {
-                  onCancel && onCancel();
+                  onCancel && onCancel()
                 }}
               >
                 <IconClose />
@@ -101,12 +101,12 @@ const Modal = ({
                 icon={<IconArrowHeadRight />}
                 onClick={() => {
                   if (onOk) {
-                    const loadingPromise = onOk();
+                    const loadingPromise = onOk()
                     if (typeof loadingPromise === 'object') {
-                      setIsLoading(true);
-                      (loadingPromise as Promise<unknown>).then(() => {
-                        setIsLoading(false);
-                      });
+                      setIsLoading(true)
+                      ;(loadingPromise as Promise<unknown>).then(() => {
+                        setIsLoading(false)
+                      })
                     }
                   }
                 }}
@@ -119,8 +119,8 @@ const Modal = ({
       </div>
     </div>,
     document.body
-  );
-};
+  )
+}
 
 Modal.alert = (
   title: string,
@@ -128,40 +128,40 @@ Modal.alert = (
   onOk: (() => void | Promise<unknown>) | undefined = undefined,
   okText: string = '确认'
 ) => {
-  const modalId = '$ModalContainer';
-  let modalContainer = document.getElementById(modalId);
+  const modalId = '$ModalContainer'
+  let modalContainer = document.getElementById(modalId)
   if (!modalContainer) {
-    modalContainer = document.createElement('div');
-    modalContainer.id = modalId;
-    document.body.appendChild(modalContainer);
+    modalContainer = document.createElement('div')
+    modalContainer.id = modalId
+    document.body.appendChild(modalContainer)
   }
 
-  let currentPop: any = null;
+  let currentPop: any = null
   ReactDOM.render(
     <Modal
       title={title}
       okText={okText}
       showClose={false}
       modalRef={(r: any) => {
-        currentPop = r;
+        currentPop = r
       }}
       onOk={() => {
         if (onOk) {
-          const loadingPromise = onOk();
+          const loadingPromise = onOk()
           if (typeof loadingPromise === 'object') {
-            modalSetIsLoading(true);
-            (loadingPromise as Promise<unknown>).then(() => {
-              modalSetIsLoading(false);
-              document.body.removeChild(modalContainer!);
-              document.body.removeChild(currentPop);
-            });
+            modalSetIsLoading(true)
+            ;(loadingPromise as Promise<unknown>).then(() => {
+              modalSetIsLoading(false)
+              document.body.removeChild(modalContainer!)
+              document.body.removeChild(currentPop)
+            })
           } else {
-            document.body.removeChild(modalContainer!);
-            document.body.removeChild(currentPop);
+            document.body.removeChild(modalContainer!)
+            document.body.removeChild(currentPop)
           }
         } else {
-          document.body.removeChild(modalContainer!);
-          document.body.removeChild(currentPop);
+          document.body.removeChild(modalContainer!)
+          document.body.removeChild(currentPop)
         }
       }}
       visible
@@ -170,10 +170,10 @@ Modal.alert = (
       {content}
     </Modal>,
     modalContainer
-  );
-};
+  )
+}
 
-let modalCounter = 0;
+let modalCounter = 0
 Modal.confirm = (
   title: string,
   content: ReactNode,
@@ -182,47 +182,47 @@ Modal.confirm = (
   okText: string = '确认',
   cancelText: string = '取消'
 ) => {
-  modalCounter++;
-  const modalId = '$ModalContainer-' + modalCounter;
-  let modalContainer = document.getElementById(modalId);
+  modalCounter++
+  const modalId = '$ModalContainer-' + modalCounter
+  let modalContainer = document.getElementById(modalId)
   if (!modalContainer) {
-    modalContainer = document.createElement('div');
-    modalContainer.id = modalId;
-    document.body.appendChild(modalContainer);
+    modalContainer = document.createElement('div')
+    modalContainer.id = modalId
+    document.body.appendChild(modalContainer)
   }
 
-  let currentPop: any = null;
+  let currentPop: any = null
   ReactDOM.render(
     <Modal
       title={title}
       okText={okText}
       showClose={false}
       onCancel={() => {
-        document.body.removeChild(modalContainer!);
-        document.body.removeChild(currentPop);
-        onCancel && onCancel();
+        document.body.removeChild(modalContainer!)
+        document.body.removeChild(currentPop)
+        onCancel && onCancel()
       }}
       cancelText={cancelText}
       modalRef={(r: any) => {
-        currentPop = r;
+        currentPop = r
       }}
       onOk={() => {
         if (onOk) {
-          const loadingPromise = onOk();
+          const loadingPromise = onOk()
           if (loadingPromise) {
-            modalSetIsLoading(true);
-            (loadingPromise as Promise<unknown>).then(() => {
-              document.body.removeChild(modalContainer!);
-              document.body.removeChild(currentPop);
-              modalSetIsLoading(false);
-            });
+            modalSetIsLoading(true)
+            ;(loadingPromise as Promise<unknown>).then(() => {
+              document.body.removeChild(modalContainer!)
+              document.body.removeChild(currentPop)
+              modalSetIsLoading(false)
+            })
           } else {
-            document.body.removeChild(modalContainer!);
-            document.body.removeChild(currentPop);
+            document.body.removeChild(modalContainer!)
+            document.body.removeChild(currentPop)
           }
         } else {
-          document.body.removeChild(modalContainer!);
-          document.body.removeChild(currentPop);
+          document.body.removeChild(modalContainer!)
+          document.body.removeChild(currentPop)
         }
       }}
       visible
@@ -230,7 +230,7 @@ Modal.confirm = (
       {content}
     </Modal>,
     modalContainer
-  );
-};
+  )
+}
 
-export { Modal };
+export { Modal }

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Col, Row } from '../../';
+import React from 'react'
+import { Col, Row } from '../../'
 
-import './row.stories.scss';
+import './row.stories.scss'
 
 export default {
   title: 'Layout/Row',
   component: Row
-};
+}
 
 export const RowStoryBook = () => {
   return (
@@ -28,5 +28,5 @@ export const RowStoryBook = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}

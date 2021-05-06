@@ -1,39 +1,39 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { componentClassNames, overrideChildren } from '../../shared/class-util';
-import { FormErrorText } from '../error-text/error-text';
-import { FormItem } from '../form/form-item';
-import { CheckBox, CheckBoxProps } from './checkbox';
-import './checkbox-group.scss';
+import React, { useEffect, useMemo, useRef } from 'react'
+import { componentClassNames, overrideChildren } from '../../shared/class-util'
+import { FormErrorText } from '../error-text/error-text'
+import { FormItem } from '../form/form-item'
+import { CheckBox, CheckBoxProps } from './checkbox'
+import './checkbox-group.scss'
 
 interface SelectOption {
-  text: string;
-  value: string;
+  text: string
+  value: string
 }
 
 export interface CheckBoxGroupProps {
   /* 默认值 */
-  defaultValue?: string[];
+  defaultValue?: string[]
 
   /* 值 */
-  value?: string[];
+  value?: string[]
 
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 表单绑定key，需要配合<Form>使用 */
-  name?: string;
+  name?: string
 
   /* 值改变事件 */
-  onValueChange?: (values: string[]) => void;
+  onValueChange?: (values: string[]) => void
 
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /* 选项 */
-  options?: string | string[] | SelectOption[];
+  options?: string | string[] | SelectOption[]
 
   /* 错误 */
-  error?: FormErrorText;
+  error?: FormErrorText
 }
 
 const CheckBoxGroup = FormItem(
@@ -46,89 +46,89 @@ const CheckBoxGroup = FormItem(
     error,
     options
   }: CheckBoxGroupProps) => {
-    const checkBoxValues = useRef<string[]>(value || defaultValue || []);
+    const checkBoxValues = useRef<string[]>(value || defaultValue || [])
 
-    let checkBoxOptions: SelectOption[] = [];
+    let checkBoxOptions: SelectOption[] = []
     if (typeof options === 'string') {
-      const optionParts = options.split(',');
+      const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
-        const optionTextValue = optionPart.split(':');
+        const optionTextValue = optionPart.split(':')
         checkBoxOptions.push({
           text: optionTextValue[0],
           value:
             optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
-        });
-      });
+        })
+      })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        checkBoxOptions = options as SelectOption[];
+        checkBoxOptions = options as SelectOption[]
       } else {
-        (options as string[]).forEach(option => {
-          checkBoxOptions.push({ text: option, value: option });
-        });
+        ;(options as string[]).forEach(option => {
+          checkBoxOptions.push({ text: option, value: option })
+        })
       }
     }
 
     const optionsNodes = checkBoxOptions.map((option, inx) => (
       <CheckBox key={'$CheckBox-' + inx} {...option} />
-    ));
+    ))
 
     const newChildren = useMemo(() => {
-      checkBoxValues.current = value || [];
-      const allValues: string[] = [];
+      checkBoxValues.current = value || []
+      const allValues: string[] = []
       const newChildren = overrideChildren(
         [...optionsNodes, ...React.Children.toArray(children)],
         (elementName, props) => {
           if (elementName === 'CheckBox') {
-            const checkboxProp: CheckBoxProps = props;
-            const checkBoxOnChange = checkboxProp.onChange;
-            const checkBoxOnCheckedChange = checkboxProp.onCheckedChange;
-            checkboxProp.value = checkboxProp.value || checkboxProp.text;
-            checkboxProp.value && allValues.push(checkboxProp.value);
+            const checkboxProp: CheckBoxProps = props
+            const checkBoxOnChange = checkboxProp.onChange
+            const checkBoxOnCheckedChange = checkboxProp.onCheckedChange
+            checkboxProp.value = checkboxProp.value || checkboxProp.text
+            checkboxProp.value && allValues.push(checkboxProp.value)
             if (value !== undefined) {
               checkboxProp.checked =
                 checkboxProp.value !== undefined &&
-                checkBoxValues.current.indexOf(checkboxProp.value) >= 0;
+                checkBoxValues.current.indexOf(checkboxProp.value) >= 0
             }
             checkboxProp.onChange = evt => {
-              checkBoxOnChange && checkBoxOnChange(evt);
+              checkBoxOnChange && checkBoxOnChange(evt)
               checkBoxOnCheckedChange &&
-                checkBoxOnCheckedChange(evt.target.checked);
+                checkBoxOnCheckedChange(evt.target.checked)
               if (evt.target.value) {
                 if (evt.target.checked) {
-                  checkBoxValues.current.push(evt.target.value);
+                  checkBoxValues.current.push(evt.target.value)
                 } else {
-                  const inx = checkBoxValues.current.indexOf(evt.target.value);
+                  const inx = checkBoxValues.current.indexOf(evt.target.value)
                   if (inx >= 0) {
-                    checkBoxValues.current.splice(inx, 1);
+                    checkBoxValues.current.splice(inx, 1)
                   }
                 }
               }
-              onValueChange && onValueChange([...checkBoxValues.current]);
-            };
+              onValueChange && onValueChange([...checkBoxValues.current])
+            }
           }
-          return props;
+          return props
         }
-      );
+      )
 
-      const filteredValues: string[] = [];
+      const filteredValues: string[] = []
       checkBoxValues.current.forEach(v => {
         if (allValues.indexOf(v) >= 0) {
-          filteredValues.push(v);
+          filteredValues.push(v)
         }
-      });
-      checkBoxValues.current = filteredValues;
-      return newChildren;
-    }, [onValueChange, value]);
+      })
+      checkBoxValues.current = filteredValues
+      return newChildren
+    }, [onValueChange, value])
 
     useEffect(() => {
       if (
         value !== undefined &&
         JSON.stringify(checkBoxValues.current.sort()) !== JSON.stringify(value)
       ) {
-        onValueChange && onValueChange(checkBoxValues.current);
+        onValueChange && onValueChange(checkBoxValues.current)
       }
-    }, []);
+    }, [])
 
     return (
       <div
@@ -139,9 +139,9 @@ const CheckBoxGroup = FormItem(
       >
         {newChildren}
       </div>
-    );
+    )
   }
-);
+)
 
-(CheckBoxGroup as any).displayName = 'CheckBoxGroup';
-export { CheckBoxGroup };
+;(CheckBoxGroup as any).displayName = 'CheckBoxGroup'
+export { CheckBoxGroup }

@@ -4,36 +4,37 @@ import React, {
   useState,
   useEffect,
   useCallback
-} from 'react';
-import ReactDom, { unmountComponentAtNode } from 'react-dom';
+} from 'react'
+import ReactDom, { unmountComponentAtNode } from 'react-dom'
 import {
   IconInformation2,
   IconClose,
   IconCorrect,
   IconWarning2,
   IconError
-} from '@pui/icons';
-import './message.scss';
-export type MessageType = 'info' | 'success' | 'error' | 'warning';
+} from '@pui/icons'
+import './message.scss'
+
+export type MessageType = 'info' | 'success' | 'error' | 'warning'
 
 export interface MessageConfig {
   /** 挂载点 */
-  mount: HTMLElement;
+  mount: HTMLElement
 
   /** 动画延迟时间 */
-  delay: number;
+  delay: number
 
   /** 结束后回调 */
-  callback: any;
+  callback: any
 
   /** 底色 */
-  background: string;
+  background: string
 
   /** 文字颜色 */
-  color: string;
+  color: string
 
   /** 是否手动关闭 */
-  closable: boolean;
+  closable: boolean
 }
 
 const defaultConfig: MessageConfig = {
@@ -43,15 +44,15 @@ const defaultConfig: MessageConfig = {
   closable: false,
   background: '',
   color: ''
-};
+}
 
-let wrap: HTMLElement;
+let wrap: HTMLElement
 export const createMessage = (type: MessageType) => {
   return (content: ReactNode, config: Partial<MessageConfig> = {}) => {
-    const fconfig = { ...defaultConfig, ...config };
+    const fconfig = { ...defaultConfig, ...config }
     if (!wrap) {
       // 如果有的话，说明已经调用过这个函数了，这个空div就可以一直复用
-      wrap = document.createElement('div');
+      wrap = document.createElement('div')
       wrap.style.cssText = `line-height: 1.5;
       text-align: center;
       color: #333;
@@ -63,14 +64,14 @@ export const createMessage = (type: MessageType) => {
       z-index: 100000;
       width: 100%;
       top: 16px;
-      left: 0;`;
+      left: 0;`
       if (wrap) {
-        fconfig.mount.appendChild(wrap);
+        fconfig.mount.appendChild(wrap)
       }
     }
 
-    const div = document.createElement('div');
-    wrap.appendChild(div);
+    const div = document.createElement('div')
+    wrap.appendChild(div)
     ReactDom.render(
       <MessageBox
         rootDom={wrap}
@@ -80,71 +81,71 @@ export const createMessage = (type: MessageType) => {
         iconType={type}
       />,
       div
-    );
-  };
-};
+    )
+  }
+}
 
 export type MessageProps = {
-  rootDom: HTMLElement;
-  parentDom: Element | DocumentFragment;
-  content: ReactNode;
-  fconfig: MessageConfig;
-  iconType: MessageType;
-};
+  rootDom: HTMLElement
+  parentDom: Element | DocumentFragment
+  content: ReactNode
+  fconfig: MessageConfig
+  iconType: MessageType
+}
 
 export function MessageBox(props: MessageProps) {
-  const { rootDom, parentDom, content, fconfig, iconType } = props;
-  const [close, setClose] = useState(false);
+  const { rootDom, parentDom, content, fconfig, iconType } = props
+  const [close, setClose] = useState(false)
 
   const unmount = useMemo(() => {
     return () => {
       if (parentDom && rootDom) {
-        unmountComponentAtNode(parentDom);
-        rootDom.removeChild(parentDom);
+        unmountComponentAtNode(parentDom)
+        rootDom.removeChild(parentDom)
       }
-    };
-  }, [parentDom, rootDom]);
+    }
+  }, [parentDom, rootDom])
 
   useEffect(() => {
-    let timer1: number;
-    let timer2: number;
+    let timer1: number
+    let timer2: number
     if (!fconfig.closable) {
       // 自动关闭
-      const closeStart = fconfig.delay - 0.2 * 1000;
+      const closeStart = fconfig.delay - 0.2 * 1000
       // 关闭动画
       timer1 = window.setTimeout(
         () => {
-          setClose(true);
+          setClose(true)
         },
         closeStart > 0 ? closeStart : 0
-      );
+      )
       // 卸载
       timer2 = window.setTimeout(() => {
-        setClose(false);
-        unmount();
+        setClose(false)
+        unmount()
         if (fconfig.callback) {
-          fconfig.callback();
+          fconfig.callback()
         }
-      }, fconfig.delay);
+      }, fconfig.delay)
     }
     return () => {
-      window.clearTimeout(timer1);
-      window.clearTimeout(timer2);
-    };
-  }, [unmount, fconfig]);
+      window.clearTimeout(timer1)
+      window.clearTimeout(timer2)
+    }
+  }, [unmount, fconfig])
 
   // 手动卸载
   const handleClose = useCallback(() => {
     if (fconfig.closable) {
-      setClose(true);
+      setClose(true)
       setTimeout(() => {
-        unmount();
+        unmount()
         if (fconfig.callback) {
-          fconfig.callback();
+          fconfig.callback()
         }
-      }, 200);
+      }, 200)
     }
-  }, [fconfig, unmount]);
+  }, [fconfig, unmount])
 
   return (
     <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
@@ -154,10 +155,15 @@ export function MessageBox(props: MessageProps) {
         {props.iconType === 'warning' && <IconWarning2 />}
         {props.iconType === 'error' && <IconError />}
         <span className="text-content">{content}</span>
-        {fconfig.closable && <IconClose onClick={handleClose} />}
+        {fconfig.closable && (
+          <IconClose
+            style={{ fontSize: '24px', color: 'black' }}
+            onClick={handleClose}
+          />
+        )}
       </span>
     </div>
-  );
+  )
 }
 
 export const Message = {
@@ -166,6 +172,6 @@ export const Message = {
     content: ReactNode,
     config: Partial<MessageConfig> = {}
   ) {
-    createMessage(type)(content, config);
+    createMessage(type)(content, config)
   }
-};
+}

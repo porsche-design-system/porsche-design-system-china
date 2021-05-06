@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import { Button, Modal } from '../../';
+import React, { useState } from 'react'
+import { Button, Modal } from '../../'
+
 export default {
   title: 'Feedback/Modal',
   component: Modal
-};
+}
 
 export const ModalStoryBook = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve('');
-        setIsModalVisible(false);
-      }, 1000);
-    });
-  };
+        resolve('')
+        setIsModalVisible(false)
+      }, 1000)
+    })
+  }
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
   return (
     <>
       <Modal
@@ -40,7 +41,7 @@ export const ModalStoryBook = () => {
       <Button
         onClick={() =>
           Modal.alert('提示信息', '你看到了一个弹出框', () => {
-            console.log('关闭');
+            console.log('关闭')
           })
         }
         type="secondary"
@@ -52,12 +53,12 @@ export const ModalStoryBook = () => {
       <Button
         onClick={() =>
           Modal.confirm('确认信息', '你看到了一个弹出框', () => {
-            console.log('关闭');
+            console.log('关闭')
             return new Promise(resolve => {
               setTimeout(() => {
-                resolve('');
-              }, 1500);
-            });
+                resolve('')
+              }, 1500)
+            })
           })
         }
         type="secondary"
@@ -65,7 +66,7 @@ export const ModalStoryBook = () => {
         显示确认信息
       </Button>
     </>
-  );
-};
+  )
+}
 
-ModalStoryBook.storyName = 'Modal';
+ModalStoryBook.storyName = 'Modal'

@@ -4,76 +4,76 @@ import React, {
   useEffect,
   useRef,
   useState
-} from 'react';
-import { validate, RuleItem } from '../../shared/validation-rules';
-import { componentClassNames, overrideChildren } from '../../shared/class-util';
-import { ButtonProps } from '../button/button';
-import { ErrorList } from 'async-validator';
-import { FormErrorText } from '../error-text/error-text';
+} from 'react'
+import { ErrorList } from 'async-validator'
+import { validate, RuleItem } from '../../shared/validation-rules'
+import { componentClassNames, overrideChildren } from '../../shared/class-util'
+import { ButtonProps } from '../button/button'
+import { FormErrorText } from '../error-text/error-text'
 
 export interface FormLabelStyle {
   /* 标签位置 */
-  position?: 'top' | 'left';
+  position?: 'top' | 'left'
 
   /* 类名 */
-  className?: string;
+  className?: string
 
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 标签位置 */
-  textAlign?: 'left' | 'right';
+  textAlign?: 'left' | 'right'
 
   /* 标签宽度 */
-  width?: string;
+  width?: string
 }
 
 export interface FormItemLabelProps extends FormLabelStyle {
   /* Label显示文字 */
-  text: string;
+  text: string
 }
 
 export interface FormProps<T> {
   /* 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /* 类名 */
-  className?: string;
+  className?: string
 
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 默认表单数据 */
-  defaultData?: T;
+  defaultData?: T
 
   /* 表单数据 */
-  data?: T;
+  data?: T
 
   /* 宽度 */
-  width?: string;
+  width?: string
 
   /* 高度 */
-  height?: string;
+  height?: string
 
   /* 行间距 */
-  lineGap?: string;
+  lineGap?: string
 
   /* 表单内所有Label样式 */
-  labelLayout?: FormLabelStyle;
+  labelLayout?: FormLabelStyle
 
   /* 表单名字，可以用Form['{name}']获取表单，调用提交 */
-  name?: string;
+  name?: string
 
   /* 数据改变回调 */
-  onDataChange?: (data: T) => void;
+  onDataChange?: (data: T) => void
 
   /* 数据提交事件 */
-  onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>;
+  onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>
 }
 
 export interface FormRef {
-  data: any;
-  submit: () => void;
+  data: any
+  submit: () => void
 }
 
 const Form = <T extends object>({
@@ -90,42 +90,42 @@ const Form = <T extends object>({
   height,
   lineGap
 }: FormProps<T>) => {
-  const [formData, setFormData] = useState(data || defaultData || {});
-  const [formErrors, setFormErrors] = useState([] as ErrorList);
-  const formDataValidators = useRef({} as any);
-  const shouldAutoValidForm = useRef(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = useState(data || defaultData || {})
+  const [formErrors, setFormErrors] = useState([] as ErrorList)
+  const formDataValidators = useRef({} as any)
+  const shouldAutoValidForm = useRef(false)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     if (data) {
-      setFormData(data);
+      setFormData(data)
       if (shouldAutoValidForm.current) {
-        validForm(data);
+        validForm(data)
       }
     }
-  }, [data]);
+  }, [data])
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
       validate(formDataValidators.current, newFormData, errorList => {
-        setFormErrors(errorList);
-      });
+        setFormErrors(errorList)
+      })
     }
-  };
+  }
 
   if (name) {
     Form[name] = {
       get data() {
-        return formData;
+        return formData
       },
       submit() {
         validate(formDataValidators.current, formData, errorList => {
-          shouldAutoValidForm.current = true;
-          setFormErrors(errorList);
-          onSubmit && onSubmit(formData as T, errorList);
-        });
+          shouldAutoValidForm.current = true
+          setFormErrors(errorList)
+          onSubmit && onSubmit(formData as T, errorList)
+        })
       }
-    };
+    }
   }
 
   const newChildren = overrideChildren(children, (elementName, props) => {
@@ -140,36 +140,36 @@ const Form = <T extends object>({
       elementName === 'Switch'
     ) {
       let inputProps = props as {
-        name?: string;
-        onChange?: ChangeEventHandler<HTMLInputElement>;
-        onValueChange?: (val: string) => void;
-        label?: FormItemLabelProps | string;
-        value?: any;
-        rules?: RuleItem[] | RuleItem;
-        error?: FormErrorText;
-        style?: CSSProperties;
-      };
+        name?: string
+        onChange?: ChangeEventHandler<HTMLInputElement>
+        onValueChange?: (val: string) => void
+        label?: FormItemLabelProps | string
+        value?: any
+        rules?: RuleItem[] | RuleItem
+        error?: FormErrorText
+        style?: CSSProperties
+      }
 
       if (lineGap) {
-        inputProps.style = { marginBottom: lineGap, ...inputProps.style };
+        inputProps.style = { marginBottom: lineGap, ...inputProps.style }
       }
 
       if (inputProps.name) {
         if (formData[inputProps.name] === undefined) {
           if (elementName === 'CheckBoxGroup') {
-            formData[inputProps.name] = [];
+            formData[inputProps.name] = []
           } else {
-            formData[inputProps.name] = '';
+            formData[inputProps.name] = ''
           }
         }
 
-        inputProps.error = undefined;
+        inputProps.error = undefined
         if (formErrors) {
           formErrors.forEach(error => {
             if (error.field === inputProps.name) {
-              inputProps.error = { show: true, message: error.message };
+              inputProps.error = { show: true, message: error.message }
             }
-          });
+          })
         }
 
         if (inputProps.rules) {
@@ -181,26 +181,26 @@ const Form = <T extends object>({
             ) {
               rule.transform = value => {
                 if (!rule.required && !value) {
-                  return '';
+                  return ''
                 }
-                return Number(value);
-              };
+                return Number(value)
+              }
             }
-          };
+          }
           if (Array.isArray(inputProps.rules)) {
             inputProps.rules.forEach(rule => {
-              updateRule(rule);
-            });
+              updateRule(rule)
+            })
           } else {
-            updateRule(inputProps.rules);
+            updateRule(inputProps.rules)
           }
-          formDataValidators.current[inputProps.name] = inputProps.rules;
+          formDataValidators.current[inputProps.name] = inputProps.rules
         }
 
         inputProps = {
           ...inputProps,
           value: formData[inputProps.name]
-        };
+        }
 
         // const clearError = () => {
         //   if (formErrors) {
@@ -214,22 +214,22 @@ const Form = <T extends object>({
         //   }
         // };
 
-        const formItemOnChange = inputProps.onChange;
-        const formItemOnValueChange = inputProps.onValueChange;
+        const formItemOnChange = inputProps.onChange
+        const formItemOnValueChange = inputProps.onValueChange
 
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
             const newFormData = {
               ...formData,
               [inputProps.name!]: evt.target.value
-            };
-            if (data === undefined) {
-              setFormData(newFormData);
             }
-            onDataChange && onDataChange(newFormData as T);
-            formItemOnChange && formItemOnChange(evt);
-            validForm(newFormData);
-          };
+            if (data === undefined) {
+              setFormData(newFormData)
+            }
+            onDataChange && onDataChange(newFormData as T)
+            formItemOnChange && formItemOnChange(evt)
+            validForm(newFormData)
+          }
         } else if (
           [
             'RadioGroup',
@@ -242,67 +242,67 @@ const Form = <T extends object>({
           ].includes(elementName)
         ) {
           inputProps.onValueChange = value => {
-            const newFormData = { ...formData, [inputProps.name!]: value };
+            const newFormData = { ...formData, [inputProps.name!]: value }
             if (data === undefined) {
-              setFormData(newFormData);
+              setFormData(newFormData)
             }
-            onDataChange && onDataChange(newFormData as T);
-            formItemOnValueChange && formItemOnValueChange(value);
-            validForm(newFormData);
-          };
+            onDataChange && onDataChange(newFormData as T)
+            formItemOnValueChange && formItemOnValueChange(value)
+            validForm(newFormData)
+          }
         }
       }
 
       const combinedLabelStyle: FormItemLabelProps =
         typeof inputProps.label === 'object'
           ? { ...labelLayout, ...inputProps.label }
-          : { ...labelLayout, text: inputProps.label || '' };
+          : { ...labelLayout, text: inputProps.label || '' }
       inputProps = {
         ...inputProps,
         label: combinedLabelStyle
-      };
+      }
 
-      return inputProps;
+      return inputProps
     } else if (elementName === 'ButtonGroup') {
-      let inputProps = props;
+      let inputProps = props
       const combinedLabelStyle: FormItemLabelProps =
         typeof inputProps.label === 'object'
           ? { ...labelLayout, ...inputProps.label }
-          : { ...labelLayout, text: inputProps.label || '' };
+          : { ...labelLayout, text: inputProps.label || '' }
       inputProps = {
         ...inputProps,
         label: combinedLabelStyle
-      };
-      return inputProps;
+      }
+      return inputProps
     } else if (elementName === 'Button') {
-      const buttonProps = props as ButtonProps;
+      const buttonProps = props as ButtonProps
       if (buttonProps.submit) {
-        const buttonOnClick = buttonProps.onClick;
+        const buttonOnClick = buttonProps.onClick
         if (buttonProps.loading === undefined) {
-          buttonProps.loading = submitting;
+          buttonProps.loading = submitting
         }
         buttonProps.onClick = evt => {
-          buttonOnClick && buttonOnClick(evt);
+          buttonOnClick && buttonOnClick(evt)
           validate(formDataValidators.current, formData, errorList => {
-            shouldAutoValidForm.current = true;
-            setFormErrors(errorList);
+            shouldAutoValidForm.current = true
+            setFormErrors(errorList)
             if (onSubmit) {
-              const loadingPromise = onSubmit(formData as T, errorList);
+              const loadingPromise = onSubmit(formData as T, errorList)
               if (loadingPromise && typeof loadingPromise === 'object') {
-                setSubmitting(true);
-                ((loadingPromise as unknown) as Promise<unknown>).then(() => {
-                  buttonProps.loading = false;
-                  setSubmitting(false);
-                });
+                setSubmitting(true)
+                ;((loadingPromise as unknown) as Promise<unknown>).then(() => {
+                  buttonProps.loading = false
+                  setSubmitting(false)
+                })
               }
             }
-          });
-        };
+          })
+        }
       }
-      return buttonProps;
+      return buttonProps
     }
-    return props;
-  });
+    return props
+  })
 
   return (
     <div
@@ -311,7 +311,7 @@ const Form = <T extends object>({
     >
       {newChildren}
     </div>
-  );
-};
+  )
+}
 
-export { Form };
+export { Form }

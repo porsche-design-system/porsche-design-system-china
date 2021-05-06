@@ -1,5 +1,5 @@
-import { IconArrowHeadRight, IconClose } from '@pui/icons';
-import React, { useState } from 'react';
+import { IconArrowHeadRight, IconClose } from '@pui/icons'
+import React, { useState } from 'react'
 
 import {
   Select,
@@ -16,28 +16,31 @@ import {
   CheckBox,
   DatePicker,
   Switch
-} from '../..';
+} from '../..'
 
 export default {
   title: 'Data Entry/Form',
   component: Form
-};
+}
 
 export const ExampleStoryBook = () => {
-  const [labelLayout, setLabelLayout] = useState({});
-  const [buttonAlign, setButtonAlign] = useState('left');
-  const [data, setData] = useState({ lastName: '李' });
+  const [labelLayout, setLabelLayout] = useState({})
+  const [buttonAlign, setButtonAlign] = useState('left')
+  const [data, setData] = useState({ lastName: '李' })
 
   return (
     <div>
       <RadioGroup
         label={{ text: '表单标签显示方式', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
-          setLabelLayout(JSON.parse(value));
+          setLabelLayout(JSON.parse(value))
         }}
         value={JSON.stringify({ position: 'top' })}
       >
-        <Radio text="标签文字在上面" value={JSON.stringify({ position: 'top' })} />
+        <Radio
+          text="标签文字在上面"
+          value={JSON.stringify({ position: 'top' })}
+        />
         <Radio
           text="标签文字在左边"
           value={JSON.stringify({
@@ -54,7 +57,7 @@ export const ExampleStoryBook = () => {
       <RadioGroup
         label={{ text: '底部按钮位置', style: { fontWeight: 'bold' } }}
         onValueChange={value => {
-          setButtonAlign(value);
+          setButtonAlign(value)
         }}
         value={buttonAlign}
       >
@@ -70,10 +73,11 @@ export const ExampleStoryBook = () => {
             labelLayout={labelLayout}
             data={data}
             onDataChange={d => {
-              setData(d);
+              setData(d)
             }}
             onSubmit={(data, error) => {
-              console.log('submit', data);
+              console.log('submit', data)
+              console.log('error', error)
             }}
           >
             <Input
@@ -89,8 +93,18 @@ export const ExampleStoryBook = () => {
               width="54%"
               rules={{ required: true, message: '必须填写' }}
             />
-            <DatePicker name="birthday" label="生日" width="44%" marginRight="2%" />
-            <Select options="男:male,女:female" label="性别" width="54%" name="gender" />
+            <DatePicker
+              name="birthday"
+              label="生日"
+              width="44%"
+              marginRight="2%"
+            />
+            <Select
+              options="男:male,女:female"
+              label="性别"
+              width="54%"
+              name="gender"
+            />
             <Input
               label="电子邮件"
               name="email"
@@ -117,7 +131,7 @@ export const ExampleStoryBook = () => {
               rules={[
                 {
                   validator: (_, val) => {
-                    return val.length >= 3;
+                    return val.length >= 3
                   },
                   message: '请选择至少3个爱好'
                 }
@@ -148,5 +162,5 @@ export const ExampleStoryBook = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}

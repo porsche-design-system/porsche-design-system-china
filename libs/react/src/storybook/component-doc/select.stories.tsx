@@ -1,10 +1,10 @@
-import React from 'react';
-import { Select, Form } from '../..';
+import React from 'react'
+import { Select, Form } from '../..'
 
 export default {
   title: 'Data Entry/Select',
   component: Select
-};
+}
 
 export const SelectStoryBook = () => {
   return (
@@ -20,10 +20,13 @@ export const SelectStoryBook = () => {
         <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
 
         <div>出错状态</div>
-        <Select options="狗,猫,狮子,老虎,鲸鱼" error={{ show: true, message: '未选择' }} />
+        <Select
+          options="狗,猫,狮子,老虎,鲸鱼"
+          error={{ show: true, message: '未选择' }}
+        />
       </Form>
     </div>
-  );
-};
+  )
+}
 
-SelectStoryBook.storyName = 'Select';
+SelectStoryBook.storyName = 'Select'

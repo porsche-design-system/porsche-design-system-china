@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Pagination, Row, Col } from '../../';
-import './pagination.stories.scss';
+import React, { useState } from 'react'
+import { Pagination, Row, Col } from '../../'
+import './pagination.stories.scss'
 
 export default {
   title: 'Navigation/Pagination',
   component: Pagination
-};
+}
 
 export const PaginationStoryBook = () => {
-  const [current, setCurrent] = useState(3);
+  const [current, setCurrent] = useState(3)
   const onChange = (page: number) => {
-    console.log(page);
-    setCurrent(page);
-  };
+    console.log(page)
+    setCurrent(page)
+  }
   return (
     <>
       <Row className="row-cls">
@@ -46,7 +46,7 @@ export const PaginationStoryBook = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-PaginationStoryBook.storyName = 'Pagination';
+PaginationStoryBook.storyName = 'Pagination'

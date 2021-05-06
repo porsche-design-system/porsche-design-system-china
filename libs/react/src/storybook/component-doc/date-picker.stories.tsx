@@ -1,10 +1,10 @@
-import React from 'react';
-import { DatePicker } from '../../';
+import React from 'react'
+import { DatePicker } from '../../'
 
 export default {
   title: 'Data Entry/DatePicker',
   component: DatePicker
-};
+}
 
 export const DatePickerStoryBook = () => {
   return (
@@ -14,13 +14,18 @@ export const DatePickerStoryBook = () => {
         label="来访日期"
         placeholder="请选择"
         onValueChange={v => {
-          console.log(v);
+          console.log(v)
         }}
       />
       <br />
       <br />
       <div>禁用状态</div>
-      <DatePicker width="300px" label="来访日期" placeholder="请选择" disabled />
+      <DatePicker
+        width="300px"
+        label="来访日期"
+        placeholder="请选择"
+        disabled
+      />
       <br /> <br /> <br />
       <div>出错状态</div>
       <DatePicker
@@ -59,5 +64,5 @@ export const DatePickerStoryBook = () => {
       />
       <br /> <br /> <br />
     </div>
-  );
-};
+  )
+}

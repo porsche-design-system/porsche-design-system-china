@@ -62,8 +62,7 @@
       }
 
       &-body {
-        overflow-x: auto;
-        overflow-y: scroll;
+        overflow: auto;
         table {
           background-color: $background-color-2;
           .pui-table-fixed-left,

@@ -1,42 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
   IconArrowHeadRight,
   IconCalendar,
   IconArrowDoubleRight
-} from '@pui/icons';
+} from '@pui/icons'
 
-import { FormItem } from '../form/form-item';
-import { FormErrorText } from '../error-text/error-text';
-import { usePopShowState } from '../../shared/hooks';
-import { componentClassNames } from '../../shared/class-util';
-import './date-picker.scss';
+import { FormItem } from '../form/form-item'
+import { FormErrorText } from '../error-text/error-text'
+import { usePopShowState } from '../../shared/hooks'
+import { componentClassNames } from '../../shared/class-util'
+import './date-picker.scss'
 
 export interface DatePickerProps {
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 默认值 */
-  defaultValue?: string;
+  defaultValue?: string
 
   /* 值 */
-  value?: string;
+  value?: string
 
   /* 占位符 */
-  placeholder?: string;
+  placeholder?: string
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string) => void
 
   /* 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
-  range?: string | [string, string] | [Date, Date];
+  range?: string | [string, string] | [Date, Date]
 
   /* 提示错误 */
-  error?: FormErrorText;
+  error?: FormErrorText
 }
 
 const DatePicker = FormItem(
@@ -51,7 +51,7 @@ const DatePicker = FormItem(
     placeholder
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
-      const datePart = dateStr.split('-');
+      const datePart = dateStr.split('-')
       if (datePart.length === 3) {
         if (
           /^\d{4}$/.test(datePart[0]) &&
@@ -62,124 +62,136 @@ const DatePicker = FormItem(
             parseInt(datePart[0]),
             parseInt(datePart[1]) - 1,
             parseInt(datePart[2])
-          );
-          return date;
+          )
+          return date
         }
       }
       if (dateStr !== '') {
-        console.error('"' + dateStr + '" 不是正确的日期');
+        console.error('"' + dateStr + '" 不是正确的日期')
       }
-      return null;
-    };
+      return null
+    }
 
-    const initDate = strToDate(value || defaultValue || '');
-    const [calenderOpen, setCalendarOpen] = usePopShowState();
+    const initDate = strToDate(value || defaultValue || '')
+    const [calenderOpen, setCalendarOpen] = usePopShowState()
     // 当前日期
-    const [currentDate, setCurrentDate] = useState(new Date());
+    const [currentDate, setCurrentDate] = useState(new Date())
     // 选中的Date
-    const [pickedDate, setPickedDate] = useState<Date | null>(initDate);
-    const [displayValue, setDisplayValue] = useState(initDate ? value || defaultValue || '' : '');
-    const [calendarDates, setCalendarDates] = useState<Date[]>([]);
+    const [pickedDate, setPickedDate] = useState<Date | null>(initDate)
+    const [displayValue, setDisplayValue] = useState(
+      initDate ? value || defaultValue || '' : ''
+    )
+    const [calendarDates, setCalendarDates] = useState<Date[]>([])
     // 日历上显示的Date
-    const displayDate = useRef<Date>(initDate || new Date());
+    const displayDate = useRef<Date>(initDate || new Date())
 
     if (typeof range === 'string') {
       if (/In(\d)Days/.test(range)) {
-        const days = RegExp.$1;
-        const endDate = new Date();
-        endDate.setDate(endDate.getDate() + parseInt(days) - 1);
-        range = [new Date(), endDate];
+        const days = RegExp.$1
+        const endDate = new Date()
+        endDate.setDate(endDate.getDate() + parseInt(days) - 1)
+        range = [new Date(), endDate]
       } else {
-        range = range.split(',') as [string, string];
+        range = range.split(',') as [string, string]
       }
     }
 
     if (Array.isArray(range) && range.length === 2) {
       if (typeof range[0] === 'string' && typeof range[1] === 'string') {
-        const startDate = strToDate(range[0]);
-        const endDate = strToDate(range[1]);
+        const startDate = strToDate(range[0])
+        const endDate = strToDate(range[1])
         if (!startDate) {
-          console.error('Format Incorrect', range[0]);
+          console.error('Format Incorrect', range[0])
         }
         if (!endDate) {
-          console.error('Format Incorrect', range[1]);
+          console.error('Format Incorrect', range[1])
         }
         if (startDate && endDate) {
-          range = [startDate, endDate];
+          range = [startDate, endDate]
         }
       } else {
-        range = range as [Date, Date];
+        range = range as [Date, Date]
       }
     } else {
-      range = undefined;
+      range = undefined
     }
 
     const updateCalendar = () => {
-      const calenderFirstDate = new Date(displayDate.current);
-      calenderFirstDate.setDate(1);
+      const calenderFirstDate = new Date(displayDate.current)
+      calenderFirstDate.setDate(1)
       while (calenderFirstDate.getDay() !== 0) {
-        calenderFirstDate.setDate(calenderFirstDate.getDate() - 1);
+        calenderFirstDate.setDate(calenderFirstDate.getDate() - 1)
       }
 
-      const calDates: Date[] = [];
-      const calDate = calenderFirstDate;
+      const calDates: Date[] = []
+      const calDate = calenderFirstDate
 
       while (true) {
-        calDates.push(new Date(calDate));
-        calDate.setDate(calDate.getDate() + 1);
-        const nextDay = new Date(calDate);
-        nextDay.setDate(nextDay.getDate() + 1);
-        if (calDate.getDay() === 6 && nextDay.getMonth() !== displayDate.current.getMonth()) {
-          calDates.push(new Date(calDate));
-          break;
+        calDates.push(new Date(calDate))
+        calDate.setDate(calDate.getDate() + 1)
+        const nextDay = new Date(calDate)
+        nextDay.setDate(nextDay.getDate() + 1)
+        if (
+          calDate.getDay() === 6 &&
+          nextDay.getMonth() !== displayDate.current.getMonth()
+        ) {
+          calDates.push(new Date(calDate))
+          break
         }
       }
-      setCalendarDates(calDates);
-    };
+      setCalendarDates(calDates)
+    }
 
     const inDateRange = (date: Date) => {
       if (range) {
-        range = range as [Date, Date];
-        range[0].setHours(0);
-        range[0].setMinutes(0);
-        range[0].setSeconds(0);
-        range[1].setHours(23);
-        range[1].setMinutes(59);
-        range[1].setSeconds(59);
-        return date.getTime() >= range[0].getTime() && date.getTime() <= range[1].getTime();
+        range = range as [Date, Date]
+        range[0].setHours(0)
+        range[0].setMinutes(0)
+        range[0].setSeconds(0)
+        range[1].setHours(23)
+        range[1].setMinutes(59)
+        range[1].setSeconds(59)
+        return (
+          date.getTime() >= range[0].getTime() &&
+          date.getTime() <= range[1].getTime()
+        )
       }
-      return true;
-    };
+      return true
+    }
 
     useEffect(() => {
       if (value) {
-        const date = strToDate(value);
+        const date = strToDate(value)
         if (date) {
-          setPickedDate(date);
-          setDisplayValue(dateToStr(date));
+          setPickedDate(date)
+          setDisplayValue(dateToStr(date))
         }
       }
-    }, [value]);
+    }, [value])
 
     const dateToStr = (date: Date) => {
       const addZero = (n: number) => {
         if (n < 10) {
-          return '0' + n;
+          return '0' + n
         }
-        return n;
-      };
+        return n
+      }
       return (
-        date.getFullYear() + '-' + addZero(date.getMonth() + 1) + '-' + addZero(date.getDate())
-      );
-    };
+        date.getFullYear() +
+        '-' +
+        addZero(date.getMonth() + 1) +
+        '-' +
+        addZero(date.getDate())
+      )
+    }
 
     const sameDate = (d1: Date, d2: Date) => {
       return (
         d1.getFullYear() === d2.getFullYear() &&
         d1.getMonth() === d2.getMonth() &&
         d1.getDate() === d2.getDate()
-      );
-    };
+      )
+    }
 
     return (
       <div
@@ -190,21 +202,24 @@ const DatePicker = FormItem(
         )}
       >
         <input
-          className={'pui-date-picker-box ' + (calenderOpen ? 'pui-date-picker-box-active' : '')}
+          className={
+            'pui-date-picker-box ' +
+            (calenderOpen ? 'pui-date-picker-box-active' : '')
+          }
           readOnly
           placeholder={placeholder}
           value={displayValue}
           disabled={disabled}
           onClick={evt => {
-            evt.stopPropagation();
-            setCalendarOpen(!calenderOpen);
-            setCurrentDate(new Date());
+            evt.stopPropagation()
+            setCalendarOpen(!calenderOpen)
+            setCurrentDate(new Date())
             displayDate.current = pickedDate
               ? new Date(pickedDate)
               : range
               ? (range as [Date, Date])[0]
-              : new Date();
-            updateCalendar();
+              : new Date()
+            updateCalendar()
           }}
         />
         <IconCalendar className="pui-date-picker-icon" />
@@ -212,37 +227,46 @@ const DatePicker = FormItem(
           <div
             className="pui-date-picker-calendar"
             onClick={evt => {
-              evt.stopPropagation();
+              evt.stopPropagation()
             }}
           >
             <div className="pui-date-picker-calendar-head">
               <div className="pui-date-picker-calendar-head-left">
                 <IconArrowDoubleLeft
                   onClick={() => {
-                    displayDate.current.setFullYear(displayDate.current.getFullYear() - 1);
+                    displayDate.current.setFullYear(
+                      displayDate.current.getFullYear() - 1
+                    )
 
-                    updateCalendar();
+                    updateCalendar()
                   }}
                 />
                 <IconArrowHeadLeft
                   onClick={() => {
-                    displayDate.current.setMonth(displayDate.current.getMonth() - 1);
-                    updateCalendar();
+                    displayDate.current.setMonth(
+                      displayDate.current.getMonth() - 1
+                    )
+                    updateCalendar()
                   }}
                 />
               </div>
-              {displayDate.current.getFullYear()}年{displayDate.current.getMonth() + 1}月
+              {displayDate.current.getFullYear()}年
+              {displayDate.current.getMonth() + 1}月
               <div className="pui-date-picker-calendar-head-right">
                 <IconArrowHeadRight
                   onClick={() => {
-                    displayDate.current.setMonth(displayDate.current.getMonth() + 1);
-                    updateCalendar();
+                    displayDate.current.setMonth(
+                      displayDate.current.getMonth() + 1
+                    )
+                    updateCalendar()
                   }}
                 />
                 <IconArrowDoubleRight
                   onClick={() => {
-                    displayDate.current.setFullYear(displayDate.current.getFullYear() + 1);
-                    updateCalendar();
+                    displayDate.current.setFullYear(
+                      displayDate.current.getFullYear() + 1
+                    )
+                    updateCalendar()
                   }}
                 />
               </div>
@@ -261,9 +285,13 @@ const DatePicker = FormItem(
                     key={date.getTime() + ''}
                     className={
                       'pui-date-picker-calendar-block ' +
-                      (!inDateRange(date) ? 'pui-date-picker-calendar-unavailable' : '') +
+                      (!inDateRange(date)
+                        ? 'pui-date-picker-calendar-unavailable'
+                        : '') +
                       ' ' +
-                      (sameDate(date, currentDate) ? 'pui-date-picker-calendar-today' : '') +
+                      (sameDate(date, currentDate)
+                        ? 'pui-date-picker-calendar-today'
+                        : '') +
                       ' ' +
                       (pickedDate && sameDate(date, pickedDate)
                         ? 'pui-date-picker-calendar-picked'
@@ -271,26 +299,26 @@ const DatePicker = FormItem(
                     }
                     onClick={() => {
                       if (!inDateRange(date)) {
-                        return;
+                        return
                       }
                       if (value === undefined) {
-                        setPickedDate(new Date(date));
-                        setDisplayValue(dateToStr(date));
+                        setPickedDate(new Date(date))
+                        setDisplayValue(dateToStr(date))
                       }
-                      setCalendarOpen(false);
-                      onValueChange && onValueChange(dateToStr(date));
+                      setCalendarOpen(false)
+                      onValueChange && onValueChange(dateToStr(date))
                     }}
                   >
                     {date.getDate()}
                   </div>
-                );
+                )
               })}
             </div>
           </div>
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-export { DatePicker };
+export { DatePicker }

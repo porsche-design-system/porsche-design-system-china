@@ -1,54 +1,54 @@
-import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
-import { componentClassNames } from '../../shared/class-util';
-import './radio.scss';
+import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import { componentClassNames } from '../../shared/class-util'
+import './radio.scss'
 
 export interface RadioProps {
   // 组件属性 //
 
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 显示文字 */
-  text?: string;
+  text?: string
 
   /* 分组名 */
-  name?: string;
+  name?: string
 
   /* 值 */
-  value?: string;
+  value?: string
 
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 是否选定 */
-  checked?: boolean;
+  checked?: boolean
 
   /* 默认选定 */
-  defaultChecked?: boolean;
+  defaultChecked?: boolean
 
   /* 大小 */
-  size?: 'default' | 'small';
+  size?: 'default' | 'small'
 
   /* 选定事件 */
-  onCheckedChange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void
 
   /* 点击事件 */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 /**
  * Primary UI component for user interaction
  */
-let idCounter = 0;
+let idCounter = 0
 const generateId = () => {
-  idCounter++;
-  return 'radio-' + idCounter;
-};
+  idCounter++
+  return 'radio-' + idCounter
+}
 const Radio = (props: RadioProps) => {
-  const id = useMemo(() => generateId(), []);
+  const id = useMemo(() => generateId(), [])
   const {
     className,
     style,
@@ -61,12 +61,16 @@ const Radio = (props: RadioProps) => {
     checked,
     defaultChecked,
     size = 'default'
-  } = props;
+  } = props
 
   return (
     <label
       htmlFor={id}
-      className={componentClassNames('pui-radio', { disabled: disabled + '', size }, className)}
+      className={componentClassNames(
+        'pui-radio',
+        { disabled: disabled + '', size },
+        className
+      )}
       style={style}
     >
       <input
@@ -76,8 +80,8 @@ const Radio = (props: RadioProps) => {
         value={value}
         onClick={(props as any).onClick}
         onChange={evt => {
-          onChange && onChange(evt);
-          onCheckedChange && onCheckedChange(evt.target.checked);
+          onChange && onChange(evt)
+          onCheckedChange && onCheckedChange(evt.target.checked)
         }}
         disabled={disabled}
         checked={checked}
@@ -86,8 +90,8 @@ const Radio = (props: RadioProps) => {
       <span className="pui-radio-checkmark" />
       {text}
     </label>
-  );
-};
+  )
+}
 
-Radio.displayName = 'Radio';
-export { Radio };
+Radio.displayName = 'Radio'
+export { Radio }

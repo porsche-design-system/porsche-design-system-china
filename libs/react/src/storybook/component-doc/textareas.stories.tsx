@@ -1,11 +1,11 @@
-import React from 'react';
-import { Col, Row, TextArea } from '../../';
+import React from 'react'
+import { Col, Row, TextArea } from '../../'
 
-import './textareas.stories.scss';
+import './textareas.stories.scss'
 
 export default {
   title: 'Data Entry/TextArea'
-};
+}
 
 export const InputsStoryBook = () => {
   return (
@@ -37,7 +37,10 @@ export const InputsStoryBook = () => {
         <br />
         <div className="states">Label Left</div>
         <div>
-          <TextArea label={{ text: '备注', position: 'left' }} placeholder="请输入" />
+          <TextArea
+            label={{ text: '备注', position: 'left' }}
+            placeholder="请输入"
+          />
         </div>
         <div className="states">Label Left / Text Align Right</div>
         <div>
@@ -48,5 +51,5 @@ export const InputsStoryBook = () => {
         </div>
       </Col>
     </Row>
-  );
-};
+  )
+}

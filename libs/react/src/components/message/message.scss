@@ -7,6 +7,7 @@
     .pui-message {
       &.open-animate {
         animation: openAnimate 0.2s ease-in;
+        height: 0;
       }
       &.close-animate {
         animation: closeAnimate 0.2s ease-in;

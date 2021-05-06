@@ -1,52 +1,52 @@
-import { IconCheck } from '@pui/icons';
-import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
-import { componentClassNames } from '../../shared/class-util';
-import './checkbox.scss';
+import { IconCheck } from '@pui/icons'
+import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import { componentClassNames } from '../../shared/class-util'
+import './checkbox.scss'
 
 export interface CheckBoxProps {
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 显示文字 */
-  text?: string;
+  text?: string
 
   /* 选项值 */
-  value?: string;
+  value?: string
 
   /* 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 大小 */
-  size?: 'default' | 'small';
+  size?: 'default' | 'small'
 
   /* 点击事件 */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>
 
   /* 值改变事件 */
-  onCheckedChange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void
 
   /* 是否选定 */
-  checked?: boolean;
+  checked?: boolean
 
   /* 是否默认选定 */
-  defaultChecked?: boolean;
+  defaultChecked?: boolean
 }
 
 /**
  * Primary UI component for user interaction
  */
 
-let idCounter = 0;
+let idCounter = 0
 const generateId = () => {
-  idCounter++;
-  return 'checkbox-' + idCounter;
-};
+  idCounter++
+  return 'checkbox-' + idCounter
+}
 const CheckBox = ({
   className,
   text = '',
@@ -58,7 +58,7 @@ const CheckBox = ({
   onChange,
   onCheckedChange
 }: CheckBoxProps) => {
-  const id = useMemo(() => generateId(), []);
+  const id = useMemo(() => generateId(), [])
 
   return (
     <label
@@ -73,8 +73,8 @@ const CheckBox = ({
         id={id}
         type="checkbox"
         onChange={evt => {
-          onChange && onChange(evt);
-          onCheckedChange && onCheckedChange(evt.target.checked);
+          onChange && onChange(evt)
+          onCheckedChange && onCheckedChange(evt.target.checked)
         }}
         disabled={disabled}
         checked={checked}
@@ -86,7 +86,7 @@ const CheckBox = ({
       </span>
       {text}
     </label>
-  );
-};
-(CheckBox as any).displayName = 'CheckBox';
-export { CheckBox };
+  )
+}
+;(CheckBox as any).displayName = 'CheckBox'
+export { CheckBox }

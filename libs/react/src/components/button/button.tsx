@@ -1,52 +1,52 @@
-import React, { CSSProperties, ReactElement } from 'react';
-import classNames from 'classnames';
-import { componentClassNames } from '../../shared/class-util';
-import { IconAdd } from '@pui/icons';
+import React, { CSSProperties, ReactElement } from 'react'
+import { IconAdd } from '@pui/icons'
+import classNames from 'classnames'
+import { componentClassNames } from '../../shared/class-util'
 
-import './button.scss';
+import './button.scss'
 
-type PUIIcon = typeof IconAdd;
+type PUIIcon = typeof IconAdd
 
 export interface ButtonProps {
   // 组件属性 //
 
   /** 类名 */
-  className?: string;
+  className?: string
 
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /** 类型 */
-  type?: 'default' | 'primary' | 'secondary' | 'text';
+  type?: 'default' | 'primary' | 'secondary' | 'text'
 
   /** 大小 */
-  size?: 'default' | 'small';
+  size?: 'default' | 'small'
 
   /** 图标 */
-  icon?: PUIIcon | ReactElement;
+  icon?: PUIIcon | ReactElement
 
   /** 是否加载中 */
-  loading?: boolean;
+  loading?: boolean
 
   /** 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 是否是表单提交按钮 */
-  submit?: boolean;
+  submit?: boolean
 
   /* 左边距 */
-  marginLeft?: string;
+  marginLeft?: string
 
   /* 右边距 */
-  marginRight?: string;
+  marginRight?: string
 
   // 组件事件 //
 
   /* 点击事件 */
-  onClick?: React.MouseEventHandler;
+  onClick?: React.MouseEventHandler
 }
 
 const Button = ({
@@ -62,17 +62,17 @@ const Button = ({
   marginLeft,
   onClick
 }: ButtonProps) => {
-  loading = loading || false;
-  let paddingStyle = {};
-  const padding = size === 'default' ? '11px' : '7px';
+  loading = loading || false
+  let paddingStyle = {}
+  const padding = size === 'default' ? '11px' : '7px'
   if (!children) {
-    paddingStyle = { padding: '0 ' + padding };
+    paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
-    paddingStyle = { paddingLeft: padding };
+    paddingStyle = { paddingLeft: padding }
   }
 
-  const loadingSize = size === 'default' ? 24 : 20;
-  const IconComponent = icon as any;
+  const loadingSize = size === 'default' ? 24 : 20
+  const IconComponent = icon as any
   return (
     <button
       type="button"
@@ -80,7 +80,7 @@ const Button = ({
       style={{ ...paddingStyle, marginLeft, marginRight, ...style }}
       onClick={evt => {
         if (!loading) {
-          onClick && onClick(evt);
+          onClick && onClick(evt)
         }
       }}
       disabled={disabled || loading}
@@ -129,8 +129,8 @@ const Button = ({
       )}
       <span className="pui-button-content">{children}</span>
     </button>
-  );
-};
+  )
+}
 
-Button.displayName = 'Button';
-export { Button };
+Button.displayName = 'Button'
+export { Button }

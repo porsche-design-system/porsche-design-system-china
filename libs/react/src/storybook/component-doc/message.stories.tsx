@@ -1,15 +1,15 @@
-import React from 'react';
-import { Button, Message } from '../..';
+import React from 'react'
+import { Button, Message } from '../..'
 
 export default {
   title: 'Feedback/Message'
-};
+}
 
 export const knobsMessage = () => {
-  const tx = 'Hello, this is a message from PUI';
+  const tx = 'Hello, this is a message from PUI'
   const onClick = (type: any, config?: any) => {
-    Message.pop(type, tx, config);
-  };
+    Message.pop(type, tx, config)
+  }
 
   return (
     <div>
@@ -25,9 +25,12 @@ export const knobsMessage = () => {
       <Button onClick={() => onClick('error')} type="primary">
         Error
       </Button>
-      <Button onClick={() => onClick('info', { closable: true })} type="default">
+      <Button
+        onClick={() => onClick('info', { closable: true })}
+        type="default"
+      >
         Closeable
       </Button>
     </div>
-  );
-};
+  )
+}

@@ -1,19 +1,19 @@
-import React, { CSSProperties } from 'react';
-import { componentClassNames } from '../../shared/class-util';
-import './row.scss';
+import React, { CSSProperties } from 'react'
+import { componentClassNames } from '../../shared/class-util'
+import './row.scss'
 
 export interface RowProps {
   // 组件属性 //
 
   /** 类名 */
-  className?: string;
+  className?: string
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 点击事件 */
-  onClick?: React.MouseEventHandler;
+  onClick?: React.MouseEventHandler
 }
 
 /**
@@ -21,10 +21,14 @@ export interface RowProps {
  */
 const Row = ({ className, style, children, onClick }: RowProps) => {
   return (
-    <div className={componentClassNames('pui-row', {}, className)} style={style} onClick={onClick}>
+    <div
+      className={componentClassNames('pui-row', {}, className)}
+      style={style}
+      onClick={onClick}
+    >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export { Row };
+export { Row }

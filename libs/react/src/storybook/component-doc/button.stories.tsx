@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   IconChat,
   IconArrowHeadRight,
@@ -7,19 +7,19 @@ import {
   IconAdd,
   IconBell,
   IconClose
-} from '@pui/icons';
+} from '@pui/icons'
 
-import { Button, Col, Row } from '../../';
-import './button.stories.scss';
+import { Button, Col, Row } from '../../'
+import './button.stories.scss'
 
 export default {
   title: 'Action/Button',
   component: Button
-};
+}
 
 export const ButtonStoryBook = () => {
-  const buttonTypes = ['default', 'primary', 'secondary', 'text'];
-  const [loading, setLoading] = useState(false);
+  const buttonTypes = ['default', 'primary', 'secondary', 'text']
+  const [loading, setLoading] = useState(false)
 
   const renderButtonType = (type: any) => {
     return (
@@ -41,7 +41,11 @@ export const ButtonStoryBook = () => {
           </Button>
         </Col>
         <Col>
-          <Button type={type} className={'pui-button-type-' + type + '-disabled'} disabled>
+          <Button
+            type={type}
+            className={'pui-button-type-' + type + '-disabled'}
+            disabled
+          >
             按钮
           </Button>
         </Col>
@@ -51,8 +55,8 @@ export const ButtonStoryBook = () => {
           </Button>
         </Col>
       </Row>
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -139,10 +143,10 @@ export const ButtonStoryBook = () => {
             type="primary"
             icon={IconArrowHeadRight}
             onClick={() => {
-              setLoading(true);
+              setLoading(true)
               setTimeout(() => {
-                setLoading(false);
-              }, 2000);
+                setLoading(false)
+              }, 2000)
             }}
           >
             提交
@@ -153,10 +157,10 @@ export const ButtonStoryBook = () => {
             icon={IconArrowRight}
             size="small"
             onClick={() => {
-              setLoading(true);
+              setLoading(true)
               setTimeout(() => {
-                setLoading(false);
-              }, 2000);
+                setLoading(false)
+              }, 2000)
             }}
           >
             提交
@@ -176,12 +180,12 @@ export const ButtonStoryBook = () => {
         </Row>
         <br />
         {buttonTypes.map(type => {
-          return renderButtonType(type);
+          return renderButtonType(type)
         })}
       </div>
       <br />
     </div>
-  );
-};
+  )
+}
 
-ButtonStoryBook.storyName = 'Button';
+ButtonStoryBook.storyName = 'Button'
