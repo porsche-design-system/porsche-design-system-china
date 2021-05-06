@@ -9,9 +9,12 @@ export default {
 };
 
 export const CheckBoxStoryBook = () => {
-  const [pickedValues, setPickedValues] = useState<string[]>(['singing', 'swimming', 'xxxx']);
+  const [pickedValues, setPickedValues] = useState<string[]>([
+    'singing',
+    'swimming',
+    'xxxx'
+  ]);
   const [showError, setShowError] = useState(true);
-  const [values, setValues] = useState(['男', '女']);
 
   return (
     <div>

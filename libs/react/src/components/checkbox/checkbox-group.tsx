@@ -55,7 +55,8 @@ const CheckBoxGroup = FormItem(
         const optionTextValue = optionPart.split(':');
         checkBoxOptions.push({
           text: optionTextValue[0],
-          value: optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+          value:
+            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
         });
       });
     } else if (Array.isArray(options)) {
@@ -72,7 +73,7 @@ const CheckBoxGroup = FormItem(
       <CheckBox key={'$CheckBox-' + inx} {...option} />
     ));
 
-    let newChildren = useMemo(() => {
+    const newChildren = useMemo(() => {
       checkBoxValues.current = value || [];
       const allValues: string[] = [];
       const newChildren = overrideChildren(
@@ -91,7 +92,8 @@ const CheckBoxGroup = FormItem(
             }
             checkboxProp.onChange = evt => {
               checkBoxOnChange && checkBoxOnChange(evt);
-              checkBoxOnCheckedChange && checkBoxOnCheckedChange(evt.target.checked);
+              checkBoxOnCheckedChange &&
+                checkBoxOnCheckedChange(evt.target.checked);
               if (evt.target.value) {
                 if (evt.target.checked) {
                   checkBoxValues.current.push(evt.target.value);

@@ -1,10 +1,11 @@
 import React, { CSSProperties, ReactElement } from 'react';
+import classNames from 'classnames';
 import { componentClassNames } from '../../shared/class-util';
 import { IconAdd } from '@pui/icons';
-type PUIIcon = typeof IconAdd;
 
 import './button.scss';
-import classNames from 'classnames';
+
+type PUIIcon = typeof IconAdd;
 
 export interface ButtonProps {
   // 组件属性 //
@@ -85,8 +86,17 @@ const Button = ({
       disabled={disabled || loading}
     >
       {loading && (
-        <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
-          <svg height={loadingSize} width={loadingSize} className="pui-button-loading-svg">
+        <span
+          className={classNames(
+            'pui-button-icon',
+            children ? 'pui-button-icon-content' : ''
+          )}
+        >
+          <svg
+            height={loadingSize}
+            width={loadingSize}
+            className="pui-button-loading-svg"
+          >
             <circle
               className="pui-button-loading-circle2"
               cx={loadingSize / 2}
@@ -104,8 +114,13 @@ const Button = ({
       )}
 
       {icon && !loading && (
-        <span className={classNames('pui-button-icon', children ? 'pui-button-icon-content' : '')}>
-          {IconComponent['$$typeof'].toString() === 'Symbol(react.element)' ? (
+        <span
+          className={classNames(
+            'pui-button-icon',
+            children ? 'pui-button-icon-content' : ''
+          )}
+        >
+          {IconComponent.$$typeof.toString() === 'Symbol(react.element)' ? (
             IconComponent
           ) : (
             <IconComponent />

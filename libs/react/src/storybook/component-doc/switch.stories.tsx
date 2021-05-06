@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, Form } from '../..';
 
 export default {
@@ -7,12 +7,12 @@ export default {
 };
 
 export const SwitchBook = () => {
-  const [value, setValue] = useState(true);
-
   return (
     <div>
       <Form>
-        <Switch label={{ text: '是否发送邮件', position: 'left', width: '120px' }} />
+        <Switch
+          label={{ text: '是否发送邮件', position: 'left', width: '120px' }}
+        />
         <Switch
           label={{ text: '禁用状态', position: 'left', width: '120px' }}
           disabled
@@ -30,14 +30,22 @@ export const SwitchBook = () => {
           }}
         />
         <Switch
-          label={{ text: '修改值为 false/true', position: 'left', width: '120px' }}
+          label={{
+            text: '修改值为 false/true',
+            position: 'left',
+            width: '120px'
+          }}
           alterValues="FalseOrTrue"
           onValueChange={val => {
             console.log(val);
           }}
         />
         <Switch
-          label={{ text: '修改值为 male/female', position: 'left', width: '120px' }}
+          label={{
+            text: '修改值为 male/female',
+            position: 'left',
+            width: '120px'
+          }}
           alterValues="Male,Female"
           onValueChange={val => {
             console.log(val);
