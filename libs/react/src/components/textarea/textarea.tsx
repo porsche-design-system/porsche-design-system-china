@@ -1,48 +1,48 @@
-import React, { ChangeEventHandler, CSSProperties, useState } from 'react';
-import { componentClassNames } from '../../shared/class-util';
-import { FormErrorText } from '../error-text/error-text';
-import { FormItemLabelProps } from '../form/form';
-import { FormItem } from '../form/form-item';
-import './textarea.scss';
+import React, { ChangeEventHandler, CSSProperties, useState } from 'react'
+import { componentClassNames } from '../../shared/class-util'
+import { FormErrorText } from '../error-text/error-text'
+import { FormItemLabelProps } from '../form/form'
+import { FormItem } from '../form/form-item'
+import './textarea.scss'
 
 export interface TextAreaProps {
   // 组件属性 //
 
   /* 类名 */
-  className?: string;
+  className?: string
 
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 标签 */
-  label?: FormItemLabelProps | string;
+  label?: FormItemLabelProps | string
 
   /* 占位符 */
-  placeholder?: string;
+  placeholder?: string
 
   /* 错误 */
-  error?: FormErrorText;
+  error?: FormErrorText
 
   /* 最多输入字符 */
-  maxLength?: number;
+  maxLength?: number
 
   /* 是否禁用 */
-  disabled?: boolean;
+  disabled?: boolean
 
   /* 表单绑定key，需要配合<Form>使用 */
-  name?: string;
+  name?: string
 
   /* 默认值 */
-  defaultValue?: string;
+  defaultValue?: string
 
   /* 值 */
-  value?: string;
+  value?: string
 
   /* 控件值改变事件 */
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string) => void
 }
 
 /**
@@ -60,12 +60,12 @@ const TextArea = FormItem(
     onChange,
     onValueChange
   }: TextAreaProps) => {
-    const [valueLength, setValueLength] = useState(0);
+    const [valueLength, setValueLength] = useState(0)
 
     const updateHeight = (element: HTMLTextAreaElement) => {
-      element.style.height = '5px';
-      element.style.height = element.scrollHeight + 20 + 'px';
-    };
+      element.style.height = '5px'
+      element.style.height = element.scrollHeight + 20 + 'px'
+    }
 
     return (
       <div
@@ -80,23 +80,23 @@ const TextArea = FormItem(
           defaultValue={defaultValue}
           ref={(element: HTMLTextAreaElement) => {
             if (maxLength && element) {
-              updateHeight(element);
+              updateHeight(element)
             }
           }}
           maxLength={maxLength}
           placeholder={placeholder}
           onChange={evt => {
-            onChange && onChange(evt);
-            onValueChange && onValueChange(evt.target.value);
+            onChange && onChange(evt)
+            onValueChange && onValueChange(evt.target.value)
           }}
           disabled={disabled}
           onInput={event => {
             if (maxLength) {
-              const inputLength = (event.target as any).value.length;
-              setValueLength(inputLength < maxLength ? inputLength : maxLength);
+              const inputLength = (event.target as any).value.length
+              setValueLength(inputLength < maxLength ? inputLength : maxLength)
               if (maxLength) {
-                const element = event.target as HTMLTextAreaElement;
-                updateHeight(element);
+                const element = event.target as HTMLTextAreaElement
+                updateHeight(element)
               }
             }
           }}
@@ -110,9 +110,9 @@ const TextArea = FormItem(
           </div>
         )}
       </div>
-    );
+    )
   }
-);
+)
 
-(TextArea as any).displayName = 'TextArea';
-export { TextArea };
+;(TextArea as any).displayName = 'TextArea'
+export { TextArea }

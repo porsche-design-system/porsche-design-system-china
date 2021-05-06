@@ -1,19 +1,19 @@
-import React, { CSSProperties } from 'react';
-import { componentClassNames } from '../../shared/class-util';
-import './divider.scss';
+import React, { CSSProperties } from 'react'
+import { componentClassNames } from '../../shared/class-util'
+import './divider.scss'
 
 export interface DividerProps {
   /* 类名 */
-  className?: string;
+  className?: string
 
   /* 水平还是垂直类型 */
-  type?: 'horizontal' | 'vertical';
+  type?: 'horizontal' | 'vertical'
 
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 底色 */
-  contrast?: 'low' | 'medium' | 'high';
+  contrast?: 'low' | 'medium' | 'high'
 }
 
 const Divider = ({
@@ -30,8 +30,8 @@ const Divider = ({
         className
       )}
       style={style}
-    ></div>
-  );
-};
+    />
+  )
+}
 
-export { Divider };
+export { Divider }

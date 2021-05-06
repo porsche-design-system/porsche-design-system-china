@@ -1,11 +1,11 @@
-import { IconEdit } from '@pui/icons';
-import React from 'react';
-import { Table, Button, TableColumn, Modal } from '../..';
+import { IconEdit } from '@pui/icons'
+import React from 'react'
+import { Table, Button, TableColumn, Modal } from '../..'
 
 export default {
   title: 'Data Display/Table',
   component: Table
-};
+}
 
 const rowData = {
   dealerName: '上海浦东保时捷中心',
@@ -14,11 +14,11 @@ const rowData = {
   address: '上海市东方路123号',
   workingTime: '10:00AM - 10:30PM',
   saleModel: '911 718 Taycan Panamera Macan Cayenne'
-};
+}
 
-const tableData: any[] = [];
+const tableData: any[] = []
 for (let i = 0; i < 15; i++) {
-  tableData.push(rowData);
+  tableData.push(rowData)
 }
 
 const columns: TableColumn[] = [
@@ -44,17 +44,17 @@ const columns: TableColumn[] = [
                 <div>
                   <b>{rowData.dealerName}</b> 已删除！
                 </div>
-              );
-            });
+              )
+            })
           }}
         >
           删除
         </Button>
-        <Button icon={IconEdit} type="text"></Button>
+        <Button icon={IconEdit} type="text" />
       </>
     )
   }
-];
+]
 
 export const TableStoryBook = () => {
   return (
@@ -65,11 +65,11 @@ export const TableStoryBook = () => {
         selectable
         maxRows={10}
         onSelect={data => {
-          console.log(data);
+          console.log(data)
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-TableStoryBook.storyName = 'Table';
+TableStoryBook.storyName = 'Table'

@@ -1,14 +1,22 @@
-import React from 'react';
+import React from 'react'
 
-import './loading.scss';
+import './loading.scss'
 
-export const Loading = ({ visible = false }: { visible?: boolean }) => {
-  const loadingSize = 40;
+export interface LoadingProps {
+  visible: boolean
+}
+
+export const Loading = ({ visible = false }: LoadingProps) => {
+  const loadingSize = 40
   return (
     <>
       {visible && (
         <div className="pui-loading">
-          <svg height={loadingSize} width={loadingSize} className="pui-loading-svg">
+          <svg
+            height={loadingSize}
+            width={loadingSize}
+            className="pui-loading-svg"
+          >
             <circle
               className="pui-loading-circle2"
               cx={loadingSize / 2}
@@ -25,5 +33,5 @@ export const Loading = ({ visible = false }: { visible?: boolean }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}

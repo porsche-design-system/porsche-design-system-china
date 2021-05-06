@@ -1,59 +1,59 @@
-import React, { CSSProperties } from 'react';
-import { getLabelWidth, Label, getLabelProps } from '../label/label';
-import { FormItemLabelProps } from './form';
-import { ErrorText, FormErrorText } from '../error-text/error-text';
-import { RuleItem } from '../../shared/validation-rules';
+import React, { CSSProperties } from 'react'
+import { getLabelWidth, Label, getLabelProps } from '../label/label'
+import { FormItemLabelProps } from './form'
+import { ErrorText, FormErrorText } from '../error-text/error-text'
+import { RuleItem } from '../../shared/validation-rules'
 
-import './form-item.scss';
+import './form-item.scss'
 
 export interface FormItemProps {
   /* 标签 */
-  label?: FormItemLabelProps | string;
+  label?: FormItemLabelProps | string
 
   /* 表单绑定key，需要配合<Form>使用 */
-  name?: string;
+  name?: string
 
   /* 错误 */
-  error?: FormErrorText;
+  error?: FormErrorText
 
   /* 验证规则 */
-  rules?: RuleItem[] | RuleItem;
+  rules?: RuleItem[] | RuleItem
 
   /* 宽度 */
-  width?: string;
+  width?: string
 
   /* 左边距 */
-  marginLeft?: string;
+  marginLeft?: string
 
   /* 右边距 */
-  marginRight?: string;
+  marginRight?: string
 
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 }
 
-const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormItemProps & T) => {
-  const { label, error, width, marginLeft, marginRight, rules, style } = props;
+const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (
+  props: FormItemProps & T
+) => {
+  const { label, error, width, marginLeft, marginRight, rules, style } = props
 
-  let required = false;
+  let required = false
   if (rules) {
     if (Array.isArray(rules)) {
       rules.forEach(rule => {
         if (rule.required) {
-          required = true;
+          required = true
         }
-      });
-    } else {
-      if (rules.required) {
-        required = true;
-      }
+      })
+    } else if (rules.required) {
+      required = true
     }
   }
 
-  const labelWidth = getLabelWidth(label);
-  const labelProps = getLabelProps(label);
+  const labelWidth = getLabelWidth(label)
+  const labelProps = getLabelProps(label)
 
-  const comp = func(props) as any;
+  const comp = func(props) as any
   const labelStyle =
     labelProps.position === 'left' &&
     comp.props.className &&
@@ -62,10 +62,13 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
       comp.props.className.indexOf('pui-select') >= 0 ||
       comp.props.className.indexOf('pui-date-picker') >= 0)
       ? { marginTop: '11px' }
-      : {};
+      : {}
 
   return (
-    <div className="pui-form-item" style={{ ...style, width, marginLeft, marginRight }}>
+    <div
+      className="pui-form-item"
+      style={{ ...style, width, marginLeft, marginRight }}
+    >
       {label && (
         <Label
           requiredMark={required}
@@ -73,10 +76,12 @@ const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (props: FormIt
           style={{ ...labelProps.style, ...labelStyle }}
         />
       )}
-      {React.cloneElement(comp, { style: { width: `calc(100% - ${labelWidth})` } })}
+      {React.cloneElement(comp, {
+        style: { width: `calc(100% - ${labelWidth})` }
+      })}
       {error && error.show && <ErrorText {...error} label={label} />}
     </div>
-  );
-};
+  )
+}
 
-export { FormItem };
+export { FormItem }

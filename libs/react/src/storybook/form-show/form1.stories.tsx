@@ -1,5 +1,5 @@
-import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons';
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons'
 
 import {
   Button,
@@ -12,26 +12,26 @@ import {
   DatePicker,
   Select,
   CheckBoxGroup
-} from '../..';
+} from '../..'
 
 export default {
   title: 'Form Example/Form 1',
   component: Form
-};
+}
 
 interface FormData {
-  contact: string;
-  address: string;
-  mobile: string;
-  dealer: string;
-  date: string;
-  services: string[];
-  invoice: string;
-  invoiceType: string;
+  contact: string
+  address: string
+  mobile: string
+  dealer: string
+  date: string
+  services: string[]
+  invoice: string
+  invoiceType: string
 }
 
 export const ExampleStoryBook = () => {
-  const [data, setData] = useState<FormData>({} as any);
+  const [data, setData] = useState<FormData>({} as any)
 
   return (
     <div>
@@ -46,7 +46,7 @@ export const ExampleStoryBook = () => {
             services: ['上漆'],
             invoice: 'yes',
             invoiceType: '电子发票'
-          });
+          })
         }}
         type="text"
       >
@@ -65,12 +65,12 @@ export const ExampleStoryBook = () => {
           if (!errors) {
             return new Promise(resolve => {
               setTimeout(() => {
-                resolve('');
-              }, 2000);
-            });
+                resolve('')
+              }, 2000)
+            })
           }
-          // eslint-disable-next-line no-useless-return
-          return;
+          // eslint-disable-next-line consistent-return,no-useless-return
+          return
         }}
       >
         <Input
@@ -109,9 +109,9 @@ export const ExampleStoryBook = () => {
           alterValues="no,yes"
           onValueChange={val => {
             if (val === 'no') {
-              data.invoiceType = '';
-              data.invoice = val;
-              setData({ ...data });
+              data.invoiceType = ''
+              data.invoice = val
+              setData({ ...data })
             }
           }}
         />
@@ -139,12 +139,12 @@ export const ExampleStoryBook = () => {
       <Button
         type="primary"
         onClick={() => {
-          Form['form1'].submit();
+          Form['form1'].submit()
         }}
       >
         外部按钮提交
       </Button>
       <div>{JSON.stringify(data)}</div>
     </div>
-  );
-};
+  )
+}

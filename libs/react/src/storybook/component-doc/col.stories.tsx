@@ -1,12 +1,12 @@
-import React from 'react';
-import { Col, Row } from '../../';
+import React from 'react'
+import { Col, Row } from '../../'
 
-import './col.stories.scss';
+import './col.stories.scss'
 
 export default {
   title: 'Layout/Col',
   component: Col
-};
+}
 
 export const ColStoryBook = () => {
   return (
@@ -37,5 +37,5 @@ export const ColStoryBook = () => {
         <Col className="col2">自动宽度</Col>
       </Row>
     </div>
-  );
-};
+  )
+}

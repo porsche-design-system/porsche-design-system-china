@@ -1,200 +1,196 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { renderToString } from 'react-dom/server';
-import { componentClassNames } from '../../shared/class-util';
-import { CheckBox } from '../checkbox/checkbox';
-import './table.scss';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import { renderToString } from 'react-dom/server'
+import { componentClassNames } from '../../shared/class-util'
+import { CheckBox } from '../checkbox/checkbox'
+import './table.scss'
 
 export interface TableColumn {
-  title?: string;
-  key?: string;
-  width?: number;
-  fixed?: 'none' | 'left' | 'right';
-  multiline?: boolean;
-  sortable?: boolean;
-  customCell?: (rowData: any) => React.ReactNode;
+  title?: string
+  key?: string
+  width?: number
+  fixed?: 'none' | 'left' | 'right'
+  multiline?: boolean
+  sortable?: boolean
+  customCell?: (rowData: any) => React.ReactNode
 }
 
 export interface TableProps {
   /* 类名 */
-  className?: string;
+  className?: string
+
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 列属性 */
-  columns: TableColumn[];
+  columns: TableColumn[]
 
   /* 数据 */
-  data: any[];
+  data: any[]
 
   /* 可选定行 */
-  selectable?: boolean;
+  selectable?: boolean
 
   /* 最大行数 */
-  maxRows?: number;
+  maxRows?: number
 
   /* 排序事件 */
-  onSort?: (columnName: string) => void;
+  // onSort?: (columnName: string) => void
 
   /* 选定事件 */
-  onSelect?: (selectedRowData: any[]) => void;
+  onSelect?: (selectedRowData: any[]) => void
 }
 
-/**
- * Primary UI component for user interaction
- */
 const Table = ({
   className,
   style,
   columns,
   data,
-  onSort,
+  // onSort,
   onSelect,
   maxRows,
   selectable = false
 }: TableProps) => {
-  const middleColumns: TableColumn[] = [];
-  const leftColumns: TableColumn[] = [];
-  const rightColumns: TableColumn[] = [];
+  const middleColumns: TableColumn[] = []
+  const leftColumns: TableColumn[] = []
+  const rightColumns: TableColumn[] = []
 
-  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [selectedRows, setSelectedRows] = useState<number[]>([])
   useEffect(() => {
-    setSelectedRows([]);
-  }, [data]);
+    setSelectedRows([])
+  }, [data])
 
   columns.forEach(col => {
     if (col.fixed === 'left') {
-      leftColumns.push(col);
+      leftColumns.push(col)
     } else if (col.fixed === 'right') {
-      rightColumns.push(col);
+      rightColumns.push(col)
     } else if (col.fixed === 'none' || !col.fixed) {
-      middleColumns.push(col);
+      middleColumns.push(col)
     }
-  });
+  })
 
-  const [isScrollLeft, setIsScrollLeft] = useState(false);
-  const [isScrollRight, setIsScrollRight] = useState(false);
+  const [isScrollLeft, setIsScrollLeft] = useState(false)
+  const [isScrollRight, setIsScrollRight] = useState(false)
 
-  const headRef = useRef<any>(null);
-  const bodyRef = useRef<any>(null);
+  const headRef = useRef<any>(null)
+  const bodyRef = useRef<any>(null)
 
   const wheelMove = (tableContainer: HTMLDivElement) => {
     if (tableContainer) {
       tableContainer.onwheel = (evt: any) => {
-        const variationX = parseInt(evt.deltaX);
-        const variationY = parseInt(evt.deltaY);
+        const variationX = parseInt(evt.deltaX)
+        const variationY = parseInt(evt.deltaY)
 
-        headRef.current.scrollLeft += variationX;
-        bodyRef.current.scrollLeft = headRef.current.scrollLeft;
-        bodyRef.current.scrollTop += variationY;
+        headRef.current.scrollLeft += variationX
+        bodyRef.current.scrollLeft = headRef.current.scrollLeft
+        bodyRef.current.scrollTop += variationY
 
         const scrollXPercentage =
           headRef.current.scrollLeft /
           (bodyRef.current.children[0].offsetWidth -
-            bodyRef.current.offsetWidth);
+            bodyRef.current.offsetWidth)
 
-        setIsScrollLeft(scrollXPercentage > 0.02);
-        setIsScrollRight(scrollXPercentage < 0.98);
+        setIsScrollLeft(scrollXPercentage > 0.02)
+        setIsScrollRight(scrollXPercentage < 0.98)
 
         const scrollYPercentage =
           bodyRef.current.scrollTop /
           (bodyRef.current.children[0].offsetHeight -
-            bodyRef.current.offsetHeight);
+            bodyRef.current.offsetHeight)
 
         if (scrollYPercentage > 0.01 && scrollYPercentage < 0.99) {
-          evt.preventDefault();
+          evt.preventDefault()
         }
 
         if (
           (scrollXPercentage === 0 && variationX < 0) ||
           (scrollXPercentage === 1 && variationX > 0)
         ) {
-          evt.preventDefault();
+          evt.preventDefault()
         }
-      };
+      }
     }
-  };
+  }
 
   const tableBodyRefLoaded = (elem: HTMLDivElement) => {
     if (elem) {
-      bodyRef.current = elem;
+      bodyRef.current = elem
       elem.onscroll = (evt: any) => {
         if (headRef.current) {
-          headRef.current.scrollLeft = evt.target.scrollLeft;
+          headRef.current.scrollLeft = evt.target.scrollLeft
         }
-      };
+      }
 
       const scrollXPercentage =
         headRef.current.scrollLeft /
-        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth);
+        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth)
 
-      setIsScrollLeft(scrollXPercentage > 0.02);
-      setIsScrollRight(scrollXPercentage < 0.98);
+      setIsScrollLeft(scrollXPercentage > 0.02)
+      setIsScrollRight(scrollXPercentage < 0.98)
     }
-  };
+  }
 
   const getByteLength = (str: string) => {
-    let count = str.length;
+    let count = str.length
     for (let i = 0; i < str.length; i++) {
       if (str.charCodeAt(i) > 255) {
-        count++;
+        count++
       }
     }
-    return count;
-  };
+    return count
+  }
 
   const removeHtml = (str: string) => {
-    return str.replace(/<[^>]+>/g, '');
-  };
+    return str.replace(/<[^>]+>/g, '')
+  }
 
-  const defaultWidth = 150;
-  const charWidth = 8;
-  const selectColumnWidth = 50;
-  const paddingLeftRight = 40;
-  let columnsTableWidth = 0;
+  const defaultWidth = 150
+  const charWidth = 8
+  const selectColumnWidth = 50
+  const paddingLeftRight = 40
+  let columnsTableWidth = 0
   columns.forEach(col => {
     if (col.width === undefined) {
-      col.width = 0;
+      col.width = 0
 
       if (col.customCell) {
         data.forEach(d => {
           const dataColWidth =
             getByteLength(
               removeHtml(renderToString(col.customCell!(d) as any))
-            ) * charWidth;
-          col.width = col.width! < dataColWidth ? dataColWidth : col.width;
-        });
+            ) * charWidth
+          col.width = col.width! < dataColWidth ? dataColWidth : col.width
+        })
+      } else if (!col.key) {
+        col.width = defaultWidth
       } else {
-        if (!col.key) {
-          col.width = defaultWidth;
-        } else {
-          data.forEach(d => {
-            if (d[col.key!]) {
-              const dataColWidth = getByteLength(d[col.key!]) * charWidth;
-              col.width = col.width! < dataColWidth ? dataColWidth : col.width;
-            }
-          });
-        }
+        data.forEach(d => {
+          if (d[col.key!]) {
+            const dataColWidth = getByteLength(d[col.key!]) * charWidth
+            col.width = col.width! < dataColWidth ? dataColWidth : col.width
+          }
+        })
       }
-      const headColWidth = getByteLength(col.title || '') * charWidth;
-      col.width = col.width < headColWidth ? headColWidth : col.width;
-      col.width += paddingLeftRight;
+      const headColWidth = getByteLength(col.title || '') * charWidth
+      col.width = col.width < headColWidth ? headColWidth : col.width
+      col.width += paddingLeftRight
     }
-    columnsTableWidth += col.width;
-  });
+    columnsTableWidth += col.width
+  })
 
-  columnsTableWidth += selectable ? selectColumnWidth : 0;
-  const tableWidth = columnsTableWidth + 'px';
-  const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto';
+  columnsTableWidth += selectable ? selectColumnWidth : 0
+  const tableWidth = columnsTableWidth + 'px'
+  const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto'
 
   const renderMeasureCell = (column: TableColumn, inx: number) => {
     return (
       <td
         key={'measure' + inx}
-        className={'pui-table-measure'}
+        className="pui-table-measure"
         style={{ width: column.width + 'px' }}
       />
-    );
-  };
+    )
+  }
 
   const renderTitleCell = (
     column: TableColumn,
@@ -210,8 +206,8 @@ const Table = ({
       >
         {column.title || ''}
       </td>
-    );
-  };
+    )
+  }
 
   const renderDataCell = (
     column: TableColumn,
@@ -234,36 +230,36 @@ const Table = ({
           ? column.customCell(rowData)
           : column.key && rowData[column.key]}
       </td>
-    );
-  };
+    )
+  }
 
-  const fixColumnLeft: number[] = [0];
-  let accumulateLeft = 0;
+  const fixColumnLeft: number[] = [0]
+  let accumulateLeft = 0
   if (selectable) {
-    accumulateLeft += selectColumnWidth;
-    fixColumnLeft.push(accumulateLeft);
+    accumulateLeft += selectColumnWidth
+    fixColumnLeft.push(accumulateLeft)
   }
   leftColumns.forEach(col => {
-    accumulateLeft += col.width!;
-    fixColumnLeft.push(accumulateLeft);
-  });
+    accumulateLeft += col.width!
+    fixColumnLeft.push(accumulateLeft)
+  })
 
-  const fixColumnRight: number[] = [0];
-  let accumulateRight = 0;
+  const fixColumnRight: number[] = [0]
+  let accumulateRight = 0
   rightColumns.forEach(col => {
-    accumulateRight += col.width!;
-    fixColumnRight.push(accumulateRight);
-  });
-  fixColumnRight.reverse().splice(0, 1);
+    accumulateRight += col.width!
+    fixColumnRight.push(accumulateRight)
+  })
+  fixColumnRight.reverse().splice(0, 1)
 
   const selectCallback = (sRows: number[]) => {
-    const rowData: any[] = [];
+    const rowData: any[] = []
     sRows.forEach(rowInx => {
-      rowData.push(JSON.parse(JSON.stringify(data[rowInx])));
-    });
-    setSelectedRows([...sRows]);
-    onSelect && onSelect(rowData);
-  };
+      rowData.push(JSON.parse(JSON.stringify(data[rowInx])))
+    })
+    setSelectedRows([...sRows])
+    onSelect && onSelect(rowData)
+  }
 
   return (
     <div
@@ -300,15 +296,15 @@ const Table = ({
                       size="small"
                       onCheckedChange={checked => {
                         if (checked) {
-                          const fullSelectedRows: number[] = [];
+                          const fullSelectedRows: number[] = []
                           for (let i = 0; i < data.length; i++) {
-                            fullSelectedRows.push(i);
+                            fullSelectedRows.push(i)
                           }
-                          setSelectedRows(fullSelectedRows);
-                          selectCallback(fullSelectedRows);
+                          setSelectedRows(fullSelectedRows)
+                          selectCallback(fullSelectedRows)
                         } else {
-                          setSelectedRows([]);
-                          selectCallback([]);
+                          setSelectedRows([])
+                          selectCallback([])
                         }
                       }}
                     />
@@ -317,7 +313,7 @@ const Table = ({
                 {leftColumns.map((column, inx) => {
                   return renderTitleCell(column, inx, 'left', {
                     left: fixColumnLeft[inx + (selectable ? 1 : 0)] + 'px'
-                  });
+                  })
                 })}
                 {middleColumns.map((column, inx) =>
                   renderTitleCell(column, inx, null, {})
@@ -366,11 +362,11 @@ const Table = ({
                         size="small"
                         onCheckedChange={checked => {
                           if (checked) {
-                            selectedRows.push(inx);
+                            selectedRows.push(inx)
                           } else {
-                            selectedRows.splice(selectedRows.indexOf(inx), 1);
+                            selectedRows.splice(selectedRows.indexOf(inx), 1)
                           }
-                          selectCallback(selectedRows);
+                          selectCallback(selectedRows)
                         }}
                         checked={selectedRows.includes(inx)}
                       />
@@ -396,7 +392,7 @@ const Table = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { Table };
+export { Table }

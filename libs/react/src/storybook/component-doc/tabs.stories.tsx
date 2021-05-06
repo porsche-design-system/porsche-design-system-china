@@ -1,10 +1,10 @@
-import React from 'react';
-import { Tabs, TabPane, Input } from '../../';
+import React from 'react'
+import { Tabs, TabPane, Input } from '../../'
 
 export default {
   title: 'Data Display/Tabs',
   component: Tabs
-};
+}
 
 export const TabsStoryBook = () => {
   return (
@@ -32,7 +32,7 @@ export const TabsStoryBook = () => {
         </Tabs>
       </div>
     </div>
-  );
-};
+  )
+}
 
-TabsStoryBook.storyName = 'Tabs';
+TabsStoryBook.storyName = 'Tabs'

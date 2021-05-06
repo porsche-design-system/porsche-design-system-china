@@ -1,23 +1,26 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
-import React, { CSSProperties, useEffect, useState } from 'react';
-import { componentClassNames, overrideChildren } from '../../shared/class-util';
-import './tabs.scss';
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { componentClassNames, overrideChildren } from '../../shared/class-util'
+import './tabs.scss'
 
 export interface TabsProps {
   // 组件属性 //
 
   /** 类名 */
-  className?: string;
+  className?: string
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
   /** 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /** 大小 */
-  size?: 'default' | 'small';
+  size?: 'default' | 'small'
 
   /** 默认选中的面板  */
-  defaultActiveKey?: string;
+  defaultActiveKey?: string
 }
 
 const Tabs = ({
@@ -27,31 +30,31 @@ const Tabs = ({
   defaultActiveKey = '',
   children
 }: TabsProps) => {
-  const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey);
+  const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey)
 
-  const tabHead: TabPaneProps[] = [];
-  let keyIndex = 0;
+  const tabHead: TabPaneProps[] = []
+  let keyIndex = 0
 
   const newChildren = overrideChildren(
     children,
     (elementName, props: TabPaneProps) => {
       if (elementName === 'TabPane') {
         if (!props.tabKey) {
-          props.tabKey = '$TabKey' + keyIndex;
-          keyIndex++;
+          props.tabKey = '$TabKey' + keyIndex
+          keyIndex++
         }
-        tabHead.push(props);
-        (props as any).show = tabActiveKey === props.tabKey;
+        tabHead.push(props)
+        ;(props as any).show = tabActiveKey === props.tabKey
       }
-      return props;
+      return props
     }
-  );
+  )
 
   useEffect(() => {
     if (!defaultActiveKey) {
-      setTabActiveKey(tabHead[0].tabKey!);
+      setTabActiveKey(tabHead[0].tabKey!)
     }
-  }, []);
+  }, [])
 
   return (
     <div
@@ -67,7 +70,7 @@ const Tabs = ({
             })}
             key={'TabKey' + inx}
             onClick={() => {
-              setTabActiveKey(tabProps.tabKey!);
+              setTabActiveKey(tabProps.tabKey!)
             }}
           >
             <span>{tabProps.title}</span>
@@ -76,34 +79,30 @@ const Tabs = ({
       </div>
       <div className="pui-tabs-body">{newChildren}</div>
     </div>
-  );
-};
+  )
+}
 
 interface TabPaneProps {
   /** 选项卡头显示文字 */
-  title: string;
+  title: string
 
   /** 对应 activeKey */
-  tabKey?: string;
+  tabKey?: string
 
   /** 子组件 */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
 
 const TabPane = (props: TabPaneProps) => {
   return (
-    <>
-      {
-        <div
-          style={{ display: (props as any).show ? 'block' : 'none' }}
-          className="pui-tabs-content"
-        >
-          {props.children}
-        </div>
-      }
-    </>
-  );
-};
+    <div
+      style={{ display: (props as any).show ? 'block' : 'none' }}
+      className="pui-tabs-content"
+    >
+      {props.children}
+    </div>
+  )
+}
 
-TabPane.displayName = 'TabPane';
-export { Tabs, TabPane };
+TabPane.displayName = 'TabPane'
+export { Tabs, TabPane }

@@ -1,28 +1,28 @@
-import React, { CSSProperties } from 'react';
-import { IconAsterisk } from '@pui/icons';
-import { componentClassNames } from '../../shared/class-util';
-import './label.scss';
+import React, { CSSProperties } from 'react'
+import { IconAsterisk } from '@pui/icons'
+import { componentClassNames } from '../../shared/class-util'
+import './label.scss'
 
 export interface LabelProps {
   /* 类名 */
-  className?: string;
+  className?: string
   /* 样式 */
-  style?: CSSProperties;
+  style?: CSSProperties
 
   /* 标签 */
-  text: string;
+  text: string
 
   /* 标签位置 */
-  textAlign?: 'left' | 'right';
+  textAlign?: 'left' | 'right'
 
   /* 位置 */
-  position?: 'left' | 'top';
+  position?: 'left' | 'top'
 
   /* 标签宽度 */
-  width?: string;
+  width?: string
 
   /* 显示必填星号 */
-  requiredMark?: boolean;
+  requiredMark?: boolean
 }
 
 /**
@@ -36,16 +36,16 @@ const Label = (props: LabelProps) => {
     position = 'top',
     textAlign = 'left',
     requiredMark = false
-  } = props as LabelProps;
+  } = props as LabelProps
 
   const star = (
     <span className="pui-label-star">
       <IconAsterisk style={{ fontSize: '13px' }} />
     </span>
-  );
+  )
 
   if (!text && position === 'top') {
-    return null;
+    return null
   }
 
   return (
@@ -61,34 +61,34 @@ const Label = (props: LabelProps) => {
       {text}
       {requiredMark && textAlign === 'left' && star}
     </div>
-  );
-};
+  )
+}
 
 const getLabelWidth = (props?: LabelProps | string) => {
   if (typeof props === 'string' || !props) {
-    return '0px';
+    return '0px'
   }
 
   if (typeof props === 'object') {
     if (props.position === 'top' || !props.position) {
-      return '0px';
+      return '0px'
     }
   }
-  let width = null;
+  let width = null
   if (typeof props === 'object') {
-    width = props.width;
+    width = props.width
   }
-  return width || '100px';
-};
+  return width || '100px'
+}
 
 const getLabelProps = (props?: LabelProps | string): LabelProps => {
   if (!props) {
-    return { text: '' };
+    return { text: '' }
   }
   if (typeof props === 'string') {
-    return { text: props };
+    return { text: props }
   }
-  return props;
-};
+  return props
+}
 
-export { Label, getLabelWidth, getLabelProps };
+export { Label, getLabelWidth, getLabelProps }

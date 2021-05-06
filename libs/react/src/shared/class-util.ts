@@ -1,34 +1,38 @@
-import React, { ReactNode } from 'react';
-import cn from 'classnames';
+import React, { ReactNode } from 'react'
+import cn from 'classnames'
 
 export const componentClassNames = (
   prefix: string,
   classNames: { [key: string]: string },
   overrideClassName: string = ''
 ) => {
-  const args: string[] = [prefix];
+  const args: string[] = [prefix]
   for (const k in classNames) {
-    args.push(prefix + '-' + k + '-' + classNames[k]);
+    args.push(prefix + '-' + k + '-' + classNames[k])
   }
   if (overrideClassName) {
-    args.push(overrideClassName);
+    args.push(overrideClassName)
   }
-  return cn(...args);
-};
+  return cn(...args)
+}
 
 export const overrideChildren = (
   children: ReactNode,
-  overrideProps: (elementType: string, elementProps: any, elementIndex?: number) => any
+  overrideProps: (
+    elementType: string,
+    elementProps: any,
+    elementIndex?: number
+  ) => any
 ) => {
   if (!children) {
-    return null;
+    return null
   }
-  const newChildrenArray: any = [];
-  const childrenArray = React.Children.toArray(children);
+  const newChildrenArray: any = []
+  const childrenArray = React.Children.toArray(children)
 
   childrenArray.forEach((node: any, index: number) => {
     if (node.type) {
-      const type: string = node.type.displayName || node.type;
+      const type: string = node.type.displayName || node.type
       node = React.cloneElement(
         node,
         overrideProps(
@@ -39,10 +43,10 @@ export const overrideChildren = (
           },
           index
         )
-      );
+      )
     }
-    newChildrenArray.push(node);
-  });
+    newChildrenArray.push(node)
+  })
 
-  return newChildrenArray;
-};
+  return newChildrenArray
+}

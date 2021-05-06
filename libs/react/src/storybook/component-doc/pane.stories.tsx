@@ -1,11 +1,11 @@
-import { IconArrowHeadRight } from '@pui/icons';
-import React from 'react';
-import { Pane, Input, Col, Row, Button, Form } from '../..';
+import { IconArrowHeadRight } from '@pui/icons'
+import React from 'react'
+import { Pane, Input, Col, Row, Button, Form } from '../..'
 
 export default {
   title: 'Data Display/Pane',
   component: Pane
-};
+}
 
 export const RadioStoryBook = () => {
   return (
@@ -31,7 +31,10 @@ export const RadioStoryBook = () => {
               </Row>
             </Form>
           </Pane>
-          <Pane padding="10px" style={{ backgroundColor: '#4A4E51', textAlign: 'right' }}>
+          <Pane
+            padding="10px"
+            style={{ backgroundColor: '#4A4E51', textAlign: 'right' }}
+          >
             <Button icon={IconArrowHeadRight}>返回</Button>
             <Button icon={IconArrowHeadRight} type="primary">
               提交
@@ -40,7 +43,7 @@ export const RadioStoryBook = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-RadioStoryBook.storyName = 'Pane';
+RadioStoryBook.storyName = 'Pane'

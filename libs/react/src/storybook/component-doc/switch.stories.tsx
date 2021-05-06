@@ -1,10 +1,10 @@
-import React from 'react';
-import { Switch, Form } from '../..';
+import React from 'react'
+import { Switch, Form } from '../..'
 
 export default {
   title: 'Data Entry/Switch',
   component: Switch
-};
+}
 
 export const SwitchBook = () => {
   return (
@@ -16,7 +16,7 @@ export const SwitchBook = () => {
         <Switch
           label={{ text: '禁用状态', position: 'left', width: '120px' }}
           disabled
-          value={true}
+          value
         />
         <Switch
           label={{ text: '出错状态', position: 'left', width: '120px' }}
@@ -26,7 +26,7 @@ export const SwitchBook = () => {
           label={{ text: '修改值为 0/1', position: 'left', width: '120px' }}
           alterValues="ZeroOrOne"
           onValueChange={val => {
-            console.log(val);
+            console.log(val)
           }}
         />
         <Switch
@@ -37,7 +37,7 @@ export const SwitchBook = () => {
           }}
           alterValues="FalseOrTrue"
           onValueChange={val => {
-            console.log(val);
+            console.log(val)
           }}
         />
         <Switch
@@ -48,10 +48,10 @@ export const SwitchBook = () => {
           }}
           alterValues="Male,Female"
           onValueChange={val => {
-            console.log(val);
+            console.log(val)
           }}
         />
       </Form>
     </div>
-  );
-};
+  )
+}

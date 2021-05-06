@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Radio, RadioGroup, Form } from '../..';
+import React, { useState } from 'react'
+import { Radio, RadioGroup, Form } from '../..'
 
 export default {
   title: 'Data Entry/Radio',
   component: Radio
-};
+}
 
 export const RadioStoryBook = () => {
-  const [showError, setShowError] = useState(true);
-  const [pickedValue, setPickedValue] = useState('医生');
+  const [showError, setShowError] = useState(true)
+  const [pickedValue, setPickedValue] = useState('医生')
 
   return (
     <div>
       <Form>
         <RadioGroup
           onValueChange={value => {
-            console.log(value);
+            console.log(value)
           }}
           defaultValue="val3"
         >
@@ -59,7 +59,7 @@ export const RadioStoryBook = () => {
           label={{ text: '职业', position: 'left' }}
           error={{ show: showError, message: '请选择' }}
           onValueChange={() => {
-            setShowError(false);
+            setShowError(false)
           }}
         >
           <Radio text="教师" />
@@ -75,7 +75,7 @@ export const RadioStoryBook = () => {
           label={{ text: '职业', position: 'left' }}
           value={pickedValue}
           onValueChange={value => {
-            setPickedValue(value);
+            setPickedValue(value)
           }}
         >
           <Radio text="教师" value="教师" />
@@ -89,7 +89,7 @@ export const RadioStoryBook = () => {
         <RadioGroup options="教师,医生,警察,律师" />
       </Form>
     </div>
-  );
-};
+  )
+}
 
-RadioStoryBook.storyName = 'Radio';
+RadioStoryBook.storyName = 'Radio'

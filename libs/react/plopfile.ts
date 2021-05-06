@@ -1,9 +1,9 @@
-module.exports = function (plop: any) {
+module.exports = (plop: any) => {
   // controller generator
-  plop.addHelper('headCaps', function (param: string) {
-    const p = param.trim();
-    return p.slice(0, 1).toUpperCase() + p.slice(1);
-  });
+  plop.addHelper('headCaps', (param: string) => {
+    const p = param.trim()
+    return p.slice(0, 1).toUpperCase() + p.slice(1)
+  })
   plop.setGenerator('component', {
     description: 'create component',
     prompts: [
@@ -30,5 +30,5 @@ module.exports = function (plop: any) {
         templateFile: 'plop-template/componentStories.hbs'
       }
     ]
-  });
-};
+  })
+}
