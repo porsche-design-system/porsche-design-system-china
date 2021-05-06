@@ -89,14 +89,16 @@ const Table = ({
 
         const scrollXPercentage =
           headRef.current.scrollLeft /
-          (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth);
+          (bodyRef.current.children[0].offsetWidth -
+            bodyRef.current.offsetWidth);
 
         setIsScrollLeft(scrollXPercentage > 0.02);
         setIsScrollRight(scrollXPercentage < 0.98);
 
         const scrollYPercentage =
           bodyRef.current.scrollTop /
-          (bodyRef.current.children[0].offsetHeight - bodyRef.current.offsetHeight);
+          (bodyRef.current.children[0].offsetHeight -
+            bodyRef.current.offsetHeight);
 
         if (scrollYPercentage > 0.01 && scrollYPercentage < 0.99) {
           evt.preventDefault();
@@ -131,8 +133,8 @@ const Table = ({
   };
 
   const getByteLength = (str: string) => {
-    var count = str.length;
-    for (var i = 0; i < str.length; i++) {
+    let count = str.length;
+    for (let i = 0; i < str.length; i++) {
       if (str.charCodeAt(i) > 255) {
         count++;
       }
@@ -156,7 +158,9 @@ const Table = ({
       if (col.customCell) {
         data.forEach(d => {
           const dataColWidth =
-            getByteLength(removeHtml(renderToString(col.customCell!(d) as any))) * charWidth;
+            getByteLength(
+              removeHtml(renderToString(col.customCell!(d) as any))
+            ) * charWidth;
           col.width = col.width! < dataColWidth ? dataColWidth : col.width;
         });
       } else {
@@ -199,7 +203,11 @@ const Table = ({
     style: CSSProperties
   ) => {
     return (
-      <td key={'head' + inx} className={fixed ? 'pui-table-fixed-' + fixed : ''} style={style}>
+      <td
+        key={'head' + inx}
+        className={fixed ? 'pui-table-fixed-' + fixed : ''}
+        style={style}
+      >
         {column.title || ''}
       </td>
     );
@@ -222,7 +230,9 @@ const Table = ({
         }
         style={style}
       >
-        {column.customCell ? column.customCell(rowData) : column.key && rowData[column.key]}
+        {column.customCell
+          ? column.customCell(rowData)
+          : column.key && rowData[column.key]}
       </td>
     );
   };
@@ -282,7 +292,10 @@ const Table = ({
               </tr>
               <tr>
                 {selectable && (
-                  <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
+                  <td
+                    className="pui-table-fixed-left pui-table-selectable"
+                    style={{ left: 0 }}
+                  >
                     <CheckBox
                       size="small"
                       onCheckedChange={checked => {
@@ -306,15 +319,23 @@ const Table = ({
                     left: fixColumnLeft[inx + (selectable ? 1 : 0)] + 'px'
                   });
                 })}
-                {middleColumns.map((column, inx) => renderTitleCell(column, inx, null, {}))}
+                {middleColumns.map((column, inx) =>
+                  renderTitleCell(column, inx, null, {})
+                )}
                 {rightColumns.map((column, inx) =>
-                  renderTitleCell(column, inx, 'right', { right: fixColumnRight[inx] + 'px' })
+                  renderTitleCell(column, inx, 'right', {
+                    right: fixColumnRight[inx] + 'px'
+                  })
                 )}
               </tr>
             </tbody>
           </table>
         </div>
-        <div className="pui-table-body" ref={tableBodyRefLoaded} style={{ height: tableHeight }}>
+        <div
+          className="pui-table-body"
+          ref={tableBodyRefLoaded}
+          style={{ height: tableHeight }}
+        >
           <table style={{ width: tableWidth }}>
             <tbody>
               <tr>
@@ -332,10 +353,15 @@ const Table = ({
               {data.map((rowData, inx) => (
                 <tr
                   key={'row' + inx}
-                  className={selectedRows.includes(inx) ? 'pui-table-selected-row' : ''}
+                  className={
+                    selectedRows.includes(inx) ? 'pui-table-selected-row' : ''
+                  }
                 >
                   {selectable && (
-                    <td className="pui-table-fixed-left pui-table-selectable" style={{ left: 0 }}>
+                    <td
+                      className="pui-table-fixed-left pui-table-selectable"
+                      style={{ left: 0 }}
+                    >
                       <CheckBox
                         size="small"
                         onCheckedChange={checked => {

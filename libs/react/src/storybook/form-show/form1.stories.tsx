@@ -61,7 +61,7 @@ export const ExampleStoryBook = () => {
         data={data}
         onDataChange={setData}
         width="80%"
-        onSubmit={(data, errors) => {
+        onSubmit={(_data, errors) => {
           if (!errors) {
             return new Promise(resolve => {
               setTimeout(() => {
@@ -69,6 +69,7 @@ export const ExampleStoryBook = () => {
               }, 2000);
             });
           }
+          // eslint-disable-next-line no-useless-return
           return;
         }}
       >

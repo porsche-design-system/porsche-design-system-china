@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import './tabs.scss';
@@ -31,17 +32,20 @@ const Tabs = ({
   const tabHead: TabPaneProps[] = [];
   let keyIndex = 0;
 
-  const newChildren = overrideChildren(children, (elementName, props: TabPaneProps) => {
-    if (elementName === 'TabPane') {
-      if (!props.tabKey) {
-        props.tabKey = '$TabKey' + keyIndex;
-        keyIndex++;
+  const newChildren = overrideChildren(
+    children,
+    (elementName, props: TabPaneProps) => {
+      if (elementName === 'TabPane') {
+        if (!props.tabKey) {
+          props.tabKey = '$TabKey' + keyIndex;
+          keyIndex++;
+        }
+        tabHead.push(props);
+        (props as any).show = tabActiveKey === props.tabKey;
       }
-      tabHead.push(props);
-      (props as any).show = tabActiveKey === props.tabKey;
+      return props;
     }
-    return props;
-  });
+  );
 
   useEffect(() => {
     if (!defaultActiveKey) {
@@ -50,7 +54,10 @@ const Tabs = ({
   }, []);
 
   return (
-    <div className={componentClassNames('pui-tabs', {}, className)} style={style}>
+    <div
+      className={componentClassNames('pui-tabs', {}, className)}
+      style={style}
+    >
       <div className="pui-tabs-header">
         {tabHead.map((tabProps, inx) => (
           <div

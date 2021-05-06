@@ -1,5 +1,5 @@
 import { IconCheck } from '@pui/icons';
-import React, { ChangeEventHandler, CSSProperties, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react';
 import { componentClassNames } from '../../shared/class-util';
 import './checkbox.scss';
 
@@ -16,10 +16,10 @@ export interface CheckBoxProps {
   /* 显示文字 */
   text?: string;
 
-  /*选项值 */
+  /* 选项值 */
   value?: string;
 
-  /** 是否禁用 */
+  /* 是否禁用 */
   disabled?: boolean;
 
   /* 大小 */
@@ -63,7 +63,11 @@ const CheckBox = ({
   return (
     <label
       htmlFor={id}
-      className={componentClassNames('pui-checkbox', { disabled: disabled + '', size }, className)}
+      className={componentClassNames(
+        'pui-checkbox',
+        { disabled: disabled + '', size },
+        className
+      )}
     >
       <input
         id={id}

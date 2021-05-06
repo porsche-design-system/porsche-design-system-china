@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tabs, TabPane, Input } from '../../';
 
 export default {
@@ -19,7 +19,7 @@ export const TabsStoryBook = () => {
           </TabPane>
         </Tabs>
 
-        <Tabs size="small" activeKey="1">
+        <Tabs size="small" defaultActiveKey="1">
           <TabPane title="标题一" tabKey="1">
             内容一
           </TabPane>

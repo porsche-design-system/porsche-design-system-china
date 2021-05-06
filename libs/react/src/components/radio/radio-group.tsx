@@ -52,7 +52,9 @@ const RadioGroup = FormItem(
     error,
     options
   }: RadioGroupProps) => {
-    const [radioValue, setRadioValue] = useState<string>(value || defaultValue || '');
+    const [radioValue, setRadioValue] = useState<string>(
+      value || defaultValue || ''
+    );
 
     useEffect(() => {
       if (value !== undefined) {
@@ -67,7 +69,8 @@ const RadioGroup = FormItem(
         const optionTextValue = optionPart.split(':');
         radioOptions.push({
           text: optionTextValue[0],
-          value: optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+          value:
+            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
         });
       });
     } else if (Array.isArray(options)) {
@@ -84,7 +87,7 @@ const RadioGroup = FormItem(
       <Radio key={'$Radio-' + inx} {...option} />
     ));
 
-    let newChildren = useMemo(() => {
+    const newChildren = useMemo(() => {
       const allValues: string[] = [];
       const newChildren = overrideChildren(
         [...optionRadios, ...React.Children.toArray(children)],

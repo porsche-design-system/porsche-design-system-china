@@ -25,7 +25,6 @@ export interface PaginationProps {
 
   /** 数据总数 */
   total: number;
-
 }
 
 const prefixCls = 'pui-pagination';
@@ -38,7 +37,7 @@ const Pagination = ({
   pageSize = 1,
   onChange,
   style,
-  total,
+  total
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent;
   const [currentPage, setCurrentPage] = useState(initialCurrent);
@@ -47,7 +46,15 @@ const Pagination = ({
     let list = [];
     if (maxPage > 7) {
       if (maxPage - page <= 3) {
-        list = [1, ellipsis, maxPage - 4, maxPage - 3, maxPage - 2, maxPage - 1, maxPage].map((item, index) => ({
+        list = [
+          1,
+          ellipsis,
+          maxPage - 4,
+          maxPage - 3,
+          maxPage - 2,
+          maxPage - 1,
+          maxPage
+        ].map((item, index) => ({
           page: item,
           active: item === page,
           key: index
@@ -59,11 +66,13 @@ const Pagination = ({
           key: index
         }));
       } else {
-        list = [1, ellipsis, page - 1, page, page + 1, ellipsis, maxPage].map((item, index) => ({
-          page: item,
-          active: item === page,
-          key: index
-        }))
+        list = [1, ellipsis, page - 1, page, page + 1, ellipsis, maxPage].map(
+          (item, index) => ({
+            page: item,
+            active: item === page,
+            key: index
+          })
+        );
       }
     } else {
       for (let i = 1; i <= maxPage; i++) {
@@ -75,21 +84,21 @@ const Pagination = ({
       }
     }
     return list;
-  }
+  };
   const initialList = calculatePageList(initialCurrent);
   const [list, setList] = useState(initialList);
-  //更新分页数据
+  // 更新分页数据
   const updatePageData = (page: number) => {
     const list = calculatePageList(page);
     setList(list);
     setCurrentPage(page);
-  }
+  };
   useEffect(() => {
     if (current) {
-      updatePageData(current)
+      updatePageData(current);
     }
   }, [current]);
-  //页面change回调
+  // 页面change回调
   const handlePageChange = (page: number | string) => () => {
     if (page === ellipsis || page === currentPage) {
       return;
@@ -98,17 +107,17 @@ const Pagination = ({
       updatePageData(page as number);
     }
     onChange && onChange(page as number);
-  }
-  //前一页
+  };
+  // 前一页
   const prevPage = () => {
     if (currentPage === 1) return;
     const prevPage = currentPage - 1;
     if (!current) {
-      updatePageData(prevPage)
+      updatePageData(prevPage);
     }
     onChange && onChange(prevPage);
-  }
-  //下一页
+  };
+  // 下一页
   const nextPage = () => {
     if (currentPage === maxPage) return;
     const nextPage = currentPage + 1;
@@ -116,9 +125,12 @@ const Pagination = ({
       updatePageData(nextPage);
     }
     onChange && onChange(nextPage);
-  }
+  };
   return (
-    <ul className={componentClassNames('pui-pagination', {}, className)} style={style}>
+    <ul
+      className={componentClassNames('pui-pagination', {}, className)}
+      style={style}
+    >
       <li
         className={classNames(`${prefixCls}-item`, {
           'pui-pagination-disabled': currentPage === 1
@@ -127,22 +139,20 @@ const Pagination = ({
       >
         <IconArrowHeadLeft />
       </li>
-      {
-        list.map(item => {
-          return (
-            <li
-              className={classNames(`${prefixCls}-item`, {
-                [`${prefixCls}-item-active`]: item.active,
-                [`${prefixCls}-item-ellipsis`]: item.page === ellipsis
-              })}
-              key={item.key}
-              onClick={handlePageChange(item.page)}
-            >
-              {item.page}
-            </li>
-          )
-        })
-      }
+      {list.map(item => {
+        return (
+          <li
+            className={classNames(`${prefixCls}-item`, {
+              [`${prefixCls}-item-active`]: item.active,
+              [`${prefixCls}-item-ellipsis`]: item.page === ellipsis
+            })}
+            key={item.key}
+            onClick={handlePageChange(item.page)}
+          >
+            {item.page}
+          </li>
+        );
+      })}
       <li
         className={classNames(`${prefixCls}-item`, {
           'pui-pagination-disabled': currentPage === maxPage
@@ -152,7 +162,7 @@ const Pagination = ({
         <IconArrowHeadRight />
       </li>
     </ul>
-  )
-}
+  );
+};
 
-export { Pagination }
+export { Pagination };

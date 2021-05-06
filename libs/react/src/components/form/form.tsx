@@ -1,4 +1,10 @@
-import React, { ChangeEventHandler, CSSProperties, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { validate, RuleItem } from '../../shared/validation-rules';
 import { componentClassNames, overrideChildren } from '../../shared/class-util';
 import { ButtonProps } from '../button/button';
@@ -122,7 +128,7 @@ const Form = <T extends object>({
     };
   }
 
-  let newChildren = overrideChildren(children, (elementName, props) => {
+  const newChildren = overrideChildren(children, (elementName, props) => {
     if (
       elementName === 'Input' ||
       elementName === 'TextArea' ||
@@ -168,7 +174,11 @@ const Form = <T extends object>({
 
         if (inputProps.rules) {
           const updateRule = (rule: RuleItem) => {
-            if (rule.type === 'number' || rule.type === 'integer' || rule.type === 'float') {
+            if (
+              rule.type === 'number' ||
+              rule.type === 'integer' ||
+              rule.type === 'float'
+            ) {
               rule.transform = value => {
                 if (!rule.required && !value) {
                   return '';
@@ -209,7 +219,10 @@ const Form = <T extends object>({
 
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
-            const newFormData = { ...formData, [inputProps.name!]: evt.target.value };
+            const newFormData = {
+              ...formData,
+              [inputProps.name!]: evt.target.value
+            };
             if (data === undefined) {
               setFormData(newFormData);
             }
@@ -262,7 +275,7 @@ const Form = <T extends object>({
       };
       return inputProps;
     } else if (elementName === 'Button') {
-      let buttonProps = props as ButtonProps;
+      const buttonProps = props as ButtonProps;
       if (buttonProps.submit) {
         const buttonOnClick = buttonProps.onClick;
         if (buttonProps.loading === undefined) {
