@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Pagination, Row, Col } from '../../'
+import { Pagination, Row, Col } from '../..'
 import './pagination.stories.scss'
 
 export default {

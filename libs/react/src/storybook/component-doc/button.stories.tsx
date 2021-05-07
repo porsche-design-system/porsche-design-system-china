@@ -9,7 +9,7 @@ import {
   IconClose
 } from '@pui/icons'
 
-import { Button, Col, Row } from '../../'
+import { Button, Col, Row } from '../..'
 import './button.stories.scss'
 
 export default {

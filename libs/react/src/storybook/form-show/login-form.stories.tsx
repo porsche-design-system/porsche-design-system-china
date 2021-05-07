@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconArrowHeadRight } from '@pui/icons'
-import { Button, Input, Form } from '../../'
+import { Button, Input, Form } from '../..'
 
 import './login-form.stories.scss'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DatePicker } from '../../'
+import { DatePicker } from '../..'
 
 export default {
   title: 'Data Entry/DatePicker',

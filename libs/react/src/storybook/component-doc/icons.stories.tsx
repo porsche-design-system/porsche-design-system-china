@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Icons from '@pui/icons'
 
-import { Message } from '../../'
+import { Message } from '../..'
 import './icons.stories.scss'
 
 export default {
