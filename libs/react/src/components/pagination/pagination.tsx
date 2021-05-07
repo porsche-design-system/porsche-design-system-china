@@ -1,4 +1,4 @@
-import React, { useState, useEffect, CSSProperties } from 'react'
+import React, { useState, useEffect, useMemo, CSSProperties } from 'react'
 import classNames from 'classnames'
 import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
@@ -19,7 +19,7 @@ export interface PaginationProps {
   pageSize?: number
 
   /** 页码 改变的回调，参数是改变后的页码及每页条数 */
-  onChange?: (page: number) => void
+  onCurrentChange?: (page: number) => void
 
   /** 样式 */
   style?: CSSProperties
@@ -36,13 +36,13 @@ const Pagination = ({
   current,
   defaultCurrent = 1,
   pageSize = 1,
-  onChange,
+  onCurrentChange,
   style,
   total
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent
   const [currentPage, setCurrentPage] = useState(initialCurrent)
-  const maxPage = Math.ceil(total / pageSize)
+  const maxPage = useMemo(() => Math.ceil(total / pageSize), [pageSize, total])
   const calculatePageList = (page: number) => {
     let list = []
     if (maxPage > 7) {
@@ -86,19 +86,26 @@ const Pagination = ({
     }
     return list
   }
-  const initialList = calculatePageList(initialCurrent)
+  const initialList = useMemo(() => calculatePageList(initialCurrent), []);
   const [list, setList] = useState(initialList)
   // 更新分页数据
   const updatePageData = (page: number) => {
+    if (page > maxPage) {
+      page = maxPage
+    }
     const list = calculatePageList(page)
     setList(list)
-    setCurrentPage(page)
+    if (page !== currentPage) {
+      setCurrentPage(page)
+    }
   }
   useEffect(() => {
     if (current) {
       updatePageData(current)
+    } else {
+      updatePageData(currentPage)
     }
-  }, [current])
+  }, [current, pageSize, total])
   // 页面change回调
   const handlePageChange = (page: number | string) => () => {
     if (page === ellipsis || page === currentPage) {
@@ -107,7 +114,7 @@ const Pagination = ({
     if (!current) {
       updatePageData(page as number)
     }
-    onChange && onChange(page as number)
+    onCurrentChange && onCurrentChange(page as number)
   }
   // 前一页
   const prevPage = () => {
@@ -116,7 +123,7 @@ const Pagination = ({
     if (!current) {
       updatePageData(prevPage)
     }
-    onChange && onChange(prevPage)
+    onCurrentChange && onCurrentChange(prevPage)
   }
   // 下一页
   const nextPage = () => {
@@ -125,7 +132,7 @@ const Pagination = ({
     if (!current) {
       updatePageData(nextPage)
     }
-    onChange && onChange(nextPage)
+    onCurrentChange && onCurrentChange(nextPage)
   }
   return (
     <ul
