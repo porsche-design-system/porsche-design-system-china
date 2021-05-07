@@ -9,7 +9,7 @@ export default {
 
 export const PaginationStoryBook = () => {
   const [current, setCurrent] = useState(3)
-  const onChange = (page: number) => {
+  const handleCurrentChange = (page: number) => {
     console.log(page)
     setCurrent(page)
   }
@@ -42,7 +42,7 @@ export const PaginationStoryBook = () => {
         </Col>
         <Col span={12}>
           <div className="title">受控制的页码</div>
-          <Pagination current={current} total={222} onChange={onChange} />
+          <Pagination current={current} total={222} onCurrentChange={handleCurrentChange} />
         </Col>
       </Row>
     </>
