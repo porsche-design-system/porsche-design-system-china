@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row, TextArea } from '../../'
+import { Col, Row, TextArea } from '../..'
 
 import './textareas.stories.scss'
 

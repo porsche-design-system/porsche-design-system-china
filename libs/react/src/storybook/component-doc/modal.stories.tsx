@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal } from '../../'
+import { Button, Modal } from '../..'
 
 export default {
   title: 'Feedback/Modal',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, TabPane, Input } from '../../'
+import { Tabs, TabPane, Input } from '../..'
 
 export default {
   title: 'Data Display/Tabs',

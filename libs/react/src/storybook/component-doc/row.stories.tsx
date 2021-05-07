@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row } from '../../'
+import { Col, Row } from '../..'
 
 import './row.stories.scss'
 

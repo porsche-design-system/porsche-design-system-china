@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Col, Row } from '../../'
+import { Divider, Col, Row } from '../..'
 import './divider.stories.scss'
 
 export default {

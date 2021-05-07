@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CheckBox, CheckBoxGroup } from '../../'
+import { CheckBox, CheckBoxGroup } from '../..'
 
 import './checkbox.stories.scss'
 
