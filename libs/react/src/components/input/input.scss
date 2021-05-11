@@ -70,18 +70,27 @@
         }
       }
 
+      &-show-right-button-true {
+        input {
+          padding-right: 42px;
+        }
+      }
+
       &-right-button {
         position: absolute;
         right: 10px;
         top: 12px;
       }
 
-      &-clear {
-        color: $text-opacity-color-3;
+      &-clear,
+      &-view {
+        color: $text-opacity-color-2;
+        user-select: none;
       }
 
-      &-view {
-        color: $text-opacity-color-1;
+      &-clear:hover,
+      &-view:hover {
+        color: $text-color-1;
       }
     }
   }

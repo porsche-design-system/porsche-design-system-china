@@ -93,12 +93,13 @@ const Table = ({
         setIsScrollLeft(scrollXPercentage > 0.02)
         setIsScrollRight(scrollXPercentage < 0.98)
 
-        const scrollYPercentage =
-          bodyRef.current.scrollTop /
-          (bodyRef.current.children[0].offsetHeight -
-            bodyRef.current.offsetHeight)
-
-        if (scrollYPercentage > 0.01 && scrollYPercentage < 0.99) {
+        if (
+          (bodyRef.current.scrollTop !== 0 &&
+            bodyRef.current.scrollTop !==
+              bodyRef.current.children[0].offsetHeight -
+                bodyRef.current.offsetHeight) ||
+          variationY === 0
+        ) {
           evt.preventDefault()
         }
 

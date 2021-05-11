@@ -9,7 +9,15 @@ export default {
 export const InputStoryBook = () => {
   return (
     <div>
-      <Search placeholder="请输入" />
+      <Search
+        placeholder="请输入"
+        width="300px"
+        marginRight="30px"
+        onSearch={val => {
+          console.log(val)
+        }}
+      />
+      <Search placeholder="显示清除按钮" width="300px" showClearButton />
     </div>
   )
 }

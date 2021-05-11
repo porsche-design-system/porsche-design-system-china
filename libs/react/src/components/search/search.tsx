@@ -1,7 +1,6 @@
-import React, { ChangeEventHandler, CSSProperties, useRef } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { IconSearch } from '@pui/icons'
 
-import { Button } from '../button/button'
 import { Input } from '../input/input'
 import { componentClassNames } from '../../shared/class-util'
 
@@ -20,8 +19,31 @@ export interface SearchProps {
   /* 是否禁用 */
   disabled?: boolean
 
-  /* 点击事件 */
-  onChange?: ChangeEventHandler
+  /* 值 */
+  value?: string
+
+  /* 默认值 */
+  defaultValue?: string
+
+  /* 宽度 */
+  width?: string
+
+  /* 右间距 */
+  marginRight?: string
+
+  /* 左间距 */
+  marginLeft?: string
+
+  /* 显示清除按钮 */
+  showClearButton?: boolean
+
+  /* 最大长度 */
+  maxLength?: number
+
+  /* 文字改变事件 */
+  onValueChange?: (value: string) => void
+
+  /* 点击搜索按钮 */
   onSearch?: (value: string) => void
 }
 
@@ -29,29 +51,46 @@ const Search = ({
   className,
   style,
   placeholder,
+  maxLength,
   disabled = false,
-  onChange,
+  value,
+  defaultValue,
+  width,
+  onValueChange,
+  showClearButton,
+  marginLeft,
+  marginRight,
   onSearch
 }: SearchProps) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [searchValue, setSearchValue] = useState(value || defaultValue || '')
 
   return (
     <div
-      className={componentClassNames('pui-search', {}, className)}
-      style={style}
+      className={componentClassNames(
+        'pui-search',
+        { 'show-clear-button': showClearButton + '' },
+        className
+      )}
+      style={{ width, marginLeft, marginRight, ...style }}
     >
       <Input
-        onChange={onChange}
+        value={value}
+        defaultValue={defaultValue}
+        showClearButton={showClearButton}
+        maxLength={maxLength}
+        onValueChange={val => {
+          setSearchValue(val)
+          onValueChange && onValueChange(val)
+        }}
         disabled={disabled}
         placeholder={placeholder}
       />
-      <Button
-        icon={<IconSearch style={{ transform: 'rotateY(180deg)' }} />}
-        type="secondary"
-        onClick={() => {
-          if (inputRef.current !== null && onSearch) {
-            onSearch(inputRef.current.value)
-          }
+
+      <IconSearch
+        className="pui-search-button"
+        onClick={evt => {
+          evt.preventDefault()
+          onSearch && onSearch(searchValue)
         }}
       />
     </div>
