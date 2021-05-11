@@ -16,7 +16,7 @@
           min-width: 100%;
 
           td {
-            border-bottom: 1px solid $border-color-1;
+            border-bottom: 1px solid $table-cell-border-color;
             height: 60px;
             padding-left: 20px;
             text-overflow: ellipsis;
@@ -64,14 +64,14 @@
       &-body {
         overflow: auto;
         table {
-          background-color: $background-color-2;
+          background-color: $table-bg-color;
           .pui-table-fixed-left,
           .pui-table-fixed-right {
-            background-color: $background-color-2;
+            background-color: $table-bg-color;
             z-index: 1;
           }
           .pui-table-selected-row td {
-            background-color: $container-bg-color-1;
+            background-color: $table-selected-bg-color;
           }
 
           td {
@@ -81,7 +81,7 @@
 
           tr:hover td::before {
             content: '';
-            background-color: $container-bg-opacity-color-2;
+            background-color: $container-bg-opacity-color-1;
             position: absolute;
             left: 0;
             top: 0;
@@ -106,21 +106,24 @@
 
       &-scrollLeft-true table tr .pui-table-fixed-left::after {
         right: -24px;
-        box-shadow: inset 10px 0 8px -8px $container-bg-opacity-color-4;
+        box-shadow: $table-fix-column-shadow-left;
         pointer-events: none;
       }
 
       &-scrollRight-true table .pui-table-fixed-right::before,
       &-scrollRight-true table tr:hover .pui-table-fixed-right::before {
         left: -24px;
-        box-shadow: inset -10px 0 8px -8px $container-bg-opacity-color-4;
+        box-shadow: $table-fix-column-shadow-right;
         background-color: transparent;
         pointer-events: none;
       }
 
-      &-scrollRight-true table tr:hover .pui-table-fixed-right::after {
+      &-scrollRight-true
+        .pui-table-body
+        tr:hover
+        .pui-table-fixed-right::after {
         content: '';
-        background-color: $container-bg-opacity-color-2;
+        background-color: $container-bg-opacity-color-1;
         position: absolute;
         left: 0;
         top: 0;

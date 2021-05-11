@@ -89,7 +89,8 @@ const Input = FormItem(
     return (
       <div
         className={componentClassNames('pui-input', {
-          error: error ? error.show + '' : 'false'
+          error: error ? error.show + '' : 'false',
+          'show-right-button': (showClearButton || showViewPasswordButton) + ''
         })}
       >
         <input

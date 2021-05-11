@@ -5,16 +5,36 @@
     @include theme($theme);
 
     .pui-search {
-      .pui-form-item {
-        width: 380px;
-        margin-bottom: 0;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      .pui-input {
+        .pui-input-right-button {
+          right: 50px;
+        }
+        input {
+          padding-right: 40px;
+        }
       }
 
-      .pui-input {
-        margin-right: 0;
-        input {
-          border-right: none;
+      &-show-clear-button-true {
+        .pui-input {
+          input {
+            padding-right: 80px;
+          }
         }
+      }
+
+      .pui-search-button {
+        position: absolute;
+        top: 12px;
+        right: 13px;
+        color: $text-opacity-color-2;
+        user-select: none;
+      }
+
+      .pui-search-button :hover {
+        color: $text-color-1;
       }
     }
   }

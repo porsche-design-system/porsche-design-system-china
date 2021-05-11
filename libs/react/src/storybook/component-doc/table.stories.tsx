@@ -34,9 +34,12 @@ const columns: TableColumn[] = [
     width: 150,
     customCell: rowData => (
       <>
-        <Button type="text">修改</Button>{' '}
+        <Button type="text" marginRight="16px">
+          修改
+        </Button>
         <Button
           type="text"
+          marginRight="5px"
           onClick={() => {
             Modal.confirm('警告', '确认要删除吗?', () => {
               Modal.alert(
