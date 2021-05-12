@@ -69,30 +69,36 @@ const Table = ({
     }
   })
 
-  const [isScrollLeft, setIsScrollLeft] = useState(false)
-  const [isScrollRight, setIsScrollRight] = useState(false)
-
+  const tableRef = useRef<any>(null)
   const headRef = useRef<any>(null)
   const bodyRef = useRef<any>(null)
 
+  const updateShadow = () => {
+    if (tableRef.current) {
+      const scrollXPercentage =
+        headRef.current.scrollLeft /
+        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth)
+      const cname =
+        (scrollXPercentage > 0.02 ? 'pui-table-scrollLeft-true ' : '') +
+        (scrollXPercentage < 0.98 ? 'pui-table-scrollRight-true' : '')
+      if (tableRef.current.className !== cname) {
+        tableRef.current.className = cname
+      }
+    }
+  }
+
   const wheelMove = (tableContainer: HTMLDivElement) => {
     if (tableContainer) {
+      tableRef.current = tableContainer
       tableContainer.onwheel = (evt: any) => {
+        evt.stopPropagation()
+
         const variationX = parseInt(evt.deltaX)
         const variationY = parseInt(evt.deltaY)
 
-        headRef.current.scrollLeft += variationX
-        bodyRef.current.scrollLeft = headRef.current.scrollLeft
-        bodyRef.current.scrollTop += variationY
-
-        const scrollXPercentage =
-          headRef.current.scrollLeft /
-          (bodyRef.current.children[0].offsetWidth -
-            bodyRef.current.offsetWidth)
-
-        setIsScrollLeft(scrollXPercentage > 0.02)
-        setIsScrollRight(scrollXPercentage < 0.98)
-
+        const scrollMaxX =
+          bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth
+        const scrollXPercentage = headRef.current.scrollLeft / scrollMaxX
         if (
           (bodyRef.current.scrollTop !== 0 &&
             bodyRef.current.scrollTop !==
@@ -109,6 +115,12 @@ const Table = ({
         ) {
           evt.preventDefault()
         }
+
+        const finalX = bodyRef.current.scrollLeft + variationX
+        bodyRef.current.scrollLeft = finalX
+        headRef.current.scrollLeft = finalX
+        bodyRef.current.scrollTop += variationY
+        updateShadow()
       }
     }
   }
@@ -120,14 +132,9 @@ const Table = ({
         if (headRef.current) {
           headRef.current.scrollLeft = evt.target.scrollLeft
         }
+        updateShadow()
       }
-
-      const scrollXPercentage =
-        headRef.current.scrollLeft /
-        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth)
-
-      setIsScrollLeft(scrollXPercentage > 0.02)
-      setIsScrollRight(scrollXPercentage < 0.98)
+      updateShadow()
     }
   }
 
@@ -264,11 +271,7 @@ const Table = ({
 
   return (
     <div
-      className={componentClassNames(
-        'pui-table',
-        { scrollLeft: isScrollLeft + '', scrollRight: isScrollRight + '' },
-        className
-      )}
+      className={componentClassNames('pui-table', {}, className)}
       style={style}
     >
       <div ref={wheelMove}>
