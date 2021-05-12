@@ -72,11 +72,12 @@ const Table = ({
   const tableRef = useRef<any>(null)
   const headRef = useRef<any>(null)
   const bodyRef = useRef<any>(null)
+  const isWheelMove = useRef(false)
 
   const updateShadow = () => {
     if (tableRef.current) {
       const scrollXPercentage =
-        headRef.current.scrollLeft /
+        bodyRef.current.scrollLeft /
         (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth)
       const cname =
         (scrollXPercentage > 0.02 ? 'pui-table-scrollLeft-true ' : '') +
@@ -91,7 +92,7 @@ const Table = ({
     if (tableContainer) {
       tableRef.current = tableContainer
       tableContainer.onwheel = (evt: any) => {
-        evt.stopPropagation()
+        isWheelMove.current = true
 
         const variationX = parseInt(evt.deltaX)
         const variationY = parseInt(evt.deltaY)
@@ -116,9 +117,9 @@ const Table = ({
           evt.preventDefault()
         }
 
-        const finalX = bodyRef.current.scrollLeft + variationX
-        bodyRef.current.scrollLeft = finalX
+        const finalX = headRef.current.scrollLeft + variationX
         headRef.current.scrollLeft = finalX
+        bodyRef.current.scrollLeft = finalX
         bodyRef.current.scrollTop += variationY
         updateShadow()
       }
@@ -129,6 +130,12 @@ const Table = ({
     if (elem) {
       bodyRef.current = elem
       elem.onscroll = (evt: any) => {
+        if (isWheelMove.current) {
+          setTimeout(() => {
+            isWheelMove.current = false
+          }, 100)
+          return
+        }
         if (headRef.current) {
           headRef.current.scrollLeft = evt.target.scrollLeft
         }

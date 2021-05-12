@@ -62,7 +62,8 @@
       }
 
       &-body {
-        overflow: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
         table {
           background-color: $table-bg-color;
           .pui-table-fixed-left,
