@@ -5,7 +5,7 @@ stages:
   - Deployment
   #- Trigger
 dist:
-  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:master
+  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
   stage: Build
   only:
     refs:
@@ -34,29 +34,31 @@ dist:
     - pwd && du -sh *
 
     # - yarn config set registry https://registry.npm.taobao.org/
-    - npm run bootstrap --force
+    - npm run bootstrap
+    - npm rebuild node-sass
     # - lerna exec --scope @pui/core -- npm run build-storybook
     # - lerna exec --scope @pui/icons -- npm run build-storybook
-    - lerna exec --scope @pui/react -- npm run build-storybook
-    - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
+    - lerna exec --scope @pui/react -- npm run build-storybook --registry http://52.83.74.69:4111
+    # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
+    - ls -al ./libs/react/
     - du -sh *
 
-code_scan:
-  image:
-    name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/sonar-scanner:master
-  stage: Build
-  only:
-    refs:
-      - master
-      - staging
-      - develop
-      - release
-      # - merge_requests
-  tags:
-    - common-runner
-  script:
-    - sonar-scanner
-    - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
+# code_scan:
+#   image:
+#     name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/sonar-scanner:master
+#   stage: Build
+#   only:
+#     refs:
+#       - master
+#       - staging
+#       - develop
+#       - release
+#       # - merge_requests
+#   tags:
+#     - common-runner
+#   script:
+#     - sonar-scanner
+#     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
 
 # buid_image:
 #   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
@@ -178,6 +180,4 @@ code_scan:
 #     - /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-master.yaml --kubeconfig ~/kubeconfig/kube-master/config
 #   tags:
 #     - pdcshell
-
-
 
