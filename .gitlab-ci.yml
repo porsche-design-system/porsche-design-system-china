@@ -82,6 +82,7 @@ buid_image:
     IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
   script:
     - ls -al
+    - ls -al ./libs/react/storybook-static/
     - $(aws ecr get-login --no-include-email --region cn-north-1)
     - echo "-------------S:Build docker image-------------"
     - docker build -f ./DockerDir/dev/Dockerfile -t ${IMAGE_NAME} .
