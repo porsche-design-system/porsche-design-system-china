@@ -3,7 +3,7 @@ ARG TMP_DIR="/tmp"
 ARG HTML_DIR="/usr/local/openresty/nginx/html"
 
 # ADD ./dist/ /usr/local/openresty/nginx/html
-ADD ./dist/ ${HTML_DIR}/
+ADD ./storybook-static/ ${HTML_DIR}/
 ADD ./static/ ${HTML_DIR}/static
 
 RUN ls -la ${HTML_DIR}
