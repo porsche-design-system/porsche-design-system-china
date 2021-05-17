@@ -89,8 +89,8 @@ buid_image:
     # - docker push ${IMAGE_NAME}
     # - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
     # - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-    - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
-    - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
+    - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:react-$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
+    - docker push $AWS_ECR_REPO:react-$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
     - echo "-----------E:Build image and pushed------------"
   tags:
     - common-runner
