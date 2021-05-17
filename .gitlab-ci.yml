@@ -1,5 +1,6 @@
 stages:
   - Build
+  - Publish
   - Package
   # - Test
   - Deployment
@@ -30,12 +31,12 @@ dist:
     - echo "building artifacts"
     - unset CI
     - pwd && du -sh *
-
-    # - yarn config set registry https://registry.npm.taobao.org/
+    - lerna ls
     - npm run bootstrap
     - npm rebuild node-sass
     # - lerna exec --scope @pui/core -- npm run build-storybook
     # - lerna exec --scope @pui/icons -- npm run build-storybook
+    - lerna exec --scope @pui/react -- npm run build-all
     - lerna exec --scope @pui/react -- npm run build-storybook --registry http://52.83.74.69:4111
     # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
     - ls -al ./libs/react/storybook-static/
@@ -57,6 +58,34 @@ dist:
 #   script:
 #     - sonar-scanner
 #     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
+npm_publish:
+  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
+  stage: Publish
+  services:
+    - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
+      alias: docker
+      entrypoint: ['env', '-u', 'DOCKER_HOST']
+      command: ['dockerd-entrypoint.sh']
+  only:
+    refs:
+      - develop
+      # - master
+      # - merge_requests
+  dependencies:
+    - dist
+  variables:
+    # GIT_STRATEGY: none
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ''
+    IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
+  script:
+    - ls -al ./libs/react/lib
+    - ls -al ./libs/react/es
+    - lerna exec --scope @pui/react -- npm run version-publish
+
+  tags:
+    - common-runner
 
 buid_image:
   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
@@ -131,7 +160,7 @@ buid_image:
 
 deploy_react:
   stage: Deployment
-  # when: manual
+  when: manual
   only:
     refs:
       - develop
@@ -165,7 +194,6 @@ deploy_react:
       fi
   tags:
     - pdcshell
-
 # deploy_staging:
 #   stage: Deployment
 #   only:
