@@ -25,9 +25,7 @@ dist:
     expire_in: 20 mins
     when: on_success
     paths:
-      - ./build
-      - Dockerfile
-      - ./ci
+      - ./libs/react/storybook-static
   script:
     - echo "building artifacts"
     - unset CI
@@ -40,7 +38,7 @@ dist:
     # - lerna exec --scope @pui/icons -- npm run build-storybook
     - lerna exec --scope @pui/react -- npm run build-storybook --registry http://52.83.74.69:4111
     # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
-    - ls -al ./libs/react/
+    - ls -al ./libs/react/storybook-static/
     - du -sh *
 
 # code_scan:
