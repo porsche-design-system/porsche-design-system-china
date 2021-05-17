@@ -58,40 +58,41 @@ dist:
 #     - sonar-scanner
 #     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
 
-# buid_image:
-#   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
-#   stage: Package
-#   services:
-#     - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
-#       alias: docker
-#       entrypoint: ['env', '-u', 'DOCKER_HOST']
-#       command: ['dockerd-entrypoint.sh']
-#   only:
-#     refs:
-#       - develop
-#       - staging
-#       - release
-#       - merge_requests
-#   dependencies:
-#     - dist
-#   variables:
-#     # GIT_STRATEGY: none
-#     DOCKER_HOST: tcp://docker:2375/
-#     DOCKER_DRIVER: overlay2
-#     DOCKER_TLS_CERTDIR: ''
-#     IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
-#   script:
-#     - $(aws ecr get-login --no-include-email --region cn-north-1)
-#     - echo "-------------S:Build docker image-------------"
-#     - docker build -f ./DockerDir/dev/Dockerfile -t ${IMAGE_NAME} .
-#     # - docker push ${IMAGE_NAME}
-#     # - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-#     # - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-#     - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
-#     - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
-#     - echo "-----------E:Build image and pushed------------"
-#   tags:
-#     - common-runner
+buid_image:
+  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
+  stage: Package
+  services:
+    - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
+      alias: docker
+      entrypoint: ['env', '-u', 'DOCKER_HOST']
+      command: ['dockerd-entrypoint.sh']
+  only:
+    refs:
+      - develop
+      - staging
+      - release
+      - merge_requests
+  dependencies:
+    - dist
+  variables:
+    # GIT_STRATEGY: none
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ''
+    IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
+  script:
+    - ls -al
+    - $(aws ecr get-login --no-include-email --region cn-north-1)
+    - echo "-------------S:Build docker image-------------"
+    - docker build -f ./DockerDir/dev/Dockerfile -t ${IMAGE_NAME} .
+    # - docker push ${IMAGE_NAME}
+    # - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
+    # - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
+    - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
+    - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
+    - echo "-----------E:Build image and pushed------------"
+  tags:
+    - common-runner
 
 # buid_image_prod:
 #   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
