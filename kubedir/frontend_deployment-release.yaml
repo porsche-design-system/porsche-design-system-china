@@ -16,7 +16,7 @@ spec:
         run: puifrontendservice
     spec:
       containers:
-        - image: 150620102644.dkr.ecr.cn-north-1.amazonaws.com.cn/pui:0.01
+        - image: 459448595428.dkr.ecr.cn-north-1.amazonaws.com.cn/pui:0.01
           name: puifrontendservice
           ports:
             - containerPort: 80
