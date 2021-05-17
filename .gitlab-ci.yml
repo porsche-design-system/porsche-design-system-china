@@ -146,17 +146,17 @@ deploy_react:
         sed -i '' 's/puifrontendservice/pui-react-frontend/g' frontend_deployment-master.yaml
         /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-master/config
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-master.yaml --kubeconfig ~/kubeconfig/kube-master/config
-      else if [[ $CI_COMMIT_BRANCH == "release" ]];then
+      elif [[ $CI_COMMIT_BRANCH == "release" ]];then
         sed -i "s/pui\\:[0-9]*.[0-9][0-9]$/pui\\:react-${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-release.yaml
         sed -i '' 's/puifrontendservice/pui-react-frontend/g' frontend_deployment-release.yaml
         /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-staging/config
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-release.yaml --kubeconfig ~/kubeconfig/kube-staging/config
-      else if [[ $CI_COMMIT_BRANCH == "staging" ]];then
+      elif [[ $CI_COMMIT_BRANCH == "staging" ]];then
         sed -i "s/pui\\:[0-9]*.[0-9][0-9]$/pui\\:react-${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-staging.yaml
         sed -i '' 's/puifrontendservice/pui-react-frontend/g' frontend_deployment-staging.yaml
         /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-staging/config
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-staging.yaml --kubeconfig ~/kubeconfig/kube-staging/config 
-      else if [[ $CI_COMMIT_BRANCH == "develop" ]];then
+      elif [[ $CI_COMMIT_BRANCH == "develop" ]];then
         sed -i "s/pui\\:[0-9]*.[0-9][0-9]$/pui\\:react-${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-dev.yaml
         sed -i '' 's/puifrontendservice/pui-react-frontend/g' frontend_deployment-dev.yaml
         /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-dev/config
