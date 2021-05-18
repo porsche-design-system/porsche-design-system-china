@@ -5,7 +5,7 @@ stages:
   # - Test
   - Deployment
   #- Trigger
-dist:
+build:
   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
   stage: Build
   only:
@@ -27,6 +27,8 @@ dist:
     when: on_success
     paths:
       - ./libs/react/storybook-static
+      - ./libs/react/es
+      - ./libs/react/lib
   script:
     - echo "building artifacts"
     - unset CI
@@ -37,7 +39,7 @@ dist:
     # - lerna exec --scope @pui/core -- npm run build-storybook
     # - lerna exec --scope @pui/icons -- npm run build-storybook
     - lerna exec --scope @pui/react -- npm run build-all
-    - lerna exec --scope @pui/react -- npm run build-storybook --registry http://52.83.74.69:4111
+    - lerna exec --scope @pui/react -- npm run build-storybook --registry ${NPM_REGISTRY}
     # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
     - ls -al ./libs/react/storybook-static/
     - du -sh *
@@ -58,32 +60,28 @@ dist:
 #   script:
 #     - sonar-scanner
 #     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
+
 npm_publish:
-  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
+  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
   stage: Publish
-  services:
-    - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
-      alias: docker
-      entrypoint: ['env', '-u', 'DOCKER_HOST']
-      command: ['dockerd-entrypoint.sh']
+  # when: manual
   only:
     refs:
-      - develop
+      - develop #TODO
       # - master
       # - merge_requests
   dependencies:
-    - dist
+    - build
   variables:
-    # GIT_STRATEGY: none
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ''
-    IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
+    NPM_REGISTRY: '$NPM_REGISTRY'
+    NPM_REGISTRY_ACCOUNT: '$NPM_REGISTRY_ACCOUNT'
+    NPM_REGISTRY_PWD: '$NPM_REGISTRY_PWD'
+    NPM_REGISTRY_EMAIL: '$NPM_REGISTRY_EMAIL'
   script:
     - ls -al ./libs/react/lib
     - ls -al ./libs/react/es
+    - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
     - lerna exec --scope @pui/react -- npm run version-publish
-
   tags:
     - common-runner
 
@@ -102,7 +100,7 @@ buid_image:
       - release
       - merge_requests
   dependencies:
-    - dist
+    - build
   variables:
     # GIT_STRATEGY: none
     DOCKER_HOST: tcp://docker:2375/
@@ -136,7 +134,7 @@ buid_image:
 #     refs:
 #       - master
 #   dependencies:
-#     - dist
+#     - build
 #   variables:
 #     # GIT_STRATEGY: none
 #     DOCKER_HOST: tcp://docker:2375/
