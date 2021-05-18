@@ -80,6 +80,7 @@ npm_publish:
   script:
     - ls -al ./libs/react/lib
     - ls -al ./libs/react/es
+    - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
     - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
     - lerna exec --scope @pui/react -- npm run version-publish
   tags:
