@@ -71,7 +71,7 @@ npm_publish:
       # - master
       # - merge_requests
   dependencies:
-    - build
+    # - build
   variables:
     NPM_REGISTRY: '$NPM_REGISTRY'
     NPM_REGISTRY_ACCOUNT: '$NPM_REGISTRY_ACCOUNT'
