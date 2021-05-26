@@ -7,11 +7,11 @@ import React, {
 } from 'react'
 import ReactDom, { unmountComponentAtNode } from 'react-dom'
 import {
-  IconInformation2,
+  IconInformationFilled,
   IconClose,
-  IconCorrect,
-  IconWarning2,
-  IconError
+  IconCorrectFilled,
+  IconWarningFilled,
+  IconErrorFilled
 } from '@pui/icons'
 import './message.scss'
 
@@ -150,10 +150,10 @@ export function MessageBox(props: MessageProps) {
   return (
     <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
       <span className={`message-text ${iconType}`}>
-        {props.iconType === 'info' && <IconInformation2 />}
-        {props.iconType === 'success' && <IconCorrect />}
-        {props.iconType === 'warning' && <IconWarning2 />}
-        {props.iconType === 'error' && <IconError />}
+        {props.iconType === 'info' && <IconInformationFilled />}
+        {props.iconType === 'success' && <IconCorrectFilled />}
+        {props.iconType === 'warning' && <IconWarningFilled />}
+        {props.iconType === 'error' && <IconErrorFilled />}
         <span className="text-content">{content}</span>
         {fconfig.closable && (
           <IconClose
