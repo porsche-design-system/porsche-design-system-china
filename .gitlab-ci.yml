@@ -1,6 +1,6 @@
 stages:
   - Build
-  - Publish
+  # - Publish
   - Package
   # - Test
   - Deployment
@@ -82,7 +82,7 @@ npm_publish:
     - ls -al ./libs/react/es
     - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
     - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
-    #- lerna exec --scope @pui/react -- npm run version-publish
+    - lerna exec --scope @pui/react -- npm run version-publish
   tags:
     - common-runner
 
@@ -159,7 +159,7 @@ buid_image:
 
 deploy_react:
   stage: Deployment
-  when: manual
+  # when: manual
   only:
     refs:
       - develop
