@@ -39,7 +39,7 @@ build:
     # - lerna exec --scope @pui/core -- npm run build-storybook
     # - lerna exec --scope @pui/icons -- npm run build-storybook
     # - lerna exec --scope @pui/react -- npm run build-all
-    - lerna exec --scope @pui/icons -- npm run generate
+    - lerna exec --scope @pui/icons -- npm run pipeline-generate
     - lerna exec --scope @pui/icons -- npm run build
     - lerna exec --scope @pui/react -- npm run build-storybook
     # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
