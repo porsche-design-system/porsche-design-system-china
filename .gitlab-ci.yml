@@ -35,11 +35,11 @@ build:
     - pwd && du -sh *
     - lerna ls
     - npm run bootstrap
-    - npm rebuild node-sass
+    # - npm rebuild node-sass
     # - lerna exec --scope @pui/core -- npm run build-storybook
     # - lerna exec --scope @pui/icons -- npm run build-storybook
-    - lerna exec --scope @pui/react -- npm run build-all
-    - lerna exec --scope @pui/react -- npm run build-storybook --registry ${NPM_REGISTRY}
+    # - lerna exec --scope @pui/react -- npm run build-all
+    - lerna exec --scope @pui/react -- npm run build-storybook
     # - ls -al ./libs/core/ ./libs/icons/ ./libs/react/
     - ls -al ./libs/react/storybook-static/
     - du -sh *
@@ -82,7 +82,7 @@ npm_publish:
     - ls -al ./libs/react/es
     - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
     - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
-    # - lerna exec --scope @pui/react -- npm run version-publish
+    #- lerna exec --scope @pui/react -- npm run version-publish
   tags:
     - common-runner
 
