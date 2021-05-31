@@ -1,10 +1,8 @@
-### PUI开发最佳实践
-
-
+### PUI 开发最佳实践
 
 #### 使用 Form，而非一个个独立的表单控件
 
-对于一个数据结构如果要对多个数据捆绑，需要定义多对value + onValueChange
+对于一个数据结构如果要对多个数据捆绑，需要定义多对 value + onValueChange
 
 ```react
 <Input value={...} onValueChange={...} />
@@ -12,7 +10,7 @@
 <CheckBoxGroup value={...} onValueChange={...} />
 ```
 
-✅ 更好的写法，`<Form>`会自动根据表单的每个表单的控件name值捆绑数据
+✅ 更好的写法，`<Form>`会自动根据表单的每个表单的控件 name 值捆绑数据
 
 ```react
 <Form data={...} onDataChange={} >
@@ -22,13 +20,11 @@
 </Form>
 ```
 
-
-
 #### Options 使用简写
 
-`<CheckBoxGroup>` `<RadioGroup>` `<Select>` 可以直接通过String的简写形式传参
+`<CheckBoxGroup>` `<RadioGroup>` `<Select>` 可以直接通过 String 的简写形式传参
 
-对象写法
+对象传参写法
 
 ```react
 <Select options={['狗','猫','狮子','老虎','鲸鱼']}  />
@@ -42,13 +38,9 @@
 <Select options="狗:dog,猫:cat,狮子:lion,老虎,鲸鱼"  />
 ```
 
-
-
-
-
 #### 善用 marginLeft/marginRight/width 属性
 
-✅ 控件贴在一起怎么办？不用写css文件，直接使用css属性，
+✅ 控件贴在一起怎么办？不用写 css 文件，直接使用 css 属性，
 
 ```react
 <Form width="300px">
@@ -62,11 +54,9 @@
 <Input />
 ```
 
+#### 使用 onValueChange 替代 onChange
 
-
-#### 使用onValueChange替代onChange
-
-PUI的所有表单控件都支持onValueChange，使用onValueChange可以直接获取改变值，不用再从evt.target.value中获取值。
+PUI 的所有表单控件都支持 onValueChange，使用 onValueChange 可以直接获取改变值，不用再从 evt.target.value 中获取值。
 
 ```react
 <Select onChange={(evt)=>{console.log(evt.target.value)}}
@@ -78,13 +68,9 @@ PUI的所有表单控件都支持onValueChange，使用onValueChange可以直接
 <Select onChange={(val)=>{console.log(val)}}
 ```
 
+#### 使用 alterValues 改写`<Switch />`的开关值
 
-
-
-
-#### 使用alterValues改写`<Switch />`的开关值
-
-后端的API不一定使用true/false定义，因为数据库的存储缘故，有可能接口定义成了使用0/1，`<Switch>` 可以使用alterValues属性修改开关对应值，而不需要你再更改对象数值。
+后端的 API 不一定使用 true/false 定义，因为数据库的存储缘故，有可能接口定义成了使用 0/1，`<Switch>` 可以使用 alterValues 属性修改开关对应值，而不需要你再更改对象数值。
 
 ✅ 更好的写法
 
@@ -106,11 +92,9 @@ PUI的所有表单控件都支持onValueChange，使用onValueChange可以直接
 />
 ```
 
+#### 使用 Modal.alert() / Modal.confirm()做快速弹出框
 
-
-#### 使用Modal.alert() / Modal.confirm()做快速弹出框
-
-Modal可以写在代码里，但是如果只是弹出一个简单的消息框或者确认框可以使用方法弹出
+Modal 可以写在代码里，但是如果只是弹出一个简单的消息框或者确认框可以使用方法弹出
 
 ✅ 更容易的写法
 
@@ -121,6 +105,3 @@ Modal可以写在代码里，但是如果只是弹出一个简单的消息框或
 </Button>
 
 ```
-
-
-
