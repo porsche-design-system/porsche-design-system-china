@@ -1,5 +1,6 @@
 import { IconArrowHeadRight, IconClose } from '@pui/icons'
 import React, { useState } from 'react'
+import { FormLabelStyle } from '../../components/form/form'
 
 import {
   Select,
@@ -24,7 +25,9 @@ export default {
 }
 
 export const ExampleStoryBook = () => {
-  const [labelLayout, setLabelLayout] = useState({})
+  const [labelLayout, setLabelLayout] = useState<FormLabelStyle>({
+    position: 'top'
+  })
   const [buttonAlign, setButtonAlign] = useState('left')
   const [data, setData] = useState({ lastName: '李' })
 
@@ -35,7 +38,7 @@ export const ExampleStoryBook = () => {
         onValueChange={value => {
           setLabelLayout(JSON.parse(value))
         }}
-        value={JSON.stringify({ position: 'top' })}
+        value={JSON.stringify(labelLayout)}
       >
         <Radio
           text="标签文字在上面"

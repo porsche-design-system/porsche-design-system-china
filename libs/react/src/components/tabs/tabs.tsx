@@ -82,7 +82,7 @@ const Tabs = ({
   )
 }
 
-interface TabPaneProps {
+export interface TabPaneProps {
   /** 选项卡头显示文字 */
   title: string
 
