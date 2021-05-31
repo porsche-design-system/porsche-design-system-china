@@ -3,7 +3,8 @@ import { Radio, RadioGroup, Form } from '../..'
 
 export default {
   title: 'Data Entry/Radio',
-  component: Radio
+  component: Radio,
+  subcomponents: { RadioGroup }
 }
 
 export const RadioStoryBook = () => {
