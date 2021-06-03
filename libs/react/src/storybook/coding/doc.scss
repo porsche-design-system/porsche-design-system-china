@@ -1,39 +1,41 @@
-h3 {
-  font-weight: bold !important;
-  font-size: 24px !important;
-}
+.custom-doc {
+  h3 {
+    font-weight: bold !important;
+    font-size: 24px !important;
+  }
 
-h4 {
-  font-weight: bold !important;
-  font-size: 20px !important;
-}
+  h4 {
+    font-weight: bold !important;
+    font-size: 20px !important;
+  }
 
-.cmd {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #eee;
-  white-space: pre-wrap;
-}
+  .cmd {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #eee;
+    white-space: pre-wrap;
+  }
 
-.code,
-code {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #eee;
-  white-space: pre-wrap;
-  display: block;
-}
+  .code,
+  code {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #eee;
+    white-space: pre-wrap;
+    display: block;
+  }
 
-code {
-  display: inline-block;
-  padding: 0px 10px;
-  margin: 0px 5px;
-}
+  code {
+    display: inline-block;
+    padding: 0px 10px;
+    margin: 0px 5px;
+  }
 
-pre code {
-  display: block;
-  padding: 10px;
-  margin: 10px 0;
+  pre code {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+  }
 }

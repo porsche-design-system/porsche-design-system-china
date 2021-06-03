@@ -5,7 +5,7 @@ import React from 'react'
 import './doc.scss'
 
 const BestPractice = () => (
-  <div>
+  <div className="custom-doc">
     <div
       dangerouslySetInnerHTML={{
         __html: `<h3 >PUI开发最佳实践</h3>
