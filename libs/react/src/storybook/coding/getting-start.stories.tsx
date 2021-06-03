@@ -13,7 +13,7 @@ const GettingStart = () => (
     <div className="code">
       strict-ssl=false
       <br />
-      registry=http://52.83.74.69:4111
+      @pui:registry=http://52.83.74.69:4111
     </div>
     <br />
     <div>安装PUI依赖</div>
