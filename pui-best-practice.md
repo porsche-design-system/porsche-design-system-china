@@ -100,7 +100,7 @@ Modal 可以写在代码里，但是如果只是弹出一个简单的消息框�
 
 ```react
 <Button onClick={()=>{Modal.alert("这是一条消息")}}>弹出消息</Button>
-<Button onClick={()=>{Modal.confirm("这是一条确认消息"),()=>{ console.log('确认回掉') }}}>
+<Button onClick={()=>{Modal.confirm("这是一条确认消息"),()=>{ console.log('确认') }}}>
   弹出消息
 </Button>
 
