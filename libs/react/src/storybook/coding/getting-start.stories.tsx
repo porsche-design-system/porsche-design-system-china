@@ -3,7 +3,7 @@ import React from 'react'
 import './doc.scss'
 
 const GettingStart = () => (
-  <div>
+  <div className="custom-doc">
     <div>使用Vite创建项目</div>
     <div className="cmd">yarn create @vitejs/app</div>
     <div>使用CRA创建</div>
