@@ -1,0 +1,201 @@
+@import '../../styles/theme/index';
+
+$white: #fff !default;
+$black: #000 !default;
+// menu
+$menu-border-width: 1px !default;
+$menu-border-color: $border-color-1 !default;
+$menu-box-shadow: 0 0 2px rgba($black, 0.25);
+$menu-transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out !default;
+
+// menu-item
+$menu-item-padding-y: 12px !default;
+$menu-item-padding-x: 12px !default;
+$menu-item-active-color: $brand-color !default;
+$menu-item-active-border-width: 2px !default;
+$menu-item-disabled-color: $text-opacity-color-2 !default;
+
+//sub-menu
+$submenu-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),
+  0 0 6px 0 rgba(0, 0, 0, 0.04);
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .pui-menu {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 0;
+      list-style: none;
+      border-bottom: $menu-border-width solid $menu-border-color;
+      box-shadow: $menu-box-shadow;
+      > .menu-item {
+        margin: 0 18px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 400;
+        min-height: 48px;
+        transition: $menu-transition;
+        display: flex;
+        justify-content: space-between;
+        &.is-disabled {
+          color: $menu-item-disabled-color;
+          pointer-events: none;
+          cursor: default;
+          a {
+            color: $text-opacity-color-2;
+          }
+        }
+        &.is-active,
+        &:hover {
+          font-weight: 600;
+          color: $menu-item-active-color;
+        }
+        &.is-active {
+          border-bottom: $menu-item-active-border-width
+            solid
+            $menu-item-active-color;
+        }
+        &.submenu-item {
+          &:hover {
+            font-weight: 400;
+            color: initial;
+          }
+        }
+        .menu-title-content {
+          flex: 1;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          .porscheicon {
+            margin-right: 8px;
+            font-size: 20px;
+          }
+          a {
+            display: inline-block;
+            width: 100%;
+            text-decoration: none;
+          }
+        }
+      }
+      .menu-item.submenu-item {
+        position: relative;
+        &.is-opened {
+          > .submenu-title {
+            font-weight: 600;
+            color: $menu-item-active-color;
+            border-bottom: $menu-item-active-border-width
+              solid
+              $menu-item-active-color;
+          }
+        }
+        .submenu-title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .porscheicon-icon_arrow_head_down {
+          transition: transform 0.25s ease-in-out;
+          margin-left: 3px;
+        }
+        &:hover {
+          .porscheicon-icon_arrow_head_down {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .is-vertical {
+        .porscheicon-icon_arrow_head_down {
+          transform: rotate(0deg) !important;
+        }
+      }
+      .is-vertical.is-opened {
+        .porscheicon-icon_arrow_head_down {
+          transform: rotate(180deg) !important;
+        }
+      }
+      .pui-submenu {
+        display: none;
+        list-style: none;
+        padding-left: 0;
+        white-space: nowrap;
+        transition: $menu-transition;
+        .sub-menu-item {
+          min-width: 200px;
+          cursor: pointer;
+          padding: 12px;
+          transition: $menu-transition;
+          &.submenu-item {
+            padding: 0;
+            .submenu-title {
+              padding: 12px;
+            }
+          }
+          &.is-active,
+          &:hover {
+            background-color: $container-bg-opacity-color-2;
+            color: $menu-item-active-color !important;
+            font-weight: 600;
+            .pui-submenu {
+              color: initial;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+      .pui-submenu.menu-opened {
+        display: block;
+      }
+    }
+    .menu-horizontal {
+      > .menu-item {
+        border-bottom: $menu-item-active-border-width solid transparent;
+      }
+      .submenu-item {
+        .porscheicon-icon_arrow_head_down {
+          display: none;
+        }
+      }
+      .pui-submenu {
+        position: absolute;
+        background: $white;
+        z-index: 100;
+        top: calc(100% + 8px);
+        left: 0;
+        border: $menu-border-width solid $menu-border-color;
+        box-shadow: $submenu-box-shadow;
+        > .submenu-item {
+          &.is-opened {
+            .submenu-title {
+              font-weight: 600;
+              color: $menu-item-active-color;
+              border-bottom: none;
+            }
+          }
+          .pui-submenu {
+            top: 12px;
+            left: 204px;
+          }
+          .porscheicon-icon_arrow_head_down {
+            display: block;
+            transform: rotate(-90deg) !important;
+          }
+        }
+      }
+    }
+    .menu-vertical {
+      flex-direction: column;
+      border-bottom: 0px;
+      padding: 8px 0;
+      > .menu-item {
+        &.submenu-item {
+          display: block;
+        }
+        &.is-active,
+        &:hover {
+          border-bottom: 0px;
+        }
+      }
+    }
+  }
+}

@@ -37,6 +37,7 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'no-unused-expressions': ['error', { allowShortCircuit: true }],
     'react/no-array-index-key': 'off',
+    'react/prop-types': 'off',
     'no-nested-ternary': 'off',
     'no-else-return': 'off',
     'no-restricted-syntax': 'off',
