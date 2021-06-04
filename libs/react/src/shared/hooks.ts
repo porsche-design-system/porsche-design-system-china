@@ -1,4 +1,15 @@
-import { useEffect, useState } from 'react'
+import { RefObject, useEffect, useState, useRef, EffectCallback } from 'react'
+
+const useEffectOnce = (effect: EffectCallback) => {
+  useEffect(effect, [])
+}
+
+const useUnmount = (fn: () => any): void => {
+  const fnRef = useRef(fn)
+  fnRef.current = fn
+
+  useEffectOnce(() => () => fnRef.current())
+}
 
 const allSetPopStates: any[] = []
 export const usePopShowState = (): [boolean, (val: boolean) => void] => {
@@ -45,4 +56,69 @@ export const usePopShowState = (): [boolean, (val: boolean) => void] => {
       }
     }
   ]
+}
+
+export const useDebounce = (value: any, delay = 300) => {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+  useEffect(() => {
+    const handler = window.setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+  return debouncedValue
+}
+
+export const useThrottle = <T, U extends any[]>(
+  fn: (...args: U) => T,
+  ms: number = 200,
+  args: U
+) => {
+  const [state, setState] = useState<T | null>(null)
+  const timeout = useRef<ReturnType<typeof setTimeout>>()
+  const nextArgs = useRef<U>()
+
+  useEffect(() => {
+    if (!timeout.current) {
+      setState(fn(...args))
+      const timeoutCallback = () => {
+        if (nextArgs.current) {
+          setState(fn(...nextArgs.current))
+          nextArgs.current = undefined
+          timeout.current = setTimeout(timeoutCallback, ms)
+        } else {
+          timeout.current = undefined
+        }
+      }
+      timeout.current = setTimeout(timeoutCallback, ms)
+    } else {
+      nextArgs.current = args
+    }
+  }, args)
+
+  useUnmount(() => {
+    timeout.current && clearTimeout(timeout.current)
+  })
+
+  return state
+}
+
+export const useClickOutside = (
+  ref: RefObject<HTMLElement>,
+  handler: Function
+) => {
+  useEffect(() => {
+    const listener = (event: MouseEvent) => {
+      if (!ref.current || ref.current.contains(event.target as HTMLElement)) {
+        return
+      }
+      handler(event)
+    }
+    document.addEventListener('click', listener)
+    return () => {
+      document.removeEventListener('click', listener)
+    }
+  }, [ref, handler])
 }
