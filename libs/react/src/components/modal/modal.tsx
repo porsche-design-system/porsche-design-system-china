@@ -9,6 +9,9 @@ export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
 
+  /* 类名 */
+  className?: string
+
   /** 样式 */
   style?: CSSProperties
 
@@ -33,6 +36,9 @@ export interface ModalProps {
   /* 显示取消按钮 */
   showCancel?: boolean
 
+  /* 显示确认按钮 */
+  showOk?: boolean
+
   /* 显示关闭按钮 */
   showClose?: boolean
 
@@ -42,6 +48,7 @@ export interface ModalProps {
 let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
+  className,
   visible = false,
   title,
   children,
@@ -50,6 +57,7 @@ const Modal = ({
   onOk,
   onCancel,
   showCancel = true,
+  showOk=true,
   showClose = true,
   modalRef
 }: ModalProps) => {
@@ -64,11 +72,11 @@ const Modal = ({
     <div
       ref={modalRef}
       className={componentClassNames('pui-modal-root', { hide: !show + '' })}
-      style={style}
+     
     >
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
-        <div className="pui-modal">
+        <div className={componentClassNames('pui-modal',{}, className)}  style={style} >
           <div className="pui-modal-content">
             {showClose && (
               <div
@@ -95,7 +103,8 @@ const Modal = ({
                   {cancelText}
                 </Button>
               )}
-              <Button
+             {showOk && (
+                <Button
                 type="primary"
                 loading={isLoading}
                 icon={<IconArrowHeadRight />}
@@ -113,6 +122,7 @@ const Modal = ({
               >
                 {okText}
               </Button>
+             )}
             </div>
           </div>
         </div>
