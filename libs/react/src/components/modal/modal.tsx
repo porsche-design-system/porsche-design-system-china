@@ -9,6 +9,9 @@ export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
 
+  /* 类名 */
+  className?: string
+
   /** 样式 */
   style?: CSSProperties
 
@@ -42,6 +45,7 @@ export interface ModalProps {
 let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
+  className,
   visible = false,
   title,
   children,
@@ -64,11 +68,11 @@ const Modal = ({
     <div
       ref={modalRef}
       className={componentClassNames('pui-modal-root', { hide: !show + '' })}
-      style={style}
+     
     >
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
-        <div className="pui-modal">
+        <div className={componentClassNames('pui-modal',{}, className)}  style={style} >
           <div className="pui-modal-content">
             {showClose && (
               <div
