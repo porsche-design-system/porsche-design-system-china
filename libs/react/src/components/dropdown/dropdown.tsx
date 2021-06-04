@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import classnames from 'classnames'
-import useClickOutside from './useClickOutside'
+import { useClickOutside } from '../../shared/hooks'
 import { MenuProps } from '../menu/menu'
 import './dropdown.scss'
 
