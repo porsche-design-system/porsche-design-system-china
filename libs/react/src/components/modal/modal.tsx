@@ -36,6 +36,9 @@ export interface ModalProps {
   /* 显示取消按钮 */
   showCancel?: boolean
 
+  /* 显示确认按钮 */
+  showOk?: boolean
+
   /* 显示关闭按钮 */
   showClose?: boolean
 
@@ -54,6 +57,7 @@ const Modal = ({
   onOk,
   onCancel,
   showCancel = true,
+  showOk=true,
   showClose = true,
   modalRef
 }: ModalProps) => {
@@ -99,7 +103,8 @@ const Modal = ({
                   {cancelText}
                 </Button>
               )}
-              <Button
+             {showOk && (
+                <Button
                 type="primary"
                 loading={isLoading}
                 icon={<IconArrowHeadRight />}
@@ -117,6 +122,7 @@ const Modal = ({
               >
                 {okText}
               </Button>
+             )}
             </div>
           </div>
         </div>
