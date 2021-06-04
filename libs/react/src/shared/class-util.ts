@@ -8,7 +8,9 @@ export const componentClassNames = (
 ) => {
   const args: string[] = [prefix]
   for (const k in classNames) {
-    args.push(prefix + '-' + k + '-' + classNames[k])
+		let value = classNames[k] ? `-${classNames[k]}` : '';
+		let itemName = `${prefix}-${k}${value}`;
+    args.push(itemName)
   }
   if (overrideClassName) {
     args.push(overrideClassName)

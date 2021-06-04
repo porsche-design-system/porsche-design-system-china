@@ -161,7 +161,7 @@ buid_image:
 
 deploy_react:
   stage: Deployment
-  # when: manual
+  when: manual
   only:
     refs:
       - develop
