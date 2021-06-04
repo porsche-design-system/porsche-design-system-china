@@ -1,4 +1,4 @@
-@import '../../styles/theme/';
+@import '../../styles/theme/index';
 @each $theme in $themes {
   .pui-theme-#{$theme} {
     @include theme($theme);
