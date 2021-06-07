@@ -12,8 +12,7 @@
     "_publish:nogit": "# ignore Git 提交 并将所有包发布到 69 库 \n npm run publish --  --skip-git --registry http://52.83.74.69:4111",
     "remove": "lerna run vremove",
     "rp": "npm run remove \n npm run publish:nogit",
-    "all": "npm-run-all remove publish:nogit",
-    "login": "npm login --registry  http://52.83.74.69:4111/"
+    "all": "npm-run-all remove publish:nogit"
   },
   "changelog": {
     "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/",

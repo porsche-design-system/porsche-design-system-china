@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { IconError, IconView, IconViewOff } from '@pui/icons'
+import { IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
@@ -133,7 +133,7 @@ const Input = FormItem(
           </div>
         )}
         {showClearButton && valueLength > 0 && (
-          <IconError
+          <IconErrorFilled
             className="pui-input-right-button pui-input-clear"
             onClick={() => {
               onChange && onChange({ target: inputReference.current } as any)
@@ -164,6 +164,5 @@ const Input = FormItem(
     )
   }
 )
-
 ;(Input as any).displayName = 'Input'
 export { Input }

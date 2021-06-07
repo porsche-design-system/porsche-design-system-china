@@ -1,34 +1,33 @@
-@import '../../styles/theme/';
+@import '../../styles/theme/index';
 
 @each $theme in $themes {
-	.pui-theme-#{$theme} {
-		@include theme($theme);
+  .pui-theme-#{$theme} {
+    @include theme($theme);
 
-		.pui-divider {
+    .pui-divider {
+      /* type */
+      &-type-vertical {
+        width: 1px;
+        height: 60px;
+      }
 
-			/* type */
-			&-type-vertical {
-				width: 1px;
-				height: 60px;
-			}
+      &-type-horizontal {
+        width: 100%;
+        height: 1px;
+      }
 
-			&-type-horizontal {
-				width: 100%;
-				height: 1px;
-			}
+      /* contrast */
+      &-contrast-low {
+        background: $border-color-1;
+      }
 
-			/* contrast */
-			&-contrast-low {
-				background: $border-color-1;
-			}
+      &-contrast-medium {
+        background: $border-color-2;
+      }
 
-			&-contrast-medium {
-				background: $border-color-2;
-			}
-
-			&-contrast-high {
-				background: $border-color-3;
-			}
-		}
-	}
+      &-contrast-high {
+        background: $border-color-3;
+      }
+    }
+  }
 }

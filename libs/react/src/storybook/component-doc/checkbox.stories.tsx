@@ -5,7 +5,8 @@ import './checkbox.stories.scss'
 
 export default {
   title: 'Data Entry/CheckBox',
-  component: CheckBox
+  component: CheckBox,
+  subcomponents: { CheckBoxGroup }
 }
 
 export const CheckBoxStoryBook = () => {

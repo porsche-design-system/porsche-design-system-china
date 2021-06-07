@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconCorrect, IconError } from '@pui/icons'
+import { IconCorrectFilled, IconErrorFilled } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import './progress.scss'
 
@@ -29,11 +29,11 @@ export interface ProgressProps {
 
 const Info = ({ status = 'normal', percent = 0 }: ProgressProps) => {
   if (status === 'success') {
-    return <IconCorrect />
+    return <IconCorrectFilled />
   }
 
   if (status === 'error') {
-    return <IconError />
+    return <IconErrorFilled />
   }
 
   return <span>{percent}%</span>
@@ -69,7 +69,7 @@ const Progress = ({
       </span>
       {useStatus === 'normal' ? (
         <span onClick={onStop} className="pui-progress-close">
-          <IconError />
+          <IconErrorFilled />
         </span>
       ) : null}
     </div>
