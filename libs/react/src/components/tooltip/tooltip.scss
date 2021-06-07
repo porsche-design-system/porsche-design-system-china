@@ -1,0 +1,44 @@
+@import '../../styles/theme/';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-tooltip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      &-box{
+        position: absolute;
+      }
+      &-content{
+        background-color: $background-color-2;
+        padding: 8px;
+        z-index: 1;
+        position: relative;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      }
+      &-arrow{
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: $background-color-2;
+        z-index: 2;
+        box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+      }
+      &-bottom-arrow{
+        transform: rotate(45deg);
+      }
+      &-left-arrow{
+        transform: rotate(135deg);
+      }
+      &-top-arrow{
+        transform: rotate(225deg);
+      }
+      &-right-arrow{
+        transform: rotate(315deg);
+      }
+    }
+  }
+}
