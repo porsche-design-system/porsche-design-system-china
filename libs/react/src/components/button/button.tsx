@@ -47,6 +47,12 @@ export interface ButtonProps {
 
   /* 点击事件 */
   onClick?: React.MouseEventHandler
+
+  /* 鼠标移入事件 */
+  onMouseEnter?: React.MouseEventHandler
+
+  /* 鼠标移出事件 */
+  onMouseLeave?: React.MouseEventHandler
 }
 
 const Button = ({
@@ -60,7 +66,9 @@ const Button = ({
   disabled = false,
   marginRight,
   marginLeft,
-  onClick
+  onClick,
+  onMouseEnter,
+  onMouseLeave
 }: ButtonProps) => {
   loading = loading || false
   let paddingStyle = {}
@@ -84,6 +92,8 @@ const Button = ({
         }
       }}
       disabled={disabled || loading}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {loading && (
         <span
