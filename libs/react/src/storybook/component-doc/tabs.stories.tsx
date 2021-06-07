@@ -3,7 +3,8 @@ import { Tabs, TabPane, Input } from '../..'
 
 export default {
   title: 'Data Display/Tabs',
-  component: Tabs
+  component: Tabs,
+  subcomponents: { TabPane }
 }
 
 export const TabsStoryBook = () => {

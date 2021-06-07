@@ -53,6 +53,7 @@ const Table = ({
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
   const rightColumns: TableColumn[] = []
+  const [allChecked, setAllChecked] = useState(false)
 
   const [selectedRows, setSelectedRows] = useState<number[]>([])
   useEffect(() => {
@@ -305,6 +306,7 @@ const Table = ({
                   >
                     <CheckBox
                       size="small"
+                      checked={allChecked}
                       onCheckedChange={checked => {
                         if (checked) {
                           const fullSelectedRows: number[] = []
@@ -317,6 +319,7 @@ const Table = ({
                           setSelectedRows([])
                           selectCallback([])
                         }
+                        setAllChecked(checked)
                       }}
                     />
                   </td>
@@ -378,6 +381,7 @@ const Table = ({
                             selectedRows.splice(selectedRows.indexOf(inx), 1)
                           }
                           selectCallback(selectedRows)
+                          setAllChecked(selectedRows.length === data.length)
                         }}
                         checked={selectedRows.includes(inx)}
                       />

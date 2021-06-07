@@ -24,6 +24,7 @@ export const ModalStoryBook = () => {
   return (
     <>
       <Modal
+        style={{width:'800px'}}
         title="用户协议"
         okText="同意"
         cancelText="我考虑一下"

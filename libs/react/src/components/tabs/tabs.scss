@@ -1,4 +1,4 @@
-@import '../../styles/theme/';
+@import '../../styles/theme/index';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -23,9 +23,6 @@
           &-size-default {
             font-size: 24px;
           }
-          &-size-small {
-            font-size: 16px;
-          }
 
           > span {
             display: inline-flex;
@@ -44,7 +41,7 @@
 
           &:hover {
             color: $brand-color;
-
+            font-weight: 600;
             &::after {
               content: '';
               height: 2px;
@@ -53,7 +50,7 @@
               position: absolute;
               bottom: -12px;
               left: 0px;
-              background-color: $brand-color;
+              background-color: transparent;
             }
           }
 
@@ -73,6 +70,17 @@
             &:hover {
               &::after {
                 height: 3px;
+                background-color: $brand-color;
+              }
+            }
+          }
+
+          &-size-small {
+            font-size: 16px;
+
+            &.pui-tab-active-true {
+              &::after {
+                bottom: -6px;
               }
             }
           }
