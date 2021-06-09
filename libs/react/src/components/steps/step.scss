@@ -1,0 +1,138 @@
+@import '../../styles/theme/';
+
+$step-item-prefix: pui-step-item;
+$steps-prefix: pui-steps;
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .#{$step-item-prefix}{
+      &-circle{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      &-text{
+        display: flex;
+        white-space: nowrap;
+      }
+    }
+    .#{$steps-prefix}-size-default{
+      .#{$step-item-prefix}-circle{
+        width: 24px;
+        height: 24px;
+        .#{$step-item-prefix}-icon{
+          font-size: 16px;
+        }
+      }
+      .#{$step-item-prefix}-text{
+        font-size: 16px;
+        width: 24px;
+      }
+    }
+    .#{$steps-prefix}-size-small{
+      .#{$step-item-prefix}-circle{
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        .#{$step-item-prefix}-icon{
+          font-size: 12px;
+        }
+      }
+      .#{$step-item-prefix}-text{
+        font-size: 12px;
+        width: 16px;
+      }
+    }
+    .#{$steps-prefix}-type-default{
+      .#{$step-item-prefix}-top{
+        display: flex;
+        align-items: center;
+        .#{$step-item-prefix}-line{
+          flex:1;
+        }
+      }
+      .#{$step-item-prefix}:not(:last-child){
+        flex:1;
+      }
+    }
+    .#{$step-item-prefix}-navigation{
+      flex:1;
+      height: 57px;
+      border-bottom:1px solid $border-color-1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding:0 8px 0 20px;
+      &-left{
+        display: flex;
+        &-text{
+          padding-left: 8px;
+        }
+      }
+    }
+    .#{$step-item-prefix}-navigation:hover{
+      background: $container-bg-opacity-color-1;
+    }
+    .#{$step-item-prefix}-wait{
+      .#{$step-item-prefix}-circle{
+        border: 1px solid $border-color-3;
+        background: transparent;
+        color: $text-opacity-color-2;
+      }
+      .#{$step-item-prefix}-line{
+        border-top:1px solid $border-color-2;
+      }
+      .#{$step-item-prefix}-text{
+        color: $text-opacity-color-1;
+      }
+    }
+    .#{$step-item-prefix}-process{
+      .#{$step-item-prefix}-circle{
+        background: $brand-color;
+        color: $text-white-color;
+      }
+      .#{$step-item-prefix}-line{
+        border-top:1px solid $border-color-2;
+      }
+      .#{$step-item-prefix}-text{
+        font-weight: 600;
+        color: $text-color-1;
+      }
+      .#{$step-item-prefix}-navigation-left-text{
+        font-weight: 600;
+      }
+    }
+    .#{$step-item-prefix}-finish{
+      .#{$step-item-prefix}-circle{
+        border: 1px solid $brand-color;
+        background: transparent;
+        color: $brand-color;
+      }
+      .#{$step-item-prefix}-line{
+        border-top:1px solid $brand-color;
+      }
+      .#{$step-item-prefix}-text{
+        color: $text-color-1;
+      }
+    }
+    .#{$step-item-prefix}-selected{
+      border-bottom: 1px solid $brand-color;
+    }
+    .#{$step-item-prefix}-select{
+      cursor: pointer;
+    }
+    .#{$steps-prefix}-label-placement-left{
+      .#{$step-item-prefix}-text{
+        justify-content: left;
+      }
+    }
+    .#{$steps-prefix}-label-placement-center{
+      .#{$step-item-prefix}-text{
+        justify-content: center;
+      }
+    }
+  }
+}
