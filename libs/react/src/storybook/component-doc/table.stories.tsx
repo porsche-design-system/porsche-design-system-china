@@ -26,7 +26,7 @@ const columns: TableColumn[] = [
   { title: '号码', customCell: (rowData: any) => <u>{rowData.dealerCode}</u> },
   { title: '联系号码', key: 'phoneNumber' },
   { title: '地址', key: 'address' },
-  { title: '工作时间', key: 'workingTime' },
+  { title: '工作时间', key: 'workingTime', sortable: true },
   { title: '在售车型', key: 'saleModel' },
   {
     title: '操作',
@@ -70,6 +70,7 @@ export const TableStoryBook = () => {
         onSelect={data => {
           console.log(data)
         }}
+				onSort={sorter => console.log(sorter)}
       />
     </div>
   )

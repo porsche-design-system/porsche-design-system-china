@@ -1,8 +1,21 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { renderToString } from 'react-dom/server'
+import { IconDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import './table.scss'
+
+export enum SortOrder {
+	ASC = 'asc',
+	DES = 'des'
+}
+
+const ORDER_QUEUE = [undefined, SortOrder.DES, SortOrder.ASC]
+
+export interface Sorter {
+	columnName?: string
+	sortOrder?: SortOrder
+}
 
 export interface TableColumn {
   title?: string
@@ -34,7 +47,7 @@ export interface TableProps {
   maxRows?: number
 
   /* 排序事件 */
-  // onSort?: (columnName: string) => void
+  onSort?: (sorter: Sorter) => void
 
   /* 选定事件 */
   onSelect?: (selectedRowData: any[]) => void
@@ -45,7 +58,7 @@ const Table = ({
   style,
   columns,
   data,
-  // onSort,
+  onSort,
   onSelect,
   maxRows,
   selectable = false
@@ -60,7 +73,9 @@ const Table = ({
     setSelectedRows([])
   }, [data])
 
-  columns.forEach(col => {
+	const [sorter, setSorter] = useState<Sorter>({})
+
+	columns.forEach(col => {
     if (col.fixed === 'left') {
       leftColumns.push(col)
     } else if (col.fixed === 'right') {
@@ -215,13 +230,28 @@ const Table = ({
     fixed: 'left' | 'right' | null,
     style: CSSProperties
   ) => {
+		const classNameArr = [
+			fixed ? 'pui-table-fixed-' + fixed : '',
+			column.sortable ? 'sortable' : ''
+		]
+		const isAscend = sorter.columnName === column.key && sorter.sortOrder === SortOrder.ASC
+		const isDescend = sorter.columnName === column.key && sorter.sortOrder === SortOrder.DES
     return (
       <td
         key={'head' + inx}
-        className={fixed ? 'pui-table-fixed-' + fixed : ''}
+        className={classNameArr.filter(item => !!item).join(' ')}
         style={style}
+				onClick={() => sortCallback(column)}
       >
-        {column.title || ''}
+				<div className="title-content">
+					{column.title || ''}
+					{column.sortable && (
+						<span className="sort-btn">
+							<IconDown className={`asc-btn ${isAscend ? 'sort-active' : ''}`}/>
+							<IconDown className={`des-btn ${isDescend ? 'sort-active' : ''}`}/>
+						</span>
+					)}
+				</div>
       </td>
     )
   }
@@ -277,6 +307,16 @@ const Table = ({
     setSelectedRows([...sRows])
     onSelect && onSelect(rowData)
   }
+
+	const sortCallback = (column: TableColumn) => {
+  	if (!column.sortable) {
+  		return
+		}
+		const prevOrder = sorter.columnName === column.key ? sorter.sortOrder : undefined
+		const order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
+		setSorter({columnName: column.key, sortOrder: order})
+		onSort && onSort({columnName: column.key, sortOrder: order})
+	}
 
   return (
     <div
