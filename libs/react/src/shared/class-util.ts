@@ -8,8 +8,8 @@ export const componentClassNames = (
 ) => {
   const args: string[] = [prefix]
   for (const k in classNames) {
-		let value = classNames[k] ? `-${classNames[k]}` : '';
-		let itemName = `${prefix}-${k}${value}`;
+    const value = classNames[k] ? `-${classNames[k]}` : ''
+    const itemName = `${prefix}-${k}${value}`
     args.push(itemName)
   }
   if (overrideClassName) {
@@ -29,9 +29,9 @@ export const overrideChildren = (
   if (!children) {
     return null
   }
+  console.log(children)
   const newChildrenArray: any = []
   const childrenArray = React.Children.toArray(children)
-
   childrenArray.forEach((node: any, index: number) => {
     if (node.type) {
       const type: string = node.type.displayName || node.type
