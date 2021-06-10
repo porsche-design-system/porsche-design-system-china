@@ -175,7 +175,7 @@ const Table = ({
             getByteLength(
               removeHtml(renderToString(col.customCell!(d) as any))
             ) * charWidth
-          col.width = col.width! < dataColWidth ? dataColWidth : col.width
+          col.width = (col.width || 0) < dataColWidth ? dataColWidth : col.width
         })
       } else if (!col.key) {
         col.width = defaultWidth
@@ -183,7 +183,8 @@ const Table = ({
         data.forEach(d => {
           if (d[col.key!]) {
             const dataColWidth = getByteLength(d[col.key!]) * charWidth
-            col.width = col.width! < dataColWidth ? dataColWidth : col.width
+            col.width =
+              (col.width || 0) < dataColWidth ? dataColWidth : col.width
           }
         })
       }
