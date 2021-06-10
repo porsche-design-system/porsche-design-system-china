@@ -69,4 +69,10 @@
   $status-bg-success-color: #e5f3e7 !global;
   $status-bg-warning-color: #fff5e5 !global;
   $status-bg-neutral-color: #e5eff8 !global;
+
+  //shadow
+  $shadow-l1-default: 0 1px 4px rgba(0,0,0,0.2) !global;
+  $shadow-l2-default: 0 2px 8px rgba(0,0,0,0.4) !global;
+  $shadow-l1-left: -1px 0 4px rgba(0,0,0,0.2) !global;
+  $shadow-l1-right: 1 0 4px rgba(0,0,0,0.2) !global;
 }
