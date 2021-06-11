@@ -5,16 +5,16 @@ import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import './table.scss'
 
-export enum SortOrder {
+export enum SortType {
 	ASC = 'asc',
 	DES = 'des'
 }
 
-const ORDER_QUEUE = [undefined, SortOrder.DES, SortOrder.ASC]
+const ORDER_QUEUE = [undefined, SortType.DES, SortType.ASC]
 
 export interface Sorter {
-	columnName?: string
-	sortOrder?: SortOrder
+	key?: string
+	sortType?: SortType
 }
 
 export interface TableColumn {
@@ -234,8 +234,8 @@ const Table = ({
 			fixed ? 'pui-table-fixed-' + fixed : '',
 			column.sortable ? 'sortable' : ''
 		]
-		const isAscend = sorter.columnName === column.key && sorter.sortOrder === SortOrder.ASC
-		const isDescend = sorter.columnName === column.key && sorter.sortOrder === SortOrder.DES
+		const isAscend = sorter.key === column.key && sorter.sortType === SortType.ASC
+		const isDescend = sorter.key === column.key && sorter.sortType === SortType.DES
     return (
       <td
         key={'head' + inx}
@@ -312,10 +312,10 @@ const Table = ({
   	if (!column.sortable) {
   		return
 		}
-		const prevOrder = sorter.columnName === column.key ? sorter.sortOrder : undefined
+		const prevOrder = sorter.key === column.key ? sorter.sortType : undefined
 		const order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
-		setSorter({columnName: column.key, sortOrder: order})
-		onSort && onSort({columnName: column.key, sortOrder: order})
+		setSorter({key: column.key, sortType: order})
+		onSort && onSort({key: column.key, sortType: order})
 	}
 
   return (
