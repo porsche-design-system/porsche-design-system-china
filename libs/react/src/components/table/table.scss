@@ -58,6 +58,41 @@
             background-color: $table-head-bg-color;
             font-weight: bold;
           }
+
+					td {
+						&.sortable {
+							cursor: pointer;
+						}
+
+						.title-content {
+							display: flex;
+							justify-content: space-between;
+
+							.sort-btn {
+								display: flex;
+								flex-direction: column;
+								margin-right: 10px;
+								height: 25px;
+								position: relative;
+								color: $container-bg-color-4;
+
+								.asc-btn {
+									font-size: 16px;
+									transform: rotate(180deg);
+								}
+
+								.des-btn {
+									font-size: 16px;
+									position: absolute;
+									bottom: 0;
+								}
+
+								.sort-active {
+									color: $text-color-1;
+								}
+							}
+						}
+					}
         }
       }
 
