@@ -29,7 +29,6 @@ export const overrideChildren = (
   if (!children) {
     return null
   }
-  console.log(children)
   const newChildrenArray: any = []
   const childrenArray = React.Children.toArray(children)
   childrenArray.forEach((node: any, index: number) => {
