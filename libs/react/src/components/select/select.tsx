@@ -144,5 +144,5 @@ const Select = FormItem(
   }
 )
 
-;(Select as any).displayName = 'Radio'
+;(Select as any).displayName = 'Select'
 export { Select }
