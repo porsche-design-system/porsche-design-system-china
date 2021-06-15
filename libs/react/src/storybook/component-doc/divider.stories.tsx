@@ -13,8 +13,8 @@ export const RowStoryBook = () => {
       <h4>分隔线-横向</h4>
       <Row>
         <Col span={8}>Low contrast</Col>
-        <Col span={8}>High contrast</Col>
         <Col span={8}>Medium contrast</Col>
+        <Col span={8}>High contrast</Col>
       </Row>
       <Row>
         <Col span={8} className="divider-demo">
@@ -29,8 +29,8 @@ export const RowStoryBook = () => {
       </Row>
       <h4>分隔线-纵向</h4>
       <Row>
-        <Col span={8}>Medium contrast</Col>
         <Col span={8}>Low contrast</Col>
+        <Col span={8}>Medium contrast</Col>
         <Col span={8}>High contrast</Col>
       </Row>
       <Row>
