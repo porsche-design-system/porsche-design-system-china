@@ -60,6 +60,8 @@
           }
 
 					td {
+						user-select: none;
+
 						&.sortable {
 							cursor: pointer;
 						}
