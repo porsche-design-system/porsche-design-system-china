@@ -217,7 +217,7 @@ const DatePicker = FormItem(
             displayDate.current = pickedDate
               ? new Date(pickedDate)
               : range
-              ? (range as [Date, Date])[0]
+              ? new Date((range as [Date, Date])[0])
               : new Date()
             updateCalendar()
           }}
@@ -237,7 +237,6 @@ const DatePicker = FormItem(
                     displayDate.current.setFullYear(
                       displayDate.current.getFullYear() - 1
                     )
-
                     updateCalendar()
                   }}
                 />
