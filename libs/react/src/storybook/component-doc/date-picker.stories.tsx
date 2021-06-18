@@ -58,9 +58,9 @@ export const DatePickerStoryBook = () => {
       <br /> <br /> <br />
       <DatePicker
         width="600px"
-        label="来访日期(限定时间，Date数组写法{[new Date(2021, 5, 1), new Date(2021, 5, 21)]} )"
+        label="来访日期(限定时间，Date数组写法{[new Date(2020, 5, 1), new Date(2021, 5, 21)]} )"
         placeholder="请选择"
-        range={[new Date(2021, 5, 1), new Date(2021, 5, 21)]}
+        range={[new Date(2020, 5, 1), new Date(2021, 5, 21)]}
       />
       <br /> <br /> <br />
     </div>
