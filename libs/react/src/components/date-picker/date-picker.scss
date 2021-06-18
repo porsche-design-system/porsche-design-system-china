@@ -119,10 +119,14 @@
         &-unavailable {
           color: $text-opacity-color-3;
           cursor: not-allowed;
+          background-color: $container-bg-opacity-color-2;
+          width: 44px;
+          border-left: none;
+          border-right: none;
         }
 
-        &-unavailable:hover {
-          background-color: transparent;
+        &-not-same-month {
+          color: $text-opacity-color-3;
         }
 
         &-today {
