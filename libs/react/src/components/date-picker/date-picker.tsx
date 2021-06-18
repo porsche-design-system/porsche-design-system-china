@@ -284,12 +284,16 @@ const DatePicker = FormItem(
                     key={date.getTime() + ''}
                     className={
                       'pui-date-picker-calendar-block ' +
+                      (sameDate(date, currentDate)
+                        ? 'pui-date-picker-calendar-today'
+                        : '') +
+                      ' ' +
                       (!inDateRange(date)
                         ? 'pui-date-picker-calendar-unavailable'
                         : '') +
                       ' ' +
-                      (sameDate(date, currentDate)
-                        ? 'pui-date-picker-calendar-today'
+                      (date.getMonth() !== displayDate.current.getMonth()
+                        ? 'pui-date-picker-calendar-not-same-month'
                         : '') +
                       ' ' +
                       (pickedDate && sameDate(date, pickedDate)
