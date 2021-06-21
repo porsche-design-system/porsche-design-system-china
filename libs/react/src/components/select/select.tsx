@@ -86,7 +86,7 @@ const Select = FormItem(
           displayText = option.text
         }
       })
-    } else {
+    } else if (defaultValue !== undefined) {
       selectOptions.forEach(option => {
         if (option.value === selectValue) {
           displayText = option.text
