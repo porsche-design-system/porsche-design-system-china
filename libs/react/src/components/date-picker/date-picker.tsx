@@ -160,12 +160,10 @@ const DatePicker = FormItem(
     }
 
     useEffect(() => {
-      if (value) {
-        const date = strToDate(value)
-        if (date) {
-          setPickedDate(date)
-          setDisplayValue(dateToStr(date))
-        }
+      if (defaultValue === undefined) {
+        const date = strToDate(value || '')
+        setPickedDate(date)
+        setDisplayValue(date ? dateToStr(date) : '')
       }
     }, [value])
 
