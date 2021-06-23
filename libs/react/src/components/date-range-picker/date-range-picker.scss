@@ -1,0 +1,175 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-date-range-picker:hover {
+      border-color: $border-color-5;
+    }
+
+    .pui-date-range-picker {
+      display: inline-block;
+      position: relative;
+      border: 1px solid $border-color-3;
+      height: 50px;
+
+      input {
+        width: 50%;
+        height: 48px;
+        cursor: pointer;
+        padding: 12px;
+        font-size: 16px;
+        color: $text-color-1;
+        background-color: transparent;
+        transition: all 0.1s;
+        display: inline-block;
+        border: none;
+      }
+
+      .pui-date-range-picker-box-active {
+        border-color: $border-color-5;
+      }
+
+      &-icon {
+        position: absolute;
+        right: 11px;
+        top: 11px;
+        pointer-events: none;
+      }
+
+      &-disabled-true {
+        .porscheicon {
+          opacity: 0.5;
+        }
+      }
+
+      input:disabled {
+        background: $container-bg-opacity-color-3;
+        border: 1px solid $border-color-2;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+
+      &-error-true {
+        input {
+          border: 1px solid $status-error-color;
+        }
+        input:hover,
+        input:focus {
+          border: 1px solid $status-error-color-hover;
+        }
+      }
+
+      &-calendars {
+        width: 680px;
+        height: 390px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        position: absolute;
+        top: 52px;
+      }
+
+      &-calendar {
+        font-size: 16px;
+        position: absolute;
+        width: 340px;
+        left: 0;
+        z-index: 10;
+        background-color: $float-layer-bg-color;
+        padding-bottom: 10px;
+        animation: pui-fade-in 0.1s;
+        user-select: none;
+
+        &-head {
+          text-align: center;
+          padding: 18px 0 14px 0;
+          font-weight: bold;
+          user-select: none;
+          &-left {
+            float: left;
+            margin-left: 15px;
+          }
+          &-right {
+            float: right;
+            margin-right: 15px;
+          }
+          .porscheicon {
+            cursor: pointer;
+          }
+        }
+        &-weekdays {
+          padding: 0 16px;
+          overflow: hidden;
+          margin: auto;
+          border-bottom: 1px solid $border-color-1;
+          padding-bottom: 4px;
+        }
+        &-dates {
+          width: 308px;
+          overflow: hidden;
+          margin: auto;
+          padding-top: 10px;
+          cursor: pointer;
+        }
+        &-weekday,
+        &-block {
+          width: 36px;
+          height: 36px;
+          float: left;
+          text-align: center;
+          line-height: 36px;
+          box-sizing: content-box;
+          border: 4px solid $float-layer-bg-color;
+        }
+        &-block {
+          cursor: pointer;
+        }
+        &-block:hover {
+          background-color: $container-bg-opacity-color-2;
+        }
+
+        &-unavailable {
+          color: $text-opacity-color-3;
+          cursor: not-allowed;
+          background-color: $container-bg-opacity-color-2;
+          width: 44px;
+          border-left: none;
+          border-right: none;
+        }
+
+        &-today {
+          font-weight: bold;
+          color: $brand-color;
+        }
+
+        &-in-pick-range,
+        &-in-pick-range:hover {
+          background-color: $date-picker-range-color;
+          width: 44px;
+          border-left: none;
+          border-right: none;
+        }
+
+        &-picked,
+        &-picked:hover {
+          color: white;
+          background-color: $brand-color;
+          font-weight: bold;
+        }
+
+        &-not-same-month {
+          color: $text-opacity-color-3;
+          background-color: transparent;
+          width: 36px;
+          height: 36px;
+          border: 4px solid $float-layer-bg-color;
+        }
+      }
+
+      &-calendar-1 {
+        left: 340px;
+      }
+    }
+  }
+}
