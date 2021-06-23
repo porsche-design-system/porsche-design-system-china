@@ -322,4 +322,5 @@ const DatePicker = FormItem(
   }
 )
 
+;(DatePicker as any).displayName = 'DatePicker'
 export { DatePicker }

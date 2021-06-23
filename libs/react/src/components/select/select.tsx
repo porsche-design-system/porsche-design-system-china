@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useMemo, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
@@ -55,8 +55,12 @@ const Select = FormItem(
     onValueChange,
     placeholder
   }: SelectProps) => {
-    const [selectValue, setSelectValue] = useState(value || defaultValue || '')
+    const [selectValue, setSelectValue] = useState(defaultValue || '')
     const [showOptionList, setShowOptionList] = usePopShowState()
+    const isControlledByValue = useRef(value !== undefined)
+    if (value) {
+      isControlledByValue.current = true
+    }
 
     let selectOptions: SelectOption[] = []
     if (typeof options === 'string') {
@@ -80,13 +84,13 @@ const Select = FormItem(
     }
 
     let displayText = ''
-    if (value !== undefined) {
+    if (isControlledByValue.current) {
       selectOptions.forEach(option => {
         if (option.value === value) {
           displayText = option.text
         }
       })
-    } else if (defaultValue !== undefined) {
+    } else {
       selectOptions.forEach(option => {
         if (option.value === selectValue) {
           displayText = option.text

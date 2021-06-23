@@ -58,6 +58,9 @@
   $table-fix-column-shadow-left: inset 10px 0 4px -8px rgba(0, 0, 0, 0.15) !global;
   $table-fix-column-shadow-right: inset -10px 0 4px -8px rgba(0, 0, 0, 0.15) !global;
 
+  // DatePicker
+  $date-picker-range-color: rgba(213, 0, 28, 0.1) !global;
+
   // Status Colors
   $status-error-color: #e00000 !global;
   $status-error-color-hover: #f51414 !global;
@@ -71,8 +74,8 @@
   $status-bg-neutral-color: #e5eff8 !global;
 
   //shadow
-  $shadow-l1-default: 0 1px 4px rgba(0,0,0,0.2) !global;
-  $shadow-l2-default: 0 2px 8px rgba(0,0,0,0.4) !global;
-  $shadow-l1-left: -1px 0 4px rgba(0,0,0,0.2) !global;
-  $shadow-l1-right: 1 0 4px rgba(0,0,0,0.2) !global;
+  $shadow-l1-default: 0 1px 4px rgba(0, 0, 0, 0.2) !global;
+  $shadow-l2-default: 0 2px 8px rgba(0, 0, 0, 0.4) !global;
+  $shadow-l1-left: -1px 0 4px rgba(0, 0, 0, 0.2) !global;
+  $shadow-l1-right: 1 0 4px rgba(0, 0, 0, 0.2) !global;
 }
