@@ -53,7 +53,7 @@ export interface TableProps {
   onSelect?: (selectedRowData: any[]) => void
 
   /* 默认排序方式 */
-  initialSorter?: Sorter
+  defaultSorter?: Sorter
 }
 
 const Table = ({
@@ -65,7 +65,7 @@ const Table = ({
   onSelect,
   maxRows,
   selectable = false,
-  initialSorter = {},
+  defaultSorter = {},
 }: TableProps) => {
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
@@ -77,7 +77,7 @@ const Table = ({
     setSelectedRows([])
   }, [data])
 
-	const [sorter, setSorter] = useState<Sorter>(initialSorter)
+	const [sorter, setSorter] = useState<Sorter>(defaultSorter)
 
 	columns.forEach(col => {
     if (col.fixed === 'left') {
