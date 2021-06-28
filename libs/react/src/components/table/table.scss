@@ -59,42 +59,42 @@
             font-weight: bold;
           }
 
-					td {
-						user-select: none;
+          td {
+            user-select: none;
 
-						&.sortable {
-							cursor: pointer;
-						}
+            &.sortable {
+              cursor: pointer;
+            }
 
-						.title-content {
-							display: flex;
-							justify-content: space-between;
+            .title-content {
+              display: flex;
+              justify-content: space-between;
 
-							.sort-btn {
-								display: flex;
-								flex-direction: column;
-								margin-right: 10px;
-								height: 25px;
-								position: relative;
-								color: $container-bg-color-4;
+              .sort-btn {
+                display: flex;
+                flex-direction: column;
+                margin-right: 10px;
+                height: 25px;
+                position: relative;
+                color: $container-bg-color-4;
 
-								.asc-btn {
-									font-size: 16px;
-									transform: rotate(180deg);
-								}
+                .asc-btn {
+                  font-size: 16px;
+                  transform: rotate(180deg);
+                }
 
-								.des-btn {
-									font-size: 16px;
-									position: absolute;
-									bottom: 0;
-								}
+                .des-btn {
+                  font-size: 16px;
+                  position: absolute;
+                  bottom: 0;
+                }
 
-								.sort-active {
-									color: $text-color-1;
-								}
-							}
-						}
-					}
+                .sort-active {
+                  color: $text-color-1;
+                }
+              }
+            }
+          }
         }
       }
 
@@ -124,7 +124,7 @@
             left: 0;
             top: 0;
             width: 100%;
-            height: 100%;
+            height: 60px;
             overflow: hidden;
             pointer-events: none;
           }
@@ -166,7 +166,7 @@
         left: 0;
         top: 0;
         width: 100%;
-        height: 100%;
+        height: 60px;
         overflow: hidden;
         pointer-events: none;
       }
