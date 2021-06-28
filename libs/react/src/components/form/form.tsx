@@ -98,12 +98,13 @@ const Form = <T extends object>({
 
   useEffect(() => {
     if (data) {
-      setFormData(data)
       if (shouldAutoValidForm.current) {
         validForm(data)
       }
     }
   }, [data])
+
+  const fData = data || formData
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
@@ -116,13 +117,13 @@ const Form = <T extends object>({
   if (name) {
     Form[name] = {
       get data() {
-        return formData
+        return fData
       },
       submit() {
-        validate(formDataValidators.current, formData, errorList => {
+        validate(formDataValidators.current, fData, errorList => {
           shouldAutoValidForm.current = true
           setFormErrors(errorList)
-          onSubmit && onSubmit(formData as T, errorList)
+          onSubmit && onSubmit(fData as T, errorList)
         })
       }
     }
@@ -155,11 +156,11 @@ const Form = <T extends object>({
       }
 
       if (inputProps.name) {
-        if (formData[inputProps.name] === undefined) {
+        if (fData[inputProps.name] === undefined) {
           if (elementName === 'CheckBoxGroup') {
-            formData[inputProps.name] = []
+            fData[inputProps.name] = []
           } else {
-            formData[inputProps.name] = ''
+            fData[inputProps.name] = ''
           }
         }
 
@@ -197,9 +198,8 @@ const Form = <T extends object>({
           formDataValidators.current[inputProps.name] = inputProps.rules
         }
 
-        inputProps = {
-          ...inputProps,
-          value: formData[inputProps.name]
+        if (inputProps.name) {
+          inputProps.value = fData[inputProps.name]
         }
 
         // const clearError = () => {
@@ -220,7 +220,7 @@ const Form = <T extends object>({
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
             const newFormData = {
-              ...formData,
+              ...fData,
               [inputProps.name!]: evt.target.value
             }
             if (data === undefined) {
@@ -242,7 +242,7 @@ const Form = <T extends object>({
           ].includes(elementName)
         ) {
           inputProps.onValueChange = value => {
-            const newFormData = { ...formData, [inputProps.name!]: value }
+            const newFormData = { ...fData, [inputProps.name!]: value }
             if (data === undefined) {
               setFormData(newFormData)
             }
@@ -283,11 +283,11 @@ const Form = <T extends object>({
         }
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt)
-          validate(formDataValidators.current, formData, errorList => {
+          validate(formDataValidators.current, fData, errorList => {
             shouldAutoValidForm.current = true
             setFormErrors(errorList)
             if (onSubmit) {
-              const loadingPromise = onSubmit(formData as T, errorList)
+              const loadingPromise = onSubmit(fData as T, errorList)
               if (loadingPromise && typeof loadingPromise === 'object') {
                 setSubmitting(true)
                 ;((loadingPromise as unknown) as Promise<unknown>).then(() => {
