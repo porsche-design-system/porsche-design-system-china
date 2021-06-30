@@ -1,0 +1,16 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-loading-wrap {
+      position: relative;
+      display: table-cell;
+
+      .pui-loading {
+        position: absolute;
+      }
+    }
+  }
+}
