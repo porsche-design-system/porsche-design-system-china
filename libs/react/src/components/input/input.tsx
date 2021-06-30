@@ -1,5 +1,6 @@
 import React, {
   ChangeEventHandler,
+  FocusEventHandler,
   CSSProperties,
   useEffect,
   useRef,
@@ -43,6 +44,12 @@ export interface InputProps {
   /* 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
 
+  /* 输入框失去焦点事件 */
+  onBlur?: FocusEventHandler<HTMLInputElement>
+
+  /* 输入框获取焦点事件 */
+  onFocus?: FocusEventHandler<HTMLInputElement>
+
   /* 值改变事件 */
   onValueChange?: (value: string) => void
 
@@ -68,6 +75,8 @@ const Input = FormItem(
     onChange,
     error,
     onValueChange,
+    onBlur,
+    onFocus,
     showClearButton,
     showViewPasswordButton
   }: InputProps) => {
@@ -123,6 +132,8 @@ const Input = FormItem(
               setInputValue((event.target as any).value)
             }
           }}
+          onBlur={onBlur}
+          onFocus={onFocus}
         />
         {maxLength && !showClearButton && !showViewPasswordButton && (
           <div className="pui-input-char-count">
