@@ -14,7 +14,7 @@ build:
       - develop
       - master
       - release
-      - merge_requests
+      # - merge_requests
   tags:
     - common-runner
   allow_failure: false
@@ -161,7 +161,7 @@ buid_image:
 
 deploy_react:
   stage: Deployment
-  when: manual
+  # when: manual
   only:
     refs:
       - develop
