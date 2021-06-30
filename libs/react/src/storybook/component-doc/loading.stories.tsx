@@ -1,5 +1,5 @@
-import React from 'react'
-import { Loading } from '../..'
+import React, { useState } from 'react'
+import { Loading, Button } from '../..'
 import './loading.stories.scss'
 
 export default {
@@ -8,9 +8,19 @@ export default {
 }
 
 export const LoadingStoryBook = () => {
+  const [show, setShow] = useState(false)
+
   return (
     <div>
-      <Loading visible />
+      <Button
+        type="primary"
+        onClick={() => {
+          setShow(!show)
+        }}
+      >
+        显示
+      </Button>
+      <Loading visible={show} text="加载中" />
     </div>
   )
 }
