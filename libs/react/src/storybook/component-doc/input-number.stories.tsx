@@ -1,6 +1,5 @@
 import React from 'react'
 import { InputNumber } from '../..'
-import './input-number.stories.scss'
 
 export default {
   title: 'Data Entry/InputNumber',
