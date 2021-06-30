@@ -81,15 +81,8 @@ const Input = FormItem(
     showViewPasswordButton
   }: InputProps) => {
     const [valueLength, setValueLength] = useState(0)
-    const [inputValue, setInputValue] = useState(value || defaultValue || '')
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
-
-    useEffect(() => {
-      if (value !== undefined) {
-        setInputValue(value)
-      }
-    }, [value])
 
     useEffect(() => {
       setInputType(type)
@@ -118,8 +111,9 @@ const Input = FormItem(
             onValueChange && onValueChange(evt.target.value)
           }}
           disabled={disabled}
-          value={inputValue}
+          value={value}
           className={className}
+          defaultValue={defaultValue}
           onInput={event => {
             const inputLength = (event.target as any).value.length
             if (maxLength) {
@@ -127,9 +121,6 @@ const Input = FormItem(
             }
             if (showClearButton) {
               setValueLength(inputLength)
-            }
-            if (value === undefined) {
-              setInputValue((event.target as any).value)
             }
           }}
           onBlur={onBlur}
@@ -147,8 +138,8 @@ const Input = FormItem(
           <IconErrorFilled
             className="pui-input-right-button pui-input-clear"
             onClick={() => {
+              inputReference.current!.value = ''
               onChange && onChange({ target: inputReference.current } as any)
-              setInputValue('')
               onValueChange && onValueChange('')
               setValueLength(0)
             }}

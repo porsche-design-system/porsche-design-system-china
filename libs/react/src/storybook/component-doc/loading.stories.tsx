@@ -9,7 +9,7 @@ export default {
 
 export const LoadingStoryBook = () => {
   return (
-    <div style={{ position: 'relative', width: '100px', height: '100px' }}>
+    <div>
       <Loading visible />
     </div>
   )
