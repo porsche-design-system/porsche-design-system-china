@@ -50,6 +50,9 @@ export interface InputProps {
   /* 输入框获取焦点事件 */
   onFocus?: FocusEventHandler<HTMLInputElement>
 
+  /* 回车事件 */
+  onEnter?: (value: string) => void
+
   /* 值改变事件 */
   onValueChange?: (value: string) => void
 
@@ -77,6 +80,7 @@ const Input = FormItem(
     onValueChange,
     onBlur,
     onFocus,
+    onEnter,
     showClearButton,
     showViewPasswordButton
   }: InputProps) => {
@@ -125,6 +129,12 @@ const Input = FormItem(
           }}
           onBlur={onBlur}
           onFocus={onFocus}
+          onKeyDown={event => {
+            if (event.key === 'Enter') {
+              const target = event.target as HTMLInputElement
+              onEnter && onEnter(target.value)
+            }
+          }}
         />
         {maxLength && !showClearButton && !showViewPasswordButton && (
           <div className="pui-input-char-count">
