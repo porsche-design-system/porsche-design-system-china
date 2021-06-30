@@ -1,8 +1,15 @@
 import React, { useState, CSSProperties } from 'react'
+import classNames from 'classnames'
+import {
+  IconMinus,
+  IconPlus,
+  IconArrowHeadUp,
+  IconArrowHeadDown
+} from '@pui/icons'
+
 import { Input } from '../input/input'
 import { componentClassNames } from '../../shared/class-util'
-import { IconMinus, IconPlus, IconArrowHeadUp, IconArrowHeadDown } from '@pui/icons'
-import classNames from 'classnames'
+
 import './input-number.scss'
 
 const prefixCls = 'pui-input-number'
@@ -36,7 +43,6 @@ export interface InputNumberProps {
 
   /** 宽度 */
   width?: string
-
 }
 
 const InputNumber = ({
@@ -49,93 +55,110 @@ const InputNumber = ({
   style,
   type = 'default',
   value,
-  width = '158px',
+  width = '158px'
 }: InputNumberProps) => {
-  const initialValue = value || defaultValue || '';
-  const [currentValue, setCurrentValue] = useState(initialValue);
+  const initialValue = value || defaultValue || ''
+  const [currentValue, setCurrentValue] = useState(initialValue)
   const handleValueChange = (val: string) => {
-    if (!/[^\.\-\d]/.test(val)) {
-      setCurrentValue(val);
+    if (!/[^.\-\d]/.test(val)) {
+      setCurrentValue(val)
     }
-  };
+  }
   const add = () => {
     if (!disabled) {
       setCurrentValue(currentValue => {
-        const nextValue = Number(currentValue) + Number(step);
+        const nextValue = Number(currentValue) + Number(step)
         if (nextValue > max) {
-          return currentValue;
+          return currentValue
         }
-        return String(nextValue);
-      });
+        return String(nextValue)
+      })
     }
   }
   const reduce = () => {
     if (!disabled) {
       setCurrentValue(currentValue => {
-        const nextValue = Number(currentValue) - Number(step);
+        const nextValue = Number(currentValue) - Number(step)
         if (nextValue < min) {
-          return currentValue;
+          return currentValue
         }
-        return String(nextValue);
-      });
+        return String(nextValue)
+      })
     }
   }
   const handleBlur = (e: React.FocusEvent) => {
-    let value: number | string = (e.target as HTMLInputElement).value;
-    value = parseFloat(value);
-    if (isNaN(value)) {
-      value = '';
+    let value: number | string = (e.target as HTMLInputElement).value
+    value = parseFloat(value)
+    if (Number.isNaN(value)) {
+      value = ''
     } else {
       if (value > max) {
-        value = String(max);
-      } else if (value < min) {
-        value = String(min);
+        value = String(max)
+      }
+      if (value < min) {
+        value = String(min)
       } else {
-        value = String(value);
+        value = String(value)
       }
     }
-    setCurrentValue(value);
+    setCurrentValue(value)
   }
   return (
     <div
-      className={componentClassNames(
-        `${prefixCls}-wrap`,
-        { type },
-        className
-      )}
+      className={componentClassNames(`${prefixCls}-wrap`, { type }, className)}
       style={{ ...style, width }}
     >
-      {
-        type === 'default' ? (
-          <>
-            <div className={classNames('pui-minus-wrap', {
-              [`${prefixCls}-icon-default`]: Number(currentValue) - Number(step) >= min && !disabled,
-              [`${prefixCls}-icon-disabled`]: Number(currentValue) - Number(step) < min || disabled,
+      {type === 'default' ? (
+        <>
+          <div
+            className={classNames('pui-minus-wrap', {
+              [`${prefixCls}-icon-default`]:
+                Number(currentValue) - Number(step) >= min && !disabled,
+              [`${prefixCls}-icon-disabled`]:
+                Number(currentValue) - Number(step) < min || disabled,
               [`${prefixCls}-icon-transparent`]: disabled
-            })} onClick={reduce}>
-              <IconMinus />
-            </div>
-            <div className={classNames('pui-plus-wrap', {
-              [`${prefixCls}-icon-default`]: Number(currentValue) + Number(step) <= max && !disabled,
-              [`${prefixCls}-icon-disabled`]: Number(currentValue) + Number(step) > max || disabled,
-              [`${prefixCls}-icon-transparent`]: disabled
-            })} onClick={add}>
-              <IconPlus />
-            </div>
-          </>
-        ) : (
-          <div className={classNames('pui-arrow-wrap', { 'pui-disabled': disabled })}>
-            <IconArrowHeadUp onClick={add} className={classNames({
-              [`${prefixCls}-icon-default`]: Number(currentValue) + Number(step) <= max && !disabled,
-              [`${prefixCls}-icon-disabled`]: Number(currentValue) + Number(step) > max || disabled,
-            })} />
-            <IconArrowHeadDown onClick={reduce} className={classNames({
-              [`${prefixCls}-icon-default`]: Number(currentValue) - Number(step) >= min && !disabled,
-              [`${prefixCls}-icon-disabled`]: Number(currentValue) - Number(step) < min || disabled,
-            })} />
+            })}
+            onClick={reduce}
+          >
+            <IconMinus />
           </div>
-        )
-      }
+          <div
+            className={classNames('pui-plus-wrap', {
+              [`${prefixCls}-icon-default`]:
+                Number(currentValue) + Number(step) <= max && !disabled,
+              [`${prefixCls}-icon-disabled`]:
+                Number(currentValue) + Number(step) > max || disabled,
+              [`${prefixCls}-icon-transparent`]: disabled
+            })}
+            onClick={add}
+          >
+            <IconPlus />
+          </div>
+        </>
+      ) : (
+        <div
+          className={classNames('pui-arrow-wrap', { 'pui-disabled': disabled })}
+        >
+          <IconArrowHeadUp
+            onClick={add}
+            className={classNames({
+              [`${prefixCls}-icon-default`]:
+                Number(currentValue) + Number(step) <= max && !disabled,
+              [`${prefixCls}-icon-disabled`]:
+                Number(currentValue) + Number(step) > max || disabled
+            })}
+          />
+          <IconArrowHeadDown
+            onClick={reduce}
+            className={classNames({
+              [`${prefixCls}-icon-default`]:
+                Number(currentValue) - Number(step) >= min && !disabled,
+              [`${prefixCls}-icon-disabled`]:
+                Number(currentValue) - Number(step) < min || disabled
+            })}
+          />
+        </div>
+      )}
       <Input
         className={classNames({
           [prefixCls]: type === 'default',
