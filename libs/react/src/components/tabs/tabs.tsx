@@ -21,6 +21,9 @@ export interface TabsProps {
 
   /** 默认选中的面板  */
   defaultActiveKey?: string
+
+	/** 选中面板更改事件 */
+	onActiveKeyChange?: (activeKey: string) => void
 }
 
 const Tabs = ({
@@ -28,7 +31,8 @@ const Tabs = ({
   style,
   size = 'default',
   defaultActiveKey = '',
-  children
+  children,
+	onActiveKeyChange
 }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey)
 
@@ -71,6 +75,7 @@ const Tabs = ({
             key={'TabKey' + inx}
             onClick={() => {
               setTabActiveKey(tabProps.tabKey!)
+							onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
             }}
           >
             <span>{tabProps.title}</span>
