@@ -10,6 +10,7 @@ import {
   Form,
   ButtonGroup,
   DatePicker,
+  DateRangePicker,
   Select,
   CheckBoxGroup
 } from '../..'
@@ -98,6 +99,12 @@ export const ExampleStoryBook = () => {
           rules={{ required: true, message: '必须填写' }}
           placeholder="请填写"
         />
+        <DateRangePicker
+          label="维修时间"
+          names={['repairStartDate', 'repairEndDate']}
+          rules={{ required: true, message: '必须填写' }}
+          placeholders={['开始时间', '结束时间']}
+        />
         <CheckBoxGroup
           label="服务类型"
           name="services"
@@ -144,7 +151,7 @@ export const ExampleStoryBook = () => {
       >
         外部按钮提交
       </Button>
-      <div>{JSON.stringify(data)}</div>
+      <div style={{ whiteSpace: 'pre' }}>{JSON.stringify(data, null, 2)}</div>
     </div>
   )
 }

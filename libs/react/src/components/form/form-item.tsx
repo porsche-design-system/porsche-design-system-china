@@ -32,56 +32,57 @@ export interface FormItemProps {
   style?: CSSProperties
 }
 
-const FormItem = <T,>(func: (...args: T[]) => React.ReactNode) => (
-  props: FormItemProps & T
-) => {
-  const { label, error, width, marginLeft, marginRight, rules, style } = props
+const FormItem =
+  <T,>(func: (...args: T[]) => React.ReactNode) =>
+  (props: FormItemProps & T) => {
+    const { label, error, width, marginLeft, marginRight, rules, style } = props
 
-  let required = false
-  if (rules) {
-    if (Array.isArray(rules)) {
-      rules.forEach(rule => {
-        if (rule.required) {
-          required = true
-        }
-      })
-    } else if (rules.required) {
-      required = true
+    let required = false
+    if (rules) {
+      if (Array.isArray(rules)) {
+        rules.forEach(rule => {
+          if (rule.required) {
+            required = true
+          }
+        })
+      } else if (rules.required) {
+        required = true
+      }
     }
+
+    const labelWidth = getLabelWidth(label)
+    const labelProps = getLabelProps(label)
+
+    const comp = func(props) as any
+    const labelStyle =
+      labelProps.position === 'left' &&
+      comp.props.className &&
+      (comp.props.className.indexOf('pui-input') >= 0 ||
+        comp.props.className.indexOf('pui-textarea') >= 0 ||
+        comp.props.className.indexOf('pui-select') >= 0 ||
+        comp.props.className.indexOf('pui-date-picker') >= 0 ||
+        comp.props.className.indexOf('pui-date-range-picker') >= 0)
+        ? { marginTop: '11px' }
+        : {}
+
+    return (
+      <div
+        className="pui-form-item"
+        style={{ ...style, width, marginLeft, marginRight }}
+      >
+        {label && (
+          <Label
+            requiredMark={required}
+            {...labelProps}
+            style={{ ...labelProps.style, ...labelStyle }}
+          />
+        )}
+        {React.cloneElement(comp, {
+          style: { width: `calc(100% - ${labelWidth})` }
+        })}
+        {error && error.show && <ErrorText {...error} label={label} />}
+      </div>
+    )
   }
-
-  const labelWidth = getLabelWidth(label)
-  const labelProps = getLabelProps(label)
-
-  const comp = func(props) as any
-  const labelStyle =
-    labelProps.position === 'left' &&
-    comp.props.className &&
-    (comp.props.className.indexOf('pui-input') >= 0 ||
-      comp.props.className.indexOf('pui-textarea') >= 0 ||
-      comp.props.className.indexOf('pui-select') >= 0 ||
-      comp.props.className.indexOf('pui-date-picker') >= 0)
-      ? { marginTop: '11px' }
-      : {}
-
-  return (
-    <div
-      className="pui-form-item"
-      style={{ ...style, width, marginLeft, marginRight }}
-    >
-      {label && (
-        <Label
-          requiredMark={required}
-          {...labelProps}
-          style={{ ...labelProps.style, ...labelStyle }}
-        />
-      )}
-      {React.cloneElement(comp, {
-        style: { width: `calc(100% - ${labelWidth})` }
-      })}
-      {error && error.show && <ErrorText {...error} label={label} />}
-    </div>
-  )
-}
 
 export { FormItem }
