@@ -1,4 +1,4 @@
-export const sameDate = (d1: Date, d2: Date) => {
+export const sameDate = (d1: Date | null, d2: Date | null) => {
   if (d1 === null || d2 === null) {
     return false
   }
@@ -83,7 +83,7 @@ export const getMonthCalDates = (date: Date) => {
     calDate.setDate(calDate.getDate() + 1)
     const nextDay = new Date(calDate)
     nextDay.setDate(nextDay.getDate() + 1)
-    if (calDate.getDay() === 6 && nextDay.getMonth() !== date.getMonth()) {
+    if (calDates.length >= 41) {
       calDates.push(new Date(calDate))
       break
     }

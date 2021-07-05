@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DateRangePicker } from '../..'
 
 export default {
@@ -7,6 +7,7 @@ export default {
 }
 
 export const DateRangePickerStoryBook = () => {
+  const [dates, setDates] = useState(['', ''])
   return (
     <div style={{ height: '600px' }}>
       <DateRangePicker
@@ -16,6 +17,33 @@ export const DateRangePickerStoryBook = () => {
         onValuesChange={v => {
           console.log(v)
         }}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DateRangePicker
+        width="400px"
+        label="来访日期"
+        placeholders={['开始日期', '结束日期']}
+        values={dates}
+        onValuesChange={setDates}
+      />
+      <br />
+      输出值：{JSON.stringify(dates)}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <DateRangePicker
+        width="400px"
+        label="限定日期"
+        placeholders={['开始日期', '结束日期']}
+        range="2012-10-12,2012-12-12"
       />
       <br />
       <br />
