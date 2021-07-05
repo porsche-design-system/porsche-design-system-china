@@ -108,6 +108,8 @@ const Form = <T extends object>({
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
+      console.log(formDataValidators.current)
+      console.log(newFormData)
       validate(formDataValidators.current, newFormData, errorList => {
         setFormErrors(errorList)
       })
@@ -137,13 +139,16 @@ const Form = <T extends object>({
       elementName === 'RadioGroup' ||
       elementName === 'CheckBoxGroup' ||
       elementName === 'DatePicker' ||
+      elementName === 'DateRangePicker' ||
       elementName === 'Select' ||
       elementName === 'Switch'
     ) {
       let inputProps = props as {
         name?: string
+        names?: string[]
         onChange?: ChangeEventHandler<HTMLInputElement>
         onValueChange?: (val: string) => void
+        onValuesChange?: (val: string[]) => void
         label?: FormItemLabelProps | string
         value?: any
         rules?: RuleItem[] | RuleItem
@@ -155,12 +160,25 @@ const Form = <T extends object>({
         inputProps.style = { marginBottom: lineGap, ...inputProps.style }
       }
 
-      if (inputProps.name) {
-        if (fData[inputProps.name] === undefined) {
-          if (elementName === 'CheckBoxGroup') {
-            fData[inputProps.name] = []
-          } else {
-            fData[inputProps.name] = ''
+      if (inputProps.name || inputProps.names) {
+        if (inputProps.name) {
+          if (fData[inputProps.name] === undefined) {
+            if (elementName === 'CheckBoxGroup') {
+              fData[inputProps.name] = []
+            } else if (elementName === 'DateRangePicker') {
+              fData[inputProps.name] = ['', '']
+            } else {
+              fData[inputProps.name] = ''
+            }
+          }
+        }
+
+        if (inputProps.names) {
+          if (fData[inputProps.names[0]] === undefined) {
+            fData[inputProps.names[0]] = ''
+          }
+          if (fData[inputProps.names[1]] === undefined) {
+            fData[inputProps.names[1]] = ''
           }
         }
 
@@ -169,6 +187,14 @@ const Form = <T extends object>({
           formErrors.forEach(error => {
             if (error.field === inputProps.name) {
               inputProps.error = { show: true, message: error.message }
+            }
+            if (inputProps.names) {
+              if (
+                error.field === inputProps.names[0] ||
+                error.field === inputProps.names[1]
+              ) {
+                inputProps.error = { show: true, message: error.message }
+              }
             }
           })
         }
@@ -195,7 +221,15 @@ const Form = <T extends object>({
           } else {
             updateRule(inputProps.rules)
           }
-          formDataValidators.current[inputProps.name] = inputProps.rules
+
+          if (inputProps.name) {
+            formDataValidators.current[inputProps.name] = inputProps.rules
+          }
+
+          if (inputProps.names) {
+            formDataValidators.current[inputProps.names[0]] = inputProps.rules
+            formDataValidators.current[inputProps.names[1]] = inputProps.rules
+          }
         }
 
         if (inputProps.name) {
@@ -216,6 +250,7 @@ const Form = <T extends object>({
 
         const formItemOnChange = inputProps.onChange
         const formItemOnValueChange = inputProps.onValueChange
+        const formItemOnValuesChange = inputProps.onValuesChange
 
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
@@ -235,19 +270,38 @@ const Form = <T extends object>({
             'RadioGroup',
             'CheckBoxGroup',
             'DatePicker',
+            'DateRangePicker',
             'Select',
             'Switch',
             'Input',
             'TextArea'
           ].includes(elementName)
         ) {
-          inputProps.onValueChange = value => {
-            const newFormData = { ...fData, [inputProps.name!]: value }
+          inputProps[
+            elementName === 'DateRangePicker'
+              ? 'onValuesChange'
+              : 'onValueChange'
+          ] = value => {
+            let newFormData = fData
+            if (inputProps.name) {
+              newFormData = { ...fData, [inputProps.name]: value }
+            }
+            if (elementName === 'DateRangePicker') {
+              const names = (inputProps as any).names
+              if (names) {
+                newFormData = {
+                  ...newFormData,
+                  [names[0]]: value[0],
+                  [names[1]]: value[1]
+                }
+              }
+            }
             if (data === undefined) {
               setFormData(newFormData)
             }
             onDataChange && onDataChange(newFormData as T)
-            formItemOnValueChange && formItemOnValueChange(value)
+            formItemOnValueChange && formItemOnValueChange(value as string)
+            formItemOnValuesChange && formItemOnValuesChange(value as string[])
             validForm(newFormData)
           }
         }
@@ -290,7 +344,7 @@ const Form = <T extends object>({
               const loadingPromise = onSubmit(fData as T, errorList)
               if (loadingPromise && typeof loadingPromise === 'object') {
                 setSubmitting(true)
-                ;((loadingPromise as unknown) as Promise<unknown>).then(() => {
+                ;(loadingPromise as unknown as Promise<unknown>).then(() => {
                   buttonProps.loading = false
                   setSubmitting(false)
                 })
