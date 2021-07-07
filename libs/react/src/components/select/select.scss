@@ -8,7 +8,7 @@
       position: relative;
       display: inline-block;
 
-      input {
+      &-input {
         width: 100%;
         height: 48px;
         border: 1px solid $border-color-3;
@@ -20,8 +20,8 @@
         transition: all 0.1s;
       }
 
-      input:hover,
-      &-active-true input {
+      &-input:hover,
+      &-active-true .pui-select-input {
         border-color: $border-color-5;
       }
 
@@ -31,7 +31,7 @@
         }
       }
 
-      input:disabled {
+      &-input:disabled {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
         cursor: not-allowed;
@@ -48,6 +48,11 @@
         z-index: 10;
         background-color: $float-layer-bg-color;
         animation: pui-fade-in 0.1s;
+      }
+
+      &-option-wrap {
+        max-height: 320px;
+        overflow: auto;
       }
 
       &-option {
@@ -84,13 +89,27 @@
       }
 
       &-error-true {
-        input {
+        .pui-select-input {
           border: 1px solid $status-error-color;
         }
-        input:hover,
-        input:focus {
+        .pui-select-input:hover,
+        .pui-select-input:focus {
           border: 1px solid $status-error-color-hover;
         }
+      }
+
+      &-filter {
+        margin: 12px;
+        border: 1px solid $border-color-3;
+        width: calc(100% - 24px);
+        height: 40px;
+        font-size: 16px;
+        padding: 0 12px;
+      }
+
+      &-filter:hover,
+      &-filter:focus {
+        border-color: $border-color-5;
       }
     }
   }

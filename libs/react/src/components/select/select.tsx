@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
@@ -34,6 +34,9 @@ export interface SelectProps {
   /* 占位符 */
   placeholder?: string
 
+  /* 显示过滤输入框 */
+  filterInput?: boolean
+
   /* 选项 */
   options?: string | string[] | SelectOption[]
 
@@ -52,12 +55,15 @@ const Select = FormItem(
     defaultValue,
     error,
     options = [],
+    filterInput,
     onValueChange,
     placeholder
   }: SelectProps) => {
     const [selectValue, setSelectValue] = useState(defaultValue || '')
     const [showOptionList, setShowOptionList] = usePopShowState()
     const isControlledByValue = useRef(value !== undefined)
+    const [filterValue, setFilterValue] = useState('')
+
     if (value) {
       isControlledByValue.current = true
     }
@@ -111,6 +117,7 @@ const Select = FormItem(
         )}
       >
         <input
+          className="pui-select-input"
           readOnly
           value={displayText}
           placeholder={placeholder}
@@ -122,25 +129,54 @@ const Select = FormItem(
         />
         <IconArrowHeadDown className="pui-select-icon" />
         {showOptionList && (
-          <div className="pui-select-list">
-            {selectOptions.map((option, inx) => (
-              <div
-                key={option.value + ' ' + inx}
-                className={
-                  'pui-select-option ' +
-                  (option.text === displayText
-                    ? 'pui-select-option-selected'
-                    : '')
-                }
-                onClick={() => {
-                  setSelectValue(option.value)
-                  onValueChange && onValueChange(option.value)
+          <div
+            className="pui-select-list"
+            onClick={evt => {
+              evt.stopPropagation()
+            }}
+          >
+            {filterInput && (
+              <input
+                value={filterValue}
+                placeholder="请输入选项"
+                onChange={evt => {
+                  setFilterValue(evt.target.value)
                 }}
-              >
-                {option.text}
-                {option.text === displayText && <IconCheck />}
-              </div>
-            ))}
+                className="pui-select-filter"
+              />
+            )}
+            <div className="pui-select-option-wrap">
+              {selectOptions
+                .filter(item => {
+                  if (filterValue) {
+                    return (
+                      item.value
+                        .toLowerCase()
+                        .indexOf(filterValue.toLowerCase()) >= 0
+                    )
+                  }
+                  return true
+                })
+                .map((option, inx) => (
+                  <div
+                    key={option.value + ' ' + inx}
+                    className={
+                      'pui-select-option ' +
+                      (option.text === displayText
+                        ? 'pui-select-option-selected'
+                        : '')
+                    }
+                    onClick={() => {
+                      setShowOptionList(false)
+                      setSelectValue(option.value)
+                      onValueChange && onValueChange(option.value)
+                    }}
+                  >
+                    {option.text}
+                    {option.text === displayText && <IconCheck />}
+                  </div>
+                ))}
+            </div>
           </div>
         )}
       </div>
