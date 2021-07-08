@@ -12,7 +12,12 @@ export const InputNumberStoryBook = () => {
       <div className="group">
         <div className="title">默认数字加减器</div>
         <div className="show-case">
-          <InputNumber defaultValue="3" min={0} max={10} />
+          <InputNumber
+            defaultValue="3"
+            min={0}
+            max={10}
+            onValueChange={val => console.log(val)}
+          />
           <InputNumber
             defaultValue="3"
             min={0}
@@ -25,7 +30,13 @@ export const InputNumberStoryBook = () => {
       <div className="group">
         <div className="title">箭头数字加减器</div>
         <div className="show-case">
-          <InputNumber type="arrow" defaultValue="3" min={0} max={10} />
+          <InputNumber
+            type="arrow"
+            defaultValue="3"
+            min={0}
+            max={10}
+            onValueChange={val => console.log(val)}
+          />
           <InputNumber
             type="arrow"
             defaultValue="3"
