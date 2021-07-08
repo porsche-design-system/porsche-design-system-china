@@ -25,6 +25,8 @@ interface FormData {
   address: string
   mobile: string
   dealer: string
+  repairStartDate: string
+  repairEndDate: string
   date: string
   services: string[]
   invoice: string
@@ -43,6 +45,8 @@ export const ExampleStoryBook = () => {
             address: '上海东方路123号',
             mobile: '15000232222',
             dealer: 'PC',
+            repairStartDate: '2021-01-12',
+            repairEndDate: '2021-05-33',
             date: '2021-12-12',
             services: ['上漆'],
             invoice: 'yes',

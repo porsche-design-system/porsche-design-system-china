@@ -180,41 +180,49 @@ const DateRangePicker = FormItem(
         >
           <div className="pui-date-range-picker-calendar-head">
             <div className="pui-date-range-picker-calendar-head-left">
-              <IconArrowDoubleLeft
-                onClick={() => {
-                  displayDate.current.setFullYear(
-                    displayDate.current.getFullYear() - 1
-                  )
-                  updateCalendar()
-                }}
-              />
-              <IconArrowHeadLeft
-                onClick={() => {
-                  displayDate.current.setMonth(
-                    displayDate.current.getMonth() - 1
-                  )
-                  updateCalendar()
-                }}
-              />
+              {calInx === 0 && (
+                <>
+                  <IconArrowDoubleLeft
+                    onClick={() => {
+                      displayDate.current.setFullYear(
+                        displayDate.current.getFullYear() - 1
+                      )
+                      updateCalendar()
+                    }}
+                  />
+                  <IconArrowHeadLeft
+                    onClick={() => {
+                      displayDate.current.setMonth(
+                        displayDate.current.getMonth() - 1
+                      )
+                      updateCalendar()
+                    }}
+                  />
+                </>
+              )}
             </div>
             {dDate.getFullYear()}年{dDate.getMonth() + 1}月
             <div className="pui-date-range-picker-calendar-head-right">
-              <IconArrowHeadRight
-                onClick={() => {
-                  displayDate.current.setMonth(
-                    displayDate.current.getMonth() + 1
-                  )
-                  updateCalendar()
-                }}
-              />
-              <IconArrowDoubleRight
-                onClick={() => {
-                  displayDate.current.setFullYear(
-                    displayDate.current.getFullYear() + 1
-                  )
-                  updateCalendar()
-                }}
-              />
+              {calInx === 1 && (
+                <>
+                  <IconArrowHeadRight
+                    onClick={() => {
+                      displayDate.current.setMonth(
+                        displayDate.current.getMonth() + 1
+                      )
+                      updateCalendar()
+                    }}
+                  />
+                  <IconArrowDoubleRight
+                    onClick={() => {
+                      displayDate.current.setFullYear(
+                        displayDate.current.getFullYear() + 1
+                      )
+                      updateCalendar()
+                    }}
+                  />
+                </>
+              )}
             </div>
           </div>
           <div className="pui-date-range-picker-calendar-weekdays">
@@ -391,7 +399,7 @@ const DateRangePicker = FormItem(
             displayDate.current = pickedDates[1]
               ? new Date(pickedDates[1])
               : range
-              ? new Date((range as [Date, Date])[1])
+              ? new Date((range as [Date, Date])[0])
               : new Date()
             if (pickedDates[1] && pickedDates[0]) {
               if (pickedDates[1].getMonth() !== pickedDates[0].getMonth()) {
