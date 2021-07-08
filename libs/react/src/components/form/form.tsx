@@ -134,6 +134,7 @@ const Form = <T extends object>({
   const newChildren = overrideChildren(children, (elementName, props) => {
     if (
       elementName === 'Input' ||
+      elementName === 'InputNumber' ||
       elementName === 'TextArea' ||
       elementName === 'CheckBox' ||
       elementName === 'RadioGroup' ||
@@ -289,6 +290,7 @@ const Form = <T extends object>({
             'Select',
             'Switch',
             'Input',
+            'InputNumber',
             'TextArea'
           ].includes(elementName)
         ) {
