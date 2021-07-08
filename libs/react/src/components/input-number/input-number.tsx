@@ -43,6 +43,9 @@ export interface InputNumberProps {
 
   /** 宽度 */
   width?: string
+
+  /** 值改变回调 */
+  onValueChange?: (val: string) => void
 }
 
 const InputNumber = ({
@@ -55,13 +58,15 @@ const InputNumber = ({
   style,
   type = 'default',
   value,
-  width = '158px'
+  width = '158px',
+  onValueChange
 }: InputNumberProps) => {
   const initialValue = value || defaultValue || ''
   const [currentValue, setCurrentValue] = useState(initialValue)
   const handleValueChange = (val: string) => {
     if (!/[^.\-\d]/.test(val)) {
       setCurrentValue(val)
+      onValueChange && onValueChange(val)
     }
   }
   const add = () => {
@@ -71,6 +76,7 @@ const InputNumber = ({
         if (nextValue > max) {
           return currentValue
         }
+        onValueChange && onValueChange(nextValue + '')
         return String(nextValue)
       })
     }
@@ -82,6 +88,7 @@ const InputNumber = ({
         if (nextValue < min) {
           return currentValue
         }
+        onValueChange && onValueChange(nextValue + '')
         return String(nextValue)
       })
     }
