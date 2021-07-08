@@ -101,9 +101,12 @@ export const ExampleStoryBook = () => {
         />
         <DateRangePicker
           label="维修时间"
-          names={['repairStartDate', 'repairEndDate']}
+          nameStartDate="repairStartDate"
+          nameEndDate="repairEndDate"
+          name="repairDate"
           rules={{ required: true, message: '必须填写' }}
-          placeholders={['开始时间', '结束时间']}
+          placeholderStartDate="开始时间"
+          placeholderEndDate="结束时间"
         />
         <CheckBoxGroup
           label="服务类型"

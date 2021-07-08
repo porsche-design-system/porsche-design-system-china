@@ -32,17 +32,23 @@ export interface DateRangePickerProps {
   /* 默认值 */
   defaultValue?: string[]
 
-  /* 开始与结束日期表单捆绑值 */
-  names?: [string, string]
+  /* 开始日期表单捆绑值 */
+  nameStartDate?: string
+
+  /* 开始日期表单捆绑值 */
+  nameEndDate?: string
 
   /* 值 */
-  values?: string[]
+  value?: string[]
 
-  /* 占位符 */
-  placeholders?: string[]
+  /* 占位符开始日期 */
+  placeholderStartDate?: string
+
+  /* 占位符结束日期 */
+  placeholderEndDate?: string
 
   /* 值改变事件 */
-  onValuesChange?: (value: string[]) => void
+  onValueChange?: (value: string[]) => void
 
   /* 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
   range?: string | string[] | Date[]
@@ -55,21 +61,18 @@ const DateRangePicker = FormItem(
   ({
     className,
     disabled,
-    values,
+    value,
     defaultValue,
-    onValuesChange,
+    onValueChange,
     error,
     range,
-    placeholders
+    placeholderStartDate,
+    placeholderEndDate
   }: DateRangePickerProps) => {
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
-      strToDate(
-        (values && values[0]) || (defaultValue && defaultValue[0]) || ''
-      ),
-      strToDate(
-        (values && values[1]) || (defaultValue && defaultValue[1]) || ''
-      )
+      strToDate((value && value[0]) || (defaultValue && defaultValue[0]) || ''),
+      strToDate((value && value[1]) || (defaultValue && defaultValue[1]) || '')
     ]
     const [calenderOpen, setCalendarOpen] = usePopShowState()
     // 当前日期
@@ -78,7 +81,7 @@ const DateRangePicker = FormItem(
     const [pickedDates, setPickedDates] =
       useState<[Date | null, Date | null]>(initDates)
     const [displayValues, setDisplayValues] = useState(
-      initDates ? values || defaultValue || ['', ''] : ['', '']
+      initDates ? value || defaultValue || ['', ''] : ['', '']
     )
     const [calendarDates, setCalendarDates] = useState<[Date[], Date[]]>([
       [],
@@ -140,8 +143,8 @@ const DateRangePicker = FormItem(
     useEffect(() => {
       if (defaultValue === undefined) {
         const dates: [Date | null, Date | null] = [
-          strToDate((values && values[0]) || ''),
-          strToDate((values && values[1]) || '')
+          strToDate((value && value[0]) || ''),
+          strToDate((value && value[1]) || '')
         ]
         setPickedDates(dates)
         setDisplayValues([
@@ -149,7 +152,7 @@ const DateRangePicker = FormItem(
           dates[1] ? dateToStr(dates[1]) : ''
         ])
       }
-    }, [values])
+    }, [value])
 
     useEffect(() => {
       if (!calenderOpen) {
@@ -290,7 +293,7 @@ const DateRangePicker = FormItem(
                       }
                     }
 
-                    if (values === undefined) {
+                    if (value === undefined) {
                       setPickedDates([...pickedDates])
                       setDisplayValues([...displayValues])
                     }
@@ -303,7 +306,7 @@ const DateRangePicker = FormItem(
                       setCalendarOpen(false)
                     }
                     if (displayValues[0] && displayValues[1]) {
-                      onValuesChange && onValuesChange([...displayValues])
+                      onValueChange && onValueChange([...displayValues])
                     }
                   }}
                   onMouseEnter={() => {
@@ -352,7 +355,7 @@ const DateRangePicker = FormItem(
               : '')
           }
           readOnly
-          placeholder={placeholders && placeholders[0]}
+          placeholder={placeholderStartDate}
           value={displayValues[0]}
           disabled={disabled}
           onClick={evt => {
@@ -377,7 +380,7 @@ const DateRangePicker = FormItem(
               : '')
           }
           readOnly
-          placeholder={placeholders && placeholders[1]}
+          placeholder={placeholderEndDate}
           value={displayValues[1]}
           disabled={disabled}
           onClick={evt => {
@@ -404,7 +407,7 @@ const DateRangePicker = FormItem(
             onClick={() => {
               setPickedDates([null, null])
               setDisplayValues(['', ''])
-              onValuesChange && onValuesChange(['', ''])
+              onValueChange && onValueChange(['', ''])
             }}
           />
         )}
