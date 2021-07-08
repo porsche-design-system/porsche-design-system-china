@@ -145,10 +145,10 @@ const Form = <T extends object>({
     ) {
       let inputProps = props as {
         name?: string
-        names?: string[]
+        nameStartDate?: string
+        nameEndDate?: string
         onChange?: ChangeEventHandler<HTMLInputElement>
         onValueChange?: (val: string) => void
-        onValuesChange?: (val: string[]) => void
         label?: FormItemLabelProps | string
         value?: any
         rules?: RuleItem[] | RuleItem
@@ -160,7 +160,11 @@ const Form = <T extends object>({
         inputProps.style = { marginBottom: lineGap, ...inputProps.style }
       }
 
-      if (inputProps.name || inputProps.names) {
+      if (
+        inputProps.name ||
+        inputProps.nameStartDate ||
+        inputProps.nameEndDate
+      ) {
         if (inputProps.name) {
           if (fData[inputProps.name] === undefined) {
             if (elementName === 'CheckBoxGroup') {
@@ -173,12 +177,15 @@ const Form = <T extends object>({
           }
         }
 
-        if (inputProps.names) {
-          if (fData[inputProps.names[0]] === undefined) {
-            fData[inputProps.names[0]] = ''
+        if (inputProps.nameStartDate) {
+          if (fData[inputProps.nameStartDate] === undefined) {
+            fData[inputProps.nameStartDate] = ''
           }
-          if (fData[inputProps.names[1]] === undefined) {
-            fData[inputProps.names[1]] = ''
+        }
+
+        if (inputProps.nameEndDate) {
+          if (fData[inputProps.nameEndDate] === undefined) {
+            fData[inputProps.nameEndDate] = ''
           }
         }
 
@@ -188,13 +195,11 @@ const Form = <T extends object>({
             if (error.field === inputProps.name) {
               inputProps.error = { show: true, message: error.message }
             }
-            if (inputProps.names) {
-              if (
-                error.field === inputProps.names[0] ||
-                error.field === inputProps.names[1]
-              ) {
-                inputProps.error = { show: true, message: error.message }
-              }
+            if (
+              error.field === inputProps.nameStartDate ||
+              error.field === inputProps.nameEndDate
+            ) {
+              inputProps.error = { show: true, message: error.message }
             }
           })
         }
@@ -226,9 +231,13 @@ const Form = <T extends object>({
             formDataValidators.current[inputProps.name] = inputProps.rules
           }
 
-          if (inputProps.names) {
-            formDataValidators.current[inputProps.names[0]] = inputProps.rules
-            formDataValidators.current[inputProps.names[1]] = inputProps.rules
+          if (inputProps.nameStartDate) {
+            formDataValidators.current[inputProps.nameStartDate] =
+              inputProps.rules
+          }
+          if (inputProps.nameEndDate) {
+            formDataValidators.current[inputProps.nameEndDate] =
+              inputProps.rules
           }
         }
 
@@ -250,7 +259,6 @@ const Form = <T extends object>({
 
         const formItemOnChange = inputProps.onChange
         const formItemOnValueChange = inputProps.onValueChange
-        const formItemOnValuesChange = inputProps.onValuesChange
 
         if (['CheckBox'].includes(elementName)) {
           inputProps.onChange = evt => {
@@ -277,22 +285,22 @@ const Form = <T extends object>({
             'TextArea'
           ].includes(elementName)
         ) {
-          inputProps[
-            elementName === 'DateRangePicker'
-              ? 'onValuesChange'
-              : 'onValueChange'
-          ] = value => {
+          inputProps.onValueChange = value => {
             let newFormData = fData
             if (inputProps.name) {
               newFormData = { ...fData, [inputProps.name]: value }
             }
             if (elementName === 'DateRangePicker') {
-              const names = (inputProps as any).names
-              if (names) {
+              if (inputProps.nameStartDate) {
                 newFormData = {
                   ...newFormData,
-                  [names[0]]: value[0],
-                  [names[1]]: value[1]
+                  [inputProps.nameStartDate]: value[0]
+                }
+              }
+              if (inputProps.nameEndDate) {
+                newFormData = {
+                  ...newFormData,
+                  [inputProps.nameEndDate]: value[1]
                 }
               }
             }
@@ -301,7 +309,6 @@ const Form = <T extends object>({
             }
             onDataChange && onDataChange(newFormData as T)
             formItemOnValueChange && formItemOnValueChange(value as string)
-            formItemOnValuesChange && formItemOnValuesChange(value as string[])
             validForm(newFormData)
           }
         }
