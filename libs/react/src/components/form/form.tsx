@@ -245,6 +245,13 @@ const Form = <T extends object>({
           inputProps.value = fData[inputProps.name]
         }
 
+        if (inputProps.nameStartDate) {
+          inputProps.value[0] = fData[inputProps.nameStartDate]
+        }
+        if (inputProps.nameEndDate) {
+          inputProps.value[1] = fData[inputProps.nameEndDate]
+        }
+
         // const clearError = () => {
         //   if (formErrors) {
         //     for (let i = 0; i < formErrors.length; i++) {
