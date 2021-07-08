@@ -60,6 +60,7 @@
         cursor: pointer;
         &-selected {
           font-weight: bold;
+          color: $brand-color !important;
           .porscheicon {
             float: right;
             font-size: 20px;
@@ -67,6 +68,10 @@
             margin-right: -2px;
           }
         }
+      }
+
+      &-option:hover {
+        font-weight: bold;
       }
 
       &-icon {
