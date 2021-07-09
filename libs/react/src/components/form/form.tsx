@@ -142,6 +142,7 @@ const Form = <T extends object>({
       elementName === 'DatePicker' ||
       elementName === 'DateRangePicker' ||
       elementName === 'Select' ||
+      elementName === 'MultiSelect' ||
       elementName === 'Switch'
     ) {
       let inputProps = props as {
@@ -288,6 +289,7 @@ const Form = <T extends object>({
             'DatePicker',
             'DateRangePicker',
             'Select',
+            'MultiSelect',
             'Switch',
             'Input',
             'InputNumber',

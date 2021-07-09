@@ -4,7 +4,7 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
 
-    .pui-select {
+    .pui-multi-select {
       position: relative;
       display: inline-block;
 
@@ -23,7 +23,7 @@
       }
 
       &-input:hover,
-      &-active-true .pui-select-input {
+      &-active-true .pui-multi-select-input {
         border-color: $border-color-5;
       }
 
@@ -52,6 +52,12 @@
         animation: pui-fade-in 0.1s;
       }
 
+      &-pick-all {
+        margin-left: 12px;
+        margin-top: 16px;
+        margin-bottom: 10px;
+      }
+
       &-option-wrap {
         max-height: 320px;
         overflow: auto;
@@ -62,13 +68,6 @@
         cursor: pointer;
         &-selected {
           font-weight: bold;
-          color: $brand-color !important;
-          .porscheicon {
-            float: right;
-            font-size: 20px;
-            margin-top: 2px;
-            margin-right: -2px;
-          }
         }
       }
 
@@ -85,7 +84,7 @@
       }
 
       &-active-true {
-        .pui-select-icon {
+        .pui-multi-select-icon {
           transform: scaleY(-1);
         }
       }
@@ -96,11 +95,11 @@
       }
 
       &-error-true {
-        .pui-select-input {
+        .pui-multi-select-input {
           border: 1px solid $status-error-color;
         }
-        .pui-select-input:hover,
-        .pui-select-input:focus {
+        .pui-multi-select-input:hover,
+        .pui-multi-select-input:focus {
           border: 1px solid $status-error-color-hover;
         }
       }

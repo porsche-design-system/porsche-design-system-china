@@ -5,15 +5,16 @@ import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
 import { usePopShowState } from '../../shared/hooks'
+import { CheckBox } from '../checkbox/checkbox'
 
-import './select.scss'
+import './multi-select.scss'
 
-interface SelectOption {
+interface MultiSelectOption {
   text: string
   value: string
 }
 
-export interface SelectProps {
+export interface MultiSelectProps {
   // 组件属性 //
 
   /** 类名 */
@@ -26,10 +27,10 @@ export interface SelectProps {
   disabled?: boolean
 
   /* 值 */
-  value?: string
+  value?: string[]
 
   /* 默认值 */
-  defaultValue?: string
+  defaultValue?: string[]
 
   /* 占位符 */
   placeholder?: string
@@ -38,16 +39,16 @@ export interface SelectProps {
   filterInput?: boolean
 
   /* 选项 */
-  options?: string | string[] | SelectOption[]
+  options?: string | string[] | MultiSelectOption[]
 
   /* 错误 */
   error?: FormErrorText
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: string[]) => void
 }
 
-const Select = FormItem(
+const MultiSelect = FormItem(
   ({
     className,
     disabled,
@@ -58,17 +59,23 @@ const Select = FormItem(
     filterInput,
     onValueChange,
     placeholder
-  }: SelectProps) => {
-    const [selectValue, setSelectValue] = useState(defaultValue || '')
+  }: MultiSelectProps) => {
+    const selectState = useState(defaultValue || [])
+    let selectValue = selectState[0]
+    const setSelectValue = selectState[1]
     const [showOptionList, setShowOptionList] = usePopShowState()
-    const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
+    const hasValue = useRef(value !== undefined)
 
     if (value) {
-      isControlledByValue.current = true
+      selectValue = value
+      hasValue.current = true
+    } else if (hasValue.current) {
+      hasValue.current = false
+      setSelectValue([])
     }
 
-    let selectOptions: SelectOption[] = []
+    let selectOptions: MultiSelectOption[] = []
     if (typeof options === 'string') {
       const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
@@ -81,7 +88,7 @@ const Select = FormItem(
       })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        selectOptions = options as SelectOption[]
+        selectOptions = options as MultiSelectOption[]
       } else {
         ;(options as string[]).forEach(option => {
           selectOptions.push({ text: option, value: option })
@@ -89,25 +96,24 @@ const Select = FormItem(
       }
     }
 
-    let displayText = ''
-    if (isControlledByValue.current) {
-      selectOptions.forEach(option => {
-        if (option.value === value) {
-          displayText = option.text
-        }
-      })
-    } else {
-      selectOptions.forEach(option => {
-        if (option.value === selectValue) {
-          displayText = option.text
-        }
-      })
-    }
+    const displayTextArr: string[] = []
+    selectOptions.forEach(option => {
+      if (selectValue.includes(option.value)) {
+        displayTextArr.push(option.text)
+      }
+    })
+
+    const displayText = displayTextArr.join(', ')
+    const allChecked =
+      displayTextArr.length === selectOptions.length &&
+      displayTextArr.length > 0
+    const partChecked =
+      displayTextArr.length < selectOptions.length && displayTextArr.length > 0
 
     return (
       <div
         className={componentClassNames(
-          'pui-select',
+          'pui-multi-select',
           {
             disabled: disabled + '',
             active: showOptionList + '',
@@ -117,7 +123,7 @@ const Select = FormItem(
         )}
       >
         <input
-          className="pui-select-input"
+          className="pui-multi-select-input"
           readOnly
           value={displayText}
           placeholder={placeholder}
@@ -127,10 +133,10 @@ const Select = FormItem(
           }}
           disabled={disabled}
         />
-        <IconArrowHeadDown className="pui-select-icon" />
+        <IconArrowHeadDown className="pui-multi-select-icon" />
         {showOptionList && (
           <div
-            className="pui-select-list"
+            className="pui-multi-select-list"
             onClick={evt => {
               evt.stopPropagation()
             }}
@@ -142,10 +148,32 @@ const Select = FormItem(
                 onChange={evt => {
                   setFilterValue(evt.target.value)
                 }}
-                className="pui-select-filter"
+                className="pui-multi-select-filter"
               />
             )}
-            <div className="pui-select-option-wrap">
+
+            <div
+              className="pui-multi-select-option "
+              onClick={() => {
+                const allValues: string[] = []
+                if (!allChecked) {
+                  selectOptions.forEach(item => {
+                    allValues.push(item.value)
+                  })
+                }
+                setSelectValue(allValues)
+                onValueChange && onValueChange(allValues)
+              }}
+            >
+              <CheckBox
+                className="pui-multi-select-pick"
+                size="small"
+                checked={allChecked}
+                partChecked={partChecked}
+              />
+              全选
+            </div>
+            <div className="pui-multi-select-option-wrap">
               {selectOptions
                 .filter(item => {
                   if (filterValue) {
@@ -161,19 +189,27 @@ const Select = FormItem(
                   <div
                     key={option.value + ' ' + inx}
                     className={
-                      'pui-select-option ' +
-                      (option.value === selectValue
-                        ? 'pui-select-option-selected'
+                      'pui-multi-select-option ' +
+                      (selectValue.includes(option.value)
+                        ? 'pui-multi-select-option-selected'
                         : '')
                     }
                     onClick={() => {
-                      setShowOptionList(false)
-                      setSelectValue(option.value)
-                      onValueChange && onValueChange(option.value)
+                      if (selectValue.includes(option.value)) {
+                        selectValue.splice(selectValue.indexOf(option.value), 1)
+                      } else {
+                        selectValue.push(option.value)
+                      }
+                      setSelectValue([...selectValue])
+                      onValueChange && onValueChange([...selectValue])
                     }}
                   >
+                    <CheckBox
+                      className="pui-multi-select-pick"
+                      size="small"
+                      checked={selectValue.includes(option.value)}
+                    />
                     {option.text}
-                    {option.value === selectValue && <IconCheck />}
                   </div>
                 ))}
             </div>
@@ -184,5 +220,5 @@ const Select = FormItem(
   }
 )
 
-;(Select as any).displayName = 'Select'
-export { Select }
+;(MultiSelect as any).displayName = 'MultiSelect'
+export { MultiSelect }
