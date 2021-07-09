@@ -108,8 +108,6 @@ const Form = <T extends object>({
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
-      console.log(formDataValidators.current)
-      console.log(newFormData)
       validate(formDataValidators.current, newFormData, errorList => {
         setFormErrors(errorList)
       })
