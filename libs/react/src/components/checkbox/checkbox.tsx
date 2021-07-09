@@ -1,4 +1,4 @@
-import { IconCheck } from '@pui/icons'
+import { IconCheck, IconMinus } from '@pui/icons'
 import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
 import { componentClassNames } from '../../shared/class-util'
 import './checkbox.scss'
@@ -36,6 +36,9 @@ export interface CheckBoxProps {
 
   /* 是否默认选定 */
   defaultChecked?: boolean
+
+  /* 是否是部分选定 */
+  partChecked?: boolean
 }
 
 /**
@@ -55,6 +58,7 @@ const CheckBox = ({
   size = 'default',
   checked,
   defaultChecked,
+  partChecked,
   onChange,
   onCheckedChange
 }: CheckBoxProps) => {
@@ -81,8 +85,16 @@ const CheckBox = ({
         defaultChecked={defaultChecked}
         value={value}
       />
-      <span className="pui-checkbox-checkmark">
-        <IconCheck style={{ color: 'white' }} />
+      {!partChecked && (
+        <span className="pui-checkbox-checkmark">
+          <IconCheck style={{ color: 'white' }} />
+        </span>
+      )}
+      <span
+        className="pui-checkbox-part-checkmark"
+        style={{ opacity: partChecked ? 1 : 0 }}
+      >
+        <IconMinus style={{ color: 'white' }} />
       </span>
       {text}
     </label>

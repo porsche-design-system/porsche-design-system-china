@@ -6,15 +6,15 @@ import { CheckBox } from '../checkbox/checkbox'
 import './table.scss'
 
 export enum SortType {
-	ASC = 'asc',
-	DES = 'des'
+  ASC = 'asc',
+  DES = 'des'
 }
 
 const ORDER_QUEUE = [undefined, SortType.DES, SortType.ASC]
 
 export interface Sorter {
-	key?: string
-	sortType?: SortType
+  key?: string
+  sortType?: SortType
 }
 
 export interface TableColumn {
@@ -65,21 +65,22 @@ const Table = ({
   onSelect,
   maxRows,
   selectable = false,
-  defaultSorter = {},
+  defaultSorter = {}
 }: TableProps) => {
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
   const rightColumns: TableColumn[] = []
   const [allChecked, setAllChecked] = useState(false)
+  const [partChecked, setPartChecked] = useState(false)
 
   const [selectedRows, setSelectedRows] = useState<number[]>([])
   useEffect(() => {
     setSelectedRows([])
   }, [data])
 
-	const [sorter, setSorter] = useState<Sorter>(defaultSorter)
+  const [sorter, setSorter] = useState<Sorter>(defaultSorter)
 
-	columns.forEach(col => {
+  columns.forEach(col => {
     if (col.fixed === 'left') {
       leftColumns.push(col)
     } else if (col.fixed === 'right') {
@@ -234,28 +235,34 @@ const Table = ({
     fixed: 'left' | 'right' | null,
     style: CSSProperties
   ) => {
-		const classNameArr = [
-			fixed ? 'pui-table-fixed-' + fixed : '',
-			column.sortable ? 'sortable' : ''
-		]
-		const isAscend = sorter.key === column.key && sorter.sortType === SortType.ASC
-		const isDescend = sorter.key === column.key && sorter.sortType === SortType.DES
+    const classNameArr = [
+      fixed ? 'pui-table-fixed-' + fixed : '',
+      column.sortable ? 'sortable' : ''
+    ]
+    const isAscend =
+      sorter.key === column.key && sorter.sortType === SortType.ASC
+    const isDescend =
+      sorter.key === column.key && sorter.sortType === SortType.DES
     return (
       <td
         key={'head' + inx}
         className={classNameArr.filter(item => !!item).join(' ')}
         style={style}
-				onClick={() => sortCallback(column)}
+        onClick={() => sortCallback(column)}
       >
-				<div className="title-content">
-					{column.title || ''}
-					{column.sortable && (
-						<span className="sort-btn">
-							<IconDown className={`asc-btn ${isAscend ? 'sort-active' : ''}`}/>
-							<IconDown className={`des-btn ${isDescend ? 'sort-active' : ''}`}/>
-						</span>
-					)}
-				</div>
+        <div className="title-content">
+          {column.title || ''}
+          {column.sortable && (
+            <span className="sort-btn">
+              <IconDown
+                className={`asc-btn ${isAscend ? 'sort-active' : ''}`}
+              />
+              <IconDown
+                className={`des-btn ${isDescend ? 'sort-active' : ''}`}
+              />
+            </span>
+          )}
+        </div>
       </td>
     )
   }
@@ -312,15 +319,15 @@ const Table = ({
     onSelect && onSelect(rowData)
   }
 
-	const sortCallback = (column: TableColumn) => {
-  	if (!column.sortable) {
-  		return
-		}
-		const prevOrder = sorter.key === column.key ? sorter.sortType : undefined
-		const order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
-		setSorter({key: column.key, sortType: order})
-		onSort && onSort({key: column.key, sortType: order})
-	}
+  const sortCallback = (column: TableColumn) => {
+    if (!column.sortable) {
+      return
+    }
+    const prevOrder = sorter.key === column.key ? sorter.sortType : undefined
+    const order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
+    setSorter({ key: column.key, sortType: order })
+    onSort && onSort({ key: column.key, sortType: order })
+  }
 
   return (
     <div
@@ -352,6 +359,7 @@ const Table = ({
                     <CheckBox
                       size="small"
                       checked={allChecked}
+                      partChecked={partChecked}
                       onCheckedChange={checked => {
                         if (checked) {
                           const fullSelectedRows: number[] = []
@@ -365,6 +373,7 @@ const Table = ({
                           selectCallback([])
                         }
                         setAllChecked(checked)
+                        setPartChecked(false)
                       }}
                     />
                   </td>
@@ -426,7 +435,14 @@ const Table = ({
                             selectedRows.splice(selectedRows.indexOf(inx), 1)
                           }
                           selectCallback(selectedRows)
-                          setAllChecked(selectedRows.length === data.length)
+                          setAllChecked(
+                            selectedRows.length === data.length &&
+                              selectedRows.length > 0
+                          )
+                          setPartChecked(
+                            selectedRows.length < data.length &&
+                              selectedRows.length > 0
+                          )
                         }}
                         checked={selectedRows.includes(inx)}
                       />
