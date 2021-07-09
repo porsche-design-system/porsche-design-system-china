@@ -16,6 +16,7 @@ export const CheckBoxStoryBook = () => {
     'xxxx'
   ])
   const [showError, setShowError] = useState(true)
+  const [partChecked, setPartChecked] = useState(true)
 
   return (
     <div>
@@ -23,6 +24,14 @@ export const CheckBoxStoryBook = () => {
         <CheckBox text="选项1" defaultChecked />
         <br />
         <CheckBox text="选项2" />
+        <br />
+        <CheckBox
+          text="半选状态"
+          partChecked={partChecked}
+          onCheckedChange={() => {
+            setPartChecked(false)
+          }}
+        />
         <br />
         <CheckBox text="失效选项" disabled />
       </div>
@@ -33,6 +42,7 @@ export const CheckBoxStoryBook = () => {
           <CheckBoxGroup>
             <CheckBox text="选项1" size="small" checked />
             <CheckBox text="选项2" size="small" />
+            <CheckBox text="半选状态" size="small" partChecked />
           </CheckBoxGroup>
         </div>
       </div>

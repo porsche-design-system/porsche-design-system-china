@@ -40,6 +40,22 @@
         transition: all 0.1s;
       }
 
+      &-part-checkmark {
+        position: absolute;
+        top: 2px;
+        left: 0px;
+        transition: all 0.1s;
+        width: 20px;
+        height: 20px;
+        background-color: $container-bg-active-color;
+        .porscheicon {
+          font-size: 16px;
+          margin-top: 2px;
+          vertical-align: top;
+          margin-left: 2px;
+        }
+      }
+
       input:checked {
         border-color: transparent;
         background-color: $container-bg-active-color;
@@ -61,6 +77,23 @@
           left: 1px;
           .porscheicon {
             font-size: 14px;
+          }
+        }
+
+        .pui-checkbox-part-checkmark {
+          position: absolute;
+          top: 4px;
+          left: 0px;
+          transition: all 0.1s;
+          width: 16px;
+          height: 16px;
+          transition: all 0.1s;
+          background-color: $container-bg-active-color;
+          .porscheicon {
+            font-size: 14px;
+            margin-top: 1px;
+            vertical-align: top;
+            margin-left: 1px;
           }
         }
       }
