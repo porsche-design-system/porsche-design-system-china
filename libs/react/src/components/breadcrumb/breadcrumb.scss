@@ -1,0 +1,32 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .pui-breadcrumb {
+      overflow: hidden;
+      &-item {
+        color: $text-link-color;
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: top;
+        .porscheicon {
+          vertical-align: middle;
+          margin-top: -2px;
+          margin-right: 8px;
+        }
+      }
+
+      &-has-no-path {
+        color: $text-opacity-color-1;
+        cursor: default;
+      }
+
+      &-slash {
+        vertical-align: top;
+        display: inline-block;
+        margin: 0 8px;
+      }
+    }
+  }
+}
