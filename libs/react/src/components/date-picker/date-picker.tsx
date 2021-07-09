@@ -4,7 +4,8 @@ import {
   IconArrowHeadLeft,
   IconArrowHeadRight,
   IconCalendar,
-  IconArrowDoubleRight
+  IconArrowDoubleRight,
+  IconErrorFilled
 } from '@pui/icons'
 
 import { FormItem } from '../form/form-item'
@@ -221,6 +222,16 @@ const DatePicker = FormItem(
           }}
         />
         <IconCalendar className="pui-date-picker-icon" />
+        {displayValue && (
+          <IconErrorFilled
+            className="pui-date-picker-clear-icon"
+            onClick={() => {
+              setPickedDate(null)
+              setDisplayValue('')
+              onValueChange && onValueChange('')
+            }}
+          />
+        )}
         {calenderOpen && (
           <div
             className="pui-date-picker-calendar"

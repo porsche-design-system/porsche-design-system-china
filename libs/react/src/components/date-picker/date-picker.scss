@@ -141,6 +141,23 @@
           font-weight: bold;
         }
       }
+      &-clear-icon {
+        position: absolute;
+        margin-left: -60px;
+        margin-top: 12px;
+        opacity: 0.2;
+        display: none;
+      }
+
+      &-clear-icon:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .pui-date-picker:hover {
+      .pui-date-picker-clear-icon {
+        display: initial !important;
+      }
     }
   }
 }
