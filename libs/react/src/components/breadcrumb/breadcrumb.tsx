@@ -6,7 +6,7 @@ import './breadcrumb.scss'
 
 type PUIIcon = typeof IconAdd
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   text?: string
   icon?: PUIIcon
   iconSize?: number
@@ -75,4 +75,4 @@ const Breadcrumb = ({
   )
 }
 
-export { Breadcrumb, BreadcrumbItem }
+export { Breadcrumb }
