@@ -19,13 +19,21 @@ export const SelectStoryBook = () => {
           onValueChange={setVal}
           width="200px"
         />
+        <br />
         <Button
-          marginLeft="20px"
           onClick={() => {
             setVal(undefined)
           }}
         >
           重置
+        </Button>
+        <Button
+          marginLeft="20px"
+          onClick={() => {
+            setVal(['dog', '猫'])
+          }}
+        >
+          载入数据
         </Button>
         <div>{JSON.stringify(val)}</div>
 
