@@ -59,12 +59,15 @@ const Select = FormItem(
     onValueChange,
     placeholder
   }: SelectProps) => {
-    const [selectValue, setSelectValue] = useState(defaultValue || '')
+    const selectState = useState(defaultValue || [])
+    let selectValue = selectState[0]
+    const setSelectValue = selectState[1]
     const [showOptionList, setShowOptionList] = usePopShowState()
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
 
     if (value) {
+      selectValue = value
       isControlledByValue.current = true
     }
 
