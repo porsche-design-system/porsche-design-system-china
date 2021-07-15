@@ -30,6 +30,8 @@ $steps-prefix: pui-steps;
       .#{$step-item-prefix}-text{
         font-size: 16px;
         width: 24px;
+        line-height: 24px;
+        padding-top: 8px;
       }
     }
     .#{$steps-prefix}-size-small{
@@ -44,6 +46,8 @@ $steps-prefix: pui-steps;
       .#{$step-item-prefix}-text{
         font-size: 12px;
         width: 16px;
+        line-height: 20px;
+        padding-top: 4px;
       }
     }
     .#{$steps-prefix}-type-default{
@@ -65,7 +69,7 @@ $steps-prefix: pui-steps;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding:0 8px 0 20px;
+      padding:0 8px 1px 20px;
       &-left{
         display: flex;
         &-text{
@@ -85,7 +89,7 @@ $steps-prefix: pui-steps;
       .#{$step-item-prefix}-line{
         border-top:1px solid $border-color-2;
       }
-      .#{$step-item-prefix}-text{
+      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
         color: $text-opacity-color-1;
       }
     }
@@ -97,12 +101,9 @@ $steps-prefix: pui-steps;
       .#{$step-item-prefix}-line{
         border-top:1px solid $border-color-2;
       }
-      .#{$step-item-prefix}-text{
+      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
         font-weight: 600;
         color: $text-color-1;
-      }
-      .#{$step-item-prefix}-navigation-left-text{
-        font-weight: 600;
       }
     }
     .#{$step-item-prefix}-finish{
@@ -114,12 +115,13 @@ $steps-prefix: pui-steps;
       .#{$step-item-prefix}-line{
         border-top:1px solid $brand-color;
       }
-      .#{$step-item-prefix}-text{
+      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
         color: $text-color-1;
       }
     }
     .#{$step-item-prefix}-selected{
-      border-bottom: 1px solid $brand-color;
+      border-bottom: 2px solid $brand-color;
+      padding:0 8px 0 20px;
     }
     .#{$step-item-prefix}-select{
       cursor: pointer;
