@@ -1,0 +1,112 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-upload {
+      width: 300px;
+
+      .pui-upload-tip {
+        margin-top: 4px;
+        line-height: 22px;
+        font-size: 14px;
+        color: $container-bg-color-5;
+      }
+
+      .pui-upload-wrap {
+        cursor: pointer;
+
+        .pui-upload-drag {
+
+          text-align: center;
+          background: $background-color-2;
+          border: 1px dashed $container-bg-color-3;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: border-color .3s;
+
+          &:hover,
+          &.is-dragOver {
+            border-color: $container-bg-color-6;
+          }
+        }
+
+        .pui-upload-container {
+          &.pui-upload-drag-container {
+            padding: 10px 0;
+
+            .anticon-inbox {
+              margin-bottom: 10px;
+              font-size: 2em;
+            }
+          }
+        }
+      }
+
+      .pui-upload-list {
+        .pui-upload-list-item {
+          font-size: 14px;
+          line-height: 1.6;
+          margin-top: 8px;
+
+          .pui-upload-list-fileInfo {
+            display: flex;
+            align-items: center;
+            padding: 0 2px;
+            transition: background-color 0.3s;
+
+            .porscheicon-icon_-attachment {
+              color: $container-bg-color-5;
+            }
+
+            .pui-upload-list-fileName {
+              width: 100%;
+              padding-left: 3px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+
+            .porscheicon {
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+
+            .pui-upload-list-icon {
+              margin-left: auto;
+
+              .porscheicon {
+                display: block;
+              }
+
+              .delete-actions {
+                display: none;
+              }
+            }
+
+            &:hover {
+              background-color: $container-bg-color-1;
+
+              .pui-upload-list-icon {
+                .porscheicon {
+                  display: none;
+                }
+
+                .delete-actions {
+                  display: block;
+                }
+              }
+            }
+          }
+
+          &-error {
+            color: $brand-color;
+          }
+        }
+      }
+    }
+  }
+}
