@@ -1,21 +1,29 @@
 import React, { ChangeEvent, FC, useRef, useState } from "react";
 import axios from 'axios'
-import { IconUpload } from '@pui/icons'
+import { IconUpload, IconInbox } from '@pui/icons'
 import { Button } from '../index'
 import UploadList from "./uploadList";
-import './file-upload.scss';
+import Dragger from "./dragger";
+import './upload.scss';
 
 export interface UploadProps {
   action: string;
-  initFileList?: UploadedFile[];
+  defaultFileList?: UploadedFile[];
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onProgress?: (percentage: number, file: File) => void;
   onSuccess?: (data: any, file: File) => void;
   onError?: (err: any, file: File) => void;
   onChange?: (file: File) => void;
   onRemove?: (file: UploadedFile) => void;
+  headers?: { [key: string]: any };
+  name?: string;
+  data?: { [key: string]: any };
+  accept?: string;
+  multiple?: boolean;
+  tip?: Node | string;
+  drag?: boolean;
 }
-type UploadFileStatus = "ready" | "uploading" | "success" | "error"
+type UploadFileStatus = "uploading" | "success" | "error"
 
 export interface UploadedFile {
   uid: string;
@@ -28,27 +36,35 @@ export interface UploadedFile {
   error?: any;
 }
 
-export const FileUpload: FC<UploadProps> = (props) => {
+export const Upload: FC<UploadProps> = (props) => {
   const {
     action,
-    initFileList,
+    tip,
+    defaultFileList,
     beforeUpload,
     onProgress,
     onSuccess,
     onError,
     onChange,
-    onRemove
+    onRemove,
+    name,
+    headers,
+    data,
+    accept,
+    multiple,
+    drag,
+    children
+
+
   } = props;
 
   const fileInput = useRef<HTMLInputElement>(null);
   // 存储上传过的file
-  const [fileList, setFileList] = useState<UploadedFile[]>(initFileList || []);
-  const [count, setCount] = useState(1);
+  const [fileList, setFileList] = useState<UploadedFile[]>(defaultFileList || []);
 
   const updateFileList = (updateFile: UploadedFile, updateObj: Partial<UploadedFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
-        console.log(file.uid, updateFile.uid)
         if (file.uid === updateFile.uid) {
           return { ...file, ...updateObj }    // 如果遇到同一个uid的file，说明是要更新的这个file。比如在上传的onUploadProgress中。
         } else {
@@ -70,6 +86,15 @@ export const FileUpload: FC<UploadProps> = (props) => {
   const uploadFiles = (files: FileList) => {
     let postFiles = Array.from(files);
     postFiles.forEach(file => {
+      if (accept) {
+        console.log(accept)
+        const acceptList = accept.replace(/\s/g, '').split(',');
+        console.log(acceptList);
+        const name = file.name.split('.');
+        const type = name[name.length - 1];
+        if (!(acceptList.includes(type) || acceptList.includes(file.type))) return;
+      }
+
       if (!beforeUpload) {
         postFile(file);
       } else {
@@ -93,58 +118,78 @@ export const FileUpload: FC<UploadProps> = (props) => {
   const postFile = (file: File) => {
     let _file: UploadedFile = {
       uid: Math.random().toString().replace(/0./, ''),
-      status: 'ready',
+      status: 'uploading',
       name: file.name,
       size: file.size,
       percent: 0,
       raw: file
     }
-    setFileList([_file, ...fileList]);
+    setFileList(prevList => {
+      return [...prevList, _file]
+    });
     const formData = new FormData();
-    formData.append(file.name, file);
+    formData.append(name || 'file', file);
+
+    data && Object.keys(data).forEach(key => {
+      formData.append(key, data[key])
+    })
+
     axios.post(action, formData, {
       headers: {
-        "Content-Type": 'multipart/form-data'
+        "Content-Type": 'multipart/form-data',
+        ...headers
       },
       onUploadProgress: (e) => {
         let percentage = Math.round(e.loaded * 100 / e.total) || 0;
-        console.log(percentage);
         if (percentage < 100) {
-          console.log(fileList)
-          setFileList([{ ..._file, status: 'uploading', percent: percentage }, ...fileList]);
-          // updateFileList(_file, { status: 'uploading', percent: percentage });
-
+          updateFileList(_file, { status: 'uploading', percent: percentage });
           onProgress && onProgress(percentage, file);
         }
       }
     }).then(res => {
-      // updateFileList(_file, { status: 'success', response: res.data });
-      console.log(fileList)
-      setFileList([{ ..._file, status: 'success', response: res.data }, ...fileList]);
-
+      updateFileList(_file, { status: 'success', response: res.data });
       onSuccess && onSuccess(res.data, file);
       onChange && onChange(file);
     }).catch(err => {
-      console.error(err);
-      // updateFileList(_file, { status: 'error', response: err });
-      setFileList([{ ..._file, status: 'error', response: err }, ...fileList]);
+      updateFileList(_file, { status: 'error', response: err });
       onError && onError(err, file)
       onChange && onChange(file);
     })
+
   }
   console.log(fileList);
   return (
     <div className='pui-upload'>
-      <Button type="primary" onClick={handleClick} icon={IconUpload} >上传</Button>
-      <input type="file"
-        className='pui-file-input'
-        style={{ display: 'none' }}
-        ref={fileInput}
-        onChange={handleFileChange} />
+      <div onClick={handleClick} className='pui-upload-wrap'>
+        {
+          drag ?
+            <Dragger onFile={files => uploadFiles(files)}>
+              {children || <div className='pui-upload-container pui-upload-drag-container'>
+                <IconInbox /> <br />
+                点击或拖拽上传
+              </div>}
+            </Dragger> :
+            children || <div className='pui-upload-container'>
+              <Button type="default" onClick={handleClick} icon={IconUpload} >添加文件</Button>
+            </div>
+        }
+        <div className='pui-upload-tip'>
+          {tip}
+        </div>
+        <input type="file"
+          className='pui-file-input'
+          style={{ display: 'none' }}
+          ref={fileInput}
+          accept={accept}
+          multiple={multiple}
+          onChange={handleFileChange}
+        />
+      </div>
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}
       />
+
     </div>
   )
 }
