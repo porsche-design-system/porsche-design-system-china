@@ -154,7 +154,7 @@ const MultiSelect = FormItem(
 
             <div
               className="pui-multi-select-option "
-              onClick={() => {
+              onClick={evt => {
                 const allValues: string[] = []
                 if (!allChecked) {
                   selectOptions.forEach(item => {

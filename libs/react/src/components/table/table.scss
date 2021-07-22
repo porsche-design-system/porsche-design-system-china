@@ -68,9 +68,10 @@
 
             .title-content {
               display: flex;
-              justify-content: space-between;
+              // justify-content: space-between;
 
               .sort-btn {
+                margin-left: 5px;
                 display: flex;
                 flex-direction: column;
                 margin-right: 10px;
