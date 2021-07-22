@@ -138,10 +138,14 @@ const Table = ({
           evt.preventDefault()
         }
 
-        const finalX = headRef.current.scrollLeft + variationX
-        headRef.current.scrollLeft = finalX
-        bodyRef.current.scrollLeft = finalX
-        bodyRef.current.scrollTop += variationY
+        if (Math.abs(variationX) > Math.abs(variationY)) {
+          const finalX = headRef.current.scrollLeft + variationX
+          headRef.current.scrollLeft = finalX
+          bodyRef.current.scrollLeft = finalX
+        } else {
+          bodyRef.current.scrollTop += variationY
+        }
+
         updateShadow()
       }
     }
