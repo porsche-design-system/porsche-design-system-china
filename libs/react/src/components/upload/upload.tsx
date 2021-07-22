@@ -6,7 +6,6 @@ import { Button } from '../index'
 import UploadList from "./uploadList";
 import Dragger from "./dragger";
 import './upload.scss';
-import classNames from "classnames";
 
 export interface UploadProps {
   action: string;
@@ -58,7 +57,6 @@ export const Upload: FC<UploadProps> = (props) => {
     multiple,
     drag,
     children,
-    listType,
     className
   } = props;
 
