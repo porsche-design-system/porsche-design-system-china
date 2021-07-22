@@ -1,10 +1,12 @@
 import React, { ChangeEvent, FC, useRef, useState } from "react";
 import axios from 'axios'
+import classnames from 'classnames'
 import { IconUpload, IconInbox } from '@pui/icons'
 import { Button } from '../index'
 import UploadList from "./uploadList";
 import Dragger from "./dragger";
 import './upload.scss';
+import classNames from "classnames";
 
 export interface UploadProps {
   action: string;
@@ -13,7 +15,7 @@ export interface UploadProps {
   onProgress?: (percentage: number, file: File) => void;
   onSuccess?: (data: any, file: File) => void;
   onError?: (err: any, file: File) => void;
-  onChange?: (file: File) => void;
+  onChange?: (file: UploadedFile) => void;
   onRemove?: (file: UploadedFile) => void;
   headers?: { [key: string]: any };
   name?: string;
@@ -22,6 +24,8 @@ export interface UploadProps {
   multiple?: boolean;
   tip?: Node | string;
   drag?: boolean;
+  listType?: string;
+  className?: string;
 }
 type UploadFileStatus = "uploading" | "success" | "error"
 
@@ -31,7 +35,7 @@ export interface UploadedFile {
   name: string;
   status?: UploadFileStatus;
   percent?: number;
-  raw?: File;
+  originFileObj?: File;
   response?: any;
   error?: any;
 }
@@ -53,9 +57,9 @@ export const Upload: FC<UploadProps> = (props) => {
     accept,
     multiple,
     drag,
-    children
-
-
+    children,
+    listType,
+    className
   } = props;
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -87,9 +91,7 @@ export const Upload: FC<UploadProps> = (props) => {
     let postFiles = Array.from(files);
     postFiles.forEach(file => {
       if (accept) {
-        console.log(accept)
         const acceptList = accept.replace(/\s/g, '').split(',');
-        console.log(acceptList);
         const name = file.name.split('.');
         const type = name[name.length - 1];
         if (!(acceptList.includes(type) || acceptList.includes(file.type))) return;
@@ -122,7 +124,7 @@ export const Upload: FC<UploadProps> = (props) => {
       name: file.name,
       size: file.size,
       percent: 0,
-      raw: file
+      originFileObj: file
     }
     setFileList(prevList => {
       return [...prevList, _file]
@@ -141,38 +143,39 @@ export const Upload: FC<UploadProps> = (props) => {
       },
       onUploadProgress: (e) => {
         let percentage = Math.round(e.loaded * 100 / e.total) || 0;
-        if (percentage < 100) {
-          updateFileList(_file, { status: 'uploading', percent: percentage });
-          onProgress && onProgress(percentage, file);
-        }
+        _file = { ..._file, status: 'uploading', percent: percentage };
+        updateFileList(_file, { status: 'uploading', percent: percentage });
+        onProgress && onProgress(percentage, file);
       }
     }).then(res => {
       updateFileList(_file, { status: 'success', response: res.data });
       onSuccess && onSuccess(res.data, file);
-      onChange && onChange(file);
+      onChange && onChange({ ..._file, status: 'success', response: res.data, percent: 100 });
     }).catch(err => {
       updateFileList(_file, { status: 'error', response: err });
       onError && onError(err, file)
-      onChange && onChange(file);
+      onChange && onChange({ ..._file, status: 'error', response: err });
     })
 
   }
-  console.log(fileList);
+  const prefixCls = 'pui-upload'
   return (
-    <div className='pui-upload'>
-      <div onClick={handleClick} className='pui-upload-wrap'>
-        {
-          drag ?
-            <Dragger onFile={files => uploadFiles(files)}>
-              {children || <div className='pui-upload-container pui-upload-drag-container'>
-                <IconInbox /> <br />
-                点击或拖拽上传
-              </div>}
-            </Dragger> :
-            children || <div className='pui-upload-container'>
-              <Button type="default" onClick={handleClick} icon={IconUpload} >添加文件</Button>
-            </div>
-        }
+    <div className={classnames(`${prefixCls}`, className)}>
+      <div className='pui-upload-container'>
+        <div onClick={handleClick} className={classnames(`${prefixCls}-field`, { [`${prefixCls}-drag-field`]: drag })}>
+          {
+            drag ?
+              <Dragger onFile={files => uploadFiles(files)}>
+                {children || <div className='pui-upload-text pui-upload-drag-text'>
+                  <IconInbox /> <br />
+                  点击或拖拽上传
+                </div>}
+              </Dragger> :
+              children || <div className='pui-upload-text'>
+                <Button type="default" icon={IconUpload} >添加文件</Button>
+              </div>
+          }
+        </div>
         <div className='pui-upload-tip'>
           {tip}
         </div>

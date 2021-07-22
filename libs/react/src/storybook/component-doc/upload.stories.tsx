@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Upload, Row, Col, } from '../..'
 
 import './upload.stories.scss'
@@ -13,21 +13,19 @@ export const InputsStoryBook = () => {
     <Row>
       <Col span={12}>
         <Upload
-          action='https://jsonplaceholder.typicode.com/todos/'
-          headers={{ 'Authorization': 'Bearer 66591f9d-7a48-4cc8-8095-3213f9036682' }}
+          action='https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
+          headers={{ 'Authorization': 'Bearer c22220d6-12b3-4f27-86e5-967ca0efd619' }}
           multiple
           tip='要求文件格式jpg,png, 大小不超过20M'
-        />
+        >
+        </Upload>
       </Col>
       <Col span={12}>
-
         <Upload
-          action='https://jsonplaceholder.typicode.com/todos/'
-          headers={{ 'Authorization': 'Bearer 66591f9d-7a48-4cc8-8095-3213f9036682' }}
-          // accept='.png'
+          action='https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
+          headers={{ 'Authorization': 'Bearer c22220d6-12b3-4f27-86e5-967ca0efd619' }}
           drag
           multiple
-        // action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
 
         />
       </Col>

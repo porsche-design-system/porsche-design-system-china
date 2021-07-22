@@ -5,7 +5,6 @@
     @include theme($theme);
 
     .pui-upload {
-      width: 300px;
 
       .pui-upload-tip {
         margin-top: 4px;
@@ -14,38 +13,48 @@
         color: $container-bg-color-5;
       }
 
-      .pui-upload-wrap {
-        cursor: pointer;
-
-        .pui-upload-drag {
-
-          text-align: center;
-          background: $background-color-2;
-          border: 1px dashed $container-bg-color-3;
-          border-radius: 4px;
+      .pui-upload-container {
+        .pui-upload-field {
+          display: inline-block;
           cursor: pointer;
-          transition: border-color .3s;
+          text-align: center;
 
-          &:hover,
-          &.is-dragOver {
-            border-color: $container-bg-color-6;
-          }
-        }
+          .pui-upload-drag {
+            text-align: center;
+            background: $background-color-2;
+            border: 1px dashed $container-bg-color-3;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color .3s;
 
-        .pui-upload-container {
-          &.pui-upload-drag-container {
-            padding: 10px 0;
-
-            .anticon-inbox {
-              margin-bottom: 10px;
-              font-size: 2em;
+            &:hover,
+            &.is-dragOver {
+              border-color: $container-bg-color-6;
             }
+          }
+
+          .pui-upload-text {
+            &.pui-upload-drag-text {
+              padding: 10px 0;
+
+              .anticon-inbox {
+                margin-bottom: 10px;
+                font-size: 2em;
+              }
+            }
+          }
+
+          &.pui-upload-drag-field {
+            display: block;
           }
         }
       }
 
       .pui-upload-list {
+        @extend %progress-fade;
+
         .pui-upload-list-item {
+          position: relative;
           font-size: 14px;
           line-height: 1.6;
           margin-top: 8px;
@@ -105,7 +114,46 @@
           &-error {
             color: $brand-color;
           }
+
+          .pui-progress {
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            width: 100%;
+          }
         }
+      }
+    }
+
+    %progress-fade {
+
+      .pui-upload-progress-enter,
+      .pui-upload-progress-appear {
+        opacity: 0;
+      }
+
+      .pui-upload-progress-enter-active,
+      .pui-upload-progress-appear-active {
+        opacity: 1;
+        transition: all 0.3s ease-in;
+      }
+
+      .pui-upload-progress-enter-done {
+        opacity: 1;
+      }
+
+      .pui-upload-progress-exit {
+        opacity: 1;
+      }
+
+      .pui-upload-progress-exit-active {
+        opacity: 0;
+        transition: all 0.3s ease-in;
+      }
+
+      .pui-upload-progress-exit-done {
+        opacity: 0;
+        display: none;
       }
     }
   }
