@@ -1,5 +1,5 @@
 import React, { CSSProperties, useRef, useState } from 'react'
-import { IconArrowHeadDown, IconCheck } from '@pui/icons'
+import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
@@ -133,7 +133,20 @@ const MultiSelect = FormItem(
           }}
           disabled={disabled}
         />
-        <IconArrowHeadDown className="pui-multi-select-icon" />
+        {selectValue.length > 0 && (
+          <IconErrorFilled
+            className="pui-multi-select-clear-icon"
+            onClick={evt => {
+              setSelectValue([])
+              onValueChange && onValueChange([])
+              evt.stopPropagation()
+              evt.preventDefault()
+              setShowOptionList(false)
+            }}
+          />
+        )}
+
+        <IconArrowHeadDown className="pui-multi-select-arrow-icon" />
         {showOptionList && (
           <div
             className="pui-multi-select-list"
