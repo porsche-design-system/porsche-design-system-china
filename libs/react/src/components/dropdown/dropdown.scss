@@ -15,7 +15,7 @@
         left: 0;
         top: 28px;
         min-width: 160px;
-        background-color: #fff;
+        background-color: $float-layer-bg-color;
         &.pui-dropdown-open {
           display: block;
         }
@@ -54,7 +54,7 @@
           .dropdown-menu-item,
           .sub-menu-item,
           .group-menu-item {
-            padding: 12px;
+            padding: 8px 12px;
             font-size: 16px;
             font-weight: 400;
             cursor: pointer;
@@ -75,7 +75,7 @@
               }
             }
             &:hover {
-              font-weight: 600;
+              // font-weight: 600;
               background-color: $container-bg-opacity-color-2;
             }
             &.is-active {
@@ -103,28 +103,25 @@
                   justify-content: space-between;
                   align-items: center;
                 }
-                .porscheicon-icon_arrow_head_down {
+                .porscheicon-icon_-arrow_head_down {
                   transition: transform 0.25s ease-in-out;
                   margin-left: 3px;
                 }
                 &:hover {
                   color: $text-color-1;
                   font-weight: 400;
-                  .porscheicon-icon_arrow_head_down {
+                  .porscheicon-icon_-arrow_head_down {
                     transform: rotate(-90deg);
                   }
                 }
               }
               .pui-submenu {
                 position: absolute;
-                background-color: #fff;
+                background-color: $float-layer-bg-color;
                 box-shadow: 0 0 2px $text-opacity-color-2;
                 min-width: 160px;
-                top: 12px;
+                top: 0px;
                 right: -164px;
-
-                .sub-menu-item {
-                }
               }
             }
           }
