@@ -7,7 +7,7 @@ import React, {
 import classNames from 'classnames'
 import { CSSTransition } from 'react-transition-group'
 
-import { IconArrowHeadDown } from '@pui/icons'
+import { IconArrowHeadDown, IconArrowHeadRight } from '@pui/icons'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menu-item'
 
@@ -99,7 +99,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     <li key={index} className={classes} {...hoverEvents}>
       <span className="submenu-title" {...clickEvents}>
         {title}
-        <IconArrowHeadDown />
+        <IconArrowHeadRight />
       </span>
       {renderChildren()}
     </li>
