@@ -1,4 +1,66 @@
 <style>
+  /*S: Nav title*/
+  .sidebar-subheading {
+    position: relative;
+  }
+  .sidebar-subheading .css-1e8ttew {
+    font-weight: 600;
+    color: #000 !important;
+  }
+  /* hide the default svg */
+  .sidebar-subheading .css-1e8ttew span:first-of-type,
+  .sidebar-subheading .sidebar-subheading-action svg,
+  .sidebar-item .css-yw8k44 {
+    visibility: hidden;
+  }
+  .sidebar-subheading[aria-expanded='true']:after {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+    transform: rotate(180deg);
+  }
+  .sidebar-subheading[aria-expanded='false']:after {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+  }
+  .sidebar-item {
+    position: relative;
+  }
+  .css-1gik7x6 {
+    padding-left: 21px !important;
+  }
+  .sidebar-item.css-1gik7x6::before {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 20px;
+    top: 6px;
+    transform: rotate(-90deg);
+  }
+  .css-1gik7x6:hover,
+  .css-1gik7x6:focus,
+  .css-1gik7x6[data-selected='true'] {
+    background-color: transparent !important;
+    color: #d5001c !important;
+    font-weight: 300 !important;
+  }
+  .sidebar-item.css-1gik7x6[data-selected='true']::before {
+    background: url('/svg/arrow-head-down-red.svg') transparent;
+  }
+  /*E: Nav title*/
+
   @font-face {
     font-family: 'Porsche next';
     font-weight: 400;
