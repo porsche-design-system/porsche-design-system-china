@@ -189,3 +189,78 @@ export const ButtonStoryBook = () => {
 }
 
 ButtonStoryBook.storyName = 'Button'
+
+export const ButtonStoryBook2 = () => {
+  return (
+    <div>
+      <Button marginRight="10px">Button</Button>
+      <Button type="primary" marginRight="10px">
+        Primary Button
+      </Button>
+      <Button type="secondary" marginRight="10px">
+        Secondary Button
+      </Button>
+    </div>
+  )
+}
+
+ButtonStoryBook2.storyName = '按钮类型'
+
+export const ButtonStoryBook3 = () => {
+  return (
+    <div>
+      <Button size="small" marginRight="10px">
+        Small Button
+      </Button>
+      <Button type="secondary" marginRight="10px">
+        Default Size
+      </Button>
+    </div>
+  )
+}
+
+ButtonStoryBook3.storyName = '按钮大小'
+
+export const ButtonStoryBook4 = () => {
+  return (
+    <div>
+      <div className="show-case">
+        <Button icon={IconArrowRight} marginRight="10px" />
+        <Button type="primary" icon={IconAdd} marginRight="10px" />
+        <Button type="secondary" icon={IconEdit} marginRight="10px" />
+        <Button type="text" icon={IconArrowRight} marginRight="10px" />
+      </div>
+      <div className="show-case">
+        <Button icon={IconArrowRight}>进入</Button>
+        <Button icon={IconClose}>关闭</Button>
+        <Button type="primary" icon={IconAdd}>
+          添加
+        </Button>
+        <Button type="secondary" icon={IconEdit}>
+          编辑
+        </Button>
+        <Button type="text" icon={IconBell}>
+          提醒
+        </Button>
+      </div>
+      <div className="show-case">
+        <Button icon={IconArrowRight} size="small" marginRight="10px" />
+        <Button type="primary" icon={IconAdd} size="small" marginRight="10px" />
+        <Button
+          type="secondary"
+          icon={IconEdit}
+          size="small"
+          marginRight="10px"
+        />
+        <Button
+          type="text"
+          icon={IconArrowRight}
+          size="small"
+          marginRight="10px"
+        />
+      </div>
+    </div>
+  )
+}
+
+ButtonStoryBook4.storyName = '图标按钮'
