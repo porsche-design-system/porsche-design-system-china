@@ -1,47 +1,51 @@
 import React, { ChangeEvent, FC, useRef, useState } from "react";
 import axios from 'axios'
 import classnames from 'classnames'
-import { IconUpload, IconInbox } from '@pui/icons'
+import { IconUpload, IconInbox, IconPlus } from '@pui/icons'
+import { Modal } from '../modal/modal'
 import { Button } from '../index'
-import UploadList from "./uploadList";
+import UploadList from "./uploadList/index";
 import Dragger from "./dragger";
 import './upload.scss';
 
+import {
+  UploadFile,
+  UploadLocale,
+  UploadListType,
+  ShowUploadListInterface
+} from './interface';
 export interface UploadProps {
   action: string;
-  defaultFileList?: UploadedFile[];
+  count?: number;
+  defaultFileList?: UploadFile[];
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onProgress?: (percentage: number, file: File) => void;
-  onSuccess?: (data: any, file: File) => void;
+  onSuccess?: (data: any, file: UploadFile) => void;
   onError?: (err: any, file: File) => void;
-  onChange?: (file: UploadedFile) => void;
-  onRemove?: (file: UploadedFile) => void;
+  onChange?: (file: UploadFile) => void;
+  onRemove?: (file: UploadFile) => void;
+  onPreview?: (file: UploadFile) => void;
   headers?: { [key: string]: any };
   name?: string;
+  locale?: UploadLocale;
   data?: { [key: string]: any };
   accept?: string;
   multiple?: boolean;
   tip?: Node | string;
   drag?: boolean;
-  listType?: string;
+  disabled?: boolean;
+  showRemoveIcon?: boolean;
+  showDownloadIcon?: boolean;
+  showPreviewIcon?: boolean;
+  listType?: UploadListType;
   className?: string;
-}
-type UploadFileStatus = "uploading" | "success" | "error"
-
-export interface UploadedFile {
-  uid: string;
-  size: number;
-  name: string;
-  status?: UploadFileStatus;
-  percent?: number;
-  originFileObj?: File;
-  response?: any;
-  error?: any;
+  isImageUrl?: (file: UploadFile) => boolean;
 }
 
-export const Upload: FC<UploadProps> = (props) => {
+const Upload: FC<UploadProps> = (props) => {
   const {
     action,
+    count,
     tip,
     defaultFileList,
     beforeUpload,
@@ -50,21 +54,30 @@ export const Upload: FC<UploadProps> = (props) => {
     onError,
     onChange,
     onRemove,
+    onPreview,
+    disabled,
     name,
+    locale,
     headers,
     data,
     accept,
     multiple,
     drag,
     children,
-    className
+    listType,
+    className,
+    isImageUrl
+
   } = props;
 
   const fileInput = useRef<HTMLInputElement>(null);
   // 存储上传过的file
-  const [fileList, setFileList] = useState<UploadedFile[]>(defaultFileList || []);
+  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [previewImage, setPreviewImage] = useState('');
 
-  const updateFileList = (updateFile: UploadedFile, updateObj: Partial<UploadedFile>) => {
+  const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
         if (file.uid === updateFile.uid) {
@@ -111,12 +124,12 @@ export const Upload: FC<UploadProps> = (props) => {
       }
     })
   }
-  const handleRemove = (file: UploadedFile) => {
+  const handleRemove = (file: UploadFile) => {
     setFileList(prevFile => prevFile.filter(item => item.uid !== file.uid))
     onRemove && onRemove(file);
   }
   const postFile = (file: File) => {
-    let _file: UploadedFile = {
+    let baseFile: UploadFile = {
       uid: Math.random().toString().replace(/0./, ''),
       status: 'uploading',
       name: file.name,
@@ -125,7 +138,7 @@ export const Upload: FC<UploadProps> = (props) => {
       originFileObj: file
     }
     setFileList(prevList => {
-      return [...prevList, _file]
+      return [...prevList, baseFile]
     });
     const formData = new FormData();
     formData.append(name || 'file', file);
@@ -141,56 +154,180 @@ export const Upload: FC<UploadProps> = (props) => {
       },
       onUploadProgress: (e) => {
         let percentage = Math.round(e.loaded * 100 / e.total) || 0;
-        _file = { ..._file, status: 'uploading', percent: percentage };
-        updateFileList(_file, { status: 'uploading', percent: percentage });
+        baseFile = { ...baseFile, status: 'uploading', percent: percentage };
+        updateFileList(baseFile, { status: 'uploading', percent: percentage });
         onProgress && onProgress(percentage, file);
       }
     }).then(res => {
-      updateFileList(_file, { status: 'success', response: res.data });
-      onSuccess && onSuccess(res.data, file);
-      onChange && onChange({ ..._file, status: 'success', response: res.data, percent: 100 });
+      updateFileList(baseFile, { status: 'success', response: res.data });
+      onSuccess && onSuccess(res.data, { ...baseFile, status: 'success', response: res.data, percent: 100 });
+      onChange && onChange({ ...baseFile, status: 'success', response: res.data, percent: 100 });
     }).catch(err => {
-      updateFileList(_file, { status: 'error', response: err });
+      updateFileList(baseFile, { status: 'error', response: err });
       onError && onError(err, file)
-      onChange && onChange({ ..._file, status: 'error', response: err });
+      onChange && onChange({ ...baseFile, status: 'error', response: err });
     })
-
   }
-  const prefixCls = 'pui-upload'
-  return (
-    <div className={classnames(`${prefixCls}`, className)}>
-      <div className='pui-upload-container'>
-        <div onClick={handleClick} className={classnames(`${prefixCls}-field`, { [`${prefixCls}-drag-field`]: drag })}>
-          {
-            drag ?
-              <Dragger onFile={files => uploadFiles(files)}>
-                {children || <div className='pui-upload-text pui-upload-drag-text'>
-                  <IconInbox /> <br />
-                  点击或拖拽上传
-                </div>}
-              </Dragger> :
-              children || <div className='pui-upload-text'>
-                <Button type="default" icon={IconUpload} >添加文件</Button>
-              </div>
-          }
-        </div>
-        <div className='pui-upload-tip'>
-          {tip}
-        </div>
-        <input type="file"
-          className='pui-file-input'
-          style={{ display: 'none' }}
-          ref={fileInput}
-          accept={accept}
-          multiple={multiple}
-          onChange={handleFileChange}
-        />
+
+  const getBase64 = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  const handlePreview = async (file: UploadFile) => {
+    setPreviewVisible(true);
+
+    if (!file.url && !file.preview && file.originFileObj) {
+      file.preview = await getBase64(file.originFileObj) as string;
+      setPreviewImage(file.preview);
+    } else {
+      file.url && setPreviewImage(file.url);
+      file.preview && setPreviewImage(file.preview);
+    }
+    let urlName = '';
+    if (file.url) {
+      urlName = file.url.substring(file.url.lastIndexOf('/') + 1)
+    }
+    setPreviewTitle(file.name || urlName);
+    onPreview && onPreview(file);
+  }
+  const handleCancel = () => setPreviewVisible(false);
+  const { showRemoveIcon, showPreviewIcon, showDownloadIcon, removeIcon } = {} as ShowUploadListInterface;
+
+  const prefixCls = 'pui-upload';
+
+  const uploadButton = (
+    <div className={classnames(`${prefixCls}-container`, { [`${prefixCls}-drag-container`]: drag })}>
+      <div onClick={handleClick} className={classnames(`${prefixCls}-field`, { [`${prefixCls}-drag-field`]: drag })}>
+        {
+          drag ?
+            <Dragger onFile={files => uploadFiles(files)}>
+              {children || <div className='pui-upload-btn pui-upload-drag-btn'>
+                <IconInbox /> <br />
+                点击或拖拽上传
+              </div>}
+            </Dragger> :
+            (
+              listType === 'picture-card' ? (count as number) > fileList.length && <div className='pui-upload-btn-picture-card'>
+                {children || <span>
+                  <IconPlus />
+                  <div>Upload</div>
+                </span>}
+              </div> :
+                <div className='pui-upload-btn'>
+                  {
+                    children ||
+                    <Button type="default" icon={IconUpload}>添加文件</Button>
+                  }
+                </div>
+            )
+        }
       </div>
+
+      {tip && <div className='pui-upload-tip'>{tip}</div>}
+      <input type="file"
+        className='pui-file-input'
+        style={{ display: 'none' }}
+        ref={fileInput}
+        accept={accept}
+        multiple={multiple}
+        onChange={handleFileChange}
+      />
+    </div>
+  );
+
+  const renderUploadList = (button?: React.ReactNode) => (
+    <>
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}
+        onPreview={handlePreview}
+        listType={listType}
+        showRemoveIcon={!disabled && showRemoveIcon}
+        showPreviewIcon={showPreviewIcon}
+        showDownloadIcon={showDownloadIcon}
+        removeIcon={removeIcon}
+        isImageUrl={isImageUrl}
+        // downloadIcon={downloadIcon}
+        appendAction={button}
+        locale={locale || {}}
       />
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
+    </>
+  )
 
+
+  if (listType === 'picture-card') {
+    return (
+      <div className={classnames(prefixCls, className, { [`${prefixCls}-${listType}`]: listType })}>
+        {renderUploadList(uploadButton)}
+      </div>
+    );
+  }
+
+  return (
+    <div className={classnames(prefixCls, className, { [`${prefixCls}-${listType}`]: listType })}>
+      {uploadButton}
+      {renderUploadList()}
     </div>
+  );
+
+
+
+
+
+
+  return (
+    <div className={classnames(prefixCls, className, { [`${prefixCls}-${listType}`]: listType })}>
+
+      <UploadList
+        fileList={fileList}
+        onRemove={handleRemove}
+        onPreview={handlePreview}
+        listType={listType}
+        showRemoveIcon={!disabled && showRemoveIcon}
+        showPreviewIcon={showPreviewIcon}
+        showDownloadIcon={showDownloadIcon}
+        removeIcon={removeIcon}
+        isImageUrl={isImageUrl}
+        // downloadIcon={downloadIcon}
+        locale={locale || {}}
+      />
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        // footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
+    </div >
   )
 }
+const defaultLocale = {
+  uploading: 'Uploading...',
+  removeFile: 'Remove file',
+  uploadError: 'Upload error',
+  previewFile: 'Preview file',
+  downloadFile: 'Download file',
+}
+
+Upload.defaultProps = {
+  listType: 'text' as UploadListType,
+  showRemoveIcon: true,
+  showDownloadIcon: false,
+  showPreviewIcon: true,
+  locale: defaultLocale,
+  count: 1,
+}
+export { Upload };
