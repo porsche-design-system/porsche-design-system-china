@@ -76,7 +76,7 @@ export const ButtonStoryBook = () => {
       <div className="group">
         <div className="title">Sizes</div>
         <div className="show-case">
-          <Button size="default">Default Size Button</Button>
+          <Button size="medium">Medium Size Button</Button>
           <Button size="small">Small Size Button</Button>
           <Button size="small">中文小按钮</Button>
           <Button size="small" type="primary">

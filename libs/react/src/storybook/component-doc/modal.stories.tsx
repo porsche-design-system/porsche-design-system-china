@@ -41,7 +41,7 @@ export const ModalStoryBook = () => {
         style={{ width: '800px' }}
         title="对话框标题"
         subtitle="对话框副标题"
-        hasDivider={true}
+        hasDivider
         okText="主要按钮"
         cancelText="次要按钮"
         visible={isModalVisible}

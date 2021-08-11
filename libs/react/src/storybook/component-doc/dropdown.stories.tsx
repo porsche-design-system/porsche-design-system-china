@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  IconChat,
-  IconArrowHeadRight,
-  IconArrowRight,
-  IconEdit,
-  IconAdd,
-  IconBell,
-  IconClose
-} from '@pui/icons'
+import { IconEdit, IconAdd } from '@pui/icons'
 import { Dropdown, Menu } from '../..'
 
 import './dropdown.stories.scss'

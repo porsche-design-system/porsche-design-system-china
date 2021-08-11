@@ -1,14 +1,7 @@
 import React from 'react'
+import { IconEdit, IconAdd, IconBell } from '@pui/icons'
+
 import { Menu } from '../..'
-import {
-  IconChat,
-  IconArrowHeadRight,
-  IconArrowRight,
-  IconEdit,
-  IconAdd,
-  IconBell,
-  IconClose
-} from '@pui/icons'
 import './menu.stories.scss'
 
 export default {
@@ -38,13 +31,25 @@ export const ProgressStoryBook = () => {
       </div>
       <div className="test-two">
         <Menu mode="vertical">
-          <Menu.Item icon={<IconEdit />} selectAfter>test</Menu.Item>
-          <Menu.Item icon={<IconAdd />} selectAfter>about</Menu.Item>
-          <Menu.Item disabled icon={<IconEdit />} selectAfter>prod</Menu.Item>
+          <Menu.Item icon={<IconEdit />} selectAfter>
+            test
+          </Menu.Item>
+          <Menu.Item icon={<IconAdd />} selectAfter>
+            about
+          </Menu.Item>
+          <Menu.Item disabled icon={<IconEdit />} selectAfter>
+            prod
+          </Menu.Item>
           <Menu.SubMenu title="submit">
-            <Menu.Item icon={<IconEdit />} selectAfter>test1</Menu.Item>
-            <Menu.Item icon={<IconBell />} selectAfter>about2</Menu.Item>
-            <Menu.Item disabled icon={<IconEdit />} selectAfter>prod3</Menu.Item>
+            <Menu.Item icon={<IconEdit />} selectAfter>
+              test1
+            </Menu.Item>
+            <Menu.Item icon={<IconBell />} selectAfter>
+              about2
+            </Menu.Item>
+            <Menu.Item disabled icon={<IconEdit />} selectAfter>
+              prod3
+            </Menu.Item>
           </Menu.SubMenu>
         </Menu>
       </div>

@@ -1,5 +1,17 @@
-import { IconArrowHeadRight, IconClose, IconClock,IconInformation,IconExclamation } from '@pui/icons'
-import React, { CSSProperties, ReactNode, useEffect, useState ,ReactElement} from 'react'
+import {
+  IconArrowHeadRight,
+  IconClose,
+  IconClock,
+  IconInformation,
+  IconExclamation
+} from '@pui/icons'
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useState,
+  ReactElement
+} from 'react'
 import ReactDOM from 'react-dom'
 import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
@@ -19,10 +31,10 @@ export interface ModalProps {
   title?: string
 
   /** 标题左侧Icon */
-  titleIcon?:ReactElement | undefined ,
+  titleIcon?: ReactElement | undefined
 
-    /** 标题左侧Iconl类型 */
-  titleIconType?:undefined | 'info' | 'success' | 'warning' |'error'
+  /** 标题左侧Iconl类型 */
+  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
   subtitle?: string
@@ -31,7 +43,7 @@ export interface ModalProps {
   visible?: boolean
 
   /** 头部页脚是否用细线隔开 */
-  hasDivider?: boolean 
+  hasDivider?: boolean
 
   /** 确认按钮文字 */
   okText?: string
@@ -39,12 +51,11 @@ export interface ModalProps {
   /** 取消按钮文字 */
   cancelText?: string
 
-   /** 确认按钮Icon */
-  okIcon?:  ReactElement | undefined | null
+  /** 确认按钮Icon */
+  okIcon?: ReactElement | undefined | null
 
   /** 取消按钮Icon */
   cancelIcon?: ReactElement | undefined | null
-  
 
   /* 点击确定回调 */
   onOk?: () => void | Promise<unknown>
@@ -60,8 +71,6 @@ export interface ModalProps {
 
   /* 显示关闭按钮 */
   showClose?: boolean
-
-  
 
   modalRef?: any
 }
@@ -84,7 +93,7 @@ const Modal = ({
   onOk,
   onCancel,
   showCancel = true,
-  showOk=true,
+  showOk = true,
   showClose = true,
 
   modalRef
@@ -92,14 +101,13 @@ const Modal = ({
   const [show, setShow] = useState(visible)
   const [isLoading, setIsLoading] = useState(false)
   modalSetIsLoading = setIsLoading
-  const TitleIcon={
-    info:()=><IconInformation/>,
-    success:()=><IconClock/>,
-    warning:()=><IconExclamation/>,
-    error:()=><IconClose/>,
-    undefined:()=>null
+  const TitleIcon = {
+    info: () => <IconInformation />,
+    success: () => <IconClock />,
+    warning: () => <IconExclamation />,
+    error: () => <IconClose />,
+    undefined: () => null
   }
-
 
   useEffect(() => {
     setShow(visible)
@@ -107,12 +115,14 @@ const Modal = ({
   return ReactDOM.createPortal(
     <div
       ref={modalRef}
-      className={componentClassNames("pui-modal-root", { hide: !show + '' })}
-     
+      className={componentClassNames('pui-modal-root', { hide: !show + '' })}
     >
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
-        <div className={componentClassNames("pui-modal",{}, className)}  style={style} >
+        <div
+          className={componentClassNames('pui-modal', {}, className)}
+          style={style}
+        >
           <div className="pui-modal-content">
             {showClose && (
               <div
@@ -125,46 +135,73 @@ const Modal = ({
               </div>
             )}
 
-            <div className={componentClassNames("pui-modal-header",{divider: hasDivider+''})}>
+            <div
+              className={componentClassNames('pui-modal-header', {
+                divider: hasDivider + ''
+              })}
+            >
               <div className="pui-modal-title">
-                {titleIconType && <div className={componentClassNames("pui-modal-title-icon",{type:titleIconType})}>
-                  {titleIcon?titleIcon:TitleIcon[titleIconType]()}
-                  </div>}
+                {titleIconType && (
+                  <div
+                    className={componentClassNames('pui-modal-title-icon', {
+                      type: titleIconType
+                    })}
+                  >
+                    {titleIcon || TitleIcon[titleIconType]()}
+                  </div>
+                )}
                 {title}
               </div>
               {subtitle && <div className="pui-model-subtitle">{subtitle}</div>}
             </div>
             <div className="pui-modal-body">{children}</div>
-            <div className={componentClassNames("pui-modal-footer",{divider: hasDivider+''})}>
+            <div
+              className={componentClassNames('pui-modal-footer', {
+                divider: hasDivider + ''
+              })}
+            >
               {showCancel && (
                 <Button
                   onClick={() => onCancel && onCancel()}
-                  icon={ cancelIcon===null?undefined:cancelIcon===undefined?<IconArrowHeadRight />:cancelIcon}
+                  icon={
+                    cancelIcon === null ? undefined : cancelIcon ===
+                      undefined ? (
+                      <IconArrowHeadRight />
+                    ) : (
+                      cancelIcon
+                    )
+                  }
                   marginRight="10px"
                 >
                   {cancelText}
                 </Button>
               )}
-             {showOk && (
+              {showOk && (
                 <Button
-                type="primary"
-                loading={isLoading}
-                icon={okIcon===null?undefined:okIcon===undefined?<IconArrowHeadRight />:okIcon}
-                onClick={() => {
-                  if (onOk) {
-                    const loadingPromise = onOk()
-                    if (typeof loadingPromise === 'object') {
-                      setIsLoading(true)
-                      ;(loadingPromise as Promise<unknown>).then(() => {
-                        setIsLoading(false)
-                      })
-                    }
+                  type="primary"
+                  loading={isLoading}
+                  icon={
+                    okIcon === null ? undefined : okIcon === undefined ? (
+                      <IconArrowHeadRight />
+                    ) : (
+                      okIcon
+                    )
                   }
-                }}
-              >
-                {okText}
-              </Button>
-             )}
+                  onClick={() => {
+                    if (onOk) {
+                      const loadingPromise = onOk()
+                      if (typeof loadingPromise === 'object') {
+                        setIsLoading(true)
+                        ;(loadingPromise as Promise<unknown>).then(() => {
+                          setIsLoading(false)
+                        })
+                      }
+                    }
+                  }}
+                >
+                  {okText}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -285,23 +322,20 @@ Modal.confirm = (
   )
 }
 
-
-Modal.show = (
- {
-   title,
-   titleIcon,
-   titleIconType,
-   subtitle,
-   showClose,
-   okText,
-   okIcon,
-   onOk,
-   cancelText,
-   cancelIcon,
-   onCancel,
-   children
- }:ModalProps
-) => {
+Modal.show = ({
+  title,
+  titleIcon,
+  titleIconType,
+  subtitle,
+  showClose,
+  okText,
+  okIcon,
+  onOk,
+  cancelText,
+  cancelIcon,
+  onCancel,
+  children
+}: ModalProps) => {
   modalCounter++
   const modalId = '$ModalContainer-' + modalCounter
   let modalContainer = document.getElementById(modalId)
