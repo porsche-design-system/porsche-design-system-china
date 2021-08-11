@@ -1,17 +1,6 @@
-import React, { useState } from 'react'
-import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons'
+import React from 'react'
 
-import {
-  Button,
-  Input,
-  Form,
-  ButtonGroup,
-  Select,
-  Row,
-  Col,
-  TextArea,
-  Modal
-} from '../..'
+import { Button, Input, Form, Select, Row, Col, TextArea, Modal } from '../..'
 
 export default {
   title: 'Form Example/Form Test',

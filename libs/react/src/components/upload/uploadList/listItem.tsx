@@ -1,47 +1,36 @@
-import React, { FC, } from "react";
+import React, { FC } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { Progress } from '../../index'
-import classnames from 'classnames';
-// import { UploadFile, UploadListType } from "../upload";
-import {
-  IconDelete,
-  IconAttachment,
-  IconView,
-  IconImage
-} from '@pui/icons'
+import classnames from 'classnames'
+import { IconDelete, IconView } from '@pui/icons'
 
-import {
-  UploadFile,
-  UploadListType,
-  UploadLocale,
-} from '../interface';
+import { Progress } from '../../index'
+import { UploadFile, UploadListType, UploadLocale } from '../interface'
 
 interface UploadListProps {
-  file: UploadFile;
-  listType?: UploadListType;
-  isImgUrl?: (file: UploadFile) => boolean;
-  showRemoveIcon?: boolean;
-  showDownloadIcon?: boolean;
-  showPreviewIcon?: boolean;
-  locale: UploadLocale;
-  iconRender: (file: UploadFile) => React.ReactNode;
+  file: UploadFile
+  listType?: UploadListType
+  isImgUrl?: (file: UploadFile) => boolean
+  showRemoveIcon?: boolean
+  showDownloadIcon?: boolean
+  showPreviewIcon?: boolean
+  locale: UploadLocale
+  iconRender: (file: UploadFile) => React.ReactNode
   actionIconRender: (
     customIcon: React.ReactNode,
     callback: () => void,
     prefixCls: string,
-    title?: string | undefined,
-  ) => React.ReactNode;
-  removeIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode);
-  onRemove: (file: UploadFile) => void;
+    title?: string | undefined
+  ) => React.ReactNode
+  removeIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
+  onRemove: (file: UploadFile) => void
   onPreview: (file: UploadFile, e: React.SyntheticEvent<HTMLElement>) => void
 }
 
-const ListItem: FC<UploadListProps> = (props) => {
+const ListItem: FC<UploadListProps> = props => {
   const {
     file,
     listType,
     showRemoveIcon,
-    showDownloadIcon,
     actionIconRender,
     showPreviewIcon,
     removeIcon: customRemoveIcon,
@@ -49,23 +38,26 @@ const ListItem: FC<UploadListProps> = (props) => {
     iconRender,
     isImgUrl,
     onRemove,
-    onPreview,
-  } = props;
-  const prefixCls = 'pui-upload-list';
+    onPreview
+  } = props
+  const prefixCls = 'pui-upload-list'
 
-  const listItemNameClass = classnames(`${prefixCls}-item-name`);
-  const linkProps = typeof file.linkProps === 'string' ? JSON.parse(file.linkProps) : file.linkProps;
+  const listItemNameClass = classnames(`${prefixCls}-item-name`)
+  const linkProps =
+    typeof file.linkProps === 'string'
+      ? JSON.parse(file.linkProps)
+      : file.linkProps
 
-  const iconNode = iconRender(file);
-  let icon = <div className={`${prefixCls}-text-icon`}>{iconNode}</div>;
+  const iconNode = iconRender(file)
+  let icon = <div className={`${prefixCls}-text-icon`}>{iconNode}</div>
 
   if (listType === 'picture' || listType === 'picture-card') {
     if (file.status === 'uploading' || (!file.thumbUrl && !file.url)) {
       const uploadingClassName = classnames({
         [`${prefixCls}-item-thumbnail`]: true,
-        [`${prefixCls}-item-file`]: file.status !== 'uploading',
-      });
-      icon = <div className={uploadingClassName}>{iconNode}</div>;
+        [`${prefixCls}-item-file`]: file.status !== 'uploading'
+      })
+      icon = <div className={uploadingClassName}>{iconNode}</div>
     } else {
       const thumbnail = isImgUrl?.(file) ? (
         <img
@@ -75,11 +67,11 @@ const ListItem: FC<UploadListProps> = (props) => {
         />
       ) : (
         iconNode
-      );
+      )
       const aClassName = classnames({
         [`${prefixCls}-item-thumbnail`]: true,
-        [`${prefixCls}-item-file`]: isImgUrl && !isImgUrl(file),
-      });
+        [`${prefixCls}-item-file`]: isImgUrl && !isImgUrl(file)
+      })
       icon = (
         <a
           className={aClassName}
@@ -90,65 +82,64 @@ const ListItem: FC<UploadListProps> = (props) => {
         >
           {thumbnail}
         </a>
-      );
+      )
     }
   }
 
   const removeIcon = showRemoveIcon
     ? actionIconRender(
-      (typeof customRemoveIcon === 'function' ? customRemoveIcon(file) : customRemoveIcon) || (
-        <IconDelete />
-      ),
-      () => onRemove(file),
-      prefixCls,
-      locale.removeFile,
-    )
-    : null;
-
+        (typeof customRemoveIcon === 'function'
+          ? customRemoveIcon(file)
+          : customRemoveIcon) || <IconDelete />,
+        () => onRemove(file),
+        prefixCls,
+        locale.removeFile
+      )
+    : null
 
   const downloadOrDelete = listType !== 'picture-card' && (
     <span
       key="download-delete"
       className={classnames(`${prefixCls}-item-card-actions`, {
-        picture: listType === 'picture',
+        picture: listType === 'picture'
       })}
     >
       {/* {downloadIcon} */}
       {removeIcon}
     </span>
-  );
+  )
 
   const preview = file.url
     ? [
-      <a
-        key="view"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={listItemNameClass}
-        title={file.name}
-        {...linkProps}
-        href={file.url}
-        onClick={e => onPreview(file, e)}
-      >
-        {file.name}
-      </a>,
-      downloadOrDelete,
-    ]
+        <a
+          key="view"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={listItemNameClass}
+          title={file.name}
+          {...linkProps}
+          href={file.url}
+          onClick={e => onPreview(file, e)}
+        >
+          {file.name}
+        </a>,
+        downloadOrDelete
+      ]
     : [
-      <span
-        key="view"
-        className={listItemNameClass}
-        onClick={e => onPreview(file, e)}
-        title={file.name}
-      >
-        {file.name}
-      </span>,
-      downloadOrDelete,
-    ];
+        <span
+          key="view"
+          className={listItemNameClass}
+          onClick={e => onPreview(file, e)}
+          title={file.name}
+        >
+          {file.name}
+        </span>,
+        downloadOrDelete
+      ]
   const previewStyle: React.CSSProperties = {
     pointerEvents: 'none',
-    opacity: 0.5,
-  };
+    opacity: 0.5
+  }
 
   const previewIcon = showPreviewIcon ? (
     <a
@@ -161,33 +152,36 @@ const ListItem: FC<UploadListProps> = (props) => {
     >
       <IconView />
     </a>
-  ) : null;
-  const actions = listType === 'picture-card' && file.status !== 'uploading' && (
-    <span className={`${prefixCls}-item-actions`}>
-      {previewIcon}
-      {/* {file.status === 'success' && downloadIcon} */}
-      {removeIcon}
-    </span>
-  );
+  ) : null
+  const actions = listType === 'picture-card' &&
+    file.status !== 'uploading' && (
+      <span className={`${prefixCls}-item-actions`}>
+        {previewIcon}
+        {/* {file.status === 'success' && downloadIcon} */}
+        {removeIcon}
+      </span>
+    )
 
   const iconAndPreview = (
     <span className={`${prefixCls}-info-content`}>
       {icon}
       {preview}
     </span>
-  );
+  )
   return (
     <div className={classnames(`${prefixCls}-${listType}-container`)}>
       <div className={`${prefixCls}-item ${prefixCls}-item-${file.status}`}>
-        <div className={`${prefixCls}-item-info`}>
-          {iconAndPreview}
-        </div>
+        <div className={`${prefixCls}-item-info`}>{iconAndPreview}</div>
         {actions}
-        <CSSTransition in={file.status === 'uploading'} unmountOnExit classNames="pui-upload-progress" timeout={1000} >
+        <CSSTransition
+          in={file.status === 'uploading'}
+          unmountOnExit
+          classNames="pui-upload-progress"
+          timeout={1000}
+        >
           <Progress percent={file.percent || 0} />
         </CSSTransition>
       </div>
-
     </div>
   )
 }

@@ -7,7 +7,7 @@ import React, {
 import classNames from 'classnames'
 import { CSSTransition } from 'react-transition-group'
 
-import { IconArrowHeadDown, IconArrowHeadRight } from '@pui/icons'
+import { IconArrowHeadRight } from '@pui/icons'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menu-item'
 
