@@ -31,8 +31,14 @@
     box-shadow: none;
   }
   /*S: Nav title*/
+  #coding {
+    padding-right: 0;
+  }
   .sidebar-subheading {
     position: relative;
+  }
+  .sidebar-subheading button:nth-of-type(2) {
+    display: none;
   }
   .sidebar-subheading button:first-of-type {
     font-weight: 700;
@@ -40,6 +46,9 @@
     color: #000 !important;
     letter-spacing: 0.5px;
     text-transform: none;
+    width: 140%;
+    margin-left: -20px;
+    z-index: 2;
   }
   /* hide the default svg */
   .sidebar-subheading button span:first-of-type,
