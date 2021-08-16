@@ -124,6 +124,26 @@
       &-filter:focus {
         border-color: $border-color-5;
       }
+
+      &-size-small {
+        .pui-select-input {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-select-icon {
+          top: 6px;
+        }
+
+        .pui-select-list {
+          font-size: 14px;
+          top: 40px;
+        }
+
+        .pui-select-option {
+          padding: 8px 12px;
+        }
+      }
     }
   }
 }

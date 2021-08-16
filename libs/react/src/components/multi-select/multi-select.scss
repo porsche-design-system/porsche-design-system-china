@@ -76,6 +76,7 @@
       }
 
       .pui-multi-select-clear-icon {
+        top: 12px;
         display: none;
       }
 
@@ -84,7 +85,6 @@
           display: block;
           position: absolute;
           right: 41px;
-          top: 12px;
           opacity: 0.5;
         }
         .pui-multi-select-clear-icon:hover {
@@ -139,6 +139,30 @@
       &-filter:hover,
       &-filter:focus {
         border-color: $border-color-5;
+      }
+
+      &-size-small {
+        .pui-multi-select-input {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-multi-select-clear-icon {
+          top: 6px;
+        }
+
+        .pui-multi-select-arrow-icon {
+          top: 6px;
+        }
+
+        .pui-multi-select-list {
+          font-size: 14px;
+          top: 40px;
+        }
+
+        .pui-multi-select-option {
+          padding: 8px 12px;
+        }
       }
     }
   }

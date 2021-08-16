@@ -10,7 +10,7 @@ import {
 
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
-import { usePopShowState } from '../../shared/hooks'
+import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './date-picker.scss'
 
@@ -20,6 +20,9 @@ export interface DatePickerProps {
 
   /** 是否禁用 */
   disabled?: boolean
+
+  /** 大小 */
+  size?: 'medium' | 'small'
 
   /* 默认值 */
   defaultValue?: string
@@ -48,6 +51,7 @@ const DatePicker = FormItem(
     defaultValue,
     onValueChange,
     error,
+    size,
     range,
     placeholder
   }: DatePickerProps) => {
@@ -72,6 +76,9 @@ const DatePicker = FormItem(
       }
       return null
     }
+
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     const initDate = strToDate(value || defaultValue || '')
     const [calenderOpen, setCalendarOpen] = usePopShowState()
@@ -196,7 +203,11 @@ const DatePicker = FormItem(
       <div
         className={componentClassNames(
           'pui-date-picker',
-          { disabled: disabled + '', error: error ? error.show + '' : 'false' },
+          {
+            disabled: disabled + '',
+            error: error ? error.show + '' : 'false',
+            size
+          },
           className
         )}
       >
