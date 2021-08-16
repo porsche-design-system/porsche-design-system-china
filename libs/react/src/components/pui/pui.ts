@@ -1,7 +1,8 @@
+import { getGlobalStateSetter } from '../../shared/global-state'
+
 /* eslint-disable dot-notation */
 type ThemeName = 'light' | 'dark'
 export const PUI = {
-  defaultSize: 'medium',
   setTheme(themeName: ThemeName) {
     this['_themeName'] = themeName
     document.body.className =
@@ -12,8 +13,8 @@ export const PUI = {
   getTheme() {
     return this['_themeName'] as ThemeName
   },
-  setDefaultSize(size: 'medium' | 'big' | 'small') {
-    this.defaultSize = size
+  setDefaultSize(size: 'medium' | 'small') {
+    getGlobalStateSetter('DEFAULT_SIZE')(size)
   }
 }
 ;(window as any).PUI = PUI
