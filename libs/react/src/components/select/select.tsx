@@ -4,7 +4,7 @@ import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
-import { usePopShowState } from '../../shared/hooks'
+import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 
 import './select.scss'
 
@@ -24,6 +24,9 @@ export interface SelectProps {
 
   /** 是否禁用 */
   disabled?: boolean
+
+  /** 大小 */
+  size?: 'medium' | 'small'
 
   /* 值 */
   value?: string
@@ -54,6 +57,7 @@ const Select = FormItem(
     value,
     defaultValue,
     error,
+    size,
     options = [],
     filterInput,
     onValueChange,
@@ -65,6 +69,8 @@ const Select = FormItem(
     const [showOptionList, setShowOptionList] = usePopShowState()
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     if (value) {
       selectValue = value
@@ -112,6 +118,7 @@ const Select = FormItem(
         className={componentClassNames(
           'pui-select',
           {
+            size,
             disabled: disabled + '',
             active: showOptionList + '',
             error: error ? error.show + '' : 'false'
