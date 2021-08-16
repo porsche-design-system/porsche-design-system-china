@@ -10,6 +10,7 @@ import { IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
+import { useDefaultSize } from '../../shared/hooks'
 
 import './input.scss'
 
@@ -31,6 +32,9 @@ export interface InputProps {
 
   /* 占位符 */
   placeholder?: string
+
+  /* 大小 */
+  size?: 'small' | 'medium'
 
   /* 最多输入字符数 */
   maxLength?: number
@@ -73,6 +77,7 @@ const Input = FormItem(
     placeholder,
     maxLength,
     disabled = false,
+    size,
     defaultValue,
     value,
     onChange,
@@ -87,6 +92,8 @@ const Input = FormItem(
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     useEffect(() => {
       setInputType(type)
@@ -96,7 +103,8 @@ const Input = FormItem(
       <div
         className={componentClassNames('pui-input', {
           error: error ? error.show + '' : 'false',
-          'show-right-button': (showClearButton || showViewPasswordButton) + ''
+          'show-right-button': (showClearButton || showViewPasswordButton) + '',
+          size
         })}
       >
         <input

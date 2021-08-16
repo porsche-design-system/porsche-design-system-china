@@ -50,6 +50,25 @@
     border: 1px solid black;
   }
 
+  .size-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 200px;
+  }
+  .size-button button {
+    font-size: 13px;
+    color: #777;
+    border: 1px solid #777;
+    background-color: white;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+
+  .size-button button:hover {
+    color: black;
+    border: 1px solid black;
+  }
+
   .pui-theme-dark .docs-story {
     background-color: black;
     color: white;
@@ -72,6 +91,10 @@
     font-family: 'Porsche Next' !important;
   }
 </style>
+<div class="size-button">
+  <button onclick="PUI.setDefaultSize('small')">Small Size</button>
+  <button onclick="PUI.setDefaultSize('medium')">Medium Size</button>
+</div>
 <div class="theme-button">
   <button onclick="PUI.setTheme('light')">Light Mode</button>
   <button onclick="PUI.setTheme('dark')">Dark Mode</button>

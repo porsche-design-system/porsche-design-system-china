@@ -93,6 +93,13 @@
       &-view:hover {
         color: $text-opacity-color-1;
       }
+
+      &-size-small {
+        input {
+          height: 36px;
+          font-size: 14px;
+        }
+      }
     }
   }
 }

@@ -18,6 +18,10 @@ export const InputsStoryBook = () => {
         <div>
           <Input placeholder="请输入" />
         </div>
+        <div className="states">Small</div>
+        <div>
+          <Input placeholder="请输入" size="small" maxLength={100} />
+        </div>
         <br />
         <div className="states">Disabled</div>
         <div>
