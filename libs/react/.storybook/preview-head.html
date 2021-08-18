@@ -94,7 +94,12 @@
   .token {
     font-family: 'Porsche Next' !important;
   }
+
+  #stories {
+    display: none;
+  }
 </style>
+
 <div class="size-button">
   <button onclick="PUI.setDefaultSize('small')">Small Size</button>
   <button onclick="PUI.setDefaultSize('medium')">Medium Size</button>
@@ -103,3 +108,37 @@
   <button onclick="PUI.setTheme('light')">Light Mode</button>
   <button onclick="PUI.setTheme('dark')">Dark Mode</button>
 </div>
+
+<script>
+  let time = 0
+  setTimeout(() => {
+    document.getElementById('docs-root').addEventListener(
+      'DOMSubtreeModified',
+      function () {
+        if (new Date().getTime() / 1000 - time > 1) {
+          time = new Date().getTime() / 1000
+          setTimeout(() => {
+            if (
+              document.getElementsByClassName('docblock-argstable').length == 0
+            ) {
+              return
+            }
+            const argTable =
+              document.getElementsByClassName('docblock-argstable')[0]
+                .parentNode
+            const argTableParentNode = argTable.parentNode
+            if (
+              argTableParentNode.childNodes[
+                argTableParentNode.childNodes.length - 1
+              ] != argTable
+            ) {
+              argTableParentNode.removeChild(argTable)
+              argTableParentNode.append(argTable)
+            }
+          }, 100)
+        }
+      },
+      false
+    )
+  }, 100)
+</script>
