@@ -61,115 +61,6 @@ export const ButtonStoryBook = () => {
   return (
     <div>
       <div className="group">
-        <div className="title">Types</div>
-        <div className="show-case">
-          <Button type="default" icon={IconArrowHeadRight}>
-            Default Button
-          </Button>
-          <Button type="primary">Primary Button</Button>
-          <Button type="secondary">Secondary Button</Button>
-          <Button type="text">Text Button</Button>
-          <Button type="primary" icon={<IconChat />} />
-        </div>
-      </div>
-
-      <div className="group">
-        <div className="title">Sizes</div>
-        <div className="show-case">
-          <Button size="medium">Medium Size Button</Button>
-          <Button size="small">Small Size Button</Button>
-          <Button size="small">中文小按钮</Button>
-          <Button size="small" type="primary">
-            Small Size Primary Button
-          </Button>
-        </div>
-      </div>
-
-      <div className="group">
-        <div className="title">Icon Button</div>
-        <br />
-        <div className="show-case">
-          <Button icon={IconArrowRight} />
-          <Button type="primary" icon={IconAdd} />
-          <Button type="secondary" icon={IconEdit} />
-          <Button type="text" icon={IconArrowRight} />
-        </div>
-        <br />
-        <div className="show-case">
-          <Button icon={IconArrowRight}>进入</Button>
-          <Button icon={IconClose}>关闭</Button>
-          <Button type="primary" icon={IconAdd}>
-            添加
-          </Button>
-          <Button type="secondary" icon={IconEdit}>
-            编辑
-          </Button>
-          <Button type="text" icon={IconBell}>
-            提醒
-          </Button>
-        </div>
-      </div>
-
-      <div className="group">
-        <div className="title">Small Size Icon Button</div>
-        <div className="show-case">
-          <Button icon={IconArrowRight} size="small" />
-          <Button type="primary" icon={IconAdd} size="small" />
-          <Button type="secondary" icon={IconEdit} size="small" />
-          <Button type="text" icon={IconArrowRight} size="small" />
-        </div>
-        <br />
-        <div className="show-case">
-          <Button type="primary" icon={IconAdd} size="small">
-            添加
-          </Button>
-          <Button type="secondary" icon={IconEdit} size="small">
-            编辑
-          </Button>
-          <Button type="text" icon={IconBell} size="small">
-            提醒
-          </Button>
-          <Button type="primary" icon={IconArrowRight} size="small">
-            提交
-          </Button>
-        </div>
-      </div>
-
-      <div className="group">
-        <div className="title">Loading Button</div>
-        <div className="show-case">
-          <Button
-            loading={loading}
-            type="primary"
-            icon={IconArrowHeadRight}
-            onClick={() => {
-              setLoading(true)
-              setTimeout(() => {
-                setLoading(false)
-              }, 2000)
-            }}
-          >
-            提交
-          </Button>
-          <Button
-            loading={loading}
-            type="secondary"
-            icon={IconArrowRight}
-            size="small"
-            onClick={() => {
-              setLoading(true)
-              setTimeout(() => {
-                setLoading(false)
-              }, 2000)
-            }}
-          >
-            提交
-          </Button>
-        </div>
-      </div>
-
-      <div className="group">
-        <div className="title">Styles</div>
         <Row className="headline" style={{ textAlign: 'center' }}>
           <Col span={4}>Type</Col>
           <Col>Default</Col>
@@ -200,26 +91,14 @@ export const ButtonStoryBook2 = () => {
       <Button type="secondary" marginRight="10px">
         Secondary Button
       </Button>
-    </div>
-  )
-}
-
-ButtonStoryBook2.storyName = '按钮类型'
-
-export const ButtonStoryBook3 = () => {
-  return (
-    <div>
-      <Button size="small" marginRight="10px">
-        Small Button
-      </Button>
-      <Button type="secondary" marginRight="10px">
-        Default Size
+      <Button type="text" marginRight="10px">
+        Text Button
       </Button>
     </div>
   )
 }
 
-ButtonStoryBook3.storyName = '按钮大小'
+ButtonStoryBook2.storyName = 'Types'
 
 export const ButtonStoryBook4 = () => {
   return (
@@ -263,4 +142,4 @@ export const ButtonStoryBook4 = () => {
   )
 }
 
-ButtonStoryBook4.storyName = '图标按钮'
+ButtonStoryBook4.storyName = 'Icon Buttons'
