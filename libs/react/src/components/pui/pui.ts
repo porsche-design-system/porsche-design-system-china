@@ -15,7 +15,9 @@ export const PUI = {
   },
   setDefaultSize(size: 'medium' | 'small') {
     this['_defaultSize'] = size
-    getGlobalStateSetter('DEFAULT_SIZE')(size)
+    if (getGlobalStateSetter('DEFAULT_SIZE')) {
+      getGlobalStateSetter('DEFAULT_SIZE')(size)
+    }
   },
   getDefaultSize() {
     return this['_defaultSize'] || 'medium'
