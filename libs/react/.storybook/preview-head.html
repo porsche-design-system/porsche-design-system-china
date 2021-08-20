@@ -99,6 +99,24 @@
   #stories {
     display: none;
   }
+
+  .sbdocs.sbdocs-preview {
+    padding-top: 0;
+    margin-bottom: 48px !important;
+  }
+
+  .sbdocs-preview .os-host:nth-child(1) {
+    display: none;
+  }
+  .sbdocs-preview div .os-host:nth-child(1) {
+    display: block;
+  }
+  .docs-story > div:nth-child(1) {
+    padding: 30px 48px;
+  }
+  .docblock-argstable {
+    display: none;
+  }
 </style>
 
 <div class="size-button">
@@ -130,8 +148,8 @@
     document.getElementById('docs-root').addEventListener(
       'DOMSubtreeModified',
       function () {
-        if (new Date().getTime() / 1000 - time > 1) {
-          time = new Date().getTime() / 1000
+        if (new Date().getTime() - time > 200) {
+          time = new Date().getTime()
           setTimeout(() => {
             if (
               document.getElementsByClassName('docblock-argstable').length == 0
@@ -149,8 +167,9 @@
             ) {
               argTableParentNode.removeChild(argTable)
               argTableParentNode.append(argTable)
+              argTable.children[0].style.display = 'block'
             }
-          }, 100)
+          }, 300)
         }
       },
       false
