@@ -114,9 +114,6 @@
   .docs-story > div:nth-child(1) {
     padding: 30px 48px;
   }
-  .docblock-argstable {
-    display: none;
-  }
 </style>
 
 <div class="size-button">
@@ -167,7 +164,6 @@
             ) {
               argTableParentNode.removeChild(argTable)
               argTableParentNode.append(argTable)
-              argTable.children[0].style.display = 'block'
             }
           }, 300)
         }
