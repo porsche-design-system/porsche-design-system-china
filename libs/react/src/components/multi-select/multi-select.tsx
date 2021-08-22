@@ -1,10 +1,10 @@
 import React, { CSSProperties, useRef, useState } from 'react'
-import { IconArrowHeadDown, IconCheck } from '@pui/icons'
+import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
-import { usePopShowState } from '../../shared/hooks'
+import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
@@ -28,6 +28,9 @@ export interface MultiSelectProps {
 
   /* 值 */
   value?: string[]
+
+  /** 大小 */
+  size?: 'medium' | 'small'
 
   /* 默认值 */
   defaultValue?: string[]
@@ -57,6 +60,7 @@ const MultiSelect = FormItem(
     error,
     options = [],
     filterInput,
+    size,
     onValueChange,
     placeholder
   }: MultiSelectProps) => {
@@ -66,6 +70,8 @@ const MultiSelect = FormItem(
     const [showOptionList, setShowOptionList] = usePopShowState()
     const [filterValue, setFilterValue] = useState('')
     const hasValue = useRef(value !== undefined)
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     if (value) {
       selectValue = value
@@ -115,6 +121,7 @@ const MultiSelect = FormItem(
         className={componentClassNames(
           'pui-multi-select',
           {
+            size,
             disabled: disabled + '',
             active: showOptionList + '',
             error: error ? error.show + '' : 'false'
@@ -133,7 +140,20 @@ const MultiSelect = FormItem(
           }}
           disabled={disabled}
         />
-        <IconArrowHeadDown className="pui-multi-select-icon" />
+        {selectValue.length > 0 && (
+          <IconErrorFilled
+            className="pui-multi-select-clear-icon"
+            onClick={evt => {
+              setSelectValue([])
+              onValueChange && onValueChange([])
+              evt.stopPropagation()
+              evt.preventDefault()
+              setShowOptionList(false)
+            }}
+          />
+        )}
+
+        <IconArrowHeadDown className="pui-multi-select-arrow-icon" />
         {showOptionList && (
           <div
             className="pui-multi-select-list"

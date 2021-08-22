@@ -1,6 +1,7 @@
 import React, { CSSProperties, ReactElement } from 'react'
 import { IconAdd } from '@pui/icons'
 import classNames from 'classnames'
+import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 
 import './button.scss'
@@ -23,7 +24,7 @@ export interface ButtonProps {
   type?: 'default' | 'primary' | 'secondary' | 'text'
 
   /** 大小 */
-  size?: 'default' | 'small'
+  size?: 'medium' | 'small'
 
   /** 图标 */
   icon?: PUIIcon | ReactElement
@@ -60,7 +61,7 @@ const Button = ({
   children,
   style,
   type = 'default',
-  size = 'default',
+  size,
   icon,
   loading,
   disabled = false,
@@ -70,16 +71,19 @@ const Button = ({
   onMouseEnter,
   onMouseLeave
 }: ButtonProps) => {
+  const [defaultSize] = useDefaultSize()
   loading = loading || false
+  size = size || defaultSize
+
   let paddingStyle = {}
-  const padding = size === 'default' ? '11px' : '7px'
+  const padding = size === 'medium' ? '11px' : '7px'
   if (!children) {
     paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
     paddingStyle = { paddingLeft: padding }
   }
 
-  const loadingSize = size === 'default' ? 24 : 20
+  const loadingSize = size === 'medium' ? 24 : 20
   const IconComponent = icon as any
   return (
     <button

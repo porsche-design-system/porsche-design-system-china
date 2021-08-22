@@ -45,8 +45,7 @@
           .pui-modal-content {
             position: relative;
             background-color: $background-color-2;
-            border: 1px solid #979797;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: $shadow-l2-default;
 
             .pui-modal-close {
               color: $text-color-1;
@@ -68,18 +67,70 @@
             }
 
             .pui-modal-header {
-              padding: 24px 24px 8px 24px;
+              padding: 24px;
               color: $container-bg-active-color;
+
+              &-divider-true{      
+                  border-bottom: 1px solid $border-color-1;
+              }
               .pui-modal-title {
                 word-wrap: break-word;
                 font-size: 20px;
                 font-weight: 600;
-                line-height: 32px;
+                line-height: 28px;
+                display: flex;
+                align-items: center;
+                &-icon{
+                  width:32px;
+                  height:28px;
+                  display: flex;
+                  align-items: center;
+                  position:relative;
+                  .porscheicon{
+                    position:absolute;
+                    left:-2px;
+                  }
+                  &-type-info{
+                    .porscheicon{
+                      color:$status-neutral-color;
+                    }           
+
+                  }
+                  &-type-success{
+                     .porscheicon{
+                      color:$status-success-color;
+                     }
+                   
+
+                  }
+                  &-type-warning{
+                    .porscheicon{
+                      color:$status-warning-color;
+                    }
+
+                  }
+                  &-type-error{
+                    .porscheicon{
+                      color:$status-error-color;
+                    }
+
+                  }
+                }
+              }
+
+              .pui-modal-subtitle{
+                font-size:16px;
+                font-weight: 400;
+                line-height: 24px;
+                color:$text-opacity-color-1;
+                margin-top:4px;
               }
             }
 
+
+
             .pui-modal-body {
-              padding: 0 24px;
+              padding: 12px 24px;
               min-height: 40px;
               max-height: calc(100vh - 400px);
               overflow: auto;
@@ -90,6 +141,9 @@
             .pui-modal-footer {
               padding: 24px;
               text-align: right;
+              &-divider-true{      
+                border-top: 1px solid $border-color-1;
+              }
               .pui-button {
                 margin-bottom: 0;
               }

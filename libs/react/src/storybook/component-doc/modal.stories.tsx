@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { Button, Modal } from '../..'
+import {
+  Button,
+  Modal,
+  Form,
+  Input,
+  Select,
+  TextArea,
+  Row,
+  Col,
+  Message
+} from '../..'
 
 export default {
   title: 'Feedback/Modal',
@@ -10,12 +20,16 @@ export const ModalStoryBook = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
-    return new Promise(resolve => {
+    Form['updateForm'].submit()
+  }
+
+  const handleSubmit = (data: any, error: any) => {
+    if (!error) {
       setTimeout(() => {
-        resolve('')
+        Message.pop('success', '数据更新成功')
         setIsModalVisible(false)
       }, 1000)
-    })
+    }
   }
 
   const handleCancel = () => {
@@ -24,47 +38,132 @@ export const ModalStoryBook = () => {
   return (
     <>
       <Modal
-        style={{width:'800px'}}
-        title="用户协议"
-        okText="同意"
-        cancelText="我考虑一下"
+        style={{ width: '800px' }}
+        title="对话框标题"
+        subtitle="对话框副标题"
+        hasDivider
+        okText="主要按钮"
+        cancelText="次要按钮"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        根据中华人民共和国...
+        <Form
+          onSubmit={handleSubmit}
+          onDataChange={data => {
+            console.log(data)
+          }}
+          name="updateForm"
+        >
+          <Row>
+            <Col span={12}>
+              <Input
+                label="名称"
+                width="96%"
+                name="channelName"
+                placeholder="请输入名称"
+                rules={{ required: true, message: '请输入渠道名称' }}
+              />
+            </Col>
+            <Col span={12} style={{ textAlign: 'right' }}>
+              <Select
+                label="类型"
+                width="96%"
+                options="PDC:0,第三方:1,自定义:2"
+                name="channelType"
+                rules={{ required: true, message: '请选择类型' }}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <TextArea label="描述" placeholder="请输入描述" />
+            </Col>
+          </Row>
+        </Form>
       </Modal>
-      <Button onClick={() => setIsModalVisible(true)} type="primary">
-        显示模式框
+      <Button
+        onClick={() => {
+          setIsModalVisible(true)
+        }}
+        type="primary"
+      >
+        复合对话话框
+      </Button>
+
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            children:
+              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
+            okText: '主要按钮',
+            cancelText: '次要按钮'
+          })
+        }
+        type="secondary"
+      >
+        基础对话框 - 默认
       </Button>
       <br />
       <br />
       <Button
         onClick={() =>
-          Modal.alert('提示信息', '你看到了一个弹出框', () => {
-            console.log('关闭')
+          Modal.show({
+            title: '对话框标题',
+            subtitle: '对话框副标题',
+            children:
+              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
+            okText: '主要按钮',
+            cancelText: '次要按钮'
           })
         }
         type="secondary"
       >
-        显示提示信息
+        基础对话框 - 含副标题
       </Button>
+
       <br />
       <br />
       <Button
         onClick={() =>
-          Modal.confirm('确认信息', '你看到了一个弹出框', () => {
-            console.log('关闭')
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve('')
-              }, 1500)
-            })
+          Modal.show({
+            title: '对话框标题',
+            titleIconType: 'warning',
+            children: '确定执行这个操作吗？',
+            showClose: false,
+            okText: '确定删除',
+            okIcon: null,
+            cancelText: '我再想想',
+            cancelIcon: null
           })
         }
         type="secondary"
       >
-        显示确认信息
+        警示对话框
+      </Button>
+
+      <br />
+      <br />
+      <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            subtitle: '对话框副标题',
+            titleIconType: 'warning',
+            children: '确定执行这个操作吗？',
+            showClose: false,
+            okText: '确定删除',
+            okIcon: null,
+            cancelText: '我再想想',
+            cancelIcon: null
+          })
+        }
+        type="secondary"
+      >
+        警示对话框 - 含副标题
       </Button>
     </>
   )

@@ -192,6 +192,8 @@ deploy_react:
         sed -i "s/puifrontendservice/pui-react-frontend/g" ./kubedir/frontend_deployment-dev.yaml
         /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-dev/config
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/kube-dev/config
+        echo "=======eks========="
+        /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/eks-dev/config 
       fi
   tags:
     - pdcshell
