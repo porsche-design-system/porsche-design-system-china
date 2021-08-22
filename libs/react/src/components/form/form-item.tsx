@@ -3,6 +3,7 @@ import { getLabelWidth, Label, getLabelProps } from '../label/label'
 import { FormItemLabelProps } from './form'
 import { ErrorText, FormErrorText } from '../error-text/error-text'
 import { RuleItem } from '../../shared/validation-rules'
+import { useDefaultSize } from '../../shared/hooks'
 
 import './form-item.scss'
 
@@ -36,6 +37,7 @@ const FormItem =
   <T,>(func: (...args: T[]) => React.ReactNode) =>
   (props: FormItemProps & T) => {
     const { label, error, width, marginLeft, marginRight, rules, style } = props
+    const [defaultSize] = useDefaultSize()
 
     let required = false
     if (rules) {
@@ -62,8 +64,10 @@ const FormItem =
         comp.props.className.indexOf('pui-select') >= 0 ||
         comp.props.className.indexOf('pui-date-picker') >= 0 ||
         comp.props.className.indexOf('pui-date-range-picker') >= 0)
-        ? { marginTop: '11px' }
+        ? { marginTop: defaultSize === 'medium' ? '11px' : '8px' }
         : {}
+
+    labelStyle['fontSize'] = defaultSize === 'medium' ? '16px' : '14px'
 
     return (
       <div

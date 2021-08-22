@@ -152,6 +152,21 @@
       &-clear-icon:hover {
         opacity: 0.8;
       }
+
+      &-size-small {
+        input {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-date-picker-icon {
+          top: 6px;
+        }
+
+        .pui-date-picker-clear-icon {
+          margin-top: 6px;
+        }
+      }
     }
 
     .pui-date-picker:hover {

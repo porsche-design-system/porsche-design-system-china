@@ -1,7 +1,6 @@
 import React, { FunctionComponentElement } from 'react'
 import classNames from 'classnames'
 
-import { IconArrowHeadUp } from '@pui/icons'
 import { MenuItemProps } from './menu-item'
 
 export interface ItemGroupProps {
@@ -19,7 +18,7 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
   const classes = classNames('menu-item item-group', className, {})
 
   const renderChildren = () => {
-    const childrenComponent = React.Children.map(children, (child, i) => {
+    const childrenComponent = React.Children.map(children, child => {
       const childElement = child as FunctionComponentElement<MenuItemProps>
       if (childElement.type.displayName === 'MenuItem') {
         return React.cloneElement(childElement, {
@@ -29,6 +28,7 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
         console.error(
           'Warning: SubMenu has a child which is not a MenuItem component'
         )
+        return ''
       }
     })
     return <ul className="group-menu">{childrenComponent}</ul>

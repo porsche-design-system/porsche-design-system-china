@@ -1,4 +1,126 @@
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" href="/favicon.png" sizes="48x48" />
 <style>
+  body {
+    background: transparent !important;
+  }
+  .search-result-item {
+    background: transparent !important;
+  }
+  .search-result-item svg {
+    visibility: hidden;
+  }
+  .search-result-item a span {
+    display: none;
+  }
+  .search-result-item a strong {
+    font-weight: 400;
+  }
+  .search-result-item a:hover,
+  .search-result-item a:focus,
+  .search-result-item a:active strong {
+    color: #d5001c !important;
+    font-weight: 400 !important;
+  }
+
+  #storybook-explorer-searchfield {
+    border-radius: 0;
+  }
+
+  .search-field code {
+    display: none;
+  }
+  .react-draggable {
+    border-right: 1px #e3e4e5 solid;
+  }
+  div[role='main'] > div {
+    box-shadow: none;
+  }
+  /*S: Nav title*/
+  #coding {
+    padding-right: 0;
+  }
+  .sidebar-subheading {
+    position: relative;
+  }
+  .sidebar-subheading button:nth-of-type(2) {
+    display: none;
+  }
+  .sidebar-subheading button:first-of-type {
+    font-weight: 700;
+    font-size: 16px;
+    color: #000 !important;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    width: 140%;
+    margin-left: -20px;
+    z-index: 2;
+  }
+  /* hide the default svg */
+  .sidebar-subheading button span:first-of-type,
+  .sidebar-subheading .sidebar-subheading-action svg,
+  .sidebar-item svg {
+    visibility: hidden;
+  }
+  .sidebar-subheading[aria-expanded='true']:after {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+    transform: rotate(180deg);
+  }
+  .sidebar-subheading[aria-expanded='false']:after {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+  }
+  .sidebar-item {
+    position: relative;
+    font-size: 14px !important;
+    padding-left: 21px !important;
+    background-color: transparent !important;
+  }
+  .sidebar-item:before {
+    content: '';
+    display: inline-block;
+    background: url('/svg/arrow-head-down.svg') transparent;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 20px;
+    top: 6px;
+    transform: rotate(-90deg);
+  }
+  .sidebar-item:hover,
+  .sidebar-item:focus,
+  .sidebar-item:active,
+  .sidebar-item[data-selected='true'] {
+    color: #d5001c !important;
+    font-weight: 400 !important;
+  }
+  .sidebar-item[data-selected='true']::before {
+    background: url('/svg/arrow-head-down-red.svg') transparent;
+  }
+
+  .sidebar-header div:nth-child(2) {
+    display: none;
+  }
+
+  .sidebar-header div:nth-child(1) {
+    margin-right: 0;
+  }
+  .sidebar-header div:nth-child(1) a {
+    margin: 0;
+  }
+  /*E: Nav title*/
+
   @font-face {
     font-family: 'Porsche next';
     font-weight: 400;
@@ -47,3 +169,11 @@
     font-display: block;
   }
 </style>
+
+<script>
+  setTimeout(() => {
+    document.getElementsByClassName(
+      'os-host'
+    )[1].parentNode.parentNode.parentNode.style.top = 0
+  }, 1000)
+</script>
