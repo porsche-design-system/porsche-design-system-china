@@ -1,0 +1,86 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .pui-slider{
+      position: relative;
+      &-rail{
+        height: 8px;
+        background: $container-bg-opacity-color-3;
+        cursor: pointer;
+      }
+      &-handle{
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        box-shadow: $shadow-l1-default;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -8px;
+        background: $text-white-color;
+        user-select: none;
+        z-index: 3;
+        transform: translateX(-50%);
+        cursor: pointer;
+      }
+      &-icon{
+        width: 6px;
+        height: 10px;
+        border-left: 2px solid $container-bg-color-3;
+        border-right: 2px solid $container-bg-color-3;
+      }
+      &-track{
+        height: 8px;
+        position: absolute;
+        top: 0;
+        background: $brand-color;
+        z-index: 1;
+        cursor: pointer;
+      }
+      &-marks{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        cursor: pointer;
+      }
+      &-mark{
+        margin-top: 16px;
+        color: $text-opacity-color-2;
+      }
+      &-mark-active{
+        color: $text-color-1;
+      }
+      &-dot{
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background:  $text-white-color;
+        top: 1px;
+        border-radius: 50%;
+        margin-left: -3px;
+        display: flex;
+        justify-content: center;
+        &:first-child{
+          margin-left: 0px;
+        }
+        &:last-child{
+          margin-left: -6px;
+        }
+      }
+      &-disabled{
+        .pui-slider-track{
+          background: $container-bg-color-3;
+        }
+        .pui-slider-handle,.pui-slider-marks{
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
