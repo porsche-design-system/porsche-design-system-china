@@ -11,12 +11,12 @@ const Dragger: FC<DraggerProps> = props => {
 
   const [dragOver, setDragOver] = useState(false)
   const handleDrag = (e: DragEvent<HTMLElement>, over: boolean) => {
-    if (disabled) return;
+    if (disabled) return
     e.preventDefault()
     setDragOver(over)
   }
   const handleDrop = (e: DragEvent<HTMLElement>) => {
-    if (disabled) return;
+    if (disabled) return
     e.preventDefault()
     setDragOver(false)
     onFile(e.dataTransfer.files)

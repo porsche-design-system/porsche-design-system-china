@@ -176,8 +176,8 @@ const Upload: FC<UploadProps> = props => {
       Object.keys(data).forEach(key => {
         formData.append(key, data[key])
       })
-    const ss = axios.CancelToken.source();
-    baseFile.source = ss;
+    const ss = axios.CancelToken.source()
+    baseFile.source = ss
     axios
       .post(action, formData, {
         headers: {
@@ -243,8 +243,12 @@ const Upload: FC<UploadProps> = props => {
     onPreview && onPreview(file)
   }
   const handleCancel = () => setPreviewVisible(false)
-  const { showRemoveIcon, showPreviewIcon, showDownloadIcon, removeIcon } =
-    {} as ShowUploadListInterface
+  const {
+    showRemoveIcon,
+    showPreviewIcon,
+    showDownloadIcon,
+    removeIcon
+  } = {} as ShowUploadListInterface
 
   const prefixCls = 'pui-upload'
 
@@ -370,6 +374,6 @@ Upload.defaultProps = {
   showPreviewIcon: true,
   locale: defaultLocale,
   count: 1,
-  disabled: false,
+  disabled: false
 }
 export { Upload }

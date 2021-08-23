@@ -19,7 +19,6 @@ export interface UploadFile {
   linkProps?: any
   error?: any
   source?: any
-
 }
 export interface ShowUploadListInterface {
   showRemoveIcon?: boolean
