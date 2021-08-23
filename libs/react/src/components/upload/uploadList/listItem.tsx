@@ -41,7 +41,6 @@ const ListItem: FC<UploadListProps> = props => {
     onPreview
   } = props
   const prefixCls = 'pui-upload-list'
-
   const listItemNameClass = classnames(`${prefixCls}-item-name`)
   const linkProps =
     typeof file.linkProps === 'string'
@@ -52,12 +51,12 @@ const ListItem: FC<UploadListProps> = props => {
   let icon = <div className={`${prefixCls}-text-icon`}>{iconNode}</div>
 
   if (listType === 'picture' || listType === 'picture-card') {
-    if (file.status === 'uploading' || (!file.thumbUrl && !file.url)) {
+    if (file.status === 'uploading' || file.status === 'error' || (!file.thumbUrl && !file.url)) {
       const uploadingClassName = classnames({
         [`${prefixCls}-item-thumbnail`]: true,
         [`${prefixCls}-item-file`]: file.status !== 'uploading'
       })
-      icon = <div className={uploadingClassName}>{iconNode}</div>
+      icon = <div className={uploadingClassName}>{file.status === 'error' ? iconNode : ''}</div>
     } else {
       const thumbnail = isImgUrl?.(file) ? (
         <img
@@ -86,15 +85,22 @@ const ListItem: FC<UploadListProps> = props => {
     }
   }
 
+  const handleStopUpload = () => {
+    onRemove(file);   // 同时删除
+    file.source?.cancel('取消成功');
+  }
+
   const removeIcon = showRemoveIcon
     ? actionIconRender(
-        (typeof customRemoveIcon === 'function'
-          ? customRemoveIcon(file)
-          : customRemoveIcon) || <IconDelete />,
-        () => onRemove(file),
-        prefixCls,
-        locale.removeFile
-      )
+      (typeof customRemoveIcon === 'function'
+        ? customRemoveIcon(file)
+        : customRemoveIcon) || <IconDelete />,
+      () => {
+        handleStopUpload();
+      },
+      prefixCls,
+      locale.removeFile
+    )
     : null
 
   const downloadOrDelete = listType !== 'picture-card' && (
@@ -111,31 +117,31 @@ const ListItem: FC<UploadListProps> = props => {
 
   const preview = file.url
     ? [
-        <a
-          key="view"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={listItemNameClass}
-          title={file.name}
-          {...linkProps}
-          href={file.url}
-          onClick={e => onPreview(file, e)}
-        >
-          {file.name}
-        </a>,
-        downloadOrDelete
-      ]
+      <a
+        key="view"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={listItemNameClass}
+        title={file.name}
+        {...linkProps}
+        href={file.url}
+        onClick={e => onPreview(file, e)}
+      >
+        {file.name}
+      </a>,
+      downloadOrDelete
+    ]
     : [
-        <span
-          key="view"
-          className={listItemNameClass}
-          onClick={e => onPreview(file, e)}
-          title={file.name}
-        >
-          {file.name}
-        </span>,
-        downloadOrDelete
-      ]
+      <span
+        key="view"
+        className={listItemNameClass}
+        // onClick={e => onPreview(file, e)}
+        title={file.name}
+      >
+        {file.name}
+      </span>,
+      downloadOrDelete
+    ]
   const previewStyle: React.CSSProperties = {
     pointerEvents: 'none',
     opacity: 0.5
@@ -146,7 +152,7 @@ const ListItem: FC<UploadListProps> = props => {
       href={file.url || file.thumbUrl}
       target="_blank"
       rel="noopener noreferrer"
-      style={file.url || file.thumbUrl ? undefined : previewStyle}
+      style={(file.url || file.thumbUrl) && file.status !== 'error' ? undefined : previewStyle}
       onClick={e => onPreview(file, e)}
       title={locale.previewFile}
     >
@@ -168,10 +174,11 @@ const ListItem: FC<UploadListProps> = props => {
       {preview}
     </span>
   )
+
   return (
     <div className={classnames(`${prefixCls}-${listType}-container`)}>
-      <div className={`${prefixCls}-item ${prefixCls}-item-${file.status}`}>
-        <div className={`${prefixCls}-item-info`}>{iconAndPreview}</div>
+      <div className={classnames(`${prefixCls}-item ${prefixCls}-item-${file.status}`)}>
+        <div className={classnames(`${prefixCls}-item-info`, `${prefixCls}-item-info-${file.status}`)}>{iconAndPreview}</div>
         {actions}
         <CSSTransition
           in={file.status === 'uploading'}
@@ -179,7 +186,7 @@ const ListItem: FC<UploadListProps> = props => {
           classNames="pui-upload-progress"
           timeout={1000}
         >
-          <Progress percent={file.percent || 0} />
+          <Progress percent={file.percent || 0} onStop={handleStopUpload} />
         </CSSTransition>
       </div>
     </div>
