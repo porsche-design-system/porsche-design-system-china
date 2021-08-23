@@ -1,5 +1,6 @@
 import { RefObject, useEffect, useState, useRef, EffectCallback } from 'react'
 import { makeGlobalState } from './global-state'
+import { PUI } from '../components/pui/pui'
 
 const useEffectOnce = (effect: EffectCallback) => {
   useEffect(effect, [])
@@ -12,10 +13,9 @@ const useUnmount = (fn: () => any): void => {
   useEffectOnce(() => () => fnRef.current())
 }
 
-export const useDefaultSize = makeGlobalState(
-  'medium' as 'medium' | 'small',
-  'DEFAULT_SIZE'
-)
+export const useDefaultSize = makeGlobalState((): 'medium' | 'small' => {
+  return PUI['_defaultSize'] || 'medium'
+}, 'DEFAULT_SIZE')
 
 const allSetPopStates: any[] = []
 export const usePopShowState = (): [boolean, (val: boolean) => void] => {

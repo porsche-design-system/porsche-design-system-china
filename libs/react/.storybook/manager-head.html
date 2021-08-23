@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" href="/favicon.png" sizes="48x48" />
 <style>
   body {
     background: transparent !important;
@@ -106,6 +108,17 @@
   .sidebar-item[data-selected='true']::before {
     background: url('/svg/arrow-head-down-red.svg') transparent;
   }
+
+  .sidebar-header div:nth-child(2) {
+    display: none;
+  }
+
+  .sidebar-header div:nth-child(1) {
+    margin-right: 0;
+  }
+  .sidebar-header div:nth-child(1) a {
+    margin: 0;
+  }
   /*E: Nav title*/
 
   @font-face {
@@ -156,3 +169,11 @@
     font-display: block;
   }
 </style>
+
+<script>
+  setTimeout(() => {
+    document.getElementsByClassName(
+      'os-host'
+    )[1].parentNode.parentNode.parentNode.style.top = 0
+  }, 1000)
+</script>
