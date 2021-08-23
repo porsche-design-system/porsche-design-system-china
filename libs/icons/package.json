@@ -20,7 +20,7 @@
     "generate": "./scripts/cleanup.sh && cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "pipeline-generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "npm run entry && p-tools build --watch",
-    "build": "npm run eslint && p-tools build && npm run entry",
+    "build": "npm run eslint && p-tools build",
     "vinstall": "npm install --registry http://52.83.74.69:4111",
     "vremove": "npm unpublish @pui/icons@0.0.3 --registry http://52.83.74.69:4111",
     "vrelease": "npm publish --registry http://52.83.74.69:4111",
