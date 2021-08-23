@@ -24,7 +24,27 @@ $picture-card-size: 160px;
           cursor: pointer;
           text-align: center;
 
+          &#{$upload}-disabled {
+            cursor: not-allowed;
+
+            .pui-upload-btn {
+              .pui-button {
+                cursor: not-allowed;
+              }
+            }
+
+            #{$upload}-drag {
+              cursor: not-allowed;
+
+              &:hover,
+              &.is-dragOver {
+                border-color: $container-bg-color-3;
+              }
+            }
+          }
+
           #{$upload}-drag {
+            padding: 6px;
             text-align: center;
             background: $background-color-2;
             border: 1px dashed $container-bg-color-3;
@@ -42,9 +62,9 @@ $picture-card-size: 160px;
             &#{$upload}-drag-btn {
               padding: 10px 0;
 
-              .anticon-inbox {
-                margin-bottom: 10px;
-                font-size: 2em;
+              .porscheicon-icon_-file {
+                // margin-bottom: 10px;
+                font-size: 1em;
               }
             }
           }
@@ -69,7 +89,6 @@ $picture-card-size: 160px;
 
           #{$upload-item}-info {
             transition: background-color 0.3s;
-
 
             #{$upload-item}-name {
               width: 100%;
@@ -110,10 +129,12 @@ $picture-card-size: 160px;
               }
             }
 
-            &:hover {
-              #{$upload-item}-card-actions {
-                #{$upload-item}-card-actions-btn {
-                  opacity: 1;
+            &-success {
+              &:hover {
+                #{$upload-item}-card-actions {
+                  #{$upload-item}-card-actions-btn {
+                    opacity: 1;
+                  }
                 }
               }
             }
@@ -161,6 +182,14 @@ $picture-card-size: 160px;
         bottom: -18px;
         left: 0;
         width: 100%;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .pui-progress-close {
+          display: inherit;
+        }
       }
 
       // ======================== Picture Card ========================
@@ -181,24 +210,43 @@ $picture-card-size: 160px;
         #{$upload-item} {
           position: relative;
           height: 100%;
-          padding: 8px;
-          border: 1px solid $container-bg-color-2;
+          padding: 12px;
+          background-color: $container-bg-opacity-color-1;
           border-radius: 2px;
 
-          &:hover {
-            background: transparent;
+          &-error {
+            background-color: $status-bg-error-color;
+            border-color: $status-error-color;
+            border: 1px dashed $status-error-color;
           }
 
-          &-error {
-            border-color: $brand-color;
+          &-success {
+            &:hover {
 
+              #{$upload-item}-info {
+                &::before {
+                  opacity: 1;
+                }
+              }
+            }
+
+            #{$upload-item}-actions {
+              opacity: 0;
+
+              &:hover {
+                opacity: 1;
+              }
+
+              .porscheicon-icon_-view,
+              .porscheicon-icon_-delete {
+                color: $text-color-3;
+              }
+            }
           }
 
           &:hover {
             #{$upload-item}-info {
-              &::before {
-                opacity: 1;
-              }
+              background-color: transparent;
             }
           }
         }
@@ -213,10 +261,20 @@ $picture-card-size: 160px;
             z-index: 1;
             width: 100%;
             height: 100%;
-            background-color: $text-opacity-color-2;
+            background-color: $container-bg-opacity-color-7;
             opacity: 0;
             transition: all 0.3s;
             content: ' ';
+          }
+
+
+          #{$upload-item}-info {
+            #{$upload-item}-card-actions {
+              #{$upload-item}-card-actions-btn {
+                opacity: 1;
+                color: $brand-color;
+              }
+            }
           }
 
           &:hover {
@@ -233,25 +291,27 @@ $picture-card-size: 160px;
           z-index: 10;
           white-space: nowrap;
           transform: translate(-50%, -50%);
-          opacity: 0;
+          // opacity: 0;
           transition: all 0.3s;
 
-          &:hover {
-            opacity: 1;
+          .porscheicon {
+            vertical-align: top;
+          }
+
+          .pui-button-icon {
+            width: 30px;
+            height: 24px;
+            margin-top: 0;
           }
 
           .porscheicon-icon_-view,
           .porscheicon-icon_-delete {
-            width: 18px;
+            width: 24px;
             margin: 0 4px;
-            font-size: 18px;
+            font-size: 24px;
             cursor: pointer;
             transition: all 0.3s;
-            color: $container-bg-color-1;
-
-            &:hover {
-              color: $text-color-2;
-            }
+            color: $text-opacity-color-1;
           }
 
           .pui-upload-list-item-card-actions-btn {
@@ -282,16 +342,6 @@ $picture-card-size: 160px;
 
         #{$upload-item}-name {
           display: none;
-          margin: 8px 0 0;
-          padding: 0;
-          // line-height: @line-height-base;
-          text-align: center;
-        }
-
-        #{$upload-item}-file+#{$upload-item}-name {
-          position: absolute;
-          bottom: 10px;
-          display: block;
         }
 
         .pui-upload-btn-picture-card {
@@ -305,30 +355,37 @@ $picture-card-size: 160px;
           margin-bottom: 8px;
           text-align: center;
           vertical-align: top;
-          background-color: $container-bg-color-1;
-          border: 1px dashed $container-bg-color-3;
+          background-color: $background-color-2;
+          border: 1px dashed $container-bg-color-4;
           border-radius: 2px;
           cursor: pointer;
           transition: border-color 0.3s;
 
           &:hover {
-            border-color: $container-bg-color-5;
+            border-color: $container-bg-color-7;
+            background-color: $container-bg-opacity-color-1;
           }
         }
 
         .pui-progress {
           top: 50%;
           transform: translateY(-50%);
-          padding: 0 10px;
+          padding: 0 30px 0 3px;
+          z-index: 1;
           bottom: unset;
 
           .pui-progress-outer {
-            height: 2px;
+            height: 3px;
             margin-right: 0;
           }
 
-          .pui-progress-text {
-            display: none;
+          .pui-progress-close {
+            right: 0;
+          }
+
+          &-status-success {
+            padding-right: 3px;
+
           }
         }
       }

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useRef, useState } from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
-import { IconUpload, IconInbox, IconPlus } from '@pui/icons'
+import { IconUpload, IconFile, IconPlus } from '@pui/icons'
 import { Modal } from '../modal/modal'
 import { Button } from '../index'
 import UploadList from './uploadList/index'
@@ -16,31 +16,56 @@ import {
 } from './interface'
 
 export interface UploadProps {
+  /** 上传的地址 */
   action: string
+  /** image Upload数量 */
   count?: number
+  /** 默认已经上传的文件列表 */
   defaultFileList?: UploadFile[]
-  beforeUpload?: (file: File) => boolean | Promise<File>
-  onProgress?: (percentage: number, file: File) => void
-  onSuccess?: (data: any, file: UploadFile) => void
-  onError?: (err: any, file: File) => void
-  onChange?: (file: UploadFile) => void
-  onRemove?: (file: UploadFile) => void
-  onPreview?: (file: UploadFile) => void
+  /** 设置上传的请求头部 */
   headers?: { [key: string]: any }
+  /** 发到后台的文件参数名 */
   name?: string
+  /** 设置上传的请求头部 */
   locale?: UploadLocale
+  /** 上传所需额外参数 */
   data?: { [key: string]: any }
+  /** 接受上传的文件类型 */
   accept?: string
+  /** 是否支持多选文件 */
   multiple?: boolean
+  /** 提示语 */
   tip?: Node | string
+  /** 是否可拖拽上传 */
   drag?: boolean
+  /** 是否禁用 */
   disabled?: boolean
+  /** 是否显示删除图标 */
   showRemoveIcon?: boolean
+  /** 是否显示下载图标 */
   showDownloadIcon?: boolean
+  /** 是否显示查看图标 */
   showPreviewIcon?: boolean
+  /** 上传文件的显示模式 */
   listType?: UploadListType
+  /** 类名 */
   className?: string
+  /** 是否是图片url */
   isImageUrl?: (file: UploadFile) => boolean
+  /** 上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传 */
+  beforeUpload?: (file: File) => boolean | Promise<File>
+  /** 上传文件过程中的实时回调 */
+  onProgress?: (percentage: number, file: File) => void
+  /** 上传文件成功时的回调 */
+  onSuccess?: (data: any, file: UploadFile) => void
+  /** 上传文件出错时的回调 */
+  onError?: (err: any, file: File) => void
+  /** 上传文件改变时的回调 */
+  onChange?: (file: UploadFile) => void
+  /** 点击移除文件时的回调 */
+  onRemove?: (file: UploadFile) => void
+  /** 上传文件之前的钩子 */
+  onPreview?: (file: UploadFile) => void
 }
 
 const Upload: FC<UploadProps> = props => {
@@ -151,7 +176,8 @@ const Upload: FC<UploadProps> = props => {
       Object.keys(data).forEach(key => {
         formData.append(key, data[key])
       })
-
+    const ss = axios.CancelToken.source()
+    baseFile.source = ss
     axios
       .post(action, formData, {
         headers: {
@@ -163,7 +189,8 @@ const Upload: FC<UploadProps> = props => {
           baseFile = { ...baseFile, status: 'uploading', percent: percentage }
           updateFileList(baseFile, { status: 'uploading', percent: percentage })
           onProgress && onProgress(percentage, file)
-        }
+        },
+        cancelToken: ss.token
       })
       .then(res => {
         updateFileList(baseFile, { status: 'success', response: res.data })
@@ -216,8 +243,12 @@ const Upload: FC<UploadProps> = props => {
     onPreview && onPreview(file)
   }
   const handleCancel = () => setPreviewVisible(false)
-  const { showRemoveIcon, showPreviewIcon, showDownloadIcon, removeIcon } =
-    {} as ShowUploadListInterface
+  const {
+    showRemoveIcon,
+    showPreviewIcon,
+    showDownloadIcon,
+    removeIcon
+  } = {} as ShowUploadListInterface
 
   const prefixCls = 'pui-upload'
 
@@ -230,14 +261,15 @@ const Upload: FC<UploadProps> = props => {
       <div
         onClick={handleClick}
         className={classnames(`${prefixCls}-field`, {
-          [`${prefixCls}-drag-field`]: drag
+          [`${prefixCls}-drag-field`]: drag,
+          [`${prefixCls}-disabled`]: disabled
         })}
       >
         {drag ? (
-          <Dragger onFile={files => uploadFiles(files)}>
+          <Dragger onFile={files => uploadFiles(files)} disabled={disabled}>
             {children || (
               <div className="pui-upload-btn pui-upload-drag-btn">
-                <IconInbox /> <br />
+                <IconFile /> <br />
                 点击或拖拽上传
               </div>
             )}
@@ -248,7 +280,6 @@ const Upload: FC<UploadProps> = props => {
               {children || (
                 <span>
                   <IconPlus />
-                  <div>Upload</div>
                 </span>
               )}
             </div>
@@ -273,6 +304,7 @@ const Upload: FC<UploadProps> = props => {
         accept={accept}
         multiple={multiple}
         onChange={handleFileChange}
+        disabled={disabled}
       />
     </div>
   )
@@ -341,6 +373,7 @@ Upload.defaultProps = {
   showDownloadIcon: false,
   showPreviewIcon: true,
   locale: defaultLocale,
-  count: 1
+  count: 1,
+  disabled: false
 }
 export { Upload }

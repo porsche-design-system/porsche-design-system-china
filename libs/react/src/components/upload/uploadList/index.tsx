@@ -1,5 +1,5 @@
 import React, { FC, cloneElement, isValidElement } from 'react'
-import { IconAttachment, IconLoading, IconTime, IconImage } from '@pui/icons'
+import { IconAttachment, IconLoading, IconTime } from '@pui/icons'
 
 import classnames from 'classnames'
 import {
@@ -89,7 +89,7 @@ const UploadList: FC<UploadListProps> = props => {
 
   const internalIconRender = (file: UploadFile) => {
     const isLoading = file.status === 'uploading'
-    const fileIcon = isImgUrl && isImgUrl(file) ? <IconImage /> : <IconTime />
+    const fileIcon = isImgUrl && isImgUrl(file) ? '上传失败' : <IconTime />
     let icon: React.ReactNode = isLoading ? (
       <IconLoading spin />
     ) : (
