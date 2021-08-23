@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  IconChat,
-  IconArrowHeadRight,
   IconArrowRight,
+  IconArrowHeadRight,
   IconEdit,
   IconAdd,
   IconBell,
   IconClose
 } from '@pui/icons'
 
-import { Button, Col, Row } from '../..'
+import { Button, Col, Row, Radio, RadioGroup } from '../..'
 import './button.stories.scss'
 
 export default {
@@ -18,128 +17,111 @@ export default {
 }
 
 export const ButtonStoryBook = () => {
-  const buttonTypes = ['default', 'primary', 'secondary', 'text']
-  const [loading, setLoading] = useState(false)
-
-  const renderButtonType = (type: any) => {
-    return (
-      <Row key={type} style={{ marginBottom: '10px', textAlign: 'center' }}>
-        <Col className="type-name" span={4}>
-          <div>{type}</div>
-        </Col>
-        <Col>
-          <Button type={type}>按钮</Button>
-        </Col>
-        <Col>
-          <Button type={type} className={'pui-button-type-' + type + '-hover'}>
-            按钮
-          </Button>
-        </Col>
-        <Col>
-          <Button type={type} className={'pui-button-type-' + type + '-active'}>
-            按钮
-          </Button>
-        </Col>
-        <Col>
-          <Button
-            type={type}
-            className={'pui-button-type-' + type + '-disabled'}
-            disabled
-          >
-            按钮
-          </Button>
-        </Col>
-        <Col>
-          <Button type={type} loading>
-            按钮
-          </Button>
-        </Col>
-      </Row>
+  useEffect(() => {
+    const mainStory = document.getElementById(
+      'anchor--action-button--button-story-book'
     )
-  }
-
-  return (
-    <div>
-      <div className="group">
-        <Row className="headline" style={{ textAlign: 'center' }}>
-          <Col span={4}>Type</Col>
-          <Col>Default</Col>
-          <Col>Hover</Col>
-          <Col>Pressed</Col>
-          <Col>Disabled</Col>
-          <Col>Loading</Col>
-        </Row>
-        <br />
-        {buttonTypes.map(type => {
-          return renderButtonType(type)
-        })}
-      </div>
-      <br />
-    </div>
-  )
+    if (mainStory) {
+      mainStory.style.display = 'none'
+    }
+    const mainTitles = document.getElementsByClassName('sbdocs-title')
+    if (mainTitles.length > 0) {
+      const mainTitle = mainTitles[0] as HTMLElement
+      mainTitle.style.marginBottom = '48px'
+    }
+  })
+  return <div />
 }
 
 ButtonStoryBook.storyName = 'Button'
 
 export const ButtonStoryBook2 = () => {
+  const [buttonType, setButtonType] = useState('IconText')
+  const icon = buttonType.indexOf('Icon') >= 0 ? IconArrowHeadRight : undefined
+  const showText = buttonType.indexOf('Text') >= 0
+
   return (
     <div>
-      <Button marginRight="10px">Button</Button>
-      <Button type="primary" marginRight="10px">
-        Primary Button
-      </Button>
-      <Button type="secondary" marginRight="10px">
-        Secondary Button
-      </Button>
-      <Button type="text" marginRight="10px">
-        Text Button
-      </Button>
+      <div className="radio-group">
+        <RadioGroup value={buttonType} onValueChange={setButtonType}>
+          <Radio text="Icon + Text" value="IconText" />
+          <Radio text="Icon" value="Icon" />
+          <Radio text="Text" value="Text" />
+        </RadioGroup>
+      </div>
+      <div>
+        <Button type="primary" marginRight="40px" icon={icon}>
+          {showText ? 'Primary' : ''}
+        </Button>
+        <Button type="secondary" marginRight="40px" icon={icon}>
+          {showText ? 'Secondary' : ''}
+        </Button>
+        <Button type="default" marginRight="40px" icon={icon}>
+          {showText ? 'Default' : ''}
+        </Button>
+        <Button type="text" marginRight="40px" icon={icon}>
+          {showText ? 'Text' : ''}
+        </Button>
+      </div>
     </div>
   )
 }
 
 ButtonStoryBook2.storyName = 'Types'
 
-export const ButtonStoryBook4 = () => {
+export const ButtonStoryBook3 = () => {
+  const [status, setStatus] = useState('Disable')
+  const isDisable = status === 'Disable'
+  const isLoading = status === 'Loading'
+
   return (
     <div>
-      <div className="show-case">
-        <Button icon={IconArrowRight} marginRight="10px" />
-        <Button type="primary" icon={IconAdd} marginRight="10px" />
-        <Button type="secondary" icon={IconEdit} marginRight="10px" />
-        <Button type="text" icon={IconArrowRight} marginRight="10px" />
+      <div className="radio-group">
+        <RadioGroup value={status} onValueChange={setStatus}>
+          <Radio text="Disabled" value="Disable" />
+          <Radio text="Loading" value="Loading" />
+        </RadioGroup>
       </div>
-      <div className="show-case">
-        <Button icon={IconArrowRight}>进入</Button>
-        <Button icon={IconClose}>关闭</Button>
-        <Button type="primary" icon={IconAdd}>
-          添加
+      <div>
+        <Button
+          type="primary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          disabled={isDisable}
+          loading={isLoading}
+        >
+          Primary
         </Button>
-        <Button type="secondary" icon={IconEdit}>
-          编辑
-        </Button>
-        <Button type="text" icon={IconBell}>
-          提醒
-        </Button>
-      </div>
-      <div className="show-case">
-        <Button icon={IconArrowRight} size="small" marginRight="10px" />
-        <Button type="primary" icon={IconAdd} size="small" marginRight="10px" />
         <Button
           type="secondary"
-          icon={IconEdit}
-          size="small"
-          marginRight="10px"
-        />
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          disabled={isDisable}
+          loading={isLoading}
+        >
+          Secondary
+        </Button>
+        <Button
+          type="default"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          disabled={isDisable}
+          loading={isLoading}
+        >
+          Default
+        </Button>
         <Button
           type="text"
-          icon={IconArrowRight}
-          size="small"
-          marginRight="10px"
-        />
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          disabled={isDisable}
+          loading={isLoading}
+        >
+          Text
+        </Button>
       </div>
     </div>
   )
 }
 
-ButtonStoryBook4.storyName = 'Icon Buttons'
+ButtonStoryBook3.storyName = 'Status'

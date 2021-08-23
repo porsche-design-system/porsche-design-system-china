@@ -14,7 +14,13 @@ export const PUI = {
     return this['_themeName'] as ThemeName
   },
   setDefaultSize(size: 'medium' | 'small') {
-    getGlobalStateSetter('DEFAULT_SIZE')(size)
+    this['_defaultSize'] = size
+    if (getGlobalStateSetter('DEFAULT_SIZE')) {
+      getGlobalStateSetter('DEFAULT_SIZE')(size)
+    }
+  },
+  getDefaultSize() {
+    return this['_defaultSize'] || 'medium'
   }
 }
 ;(window as any).PUI = PUI

@@ -24,6 +24,8 @@
   .docblock-argstable div div span {
     color: #d5001c !important;
     background-color: #fbe6e8;
+    border-radius: 4px;
+    padding: 3px;
   }
   .docblock-argstable thead th {
     font-weight: 700;
@@ -43,38 +45,35 @@
     padding: 10px 20px;
     position: absolute;
     right: 0;
-  }
-  .theme-button button {
-    font-size: 13px;
-    color: #777;
-    border: 1px solid transparent;
-    background-color: transparent;
-    padding: 5px 12px;
-    cursor: pointer;
-  }
-
-  .theme-button button:hover {
-    color: black;
-    border: 1px solid black;
+    margin-top: 5px;
   }
 
   .size-button {
     padding: 10px 20px;
     position: absolute;
-    right: 200px;
-  }
-  .size-button button {
-    font-size: 13px;
-    color: #777;
-    border: 1px solid transparent;
-    background-color: transparent;
-    padding: 5px 12px;
-    cursor: pointer;
+    right: 120px;
+    margin-top: 5px;
   }
 
-  .size-button button:hover {
+  .size-button button,
+  .theme-button button {
+    font-size: 13px;
     color: black;
     border: 1px solid black;
+    background-color: white;
+    padding: 5px 12px;
+    cursor: pointer;
+    float: left;
+  }
+
+  .size-button .active,
+  .theme-button .active {
+    font-size: 13px;
+    color: white;
+    border: 1px solid black;
+    background-color: black;
+    padding: 5px 12px;
+    cursor: pointer;
   }
 
   .pui-theme-dark .docs-story {
@@ -102,15 +101,44 @@
   #stories {
     display: none;
   }
+
+  .sbdocs.sbdocs-preview {
+    padding-top: 0;
+    margin-bottom: 48px !important;
+  }
+
+  .sbdocs-preview .os-host:nth-child(1) {
+    display: none;
+  }
+  .sbdocs-preview div .os-host:nth-child(1) {
+    display: block;
+  }
+  .docs-story > div:nth-child(1) {
+    padding: 30px 48px;
+  }
 </style>
 
 <div class="size-button">
-  <button onclick="PUI.setDefaultSize('small')">Small Size</button>
-  <button onclick="PUI.setDefaultSize('medium')">Medium Size</button>
+  <button
+    id="default-size-medium"
+    onclick="PUI.setDefaultSize('medium');updateButtonTheme();"
+  >
+    Medium
+  </button>
+  <button
+    id="default-size-small"
+    onclick="PUI.setDefaultSize('small');updateButtonTheme();"
+  >
+    Small
+  </button>
 </div>
 <div class="theme-button">
-  <button onclick="PUI.setTheme('light')">Light Mode</button>
-  <button onclick="PUI.setTheme('dark')">Dark Mode</button>
+  <button id="theme-light" onclick="PUI.setTheme('light');updateButtonTheme();">
+    Light
+  </button>
+  <button id="theme-dark" onclick="PUI.setTheme('dark');updateButtonTheme();">
+    Dark
+  </button>
 </div>
 
 <script>
@@ -119,8 +147,8 @@
     document.getElementById('docs-root').addEventListener(
       'DOMSubtreeModified',
       function () {
-        if (new Date().getTime() / 1000 - time > 1) {
-          time = new Date().getTime() / 1000
+        if (new Date().getTime() - time > 200) {
+          time = new Date().getTime()
           setTimeout(() => {
             if (
               document.getElementsByClassName('docblock-argstable').length == 0
@@ -139,10 +167,29 @@
               argTableParentNode.removeChild(argTable)
               argTableParentNode.append(argTable)
             }
-          }, 100)
+          }, 300)
         }
       },
       false
     )
   }, 100)
+
+  function updateButtonTheme() {
+    if (PUI) {
+      document.getElementById('default-size-small').className =
+        PUI.getDefaultSize() == 'small' ? 'active' : ''
+      document.getElementById('default-size-medium').className =
+        PUI.getDefaultSize() == 'medium' ? 'active' : ''
+      document.getElementById('theme-light').className =
+        PUI.getTheme() == 'light' ? 'active' : ''
+      document.getElementById('theme-dark').className =
+        PUI.getTheme() == 'dark' ? 'active' : ''
+    } else {
+      setTimeout(updateButtonTheme, 100)
+    }
+  }
+
+  setTimeout(() => {
+    updateButtonTheme()
+  }, 500)
 </script>

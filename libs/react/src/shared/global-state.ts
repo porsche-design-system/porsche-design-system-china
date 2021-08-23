@@ -11,14 +11,20 @@ export const getGlobalStateSetter = (name: string) => {
 }
 
 export const makeGlobalState = <T extends unknown>(
-  initValue: T,
+  initValue: T | (() => T),
   name?: string,
   filter?: (val: T) => T
 ) => {
   const globalStates: any[] = []
-  let currentValue = initValue
 
+  let currentValue = initValue
+  let initialized = false
   return (): [T, (val: T) => void] => {
+    if (!initialized) {
+      currentValue =
+        typeof initValue === 'function' ? (initValue as () => T)() : initValue
+      initialized = true
+    }
     const [value, setValue] = useState(currentValue)
     if (!globalStates.includes(setValue)) {
       globalStates.push(setValue)
@@ -47,6 +53,7 @@ export const makeGlobalState = <T extends unknown>(
         setVal(value)
       })
     }
+
     if (name) {
       stateSetters[name] = setAllStateValue
     }
