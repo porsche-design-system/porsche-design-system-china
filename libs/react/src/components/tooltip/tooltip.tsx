@@ -60,6 +60,10 @@ export interface TooltipProps {
 
   /** 触发行为 */
   trigger?: 'hover' | 'click'
+
+  /** 用于手动控制浮层显隐 */
+  visible?: boolean
+
 }
 const prefixCls = 'pui-tooltip'
 const Tooltip = ({
@@ -70,24 +74,21 @@ const Tooltip = ({
   maxWidth = 250,
   placement = TOP_CENTER,
   style,
-  trigger = 'hover'
+  trigger = 'hover',
+  visible
 }: TooltipProps) => {
-  const [isMountedContent, setIsMountedContent] = useState(false)
-  const [visible, setVisible] = useState(false) // mouseEnter、mouseLeave 显示/隐藏content
-  const [showContent, setShowContent] = usePopShowState() // click 显示/隐藏content
-  const [contentPosition, setContentPosition] = useState<
-    { top: number; left: number } | undefined
-  >()
-  const [arrowPosition, setArrowPosition] =
-    useState<{ top?: number; bottom?: number; left?: number; right?: number }>()
-  const [isResized, setIsResized] = useState(false)
-  const [targetDom, setTargetDom] = useState(null)
-  const [arrowPlacementCls, setArrowPlacementCls] = useState('')
-  const originRef = useRef(null)
-  const boxRef = useRef(null)
-  // eslint-disable-next-line prefer-const
-  let [firstChild, ...restChildren] = React.Children.toArray(children)
-  // 计算提示框位置
+  const [isMountedContent, setIsMountedContent] = useState(false);
+  const [visibleContent, setVisibleContent] = useState(false); //mouseEnter、mouseLeave 显示/隐藏content
+  const [showContent, setShowContent] = usePopShowState(); //click 显示/隐藏content
+  const [contentPosition, setContentPosition] = useState<{ top: number, left: number } | undefined>();
+  const [arrowPosition, setArrowPosition] = useState<{ top?: number, bottom?: number, left?: number, right?: number }>();
+  const [isResized, setIsResized] = useState(false);
+  const [targetDom, setTargetDom] = useState(null);
+  const [arrowPlacementCls, setArrowPlacementCls] = useState('');
+  const originRef = useRef(null);
+  const boxRef = useRef(null);
+  let [firstChild, ...restChildren] = React.Children.toArray(children);
+  //计算提示框位置
   const calcTooltipPosition = (boxDom: any, targetDom: any, originDom: any) => {
     const boxPosition = boxDom.getBoundingClientRect()
     const targetPosition = targetDom.getBoundingClientRect()
@@ -315,25 +316,30 @@ const Tooltip = ({
   }, [showContent, isResized, isMountedContent])
   useEffect(() => {
     if (isMountedContent) {
-      calcTooltipPosition(boxRef.current, targetDom, originRef.current)
-      calcArrowPosition(boxRef.current)
-      if (trigger === 'hover') {
-        setVisible(true)
-      } else if (trigger === 'click') {
-        setShowContent(true)
+      calcTooltipPosition(boxRef.current, targetDom, originRef.current);
+      calcArrowPosition(boxRef.current);
+      if(typeof visible !== 'boolean'){
+        if (trigger === 'hover') {
+          setVisibleContent(true);
+        } else if (trigger === 'click') {
+          setShowContent(true);
+        }
       }
     }
-  }, [isMountedContent])
+  }, [isMountedContent]);
+  useEffect(() => {
+    if(boxRef.current){
+      calcTooltipPosition(boxRef.current, targetDom, originRef.current);
+      calcArrowPosition(boxRef.current);
+    }
+  },[content]);
   const mountContent = () => {
     const contentEle = (
       <div className={prefixCls} ref={originRef}>
         <div
           className={`${prefixCls}-box`}
           ref={boxRef}
-          style={{
-            ...contentPosition,
-            visibility: visible || showContent ? 'visible' : 'hidden'
-          }}
+          style={{ ...contentPosition, visibility: visibleContent || showContent || visible ? 'visible' : 'hidden' }}
         >
           <div
             className={componentClassNames(
@@ -363,6 +369,7 @@ const Tooltip = ({
         (firstChild as any).props.onMouseEnter(evt)
     }
     if (isMountedContent) {
+      if (typeof visible === 'boolean') return;
       if (isResized) {
         calcTooltipPosition(
           boxRef.current,
@@ -371,7 +378,7 @@ const Tooltip = ({
         )
         setIsResized(false)
       }
-      setVisible(true)
+      setVisibleContent(true);
     } else {
       setTargetDom(evt.currentTarget)
       setIsMountedContent(true)
@@ -382,7 +389,8 @@ const Tooltip = ({
       ;(firstChild as any).props.onMouseLeave &&
         (firstChild as any).props.onMouseLeave(evt)
     }
-    setVisible(false)
+    if (typeof visible === 'boolean') return;
+    setVisibleContent(false);
   }
   const onClick = (evt: any) => {
     evt.stopPropagation()
@@ -390,6 +398,7 @@ const Tooltip = ({
       ;(firstChild as any).props.onClick &&
         (firstChild as any).props.onClick(evt)
     }
+    if (typeof visible === 'boolean') return;
     if (isMountedContent) {
       if (isResized && !showContent) {
         calcTooltipPosition(

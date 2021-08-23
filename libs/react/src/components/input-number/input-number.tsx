@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react'
+import React, { useState, CSSProperties, useEffect } from 'react'
 import classNames from 'classnames'
 import {
   IconMinus,
@@ -61,12 +61,18 @@ const InputNumber = ({
   width = '158px',
   onValueChange
 }: InputNumberProps) => {
-  const initialValue = value || defaultValue || ''
-  const [currentValue, setCurrentValue] = useState(initialValue)
+  const initialValue = value || defaultValue || '';
+  const [currentValue, setCurrentValue] = useState(initialValue);
+  useEffect(() => {
+    if(value !== currentValue) setCurrentValue(value as string);
+  },[value]);
+  useEffect(() => {
+    onValueChange && onValueChange(currentValue)
+  },[currentValue]);
   const handleValueChange = (val: string) => {
     if (!/[^.\-\d]/.test(val)) {
       setCurrentValue(val)
-      onValueChange && onValueChange(val)
+      
     }
   }
   const add = () => {
@@ -76,7 +82,6 @@ const InputNumber = ({
         if (nextValue > max) {
           return currentValue
         }
-        onValueChange && onValueChange(nextValue + '')
         return String(nextValue)
       })
     }
@@ -88,7 +93,6 @@ const InputNumber = ({
         if (nextValue < min) {
           return currentValue
         }
-        onValueChange && onValueChange(nextValue + '')
         return String(nextValue)
       })
     }
