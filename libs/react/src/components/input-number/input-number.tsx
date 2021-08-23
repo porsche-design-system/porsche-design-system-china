@@ -64,7 +64,7 @@ const InputNumber = ({
   const initialValue = value || defaultValue || '';
   const [currentValue, setCurrentValue] = useState(initialValue);
   useEffect(() => {
-    if(value !== currentValue) setCurrentValue(value as string);
+    if(value !== currentValue && value !== undefined) setCurrentValue(value as string);
   },[value]);
   useEffect(() => {
     onValueChange && onValueChange(currentValue)
