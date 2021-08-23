@@ -32,15 +32,16 @@ export const UploadStoryBook1 = () => {
     {
       uid: '-1',
       name: 'image.png',
-      status: 'success',
+      status: 'success'
       // url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     },
     {
       uid: '-2',
       name: 'image.png',
-      status: 'error',
+      status: 'error'
       // url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }]
+    }
+  ]
 
   const onChange = (file: UploadFile) => {
     console.log(file.response?.message)
@@ -82,14 +83,16 @@ export const UploadStoryBook2 = () => {
       uid: '-1',
       name: 'image.png',
       status: 'success',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     },
     {
       uid: '-xxx',
       percent: 50,
       name: 'image.png',
       status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     },
     {
       uid: '-5',
