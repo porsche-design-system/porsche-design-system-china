@@ -156,10 +156,7 @@ export function MessageBox(props: MessageProps) {
         {props.iconType === 'error' && <IconErrorFilled />}
         <span className="text-content">{content}</span>
         {fconfig.closable && (
-          <IconClose
-            style={{ fontSize: '24px', color: 'black' }}
-            onClick={handleClose}
-          />
+          <IconClose style={{ fontSize: '24px' }} onClick={handleClose} />
         )}
       </span>
     </div>
