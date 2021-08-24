@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler, CSSProperties, useState } from 'react'
+import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import { FormErrorText } from '../error-text/error-text'
 import { FormItemLabelProps } from '../form/form'
@@ -13,6 +14,9 @@ export interface TextAreaProps {
 
   /* 样式 */
   style?: CSSProperties
+
+  /** 大小 */
+  size?: 'medium' | 'small'
 
   /* 标签 */
   label?: FormItemLabelProps | string
@@ -51,6 +55,7 @@ export interface TextAreaProps {
 const TextArea = FormItem(
   ({
     className,
+    size,
     placeholder,
     error,
     defaultValue,
@@ -61,6 +66,8 @@ const TextArea = FormItem(
     onValueChange
   }: TextAreaProps) => {
     const [valueLength, setValueLength] = useState(0)
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     const updateHeight = (element: HTMLTextAreaElement) => {
       element.style.height = '5px'
@@ -71,7 +78,7 @@ const TextArea = FormItem(
       <div
         className={componentClassNames(
           'pui-textarea',
-          { error: error ? error.show + '' : 'false' },
+          { size, error: error ? error.show + '' : 'false' },
           className
         )}
       >
