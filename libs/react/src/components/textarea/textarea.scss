@@ -81,6 +81,18 @@
         color: $status-error-color;
         margin-top: 5px;
       }
+
+      &-size-small {
+        textarea {
+          font-size: 14px;
+          line-height: 22px;
+        }
+        .pui-textarea-char-count {
+          font-size: 12px;
+          line-height: 20px;
+          margin-top: -25px;
+        }
+      }
     }
   }
 }
