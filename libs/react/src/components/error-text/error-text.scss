@@ -9,6 +9,12 @@
       font-size: 14px;
       color: $status-error-color;
       position: absolute;
+
+      &-size-small {
+        font-size: 12px;
+        line-height: 20px;
+        margin-top: 0px;
+      }
     }
   }
 }

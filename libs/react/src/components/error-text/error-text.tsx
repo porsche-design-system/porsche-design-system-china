@@ -1,6 +1,8 @@
 import React from 'react'
 import { getLabelWidth } from '../label/label'
 import { FormItemLabelProps } from '../form/form'
+import { useDefaultSize } from '../../shared/hooks'
+import { componentClassNames } from '../../shared/class-util'
 import './error-text.scss'
 
 export interface FormErrorText {
@@ -21,13 +23,17 @@ export interface ErrorTextProps extends FormErrorText {
  */
 const ErrorText = ({ show = true, message = '', label }: ErrorTextProps) => {
   const labelWidth = getLabelWidth(label)
+  const [defaultSize] = useDefaultSize()
 
   if (!show) {
     return null
   }
 
   return (
-    <div className="pui-error-text" style={{ marginLeft: labelWidth }}>
+    <div
+      className={componentClassNames('pui-error-text', { size: defaultSize })}
+      style={{ marginLeft: labelWidth }}
+    >
       {message}
     </div>
   )
