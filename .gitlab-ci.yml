@@ -190,9 +190,6 @@ deploy_react:
       elif [[ ${CI_COMMIT_REF_NAME} == "develop" ]];then
         sed -i "s/pui\\:[0-9]*.[0-9][0-9]$/pui\\:react-${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-dev.yaml
         sed -i "s/puifrontendservice/pui-react-frontend/g" ./kubedir/frontend_deployment-dev.yaml
-        /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-dev/config
-        /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/kube-dev/config
-        echo "=======eks========="
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/eks-dev/config 
       fi
   tags:
