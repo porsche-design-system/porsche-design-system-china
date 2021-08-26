@@ -21,10 +21,12 @@
     margin: 10px 0;
     background-color: #f5f5f5;
     white-space: pre-wrap;
+    color: black;
   }
 
   .code,
   code {
+    color: black;
     padding: 10px 15px;
     margin: 10px 0;
     background-color: #f5f5f5;
@@ -43,5 +45,16 @@
     padding: 10px 15px;
     margin: 10px 0;
     margin-bottom: 25px;
+  }
+}
+
+.pui-theme-dark {
+  .custom-doc {
+    .cmd,
+    .code,
+    code {
+      color: #aaa;
+      background-color: black;
+    }
   }
 }

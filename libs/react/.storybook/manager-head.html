@@ -4,6 +4,21 @@
   body {
     background: transparent !important;
   }
+
+  .sidebar-header > div > a img {
+    opacity: 0;
+  }
+
+  .sidebar-header > div > a {
+    background-image: url(logo-light.svg);
+    background-size: cover;
+  }
+
+  .pui-theme-dark .sidebar-header > div > a {
+    background-image: url(logo-dark.svg);
+    background-size: cover;
+  }
+
   .search-result-item {
     background: transparent !important;
   }
@@ -27,12 +42,31 @@
     border-radius: 0;
   }
 
+  .pui-theme-dark #storybook-explorer-searchfield:focus {
+    border-color: #aaa;
+    background-color: transparent;
+    color: white;
+  }
+
+  .pui-theme-dark #downshift-1-menu mark {
+    color: #2193ff;
+  }
+
+  .pui-theme-dark .search-field:focus-within > svg {
+    color: white;
+  }
+
   .search-field code {
     display: none;
   }
   .react-draggable {
     border-right: 1px #e3e4e5 solid;
   }
+
+  .pui-theme-dark .react-draggable {
+    border-right: 1px #666 solid;
+  }
+
   div[role='main'] > div {
     box-shadow: none;
   }
@@ -90,7 +124,7 @@
   .sidebar-item:before {
     content: '';
     display: inline-block;
-    background: url('/svg/arrow-head-down.svg') transparent;
+    background: none;
     width: 16px;
     height: 16px;
     position: absolute;
@@ -98,6 +132,7 @@
     top: 6px;
     transform: rotate(-90deg);
   }
+
   .sidebar-item:hover,
   .sidebar-item:focus,
   .sidebar-item:active,
@@ -105,8 +140,13 @@
     color: #d5001c !important;
     font-weight: 400 !important;
   }
+
   .sidebar-item[data-selected='true']::before {
     background: url('/svg/arrow-head-down-red.svg') transparent;
+  }
+
+  .pui-theme-dark .sidebar-item[data-selected='true']::before {
+    background: url('/svg/arrow-head-down-blue.svg') transparent;
   }
 
   .sidebar-header div:nth-child(2) {
@@ -119,6 +159,32 @@
   .sidebar-header div:nth-child(1) a {
     margin: 0;
   }
+
+  .pui-theme-dark {
+    background-color: black !important;
+  }
+
+  .pui-theme-dark .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+    background-color: #aaa;
+  }
+
+  .pui-theme-dark .sidebar-subheading button:first-of-type {
+    color: white !important;
+  }
+
+  .pui-theme-dark #storybook-explorer-tree > div > div > a {
+    color: #cccc !important;
+  }
+
+  .pui-theme-dark
+    #storybook-explorer-tree
+    > div
+    > div
+    > a[data-selected='true'],
+  .pui-theme-dark #storybook-explorer-tree > div > div > a:hover {
+    color: #2193ff !important;
+  }
+
   /*E: Nav title*/
 
   @font-face {
