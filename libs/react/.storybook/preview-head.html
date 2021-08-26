@@ -67,27 +67,32 @@
   .size-button {
     padding: 10px 20px;
     position: absolute;
-    right: 120px;
+    right: 150px;
     margin-top: 5px;
   }
 
   .size-button button,
   .theme-button button {
     font-size: 13px;
-    color: black;
+    color: white;
     border: 1px solid black;
-    background-color: white;
+    background-color: black;
     padding: 5px 12px;
     cursor: pointer;
     float: left;
   }
 
+  .pui-theme-dark .size-button button,
+  .pui-theme-dark .theme-button button {
+    border: 1px solid #666;
+  }
+
   .size-button .active,
   .theme-button .active {
     font-size: 13px;
-    color: white;
+    color: black;
     border: 1px solid black;
-    background-color: black;
+    background-color: white;
     padding: 5px 12px;
     cursor: pointer;
   }
@@ -164,13 +169,13 @@
     id="theme-light"
     onclick="PUI.setTheme('light');updateButtonTheme();updateParentTheme('pui-theme-light');"
   >
-    Light
+    ☀️ Light
   </button>
   <button
     id="theme-dark"
     onclick="PUI.setTheme('dark');updateButtonTheme();updateParentTheme('pui-theme-dark');"
   >
-    Dark
+    🌛 Dark
   </button>
 </div>
 
