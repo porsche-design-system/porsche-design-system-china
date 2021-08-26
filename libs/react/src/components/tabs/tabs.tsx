@@ -4,6 +4,7 @@
 /* eslint-disable react/prop-types */
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
+import { TabPaneProps } from './tabpane'
 import './tabs.scss'
 
 export interface TabsProps {
@@ -11,8 +12,10 @@ export interface TabsProps {
 
   /** 类名 */
   className?: string
+
   /** 子组件 */
   children?: React.ReactNode
+
   /** 样式 */
   style?: CSSProperties
 
@@ -22,8 +25,8 @@ export interface TabsProps {
   /** 默认选中的面板  */
   defaultActiveKey?: string
 
-	/** 选中面板更改事件 */
-	onActiveKeyChange?: (activeKey: string) => void
+  /** 选中面板更改事件 */
+  onActiveKeyChange?: (activeKey: string) => void
 }
 
 const Tabs = ({
@@ -32,7 +35,7 @@ const Tabs = ({
   size = 'default',
   defaultActiveKey = '',
   children,
-	onActiveKeyChange
+  onActiveKeyChange
 }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey)
 
@@ -75,7 +78,7 @@ const Tabs = ({
             key={'TabKey' + inx}
             onClick={() => {
               setTabActiveKey(tabProps.tabKey!)
-							onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
+              onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
             }}
           >
             <span>{tabProps.title}</span>
@@ -87,27 +90,6 @@ const Tabs = ({
   )
 }
 
-export interface TabPaneProps {
-  /** 选项卡头显示文字 */
-  title: string
+Tabs.displayName = 'Tabs'
 
-  /** 对应 activeKey */
-  tabKey?: string
-
-  /** 子组件 */
-  children?: React.ReactNode
-}
-
-const TabPane = (props: TabPaneProps) => {
-  return (
-    <div
-      style={{ display: (props as any).show ? 'block' : 'none' }}
-      className="pui-tabs-content"
-    >
-      {props.children}
-    </div>
-  )
-}
-
-TabPane.displayName = 'TabPane'
-export { Tabs, TabPane }
+export { Tabs }
