@@ -10,6 +10,11 @@
     border: 1px solid #e3e4e5;
     border-radius: 0;
   }
+
+  .pui-theme-dark .sbdocs.sbdocs-preview {
+    border: 1px solid #666;
+  }
+
   .docblock-argstable-body {
     font-size: 16px !important;
   }
@@ -17,6 +22,13 @@
   .docblock-argstable thead {
     border-bottom: 1px #e3e4e5 solid;
   }
+
+  .pui-theme-dark .docblock-argstable,
+  .pui-theme-dark .docblock-argstable thead,
+  .pui-theme-dark .docblock-argstable tbody td {
+    border-bottom: 1px solid #666 !important;
+  }
+
   .docblock-argstable tbody {
     box-shadow: none !important;
   }
@@ -116,6 +128,11 @@
   .docs-story > div:nth-child(1) {
     padding: 30px 48px;
   }
+
+  .pui-theme-dark .docblock-code-toggle:focus,
+  .pui-theme-dark .docblock-code-toggle--expanded:focus {
+    box-shadow: #2193ff 0 -3px 0 0 inset !important;
+  }
 </style>
 
 <div class="size-button">
@@ -133,10 +150,16 @@
   </button>
 </div>
 <div class="theme-button">
-  <button id="theme-light" onclick="PUI.setTheme('light');updateButtonTheme();">
+  <button
+    id="theme-light"
+    onclick="PUI.setTheme('light');updateButtonTheme();updateParentTheme('pui-theme-light');"
+  >
     Light
   </button>
-  <button id="theme-dark" onclick="PUI.setTheme('dark');updateButtonTheme();">
+  <button
+    id="theme-dark"
+    onclick="PUI.setTheme('dark');updateButtonTheme();updateParentTheme('pui-theme-dark');"
+  >
     Dark
   </button>
 </div>
@@ -192,4 +215,8 @@
   setTimeout(() => {
     updateButtonTheme()
   }, 500)
+
+  function updateParentTheme(className) {
+    window.parent.document.body.className = className
+  }
 </script>
