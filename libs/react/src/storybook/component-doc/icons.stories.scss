@@ -17,11 +17,13 @@
 }
 
 .pui-theme-dark {
-  .porscheicon {
-    border: 1px solid #666;
-    margin-right: 10px;
-    transition: all 0.1s;
-    background-color: #333;
+  .icon-block {
+    .porscheicon {
+      border: 1px solid #666;
+      margin-right: 10px;
+      transition: all 0.1s;
+      background-color: #333;
+    }
   }
 }
 
