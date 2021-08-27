@@ -8,7 +8,7 @@ const BestPractice = () => (
   <div className="custom-doc">
     <div
       dangerouslySetInnerHTML={{
-        __html: `<h1>PUI开发最佳实践</h1>
+        __html: `<h1>Best Practice</h1>
 <p>&nbsp;</p>
 <h4 >使用 Form，而非一个个独立的表单控件</h4>
 <p>对于一个数据结构如果要对多个数据捆绑，需要定义多对value + onValueChange</p>
