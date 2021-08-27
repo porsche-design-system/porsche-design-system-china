@@ -4,7 +4,7 @@ import './doc.scss'
 
 const GettingStart = () => (
   <div className="custom-doc">
-    <h1>快速开始</h1>
+    <h1>Getting Start</h1>
     <div>使用Vite创建项目(推荐)</div>
     <div className="cmd">yarn create @vitejs/app</div>
     <div>使用CRA创建</div>
