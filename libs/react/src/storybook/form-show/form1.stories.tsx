@@ -41,21 +41,21 @@ export const ExampleStoryBook = () => {
       <Button
         onClick={() => {
           setData({
-            contact: '李云',
-            address: '上海东方路123号',
+            contact: 'Paul',
+            address: 'Shanghai DongFang Road 100',
             mobile: '15000232222',
             dealer: 'PC',
             repairStartDate: '2021-01-12',
             repairEndDate: '2021-05-33',
             date: '2021-12-12',
-            services: ['上漆'],
+            services: ['Repair'],
             invoice: 'yes',
-            invoiceType: '电子发票'
+            invoiceType: 'E-Invoice'
           })
         }}
         type="text"
       >
-        测试载入数据
+        Load Data
       </Button>
       <br />
       <br />
@@ -79,46 +79,46 @@ export const ExampleStoryBook = () => {
         }}
       >
         <Input
-          label="联系人"
+          label="Name"
           name="contact"
           width="45%"
-          rules={{ required: true, message: '必须填写' }}
+          rules={{ required: true, message: 'Required' }}
           marginRight="10%"
-          placeholder="请填写"
+          placeholder=""
         />
-        <Input label="手机号" name="mobile" width="45%" placeholder="请填写" />
+        <Input label="Mobile" name="mobile" width="45%" placeholder="" />
         <Select
-          label="经销商"
+          label="Dealer"
           name="dealer"
           width="45%"
-          options="上海浦东保时捷中心:PD,上海浦西保时捷中心:PC"
-          rules={{ required: true, message: '必须填写' }}
-          placeholder="请填写"
+          options="Shanghai PuDong:PD,Shanghai PuXi:PC"
+          rules={{ required: true, message: 'Required' }}
+          placeholder=""
           marginRight="10%"
         />
         <DatePicker
-          label="来访日期"
+          label="Visit Date"
           name="date"
           width="45%"
-          rules={{ required: true, message: '必须填写' }}
-          placeholder="请填写"
+          rules={{ required: true, message: 'Required' }}
+          placeholder=""
         />
         <DateRangePicker
-          label="维修时间"
+          label="Repair Date"
           nameStartDate="repairStartDate"
           nameEndDate="repairEndDate"
           name="repairDate"
-          rules={{ required: true, message: '必须填写' }}
-          placeholderStartDate="开始时间"
-          placeholderEndDate="结束时间"
+          rules={{ required: true, message: 'Required' }}
+          placeholderStartDate="Start"
+          placeholderEndDate="End"
         />
         <CheckBoxGroup
-          label="服务类型"
+          label="Service Type"
           name="services"
-          options="维修,上漆,更换轮胎,轮轴润滑,机车整装"
+          options="Repair,Paint,Change Wheel,Lubrication"
         />
         <Switch
-          label="开具发票"
+          label="Send Invoice"
           name="invoice"
           alterValues="no,yes"
           onValueChange={val => {
@@ -131,22 +131,22 @@ export const ExampleStoryBook = () => {
         />
         <RadioGroup
           disabled={data.invoice === 'no'}
-          label="发票类型"
+          label="Invoice Type"
           name="invoiceType"
-          options="纸质发票,电子发票"
+          options="Paper-Invoice,E-Invoice"
         />
         <TextArea
-          label="详细地址"
-          rules={{ required: true, message: '必须填写' }}
+          label="Address"
+          rules={{ required: true, message: 'Required' }}
           name="address"
-          placeholder="请填写"
+          placeholder=""
         />
         <ButtonGroup align="right">
           <Button type="default" icon={IconArrowHeadLeft}>
-            上一步
+            Prev
           </Button>
           <Button type="primary" icon={IconArrowHeadRight} submit>
-            保存
+            Submit
           </Button>
         </ButtonGroup>
       </Form>
@@ -156,7 +156,7 @@ export const ExampleStoryBook = () => {
           Form['form1'].submit()
         }}
       >
-        外部按钮提交
+        Submit
       </Button>
       <div style={{ whiteSpace: 'pre' }}>{JSON.stringify(data, null, 2)}</div>
     </div>
