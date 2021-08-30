@@ -171,6 +171,18 @@
         overflow: hidden;
         pointer-events: none;
       }
+
+      &-size-small {
+        .title-text {
+          line-height: 26px;
+        }
+        font-size: 14px;
+        table {
+          td {
+            height: 50px;
+          }
+        }
+      }
     }
   }
 }

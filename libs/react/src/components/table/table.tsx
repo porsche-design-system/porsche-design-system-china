@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { IconDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
+import { useDefaultSize } from '../../shared/hooks'
 import './table.scss'
 
 export enum SortType {
@@ -46,6 +47,9 @@ export interface TableProps {
   /* 最大行数 */
   maxRows?: number
 
+  /* 大小 */
+  size: 'medium' | 'small'
+
   /* 排序事件 */
   onSort?: (sorter: Sorter) => void
 
@@ -64,6 +68,7 @@ const Table = ({
   onSort,
   onSelect,
   maxRows,
+  size,
   selectable = false,
   defaultSorter = {}
 }: TableProps) => {
@@ -72,8 +77,10 @@ const Table = ({
   const rightColumns: TableColumn[] = []
   const [allChecked, setAllChecked] = useState(false)
   const [partChecked, setPartChecked] = useState(false)
-
   const [selectedRows, setSelectedRows] = useState<number[]>([])
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
+
   useEffect(() => {
     setSelectedRows([])
   }, [data])
@@ -255,7 +262,7 @@ const Table = ({
         onClick={() => sortCallback(column)}
       >
         <div className="title-content">
-          {column.title || ''}
+          <span className="title-text">{column.title || ''}</span>
           {column.sortable && (
             <span className="sort-btn">
               <IconDown
@@ -335,7 +342,7 @@ const Table = ({
 
   return (
     <div
-      className={componentClassNames('pui-table', {}, className)}
+      className={componentClassNames('pui-table', { size }, className)}
       style={style}
     >
       <div ref={wheelMove}>
