@@ -3,6 +3,7 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 import { FormItem } from '../form/form-item'
 
 import './switch.scss'
@@ -21,6 +22,9 @@ export interface SwitchProps<T> {
 
   /* 默认值 */
   defaultValue?: T
+
+  /* 大小 */
+  size?: 'small' | 'medium'
 
   /* 值 */
   value?: T
@@ -42,9 +46,13 @@ const Switch = FormItem(
     value,
     onValueChange,
     alterValues,
+    size,
     defaultValue
   }: SwitchProps<T>) => {
     let switchValues: [any, any] = [false, true]
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
+
     if (alterValues === 'FalseOrTrue') {
       switchValues = [false, true]
     } else if (alterValues === 'ZeroOrOne') {
@@ -82,7 +90,8 @@ const Switch = FormItem(
           'pui-switch',
           {
             disabled: disabled + '',
-            enabled: (switchValue === switchValues[1]) + ''
+            enabled: (switchValue === switchValues[1]) + '',
+            size
           },
           className
         )}

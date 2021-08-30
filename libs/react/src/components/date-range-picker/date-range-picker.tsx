@@ -18,7 +18,7 @@ import {
 } from '../../shared/date-utils'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
-import { usePopShowState } from '../../shared/hooks'
+import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './date-range-picker.scss'
 
@@ -40,6 +40,9 @@ export interface DateRangePickerProps {
 
   /* 值 */
   value?: string[]
+
+  /* 大小 */
+  size?: 'medium' | 'small'
 
   /* 占位符开始日期 */
   placeholderStartDate?: string
@@ -64,6 +67,7 @@ const DateRangePicker = FormItem(
     value,
     defaultValue,
     onValueChange,
+    size,
     error,
     range,
     placeholderStartDate,
@@ -87,6 +91,8 @@ const DateRangePicker = FormItem(
       [],
       []
     ])
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
 
     // 预选
     const [prePickedDates, setPrePickedDates] = useState<
@@ -351,7 +357,11 @@ const DateRangePicker = FormItem(
       <div
         className={componentClassNames(
           'pui-date-range-picker',
-          { disabled: disabled + '', error: error ? error.show + '' : 'false' },
+          {
+            disabled: disabled + '',
+            error: error ? error.show + '' : 'false',
+            size
+          },
           className
         )}
       >

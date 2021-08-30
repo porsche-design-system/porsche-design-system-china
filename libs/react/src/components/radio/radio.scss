@@ -46,21 +46,23 @@
       }
 
       &-size-small {
+        font-size: 14px;
         input {
           width: 16px;
           height: 16px;
-          margin-top: 4px;
+          margin-top: 3px;
+          margin-right: 4px;
         }
 
         input:checked ~ .pui-radio-checkmark {
           width: 8px;
           height: 8px;
           left: 4px;
-          top: 8px;
+          top: 7px;
         }
       }
 
-      &-size-default {
+      &-size-medium {
         input {
           width: 20px;
           height: 20px;

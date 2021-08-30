@@ -3,6 +3,7 @@ import { IconSearch } from '@pui/icons'
 
 import { Input } from '../input/input'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 
 import './search.scss'
 
@@ -40,6 +41,9 @@ export interface SearchProps {
   /* 最大长度 */
   maxLength?: number
 
+  /* 大小 */
+  size?: 'medium' | 'small'
+
   /* 文字改变事件 */
   onValueChange?: (value: string) => void
 
@@ -56,6 +60,7 @@ const Search = ({
   value,
   defaultValue,
   width,
+  size,
   onValueChange,
   showClearButton,
   marginLeft,
@@ -63,12 +68,14 @@ const Search = ({
   onSearch
 }: SearchProps) => {
   const [searchValue, setSearchValue] = useState(value || defaultValue || '')
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
 
   return (
     <div
       className={componentClassNames(
         'pui-search',
-        { 'show-clear-button': showClearButton + '' },
+        { 'show-clear-button': showClearButton + '', size },
         className
       )}
       style={{ width, marginLeft, marginRight, ...style }}

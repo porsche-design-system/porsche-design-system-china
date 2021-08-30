@@ -73,14 +73,16 @@
       }
 
       &-size-small {
+        font-size: 14px;
         input {
           width: 16px;
           height: 16px;
-          margin-top: 4px;
+          margin-top: 3px;
+          margin-right: 4px;
         }
 
         .pui-checkbox-checkmark {
-          top: -1px;
+          top: 0px;
           left: 1px;
           .porscheicon {
             font-size: 14px;
@@ -89,7 +91,7 @@
 
         .pui-checkbox-part-checkmark {
           position: absolute;
-          top: 4px;
+          top: 3px;
           left: 0px;
           transition: all 0.1s;
           width: 16px;
@@ -106,7 +108,7 @@
         }
       }
 
-      &-size-default {
+      &-size-medium {
         input {
           width: 20px;
           height: 20px;

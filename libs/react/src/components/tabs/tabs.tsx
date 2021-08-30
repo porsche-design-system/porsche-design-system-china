@@ -3,8 +3,10 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
 import React, { CSSProperties, useEffect, useState } from 'react'
+import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
 import { TabPaneProps } from './tabpane'
+
 import './tabs.scss'
 
 export interface TabsProps {
@@ -20,7 +22,7 @@ export interface TabsProps {
   style?: CSSProperties
 
   /** 大小 */
-  size?: 'default' | 'small'
+  size?: 'medium' | 'small'
 
   /** 默认选中的面板  */
   defaultActiveKey?: string
@@ -32,12 +34,14 @@ export interface TabsProps {
 const Tabs = ({
   className,
   style,
-  size = 'default',
+  size,
   defaultActiveKey = '',
   children,
   onActiveKeyChange
 }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey)
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
 
   const tabHead: TabPaneProps[] = []
   let keyIndex = 0
@@ -72,7 +76,7 @@ const Tabs = ({
         {tabHead.map((tabProps, inx) => (
           <div
             className={componentClassNames('pui-tab', {
-              size,
+              size: size as string,
               active: (tabProps.tabKey === tabActiveKey) + ''
             })}
             key={'TabKey' + inx}

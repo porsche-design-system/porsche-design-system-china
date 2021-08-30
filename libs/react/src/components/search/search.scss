@@ -36,6 +36,13 @@
       .pui-search-button :hover {
         color: $text-color-1;
       }
+
+      &-size-small {
+        .pui-search-button {
+          top: 7px;
+          right: 7px;
+        }
+      }
     }
   }
 }
