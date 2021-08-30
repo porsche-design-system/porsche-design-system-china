@@ -46,15 +46,6 @@ export const RadioStoryBook = () => {
 
         <br />
 
-        <div>Small Size</div>
-        <RadioGroup>
-          <Radio text="选项1" size="small" />
-          <Radio text="选项2" size="small" />
-          <Radio text="选项3" size="small" />
-        </RadioGroup>
-
-        <br />
-
         <div>Error</div>
         <RadioGroup
           label={{ text: '职业', position: 'left' }}

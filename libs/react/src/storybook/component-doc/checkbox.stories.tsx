@@ -36,17 +36,7 @@ export const CheckBoxStoryBook = () => {
         <CheckBox text="失效选项" disabled />
       </div>
       <br />
-      <div>
-        <div>Small Size</div>
-        <div>
-          <CheckBoxGroup>
-            <CheckBox text="选项1" size="small" checked />
-            <CheckBox text="选项2" size="small" />
-            <CheckBox text="半选状态" size="small" partChecked />
-          </CheckBoxGroup>
-        </div>
-      </div>
-      <br />
+
       <div>
         <div>With Label</div>
         <div>

@@ -1,5 +1,6 @@
 import { IconCheck, IconMinus } from '@pui/icons'
 import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './checkbox.scss'
 
@@ -23,7 +24,7 @@ export interface CheckBoxProps {
   disabled?: boolean
 
   /* 大小 */
-  size?: 'default' | 'small'
+  size?: 'medium' | 'small'
 
   /* 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
@@ -55,7 +56,7 @@ const CheckBox = ({
   text = '',
   value,
   disabled = false,
-  size = 'default',
+  size,
   checked,
   defaultChecked,
   partChecked,
@@ -63,6 +64,8 @@ const CheckBox = ({
   onCheckedChange
 }: CheckBoxProps) => {
   const id = useMemo(() => generateId(), [])
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
 
   return (
     <label

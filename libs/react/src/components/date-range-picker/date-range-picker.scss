@@ -244,6 +244,26 @@
         border-left: 1px solid $border-color-1;
         width: 341px;
       }
+
+      &-size-small {
+        height: 36px;
+        font-size: 14px;
+        input {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-date-range-picker-icon {
+          top: 6px;
+        }
+        .pui-date-range-picker-clear-icon {
+          margin-top: 6px;
+        }
+
+        .pui-date-range-picker-calendar {
+          font-size: 14px;
+        }
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './radio.scss'
 
@@ -30,7 +31,7 @@ export interface RadioProps {
   defaultChecked?: boolean
 
   /* 大小 */
-  size?: 'default' | 'small'
+  size?: 'medium' | 'small'
 
   /* 选定事件 */
   onCheckedChange?: (checked: boolean) => void
@@ -59,9 +60,11 @@ const Radio = (props: RadioProps) => {
     onChange,
     onCheckedChange,
     checked,
-    defaultChecked,
-    size = 'default'
+    defaultChecked
   } = props
+
+  const [defaultSize] = useDefaultSize()
+  const size = props.size || defaultSize
 
   return (
     <label

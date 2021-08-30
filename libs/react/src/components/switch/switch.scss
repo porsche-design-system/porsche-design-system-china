@@ -62,6 +62,25 @@
           cursor: not-allowed;
         }
       }
+
+      &-size-small {
+        .pui-switch-bar {
+          height: 16px;
+          border-radius: 8px;
+          width: 32px;
+        }
+        .pui-switch-button {
+          width: 14px;
+          height: 14px;
+          top: 1px;
+          left: 1px;
+        }
+      }
+    }
+    .pui-switch-enabled-true.pui-switch-size-small {
+      .pui-switch-button {
+        left: 17px;
+      }
     }
   }
 }
