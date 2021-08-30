@@ -18,6 +18,10 @@ export const PUI = {
     if (getGlobalStateSetter('DEFAULT_SIZE')) {
       getGlobalStateSetter('DEFAULT_SIZE')(size)
     }
+    document.body.className =
+      document.body.className.replace(/pui-default-size-[^ ]+/, '') +
+      ' pui-default-size-' +
+      size
   },
   getDefaultSize() {
     return this['_defaultSize'] || 'medium'
@@ -27,4 +31,8 @@ export const PUI = {
 
 if (document.body.className.indexOf('pui-theme-') < 0) {
   PUI.setTheme('light')
+}
+
+if (document.body.className.indexOf('pui-default-size-') < 0) {
+  PUI.setDefaultSize('medium')
 }
