@@ -100,15 +100,15 @@ const ListItem: FC<UploadListProps> = props => {
 
   const removeIcon = showRemoveIcon
     ? actionIconRender(
-        (typeof customRemoveIcon === 'function'
-          ? customRemoveIcon(file)
-          : customRemoveIcon) || <IconDelete />,
-        () => {
-          handleStopUpload()
-        },
-        prefixCls,
-        locale.removeFile
-      )
+      (typeof customRemoveIcon === 'function'
+        ? customRemoveIcon(file)
+        : customRemoveIcon) || <IconDelete />,
+      () => {
+        handleStopUpload()
+      },
+      prefixCls,
+      locale.removeFile
+    )
     : null
 
   const downloadOrDelete = listType !== 'picture-card' && (
@@ -125,31 +125,31 @@ const ListItem: FC<UploadListProps> = props => {
 
   const preview = file.url
     ? [
-        <a
-          key="view"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={listItemNameClass}
-          title={file.name}
-          {...linkProps}
-          href={file.url}
-          onClick={e => onPreview(file, e)}
-        >
-          {file.name}
-        </a>,
-        downloadOrDelete
-      ]
+      <a
+        key="view"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={listItemNameClass}
+        title={file.name}
+        {...linkProps}
+        href={file.url}
+        onClick={e => onPreview(file, e)}
+      >
+        {file.name}
+      </a>,
+      downloadOrDelete
+    ]
     : [
-        <span
-          key="view"
-          className={listItemNameClass}
-          // onClick={e => onPreview(file, e)}
-          title={file.name}
-        >
-          {file.name}
-        </span>,
-        downloadOrDelete
-      ]
+      <span
+        key="view"
+        className={listItemNameClass}
+        // onClick={e => onPreview(file, e)}
+        title={file.name}
+      >
+        {file.name}
+      </span>,
+      downloadOrDelete
+    ]
   const previewStyle: React.CSSProperties = {
     pointerEvents: 'none',
     opacity: 0.5
