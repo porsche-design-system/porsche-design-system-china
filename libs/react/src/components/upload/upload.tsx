@@ -251,7 +251,7 @@ const Upload: FC<UploadProps> = props => {
   } = {} as ShowUploadListInterface
 
   const prefixCls = 'pui-upload'
-
+  const defaultAccept = listType === 'picture-card' ? 'image/*' : accept
   const uploadButton = (
     <div
       className={classnames(`${prefixCls}-container`, {
@@ -301,7 +301,7 @@ const Upload: FC<UploadProps> = props => {
         className="pui-file-input"
         style={{ display: 'none' }}
         ref={fileInput}
-        accept={accept}
+        accept={defaultAccept}
         multiple={multiple}
         onChange={handleFileChange}
         disabled={disabled}
