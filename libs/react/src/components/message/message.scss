@@ -24,12 +24,11 @@
 
         .porscheicon {
           font-size: 28px;
-          &.porscheicon-icon_-close{
-            color:$text-color-1 !important;
+          &.porscheicon-icon_-close {
+            color: $text-color-1 !important;
           }
         }
 
-       
         .text-content {
           margin-right: 20px;
           margin-left: 10px;
@@ -61,6 +60,28 @@
             color: $status-neutral-color;
           }
         }
+      }
+    }
+  }
+}
+
+.pui-theme-dark {
+  .pui-message {
+    .message-text {
+      &.error {
+        border: 1px solid rgba(252, 23, 23, 0.3);
+      }
+
+      &.success {
+        border: 1px solid rgba(1, 186, 29, 0.3);
+      }
+
+      &.warning {
+        border: 1px solid rgba(255, 155, 0, 0.3);
+      }
+
+      &.info {
+        border: 1px solid rgba(33, 147, 255, 0.3);
       }
     }
   }
