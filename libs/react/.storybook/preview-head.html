@@ -195,18 +195,17 @@
   setTimeout(() => {
     document.getElementById('docs-root').addEventListener(
       'DOMSubtreeModified',
-      function () {
-        if (new Date().getTime() - time > 200) {
+      () => {
+        if (new Date().getTime() - time > 1000) {
           time = new Date().getTime()
           setTimeout(() => {
-            if (
-              document.getElementsByClassName('docblock-argstable').length == 0
-            ) {
+            if (document.getElementsByClassName('sbdocs-title').length == 0) {
               return
             }
+
             const argTable =
-              document.getElementsByClassName('docblock-argstable')[0]
-                .parentNode
+              document.getElementsByClassName('sbdocs-title')[0].parentNode
+                .children[2]
             const argTableParentNode = argTable.parentNode
             if (
               argTableParentNode.childNodes[
