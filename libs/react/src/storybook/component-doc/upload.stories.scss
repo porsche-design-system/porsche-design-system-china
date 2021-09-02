@@ -7,3 +7,28 @@
   text-transform: uppercase;
   margin-bottom: 20px;
 }
+
+.upload-component-list {
+  display: flex;
+  align-items: center;
+
+  .pui-upload-picture-card {
+    margin-right: 60px;
+  }
+
+  .pui-upload-list-picture-card {
+    display: flex;
+  }
+
+  .uploaded-tip {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .uploading-list,
+  .uploaded-list {
+    .pui-upload-list-picture-card-container {
+      margin-right: 60px !important;
+    }
+  }
+}
