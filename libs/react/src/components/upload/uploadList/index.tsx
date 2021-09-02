@@ -49,7 +49,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (listType !== 'picture' && listType !== 'picture-card') {
       return
     }
-    ;(fileList || []).forEach((file: UploadFile) => {
+    ; (fileList || []).forEach((file: UploadFile) => {
       if (
         typeof document === 'undefined' ||
         typeof window === 'undefined' ||
@@ -123,7 +123,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (isValidElement(customIcon)) {
       const btnIcon = cloneElement(customIcon, {
         ...customIcon.props,
-        onClick: () => {}
+        onClick: () => { }
       })
 
       return <Button {...btnProps} icon={btnIcon} />
