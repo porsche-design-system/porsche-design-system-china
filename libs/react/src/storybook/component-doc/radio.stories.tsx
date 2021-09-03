@@ -8,8 +8,6 @@ export default {
 }
 
 export const RadioStoryBook = () => {
-  const [showError, setShowError] = useState(true)
-
   return (
     <div>
       <Form>
@@ -66,28 +64,25 @@ export const RadioStoryBook3 = () => (
 )
 RadioStoryBook3.storyName = 'With Label'
 
-
 export const RadioStoryBook4 = () => {
-  return(
-  <div>
-    <RadioGroup
-      error={{show:true, message: '请选择'}}
-    >
-      <Radio text="教师" value="教师" />
-      <Radio text="医生" value="医生" />
-      <Radio text="警察" value="警察" />
-      <Radio text="律师" value="律师" />
-    </RadioGroup>
-  </div>
+  return (
+    <div>
+      <RadioGroup error={{ show: true, message: '请选择' }}>
+        <Radio text="教师" value="教师" />
+        <Radio text="医生" value="医生" />
+        <Radio text="警察" value="警察" />
+        <Radio text="律师" value="律师" />
+      </RadioGroup>
+    </div>
   )
 }
 RadioStoryBook4.storyName = 'Error'
 
 export const RadioStoryBook5 = () => {
-  return(
-  <div>
-   <RadioGroup options="教师,医生,警察,律师" />
-  </div>
+  return (
+    <div>
+      <RadioGroup options="教师,医生,警察,律师" />
+    </div>
   )
 }
 RadioStoryBook5.storyName = 'String Options'
