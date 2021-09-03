@@ -37,10 +37,7 @@ CheckBoxStoryBook.storyName = 'CheckBox'
 export const CheckBoxStoryBook1 = () => {
   return (
     <div>
-      <CheckBoxGroup
-        label="兴趣爱好"
-        width="300px"
-      >
+      <CheckBoxGroup label="兴趣爱好" width="300px">
         <CheckBox text="唱歌" value="singing" />
         <CheckBox text="玩游戏" value="gaming" />
         <CheckBox text="跳舞" value="dance" />
@@ -48,7 +45,7 @@ export const CheckBoxStoryBook1 = () => {
         <CheckBox text="听音乐" value="music" />
         <CheckBox text="瑜伽" value="yoga" />
       </CheckBoxGroup>
-  </div>
+    </div>
   )
 }
 
