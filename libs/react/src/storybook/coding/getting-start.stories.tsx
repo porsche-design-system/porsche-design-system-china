@@ -14,7 +14,7 @@ const GettingStart = () => (
     <div className="code">
       strict-ssl=false
       <br />
-      @pui:registry=http://52.83.74.69:4111
+      @pui:registry=http://s1.web.porsche-preview.cn
     </div>
     <br />
     <div>安装PUI依赖</div>
