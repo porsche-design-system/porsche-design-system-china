@@ -21,9 +21,9 @@
     "pipeline-generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "npm run entry && p-tools build --watch",
     "build": "npm run eslint && p-tools build",
-    "vinstall": "npm install --registry http://s1.web.porsche-preview.cn",
-    "vremove": "npm unpublish @pui/icons@0.0.3 --registry http://s1.web.porsche-preview.cn",
-    "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn",
+    "vinstall": "npm install --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
+    "vremove": "npm unpublish @pui/icons@0.0.3 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
+    "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006 --docs",
     "build-storybook": "build-storybook"
