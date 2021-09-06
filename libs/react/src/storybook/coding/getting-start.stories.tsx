@@ -18,7 +18,16 @@ const GettingStart = () => (
     </div>
     <br />
     <div>安装PUI依赖</div>
-    <div>安装依赖的时候需要连接到保时捷内网，或在公司Wifi环境</div>
+    <div>安装依赖的时候需要连接到保时捷内网，或在保时捷公司Wifi环境</div>
+    <div>
+      连接内网工具请前往
+      <a
+        style={{ marginLeft: '5px', textDecoration: 'underline' }}
+        href="https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN"
+      >
+        https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN
+      </a>
+    </div>
     <div className="cmd">yarn add @pui/react</div>
     <br />
     <div>引用组件使用即可，引用任何组件即可设置好主题，字体</div>
