@@ -4,7 +4,7 @@
   "command": {
     "publish": {
       "message": "chore(release): publish",
-      "registry": "http://s1.web.porsche-preview.cn",
+      "registry": "http://s1.web.porsche-preview.cn/repository/npm-hosted/",
       "allowBranch": ["master", "feature/*", "develop", "staging"]
     },
     "bootstrap": {

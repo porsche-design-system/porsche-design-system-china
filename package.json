@@ -2,14 +2,10 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn",
-    "_bootstrap": "# 将公共依赖包提取并安装各自的依赖 \n lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn",
+    "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "prepublish": "lerna run prod",
     "publish": "lerna publish",
-    "publish:69": "lerna publish --registry http://s1.web.porsche-preview.cn",
-    "_publish:69": "# 将所有包发布到 69 库上 \n lerna publish --registry http://s1.web.porsche-preview.cn",
-    "publish:nogit": "npm run publish --  --skip-git --registry http://s1.web.porsche-preview.cn",
-    "_publish:nogit": "# ignore Git 提交 并将所有包发布到 69 库 \n npm run publish --  --skip-git --registry http://s1.web.porsche-preview.cn",
+    "publish:nogit": "npm run publish --  --skip-git --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "remove": "lerna run vremove",
     "rp": "npm run remove \n npm run publish:nogit",
     "all": "npm-run-all remove publish:nogit"

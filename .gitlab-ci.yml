@@ -31,8 +31,8 @@ build:
       - ./libs/react/lib
   script:
     - echo "building artifacts"
-    - sed -i "s/http:\/\/s1.web.porsche-preview.cn/http:\/\/172.31.49.148:4001/g" ./.npmrc
-    - sed -i "s/http:\/\/s1.web.porsche-preview.cn/http:\/\/172.31.49.148:4001/g" ./lerna.json
+    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./.npmrc
+    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./package.json
     - unset CI
     - pwd && du -sh *
     - lerna ls
