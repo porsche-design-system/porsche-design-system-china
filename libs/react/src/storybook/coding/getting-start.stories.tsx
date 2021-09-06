@@ -18,13 +18,25 @@ const GettingStart = () => (
     </div>
     <br />
     <div>安装PUI依赖</div>
-    <div>主要安装依赖的时候需要连接到保时捷内网，或在公司Wifi环境</div>
+    <div>安装依赖的时候需要连接到保时捷内网，或在公司Wifi环境</div>
     <div className="cmd">yarn add @pui/react</div>
     <br />
     <div>引用组件使用即可，引用任何组件即可设置好主题，字体</div>
     <div className="code">
       import {'{'}Form, Input, Button{'}'} from '@pui/react';
     </div>
+    <br />
+    <div>
+      使用保时捷Gitlab Runner部署编译项目，需要将.npmrc中的
+      s1.web.porsche-preview.cn 替换为 web.devops.porsche-internaldns.cn:4001
+    </div>
+    修改文件 .gitlab-ci.yml 在运行npm install前加入以下代码
+    <div className="cmd">
+      - sed -i
+      "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
+      ./.npmrc
+    </div>
+    <br />
   </div>
 )
 
