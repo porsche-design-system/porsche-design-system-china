@@ -18,6 +18,7 @@ const GettingStart = () => (
     </div>
     <br />
     <div>安装PUI依赖</div>
+    <div>主要安装依赖的时候需要连接到保时捷内网，或在公司Wifi环境</div>
     <div className="cmd">yarn add @pui/react</div>
     <br />
     <div>引用组件使用即可，引用任何组件即可设置好主题，字体</div>
