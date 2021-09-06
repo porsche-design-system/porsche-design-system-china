@@ -14,7 +14,7 @@ const GettingStart = () => (
     <div className="code">
       strict-ssl=false
       <br />
-      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-proxy/
+      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-hosted/
     </div>
     <br />
     <div>安装PUI依赖</div>
