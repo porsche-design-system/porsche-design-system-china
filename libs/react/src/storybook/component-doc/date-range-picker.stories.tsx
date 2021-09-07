@@ -7,9 +7,8 @@ export default {
 }
 
 export const DateRangePickerStoryBook = () => {
-  const [dates, setDates] = useState(['', ''])
   return (
-    <div style={{ height: '600px' }}>
+    <div style={{ height: '450px' }}>
       <DateRangePicker
         width="400px"
         label="来访日期"
@@ -19,30 +18,35 @@ export const DateRangePickerStoryBook = () => {
           console.log(v)
         }}
       />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    </div>
+  )
+}
+DateRangePickerStoryBook.storyName = 'DateRangePicker'
+
+export const DateRangePickerStoryBook1 = () => {
+  const [dates, setDates] = useState(['', ''])
+  return (
+    <div style={{ height: '450px' }}>
       <DateRangePicker
         width="400px"
         label="来访日期"
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
         nameStartDate="startDate"
-        nameEndDate="startDate"
+        nameEndDate="endDate"
         value={dates}
         onValueChange={setDates}
       />
       <br />
       输出值：{JSON.stringify(dates)}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+    </div>
+  )
+}
+DateRangePickerStoryBook1.storyName = 'Data Binding'
+
+export const DateRangePickerStoryBook2 = () => {
+  return (
+    <div style={{ height: '450px' }}>
       <DateRangePicker
         width="400px"
         label="限定日期"
@@ -50,12 +54,7 @@ export const DateRangePickerStoryBook = () => {
         placeholderEndDate="结束日期"
         range="2012-10-12,2012-12-12"
       />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   )
 }
+DateRangePickerStoryBook2.storyName = 'Limited Date'
