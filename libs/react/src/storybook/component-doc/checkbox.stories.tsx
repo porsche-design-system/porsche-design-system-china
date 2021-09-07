@@ -64,3 +64,16 @@ export const CheckBoxStoryBook2 = () => {
 }
 
 CheckBoxStoryBook2.storyName = 'Error'
+
+export const CheckBoxStoryBook3 = () => {
+  return (
+    <div>
+      <CheckBoxGroup
+        label={{ text: '热门电影', position: 'left' }}
+        options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
+      />
+    </div>
+  )
+}
+
+CheckBoxStoryBook3.storyName = 'String Options'
