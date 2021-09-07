@@ -204,12 +204,15 @@
             }
 
             const argTable =
-              document.getElementsByClassName('sbdocs-title')[0].parentNode
-                .children[2]
+              document.getElementsByClassName('docblock-argstable')[0]
+                .parentNode
+            if (argTable.parentNode.id === 'panel-tab-content') {
+              argTable = argTable.parentNode.parentNode
+            }
             const argTableParentNode = argTable.parentNode
             if (
-              argTableParentNode.childNodes[
-                argTableParentNode.childNodes.length - 1
+              argTableParentNode.children[
+                argTableParentNode.children.length - 1
               ] != argTable
             ) {
               argTableParentNode.removeChild(argTable)
