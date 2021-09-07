@@ -29,14 +29,7 @@ const GettingStart = () => (
     </div>
     <br />
     <div>在 hosts 中添加</div>
-    <div className="cmd">
-      52.81.186.255 efk.porsche-preview.cn s1.web.porsche-preview.cn
-      s2.web.porsche-preview.cn s3.web.porsche-preview.cn
-      s4.web.porsche-preview.cn s4.web.porsche-preview.cn
-      s5.web.porsche-preview.cn s6.web.porsche-preview.cn
-      s7.web.porsche-preview.cn s8.web.porsche-preview.cn
-      s9.web.porsche-preview.cn
-    </div>
+    <div className="cmd">52.81.186.255 s1.web.porsche-preview.cn</div>
     <br />
     <div>安装PUI依赖</div>
     <div className="cmd">yarn add @pui/react</div>
