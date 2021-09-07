@@ -27,6 +27,15 @@ export const InputNumberStoryBook = () => {
           />
         </div>
       </div>
+    </div>
+  )
+}
+
+InputNumberStoryBook.storyName = 'InputNumber'
+
+export const InputNumberStoryBook1 = () => {
+  return (
+    <div className="input-number-story">
       <div className="group">
         <div className="title">箭头数字加减器</div>
         <div className="show-case">
@@ -51,4 +60,4 @@ export const InputNumberStoryBook = () => {
   )
 }
 
-InputNumberStoryBook.storyName = 'InputNumber'
+InputNumberStoryBook1.storyName = 'Arrow InputNumber'
