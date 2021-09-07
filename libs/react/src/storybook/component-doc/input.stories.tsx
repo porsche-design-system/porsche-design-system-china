@@ -9,7 +9,7 @@ export default {
 }
 
 export const InputsStoryBook = () => {
-   return (
+  return (
     <Row>
       <Col span={12}>
         <div className="states">Default</div>
@@ -26,13 +26,13 @@ export const InputsStoryBook = () => {
     </Row>
   )
 }
-InputsStoryBook.storyName ='Input'
+InputsStoryBook.storyName = 'Input'
 
-export const InputsStoryBook1 = () =>{
+export const InputsStoryBook1 = () => {
   return (
     <Row>
       <Col span={12}>
-      <div className="states">Max Length</div>
+        <div className="states">Max Length</div>
         <div>
           <Input placeholder="最多输入150个字符" maxLength={150} />
         </div>
@@ -44,11 +44,11 @@ export const InputsStoryBook1 = () =>{
 
 InputsStoryBook1.storyName = 'MAX LENGTH'
 
-export const InputsStoryBook2 = () =>{
+export const InputsStoryBook2 = () => {
   return (
     <Row>
       <Col span={12}>
-      <div className="states">Label Top</div>
+        <div className="states">Label Top</div>
         <div>
           <Input
             label="姓名"
@@ -65,11 +65,11 @@ export const InputsStoryBook2 = () =>{
 
 InputsStoryBook2.storyName = 'Label Top'
 
-export const InputsStoryBook3 = () =>{
+export const InputsStoryBook3 = () => {
   return (
     <Row>
       <Col span={12}>
-      <div className="states">Label Left</div>
+        <div className="states">Label Left</div>
         <div>
           <Form>
             <Input
@@ -93,11 +93,11 @@ export const InputsStoryBook3 = () =>{
 
 InputsStoryBook3.storyName = 'Label Left'
 
-export const InputsStoryBook4 = () =>{
+export const InputsStoryBook4 = () => {
   return (
     <Row>
       <Col span={12}>
-      <div className="states">Label Left / Text Align Right</div>
+        <div className="states">Label Left / Text Align Right</div>
         <div>
           <Form>
             <Input
@@ -121,11 +121,11 @@ export const InputsStoryBook4 = () =>{
 
 InputsStoryBook4.storyName = 'Label Left / Text Align Right'
 
-export const InputsStoryBook5 = () =>{
+export const InputsStoryBook5 = () => {
   return (
     <Row>
       <Col span={12}>
-      <div className="states">Password</div>
+        <div className="states">Password</div>
         <div>
           <Input type="password" placeholder="请输入密码" />
         </div>
@@ -136,7 +136,6 @@ export const InputsStoryBook5 = () =>{
 }
 
 InputsStoryBook5.storyName = 'PASSWORD'
-
 
 export const InputsStoryBook6 = () => {
   return (
@@ -156,22 +155,20 @@ InputsStoryBook6.storyName = 'Show Clear Button'
 
 export const InputsStoryBook7 = () => {
   return (
-  <Row>
-    <Col span={12}>
-      <div className="states">Show View Password Button</div>
-      <div>
-        <Input
-          type="password"
-          placeholder="点击右侧按钮显示密码"
-          showViewPasswordButton
-        />
-      </div>
-      <br />
-    </Col>
-  </Row>
+    <Row>
+      <Col span={12}>
+        <div className="states">Show View Password Button</div>
+        <div>
+          <Input
+            type="password"
+            placeholder="点击右侧按钮显示密码"
+            showViewPasswordButton
+          />
+        </div>
+        <br />
+      </Col>
+    </Row>
   )
 }
 
 InputsStoryBook7.storyName = 'Show View Password Button'
-
-
