@@ -1,6 +1,8 @@
 {
-  "name": "root",
   "private": true,
+  "workspaces": [
+    "libs/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn/repository/npm-proxy/",
     "prepublish": "lerna run prod",
