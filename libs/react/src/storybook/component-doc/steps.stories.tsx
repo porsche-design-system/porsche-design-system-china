@@ -39,6 +39,23 @@ export const StepsStoryBook = () => {
               </Steps>
             </Col>
           </Row>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+StepsStoryBook.storyName = 'Steps'
+
+export const StepsStoryBook1 = () => {
+  const handleCurrentChange = (current: number) => {
+    console.log(current)
+  }
+  return (
+    <div className="steps-story">
+      <div className="group">
+        <div className="title">基础横向步骤条</div>
+        <div className="show-case">
           <div className="states">size small</div>
           <Row>
             <Col span={1} />
@@ -62,6 +79,18 @@ export const StepsStoryBook = () => {
           </Row>
         </div>
       </div>
+    </div>
+  )
+}
+
+StepsStoryBook1.storyName = 'Steps Small'
+
+export const StepsStoryBook2 = () => {
+  const handleCurrentChange = (current: number) => {
+    console.log(current)
+  }
+  return (
+    <div className="steps-story">
       <div className="group">
         <div className="title">可点击横向步骤条</div>
         <div className="show-case">
@@ -86,4 +115,4 @@ export const StepsStoryBook = () => {
   )
 }
 
-StepsStoryBook.storyName = 'Steps'
+StepsStoryBook2.storyName = 'Steps Clickable'

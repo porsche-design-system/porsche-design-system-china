@@ -8,21 +8,6 @@ export default {
 }
 
 export const SliderStoryBook = () => {
-  const [value,setValue] = useState(60);
-  const marks = [
-    {value:0,label:'0%'},
-    {value:25,label:'25%'},
-    {value:50,label:'50%'},
-    {value:75,label:'75%'},
-    {value:100,label:'100%'},
-  ]
-  const tipFormatter = (value:number|Array<number>) => {
-    if(Array.isArray(value)){
-      return [value[0]+'%',value[1]+'%'];
-    }else{
-      return value+'%';
-    }
-  };
   return (
     <div className="slider-story">
       <div className="group">
@@ -39,6 +24,15 @@ export const SliderStoryBook = () => {
           </Row>
         </div>
       </div>
+    </div>
+  )
+}
+
+SliderStoryBook.storyName = 'Slider'
+
+export const SliderStoryBook1 = () => {
+  return (
+    <div className="slider-story">
       <div className="group">
         <div className="title">禁用状态</div>
         <div className="show-case">
@@ -53,6 +47,16 @@ export const SliderStoryBook = () => {
           </Row>
         </div>
       </div>
+    </div>
+  )
+}
+
+SliderStoryBook1.storyName = 'Slider Status'
+
+export const SliderStoryBook2 = () => {
+  const [value,setValue] = useState(60);
+  return (
+    <div className="slider-story">
       <div className="group">
         <div className="title">数字加减器+滑块</div>
         <div className="show-case">
@@ -76,6 +80,29 @@ export const SliderStoryBook = () => {
           </Row>
         </div>
       </div>
+    </div>
+  )
+}
+
+SliderStoryBook2.storyName = 'Slider And InputNumber'
+
+export const SliderStoryBook3 = () => {
+  const marks = [
+    {value:0,label:'0%'},
+    {value:25,label:'25%'},
+    {value:50,label:'50%'},
+    {value:75,label:'75%'},
+    {value:100,label:'100%'},
+  ]
+  const tipFormatter = (value:number|Array<number>) => {
+    if(Array.isArray(value)){
+      return [value[0]+'%',value[1]+'%'];
+    }else{
+      return value+'%';
+    }
+  };
+  return (
+    <div className="slider-story">
       <div className="group" style={{marginBottom:40}}>
         <div className="title">节点区间滑块</div>
         <div className="show-case">
@@ -108,4 +135,4 @@ export const SliderStoryBook = () => {
   )
 }
 
-SliderStoryBook.storyName = 'Slider'
+SliderStoryBook3.storyName = 'Node Interval Slider'

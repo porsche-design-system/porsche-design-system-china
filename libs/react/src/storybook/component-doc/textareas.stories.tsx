@@ -4,7 +4,8 @@ import { Col, Row, TextArea } from '../..'
 import './textareas.stories.scss'
 
 export default {
-  title: 'Data Entry/TextArea'
+  title: 'Data Entry/TextArea',
+  component:  TextArea
 }
 
 export const InputsStoryBook = () => {
@@ -21,11 +22,53 @@ export const InputsStoryBook = () => {
           <TextArea placeholder="请输入" disabled />
         </div>
         <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook.storyName = 'TextArea'
+
+export const InputsStoryBook1 = () => {
+  return (
+    <Row>
+      <Col span={12}>
         <div className="states">Max Length</div>
         <div>
           <TextArea placeholder="最多输入200个字符" maxLength={200} />
         </div>
         <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook1.storyName = 'MAX LENGTH'
+
+export const InputsStoryBook2 = () => {
+  return (
+    <Row>
+      <Col span={12}>
+        <div className="states">Error</div>
+        <div>
+          <TextArea
+            label="备注"
+            placeholder="请输入"
+            error={{ show: true, message: '输入信息有误' }}
+          />
+        </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook2.storyName = 'Error'
+
+export const InputsStoryBook3 = () => {
+  return (
+    <Row>
+      <Col span={12}>
         <div className="states">Label Top</div>
         <div>
           <TextArea
@@ -35,6 +78,17 @@ export const InputsStoryBook = () => {
           />
         </div>
         <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook3.storyName = 'LABEL TOP'
+
+export const InputsStoryBook4 = () => {
+  return (
+    <Row>
+      <Col span={12}>
         <div className="states">Label Left</div>
         <div>
           <TextArea
@@ -42,6 +96,18 @@ export const InputsStoryBook = () => {
             placeholder="请输入"
           />
         </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook4.storyName = 'LABEL LEFT'
+
+export const InputsStoryBook5 = () => {
+  return (
+    <Row>
+      <Col span={12}>
         <div className="states">Label Left / Text Align Right</div>
         <div>
           <TextArea
@@ -49,7 +115,10 @@ export const InputsStoryBook = () => {
             placeholder="请输入"
           />
         </div>
+        <br />
       </Col>
     </Row>
   )
 }
+
+InputsStoryBook5.storyName = 'Label Left / Text Align Right'
