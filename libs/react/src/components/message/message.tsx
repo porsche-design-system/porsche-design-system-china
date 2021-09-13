@@ -25,7 +25,7 @@ export interface MessageConfig {
   delay: number
 
   /** 结束后回调 */
-  callback: any
+  callback?: ()=>void
 
   /** 底色 */
   background: string
@@ -40,7 +40,6 @@ export interface MessageConfig {
 const defaultConfig: MessageConfig = {
   mount: document.body,
   delay: 2000,
-  callback: null,
   closable: false,
   background: '',
   color: ''
@@ -164,6 +163,18 @@ export function MessageBox(props: MessageProps) {
 }
 
 export const Message = {
+  info(content: ReactNode, config: Partial<MessageConfig> = {}){
+    createMessage("info")(content, config)
+  },
+  success(content: ReactNode, config: Partial<MessageConfig> = {}){
+    createMessage("success")(content, config)
+  },
+  warning(content: ReactNode, config: Partial<MessageConfig> = {}){
+    createMessage("warning")(content, config)
+  },
+  error(content: ReactNode, config: Partial<MessageConfig> = {}){
+    createMessage("error")(content, config)
+  },
   pop(
     type: MessageType,
     content: ReactNode,
@@ -172,3 +183,5 @@ export const Message = {
     createMessage(type)(content, config)
   }
 }
+
+

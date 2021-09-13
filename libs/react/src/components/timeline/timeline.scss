@@ -1,0 +1,70 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .pui-timeline {
+      &-item {
+        position: relative;
+        margin: 0;
+        padding: 0 0 20px 0;
+        list-style: none;
+        font-size: 14px;
+
+        &-tail {
+          position: absolute;
+          top: 10px;
+          left: 4px;
+          height: calc(100% - 10px);
+          border-left: 2px solid $container-bg-color-2;
+        }
+
+        &-head {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background-color: $background-color-2;
+          border: 2px solid transparent;
+          border-radius: 100px;
+
+          &-color-red {
+            color: $status-error-color;
+            border-color: $status-error-color;
+          }
+          &-color-green {
+            color: $status-success-color;
+            border-color: $status-success-color;
+          }
+
+          &-color-blue {
+            color: $status-neutral-color;
+            border-color: $status-neutral-color;
+          }
+
+          &-color-yellow {
+            color: $status-warning-color;
+            border-color: $status-warning-color;
+          }
+
+          &-color-gray {
+            color: $container-bg-color-4;
+            border-color: $container-bg-color-4;
+          }
+        }
+
+        &-content {
+          position: relative;
+          top: -6px;
+          margin: 0 0 0 18px;
+          word-break: break-all;
+        }
+
+        &:last-child {
+          .pui-timeline-item-tail {
+            border-left: none;
+          }
+        }
+      }
+    }
+  }
+}

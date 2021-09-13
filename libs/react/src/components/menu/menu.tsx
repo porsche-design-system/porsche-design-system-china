@@ -58,8 +58,12 @@ export const Menu: React.FC<MenuProps> = props => {
   }
 
   const renderChildren = () => {
-    return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>
+    return React.Children.map(children, (child, index: number) => {
+      const childElement =
+        child as React.FunctionComponentElement<MenuItemProps>
+      if (!childElement) {
+        return null
+      }
       const { displayName } = childElement.type
       if (
         displayName === 'MenuItem' ||
@@ -75,6 +79,7 @@ export const Menu: React.FC<MenuProps> = props => {
           'Warning: Menu has a child which is not a MenuItem component'
         )
       }
+      return null
     })
   }
   return (

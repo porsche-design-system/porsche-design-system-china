@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -24,8 +24,8 @@ module.exports = {
         test: /\.svg$/,
         use: ['@svgr/webpack', 'url-loader']
       }
-    );
+    )
 
-    return config;
+    return config
   }
-};
+}
