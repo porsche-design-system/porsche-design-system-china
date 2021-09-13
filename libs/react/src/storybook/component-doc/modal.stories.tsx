@@ -37,6 +37,49 @@ export const ModalStoryBook = () => {
   }
   return (
     <>
+      <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            children:
+              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
+            okText: '主要按钮',
+            cancelText: '次要按钮'
+          })
+        }
+        type="secondary"
+      >
+        基础对话框 - 默认
+      </Button>
+      <br />
+      <br />
+    </>
+  )
+}
+
+ModalStoryBook.storyName = 'Modal'
+
+export const ModalStoryBook1 = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const handleOk = () => {
+    Form['updateForm'].submit()
+  }
+
+  const handleSubmit = (data: any, error: any) => {
+    if (!error) {
+      setTimeout(() => {
+        Message.pop('success', '数据更新成功')
+        setIsModalVisible(false)
+      }, 1000)
+    }
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+  return (
+    <>
       <Modal
         style={{ width: '800px' }}
         title="对话框标题"
@@ -93,22 +136,15 @@ export const ModalStoryBook = () => {
 
       <br />
       <br />
-      <Button
-        onClick={() =>
-          Modal.show({
-            title: '对话框标题',
-            children:
-              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
-            okText: '主要按钮',
-            cancelText: '次要按钮'
-          })
-        }
-        type="secondary"
-      >
-        基础对话框 - 默认
-      </Button>
-      <br />
-      <br />
+    </>
+  )
+}
+
+ModalStoryBook1.storyName = 'Composite Modal'
+
+export const ModalStoryBook2 = () => {
+  return (
+    <>
       <Button
         onClick={() =>
           Modal.show({
@@ -127,6 +163,15 @@ export const ModalStoryBook = () => {
 
       <br />
       <br />
+    </>
+  )
+}
+
+ModalStoryBook2.storyName = 'With Subtitles'
+
+export const ModalStoryBook3 = () => {
+  return (
+    <>
       <Button
         onClick={() =>
           Modal.show({
@@ -147,6 +192,15 @@ export const ModalStoryBook = () => {
 
       <br />
       <br />
+    </>
+  )
+}
+
+ModalStoryBook3.storyName = 'Warning Modal'
+
+export const ModalStoryBook4 = () => {
+  return (
+    <>
       <Button
         onClick={() =>
           Modal.show({
@@ -169,4 +223,4 @@ export const ModalStoryBook = () => {
   )
 }
 
-ModalStoryBook.storyName = 'Modal'
+ModalStoryBook4.storyName = 'Warning Modal With Subtitles'
