@@ -18,10 +18,33 @@ export const SwitchBook = () => {
           disabled
           value
         />
+      </Form>
+    </div>
+  )
+}
+
+SwitchBook.storyName = 'Switch'
+
+export const SwitchBook1 = () => {
+  return (
+    <div>
+      <Form>
         <Switch
           label={{ text: '出错状态', position: 'left', width: '120px' }}
           error={{ show: true, message: '必须打开' }}
         />
+      </Form>
+    </div>
+  )
+}
+
+SwitchBook1.storyName = 'Error'
+
+export const SwitchBook2 = () => {
+  return (
+    <div>
+      <Form>
+        <div>修改值为 0/1</div>
         <Switch
           label={{ text: '修改值为 0/1', position: 'left', width: '120px' }}
           alterValues="ZeroOrOne"
@@ -29,22 +52,24 @@ export const SwitchBook = () => {
             console.log(val)
           }}
         />
+        <div>修改值为 false/true</div>
         <Switch
           label={{
             text: '修改值为 false/true',
             position: 'left',
-            width: '120px'
+            width: '150px'
           }}
           alterValues="FalseOrTrue"
           onValueChange={val => {
             console.log(val)
           }}
         />
+        <div>修改值为 male/female</div>
         <Switch
           label={{
             text: '修改值为 male/female',
             position: 'left',
-            width: '120px'
+            width: '150px'
           }}
           alterValues="Male,Female"
           onValueChange={val => {
@@ -55,3 +80,5 @@ export const SwitchBook = () => {
     </div>
   )
 }
+
+SwitchBook2.storyName = 'Switch Value'
