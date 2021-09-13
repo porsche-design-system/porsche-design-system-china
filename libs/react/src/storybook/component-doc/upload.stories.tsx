@@ -75,6 +75,28 @@ export const UploadStoryBook1 = () => {
           // accept='.png,.jpg'
           />
         </Col>
+      </Row>
+    </>
+  )
+}
+UploadStoryBook1.storyName = 'Upload Files'
+
+export const UploadStoryBook2 = () => {
+  const handleBeforeUpload = (file: File) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      Message.pop('error', '请上传jpg或png格式的文件');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      Message.pop('error', '文件大小不能超过2M');
+    }
+    return isJpgOrPng && isLt2M;
+  }
+
+  return (
+    <>
+      <Row>
         <Col span={12}>
           <Upload
             action={action}
@@ -90,9 +112,33 @@ export const UploadStoryBook1 = () => {
     </>
   )
 }
-UploadStoryBook1.storyName = 'Upload Files'
+UploadStoryBook2.storyName = 'Upload Custom'
 
-export const UploadStoryBook2 = () => {
+export const UploadStoryBook3 = () => {
+  return (
+    <>
+      <div className='upload-component-list'>
+        <Upload
+          action={action}
+          headers={{
+            Authorization: Authorization
+          }}
+          listType="picture-card"
+        />
+        <Upload
+          action={action}
+          headers={{
+            Authorization: Authorization
+          }}
+          listType="picture-card"
+        />
+      </div>
+    </>
+  )
+}
+UploadStoryBook3.storyName = 'Upload Pictures Default'
+
+export const UploadStoryBook4 = () => {
   const fileList1 = [
     {
       uid: '-xxx',
@@ -129,79 +175,86 @@ export const UploadStoryBook2 = () => {
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
   ]
-  const [buttonType, setButtonType] = useState('Default')
 
   return (
     <>
-      <div className="radio-group" style={{ width: '100%' }}>
-        <RadioGroup value={buttonType} onValueChange={setButtonType}>
-          <Radio text="Default" value="Default" />
-          <Radio text="Uploading" value="Uploading" />
-          <Radio text="Uploaded" value="Uploaded" />
-          <Radio text="Error" value="Error" />
-        </RadioGroup>
-      </div>
-      <div className='upload-component-list'>
-        {
-          buttonType === 'Default' && <>
-            <Upload
-              action={action}
-              headers={{
-                Authorization: Authorization
-              }}
-              listType="picture-card"
-            />
-            <Upload
-              action={action}
-              headers={{
-                Authorization: Authorization
-              }}
-              listType="picture-card"
-            />
-          </>
-        }
-        {
-          buttonType === 'Uploading' && <div className='uploading-list'>
-            <Upload
-              action={action}
-              headers={{
-                Authorization: Authorization
-              }}
-              listType="picture-card"
-              defaultFileList={fileList1}
-            />
-          </div>
-        }
-        {
-          buttonType === 'Uploaded' && <div className='uploaded-list'>
-            <div className='uploaded-tip'>限定数量:当上传照片数到达限制后，上传按钮消失。</div>
-            <Upload
-              action={action}
-              headers={{
-                Authorization: Authorization
-              }}
-              listType="picture-card"
-              defaultFileList={fileList2}
-              className='list-uploaded'
-              count={3}
-            />
-          </div>
-        }
-        {
-          buttonType === 'Error' && <>
-            <Upload
-              action={action}
-              headers={{
-                Authorization: Authorization
-              }}
-              listType="picture-card"
-              defaultFileList={fileList3}
-            />
-          </>
-        }
-
+      <div className='uploading-list'>
+        <Upload
+          action={action}
+          headers={{
+            Authorization: Authorization
+          }}
+          listType="picture-card"
+          defaultFileList={fileList1}
+        />
       </div>
     </>
   )
 }
-UploadStoryBook2.storyName = 'Upload Pictures'
+UploadStoryBook4.storyName = 'Upload Pictures Uploading'
+
+
+export const UploadStoryBook5 = () => {
+  const fileList2 = [
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'success',
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }
+  ]
+  const fileList3 = [
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'error',
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }
+  ]
+
+  return (
+    <>
+      <div className='uploaded-list'>
+        <div className='uploaded-tip'>限定数量:当上传照片数到达限制后，上传按钮消失。</div>
+        <Upload
+          action={action}
+          headers={{Authorization: Authorization}}
+          listType="picture-card"
+          defaultFileList={fileList2}
+          className='list-uploaded'
+          count={3}
+        />
+      </div>
+    </>
+  )
+}
+UploadStoryBook5.storyName = 'Upload Pictures Uploaded'
+
+export const UploadStoryBook6 = () => {
+  const fileList3 = [
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'error',
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }
+  ]
+
+  return (
+    <>
+      <div className='uploaded-list'>
+        <div className='uploaded-tip'>Error</div>
+        <Upload
+          action={action}
+          headers={{Authorization: Authorization}}
+          listType="picture-card"
+          defaultFileList={fileList3}
+        />
+      </div>
+    </>
+  )
+}
+UploadStoryBook6.storyName = 'Upload Pictures Error'
