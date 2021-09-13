@@ -9,7 +9,7 @@ export default {
 export const knobsMessage = () => {
   const tx = 'Hello, this is a message from PUI'
   const onClick = (type: any, config?: any) => {
-    Message.pop(type, tx, config)
+    Message[type](tx, config)
   }
 
   return (

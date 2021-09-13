@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn/repository/npm-proxy/",
+    "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn/repository/npm-group/",
     "prepublish": "lerna run prod",
     "publish": "lerna publish",
     "publish:nogit": "npm run publish --  --skip-git --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",

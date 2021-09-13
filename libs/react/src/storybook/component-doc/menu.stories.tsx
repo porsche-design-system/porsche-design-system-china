@@ -60,6 +60,7 @@ export const ProgressStoryBook1 = () => {
               prod3
             </Menu.Item>
           </Menu.SubMenu>
+          {null}
         </Menu>
       </div>
     </div>
