@@ -35,7 +35,6 @@ export const ProgressStoryBook = () => {
 
 ProgressStoryBook.storyName = 'Menu Horizontal'
 
-
 export const ProgressStoryBook1 = () => {
   return (
     <div className="menu-demo">

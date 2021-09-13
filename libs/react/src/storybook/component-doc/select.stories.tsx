@@ -41,7 +41,7 @@ export const SelectStoryBook1 = () => {
   )
 }
 
-SelectStoryBook1.storyName = "String Options"
+SelectStoryBook1.storyName = 'String Options'
 
 export const SelectStoryBook2 = () => {
   return (
@@ -57,7 +57,7 @@ export const SelectStoryBook2 = () => {
   )
 }
 
-SelectStoryBook2.storyName = "Error"
+SelectStoryBook2.storyName = 'Error'
 
 export const SelectStoryBook3 = () => {
   return (
@@ -73,7 +73,7 @@ export const SelectStoryBook3 = () => {
   )
 }
 
-SelectStoryBook3.storyName = "Show filter Input"
+SelectStoryBook3.storyName = 'Show filter Input'
 
 export const SelectStoryBook4 = () => {
   const [val, setVal] = useState<any>('dog')
@@ -105,4 +105,4 @@ export const SelectStoryBook4 = () => {
   )
 }
 
-SelectStoryBook4.storyName = "Reset"
+SelectStoryBook4.storyName = 'Reset'

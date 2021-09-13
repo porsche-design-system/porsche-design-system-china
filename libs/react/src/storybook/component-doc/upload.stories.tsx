@@ -4,8 +4,9 @@ import { Upload, Row, Col, Message, Radio, RadioGroup } from '../..'
 
 import './upload.stories.scss'
 
-const action = 'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload';
-const Authorization = 'Bearer 3d4e9571-4f5f-4322-bc1f-8553f8ff4eef';
+const action =
+  'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
+const Authorization = 'Bearer 3d4e9571-4f5f-4322-bc1f-8553f8ff4eef'
 export default {
   title: 'Data Entry/Upload',
   component: Upload
@@ -47,15 +48,15 @@ export const UploadStoryBook1 = () => {
     console.log(file.response?.message)
   }
   const handleBeforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      Message.pop('error', '请上传jpg或png格式的文件');
+      Message.pop('error', '请上传jpg或png格式的文件')
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 2
     if (!isLt2M) {
-      Message.pop('error', '文件大小不能超过2M');
+      Message.pop('error', '文件大小不能超过2M')
     }
-    return isJpgOrPng && isLt2M;
+    return isJpgOrPng && isLt2M
   }
 
   return (
@@ -65,14 +66,14 @@ export const UploadStoryBook1 = () => {
           <Upload
             action={action}
             headers={{
-              Authorization: Authorization
+              Authorization
             }}
             defaultFileList={fileList}
             multiple
             tip="要求文件格式jpg,png, 大小不超过20M"
             onChange={onChange}
             beforeUpload={handleBeforeUpload}
-          // accept='.png,.jpg'
+            // accept='.png,.jpg'
           />
         </Col>
       </Row>
@@ -83,15 +84,15 @@ UploadStoryBook1.storyName = 'Upload Files'
 
 export const UploadStoryBook2 = () => {
   const handleBeforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
-      Message.pop('error', '请上传jpg或png格式的文件');
+      Message.pop('error', '请上传jpg或png格式的文件')
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 2
     if (!isLt2M) {
-      Message.pop('error', '文件大小不能超过2M');
+      Message.pop('error', '文件大小不能超过2M')
     }
-    return isJpgOrPng && isLt2M;
+    return isJpgOrPng && isLt2M
   }
 
   return (
@@ -101,7 +102,7 @@ export const UploadStoryBook2 = () => {
           <Upload
             action={action}
             headers={{
-              Authorization: Authorization
+              Authorization
             }}
             drag
             multiple
@@ -117,18 +118,18 @@ UploadStoryBook2.storyName = 'Upload Custom'
 export const UploadStoryBook3 = () => {
   return (
     <>
-      <div className='upload-component-list'>
+      <div className="upload-component-list">
         <Upload
           action={action}
           headers={{
-            Authorization: Authorization
+            Authorization
           }}
           listType="picture-card"
         />
         <Upload
           action={action}
           headers={{
-            Authorization: Authorization
+            Authorization
           }}
           listType="picture-card"
         />
@@ -155,7 +156,7 @@ export const UploadStoryBook4 = () => {
       status: 'uploading',
       url:
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
+    }
   ]
   const fileList2 = [
     {
@@ -178,11 +179,11 @@ export const UploadStoryBook4 = () => {
 
   return (
     <>
-      <div className='uploading-list'>
+      <div className="uploading-list">
         <Upload
           action={action}
           headers={{
-            Authorization: Authorization
+            Authorization
           }}
           listType="picture-card"
           defaultFileList={fileList1}
@@ -192,7 +193,6 @@ export const UploadStoryBook4 = () => {
   )
 }
 UploadStoryBook4.storyName = 'Upload Pictures Uploading'
-
 
 export const UploadStoryBook5 = () => {
   const fileList2 = [
@@ -216,14 +216,16 @@ export const UploadStoryBook5 = () => {
 
   return (
     <>
-      <div className='uploaded-list'>
-        <div className='uploaded-tip'>限定数量:当上传照片数到达限制后，上传按钮消失。</div>
+      <div className="uploaded-list">
+        <div className="uploaded-tip">
+          限定数量:当上传照片数到达限制后，上传按钮消失。
+        </div>
         <Upload
           action={action}
-          headers={{Authorization: Authorization}}
+          headers={{ Authorization }}
           listType="picture-card"
           defaultFileList={fileList2}
-          className='list-uploaded'
+          className="list-uploaded"
           count={3}
         />
       </div>
@@ -245,11 +247,11 @@ export const UploadStoryBook6 = () => {
 
   return (
     <>
-      <div className='uploaded-list'>
-        <div className='uploaded-tip'>Error</div>
+      <div className="uploaded-list">
+        <div className="uploaded-tip">Error</div>
         <Upload
           action={action}
-          headers={{Authorization: Authorization}}
+          headers={{ Authorization }}
           listType="picture-card"
           defaultFileList={fileList3}
         />

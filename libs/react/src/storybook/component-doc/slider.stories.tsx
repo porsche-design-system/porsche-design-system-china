@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import { Slider,Row,Col,InputNumber } from '../..'
+import React, { useState } from 'react'
+import { Slider, Row, Col, InputNumber } from '../..'
 import './slider.stories.scss'
 
 export default {
@@ -15,11 +15,11 @@ export const SliderStoryBook = () => {
         <div className="show-case">
           <Row>
             <Col span={11}>
-              <Slider defaultValue={30}/>
+              <Slider defaultValue={30} />
             </Col>
-            <Col span={2}></Col>
+            <Col span={2} />
             <Col span={11}>
-              <Slider range defaultValue={[10,60]}/>
+              <Slider range defaultValue={[10, 60]} />
             </Col>
           </Row>
         </div>
@@ -38,11 +38,11 @@ export const SliderStoryBook1 = () => {
         <div className="show-case">
           <Row>
             <Col span={11}>
-              <Slider defaultValue={30} disabled/>
+              <Slider defaultValue={30} disabled />
             </Col>
-            <Col span={2}></Col>
+            <Col span={2} />
             <Col span={11}>
-              <Slider range defaultValue={[10,60]} disabled/>
+              <Slider range defaultValue={[10, 60]} disabled />
             </Col>
           </Row>
         </div>
@@ -54,7 +54,7 @@ export const SliderStoryBook1 = () => {
 SliderStoryBook1.storyName = 'Slider Status'
 
 export const SliderStoryBook2 = () => {
-  const [value,setValue] = useState(60);
+  const [value, setValue] = useState(60)
   return (
     <div className="slider-story">
       <div className="group">
@@ -64,18 +64,21 @@ export const SliderStoryBook2 = () => {
             <Col span={5}>
               <InputNumber
                 type="arrow"
-                value={value+''}
+                value={value + ''}
                 min={0}
                 max={100}
                 onValueChange={val => {
-                  setValue(Number(val));
+                  setValue(Number(val))
                 }}
               />
             </Col>
             <Col span={11}>
-              <Slider value={value} onValueChange={value => {
-                setValue(value as number);
-              }}/>
+              <Slider
+                value={value}
+                onValueChange={value => {
+                  setValue(value as number)
+                }}
+              />
             </Col>
           </Row>
         </div>
@@ -88,45 +91,65 @@ SliderStoryBook2.storyName = 'Slider And InputNumber'
 
 export const SliderStoryBook3 = () => {
   const marks = [
-    {value:0,label:'0%'},
-    {value:25,label:'25%'},
-    {value:50,label:'50%'},
-    {value:75,label:'75%'},
-    {value:100,label:'100%'},
+    { value: 0, label: '0%' },
+    { value: 25, label: '25%' },
+    { value: 50, label: '50%' },
+    { value: 75, label: '75%' },
+    { value: 100, label: '100%' }
   ]
-  const tipFormatter = (value:number|Array<number>) => {
-    if(Array.isArray(value)){
-      return [value[0]+'%',value[1]+'%'];
-    }else{
-      return value+'%';
+  const tipFormatter = (value: number | Array<number>) => {
+    if (Array.isArray(value)) {
+      return [value[0] + '%', value[1] + '%']
+    } else {
+      return value + '%'
     }
-  };
+  }
   return (
     <div className="slider-story">
-      <div className="group" style={{marginBottom:40}}>
+      <div className="group" style={{ marginBottom: 40 }}>
         <div className="title">节点区间滑块</div>
         <div className="show-case">
           <Row>
             <Col span={11}>
-              <Slider defaultValue={30} marks={marks} tipFormatter={tipFormatter}/>
+              <Slider
+                defaultValue={30}
+                marks={marks}
+                tipFormatter={tipFormatter}
+              />
             </Col>
-            <Col span={2}></Col>
+            <Col span={2} />
             <Col span={11}>
-              <Slider defaultValue={[30,60]} marks={marks} tipFormatter={tipFormatter} range/>
+              <Slider
+                defaultValue={[30, 60]}
+                marks={marks}
+                tipFormatter={tipFormatter}
+                range
+              />
             </Col>
           </Row>
         </div>
       </div>
-      <div className="group" style={{marginBottom:40}}>
+      <div className="group" style={{ marginBottom: 40 }}>
         <div className="title">节点区间滑块-滑块仅可置于节点上</div>
         <div className="show-case">
           <Row>
             <Col span={11}>
-              <Slider defaultValue={25} marks={marks} tipFormatter={tipFormatter} step={null}/>
+              <Slider
+                defaultValue={25}
+                marks={marks}
+                tipFormatter={tipFormatter}
+                step={null}
+              />
             </Col>
-            <Col span={2}></Col>
+            <Col span={2} />
             <Col span={11}>
-              <Slider defaultValue={[25,50]} marks={marks} tipFormatter={tipFormatter} step={null} range/>
+              <Slider
+                defaultValue={[25, 50]}
+                marks={marks}
+                tipFormatter={tipFormatter}
+                step={null}
+                range
+              />
             </Col>
           </Row>
         </div>

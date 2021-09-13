@@ -57,7 +57,6 @@ export const ProgressStoryBook = () => {
 
 ProgressStoryBook.storyName = 'Menu'
 
-
 export const ProgressStoryBook1 = () => {
   return (
     <div className="dropdown-demo">
