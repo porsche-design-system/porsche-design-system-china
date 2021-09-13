@@ -33,7 +33,7 @@ export const SelectStoryBook1 = () => {
   return (
     <div style={{ height: '400px', width: '300px' }}>
       <Form>
-      <div>-----</div>
+        <div>-----</div>
         <MultiSelect
           options="狗:dog,猫,狮子,老虎,鲸鱼"
           label="测试"

@@ -198,7 +198,6 @@ export const ModalStoryBook3 = () => {
 
 ModalStoryBook3.storyName = 'Warning Modal'
 
-
 export const ModalStoryBook4 = () => {
   return (
     <>
@@ -225,4 +224,3 @@ export const ModalStoryBook4 = () => {
 }
 
 ModalStoryBook4.storyName = 'Warning Modal With Subtitles'
-

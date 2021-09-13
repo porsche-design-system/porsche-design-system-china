@@ -5,7 +5,7 @@ import './textareas.stories.scss'
 
 export default {
   title: 'Data Entry/TextArea',
-  component:  TextArea
+  component: TextArea
 }
 
 export const InputsStoryBook = () => {

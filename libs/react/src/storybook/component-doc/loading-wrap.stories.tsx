@@ -35,7 +35,7 @@ export const LoadingWrapStoryBook = () => {
   )
 }
 
-LoadingWrapStoryBook.storyName= "Loading Wrap"
+LoadingWrapStoryBook.storyName = 'Loading Wrap'
 
 export const LoadingWrapStoryBook1 = () => {
   const [show, setShow] = useState(false)
@@ -65,7 +65,7 @@ export const LoadingWrapStoryBook1 = () => {
   )
 }
 
-LoadingWrapStoryBook1.storyName= "Loading Wrap Vague"
+LoadingWrapStoryBook1.storyName = 'Loading Wrap Vague'
 
 export const LoadingWrapStoryBook2 = () => {
   const [show, setShow] = useState(false)
@@ -95,7 +95,7 @@ export const LoadingWrapStoryBook2 = () => {
   )
 }
 
-LoadingWrapStoryBook2.storyName= "Loading Wrap Small"
+LoadingWrapStoryBook2.storyName = 'Loading Wrap Small'
 
 export const LoadingWrapStoryBook3 = () => {
   const [show, setShow] = useState(false)
@@ -125,4 +125,4 @@ export const LoadingWrapStoryBook3 = () => {
   )
 }
 
-LoadingWrapStoryBook3.storyName= "Loading Wrap Big"
+LoadingWrapStoryBook3.storyName = 'Loading Wrap Big'

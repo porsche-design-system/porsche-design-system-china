@@ -154,7 +154,6 @@ export const TooltipStoryBook = () => {
 
 TooltipStoryBook.storyName = 'Tooltip'
 
-
 export const TooltipStoryBook1 = () => {
   const onClick = () => {
     console.log('clicked!')
