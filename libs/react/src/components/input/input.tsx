@@ -68,10 +68,10 @@ export interface InputProps {
   showViewPasswordButton?: boolean
 
   /* 中文打字开始 */
-  onCompositionStart: CompositionEventHandler<HTMLInputElement>
+  onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
   /* 中文打字结束 */
-  onCompositionEnd: CompositionEventHandler<HTMLInputElement>
+  onCompositionEnd?: CompositionEventHandler<HTMLInputElement>
 }
 
 /**
