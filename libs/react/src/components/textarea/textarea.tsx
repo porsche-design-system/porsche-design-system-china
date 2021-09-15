@@ -54,10 +54,10 @@ export interface TextAreaProps {
   onValueChange?: (value: string) => void
 
   /* 中文打字开始 */
-  onCompositionStart: CompositionEventHandler<HTMLTextAreaElement>
+  onCompositionStart?: CompositionEventHandler<HTMLTextAreaElement>
 
   /* 中文打字结束 */
-  onCompositionEnd: CompositionEventHandler<HTMLTextAreaElement>
+  onCompositionEnd?: CompositionEventHandler<HTMLTextAreaElement>
 }
 
 /**
