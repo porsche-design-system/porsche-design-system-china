@@ -25,7 +25,7 @@ export interface MessageConfig {
   delay: number
 
   /** 结束后回调 */
-  callback?: ()=>void
+  callback?: () => void
 
   /** 底色 */
   background: string
@@ -63,13 +63,17 @@ export const createMessage = (type: MessageType) => {
       z-index: 100000;
       width: 100%;
       top: 16px;
-      left: 0;`
+      left: 0;
+      pointer-events: none;
+      `
       if (wrap) {
         fconfig.mount.appendChild(wrap)
       }
     }
 
     const div = document.createElement('div')
+    div.style.pointerEvents = 'none'
+
     wrap.appendChild(div)
     ReactDom.render(
       <MessageBox
@@ -163,17 +167,17 @@ export function MessageBox(props: MessageProps) {
 }
 
 export const Message = {
-  info(content: ReactNode, config: Partial<MessageConfig> = {}){
-    createMessage("info")(content, config)
+  info(content: ReactNode, config: Partial<MessageConfig> = {}) {
+    createMessage('info')(content, config)
   },
-  success(content: ReactNode, config: Partial<MessageConfig> = {}){
-    createMessage("success")(content, config)
+  success(content: ReactNode, config: Partial<MessageConfig> = {}) {
+    createMessage('success')(content, config)
   },
-  warning(content: ReactNode, config: Partial<MessageConfig> = {}){
-    createMessage("warning")(content, config)
+  warning(content: ReactNode, config: Partial<MessageConfig> = {}) {
+    createMessage('warning')(content, config)
   },
-  error(content: ReactNode, config: Partial<MessageConfig> = {}){
-    createMessage("error")(content, config)
+  error(content: ReactNode, config: Partial<MessageConfig> = {}) {
+    createMessage('error')(content, config)
   },
   pop(
     type: MessageType,
@@ -183,5 +187,3 @@ export const Message = {
     createMessage(type)(content, config)
   }
 }
-
-
