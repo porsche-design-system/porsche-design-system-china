@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import {
-  IconArrowRight,
-  IconArrowHeadRight,
-  IconEdit,
-  IconAdd,
-  IconBell,
-  IconClose
-} from '@pui/icons'
+import { IconArrowHeadRight } from '@pui/icons'
 
-import { Button, Col, Row, Radio, RadioGroup } from '../..'
+import { Button, Radio, RadioGroup } from '../..'
 import './button.stories.scss'
 
 export default {
-  title: 'Action/Button',
+  title: 'Foundation/Button',
   component: Button
 }
 
 export const ButtonStoryBook = () => {
   useEffect(() => {
     const mainStory = document.getElementById(
-      'anchor--action-button--button-story-book'
+      'anchor--foundation-button--button-story-book'
     )
     if (mainStory) {
       mainStory.style.display = 'none'
