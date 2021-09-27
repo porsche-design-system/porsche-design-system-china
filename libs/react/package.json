@@ -1,6 +1,6 @@
 {
   "name": "@pui/react",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "pui:react",
   "module": "es/index.js",
   "main": "lib/index.js",

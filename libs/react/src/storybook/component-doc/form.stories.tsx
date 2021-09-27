@@ -482,7 +482,7 @@ export const ExampleStoryBook5 = () => {
       <Button
         type="primary"
         onClick={() => {
-          Form['form'].submit()
+          Form.findById('form').submit()
         }}
       >
         Submit
