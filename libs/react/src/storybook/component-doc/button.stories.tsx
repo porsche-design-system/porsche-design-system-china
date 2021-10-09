@@ -118,3 +118,103 @@ export const ButtonStoryBook3 = () => {
 }
 
 ButtonStoryBook3.storyName = 'Status'
+
+export const ButtonStoryBook4 = () => {
+  return (
+    <div>
+      <div>
+        <Button
+          size="tiny"
+          type="primary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        >
+          Primary
+        </Button>
+        <Button
+          size="tiny"
+          type="secondary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        >
+          Secondary
+        </Button>
+        <Button
+          size="tiny"
+          type="default"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        >
+          Default
+        </Button>
+        <Button
+          size="tiny"
+          type="text"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        >
+          Text
+        </Button>
+      </div>
+      <br />
+      <div>
+        <Button size="tiny" type="primary" marginRight="40px" loading>
+          Primary
+        </Button>
+        <Button size="tiny" type="secondary" marginRight="40px" loading>
+          Secondary
+        </Button>
+        <Button size="tiny" type="default" marginRight="40px" loading>
+          Default
+        </Button>
+        <Button size="tiny" type="text" marginRight="40px" loading>
+          Text
+        </Button>
+      </div>
+      <br />
+      <div>
+        <Button size="tiny" type="primary" marginRight="40px" disabled>
+          Primary
+        </Button>
+        <Button size="tiny" type="secondary" marginRight="40px" disabled>
+          Secondary
+        </Button>
+        <Button size="tiny" type="default" marginRight="40px" disabled>
+          Default
+        </Button>
+        <Button size="tiny" type="text" marginRight="40px" disabled>
+          Text
+        </Button>
+      </div>
+      <br />
+      <div>
+        <Button
+          size="tiny"
+          type="primary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        />
+        <Button
+          size="tiny"
+          type="secondary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        />
+        <Button
+          size="tiny"
+          type="default"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        />
+        <Button
+          size="tiny"
+          type="text"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        />
+      </div>
+    </div>
+  )
+}
+
+ButtonStoryBook4.storyName = 'Tiny Size'

@@ -24,7 +24,7 @@ export interface ButtonProps {
   type?: 'default' | 'primary' | 'secondary' | 'text'
 
   /** 大小 */
-  size?: 'medium' | 'small'
+  size?: 'medium' | 'small' | 'tiny'
 
   /** 图标 */
   icon?: PUIIcon | ReactElement
@@ -76,14 +76,25 @@ const Button = ({
   size = size || defaultSize
 
   let paddingStyle = {}
-  const padding = size === 'medium' ? '11px' : '7px'
+  let padding = '11px'
+  if (size === 'small') {
+    padding = '7px'
+  } else if (size === 'tiny') {
+    padding = '5px'
+  }
   if (!children) {
     paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
     paddingStyle = { paddingLeft: padding }
   }
 
-  const loadingSize = size === 'medium' ? 24 : 20
+  let loadingSize = 24
+  if (size === 'small') {
+    loadingSize = 20
+  } else if (size === 'tiny') {
+    loadingSize = 16
+  }
+
   const IconComponent = icon as any
   return (
     <button
