@@ -108,6 +108,8 @@ const Input = FormItem(
       setInputType(type)
     }, [type])
 
+    const displayValueLength = value !== undefined ? value.length : valueLength
+
     return (
       <div
         className={componentClassNames('pui-input', {
@@ -157,9 +159,9 @@ const Input = FormItem(
         />
         {maxLength && !showClearButton && !showViewPasswordButton && (
           <div className="pui-input-char-count">
-            {valueLength > 0 && valueLength}
+            {displayValueLength > 0 && displayValueLength}
             <span>
-              {valueLength === 0 && valueLength}/{maxLength}
+              {displayValueLength === 0 && displayValueLength}/{maxLength}
             </span>
           </div>
         )}
