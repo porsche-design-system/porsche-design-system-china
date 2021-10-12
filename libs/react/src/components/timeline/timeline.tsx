@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react'
-import classNames from 'classnames'
-import { TimelineItem, TimelineItemProps } from './timeline-item'
+import {  TimelineItemProps } from './timeline-item'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
 import './timeline.scss'
 import { useDefaultSize } from '../../shared/hooks'
