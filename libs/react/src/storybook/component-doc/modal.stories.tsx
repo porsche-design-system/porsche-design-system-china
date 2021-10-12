@@ -41,7 +41,7 @@ export const ModalStoryBook = () => {
         onClick={() =>
           Modal.show({
             title: '对话框标题',
-            children:
+            content:
               '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
             okText: '主要按钮',
             cancelText: '次要按钮'
@@ -150,7 +150,7 @@ export const ModalStoryBook2 = () => {
           Modal.show({
             title: '对话框标题',
             subtitle: '对话框副标题',
-            children:
+            content:
               '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
             okText: '主要按钮',
             cancelText: '次要按钮'
@@ -177,7 +177,7 @@ export const ModalStoryBook3 = () => {
           Modal.show({
             title: '对话框标题',
             titleIconType: 'warning',
-            children: '确定执行这个操作吗？',
+            content: '确定执行这个操作吗？',
             showClose: false,
             okText: '确定删除',
             okIcon: null,
@@ -207,7 +207,7 @@ export const ModalStoryBook4 = () => {
             title: '对话框标题',
             subtitle: '对话框副标题',
             titleIconType: 'warning',
-            children: '确定执行这个操作吗？',
+            content: '确定执行这个操作吗？',
             showClose: false,
             okText: '确定删除',
             okIcon: null,
