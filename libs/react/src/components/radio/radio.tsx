@@ -3,7 +3,7 @@ import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './radio.scss'
 
-export interface RadioProps {
+export interface RadioProps<T> {
   // 组件属性 //
 
   /** 类名 */
@@ -19,7 +19,7 @@ export interface RadioProps {
   name?: string
 
   /* 值 */
-  value?: string
+  value?: T
 
   /** 是否禁用 */
   disabled?: boolean
@@ -48,7 +48,7 @@ const generateId = () => {
   idCounter++
   return 'radio-' + idCounter
 }
-const Radio = (props: RadioProps) => {
+const Radio = <T,>(props: RadioProps<T>) => {
   const id = useMemo(() => generateId(), [])
   const {
     className,
@@ -80,7 +80,7 @@ const Radio = (props: RadioProps) => {
         id={id}
         name={name}
         type="radio"
-        value={value}
+        value={value as any}
         onClick={(props as any).onClick}
         onChange={evt => {
           onChange && onChange(evt)

@@ -35,6 +35,32 @@ export const CheckBoxStoryBook = () => {
 CheckBoxStoryBook.storyName = 'CheckBox'
 
 export const CheckBoxStoryBook1 = () => {
+  const [vals, setVals] = useState([1, 3])
+
+  return (
+    <div>
+      <div>value值支持使用number型，options必须写成object形式</div>
+      <br />
+      <CheckBoxGroup
+        value={vals}
+        onValueChange={setVals}
+        label="动画片"
+        options={[
+          { text: '柯南', value: 1 },
+          { text: '猫和老鼠', value: 2 },
+          { text: '齐天大圣', value: 3 },
+          { text: '葫芦娃', value: 4 }
+        ]}
+      />
+      <br /> <br />
+      <div>选定值: {JSON.stringify(vals)}</div>
+    </div>
+  )
+}
+
+CheckBoxStoryBook1.storyName = 'Number Value'
+
+export const CheckBoxStoryBook2 = () => {
   return (
     <div>
       <CheckBoxGroup label="兴趣爱好" width="300px">
@@ -49,9 +75,9 @@ export const CheckBoxStoryBook1 = () => {
   )
 }
 
-CheckBoxStoryBook1.storyName = 'With Label'
+CheckBoxStoryBook2.storyName = 'With Label'
 
-export const CheckBoxStoryBook2 = () => {
+export const CheckBoxStoryBook3 = () => {
   return (
     <div>
       <CheckBoxGroup
@@ -63,9 +89,9 @@ export const CheckBoxStoryBook2 = () => {
   )
 }
 
-CheckBoxStoryBook2.storyName = 'Error'
+CheckBoxStoryBook3.storyName = 'Error'
 
-export const CheckBoxStoryBook3 = () => {
+export const CheckBoxStoryBook4 = () => {
   return (
     <div>
       <CheckBoxGroup
@@ -76,4 +102,4 @@ export const CheckBoxStoryBook3 = () => {
   )
 }
 
-CheckBoxStoryBook3.storyName = 'String Options'
+CheckBoxStoryBook4.storyName = 'String Options'

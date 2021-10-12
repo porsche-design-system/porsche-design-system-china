@@ -39,6 +39,28 @@ export const RadioStoryBook = () => {
 RadioStoryBook.storyName = 'Radio'
 
 export const RadioStoryBook2 = () => {
+  const [val, setVal] = useState(1)
+  return (
+    <div>
+      <div>value值支持使用number型，options必须写成object形式</div>
+      <br />
+      <RadioGroup
+        value={val}
+        onValueChange={setVal}
+        options={[
+          { text: '选择1', value: 1 },
+          { text: '选择2', value: 2 },
+          { text: '选择3', value: 3 }
+        ]}
+      />
+      <br /> <br />
+      <div>选定值: {JSON.stringify(val)}</div>
+    </div>
+  )
+}
+RadioStoryBook2.storyName = 'Number Value'
+
+export const RadioStoryBook3 = () => {
   const [val, setVal] = useState('选项1')
   return (
     <div>
@@ -53,9 +75,9 @@ export const RadioStoryBook2 = () => {
     </div>
   )
 }
-RadioStoryBook2.storyName = 'Cancellable'
+RadioStoryBook3.storyName = 'Cancellable'
 
-export const RadioStoryBook3 = () => (
+export const RadioStoryBook4 = () => (
   <div>
     <RadioGroup
       label={{ text: '职业', position: 'left' }}
@@ -63,9 +85,9 @@ export const RadioStoryBook3 = () => (
     />
   </div>
 )
-RadioStoryBook3.storyName = 'With Label'
+RadioStoryBook4.storyName = 'With Label'
 
-export const RadioStoryBook4 = () => {
+export const RadioStoryBook5 = () => {
   return (
     <div>
       <RadioGroup
@@ -75,13 +97,13 @@ export const RadioStoryBook4 = () => {
     </div>
   )
 }
-RadioStoryBook4.storyName = 'Error'
+RadioStoryBook5.storyName = 'Error'
 
-export const RadioStoryBook5 = () => {
+export const RadioStoryBook6 = () => {
   return (
     <div>
       <RadioGroup options="教师:Teacher,医生:Doctor,警察:Policeman,律师:Lawyer" />
     </div>
   )
 }
-RadioStoryBook5.storyName = 'String Options'
+RadioStoryBook6.storyName = 'String Options'
