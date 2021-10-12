@@ -9,12 +9,12 @@ import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
 
-interface MultiSelectOption {
+interface MultiSelectOption<T> {
   text: string
-  value: string
+  value: T
 }
 
-export interface MultiSelectProps {
+export interface MultiSelectProps<T> {
   // 组件属性 //
 
   /** 类名 */
@@ -27,13 +27,13 @@ export interface MultiSelectProps {
   disabled?: boolean
 
   /* 值 */
-  value?: string[]
+  value?: T[]
 
   /** 大小 */
   size?: 'medium' | 'small'
 
   /* 默认值 */
-  defaultValue?: string[]
+  defaultValue?: T[]
 
   /* 占位符 */
   placeholder?: string
@@ -42,17 +42,17 @@ export interface MultiSelectProps {
   filterInput?: boolean
 
   /* 选项 */
-  options?: string | string[] | MultiSelectOption[]
+  options?: string | string[] | MultiSelectOption<T>[]
 
   /* 错误 */
   error?: FormErrorText
 
   /* 值改变事件 */
-  onValueChange?: (value: string[]) => void
+  onValueChange?: (value: T[]) => void
 }
 
 const MultiSelect = FormItem(
-  ({
+  <T,>({
     className,
     disabled,
     value,
@@ -63,8 +63,8 @@ const MultiSelect = FormItem(
     size,
     onValueChange,
     placeholder
-  }: MultiSelectProps) => {
-    const selectState = useState(defaultValue || [])
+  }: MultiSelectProps<T>) => {
+    const selectState = useState<T[]>(defaultValue || [])
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
     const [showOptionList, setShowOptionList] = usePopShowState()
@@ -81,23 +81,24 @@ const MultiSelect = FormItem(
       setSelectValue([])
     }
 
-    let selectOptions: MultiSelectOption[] = []
+    let selectOptions: MultiSelectOption<T>[] = []
     if (typeof options === 'string') {
       const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
         const optionTextValue = optionPart.split(':')
         selectOptions.push({
           text: optionTextValue[0],
-          value:
-            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+          value: (optionTextValue.length > 1
+            ? optionTextValue[1]
+            : optionTextValue[0]) as any
         })
       })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        selectOptions = options as MultiSelectOption[]
+        selectOptions = options as MultiSelectOption<T>[]
       } else {
         ;(options as string[]).forEach(option => {
-          selectOptions.push({ text: option, value: option })
+          selectOptions.push({ text: option, value: option as any })
         })
       }
     }
@@ -175,7 +176,7 @@ const MultiSelect = FormItem(
             <div
               className="pui-multi-select-option "
               onClick={() => {
-                const allValues: string[] = []
+                const allValues: T[] = []
                 if (!allChecked) {
                   selectOptions.forEach(item => {
                     allValues.push(item.value)
@@ -198,7 +199,7 @@ const MultiSelect = FormItem(
                 .filter(item => {
                   if (filterValue) {
                     return (
-                      item.value
+                      item.text
                         .toLowerCase()
                         .indexOf(filterValue.toLowerCase()) >= 0
                     )
