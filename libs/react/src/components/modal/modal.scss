@@ -31,15 +31,16 @@
         z-index: 1000;
         overflow: hidden;
         animation: pui-modal-zoom 0.2s ease-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .pui-modal {
           box-sizing: border-box;
           position: relative;
-          top: 100px;
           width: 540px;
           max-width: calc(100vw - 32px);
           max-height: calc(100vh - 200px);
-          margin: 0 auto;
           overflow: hidden;
 
           .pui-modal-content {
@@ -70,8 +71,8 @@
               padding: 24px;
               color: $container-bg-active-color;
 
-              &-divider-true{      
-                  border-bottom: 1px solid $border-color-1;
+              &-divider-true {
+                border-bottom: 1px solid $border-color-1;
               }
               .pui-modal-title {
                 word-wrap: break-word;
@@ -80,54 +81,47 @@
                 line-height: 28px;
                 display: flex;
                 align-items: center;
-                &-icon{
-                  width:32px;
-                  height:28px;
+                &-icon {
+                  width: 32px;
+                  height: 28px;
                   display: flex;
                   align-items: center;
-                  position:relative;
-                  .porscheicon{
-                    position:absolute;
-                    left:-2px;
+                  position: relative;
+                  .porscheicon {
+                    position: absolute;
+                    left: -2px;
                   }
-                  &-type-info{
-                    .porscheicon{
-                      color:$status-neutral-color;
-                    }           
-
-                  }
-                  &-type-success{
-                     .porscheicon{
-                      color:$status-success-color;
-                     }
-                   
-
-                  }
-                  &-type-warning{
-                    .porscheicon{
-                      color:$status-warning-color;
+                  &-type-info {
+                    .porscheicon {
+                      color: $status-neutral-color;
                     }
-
                   }
-                  &-type-error{
-                    .porscheicon{
-                      color:$status-error-color;
+                  &-type-success {
+                    .porscheicon {
+                      color: $status-success-color;
                     }
-
+                  }
+                  &-type-warning {
+                    .porscheicon {
+                      color: $status-warning-color;
+                    }
+                  }
+                  &-type-error {
+                    .porscheicon {
+                      color: $status-error-color;
+                    }
                   }
                 }
               }
 
-              .pui-modal-subtitle{
-                font-size:16px;
+              .pui-modal-subtitle {
+                font-size: 16px;
                 font-weight: 400;
                 line-height: 24px;
-                color:$text-opacity-color-1;
-                margin-top:4px;
+                color: $text-opacity-color-1;
+                margin-top: 4px;
               }
             }
-
-
 
             .pui-modal-body {
               padding: 12px 24px;
@@ -141,7 +135,7 @@
             .pui-modal-footer {
               padding: 24px;
               text-align: right;
-              &-divider-true{      
+              &-divider-true {
                 border-top: 1px solid $border-color-1;
               }
               .pui-button {
