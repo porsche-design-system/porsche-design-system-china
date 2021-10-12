@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
-export interface TimelineItemProps{
-   // 组件属性 //
+
+export interface TimelineItemProps {
+  // 组件属性 //
 
   /** 类名 */
   className?: string
@@ -13,8 +14,10 @@ export interface TimelineItemProps{
 
   /** 颜色 */
   color?: 'red' | 'green' | 'blue' | 'yellow' | 'gray'
-
 }
-export const TimelineItem=({children,color='red'}:TimelineItemProps)=>{
-    return <div>{children}</div>
+export const TimelineItem = ({
+  children,
+  color = 'red'
+}: TimelineItemProps) => {
+  return <div>{children}</div>
 }
