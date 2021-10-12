@@ -63,7 +63,7 @@ export const Timeline = ({
               className={componentClassNames('pui-timeline-item-head', {
                 color: item.color ? (item.color as string) : 'red'
               })}
-             />
+            />
             <div className="pui-timeline-item-content">{item.children}</div>
           </li>
         )
