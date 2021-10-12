@@ -1,5 +1,5 @@
 import React from 'react'
-import { Timeline, TimelineItem } from '../../'
+import { Timeline, TimelineItem } from '../..'
 import './timeline.stories.scss'
 
 export default {
