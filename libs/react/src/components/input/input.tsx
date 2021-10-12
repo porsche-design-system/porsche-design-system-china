@@ -4,7 +4,8 @@ import React, {
   CSSProperties,
   useEffect,
   useRef,
-  useState
+  useState,
+  CompositionEventHandler
 } from 'react'
 import { IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
@@ -65,6 +66,12 @@ export interface InputProps {
 
   /* 显示密码按钮 */
   showViewPasswordButton?: boolean
+
+  /* 中文打字开始 */
+  onCompositionStart?: CompositionEventHandler<HTMLInputElement>
+
+  /* 中文打字结束 */
+  onCompositionEnd?: CompositionEventHandler<HTMLInputElement>
 }
 
 /**
@@ -87,7 +94,9 @@ const Input = FormItem(
     onFocus,
     onEnter,
     showClearButton,
-    showViewPasswordButton
+    showViewPasswordButton,
+    onCompositionStart,
+    onCompositionEnd
   }: InputProps) => {
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
@@ -98,6 +107,8 @@ const Input = FormItem(
     useEffect(() => {
       setInputType(type)
     }, [type])
+
+    const displayValueLength = value !== undefined ? value.length : valueLength
 
     return (
       <div
@@ -118,6 +129,8 @@ const Input = FormItem(
           placeholder={placeholder}
           maxLength={maxLength}
           type={inputType}
+          onCompositionEnd={onCompositionEnd}
+          onCompositionStart={onCompositionStart}
           onChange={evt => {
             onChange && onChange(evt)
             onValueChange && onValueChange(evt.target.value)
@@ -146,9 +159,9 @@ const Input = FormItem(
         />
         {maxLength && !showClearButton && !showViewPasswordButton && (
           <div className="pui-input-char-count">
-            {valueLength > 0 && valueLength}
+            {displayValueLength > 0 && displayValueLength}
             <span>
-              {valueLength === 0 && valueLength}/{maxLength}
+              {displayValueLength === 0 && displayValueLength}/{maxLength}
             </span>
           </div>
         )}

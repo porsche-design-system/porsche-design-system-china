@@ -16,9 +16,6 @@ const cardContent = (
 )
 
 export const TooltipStoryBook = () => {
-  const onClick = () => {
-    console.log('clicked!')
-  }
   return (
     <div className="tooltip-story">
       <div className="group">
@@ -143,6 +140,27 @@ export const TooltipStoryBook = () => {
         </div>
       </div>
       <div className="group">
+        <div className="title">注意</div>
+        <div className="show-case">
+          <p>
+            请确保 Tooltip 的子元素能接受 onMouseEnter、onMouseLeave、onClick
+            事件。
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+TooltipStoryBook.storyName = 'Tooltip'
+
+export const TooltipStoryBook1 = () => {
+  const onClick = () => {
+    console.log('clicked!')
+  }
+  return (
+    <div className="tooltip-story">
+      <div className="group">
         <div className="title">触发方式-鼠标移入、点击</div>
         <div className="show-case">
           <Row>
@@ -164,6 +182,15 @@ export const TooltipStoryBook = () => {
           </Row>
         </div>
       </div>
+    </div>
+  )
+}
+
+TooltipStoryBook1.storyName = 'Tooltip Trigger Mode'
+
+export const TooltipStoryBook2 = () => {
+  return (
+    <div className="tooltip-story">
       <div className="group">
         <div className="title">复杂结构示例-含标题文字提示</div>
         <div className="show-case">
@@ -179,17 +206,8 @@ export const TooltipStoryBook = () => {
           </Row>
         </div>
       </div>
-      <div className="group">
-        <div className="title">注意</div>
-        <div className="show-case">
-          <p>
-            请确保 Tooltip 的子元素能接受 onMouseEnter、onMouseLeave、onClick
-            事件。
-          </p>
-        </div>
-      </div>
     </div>
   )
 }
 
-TooltipStoryBook.storyName = 'Tooltip'
+TooltipStoryBook2.storyName = 'Tooltip Example'

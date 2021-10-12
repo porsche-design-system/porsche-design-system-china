@@ -9,7 +9,7 @@ export default {
 export const SelectStoryBook = () => {
   const [val, setVal] = useState<any>(['dog'])
   return (
-    <div style={{ height: '600px', width: '300px' }}>
+    <div style={{ height: '400px', width: '300px' }}>
       <Form>
         <MultiSelect
           value={val}
@@ -20,23 +20,19 @@ export const SelectStoryBook = () => {
           width="200px"
         />
         <br />
-        <Button
-          onClick={() => {
-            setVal(undefined)
-          }}
-        >
-          重置
-        </Button>
-        <Button
-          marginLeft="20px"
-          onClick={() => {
-            setVal(['dog', '猫'])
-          }}
-        >
-          载入数据
-        </Button>
-        <div>{JSON.stringify(val)}</div>
+        <div>禁用状态</div>
+        <MultiSelect options="狗,猫,狮子,老虎,鲸鱼" disabled />
+      </Form>
+    </div>
+  )
+}
 
+SelectStoryBook.storyName = 'MultiSelect'
+
+export const SelectStoryBook1 = () => {
+  return (
+    <div style={{ height: '400px', width: '300px' }}>
+      <Form>
         <div>-----</div>
         <MultiSelect
           options="狗:dog,猫,狮子,老虎,鲸鱼"
@@ -44,25 +40,38 @@ export const SelectStoryBook = () => {
           placeholder="请选择"
           width="200px"
         />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook1.storyName = 'String Options'
 
-        <div>禁用状态</div>
-        <MultiSelect options="狗,猫,狮子,老虎,鲸鱼" disabled />
-
+export const SelectStoryBook2 = () => {
+  return (
+    <div style={{ height: '400px', width: '300px' }}>
+      <Form>
         <div>出错状态</div>
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼"
           error={{ show: true, message: '未选择' }}
         />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook2.storyName = 'Error'
 
+export const SelectStoryBook3 = () => {
+  return (
+    <div style={{ height: '400px', width: '300px' }}>
+      <Form>
         <div>显示过滤输入框</div>
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
           filterInput
         />
-        <div style={{ height: '400px' }}>&nbsp;</div>
       </Form>
     </div>
   )
 }
-
-SelectStoryBook.storyName = 'Select'
+SelectStoryBook3.storyName = 'Show filter Input'

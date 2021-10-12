@@ -2,7 +2,7 @@ import React from 'react'
 import { PorscheLogo } from '../..'
 
 export default {
-  title: 'Icon/PorscheLogo',
+  title: 'Foundation/PorscheLogo',
   component: PorscheLogo
 }
 
