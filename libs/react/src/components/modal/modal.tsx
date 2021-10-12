@@ -322,11 +322,61 @@ Modal.confirm = (
   )
 }
 
+
+
+export interface ModalShowProps {
+  /** 子组件 */
+  content?: React.ReactNode
+
+  /** 标题 */
+  title?: string
+
+  /** 标题左侧Icon */
+  titleIcon?: ReactElement | undefined
+
+  /** 标题左侧Iconl类型 */
+  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+
+  /** 副标题 */
+  subtitle?: string
+
+  /** 确认按钮文字 */
+  okText?: string
+
+  /** 取消按钮文字 */
+  cancelText?: string
+
+  /** 确认按钮Icon */
+  okIcon?: ReactElement | undefined | null
+
+  /** 取消按钮Icon */
+  cancelIcon?: ReactElement | undefined | null
+
+  /* 点击确定回调 */
+  onOk?: () => void | Promise<unknown>
+
+  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  onCancel?: () => void
+
+  /* 显示取消按钮 */
+  showCancel?: boolean
+
+  /* 显示确认按钮 */
+  showOk?: boolean
+
+  /* 显示关闭按钮 */
+  showClose?: boolean
+
+
+}
+
+
 Modal.show = ({
   title,
   titleIcon,
   titleIconType,
   subtitle,
+  showOk,
   showClose,
   okText,
   okIcon,
@@ -334,8 +384,8 @@ Modal.show = ({
   cancelText,
   cancelIcon,
   onCancel,
-  children
-}: ModalProps) => {
+  content
+}: ModalShowProps) => {
   modalCounter++
   const modalId = '$ModalContainer-' + modalCounter
   let modalContainer = document.getElementById(modalId)
@@ -354,6 +404,7 @@ Modal.show = ({
       subtitle={subtitle}
       okText={okText}
       okIcon={okIcon}
+      showOk={showOk}
       showClose={showClose}
       onCancel={() => {
         document.body.removeChild(modalContainer!)
@@ -386,7 +437,7 @@ Modal.show = ({
       }}
       visible
     >
-      {children}
+      {content}
     </Modal>,
     modalContainer
   )

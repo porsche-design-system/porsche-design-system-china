@@ -31,6 +31,17 @@ export const LoadingWrapStoryBook = () => {
       </Button>
       <br />
       <br />
+    </div>
+  )
+}
+
+LoadingWrapStoryBook.storyName = 'Loading Wrap'
+
+export const LoadingWrapStoryBook1 = () => {
+  const [show, setShow] = useState(false)
+
+  return (
+    <div>
       <LoadingWrap visible={show} blurContent>
         <div className="para">
           Thee were little things that she simply could not stand. The sound of
@@ -50,6 +61,17 @@ export const LoadingWrapStoryBook = () => {
       </Button>
       <br />
       <br />
+    </div>
+  )
+}
+
+LoadingWrapStoryBook1.storyName = 'Loading Wrap Vague'
+
+export const LoadingWrapStoryBook2 = () => {
+  const [show, setShow] = useState(false)
+
+  return (
+    <div>
       <LoadingWrap visible={show} size={30}>
         <div className="para">
           Thee were little things that she simply could not stand. The sound of
@@ -69,7 +91,17 @@ export const LoadingWrapStoryBook = () => {
       </Button>
       <br />
       <br />
+    </div>
+  )
+}
 
+LoadingWrapStoryBook2.storyName = 'Loading Wrap Small'
+
+export const LoadingWrapStoryBook3 = () => {
+  const [show, setShow] = useState(false)
+
+  return (
+    <div>
       <LoadingWrap visible={show} size={60}>
         <div className="para">
           Thee were little things that she simply could not stand. The sound of
@@ -92,3 +124,5 @@ export const LoadingWrapStoryBook = () => {
     </div>
   )
 }
+
+LoadingWrapStoryBook3.storyName = 'Loading Wrap Big'

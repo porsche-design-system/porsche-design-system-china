@@ -5,7 +5,7 @@ import { Button, Input, Form } from '../..'
 import './login-form.stories.scss'
 
 export default {
-  title: 'Form Example/Login Form'
+  title: 'Example/Login Form'
 }
 
 export const LoginStoryBook = () => {

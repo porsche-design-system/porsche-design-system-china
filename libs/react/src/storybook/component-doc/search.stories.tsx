@@ -17,9 +17,19 @@ export const InputStoryBook = () => {
           console.log(val)
         }}
       />
-      <Search placeholder="显示清除按钮" width="300px" showClearButton />
     </div>
   )
 }
 
 InputStoryBook.storyName = 'Search'
+
+export const InputStoryBook1 = () => {
+  return (
+    <div>
+      <div>显示清除按钮</div>
+      <Search placeholder="显示清除按钮" width="300px" showClearButton />
+    </div>
+  )
+}
+
+InputStoryBook1.storyName = 'Show Clear Button'

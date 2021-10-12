@@ -113,6 +113,7 @@ const RadioGroup = FormItem(
               ;(radioProp as any).onClick = (evt: any) => {
                 if (allowCancelSelection && evt.target.value === radioValue) {
                   setRadioValue('')
+                  onValueChange && onValueChange('')
                 }
               }
             }

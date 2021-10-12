@@ -125,6 +125,12 @@ const Form = <T extends object>({
           setFormErrors(errorList)
           onSubmit && onSubmit(fData as T, errorList)
         })
+      },
+      validate(callback?: (errorList: ErrorList) => void) {
+        validate(formDataValidators.current, fData, errorList => {
+          shouldAutoValidForm.current = true
+          callback && callback(errorList)
+        })
       }
     }
   }
@@ -382,6 +388,13 @@ const Form = <T extends object>({
       {newChildren}
     </div>
   )
+}
+
+Form.findById = (id: string) => {
+  return Form[id] as {
+    submit: () => {}
+    validate: (callback?: (errorList: ErrorList) => void) => void
+  }
 }
 
 export { Form }

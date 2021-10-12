@@ -1,4 +1,9 @@
-import React, { ChangeEventHandler, CSSProperties, useState } from 'react'
+import React, {
+  ChangeEventHandler,
+  CompositionEventHandler,
+  CSSProperties,
+  useState
+} from 'react'
 import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import { FormErrorText } from '../error-text/error-text'
@@ -47,6 +52,12 @@ export interface TextAreaProps {
 
   /* 值改变事件 */
   onValueChange?: (value: string) => void
+
+  /* 中文打字开始 */
+  onCompositionStart?: CompositionEventHandler<HTMLTextAreaElement>
+
+  /* 中文打字结束 */
+  onCompositionEnd?: CompositionEventHandler<HTMLTextAreaElement>
 }
 
 /**
@@ -63,7 +74,9 @@ const TextArea = FormItem(
     disabled = false,
     maxLength,
     onChange,
-    onValueChange
+    onValueChange,
+    onCompositionStart,
+    onCompositionEnd
   }: TextAreaProps) => {
     const [valueLength, setValueLength] = useState(0)
     const [defaultSize] = useDefaultSize()
@@ -85,6 +98,8 @@ const TextArea = FormItem(
         <textarea
           value={value}
           defaultValue={defaultValue}
+          onCompositionStart={onCompositionStart}
+          onCompositionEnd={onCompositionEnd}
           ref={(element: HTMLTextAreaElement) => {
             if (maxLength && element) {
               updateHeight(element)
