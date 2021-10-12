@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react'
+import classNames from 'classnames'
 import { TimelineItem, TimelineItemProps } from './timeline-item'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
-import classNames from 'classnames'
 import './timeline.scss'
 import { useDefaultSize } from '../../shared/hooks'
 
@@ -58,12 +58,12 @@ export const Timeline = ({
             style={item.style}
             key={index}
           >
-            <div className="pui-timeline-item-tail"></div>
+            <div className="pui-timeline-item-tail" />
             <div
               className={componentClassNames('pui-timeline-item-head', {
                 color: item.color ? (item.color as string) : 'red'
               })}
-            ></div>
+             />
             <div className="pui-timeline-item-content">{item.children}</div>
           </li>
         )
