@@ -21,7 +21,7 @@ export interface ButtonProps {
   style?: CSSProperties
 
   /** 类型 */
-  type?: 'default' | 'primary' | 'secondary' | 'text'
+  type?: 'default' | 'primary' | 'secondary' | 'text' | 'link'
 
   /** 大小 */
   size?: 'medium' | 'small' | 'tiny'

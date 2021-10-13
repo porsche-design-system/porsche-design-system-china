@@ -23,6 +23,7 @@ export const LoadingWrapStoryBook = () => {
       </LoadingWrap>
       <Button
         type="primary"
+        className="btn"
         onClick={() => {
           setShow(!show)
         }}
@@ -53,6 +54,7 @@ export const LoadingWrapStoryBook1 = () => {
       </LoadingWrap>
       <Button
         type="primary"
+        className="btn"
         onClick={() => {
           setShow(!show)
         }}
@@ -83,6 +85,7 @@ export const LoadingWrapStoryBook2 = () => {
       </LoadingWrap>
       <Button
         type="primary"
+        className="btn"
         onClick={() => {
           setShow(!show)
         }}
@@ -113,6 +116,7 @@ export const LoadingWrapStoryBook3 = () => {
       </LoadingWrap>
       <Button
         type="primary"
+        className="btn"
         onClick={() => {
           setShow(!show)
         }}
