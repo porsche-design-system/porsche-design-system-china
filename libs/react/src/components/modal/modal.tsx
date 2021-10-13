@@ -192,7 +192,7 @@ const Modal = ({
                       const loadingPromise = onOk()
                       if (typeof loadingPromise === 'object') {
                         setIsLoading(true)
-                        ;(loadingPromise as Promise<unknown>).then(() => {
+                        ;(loadingPromise as Promise<unknown>).finally(() => {
                           setIsLoading(false)
                         })
                       }
@@ -239,11 +239,15 @@ Modal.alert = (
           const loadingPromise = onOk()
           if (typeof loadingPromise === 'object') {
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              modalSetIsLoading(false)
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                modalSetIsLoading(false)
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
@@ -322,8 +326,6 @@ Modal.confirm = (
   )
 }
 
-
-
 export interface ModalShowProps {
   /** 子组件 */
   content?: React.ReactNode
@@ -366,10 +368,7 @@ export interface ModalShowProps {
 
   /* 显示关闭按钮 */
   showClose?: boolean
-
-
 }
-
 
 Modal.show = ({
   title,
