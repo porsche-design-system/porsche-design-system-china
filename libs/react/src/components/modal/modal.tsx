@@ -304,11 +304,15 @@ Modal.confirm = (
           const loadingPromise = onOk()
           if (loadingPromise) {
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-              modalSetIsLoading(false)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+                modalSetIsLoading(false)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
@@ -420,11 +424,15 @@ Modal.show = ({
           const loadingPromise = onOk()
           if (loadingPromise) {
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-              modalSetIsLoading(false)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+                modalSetIsLoading(false)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)

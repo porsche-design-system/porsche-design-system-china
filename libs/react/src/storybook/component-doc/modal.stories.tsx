@@ -44,7 +44,14 @@ export const ModalStoryBook = () => {
             content:
               '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
             okText: '主要按钮',
-            cancelText: '次要按钮'
+            cancelText: '次要按钮',
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  reject()
+                }, 2000)
+              })
+            }
           })
         }
         type="secondary"
