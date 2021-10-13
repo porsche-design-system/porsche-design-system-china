@@ -107,7 +107,30 @@
       }
 
       &-type-text {
-        font-weight: bold;
+        color: $text-color-1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border: none;
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-2;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-1;
+        }
+        &:disabled,
+        &-disabled {
+          color: $brand-color-disable;
+          background-color: transparent;
+          cursor: not-allowed;
+          .pui-button-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &-type-link {
         color: $text-link-color;
         background-color: transparent;
         border: 1px solid transparent;
@@ -162,11 +185,6 @@
         .pui-button-loading-circle2 {
           stroke: $text-color-2;
         }
-      }
-
-      &-type-text {
-        padding-left: 0;
-        padding-right: 0;
       }
 
       /* size */

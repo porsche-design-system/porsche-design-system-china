@@ -55,6 +55,10 @@ export const ButtonStoryBook2 = () => {
         <Button type="text" marginRight="40px" icon={icon}>
           {showText ? 'Text' : ''}
         </Button>
+
+        <Button type="link" marginRight="40px">
+          {showText ? 'Link' : ''}
+        </Button>
       </div>
     </div>
   )
@@ -112,6 +116,14 @@ export const ButtonStoryBook3 = () => {
         >
           Text
         </Button>
+        <Button
+          type="link"
+          marginRight="40px"
+          disabled={isDisable}
+          loading={isLoading}
+        >
+          Link
+        </Button>
       </div>
     </div>
   )
@@ -155,6 +167,9 @@ export const ButtonStoryBook4 = () => {
         >
           Text
         </Button>
+        <Button size="tiny" type="link" marginRight="40px">
+          Link
+        </Button>
       </div>
       <br />
       <div>
@@ -170,6 +185,9 @@ export const ButtonStoryBook4 = () => {
         <Button size="tiny" type="text" marginRight="40px" loading>
           Text
         </Button>
+        <Button size="tiny" type="text" marginRight="40px">
+          Link
+        </Button>
       </div>
       <br />
       <div>
@@ -184,6 +202,9 @@ export const ButtonStoryBook4 = () => {
         </Button>
         <Button size="tiny" type="text" marginRight="40px" disabled>
           Text
+        </Button>
+        <Button size="tiny" type="text" marginRight="40px" disabled>
+          Link
         </Button>
       </div>
       <br />
