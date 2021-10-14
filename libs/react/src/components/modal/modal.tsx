@@ -334,6 +334,12 @@ export interface ModalShowProps {
   /** 子组件 */
   content?: React.ReactNode
 
+  /* 类名 */
+  className?: string
+
+  /** 样式 */
+  style?: CSSProperties
+
   /** 标题 */
   title?: string
 
@@ -375,6 +381,8 @@ export interface ModalShowProps {
 }
 
 Modal.show = ({
+  style,
+  className,
   title,
   titleIcon,
   titleIconType,
@@ -402,6 +410,8 @@ Modal.show = ({
   let currentPop: any = null
   ReactDOM.render(
     <Modal
+      style={style}
+      className={className}
       title={title}
       titleIcon={titleIcon}
       titleIconType={titleIconType}
