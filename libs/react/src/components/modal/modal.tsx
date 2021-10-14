@@ -381,6 +381,7 @@ Modal.show = ({
   okText,
   okIcon,
   onOk,
+  showCancel,
   cancelText,
   cancelIcon,
   onCancel,
@@ -406,6 +407,7 @@ Modal.show = ({
       okIcon={okIcon}
       showOk={showOk}
       showClose={showClose}
+      showCancel={showCancel}
       onCancel={() => {
         document.body.removeChild(modalContainer!)
         document.body.removeChild(currentPop)
