@@ -14,8 +14,22 @@ const GettingStart = () => (
     <div className="code">
       strict-ssl=false
       <br />
-      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-proxy/
+      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-group/
     </div>
+    <br />
+    <div>安装依赖的时候需要连接到保时捷内网，或在保时捷公司Wifi环境</div>
+    <div>
+      连接内网工具请前往
+      <a
+        style={{ marginLeft: '5px', textDecoration: 'underline' }}
+        href="https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN"
+      >
+        https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN
+      </a>
+    </div>
+    <br />
+    <div>在 hosts 中添加</div>
+    <div className="cmd">52.81.186.255 s1.web.porsche-preview.cn</div>
     <br />
     <div>安装PUI依赖</div>
     <div className="cmd">yarn add @pui/react</div>
@@ -24,6 +38,18 @@ const GettingStart = () => (
     <div className="code">
       import {'{'}Form, Input, Button{'}'} from '@pui/react';
     </div>
+    <br />
+    <div>
+      使用保时捷Gitlab Runner部署编译项目，需要将.npmrc中的
+      s1.web.porsche-preview.cn 替换为 web.devops.porsche-internaldns.cn:4001
+    </div>
+    修改文件 .gitlab-ci.yml 在运行npm install前加入以下代码
+    <div className="cmd">
+      - sed -i
+      "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
+      ./.npmrc
+    </div>
+    <br />
   </div>
 )
 

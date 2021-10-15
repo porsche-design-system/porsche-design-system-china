@@ -10,12 +10,6 @@ export default {
 }
 
 export const CheckBoxStoryBook = () => {
-  const [pickedValues, setPickedValues] = useState<string[]>([
-    'singing',
-    'swimming',
-    'xxxx'
-  ])
-  const [showError, setShowError] = useState(true)
   const [partChecked, setPartChecked] = useState(true)
 
   return (
@@ -35,42 +29,77 @@ export const CheckBoxStoryBook = () => {
         <br />
         <CheckBox text="失效选项" disabled />
       </div>
-      <br />
-
-      <div>
-        <div>With Label</div>
-        <div>
-          <CheckBoxGroup
-            label="兴趣爱好"
-            value={pickedValues}
-            onValueChange={setPickedValues}
-            width="300px"
-          >
-            <CheckBox text="唱歌" value="singing" />
-            <CheckBox text="玩游戏" value="gaming" />
-            <CheckBox text="跳舞" value="dance" />
-            <CheckBox text="游泳" value="swimming" />
-            <CheckBox text="听音乐" value="music" />
-            <CheckBox text="瑜伽" value="yoga" />
-          </CheckBoxGroup>
-        </div>
-        <div>{JSON.stringify(pickedValues)}</div>
-      </div>
-      <br />
-      <div>
-        <div>Error</div>
-        <div>
-          <CheckBoxGroup
-            label={{ text: '热门电影', position: 'left' }}
-            error={{ show: showError, message: '必须勾选3个电影' }}
-            onValueChange={val => {
-              console.log('val', val)
-              setShowError(false)
-            }}
-            options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
-          />
-        </div>
-      </div>
     </div>
   )
 }
+CheckBoxStoryBook.storyName = 'CheckBox'
+
+export const CheckBoxStoryBook1 = () => {
+  const [vals, setVals] = useState([1, 3])
+
+  return (
+    <div>
+      <div>value值支持使用number型，options必须写成object形式</div>
+      <br />
+      <CheckBoxGroup
+        value={vals}
+        onValueChange={setVals}
+        label="动画片"
+        options={[
+          { text: '柯南', value: 1 },
+          { text: '猫和老鼠', value: 2 },
+          { text: '齐天大圣', value: 3 },
+          { text: '葫芦娃', value: 4 }
+        ]}
+      />
+      <br /> <br />
+      <div>选定值: {JSON.stringify(vals)}</div>
+    </div>
+  )
+}
+
+CheckBoxStoryBook1.storyName = 'Number Value'
+
+export const CheckBoxStoryBook2 = () => {
+  return (
+    <div>
+      <CheckBoxGroup label="兴趣爱好" width="300px">
+        <CheckBox text="唱歌" value="singing" />
+        <CheckBox text="玩游戏" value="gaming" />
+        <CheckBox text="跳舞" value="dance" />
+        <CheckBox text="游泳" value="swimming" />
+        <CheckBox text="听音乐" value="music" />
+        <CheckBox text="瑜伽" value="yoga" />
+      </CheckBoxGroup>
+    </div>
+  )
+}
+
+CheckBoxStoryBook2.storyName = 'With Label'
+
+export const CheckBoxStoryBook3 = () => {
+  return (
+    <div>
+      <CheckBoxGroup
+        label={{ text: '热门电影', position: 'left' }}
+        error={{ show: true, message: '必须勾选3个电影' }}
+        options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
+      />
+    </div>
+  )
+}
+
+CheckBoxStoryBook3.storyName = 'Error'
+
+export const CheckBoxStoryBook4 = () => {
+  return (
+    <div>
+      <CheckBoxGroup
+        label={{ text: '热门电影', position: 'left' }}
+        options="阿甘正传,肖申克的救赎,寻龙传说,复仇者联盟"
+      />
+    </div>
+  )
+}
+
+CheckBoxStoryBook4.storyName = 'String Options'

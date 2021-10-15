@@ -5,19 +5,19 @@ import { FormItem } from '../form/form-item'
 import { Radio, RadioProps } from './radio'
 import './radio-group.scss'
 
-interface Option {
+interface Option<T> {
   text: string
-  value: string
+  value: T
 }
 
-export interface RadioGroupProps {
+export interface RadioGroupProps<T> {
   // 组件属性 //
 
   /* 默认值 */
-  defaultValue?: string
+  defaultValue?: T
 
   /* 值 */
-  value?: string
+  value?: T
 
   /** 是否禁用 */
   disabled?: boolean
@@ -29,10 +29,10 @@ export interface RadioGroupProps {
   error?: FormErrorText
 
   /* 点击事件 */
-  onValueChange?: (val: string) => void
+  onValueChange?: (val: T) => void
 
   /* 选项 */
-  options?: string | string[] | Option[]
+  options?: string | string[] | Option<T>[]
 
   /* 允许取消选项 */
   allowCancelSelection?: boolean
@@ -42,7 +42,7 @@ export interface RadioGroupProps {
 }
 
 const RadioGroup = FormItem(
-  ({
+  <T,>({
     disabled = false,
     children,
     onValueChange,
@@ -51,8 +51,8 @@ const RadioGroup = FormItem(
     allowCancelSelection = false,
     error,
     options
-  }: RadioGroupProps) => {
-    const [radioValue, setRadioValue] = useState<string>(
+  }: RadioGroupProps<T>) => {
+    const [radioValue, setRadioValue] = useState<T | ''>(
       value || defaultValue || ''
     )
 
@@ -62,23 +62,24 @@ const RadioGroup = FormItem(
       }
     }, [value])
 
-    let radioOptions: Option[] = []
+    let radioOptions: Option<T>[] = []
     if (typeof options === 'string') {
       const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
         const optionTextValue = optionPart.split(':')
         radioOptions.push({
           text: optionTextValue[0],
-          value:
-            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+          value: (optionTextValue.length > 1
+            ? optionTextValue[1]
+            : optionTextValue[0]) as any
         })
       })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        radioOptions = options as Option[]
+        radioOptions = options as Option<T>[]
       } else {
         ;(options as string[]).forEach(option => {
-          radioOptions.push({ text: option, value: option })
+          radioOptions.push({ text: option, value: option as any })
         })
       }
     }
@@ -88,31 +89,32 @@ const RadioGroup = FormItem(
     ))
 
     const newChildren = useMemo(() => {
-      const allValues: string[] = []
+      const allValues: (string | number)[] = []
       const newChildren = overrideChildren(
         [...optionRadios, ...React.Children.toArray(children)],
         (elementName, props) => {
           if (elementName === 'Radio') {
-            const radioProp: RadioProps = props
+            const radioProp: RadioProps<T> = props
             const radioOnChange = radioProp.onChange
             const radioOnCheckedChange = radioProp.onCheckedChange
-            radioProp.value = radioProp.value || radioProp.text
-            radioProp.value && allValues.push(radioProp.value)
+            radioProp.value = (radioProp.value || radioProp.text) as any
+            radioProp.value && allValues.push(radioProp.value as any)
             radioProp.checked = radioProp.value === (value || radioValue)
             radioProp.onChange = evt => {
               radioOnChange && radioOnChange(evt)
               radioOnCheckedChange && radioOnCheckedChange(evt.target.checked)
               if (evt.target.value) {
                 if (evt.target.checked) {
-                  setRadioValue(evt.target.value)
+                  setRadioValue(props.value)
                 }
               }
-              onValueChange && onValueChange(evt.target.value)
+              onValueChange && onValueChange(props.value)
             }
             if (allowCancelSelection) {
               ;(radioProp as any).onClick = (evt: any) => {
                 if (allowCancelSelection && evt.target.value === radioValue) {
                   setRadioValue('')
+                  onValueChange && onValueChange('' as any)
                 }
               }
             }
@@ -121,7 +123,7 @@ const RadioGroup = FormItem(
         }
       )
 
-      if (allValues.indexOf(radioValue) < 0) {
+      if (allValues.indexOf(radioValue as any) < 0) {
         setRadioValue('')
       }
 
@@ -130,7 +132,7 @@ const RadioGroup = FormItem(
 
     useEffect(() => {
       if (radioValue !== value) {
-        onValueChange && onValueChange(radioValue)
+        onValueChange && onValueChange(radioValue as any)
       }
     }, [])
 

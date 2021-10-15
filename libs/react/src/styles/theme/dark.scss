@@ -3,10 +3,11 @@
 	$brand-color: #2193ff !global;
 	$brand-color-hover: #52abff !global;
 	$brand-color-active: #0064c2 !global;
+	$brand-color-disable: #7c7f81 !global;
 
 	// Background Colors
 	$background-color-1: #0e1418 !global;
-	$background-color-2: #0e1418 !global;
+	$background-color-2: #1b2023 !global;
 	$background-color-3: #282B2E !global;
 
 	// Container Colors
@@ -25,7 +26,7 @@
 	$container-bg-opacity-color-3: rgba(255, 255, 255, 0.12) !global;
 	$container-bg-opacity-color-4: rgba(255, 255, 255, 0.2) !global;
 
-	$float-layer-bg-color: #4a4e51 !global;
+	$float-layer-bg-color: #282b2e !global;
 
 	// Background Opacity
 	$mask-color: rgba(0, 0, 0, 0.7) !global;
@@ -82,4 +83,7 @@
 
 	// loading
 	$loading-bg-color: rgba(0, 0, 0, 0.6) !global;
+
+	// switch
+	$switch-button-color: #0080fa !global;
 }

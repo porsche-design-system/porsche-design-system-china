@@ -8,9 +8,6 @@ export default {
 }
 
 export const RadioStoryBook = () => {
-  const [showError, setShowError] = useState(true)
-  const [pickedValue, setPickedValue] = useState('医生')
-
   return (
     <div>
       <Form>
@@ -34,29 +31,6 @@ export const RadioStoryBook = () => {
           <Radio text="选项3" />
           <Radio text="选项4" disabled />
         </RadioGroup>
-
-        <br />
-
-        <br />
-
-        <div>Error</div>
-        <RadioGroup
-          label={{ text: '职业', position: 'left' }}
-          error={{ show: showError, message: '请选择' }}
-          onValueChange={() => {
-            setShowError(false)
-          }}
-        >
-          <Radio text="教师" />
-          <Radio text="医生" />
-          <Radio text="警察" />
-          <Radio text="律师" />
-        </RadioGroup>
-
-        <br />
-
-        <div>String Options</div>
-        <RadioGroup options="教师,医生,警察,律师" />
       </Form>
     </div>
   )
@@ -64,28 +38,72 @@ export const RadioStoryBook = () => {
 
 RadioStoryBook.storyName = 'Radio'
 
-export const RadioStoryBook2 = () => (
-  <div>
-    <div>点击已选定Radio可以去掉选择</div>
-    <br />
-    <RadioGroup allowCancelSelection>
-      <Radio text="选项1" />
-      <Radio text="选项2" />
-      <Radio text="选项3" />
-      <Radio text="选项4" />
-    </RadioGroup>
-  </div>
-)
-RadioStoryBook2.storyName = 'Cancellable'
+export const RadioStoryBook2 = () => {
+  const [val, setVal] = useState(1)
+  return (
+    <div>
+      <div>value值支持使用number型，options必须写成object形式</div>
+      <br />
+      <RadioGroup
+        value={val}
+        onValueChange={setVal}
+        options={[
+          { text: '选择1', value: 1 },
+          { text: '选择2', value: 2 },
+          { text: '选择3', value: 3 }
+        ]}
+      />
+      <br /> <br />
+      <div>选定值: {JSON.stringify(val)}</div>
+    </div>
+  )
+}
+RadioStoryBook2.storyName = 'Number Value'
 
-export const RadioStoryBook3 = () => (
+export const RadioStoryBook3 = () => {
+  const [val, setVal] = useState('选项1')
+  return (
+    <div>
+      <div>点击已选定Radio可以去掉选择</div>
+      <br />
+      <RadioGroup
+        value={val}
+        onValueChange={setVal}
+        options="选项1,选项2,选项3,选项4"
+        allowCancelSelection
+      />
+    </div>
+  )
+}
+RadioStoryBook3.storyName = 'Cancellable'
+
+export const RadioStoryBook4 = () => (
   <div>
-    <RadioGroup label={{ text: '职业', position: 'left' }}>
-      <Radio text="教师" value="教师" />
-      <Radio text="医生" value="医生" />
-      <Radio text="警察" value="警察" />
-      <Radio text="律师" value="律师" />
-    </RadioGroup>
+    <RadioGroup
+      label={{ text: '职业', position: 'left' }}
+      options="教师,医生,警察,律师"
+    />
   </div>
 )
-RadioStoryBook3.storyName = 'With Label'
+RadioStoryBook4.storyName = 'With Label'
+
+export const RadioStoryBook5 = () => {
+  return (
+    <div>
+      <RadioGroup
+        error={{ show: true, message: '请选择' }}
+        options="教师,医生,警察,律师"
+      />
+    </div>
+  )
+}
+RadioStoryBook5.storyName = 'Error'
+
+export const RadioStoryBook6 = () => {
+  return (
+    <div>
+      <RadioGroup options="教师:Teacher,医生:Doctor,警察:Policeman,律师:Lawyer" />
+    </div>
+  )
+}
+RadioStoryBook6.storyName = 'String Options'

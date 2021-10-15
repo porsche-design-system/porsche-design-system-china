@@ -3,11 +3,12 @@
 	$brand-color: #d5001c !global;
 	$brand-color-hover: #e5001e !global;
 	$brand-color-active: #990014 !global;
+	$brand-color-disable: #96989a !global;
 
 	// Background Colors
 	$background-color-1: #f2f2f2 !global;
 	$background-color-2: #ffffff !global;
-	$background-color-3: #ffffff !global;
+	$background-color-2: #ffffff !global;
 
 	// Container Colors
 	$container-bg-color-1: #f2f2f2 !global;
@@ -84,4 +85,7 @@
 
 	// loading
 	$loading-bg-color: rgba(255, 255, 255, 0.8) !global;
+
+	// switch
+	$switch-button-color: #01ba1d !global;
 }

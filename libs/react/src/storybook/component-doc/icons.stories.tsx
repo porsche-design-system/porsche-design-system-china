@@ -5,7 +5,7 @@ import { Message } from '../..'
 import './icons.stories.scss'
 
 export default {
-  title: 'Icon/Icons'
+  title: 'Foundation/Icons'
 }
 
 const copyToClipboard = (str: string) => {

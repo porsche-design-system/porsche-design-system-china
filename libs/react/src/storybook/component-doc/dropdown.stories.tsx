@@ -42,14 +42,24 @@ const twoMenu = (
     </Menu.ItemGroup>
   </Menu>
 )
+
 export const ProgressStoryBook = () => {
   return (
-    <div className="dropdown-demo">
+    <div className="dropdown-demo dropdown-demo-one">
       <div className="test-one">
         <Dropdown overlay={oneMenu} trigger="click">
           下拉菜单
         </Dropdown>
       </div>
+    </div>
+  )
+}
+
+ProgressStoryBook.storyName = 'Menu'
+
+export const ProgressStoryBook1 = () => {
+  return (
+    <div className="dropdown-demo">
       <div className="test-two">
         <Dropdown overlay={twoMenu} trigger="click">
           分组下拉菜单
@@ -59,4 +69,4 @@ export const ProgressStoryBook = () => {
   )
 }
 
-ProgressStoryBook.storyName = 'Menu'
+ProgressStoryBook1.storyName = 'Grouping Menu'
