@@ -16,7 +16,7 @@ import {
 } from '../..'
 
 export default {
-  title: 'Form Example/Form 1',
+  title: 'Example/Form 1',
   component: Form
 }
 

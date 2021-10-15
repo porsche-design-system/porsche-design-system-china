@@ -5,6 +5,9 @@ type ThemeName = 'light' | 'dark'
 export const PUI = {
   setTheme(themeName: ThemeName) {
     this['_themeName'] = themeName
+    if (getGlobalStateSetter('THEME_NAME')) {
+      getGlobalStateSetter('THEME_NAME')(themeName)
+    }
     document.body.className =
       document.body.className.replace(/pui-theme-[^ ]+/, '') +
       ' pui-theme-' +

@@ -5,6 +5,7 @@
     "declaration": true,
     "isolatedModules": true,
     "moduleResolution": "node",
+    "module": "esnext",
     "allowSyntheticDefaultImports":true,
     "outDir": "./es"
   },

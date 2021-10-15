@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, Input, Form, Select, Row, Col, TextArea, Modal } from '../..'
 
 export default {
-  title: 'Form Example/Form Test',
+  title: 'Example/Form Test',
   component: Form
 }
 
