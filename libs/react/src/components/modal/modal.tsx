@@ -152,7 +152,7 @@ const Modal = ({
                 )}
                 {title}
               </div>
-              {subtitle && <div className="pui-model-subtitle">{subtitle}</div>}
+              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
             </div>
             <div className="pui-modal-body">{children}</div>
             <div

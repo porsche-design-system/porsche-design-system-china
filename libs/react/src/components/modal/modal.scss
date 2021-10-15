@@ -69,7 +69,6 @@
 
             .pui-modal-header {
               padding: 24px;
-              color: $container-bg-active-color;
 
               &-divider-true {
                 border-bottom: 1px solid $border-color-1;
@@ -81,6 +80,7 @@
                 line-height: 28px;
                 display: flex;
                 align-items: center;
+                color: $text-color-1;
                 &-icon {
                   width: 32px;
                   height: 28px;
