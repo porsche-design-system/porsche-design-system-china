@@ -20,7 +20,7 @@ export const ModalStoryBook = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
-    Form['updateForm'].submit()
+    Form.findById['updateForm'].submit()
   }
 
   const handleSubmit = (data: any, error: any) => {
@@ -70,7 +70,7 @@ export const ModalStoryBook1 = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleOk = () => {
-    Form['updateForm'].submit()
+    Form.findById['updateForm'].submit()
   }
 
   const handleSubmit = (data: any, error: any) => {

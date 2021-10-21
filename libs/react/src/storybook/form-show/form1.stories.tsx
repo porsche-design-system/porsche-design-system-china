@@ -107,7 +107,6 @@ export const ExampleStoryBook = () => {
           label="Repair Date"
           nameStartDate="repairStartDate"
           nameEndDate="repairEndDate"
-          name="repairDate"
           rules={{ required: true, message: 'Required' }}
           placeholderStartDate="Start"
           placeholderEndDate="End"
@@ -153,7 +152,7 @@ export const ExampleStoryBook = () => {
       <Button
         type="primary"
         onClick={() => {
-          Form['form1'].submit()
+          Form.findById['form1'].submit()
         }}
       >
         Submit
