@@ -1,8 +1,8 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { getLabelWidth, Label, getLabelProps } from '../label/label'
 import { FormItemLabelProps } from './form'
 import { ErrorText, FormErrorText } from '../error-text/error-text'
-import { RuleItem } from '../../shared/validation-rules'
+import { RuleItem, validate } from '../../shared/validation-rules'
 import { useDefaultSize } from '../../shared/hooks'
 
 import './form-item.scss'
@@ -37,7 +37,9 @@ const FormItem =
   <T,>(func: (...args: T[]) => React.ReactNode) =>
   (props: FormItemProps & T) => {
     const { label, error, width, marginLeft, marginRight, rules, style } = props
+    const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()
+    const blurTriggered = useRef(false)
 
     let required = false
     if (rules) {
@@ -52,10 +54,41 @@ const FormItem =
       }
     }
 
+    let displayError = error
+    if (!props.error && internalError) {
+      displayError = {
+        show: true,
+        message: internalError
+      }
+    }
+
+    const validateFormItem = () => {
+      const validateValue = Array.isArray((props as any).value)
+        ? (props as any).value[0]
+        : (props as any).value
+
+      if (rules) {
+        validate({ $VALUE: rules }, { $VALUE: validateValue }, errorList => {
+          blurTriggered.current = true
+          if (errorList && errorList.length > 0) {
+            setInternalError(errorList[0].message)
+          } else {
+            setInternalError('')
+          }
+        })
+      }
+    }
+
+    useEffect(() => {
+      if (blurTriggered.current) {
+        validateFormItem()
+      }
+    }, [(props as any).value])
+
     const labelWidth = getLabelWidth(label)
     const labelProps = getLabelProps(label)
 
-    const comp = func(props) as any
+    const comp = func({ ...props, error: displayError }) as any
     const labelStyle =
       labelProps.position === 'left' &&
       comp.props.className &&
@@ -73,6 +106,12 @@ const FormItem =
       <div
         className="pui-form-item"
         style={{ ...style, width, marginLeft, marginRight }}
+        onKeyUp={() => {
+          if (blurTriggered.current) {
+            validateFormItem()
+          }
+        }}
+        onBlur={validateFormItem}
       >
         {label && (
           <Label
@@ -84,7 +123,9 @@ const FormItem =
         {React.cloneElement(comp, {
           style: { width: `calc(100% - ${labelWidth})` }
         })}
-        {error && error.show && <ErrorText {...error} label={label} />}
+        {displayError && displayError.show && (
+          <ErrorText {...displayError} label={label} />
+        )}
       </div>
     )
   }
