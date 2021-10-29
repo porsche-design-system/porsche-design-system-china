@@ -352,6 +352,9 @@ export interface ModalShowProps {
   /** 副标题 */
   subtitle?: string
 
+  /** 头部页脚是否用细线隔开 */
+  hasDivider?: boolean
+
   /** 确认按钮文字 */
   okText?: string
 
@@ -387,6 +390,7 @@ Modal.show = ({
   titleIcon,
   titleIconType,
   subtitle,
+  hasDivider,
   showOk,
   showClose,
   okText,
@@ -416,6 +420,7 @@ Modal.show = ({
       titleIcon={titleIcon}
       titleIconType={titleIconType}
       subtitle={subtitle}
+      hasDivider={hasDivider}
       okText={okText}
       okIcon={okIcon}
       showOk={showOk}
