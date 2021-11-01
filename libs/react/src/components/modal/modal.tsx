@@ -28,7 +28,7 @@ export interface ModalProps {
   style?: CSSProperties
 
   /** 标题 */
-  title?: string
+  title?: React.ReactNode
 
   /** 标题左侧Icon */
   titleIcon?: ReactElement | undefined
@@ -37,7 +37,7 @@ export interface ModalProps {
   titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
-  subtitle?: string
+  subtitle?: React.ReactNode
 
   /** 对话框是否可见 */
   visible?: boolean
@@ -341,7 +341,7 @@ export interface ModalShowProps {
   style?: CSSProperties
 
   /** 标题 */
-  title?: string
+  title?: React.ReactNode
 
   /** 标题左侧Icon */
   titleIcon?: ReactElement | undefined
@@ -350,7 +350,7 @@ export interface ModalShowProps {
   titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
-  subtitle?: string
+  subtitle?: React.ReactNode
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
@@ -439,7 +439,9 @@ Modal.show = ({
       onOk={() => {
         if (onOk) {
           const loadingPromise = onOk()
+
           if (loadingPromise) {
+
             modalSetIsLoading(true)
             ;(loadingPromise as Promise<unknown>)
               .then(() => {
@@ -451,6 +453,7 @@ Modal.show = ({
                 modalSetIsLoading(false)
               })
           } else {
+            
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
           }
