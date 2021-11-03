@@ -5,14 +5,15 @@
     @include theme($theme);
 
     .pui-message {
+      pointer-events: none;
       &.open-animate {
         animation: openAnimate 0.2s ease-in;
-        height: 0;
       }
       &.close-animate {
         animation: closeAnimate 0.2s ease-in;
       }
       .message-text {
+        pointer-events: all;
         user-select: none;
         display: inline-flex;
         align-items: center;

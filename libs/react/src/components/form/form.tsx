@@ -61,7 +61,7 @@ export interface FormProps<T> {
   /* 表单内所有Label样式 */
   labelLayout?: FormLabelStyle
 
-  /* 表单名字，可以用Form['{name}']获取表单，调用提交 */
+  /* 表单名字，可以用Form.findById['{name}']获取表单，调用提交 */
   name?: string
 
   /* 数据改变回调 */
@@ -124,6 +124,12 @@ const Form = <T extends object>({
           shouldAutoValidForm.current = true
           setFormErrors(errorList)
           onSubmit && onSubmit(fData as T, errorList)
+        })
+      },
+      validate(callback?: (errorList: ErrorList) => void) {
+        validate(formDataValidators.current, fData, errorList => {
+          shouldAutoValidForm.current = true
+          callback && callback(errorList)
         })
       }
     }
@@ -246,9 +252,15 @@ const Form = <T extends object>({
         }
 
         if (inputProps.nameStartDate) {
+          if (!inputProps.value) {
+            inputProps.value = ['', '']
+          }
           inputProps.value[0] = fData[inputProps.nameStartDate]
         }
         if (inputProps.nameEndDate) {
+          if (!inputProps.value) {
+            inputProps.value = ['', '']
+          }
           inputProps.value[1] = fData[inputProps.nameEndDate]
         }
 
@@ -382,6 +394,13 @@ const Form = <T extends object>({
       {newChildren}
     </div>
   )
+}
+
+Form.findById = (id: string) => {
+  return Form[id] as {
+    submit: () => {}
+    validate: (callback?: (errorList: ErrorList) => void) => void
+  }
 }
 
 export { Form }

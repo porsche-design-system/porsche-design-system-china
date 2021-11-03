@@ -14,7 +14,7 @@ const GettingStart = () => (
     <div className="code">
       strict-ssl=false
       <br />
-      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-hosted/
+      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-group/
     </div>
     <br />
     <div>安装依赖的时候需要连接到保时捷内网，或在保时捷公司Wifi环境</div>

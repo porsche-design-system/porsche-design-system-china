@@ -65,7 +65,7 @@ PUI 的所有表单控件都支持 onValueChange，使用 onValueChange 可以�
 ✅ 更好的写法
 
 ```react
-<Select onChange={(val)=>{console.log(val)}}
+<Select onValueChange={(val)=>{console.log(val)}}
 ```
 
 #### 使用 alterValues 改写`<Switch />`的开关值

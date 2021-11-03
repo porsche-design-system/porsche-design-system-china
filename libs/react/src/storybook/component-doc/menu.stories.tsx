@@ -29,6 +29,15 @@ export const ProgressStoryBook = () => {
           </Menu.SubMenu>
         </Menu>
       </div>
+    </div>
+  )
+}
+
+ProgressStoryBook.storyName = 'Menu Horizontal'
+
+export const ProgressStoryBook1 = () => {
+  return (
+    <div className="menu-demo">
       <div className="test-two">
         <Menu mode="vertical">
           <Menu.Item icon={<IconEdit />} selectAfter>
@@ -58,4 +67,4 @@ export const ProgressStoryBook = () => {
   )
 }
 
-ProgressStoryBook.storyName = 'Menu'
+ProgressStoryBook1.storyName = 'Menu Vertical'

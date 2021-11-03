@@ -17,6 +17,10 @@ export const useDefaultSize = makeGlobalState((): 'medium' | 'small' => {
   return PUI['_defaultSize'] || 'medium'
 }, 'DEFAULT_SIZE')
 
+export const useTheme = makeGlobalState((): 'light' | 'dark' => {
+  return PUI['_themeName'] || 'light'
+}, 'THEME_NAME')
+
 const allSetPopStates: any[] = []
 export const usePopShowState = (): [boolean, (val: boolean) => void] => {
   const popState = useState(false)

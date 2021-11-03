@@ -8,12 +8,12 @@ import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 
 import './select.scss'
 
-interface SelectOption {
+interface SelectOption<T> {
   text: string
-  value: string
+  value: T
 }
 
-export interface SelectProps {
+export interface SelectProps<T> {
   // 组件属性 //
 
   /** 类名 */
@@ -29,10 +29,10 @@ export interface SelectProps {
   size?: 'medium' | 'small'
 
   /* 值 */
-  value?: string
+  value?: T
 
   /* 默认值 */
-  defaultValue?: string
+  defaultValue?: T
 
   /* 占位符 */
   placeholder?: string
@@ -41,17 +41,17 @@ export interface SelectProps {
   filterInput?: boolean
 
   /* 选项 */
-  options?: string | string[] | SelectOption[]
+  options?: string | string[] | SelectOption<T>[]
 
   /* 错误 */
   error?: FormErrorText
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: T) => void
 }
 
 const Select = FormItem(
-  ({
+  <T,>({
     className,
     disabled,
     value,
@@ -62,7 +62,7 @@ const Select = FormItem(
     filterInput,
     onValueChange,
     placeholder
-  }: SelectProps) => {
+  }: SelectProps<T>) => {
     const selectState = useState(defaultValue || [])
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
@@ -77,23 +77,24 @@ const Select = FormItem(
       isControlledByValue.current = true
     }
 
-    let selectOptions: SelectOption[] = []
+    let selectOptions: SelectOption<T>[] = []
     if (typeof options === 'string') {
       const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
         const optionTextValue = optionPart.split(':')
         selectOptions.push({
           text: optionTextValue[0],
-          value:
-            optionTextValue.length > 1 ? optionTextValue[1] : optionTextValue[0]
+          value: (optionTextValue.length > 1
+            ? optionTextValue[1]
+            : optionTextValue[0]) as any
         })
       })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        selectOptions = options as SelectOption[]
+        selectOptions = options as SelectOption<T>[]
       } else {
         ;(options as string[]).forEach(option => {
-          selectOptions.push({ text: option, value: option })
+          selectOptions.push({ text: option, value: option as any })
         })
       }
     }
@@ -160,7 +161,7 @@ const Select = FormItem(
                 .filter(item => {
                   if (filterValue) {
                     return (
-                      item.value
+                      item.text
                         .toLowerCase()
                         .indexOf(filterValue.toLowerCase()) >= 0
                     )
