@@ -57,6 +57,8 @@
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
   "license": "ISC",
   "devDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.12.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.14.0",
@@ -98,7 +100,6 @@
     "lerna-changelog": "^1.0.1",
     "lint-staged": "^10.5.1",
     "node-sass": "^4.14.1",
-    "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "sass-loader": "^7.3.1",
     "sass-resources-loader": "^2.1.1",
@@ -112,9 +113,11 @@
     "@types/classnames": "^2.2.9",
     "async-validator": "^3.5.1",
     "classnames": "^2.2.6",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "react-transition-group": "^4.4.2",
     "sass": "^1.32.12"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.1",
+    "react-dom": ">=17.0.1"
   }
 }
