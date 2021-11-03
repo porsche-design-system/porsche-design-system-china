@@ -1,0 +1,148 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+	.pui-theme-#{$theme} {
+		@include theme($theme);
+
+		.pui-notification {
+			.open-animate-left {
+				animation: openAnimateLeft 0.1s ease-in;
+			}
+
+			.open-animate-right {
+				animation: openAnimateRight 0.1s ease-in;
+			}
+
+			.close-animate-left {
+				animation: closeAnimateLeft 0.1s ease-in;
+			}
+
+			.close-animate-right {
+				animation: closeAnimateRight 0.1s ease-in;
+			}
+
+
+			.notification-text {
+				position: fixed;
+				background: $background-color-3;
+				box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+				user-select: none;
+				max-width: 400px;
+				padding: 20px 0;
+				color: $text-color-1;
+				font-size: 16px;
+				text-align: left;
+
+				.notification-title {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					font-weight: 600;
+					line-height: 24px;
+					padding: 0 24px 12px 20px;
+				}
+
+				.notification-title-icon {
+					display: flex;
+					align-items: center;
+				}
+
+				.notification-content {
+					padding: 0 24px 0 52px;
+					line-height: 22px;
+					font-size: 14px;
+				}
+
+				.notification-footer {
+					padding: 24px 24px 0 52px;
+					display: flex;
+					justify-content: right;
+				}
+
+				.text-content {
+					margin-left: 8px;
+				}
+
+				&.error {
+					border-left: 4px $status-error-color solid;
+
+					.porscheicon-icon_-errorFilled {
+						color: $status-error-color;
+						font-size: 24px;
+					}
+				}
+
+				&.success {
+					border-left: 4px $status-success-color solid;
+
+					.porscheicon-icon_-correctFilled {
+						color: $status-success-color;
+						font-size: 24px;
+					}
+				}
+
+				&.warning {
+					border-left: 4px $status-warning-color solid;
+
+					.porscheicon-icon_-warningFilled {
+						color: $status-warning-color;
+						font-size: 24px;
+					}
+				}
+
+				&.info {
+					border-left: 4px $status-neutral-color solid;
+
+					.porscheicon-icon_-informationFilled {
+						color: $status-neutral-color;
+						font-size: 24px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes openAnimateLeft {
+	0% {
+		opacity: 0;
+		left: -100px;
+	}
+
+	100% {
+		opacity: 1;
+		left: 0px;
+	}
+}
+
+@keyframes openAnimateRight {
+	0% {
+		opacity: 0;
+		right: -100px;
+	}
+
+	100% {
+		opacity: 1;
+		right: 0px;
+	}
+}
+
+@keyframes closeAnimateLeft {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes closeAnimateRight {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}

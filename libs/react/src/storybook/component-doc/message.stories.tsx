@@ -2,13 +2,14 @@ import React from 'react'
 import { Button, Message } from '../..'
 
 export default {
-  title: 'Feedback/Message'
+  title: 'Feedback/Message',
+  component: Message
 }
 
 export const knobsMessage = () => {
   const tx = 'Hello, this is a message from PUI'
   const onClick = (type: any, config?: any) => {
-    Message.pop(type, tx, config)
+    Message[type](tx, config)
   }
 
   return (

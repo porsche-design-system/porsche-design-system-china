@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, Input, Form, Select, Row, Col, TextArea, Modal } from '../..'
 
 export default {
-  title: 'Form Example/Form Test',
+  title: 'Example/Form Test',
   component: Form
 }
 
@@ -13,7 +13,7 @@ export const ExampleStoryBook = () => {
       <Modal
         visible
         onOk={() => {
-          Form['updateForm'].submit()
+          Form.findById['updateForm'].submit()
         }}
       >
         <Form

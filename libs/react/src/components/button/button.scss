@@ -52,11 +52,13 @@
 
         &:disabled,
         &-disabled {
-          color: $text-color-1;
-          border: 1px solid $border-color-4;
+          color: $brand-color-disable;
+          border: 1px solid $brand-color-disable;
           background-color: transparent;
           cursor: not-allowed;
-          opacity: 0.5;
+          .pui-button-icon {
+            opacity: 0.5;
+          }
         }
       }
 
@@ -76,9 +78,9 @@
         }
         &:disabled,
         &-disabled {
-          background-color: $brand-color;
+          border-color: $brand-color-disable;
+          background-color: $brand-color-disable;
           cursor: not-allowed;
-          opacity: 0.5;
         }
       }
 
@@ -98,15 +100,37 @@
         }
         &:disabled,
         &-disabled {
-          background-color: $container-bg-color-7;
-          border-color: $container-bg-color-7;
+          background-color: $brand-color-disable;
+          border-color: $brand-color-disable;
           cursor: not-allowed;
-          opacity: 0.5;
         }
       }
 
       &-type-text {
-        font-weight: bold;
+        color: $text-color-1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border: none;
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-2;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-1;
+        }
+        &:disabled,
+        &-disabled {
+          color: $brand-color-disable;
+          background-color: transparent;
+          cursor: not-allowed;
+          .pui-button-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &-type-link {
         color: $text-link-color;
         background-color: transparent;
         border: 1px solid transparent;
@@ -123,9 +147,11 @@
         }
         &:disabled,
         &-disabled {
-          color: $text-link-color;
+          color: $brand-color-disable;
           cursor: not-allowed;
-          opacity: 0.5;
+          .pui-button-icon {
+            opacity: 0.5;
+          }
         }
       }
 
@@ -162,6 +188,17 @@
       }
 
       /* size */
+
+      &-size-medium {
+        font-size: 16px;
+        height: 48px;
+        .pui-button-content {
+          line-height: 24px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+
       &-size-small {
         font-size: 14px;
         height: 36px;
@@ -190,16 +227,29 @@
         }
       }
 
-      &-type-text {
-        padding-left: 0;
-        padding-right: 0;
-      }
+      &-size-tiny {
+        font-size: 12px;
+        height: 28px;
+        padding: 0 7px;
+        .porscheicon {
+          font-size: 16px;
+        }
+        .pui-button-icon {
+          width: 16px;
+          height: 16px;
+          margin-top: 1px;
+        }
 
-      &-size-medium {
-        font-size: 16px;
-        height: 48px;
+        .pui-button-icon-content {
+          margin-right: 2px;
+        }
+
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke-dasharray: 20;
+        }
         .pui-button-content {
-          line-height: 24px;
+          line-height: 17px;
           display: inline-block;
           vertical-align: top;
         }

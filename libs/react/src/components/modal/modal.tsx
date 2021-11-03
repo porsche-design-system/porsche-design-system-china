@@ -28,7 +28,7 @@ export interface ModalProps {
   style?: CSSProperties
 
   /** 标题 */
-  title?: string
+  title?: React.ReactNode
 
   /** 标题左侧Icon */
   titleIcon?: ReactElement | undefined
@@ -37,7 +37,7 @@ export interface ModalProps {
   titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
-  subtitle?: string
+  subtitle?: React.ReactNode
 
   /** 对话框是否可见 */
   visible?: boolean
@@ -152,7 +152,7 @@ const Modal = ({
                 )}
                 {title}
               </div>
-              {subtitle && <div className="pui-model-subtitle">{subtitle}</div>}
+              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
             </div>
             <div className="pui-modal-body">{children}</div>
             <div
@@ -192,7 +192,7 @@ const Modal = ({
                       const loadingPromise = onOk()
                       if (typeof loadingPromise === 'object') {
                         setIsLoading(true)
-                        ;(loadingPromise as Promise<unknown>).then(() => {
+                        ;(loadingPromise as Promise<unknown>).finally(() => {
                           setIsLoading(false)
                         })
                       }
@@ -239,11 +239,15 @@ Modal.alert = (
           const loadingPromise = onOk()
           if (typeof loadingPromise === 'object') {
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              modalSetIsLoading(false)
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                modalSetIsLoading(false)
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
@@ -300,11 +304,15 @@ Modal.confirm = (
           const loadingPromise = onOk()
           if (loadingPromise) {
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-              modalSetIsLoading(false)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+                modalSetIsLoading(false)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
@@ -322,20 +330,78 @@ Modal.confirm = (
   )
 }
 
+export interface ModalShowProps {
+  /** 子组件 */
+  content?: React.ReactNode
+
+  /* 类名 */
+  className?: string
+
+  /** 样式 */
+  style?: CSSProperties
+
+  /** 标题 */
+  title?: React.ReactNode
+
+  /** 标题左侧Icon */
+  titleIcon?: ReactElement | undefined
+
+  /** 标题左侧Iconl类型 */
+  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+
+  /** 副标题 */
+  subtitle?: React.ReactNode
+
+  /** 头部页脚是否用细线隔开 */
+  hasDivider?: boolean
+
+  /** 确认按钮文字 */
+  okText?: string
+
+  /** 取消按钮文字 */
+  cancelText?: string
+
+  /** 确认按钮Icon */
+  okIcon?: ReactElement | undefined | null
+
+  /** 取消按钮Icon */
+  cancelIcon?: ReactElement | undefined | null
+
+  /* 点击确定回调 */
+  onOk?: () => void | Promise<unknown>
+
+  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  onCancel?: () => void
+
+  /* 显示取消按钮 */
+  showCancel?: boolean
+
+  /* 显示确认按钮 */
+  showOk?: boolean
+
+  /* 显示关闭按钮 */
+  showClose?: boolean
+}
+
 Modal.show = ({
+  style,
+  className,
   title,
   titleIcon,
   titleIconType,
   subtitle,
+  hasDivider,
+  showOk,
   showClose,
   okText,
   okIcon,
   onOk,
+  showCancel,
   cancelText,
   cancelIcon,
   onCancel,
-  children
-}: ModalProps) => {
+  content
+}: ModalShowProps) => {
   modalCounter++
   const modalId = '$ModalContainer-' + modalCounter
   let modalContainer = document.getElementById(modalId)
@@ -348,13 +414,18 @@ Modal.show = ({
   let currentPop: any = null
   ReactDOM.render(
     <Modal
+      style={style}
+      className={className}
       title={title}
       titleIcon={titleIcon}
       titleIconType={titleIconType}
       subtitle={subtitle}
+      hasDivider={hasDivider}
       okText={okText}
       okIcon={okIcon}
+      showOk={showOk}
       showClose={showClose}
+      showCancel={showCancel}
       onCancel={() => {
         document.body.removeChild(modalContainer!)
         document.body.removeChild(currentPop)
@@ -368,14 +439,21 @@ Modal.show = ({
       onOk={() => {
         if (onOk) {
           const loadingPromise = onOk()
+
           if (loadingPromise) {
+
             modalSetIsLoading(true)
-            ;(loadingPromise as Promise<unknown>).then(() => {
-              document.body.removeChild(modalContainer!)
-              document.body.removeChild(currentPop)
-              modalSetIsLoading(false)
-            })
+            ;(loadingPromise as Promise<unknown>)
+              .then(() => {
+                document.body.removeChild(modalContainer!)
+                document.body.removeChild(currentPop)
+                modalSetIsLoading(false)
+              })
+              .catch(() => {
+                modalSetIsLoading(false)
+              })
           } else {
+            
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
           }
@@ -386,7 +464,7 @@ Modal.show = ({
       }}
       visible
     >
-      {children}
+      {content}
     </Modal>,
     modalContainer
   )

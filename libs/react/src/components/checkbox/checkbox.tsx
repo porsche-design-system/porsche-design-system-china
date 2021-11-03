@@ -4,7 +4,7 @@ import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './checkbox.scss'
 
-export interface CheckBoxProps {
+export interface CheckBoxProps<T> {
   /** 类名 */
   className?: string
 
@@ -18,7 +18,7 @@ export interface CheckBoxProps {
   text?: string
 
   /* 选项值 */
-  value?: string
+  value?: T
 
   /* 是否禁用 */
   disabled?: boolean
@@ -51,7 +51,7 @@ const generateId = () => {
   idCounter++
   return 'checkbox-' + idCounter
 }
-const CheckBox = ({
+const CheckBox = <T,>({
   className,
   text = '',
   value,
@@ -62,7 +62,7 @@ const CheckBox = ({
   partChecked,
   onChange,
   onCheckedChange
-}: CheckBoxProps) => {
+}: CheckBoxProps<T>) => {
   const id = useMemo(() => generateId(), [])
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
@@ -86,7 +86,7 @@ const CheckBox = ({
         disabled={disabled}
         checked={checked}
         defaultChecked={defaultChecked}
-        value={value}
+        value={value as any}
       />
       {!partChecked && (
         <span className="pui-checkbox-checkmark">
