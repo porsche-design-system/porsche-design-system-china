@@ -4,15 +4,13 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
 
-    .pui-loading {
-      position: fixed;
-      width: 100%;
-      height: 100%;
+    .pui-loading-icon {
+      display: inline-block;
       background-color: $loading-bg-color;
       left: 0;
       top: 0;
-      text-align: center;
       z-index: 1500;
+      text-align: center;
 
       &-circle,
       &-circle2 {
