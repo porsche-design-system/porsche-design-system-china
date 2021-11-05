@@ -43,6 +43,7 @@ module.exports = {
     'no-restricted-syntax': 'off',
     'guard-for-in': 'off',
     'consistent-return': 'off',
-    'no-constant-condition': 'off'
+    'no-constant-condition': 'off',
+    'import/no-extraneous-dependencies': 'off'
   }
 }
