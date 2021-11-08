@@ -15,6 +15,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
+import { ButtonProps } from '../button/button'
 import './modal.scss'
 
 export interface ModalProps {
@@ -45,11 +46,18 @@ export interface ModalProps {
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
 
+
   /** 确认按钮文字 */
   okText?: string
 
   /** 取消按钮文字 */
   cancelText?: string
+
+  /** ok 按钮 props */
+  okButtonProps?:ButtonProps
+
+  /** cancel 按钮 props */
+  cancelButtonProps?: ButtonProps
 
   /** 确认按钮Icon */
   okIcon?: ReactElement | undefined | null
@@ -87,7 +95,9 @@ const Modal = ({
   hasDivider = false,
   children,
   okText = '确认',
+  okButtonProps={},
   cancelText = '取消',
+  cancelButtonProps ={},
   okIcon,
   cancelIcon,
   onOk,
@@ -172,6 +182,7 @@ const Modal = ({
                     )
                   }
                   marginRight="10px"
+                  {...cancelButtonProps}
                 >
                   {cancelText}
                 </Button>
@@ -198,6 +209,7 @@ const Modal = ({
                       }
                     }
                   }}
+                  {...okButtonProps}
                 >
                   {okText}
                 </Button>
@@ -361,6 +373,12 @@ export interface ModalShowProps {
   /** 取消按钮文字 */
   cancelText?: string
 
+  /** ok 按钮 props */
+  okButtonProps?:ButtonProps
+
+  /** cancel 按钮 props */
+  cancelButtonProps?: ButtonProps
+
   /** 确认按钮Icon */
   okIcon?: ReactElement | undefined | null
 
@@ -394,10 +412,12 @@ Modal.show = ({
   showOk,
   showClose,
   okText,
+  okButtonProps,
   okIcon,
   onOk,
   showCancel,
   cancelText,
+  cancelButtonProps,
   cancelIcon,
   onCancel,
   content
@@ -422,6 +442,7 @@ Modal.show = ({
       subtitle={subtitle}
       hasDivider={hasDivider}
       okText={okText}
+      okButtonProps={okButtonProps}
       okIcon={okIcon}
       showOk={showOk}
       showClose={showClose}
@@ -432,6 +453,7 @@ Modal.show = ({
         onCancel && onCancel()
       }}
       cancelText={cancelText}
+      cancelButtonProps={cancelButtonProps}
       cancelIcon={cancelIcon}
       modalRef={(r: any) => {
         currentPop = r
