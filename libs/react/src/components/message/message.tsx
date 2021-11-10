@@ -81,7 +81,7 @@ export const createMessage = (type: MessageType) => {
     wrap.appendChild(div)
     ;(div as any).closable = fconfig.closable
     if (wrap.childNodes.length > fconfig.maxCount) {
-      for (const node of wrap.childNodes) {
+      for (const node of wrap.childNodes as any) {
         if ((node as any).style.display !== 'none') {
           if (!(node as any).closable) {
             ;(node as any).style.display = 'none'
