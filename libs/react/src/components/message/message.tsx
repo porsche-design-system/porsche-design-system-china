@@ -35,6 +35,9 @@ export interface MessageConfig {
 
   /** 是否手动关闭 */
   closable: boolean
+
+  /** 最多显示多少个 */
+  maxCount: number
 }
 
 const defaultConfig: MessageConfig = {
@@ -42,7 +45,8 @@ const defaultConfig: MessageConfig = {
   delay: 2000,
   closable: false,
   background: '',
-  color: ''
+  color: '',
+  maxCount: 5
 }
 
 let wrap: HTMLElement
@@ -75,6 +79,19 @@ export const createMessage = (type: MessageType) => {
     div.style.pointerEvents = 'none'
 
     wrap.appendChild(div)
+    ;(div as any).closable = fconfig.closable
+    if (wrap.childNodes.length > fconfig.maxCount) {
+      for (const node of wrap.childNodes) {
+        if ((node as any).style.display !== 'none') {
+          if (!(node as any).closable) {
+            ;(node as any).style.display = 'none'
+          } else {
+            wrap.removeChild(node)
+          }
+          break
+        }
+      }
+    }
     ReactDom.render(
       <MessageBox
         rootDom={wrap}
