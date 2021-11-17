@@ -15,7 +15,7 @@
       &-content{
         background-color: $float-layer-bg-color;
         padding: 8px;
-        z-index: 1;
+        z-index: 1199;
         position: relative;
         box-shadow: $shadow-l1-default;
       }
@@ -24,7 +24,7 @@
         width: 8px;
         height: 8px;
         background-color: $float-layer-bg-color;
-        z-index: 2;
+        z-index: 1200;
       }
       $arrow-shadow-1:null;
       $arrow-shadow-2:null;
