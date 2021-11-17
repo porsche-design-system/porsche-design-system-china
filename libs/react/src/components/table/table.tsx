@@ -25,6 +25,8 @@ export interface TableColumn {
   fixed?: 'none' | 'left' | 'right'
   multiline?: boolean
   sortable?: boolean
+  headCellStyle?: CSSProperties
+  rowCellStyle?: CSSProperties
   customCell?: (rowData: any) => React.ReactNode
 }
 
@@ -48,7 +50,7 @@ export interface TableProps {
   maxRows?: number
 
   /* 大小 */
-  size: 'medium' | 'small'
+  size?: 'medium' | 'small'
 
   /* 排序事件 */
   onSort?: (sorter: Sorter) => void
@@ -261,7 +263,7 @@ const Table = ({
         style={style}
         onClick={() => sortCallback(column)}
       >
-        <div className="title-content">
+        <div className="title-content" style={column.headCellStyle}>
           <span className="title-text">{column.title || ''}</span>
           {column.sortable && (
             <span className="sort-btn">
@@ -295,9 +297,11 @@ const Table = ({
         }
         style={style}
       >
-        {column.customCell
-          ? column.customCell(rowData)
-          : column.key && rowData[column.key]}
+        <div className="cell-wrap" style={column.rowCellStyle}>
+          {column.customCell
+            ? column.customCell(rowData)
+            : column.key && rowData[column.key]}
+        </div>
       </td>
     )
   }
