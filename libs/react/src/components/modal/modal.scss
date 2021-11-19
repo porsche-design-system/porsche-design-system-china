@@ -41,7 +41,8 @@
           width: 540px;
           max-width: calc(100vw - 32px);
           max-height: calc(100vh - 200px);
-          overflow: hidden;
+          // 先不隐藏
+          // overflow: hidden;
 
           .pui-modal-content {
             position: relative;
