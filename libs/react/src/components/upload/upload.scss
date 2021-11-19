@@ -122,18 +122,20 @@ $picture-card-size: 160px;
                 height: 100%;
                 color: $container-bg-color-5;
 
+                &:hover {
+                  background-color: transparent;
+                }
+
                 .porscheicon-icon_-delete {
                   font-size: 16px;
                 }
               }
             }
 
-            &-success {
-              &:hover {
-                #{$upload-item}-card-actions {
-                  #{$upload-item}-card-actions-btn {
-                    opacity: 1;
-                  }
+            &:hover {
+              #{$upload-item}-card-actions {
+                #{$upload-item}-card-actions-btn {
+                  opacity: 1;
                 }
               }
             }
@@ -217,6 +219,20 @@ $picture-card-size: 160px;
             background-color: $status-bg-error-color;
             border-color: $status-error-color;
             border: 1px dashed $status-error-color;
+
+            #{$upload-item}-actions {
+              #{$upload-item}-card-actions-btn {
+                .porscheicon {
+                  color: $brand-color;
+                }
+
+                &:hover {
+                  .porscheicon {
+                    color: $brand-color;
+                  }
+                }
+              }
+            }
           }
 
           &-success {
@@ -266,7 +282,6 @@ $picture-card-size: 160px;
             content: ' ';
           }
 
-
           #{$upload-item}-info {
             #{$upload-item}-card-actions {
               #{$upload-item}-card-actions-btn {
@@ -313,7 +328,22 @@ $picture-card-size: 160px;
             color: $text-opacity-color-1;
           }
 
+          .porscheicon {
+            &:hover {
+              color: $text-white-color;
+            }
+          }
+
           .pui-upload-list-item-card-actions-btn {
+
+            &:hover {
+              background-color: transparent;
+
+              .porscheicon {
+                color: $text-white-color;
+              }
+            }
+
             .pui-button-icon {
               pointer-events: inherit;
             }
