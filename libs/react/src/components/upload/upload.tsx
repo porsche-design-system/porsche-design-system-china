@@ -6,6 +6,7 @@ import { Modal } from '../modal/modal'
 import { Button } from '../index'
 import UploadList from './uploadList/index'
 import Dragger from './dragger'
+
 import './upload.scss'
 
 import {
@@ -22,6 +23,8 @@ export interface UploadProps {
   count?: number
   /** 默认已经上传的文件列表 */
   defaultFileList?: UploadFile[]
+  /** 已经上传的文件列表（受控） */
+  fileList?: UploadFile[]
   /** 设置上传的请求头部 */
   headers?: { [key: string]: any }
   /** 发到后台的文件参数名 */
@@ -30,6 +33,8 @@ export interface UploadProps {
   locale?: UploadLocale
   /** 上传所需额外参数 */
   data?: { [key: string]: any }
+  /** 上传按钮属性 */
+  btnProps?: { [key: string]: any }
   /** 接受上传的文件类型 */
   accept?: string
   /** 是否支持多选文件 */
@@ -50,9 +55,11 @@ export interface UploadProps {
   listType?: UploadListType
   /** 类名 */
   className?: string
+  /** 是否展示被阻止上传的图片（beforeUpload返回false下生效） */
+  listIgnore?: boolean
   /** 是否是图片url */
   isImageUrl?: (file: UploadFile) => boolean
-  /** 上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传 */
+  /** 上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传*/
   beforeUpload?: (file: File) => boolean | Promise<File>
   /** 上传文件过程中的实时回调 */
   onProgress?: (percentage: number, file: File) => void
@@ -61,7 +68,7 @@ export interface UploadProps {
   /** 上传文件出错时的回调 */
   onError?: (err: any, file: File) => void
   /** 上传文件改变时的回调 */
-  onChange?: (file: UploadFile) => void
+  onChange?: (file: UploadFile, list: UploadFile[]) => void
   /** 点击移除文件时的回调 */
   onRemove?: (file: UploadFile) => void
   /** 上传文件之前的钩子 */
@@ -74,6 +81,7 @@ const Upload: FC<UploadProps> = props => {
     count,
     tip,
     defaultFileList,
+    fileList,
     beforeUpload,
     onProgress,
     onSuccess,
@@ -86,35 +94,55 @@ const Upload: FC<UploadProps> = props => {
     locale,
     headers,
     data,
+    btnProps,
     accept,
     multiple,
     drag,
     children,
     listType,
     className,
+    listIgnore,
     isImageUrl
   } = props
 
+
   const fileInput = useRef<HTMLInputElement>(null)
   // 存储上传过的file
-  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
+  const [mergedFileList, setMergedFileList] = useState<UploadFile[]>(fileList || defaultFileList || [])
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewTitle, setPreviewTitle] = useState('')
   const [previewImage, setPreviewImage] = useState('')
+
+  React.useMemo(() => {
+    (fileList || []).forEach((file, index) => {
+      if (!file.uid && !Object.isFrozen(file)) {
+        const random = Math.random().toString().replace(/0./, '');
+        file.uid = `${random}_${index}`;
+      }
+    });
+    if (listIgnore !== true) {
+      setMergedFileList(fileList || []);
+    }
+  }, [fileList]);
 
   const updateFileList = (
     updateFile: UploadFile,
     updateObj: Partial<UploadFile>
   ) => {
-    setFileList(prevList => {
-      return prevList.map(file => {
+    setMergedFileList(prevList => {
+      const newFileList = prevList.map(file => {
         if (file.uid === updateFile.uid) {
           return { ...file, ...updateObj } // 如果遇到同一个uid的file，说明是要更新的这个file。比如在上传的onUploadProgress中。
         } else {
           return file // 否则是以前的的file，直接返回
         }
       })
+      if (updateObj !== 'uploading') {
+        onChange && onChange({ ...updateFile, ...updateObj }, newFileList)
+      }
+      return newFileList;
     })
+
   }
 
   const handleClick = () => {
@@ -140,35 +168,46 @@ const Upload: FC<UploadProps> = props => {
       if (!beforeUpload) {
         postFile(file)
       } else {
-        const result = beforeUpload(file)
-        if (result) {
-          if (result instanceof Promise) {
-            result.then(processFile => {
-              postFile(processFile)
-            })
-          } else {
-            postFile(file)
-          }
+        const result = beforeUpload(file);
+        if (result instanceof Promise) {
+          result.then(processFile => {
+            postFile(processFile, true)
+          })
+        } else {
+          postFile(file, result)
         }
       }
     })
   }
   const handleRemove = (file: UploadFile) => {
-    setFileList(prevFile => prevFile.filter(item => item.uid !== file.uid))
+    setMergedFileList(prevFile => prevFile.filter(item => item.uid !== file.uid))
     onRemove && onRemove(file)
   }
-  const postFile = (file: File) => {
+  const postFile = (file: File, result: any = true) => {
     let baseFile: UploadFile = {
       uid: Math.random().toString().replace(/0./, ''),
-      status: 'uploading',
       name: file.name,
       size: file.size,
       percent: 0,
       originFileObj: file
     }
-    setFileList(prevList => {
+
+    if (result === false && listIgnore === true) return;      // beforeUpload返回false并且listIgnore为true则不展示文件
+
+    setMergedFileList(prevList => {
+      if (result === false) {
+        onChange && onChange({
+          ...baseFile,
+          percent: 0
+        }, [...prevList, baseFile])
+      }
       return [...prevList, baseFile]
     })
+
+    if (result === false) {
+      return;      // beforeUpload返回false不上传
+    }
+
     const formData = new FormData()
     formData.append(name || 'file', file)
 
@@ -176,8 +215,8 @@ const Upload: FC<UploadProps> = props => {
       Object.keys(data).forEach(key => {
         formData.append(key, data[key])
       })
-    const ss = axios.CancelToken.source()
-    baseFile.source = ss
+    const ss = axios.CancelToken.source();
+    baseFile.source = ss;
     axios
       .post(action, formData, {
         headers: {
@@ -201,18 +240,10 @@ const Upload: FC<UploadProps> = props => {
             response: res.data,
             percent: 100
           })
-        onChange &&
-          onChange({
-            ...baseFile,
-            status: 'success',
-            response: res.data,
-            percent: 100
-          })
       })
       .catch(err => {
         updateFileList(baseFile, { status: 'error', response: err })
         onError && onError(err, file)
-        onChange && onChange({ ...baseFile, status: 'error', response: err })
       })
   }
 
@@ -275,7 +306,7 @@ const Upload: FC<UploadProps> = props => {
             )}
           </Dragger>
         ) : listType === 'picture-card' ? (
-          (count as number) > fileList.length && (
+          (count as number) > mergedFileList.length && (
             <div className="pui-upload-btn-picture-card">
               {children || (
                 <span>
@@ -287,7 +318,7 @@ const Upload: FC<UploadProps> = props => {
         ) : (
           <div className="pui-upload-btn">
             {children || (
-              <Button type="default" icon={IconUpload}>
+              <Button type="default" icon={IconUpload} {...btnProps}>
                 添加文件
               </Button>
             )}
@@ -312,7 +343,7 @@ const Upload: FC<UploadProps> = props => {
   const renderUploadList = (button?: React.ReactNode) => (
     <>
       <UploadList
-        fileList={fileList}
+        fileList={mergedFileList}
         onRemove={handleRemove}
         onPreview={handlePreview}
         listType={listType}
@@ -374,6 +405,7 @@ Upload.defaultProps = {
   showPreviewIcon: true,
   locale: defaultLocale,
   count: 1,
-  disabled: false
+  disabled: false,
+  listIgnore: false
 }
 export { Upload }

@@ -122,7 +122,6 @@ const ListItem: FC<UploadListProps> = props => {
       {removeIcon}
     </span>
   )
-
   const preview = file.url
     ? [
       <a

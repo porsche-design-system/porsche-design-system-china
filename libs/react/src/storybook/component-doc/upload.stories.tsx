@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { UploadFile } from 'src/components/upload/interface'
-import { Upload, Row, Col, Message, Radio, RadioGroup } from '../..'
+import { Upload, Row, Col, Message, Button, RadioGroup } from '../..'
 
 import './upload.stories.scss'
 
 const action =
   'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
-const Authorization = 'Bearer 3d4e9571-4f5f-4322-bc1f-8553f8ff4eef'
+const Authorization = 'Bearer 89f1e56b-fed6-443b-ad3a-0c051b85d719'
 export default {
   title: 'Data Entry/Upload',
   component: Upload
@@ -44,19 +44,21 @@ export const UploadStoryBook1 = () => {
     }
   ]
 
-  const onChange = (file: UploadFile) => {
-    console.log(file.response?.message)
+  const onChange = (file: UploadFile, list: UploadFile[]) => {
+    console.log(file, list)
   }
   const handleBeforeUpload = (file: File) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
       Message.pop('error', '请上传jpg或png格式的文件')
+      return false;
     }
     const isLt2M = file.size / 1024 / 1024 < 2
     if (!isLt2M) {
       Message.pop('error', '文件大小不能超过2M')
+      return false;
     }
-    return isJpgOrPng && isLt2M
+    return true;
   }
 
   return (
@@ -64,16 +66,18 @@ export const UploadStoryBook1 = () => {
       <Row>
         <Col span={12}>
           <Upload
+            btnProps={{ type: 'primary', size: 'small' }}
             action={action}
             headers={{
               Authorization
             }}
+            listIgnore={true}
             defaultFileList={fileList}
             multiple
             tip="要求文件格式jpg,png, 大小不超过20M"
             onChange={onChange}
             beforeUpload={handleBeforeUpload}
-            // accept='.png,.jpg'
+          // accept='.png,.jpg'
           />
         </Col>
       </Row>
@@ -114,6 +118,69 @@ export const UploadStoryBook2 = () => {
   )
 }
 UploadStoryBook2.storyName = 'Upload Custom'
+
+export const UploadStoryBook7 = () => {
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const uploadProps = {
+    // listIgnore: true,
+    action: action,
+    headers: {
+      Authorization
+    },
+    defaultFileList: [
+      {
+        uid: '-1',
+        name: 'image.png',
+        status: 'success'
+      },
+      {
+        uid: '-2',
+        name: 'image.png',
+        status: 'error'
+      }
+    ],
+    onRemove: (file: UploadFile) => {
+      setFileList(prevFile => prevFile.filter(item => item.uid !== file.uid))
+    },
+    beforeUpload: (file: File) => {
+      let baseFile: UploadFile = {
+        uid: Math.random().toString().replace(/0./, ''),
+        name: file.name,
+        size: file.size,
+        percent: 0,
+        originFileObj: file
+      }
+
+      setFileList([...fileList, baseFile])
+      return false;
+    },
+    onChange: (file: UploadFile, list: UploadFile[]) => {
+      console.log(file, list)
+    }
+  }
+
+  const uploadHandle = () => {
+    console.log(fileList)
+    setFileList([])
+  }
+
+  return (
+    <>
+      <Row style={{ marginBottom: '20px' }}>
+        <Col span={12}>
+          <Upload
+            fileList={fileList}
+            multiple
+            {...uploadProps}
+          // accept='.png,.jpg'
+          />
+        </Col>
+      </Row>
+      <Button onClick={uploadHandle}>开始上传</Button>
+    </>
+  )
+}
+UploadStoryBook7.storyName = '手动上传'
 
 export const UploadStoryBook3 = () => {
   return (
