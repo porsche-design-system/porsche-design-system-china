@@ -77,17 +77,22 @@ SelectStoryBook3.storyName = 'Show filter Input'
 
 export const SelectStoryBook4 = () => {
   const [val, setVal] = useState<any>('dog')
+  const [open, setOpen] = useState(true)
   return (
     <div style={{ height: '350px', width: '300px' }}>
       <Form>
-        <div>重置选项数据</div>
+        <div>控制菜单显示</div>
         <div className="select-story">
           <Select
+            open={open}
             value={val}
             options="狗:dog,猫,狮子,老虎,鲸鱼"
             label="动物"
             placeholder="请选择"
-            onValueChange={setVal}
+            onValueChange={val => {
+              setVal(val)
+              setOpen(false)
+            }}
             width="200px"
           />
           <Button
@@ -105,4 +110,4 @@ export const SelectStoryBook4 = () => {
   )
 }
 
-SelectStoryBook4.storyName = 'Reset'
+SelectStoryBook4.storyName = 'Menu Control'

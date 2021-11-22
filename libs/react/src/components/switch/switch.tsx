@@ -4,7 +4,7 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
-import { FormItem } from '../form/form-item'
+import { FormItem, FormItemProps } from '../form/form-item'
 
 import './switch.scss'
 
@@ -39,7 +39,13 @@ export interface SwitchProps<T> {
   onValueChange?: (value: T) => void
 }
 
-const Switch = FormItem(
+// 必须骗下storybook，让它能显示属性列表
+// eslint-disable-next-line import/no-mutable-exports
+let Switch = <T,>(props: SwitchProps<T> & FormItemProps) => {
+  return <div>{props}</div>
+}
+
+Switch = FormItem(
   <T extends any>({
     className,
     disabled,
@@ -122,6 +128,5 @@ const Switch = FormItem(
     )
   }
 )
-
 ;(Switch as any).displayName = 'Switch'
 export { Switch }

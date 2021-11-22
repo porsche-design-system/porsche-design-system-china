@@ -33,7 +33,7 @@ export interface FormItemProps {
   style?: CSSProperties
 }
 
-const FormItem =
+export const FormItem =
   <T,>(func: (...args: T[]) => React.ReactNode) =>
   (props: FormItemProps & T) => {
     const { label, error, width, marginLeft, marginRight, rules, style } = props
@@ -129,5 +129,3 @@ const FormItem =
       </div>
     )
   }
-
-export { FormItem }
