@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'

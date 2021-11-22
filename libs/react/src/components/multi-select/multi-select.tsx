@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
@@ -49,6 +49,15 @@ export interface MultiSelectProps<T> {
 
   /* 值改变事件 */
   onValueChange?: (value: T[]) => void
+
+  /* 控制菜单打开 */
+  defaultOpen?: boolean
+
+  /* 控制菜单打开 */
+  open?: boolean
+
+  /* 菜单显示状态改变 */
+  onMenuVisibleChange?: (visible: boolean) => void
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -65,6 +74,9 @@ MultiSelect = FormItem(
     defaultValue,
     error,
     options = [],
+    defaultOpen = false,
+    open,
+    onMenuVisibleChange,
     filterInput,
     size,
     onValueChange,
@@ -77,6 +89,10 @@ MultiSelect = FormItem(
     const [filterValue, setFilterValue] = useState('')
     const hasValue = useRef(value !== undefined)
     const [defaultSize] = useDefaultSize()
+    const isFirstLoad = useRef(true)
+    const [menuOpen, setMenuOpen] = useState(
+      open !== undefined ? open : defaultOpen
+    )
     size = size || defaultSize
 
     if (value) {
@@ -115,6 +131,20 @@ MultiSelect = FormItem(
         displayTextArr.push(option.text)
       }
     })
+
+    useEffect(() => {
+      if (!isFirstLoad.current) {
+        onMenuVisibleChange &&
+          onMenuVisibleChange((showOptionList || menuOpen) && !disabled)
+      }
+      isFirstLoad.current = false
+    }, [(showOptionList || menuOpen) && !disabled])
+
+    useEffect(() => {
+      if (open !== undefined) {
+        setMenuOpen(open)
+      }
+    }, [open])
 
     const displayText = displayTextArr.join(', ')
     const allChecked =
@@ -161,7 +191,7 @@ MultiSelect = FormItem(
         )}
 
         <IconArrowHeadDown className="pui-multi-select-arrow-icon" />
-        {showOptionList && (
+        {(showOptionList || menuOpen) && !disabled && (
           <div
             className="pui-multi-select-list"
             onClick={evt => {
