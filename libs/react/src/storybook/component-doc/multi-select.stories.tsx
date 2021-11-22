@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MultiSelect, Form, Button } from '../..'
+import { MultiSelect, Form } from '../..'
 
 export default {
   title: 'Data Entry/MultiSelect',
