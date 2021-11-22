@@ -210,6 +210,10 @@
               return
             }
 
+            if (!document.getElementsByClassName('docblock-argstable')) {
+              return
+            }
+
             let argTable =
               document.getElementsByClassName('docblock-argstable')[0]
                 .parentNode

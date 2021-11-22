@@ -3,7 +3,7 @@ import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
-import { FormItem } from '../form/form-item'
+import { FormItem, FormItemProps } from '../form/form-item'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 import { CheckBox } from '../checkbox/checkbox'
 
@@ -51,7 +51,13 @@ export interface MultiSelectProps<T> {
   onValueChange?: (value: T[]) => void
 }
 
-const MultiSelect = FormItem(
+// 必须骗下storybook，让它能显示属性列表
+// eslint-disable-next-line import/no-mutable-exports
+let MultiSelect = <T,>(props: MultiSelectProps<T> & FormItemProps) => {
+  return <div>{props}</div>
+}
+
+MultiSelect = FormItem(
   <T,>({
     className,
     disabled,
@@ -240,6 +246,5 @@ const MultiSelect = FormItem(
     )
   }
 )
-
 ;(MultiSelect as any).displayName = 'MultiSelect'
 export { MultiSelect }

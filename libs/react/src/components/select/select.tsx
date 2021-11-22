@@ -1,14 +1,20 @@
-import React, { CSSProperties, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
-import { FormItem } from '../form/form-item'
+import { FormItem, FormItemProps } from '../form/form-item'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 
 import './select.scss'
 
-interface SelectOption<T> {
+export interface SelectOption<T> {
   text: string
   value: T
 }
@@ -48,9 +54,24 @@ export interface SelectProps<T> {
 
   /* 值改变事件 */
   onValueChange?: (value: T) => void
+
+  /* 控制菜单打开 */
+  defaultOpen?: boolean
+
+  /* 控制菜单打开 */
+  open?: boolean
+
+  /* 菜单显示状态改变 */
+  onMenuVisibleChange?: (visible: boolean) => void
 }
 
-const Select = FormItem(
+// 必须骗下storybook，让它能显示属性列表
+// eslint-disable-next-line import/no-mutable-exports
+let Select = <T,>(props: SelectProps<T> & FormItemProps) => {
+  return <div>{props}</div>
+}
+
+Select = FormItem(
   <T,>({
     className,
     disabled,
@@ -61,7 +82,10 @@ const Select = FormItem(
     options = [],
     filterInput,
     onValueChange,
-    placeholder
+    placeholder,
+    defaultOpen = false,
+    open,
+    onMenuVisibleChange
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || [])
     let selectValue = selectState[0]
@@ -70,6 +94,10 @@ const Select = FormItem(
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
     const [defaultSize] = useDefaultSize()
+    const isFirstLoad = useRef(true)
+    const [menuOpen, setMenuOpen] = useState(
+      open !== undefined ? open : defaultOpen
+    )
     size = size || defaultSize
 
     if (value) {
@@ -114,6 +142,20 @@ const Select = FormItem(
       })
     }
 
+    useEffect(() => {
+      if (!isFirstLoad.current) {
+        onMenuVisibleChange &&
+          onMenuVisibleChange((showOptionList || menuOpen) && !disabled)
+      }
+      isFirstLoad.current = false
+    }, [(showOptionList || menuOpen) && !disabled])
+
+    useEffect(() => {
+      if (open !== undefined) {
+        setMenuOpen(open)
+      }
+    }, [open])
+
     return (
       <div
         className={componentClassNames(
@@ -139,7 +181,7 @@ const Select = FormItem(
           disabled={disabled}
         />
         <IconArrowHeadDown className="pui-select-icon" />
-        {showOptionList && (
+        {(showOptionList || menuOpen) && !disabled && (
           <div
             className="pui-select-list"
             onClick={evt => {
@@ -178,6 +220,9 @@ const Select = FormItem(
                         : '')
                     }
                     onClick={() => {
+                      if (open === undefined) {
+                        setMenuOpen(false)
+                      }
                       setShowOptionList(false)
                       setSelectValue(option.value)
                       onValueChange && onValueChange(option.value)
@@ -194,6 +239,5 @@ const Select = FormItem(
     )
   }
 )
-
 ;(Select as any).displayName = 'Select'
 export { Select }
