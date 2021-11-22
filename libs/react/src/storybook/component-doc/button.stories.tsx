@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IconArrowHeadRight } from '@pui/icons'
 
-import { Button, Radio, RadioGroup } from '../..'
+import { Button, Radio, RadioGroup, Tabs, TabPane } from '../..'
 import './button.stories.scss'
 
 export default {
@@ -35,12 +35,17 @@ export const ButtonStoryBook2 = () => {
 
   return (
     <div>
-      <div className="radio-group">
-        <RadioGroup value={buttonType} onValueChange={setButtonType}>
-          <Radio text="Icon + Text" value="IconText" />
-          <Radio text="Icon" value="Icon" />
-          <Radio text="Text" value="Text" />
-        </RadioGroup>
+      <div className="radio-tab-group">
+        <Tabs
+          size="small"
+          onActiveKeyChange={key => {
+            setButtonType(key)
+          }}
+        >
+          <TabPane tabKey="IconText" title="Icon + Text" />
+          <TabPane tabKey="Icon" title="Icon" />
+          <TabPane tabKey="Text" title="Text" />
+        </Tabs>
       </div>
       <div>
         <Button type="primary" marginRight="40px" icon={icon}>
@@ -73,11 +78,16 @@ export const ButtonStoryBook3 = () => {
 
   return (
     <div>
-      <div className="radio-group">
-        <RadioGroup value={status} onValueChange={setStatus}>
-          <Radio text="Disabled" value="Disable" />
-          <Radio text="Loading" value="Loading" />
-        </RadioGroup>
+      <div className="radio-tab-group">
+        <Tabs
+          size="small"
+          onActiveKeyChange={key => {
+            setStatus(key)
+          }}
+        >
+          <TabPane tabKey="Disabled" title="Disabled" />
+          <TabPane tabKey="Loading" title="Loading" />
+        </Tabs>
       </div>
       <div>
         <Button

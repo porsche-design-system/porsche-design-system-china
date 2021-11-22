@@ -149,7 +149,7 @@
     display: block;
   }
   .docs-story > div:nth-child(1) {
-    padding: 30px 48px;
+    padding: 30px 20px;
   }
 
   .pui-theme-dark .docblock-code-toggle:focus,
@@ -203,7 +203,7 @@
     document.getElementById('docs-root').addEventListener(
       'DOMSubtreeModified',
       () => {
-        if (new Date().getTime() - time > 1000) {
+        if (new Date().getTime() - time > 300) {
           time = new Date().getTime()
           setTimeout(() => {
             if (document.getElementsByClassName('sbdocs-title').length == 0) {
