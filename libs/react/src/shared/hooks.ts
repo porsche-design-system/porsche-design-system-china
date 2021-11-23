@@ -22,7 +22,9 @@ export const useTheme = makeGlobalState((): 'light' | 'dark' => {
 }, 'THEME_NAME')
 
 const allSetPopStates: any[] = []
-export const usePopShowState = (): [boolean, (val: boolean) => void] => {
+export const usePopShowState = (
+  documentClickCallback?: () => void
+): [boolean, (val: boolean) => void, HTMLElement] => {
   const popState = useState(false)
   const [popShow, setPopShow] = popState
 
@@ -40,6 +42,7 @@ export const usePopShowState = (): [boolean, (val: boolean) => void] => {
           setPopState(false)
         }
       })
+      documentClickCallback && documentClickCallback()
     }
     document.addEventListener('click', docClick)
     return () => {
@@ -53,6 +56,14 @@ export const usePopShowState = (): [boolean, (val: boolean) => void] => {
     }
   }, [])
 
+  let puiPopupWrap = document.getElementById('pui-pop-wrap')
+  if (!puiPopupWrap) {
+    const div = document.createElement('div')
+    div.id = 'pui-pop-wrap'
+    document.body.appendChild(div)
+    puiPopupWrap = div
+  }
+
   return [
     popShow,
     (val: boolean) => {
@@ -64,7 +75,8 @@ export const usePopShowState = (): [boolean, (val: boolean) => void] => {
           }
         })
       }
-    }
+    },
+    puiPopupWrap
   ]
 }
 

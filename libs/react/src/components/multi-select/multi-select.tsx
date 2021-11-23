@@ -1,8 +1,9 @@
+import ReactDOM from 'react-dom'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, getPos } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 import { CheckBox } from '../checkbox/checkbox'
@@ -69,12 +70,12 @@ let MultiSelect = <T,>(props: MultiSelectProps<T> & FormItemProps) => {
 MultiSelect = FormItem(
   <T,>({
     className,
-    disabled,
+    disabled = false,
     value,
     defaultValue,
     error,
     options = [],
-    defaultOpen = false,
+    defaultOpen,
     open,
     onMenuVisibleChange,
     filterInput,
@@ -85,11 +86,19 @@ MultiSelect = FormItem(
     const selectState = useState<T[]>(defaultValue || [])
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
-    const [showOptionList, setShowOptionList] = usePopShowState()
+    const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
+      () => {
+        if (open === undefined) {
+          setMenuOpen(undefined)
+        }
+      }
+    )
     const [filterValue, setFilterValue] = useState('')
     const hasValue = useRef(value !== undefined)
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
+    const rootElementRef = useRef<any>(null)
+    const [menuPos, setMenuPos] = useState<any>(null)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -135,10 +144,12 @@ MultiSelect = FormItem(
     useEffect(() => {
       if (!isFirstLoad.current) {
         onMenuVisibleChange &&
-          onMenuVisibleChange((showOptionList || menuOpen) && !disabled)
+          onMenuVisibleChange(
+            (menuOpen !== undefined ? menuOpen : showOptionList) && !disabled
+          )
       }
       isFirstLoad.current = false
-    }, [(showOptionList || menuOpen) && !disabled])
+    }, [(menuOpen !== undefined ? menuOpen : showOptionList) && !disabled])
 
     useEffect(() => {
       if (open !== undefined) {
@@ -155,6 +166,15 @@ MultiSelect = FormItem(
 
     return (
       <div
+        ref={rootElement => {
+          if (rootElement && !menuPos) {
+            rootElementRef.current = rootElement
+            setMenuPos(getPos(rootElement))
+            setTimeout(() => {
+              setMenuPos(getPos(rootElement))
+            }, 1000)
+          }
+        }}
         className={componentClassNames(
           'pui-multi-select',
           {
@@ -191,87 +211,98 @@ MultiSelect = FormItem(
         )}
 
         <IconArrowHeadDown className="pui-multi-select-arrow-icon" />
-        {(showOptionList || menuOpen) && !disabled && (
-          <div
-            className="pui-multi-select-list"
-            onClick={evt => {
-              evt.stopPropagation()
-            }}
-          >
-            {filterInput && (
-              <input
-                value={filterValue}
-                placeholder="请输入选项"
-                onChange={evt => {
-                  setFilterValue(evt.target.value)
-                }}
-                className="pui-multi-select-filter"
-              />
-            )}
-
+        {(menuOpen !== undefined ? menuOpen : showOptionList) &&
+          !disabled &&
+          ReactDOM.createPortal(
             <div
-              className="pui-multi-select-option "
-              onClick={() => {
-                const allValues: T[] = []
-                if (!allChecked) {
-                  selectOptions.forEach(item => {
-                    allValues.push(item.value)
-                  })
-                }
-                setSelectValue(allValues)
-                onValueChange && onValueChange(allValues)
-              }}
+              style={{ position: 'absolute', ...menuPos }}
+              className={`pui-multi-select-size-${size}`}
             >
-              <CheckBox
-                className="pui-multi-select-pick"
-                size="small"
-                checked={allChecked}
-                partChecked={partChecked}
-              />
-              全选
-            </div>
-            <div className="pui-multi-select-option-wrap">
-              {selectOptions
-                .filter(item => {
-                  if (filterValue) {
-                    return (
-                      item.text
-                        .toLowerCase()
-                        .indexOf(filterValue.toLowerCase()) >= 0
-                    )
-                  }
-                  return true
-                })
-                .map((option, inx) => (
-                  <div
-                    key={option.value + ' ' + inx}
-                    className={
-                      'pui-multi-select-option ' +
-                      (selectValue.includes(option.value)
-                        ? 'pui-multi-select-option-selected'
-                        : '')
-                    }
-                    onClick={() => {
-                      if (selectValue.includes(option.value)) {
-                        selectValue.splice(selectValue.indexOf(option.value), 1)
-                      } else {
-                        selectValue.push(option.value)
-                      }
-                      setSelectValue([...selectValue])
-                      onValueChange && onValueChange([...selectValue])
+              <div
+                className="pui-multi-select-list"
+                onClick={evt => {
+                  evt.stopPropagation()
+                }}
+              >
+                {filterInput && (
+                  <input
+                    value={filterValue}
+                    placeholder="请输入选项"
+                    onChange={evt => {
+                      setFilterValue(evt.target.value)
                     }}
-                  >
-                    <CheckBox
-                      className="pui-multi-select-pick"
-                      size="small"
-                      checked={selectValue.includes(option.value)}
-                    />
-                    {option.text}
-                  </div>
-                ))}
-            </div>
-          </div>
-        )}
+                    className="pui-multi-select-filter"
+                  />
+                )}
+
+                <div
+                  className="pui-multi-select-option "
+                  onClick={() => {
+                    const allValues: T[] = []
+                    if (!allChecked) {
+                      selectOptions.forEach(item => {
+                        allValues.push(item.value)
+                      })
+                    }
+                    setSelectValue(allValues)
+                    onValueChange && onValueChange(allValues)
+                  }}
+                >
+                  <CheckBox
+                    className="pui-multi-select-pick"
+                    size="small"
+                    checked={allChecked}
+                    partChecked={partChecked}
+                  />
+                  全选
+                </div>
+                <div className="pui-multi-select-option-wrap">
+                  {selectOptions
+                    .filter(item => {
+                      if (filterValue) {
+                        return (
+                          item.text
+                            .toLowerCase()
+                            .indexOf(filterValue.toLowerCase()) >= 0
+                        )
+                      }
+                      return true
+                    })
+                    .map((option, inx) => (
+                      <div
+                        key={option.value + ' ' + inx}
+                        className={
+                          'pui-multi-select-option ' +
+                          (selectValue.includes(option.value)
+                            ? 'pui-multi-select-option-selected'
+                            : '')
+                        }
+                        onClick={() => {
+                          if (selectValue.includes(option.value)) {
+                            selectValue.splice(
+                              selectValue.indexOf(option.value),
+                              1
+                            )
+                          } else {
+                            selectValue.push(option.value)
+                          }
+                          setSelectValue([...selectValue])
+                          onValueChange && onValueChange([...selectValue])
+                        }}
+                      >
+                        <CheckBox
+                          className="pui-multi-select-pick"
+                          size="small"
+                          checked={selectValue.includes(option.value)}
+                        />
+                        {option.text}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>,
+            puiPopupWrap
+          )}
       </div>
     )
   }

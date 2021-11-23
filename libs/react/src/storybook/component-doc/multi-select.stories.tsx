@@ -9,7 +9,7 @@ export default {
 export const SelectStoryBook = () => {
   const [val, setVal] = useState<any>(['dog'])
   return (
-    <div style={{ height: '400px', width: '300px' }}>
+    <div style={{ width: '300px' }}>
       <Form>
         <MultiSelect
           value={val}
@@ -31,7 +31,7 @@ SelectStoryBook.storyName = 'MultiSelect'
 
 export const SelectStoryBook1 = () => {
   return (
-    <div style={{ height: '400px', width: '300px' }}>
+    <div style={{ width: '300px' }}>
       <Form>
         <div>-----</div>
         <MultiSelect
@@ -48,7 +48,7 @@ SelectStoryBook1.storyName = 'String Options'
 
 export const SelectStoryBook2 = () => {
   return (
-    <div style={{ height: '400px', width: '300px' }}>
+    <div style={{ width: '300px' }}>
       <Form>
         <div>出错状态</div>
         <MultiSelect
@@ -63,7 +63,7 @@ SelectStoryBook2.storyName = 'Error'
 
 export const SelectStoryBook3 = () => {
   return (
-    <div style={{ height: '400px', width: '300px' }}>
+    <div style={{ width: '300px' }}>
       <Form>
         <div>显示过滤输入框</div>
         <MultiSelect
