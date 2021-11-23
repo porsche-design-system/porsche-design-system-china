@@ -3,9 +3,13 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
-import { componentClassNames, getPos } from '../../shared/class-util'
+import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
-import { useDefaultSize, usePopShowState } from '../../shared/hooks'
+import {
+  useDefaultSize,
+  useElementPos,
+  usePopShowState
+} from '../../shared/hooks'
 import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
@@ -98,7 +102,7 @@ MultiSelect = FormItem(
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -167,11 +171,13 @@ MultiSelect = FormItem(
     return (
       <div
         ref={rootElement => {
-          if (rootElement && !menuPos) {
-            rootElementRef.current = rootElement
-            setMenuPos(getPos(rootElement))
+          rootElementRef.current = rootElement
+          if (rootElement && rootElementRef.current === null) {
+            updatePos()
             setTimeout(() => {
-              setMenuPos(getPos(rootElement))
+              if (rootElementRef.current) {
+                updatePos()
+              }
             }, 1000)
           }
         }}

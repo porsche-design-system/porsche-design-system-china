@@ -11,8 +11,12 @@ import {
 
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
-import { useDefaultSize, usePopShowState } from '../../shared/hooks'
-import { componentClassNames, getPos } from '../../shared/class-util'
+import {
+  useDefaultSize,
+  usePopShowState,
+  useElementPos
+} from '../../shared/hooks'
+import { componentClassNames } from '../../shared/class-util'
 import './date-picker.scss'
 
 export interface DatePickerProps {
@@ -103,7 +107,7 @@ const DatePicker = FormItem(
     )
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -253,11 +257,13 @@ const DatePicker = FormItem(
     return (
       <div
         ref={rootElement => {
-          if (rootElement && !menuPos) {
-            rootElementRef.current = rootElement
-            setMenuPos(getPos(rootElement))
+          rootElementRef.current = rootElement
+          if (rootElement && rootElementRef.current === null) {
+            updatePos()
             setTimeout(() => {
-              setMenuPos(getPos(rootElement))
+              if (rootElementRef.current) {
+                updatePos()
+              }
             }, 1000)
           }
         }}

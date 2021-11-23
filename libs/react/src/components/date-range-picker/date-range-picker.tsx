@@ -19,8 +19,12 @@ import {
 } from '../../shared/date-utils'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
-import { useDefaultSize, usePopShowState } from '../../shared/hooks'
-import { componentClassNames, getPos } from '../../shared/class-util'
+import {
+  useDefaultSize,
+  usePopShowState,
+  useElementPos
+} from '../../shared/hooks'
+import { componentClassNames } from '../../shared/class-util'
 import './date-range-picker.scss'
 
 export interface DateRangePickerProps {
@@ -100,10 +104,11 @@ const DateRangePicker = FormItem(
     )
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
+
     // 当前日期
     const [currentDate, setCurrentDate] = useState(new Date())
     // 选中的Date
@@ -410,11 +415,13 @@ const DateRangePicker = FormItem(
     return (
       <div
         ref={rootElement => {
-          if (rootElement && !menuPos) {
-            rootElementRef.current = rootElement
-            setMenuPos(getPos(rootElement))
+          rootElementRef.current = rootElement
+          if (rootElement && rootElementRef.current === null) {
+            updatePos()
             setTimeout(() => {
-              setMenuPos(getPos(rootElement))
+              if (rootElementRef.current) {
+                updatePos()
+              }
             }, 1000)
           }
         }}
