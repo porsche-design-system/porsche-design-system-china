@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { UploadFile } from 'src/components/upload/interface'
-import { Upload, Row, Col, Message, Button, RadioGroup } from '../..'
+import { Upload, Row, Col, Message, Button } from '../..'
 
 import './upload.stories.scss'
 
 const action =
   'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
-const Authorization = 'Bearer 89f1e56b-fed6-443b-ad3a-0c051b85d719'
+const Authorization = 'Bearer e173a3e3-38cb-4d36-a442-aee2df63ee0c'
 export default {
   title: 'Data Entry/Upload',
   component: Upload
@@ -31,34 +31,38 @@ export const UploadStoryBook = () => {
 UploadStoryBook.storyName = 'Upload'
 
 export const UploadStoryBook1 = () => {
-  const fileList = [
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'success'
+  const uploadProps = {
+    // showUploadList: { showRemoveIcon: false },
+    // showUploadList: false,
+    onChange: (file: UploadFile, list: UploadFile[]) => {
+      console.log(file)
+      console.log(list)
     },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'error'
+    defaultFileList: [
+      {
+        uid: '-1',
+        name: 'image.png',
+        status: 'success'
+      },
+      {
+        uid: '-2',
+        name: 'image.png',
+        status: 'error'
+      }
+    ],
+    handleBeforeUpload: (file: File) => {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+      if (!isJpgOrPng) {
+        Message.pop('error', '请上传jpg或png格式的文件')
+        return false
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isLt2M) {
+        Message.pop('error', '文件大小不能超过2M')
+        return false
+      }
+      return true
     }
-  ]
-
-  const onChange = (file: UploadFile, list: UploadFile[]) => {
-    console.log(file, list)
-  }
-  const handleBeforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-    if (!isJpgOrPng) {
-      Message.pop('error', '请上传jpg或png格式的文件')
-      return false;
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2
-    if (!isLt2M) {
-      Message.pop('error', '文件大小不能超过2M')
-      return false;
-    }
-    return true;
   }
 
   return (
@@ -71,13 +75,10 @@ export const UploadStoryBook1 = () => {
             headers={{
               Authorization
             }}
-            listIgnore={true}
-            defaultFileList={fileList}
             multiple
             tip="要求文件格式jpg,png, 大小不超过20M"
-            onChange={onChange}
-            beforeUpload={handleBeforeUpload}
-          // accept='.png,.jpg'
+            {...uploadProps}
+            // accept='.png,.jpg'
           />
         </Col>
       </Row>
@@ -123,11 +124,13 @@ export const UploadStoryBook7 = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const uploadProps = {
     // listIgnore: true,
-    action: action,
+    action,
     headers: {
       Authorization
     },
+    fileList,
     defaultFileList: [
+      // 测试defaultFileList与fileList同时存在时，以fileList为准
       {
         uid: '-1',
         name: 'image.png',
@@ -143,19 +146,19 @@ export const UploadStoryBook7 = () => {
       setFileList(prevFile => prevFile.filter(item => item.uid !== file.uid))
     },
     beforeUpload: (file: File) => {
-      let baseFile: UploadFile = {
+      const baseFile: UploadFile = {
         uid: Math.random().toString().replace(/0./, ''),
         name: file.name,
         size: file.size,
         percent: 0,
         originFileObj: file
       }
-
       setFileList([...fileList, baseFile])
-      return false;
+      return false
     },
     onChange: (file: UploadFile, list: UploadFile[]) => {
-      console.log(file, list)
+      console.log(file)
+      console.log(list)
     }
   }
 
@@ -168,15 +171,15 @@ export const UploadStoryBook7 = () => {
     <>
       <Row style={{ marginBottom: '20px' }}>
         <Col span={12}>
-          <Upload
-            fileList={fileList}
-            multiple
-            {...uploadProps}
-          // accept='.png,.jpg'
-          />
+          <Upload multiple {...uploadProps} />
         </Col>
       </Row>
-      <Button onClick={uploadHandle}>开始上传</Button>
+      <Row style={{ marginBottom: '20px' }}>
+        <Button onClick={uploadHandle}>开始上传</Button>
+      </Row>
+      <Row style={{ marginBottom: '20px' }}>
+        <p>beforeUpload 返回 false 后，手动上传文件。</p>
+      </Row>
     </>
   )
 }
@@ -207,7 +210,7 @@ export const UploadStoryBook3 = () => {
 UploadStoryBook3.storyName = 'Upload Pictures Default'
 
 export const UploadStoryBook4 = () => {
-  const fileList1 = [
+  const defaultFileList = [
     {
       uid: '-xxx',
       percent: 50,
@@ -220,25 +223,7 @@ export const UploadStoryBook4 = () => {
       uid: '-xxx',
       percent: 100,
       name: 'image.png',
-      status: 'uploading',
-      url:
-        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
-  ]
-  const fileList2 = [
-    {
-      uid: '-1',
-      name: 'image.png',
       status: 'success',
-      url:
-        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
-  ]
-  const fileList3 = [
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'error',
       url:
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
@@ -253,7 +238,7 @@ export const UploadStoryBook4 = () => {
             Authorization
           }}
           listType="picture-card"
-          defaultFileList={fileList1}
+          defaultFileList={defaultFileList}
         />
       </div>
     </>
@@ -267,15 +252,6 @@ export const UploadStoryBook5 = () => {
       uid: '-1',
       name: 'image.png',
       status: 'success',
-      url:
-        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
-  ]
-  const fileList3 = [
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'error',
       url:
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
