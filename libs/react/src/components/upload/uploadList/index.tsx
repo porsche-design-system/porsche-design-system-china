@@ -21,6 +21,7 @@ interface UploadListProps {
   locale: UploadLocale
   showDownloadIcon?: boolean
   showPreviewIcon?: boolean
+  downloadIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
   removeIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
   onRemove: (file: UploadFile) => void
   onPreview: (file: UploadFile) => void
@@ -49,7 +50,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (listType !== 'picture' && listType !== 'picture-card') {
       return
     }
-    ; (fileList || []).forEach((file: UploadFile) => {
+    ;(fileList || []).forEach((file: UploadFile) => {
       if (
         typeof document === 'undefined' ||
         typeof window === 'undefined' ||
@@ -123,7 +124,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (isValidElement(customIcon)) {
       const btnIcon = cloneElement(customIcon, {
         ...customIcon.props,
-        onClick: () => { }
+        onClick: () => {}
       })
 
       return <Button {...btnProps} icon={btnIcon} />
@@ -140,6 +141,7 @@ const UploadList: FC<UploadListProps> = props => {
     [`${prefixCls}`]: true,
     [`${prefixCls}-${listType}`]: true
   })
+
   return (
     <div className={listClassNames}>
       {fileList.map(file => {
