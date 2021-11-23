@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import cn from 'classnames'
 
 export const componentClassNames = (
@@ -50,25 +50,4 @@ export const overrideChildren = (
   })
 
   return newChildrenArray
-}
-
-export const getPos = (elem: HTMLElement | null) => {
-  const originalElem = elem
-  if (!elem) {
-    return { left: 0, top: 0 }
-  }
-  let offsetLeft = 0
-  let offsetTop = 0
-  do {
-    if (!Number.isNaN(elem.offsetLeft)) {
-      offsetLeft += elem.offsetLeft
-      offsetTop += elem.offsetTop
-    }
-    // eslint-disable-next-line no-cond-assign
-  } while ((elem = elem.offsetParent as any))
-  return {
-    left: offsetLeft,
-    top: offsetTop,
-    minWidth: originalElem!.offsetWidth
-  }
 }

@@ -214,7 +214,11 @@ export const ModalStoryBook4 = () => {
             title: '对话框标题',
             subtitle: '对话框副标题',
             titleIconType: 'warning',
-            content: '确定执行这个操作吗？',
+            content: (
+              <div>
+                <Select options="测试1,测试2,测试3,测试4,测试5,测试6,测试7,测试8" />
+              </div>
+            ),
             showClose: false,
             okText: '确定删除',
             okIcon: null,

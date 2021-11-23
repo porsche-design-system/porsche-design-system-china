@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
-import { componentClassNames, getPos } from '../../shared/class-util'
+import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
-import { useDefaultSize, usePopShowState } from '../../shared/hooks'
+import {
+  useDefaultSize,
+  usePopShowState,
+  useElementPos
+} from '../../shared/hooks'
 
 import './select.scss'
 
@@ -97,7 +101,7 @@ Select = FormItem(
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -164,11 +168,13 @@ Select = FormItem(
     return (
       <div
         ref={rootElement => {
-          if (rootElement && !menuPos) {
-            rootElementRef.current = rootElement
-            setMenuPos(getPos(rootElement))
+          rootElementRef.current = rootElement
+          if (rootElement && rootElementRef.current === null) {
+            updatePos()
             setTimeout(() => {
-              setMenuPos(getPos(rootElement))
+              if (rootElementRef.current) {
+                updatePos()
+              }
             }, 1000)
           }
         }}
@@ -190,7 +196,7 @@ Select = FormItem(
           placeholder={placeholder}
           onClick={evt => {
             evt.stopPropagation()
-            setMenuPos(getPos(rootElementRef.current))
+            updatePos()
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}

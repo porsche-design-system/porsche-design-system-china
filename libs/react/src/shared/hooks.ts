@@ -60,6 +60,11 @@ export const usePopShowState = (
   if (!puiPopupWrap) {
     const div = document.createElement('div')
     div.id = 'pui-pop-wrap'
+    div.style.position = 'absolute'
+    div.style.zIndex = '99999'
+    div.style.width = '100%'
+    div.style.top = '0px'
+    div.style.left = '0px'
     document.body.appendChild(div)
     puiPopupWrap = div
   }
@@ -143,4 +148,81 @@ export const useClickOutside = (
       document.removeEventListener('click', listener)
     }
   }, [ref, handler])
+}
+
+export const useElementPos = (elemRef: {
+  current: HTMLElement | null
+}): [any, () => void] => {
+  const [, setRefresh] = useState(0)
+  const originalElem = elemRef.current
+  let elem = originalElem!
+  let position = 'absolute'
+
+  const updatePos = () => {
+    setRefresh(Math.random())
+  }
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (scrollElement) {
+  //       scrollElement.onscroll = null
+  //     }
+  //   }
+  // }, [])
+
+  if (!elemRef.current) {
+    return [{ left: 0, top: 0 }, updatePos]
+  }
+  let offsetLeft = 0
+  let offsetTop = 0
+  let isFirstScroll = true
+
+  do {
+    if (!Number.isNaN(elem.offsetLeft)) {
+      offsetLeft += elem.offsetLeft
+      offsetTop += elem.offsetTop
+    }
+    // eslint-disable-next-line no-cond-assign
+  } while ((elem = elem.offsetParent as any))
+
+  elem = originalElem!
+  let firstScrollLeft = 0
+  let firstScrollTop = 0
+  let scrollElement: any = null
+  do {
+    if (!Number.isNaN(elem.offsetLeft)) {
+      const style = window.getComputedStyle(elem, null)
+      if (style.position === 'fixed') {
+        position = 'fixed'
+      }
+      if (
+        isFirstScroll &&
+        (style.overflow === 'auto' || style.position === 'scroll') &&
+        elem.tagName !== 'BODY' &&
+        elem.tagName !== 'HTML'
+      ) {
+        isFirstScroll = false
+        firstScrollLeft = elem.scrollLeft
+        firstScrollTop = elem.scrollTop
+        scrollElement = elem
+      }
+    }
+    // eslint-disable-next-line no-cond-assign
+  } while ((elem = elem.parentElement as any))
+
+  if (position === 'fixed' && scrollElement) {
+    scrollElement.onscroll = () => {
+      setRefresh(Math.random())
+    }
+  }
+
+  return [
+    {
+      left: offsetLeft - (position === 'fixed' ? firstScrollLeft : 0),
+      top: offsetTop - (position === 'fixed' ? firstScrollTop : 0),
+      position,
+      minWidth: originalElem!.offsetWidth
+    },
+    updatePos
+  ]
 }
