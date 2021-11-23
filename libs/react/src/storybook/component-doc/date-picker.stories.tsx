@@ -8,7 +8,7 @@ export default {
 
 export const DatePickerStoryBook = () => {
   return (
-    <div style={{ height: '450px' }}>
+    <div>
       <DatePicker
         width="300px"
         label="来访日期"
@@ -34,7 +34,7 @@ DatePickerStoryBook.storyName = 'DatePicker'
 
 export const DatePickerStoryBook1 = () => {
   return (
-    <div style={{ height: '450px' }}>
+    <div>
       <div>出错状态</div>
       <DatePicker
         width="300px"
@@ -50,7 +50,7 @@ DatePickerStoryBook1.storyName = 'Error'
 
 export const DatePickerStoryBook3 = () => {
   return (
-    <div style={{ height: '600px' }}>
+    <div>
       <div>限定时间各种写法</div>
       <DatePicker
         width="600px"

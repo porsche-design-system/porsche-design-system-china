@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -11,7 +12,7 @@ import {
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, getPos } from '../../shared/class-util'
 import './date-picker.scss'
 
 export interface DatePickerProps {
@@ -41,19 +42,31 @@ export interface DatePickerProps {
 
   /* 提示错误 */
   error?: FormErrorText
+
+  /* 控制菜单打开 */
+  defaultOpen?: boolean
+
+  /* 控制菜单打开 */
+  open?: boolean
+
+  /* 菜单显示状态改变 */
+  onMenuVisibleChange?: (visible: boolean) => void
 }
 
 const DatePicker = FormItem(
   ({
     className,
-    disabled,
+    disabled = false,
     value,
     defaultValue,
     onValueChange,
     error,
     size,
     range,
-    placeholder
+    placeholder,
+    open,
+    defaultOpen,
+    onMenuVisibleChange
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr.split('-')
@@ -81,7 +94,19 @@ const DatePicker = FormItem(
     size = size || defaultSize
 
     const initDate = strToDate(value || defaultValue || '')
-    const [calenderOpen, setCalendarOpen] = usePopShowState()
+    const [calenderOpen, setCalendarOpen, puiPopupWrap] = usePopShowState(
+      () => {
+        if (open === undefined) {
+          setMenuOpen(undefined)
+        }
+      }
+    )
+    const isFirstLoad = useRef(true)
+    const rootElementRef = useRef<any>(null)
+    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuOpen, setMenuOpen] = useState(
+      open !== undefined ? open : defaultOpen
+    )
     // 当前日期
     const [currentDate, setCurrentDate] = useState(new Date())
     // 选中的Date
@@ -199,8 +224,43 @@ const DatePicker = FormItem(
       )
     }
 
+    useEffect(() => {
+      if (!isFirstLoad.current) {
+        onMenuVisibleChange &&
+          onMenuVisibleChange(
+            (menuOpen !== undefined ? menuOpen : calenderOpen) && !disabled
+          )
+      }
+      isFirstLoad.current = false
+    }, [(menuOpen !== undefined ? menuOpen : calenderOpen) && !disabled])
+
+    useEffect(() => {
+      if (open !== undefined) {
+        setMenuOpen(open)
+      }
+    }, [open])
+
+    useEffect(() => {
+      setCurrentDate(new Date())
+      displayDate.current = pickedDate
+        ? new Date(pickedDate)
+        : range
+        ? new Date((range as [Date, Date])[0])
+        : new Date()
+      updateCalendar()
+    }, [])
+
     return (
       <div
+        ref={rootElement => {
+          if (rootElement && !menuPos) {
+            rootElementRef.current = rootElement
+            setMenuPos(getPos(rootElement))
+            setTimeout(() => {
+              setMenuPos(getPos(rootElement))
+            }, 1000)
+          }
+        }}
         className={componentClassNames(
           'pui-date-picker',
           {
@@ -243,102 +303,116 @@ const DatePicker = FormItem(
             }}
           />
         )}
-        {calenderOpen && (
-          <div
-            className="pui-date-picker-calendar"
-            onClick={evt => {
-              evt.stopPropagation()
-            }}
-          >
-            <div className="pui-date-picker-calendar-head">
-              <div className="pui-date-picker-calendar-head-left">
-                <IconArrowDoubleLeft
-                  onClick={() => {
-                    displayDate.current.setFullYear(
-                      displayDate.current.getFullYear() - 1
-                    )
-                    updateCalendar()
-                  }}
-                />
-                <IconArrowHeadLeft
-                  onClick={() => {
-                    displayDate.current.setMonth(
-                      displayDate.current.getMonth() - 1
-                    )
-                    updateCalendar()
-                  }}
-                />
-              </div>
-              {displayDate.current.getFullYear()}年
-              {displayDate.current.getMonth() + 1}月
-              <div className="pui-date-picker-calendar-head-right">
-                <IconArrowHeadRight
-                  onClick={() => {
-                    displayDate.current.setMonth(
-                      displayDate.current.getMonth() + 1
-                    )
-                    updateCalendar()
-                  }}
-                />
-                <IconArrowDoubleRight
-                  onClick={() => {
-                    displayDate.current.setFullYear(
-                      displayDate.current.getFullYear() + 1
-                    )
-                    updateCalendar()
-                  }}
-                />
-              </div>
-            </div>
-            <div className="pui-date-picker-calendar-weekdays">
-              {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
-                <div key={weekday} className="pui-date-picker-calendar-weekday">
-                  {weekday}
-                </div>
-              ))}
-            </div>
-            <div className="pui-date-picker-calendar-dates">
-              {calendarDates.map(date => {
-                return (
-                  <div
-                    key={date.getTime() + ''}
-                    className={
-                      'pui-date-picker-calendar-block ' +
-                      (sameDate(date, currentDate)
-                        ? 'pui-date-picker-calendar-today'
-                        : '') +
-                      ' ' +
-                      (!inDateRange(date)
-                        ? 'pui-date-picker-calendar-unavailable'
-                        : '') +
-                      ' ' +
-                      (date.getMonth() !== displayDate.current.getMonth()
-                        ? 'pui-date-picker-calendar-not-same-month'
-                        : '') +
-                      ' ' +
-                      (pickedDate && sameDate(date, pickedDate)
-                        ? 'pui-date-picker-calendar-picked'
-                        : '')
-                    }
-                    onClick={() => {
-                      if (!inDateRange(date)) {
-                        return
-                      }
-                      if (value === undefined) {
-                        setPickedDate(new Date(date))
-                        setDisplayValue(dateToStr(date))
-                      }
-                      setCalendarOpen(false)
-                      onValueChange && onValueChange(dateToStr(date))
-                    }}
-                  >
-                    {date.getDate()}
+        {(menuOpen !== undefined ? menuOpen : calenderOpen) &&
+          !disabled &&
+          ReactDOM.createPortal(
+            <div
+              style={{ position: 'absolute', ...menuPos }}
+              className={`pui-date-picker-size-${size}`}
+            >
+              <div
+                className="pui-date-picker-calendar"
+                onClick={evt => {
+                  evt.stopPropagation()
+                }}
+              >
+                <div className="pui-date-picker-calendar-head">
+                  <div className="pui-date-picker-calendar-head-left">
+                    <IconArrowDoubleLeft
+                      onClick={() => {
+                        displayDate.current.setFullYear(
+                          displayDate.current.getFullYear() - 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
+                    <IconArrowHeadLeft
+                      onClick={() => {
+                        displayDate.current.setMonth(
+                          displayDate.current.getMonth() - 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
                   </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
+                  {displayDate.current.getFullYear()}年
+                  {displayDate.current.getMonth() + 1}月
+                  <div className="pui-date-picker-calendar-head-right">
+                    <IconArrowHeadRight
+                      onClick={() => {
+                        displayDate.current.setMonth(
+                          displayDate.current.getMonth() + 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
+                    <IconArrowDoubleRight
+                      onClick={() => {
+                        displayDate.current.setFullYear(
+                          displayDate.current.getFullYear() + 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="pui-date-picker-calendar-weekdays">
+                  {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
+                    <div
+                      key={weekday}
+                      className="pui-date-picker-calendar-weekday"
+                    >
+                      {weekday}
+                    </div>
+                  ))}
+                </div>
+                <div className="pui-date-picker-calendar-dates">
+                  {calendarDates.map(date => {
+                    return (
+                      <div
+                        key={date.getTime() + ''}
+                        className={
+                          'pui-date-picker-calendar-block ' +
+                          (sameDate(date, currentDate)
+                            ? 'pui-date-picker-calendar-today'
+                            : '') +
+                          ' ' +
+                          (!inDateRange(date)
+                            ? 'pui-date-picker-calendar-unavailable'
+                            : '') +
+                          ' ' +
+                          (date.getMonth() !== displayDate.current.getMonth()
+                            ? 'pui-date-picker-calendar-not-same-month'
+                            : '') +
+                          ' ' +
+                          (pickedDate && sameDate(date, pickedDate)
+                            ? 'pui-date-picker-calendar-picked'
+                            : '')
+                        }
+                        onClick={() => {
+                          if (!inDateRange(date)) {
+                            return
+                          }
+                          if (value === undefined) {
+                            setPickedDate(new Date(date))
+                            setDisplayValue(dateToStr(date))
+                          }
+                          setCalendarOpen(false)
+                          if (open === undefined) {
+                            setMenuOpen(undefined)
+                          }
+                          onValueChange && onValueChange(dateToStr(date))
+                        }}
+                      >
+                        {date.getDate()}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>,
+            puiPopupWrap
+          )}
       </div>
     )
   }

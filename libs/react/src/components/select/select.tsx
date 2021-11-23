@@ -1,8 +1,9 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
 import { IconArrowHeadDown, IconCheck } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, getPos } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
 
@@ -68,7 +69,7 @@ let Select = <T,>(props: SelectProps<T> & FormItemProps) => {
 Select = FormItem(
   <T,>({
     className,
-    disabled,
+    disabled = false,
     value,
     defaultValue,
     error,
@@ -77,18 +78,26 @@ Select = FormItem(
     filterInput,
     onValueChange,
     placeholder,
-    defaultOpen = false,
+    defaultOpen,
     open,
     onMenuVisibleChange
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || [])
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
-    const [showOptionList, setShowOptionList] = usePopShowState()
+    const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
+      () => {
+        if (open === undefined) {
+          setMenuOpen(undefined)
+        }
+      }
+    )
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
+    const rootElementRef = useRef<any>(null)
+    const [menuPos, setMenuPos] = useState<any>(null)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -139,10 +148,12 @@ Select = FormItem(
     useEffect(() => {
       if (!isFirstLoad.current) {
         onMenuVisibleChange &&
-          onMenuVisibleChange((showOptionList || menuOpen) && !disabled)
+          onMenuVisibleChange(
+            (menuOpen !== undefined ? menuOpen : showOptionList) && !disabled
+          )
       }
       isFirstLoad.current = false
-    }, [(showOptionList || menuOpen) && !disabled])
+    }, [(menuOpen !== undefined ? menuOpen : showOptionList) && !disabled])
 
     useEffect(() => {
       if (open !== undefined) {
@@ -152,6 +163,15 @@ Select = FormItem(
 
     return (
       <div
+        ref={rootElement => {
+          if (rootElement && !menuPos) {
+            rootElementRef.current = rootElement
+            setMenuPos(getPos(rootElement))
+            setTimeout(() => {
+              setMenuPos(getPos(rootElement))
+            }, 1000)
+          }
+        }}
         className={componentClassNames(
           'pui-select',
           {
@@ -170,65 +190,74 @@ Select = FormItem(
           placeholder={placeholder}
           onClick={evt => {
             evt.stopPropagation()
+            setMenuPos(getPos(rootElementRef.current))
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
         />
         <IconArrowHeadDown className="pui-select-icon" />
-        {(showOptionList || menuOpen) && !disabled && (
-          <div
-            className="pui-select-list"
-            onClick={evt => {
-              evt.stopPropagation()
-            }}
-          >
-            {filterInput && (
-              <input
-                value={filterValue}
-                placeholder="请输入选项"
-                onChange={evt => {
-                  setFilterValue(evt.target.value)
+        {(menuOpen !== undefined ? menuOpen : showOptionList) &&
+          !disabled &&
+          ReactDOM.createPortal(
+            <div
+              style={{ position: 'absolute', ...menuPos }}
+              className={`pui-select-size-${size}`}
+            >
+              <div
+                className="pui-select-list"
+                onClick={evt => {
+                  evt.stopPropagation()
                 }}
-                className="pui-select-filter"
-              />
-            )}
-            <div className="pui-select-option-wrap">
-              {selectOptions
-                .filter(item => {
-                  if (filterValue) {
-                    return (
-                      item.text
-                        .toLowerCase()
-                        .indexOf(filterValue.toLowerCase()) >= 0
-                    )
-                  }
-                  return true
-                })
-                .map((option, inx) => (
-                  <div
-                    key={option.value + ' ' + inx}
-                    className={
-                      'pui-select-option ' +
-                      (option.value === selectValue
-                        ? 'pui-select-option-selected'
-                        : '')
-                    }
-                    onClick={() => {
-                      if (open === undefined) {
-                        setMenuOpen(false)
-                      }
-                      setShowOptionList(false)
-                      setSelectValue(option.value)
-                      onValueChange && onValueChange(option.value)
+              >
+                {filterInput && (
+                  <input
+                    value={filterValue}
+                    placeholder="请输入选项"
+                    onChange={evt => {
+                      setFilterValue(evt.target.value)
                     }}
-                  >
-                    {option.text}
-                    {option.value === selectValue && <IconCheck />}
-                  </div>
-                ))}
-            </div>
-          </div>
-        )}
+                    className="pui-select-filter"
+                  />
+                )}
+                <div className="pui-select-option-wrap">
+                  {selectOptions
+                    .filter(item => {
+                      if (filterValue) {
+                        return (
+                          item.text
+                            .toLowerCase()
+                            .indexOf(filterValue.toLowerCase()) >= 0
+                        )
+                      }
+                      return true
+                    })
+                    .map((option, inx) => (
+                      <div
+                        key={option.value + ' ' + inx}
+                        className={
+                          'pui-select-option ' +
+                          (option.value === selectValue
+                            ? 'pui-select-option-selected'
+                            : '')
+                        }
+                        onClick={() => {
+                          if (open === undefined) {
+                            setMenuOpen(undefined)
+                          }
+                          setShowOptionList(false)
+                          setSelectValue(option.value)
+                          onValueChange && onValueChange(option.value)
+                        }}
+                      >
+                        {option.text}
+                        {option.value === selectValue && <IconCheck />}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>,
+            puiPopupWrap
+          )}
       </div>
     )
   }

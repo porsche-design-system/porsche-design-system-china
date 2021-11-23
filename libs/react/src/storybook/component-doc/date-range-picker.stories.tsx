@@ -8,7 +8,7 @@ export default {
 
 export const DateRangePickerStoryBook = () => {
   return (
-    <div style={{ height: '450px' }}>
+    <div>
       <DateRangePicker
         width="400px"
         label="来访日期"
@@ -26,7 +26,7 @@ DateRangePickerStoryBook.storyName = 'DateRangePicker'
 export const DateRangePickerStoryBook1 = () => {
   const [dates, setDates] = useState(['', ''])
   return (
-    <div style={{ height: '450px' }}>
+    <div>
       <DateRangePicker
         width="400px"
         label="来访日期"
@@ -46,7 +46,7 @@ DateRangePickerStoryBook1.storyName = 'Data Binding'
 
 export const DateRangePickerStoryBook2 = () => {
   return (
-    <div style={{ height: '450px' }}>
+    <div>
       <DateRangePicker
         width="400px"
         label="限定日期"

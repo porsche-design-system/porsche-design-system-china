@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -19,7 +20,7 @@ import {
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import { useDefaultSize, usePopShowState } from '../../shared/hooks'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, getPos } from '../../shared/class-util'
 import './date-range-picker.scss'
 
 export interface DateRangePickerProps {
@@ -58,12 +59,21 @@ export interface DateRangePickerProps {
 
   /* 提示错误 */
   error?: FormErrorText
+
+  /* 控制菜单打开 */
+  defaultOpen?: boolean
+
+  /* 控制菜单打开 */
+  open?: boolean
+
+  /* 菜单显示状态改变 */
+  onMenuVisibleChange?: (visible: boolean) => void
 }
 
 const DateRangePicker = FormItem(
   ({
     className,
-    disabled,
+    disabled = false,
     value,
     defaultValue,
     onValueChange,
@@ -71,14 +81,29 @@ const DateRangePicker = FormItem(
     error,
     range,
     placeholderStartDate,
-    placeholderEndDate
+    placeholderEndDate,
+    open,
+    defaultOpen,
+    onMenuVisibleChange
   }: DateRangePickerProps) => {
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
       strToDate((value && value[0]) || (defaultValue && defaultValue[0]) || ''),
       strToDate((value && value[1]) || (defaultValue && defaultValue[1]) || '')
     ]
-    const [calenderOpen, setCalendarOpen] = usePopShowState()
+    const [calenderOpen, setCalendarOpen, puiPopupWrap] = usePopShowState(
+      () => {
+        if (open === undefined) {
+          setMenuOpen(undefined)
+        }
+      }
+    )
+    const isFirstLoad = useRef(true)
+    const rootElementRef = useRef<any>(null)
+    const [menuPos, setMenuPos] = useState<any>(null)
+    const [menuOpen, setMenuOpen] = useState(
+      open !== undefined ? open : defaultOpen
+    )
     // 当前日期
     const [currentDate, setCurrentDate] = useState(new Date())
     // 选中的Date
@@ -169,6 +194,32 @@ const DateRangePicker = FormItem(
         }
       }
     }, [calenderOpen])
+
+    useEffect(() => {
+      if (!isFirstLoad.current) {
+        onMenuVisibleChange &&
+          onMenuVisibleChange(
+            (menuOpen !== undefined ? menuOpen : calenderOpen) && !disabled
+          )
+      }
+      isFirstLoad.current = false
+    }, [(menuOpen !== undefined ? menuOpen : calenderOpen) && !disabled])
+
+    useEffect(() => {
+      if (open !== undefined) {
+        setMenuOpen(open)
+      }
+    }, [open])
+
+    useEffect(() => {
+      setCurrentDate(new Date())
+      displayDate.current = pickedDates[0]
+        ? new Date(pickedDates[0])
+        : range
+        ? new Date((range as [Date, Date])[0])
+        : new Date()
+      updateCalendar()
+    }, [])
 
     const calendarView = (calInx: number) => {
       const dDate =
@@ -318,6 +369,9 @@ const DateRangePicker = FormItem(
                       setCurrentInputPlace(0)
                     } else {
                       setCalendarOpen(false)
+                      if (open === undefined) {
+                        setMenuOpen(undefined)
+                      }
                     }
                     if (displayValues[0] && displayValues[1]) {
                       onValueChange && onValueChange([...displayValues])
@@ -355,6 +409,15 @@ const DateRangePicker = FormItem(
 
     return (
       <div
+        ref={rootElement => {
+          if (rootElement && !menuPos) {
+            rootElementRef.current = rootElement
+            setMenuPos(getPos(rootElement))
+            setTimeout(() => {
+              setMenuPos(getPos(rootElement))
+            }, 1000)
+          }
+        }}
         className={componentClassNames(
           'pui-date-range-picker',
           {
@@ -430,12 +493,20 @@ const DateRangePicker = FormItem(
           />
         )}
         <IconCalendar className="pui-date-range-picker-icon" />
-        {calenderOpen && (
-          <div className="pui-date-range-picker-calendars">
-            {calendarView(0)}
-            {calendarView(1)}
-          </div>
-        )}
+        {(menuOpen !== undefined ? menuOpen : calenderOpen) &&
+          !disabled &&
+          ReactDOM.createPortal(
+            <div
+              style={{ position: 'absolute', ...menuPos }}
+              className={`pui-date-picker-size-${size}`}
+            >
+              <div className="pui-date-range-picker-calendars">
+                {calendarView(0)}
+                {calendarView(1)}
+              </div>
+            </div>,
+            puiPopupWrap
+          )}
       </div>
     )
   }
