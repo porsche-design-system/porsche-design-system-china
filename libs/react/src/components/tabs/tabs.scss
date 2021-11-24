@@ -5,9 +5,23 @@
     @include theme($theme);
     .pui-tabs {
       position: relative;
+
       .pui-tabs-header {
         display: flex;
         align-items: center;
+
+        &-line-true {
+          position: relative;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: $container-bg-color-1;
+          }
+        }
 
         .pui-tab {
           color: $text-color-1;
@@ -92,6 +106,23 @@
 
         .pui-tabs-content {
           min-height: 32px;
+        }
+      }
+
+      &-size-small {
+        .pui-tabs-header {
+          &-line-true {
+            position: relative;
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 5px;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background-color: $container-bg-color-1;
+            }
+          }
         }
       }
     }
