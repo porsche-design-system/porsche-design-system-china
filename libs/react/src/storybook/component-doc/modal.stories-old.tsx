@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Modal,
@@ -8,9 +8,7 @@ import {
   TextArea,
   Row,
   Col,
-  Message,
-  Tabs,
-  TabPane
+  Message
 } from '../..'
 
 export default {
@@ -19,20 +17,51 @@ export default {
 }
 
 export const ModalStoryBook = () => {
-  useEffect(() => {
-    const mainStory = document.getElementById(
-      'anchor--feedback-modal--modal-story-book'
-    )
-    if (mainStory) {
-      mainStory.style.display = 'none'
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const handleOk = () => {
+    Form.findById['updateForm'].submit()
+  }
+
+  const handleSubmit = (data: any, error: any) => {
+    if (!error) {
+      setTimeout(() => {
+        Message.pop('success', '数据更新成功')
+        setIsModalVisible(false)
+      }, 1000)
     }
-    const mainTitles = document.getElementsByClassName('sbdocs-title')
-    if (mainTitles.length > 0) {
-      const mainTitle = mainTitles[0] as HTMLElement
-      mainTitle.style.marginBottom = '48px'
-    }
-  })
-  return <div />
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+  return (
+    <>
+      <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            content:
+              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  reject()
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        基础对话框 - 默认
+      </Button>
+      <br />
+      <br />
+    </>
+  )
 }
 
 ModalStoryBook.storyName = 'Modal'
@@ -57,19 +86,8 @@ export const ModalStoryBook1 = () => {
     setIsModalVisible(false)
   }
   return (
-    <div>
-      <div >
-        <Tabs
-          size="small"
-          
-
-         
-        >
-          <TabPane tabKey="Default" title="Default" >
-
-            default
-
-          {/* <Modal
+    <>
+      <Modal
         style={{ width: '800px' }}
         title="对话框标题"
         subtitle="对话框副标题"
@@ -121,24 +139,15 @@ export const ModalStoryBook1 = () => {
         type="primary"
       >
         复合对话话框
-      </Button> */}
-          </TabPane>
-          <TabPane tabKey="Confirm" title="Confirm" >
-            confirm
-          </TabPane>
-          <TabPane tabKey="Maximum" title="Maximum" >
-            maximum
-          </TabPane>
-        </Tabs>
-      </div>
-      
+      </Button>
 
-    
-    </div>
+      <br />
+      <br />
+    </>
   )
 }
 
-ModalStoryBook1.storyName = 'Dialogue Small'
+ModalStoryBook1.storyName = 'Composite Modal'
 
 export const ModalStoryBook2 = () => {
   return (
@@ -165,7 +174,7 @@ export const ModalStoryBook2 = () => {
   )
 }
 
-ModalStoryBook2.storyName = 'Dialogue Medium'
+ModalStoryBook2.storyName = 'With Subtitles'
 
 export const ModalStoryBook3 = () => {
   return (
@@ -194,7 +203,7 @@ export const ModalStoryBook3 = () => {
   )
 }
 
-ModalStoryBook3.storyName = 'Dialogue Large'
+ModalStoryBook3.storyName = 'Warning Modal'
 
 export const ModalStoryBook4 = () => {
   return (
