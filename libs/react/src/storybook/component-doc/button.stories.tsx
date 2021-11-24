@@ -35,9 +35,10 @@ export const ButtonStoryBook2 = () => {
 
   return (
     <div>
-      <div className="radio-tab-group">
+      
         <Tabs
           size="small"
+          hasLine
           onActiveKeyChange={key => {
             setButtonType(key)
           }}
@@ -46,7 +47,7 @@ export const ButtonStoryBook2 = () => {
           <TabPane tabKey="Icon" title="Icon" />
           <TabPane tabKey="Text" title="Text" />
         </Tabs>
-      </div>
+     
       <div>
         <Button type="primary" marginRight="40px" icon={icon}>
           {showText ? 'Primary' : ''}
@@ -78,9 +79,9 @@ export const ButtonStoryBook3 = () => {
 
   return (
     <div>
-      <div className="radio-tab-group">
         <Tabs
           size="small"
+          hasLine
           onActiveKeyChange={key => {
             setStatus(key)
           }}
@@ -88,7 +89,6 @@ export const ButtonStoryBook3 = () => {
           <TabPane tabKey="Disabled" title="Disabled" />
           <TabPane tabKey="Loading" title="Loading" />
         </Tabs>
-      </div>
       <div>
         <Button
           type="primary"
