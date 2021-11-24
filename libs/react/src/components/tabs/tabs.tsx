@@ -24,6 +24,9 @@ export interface TabsProps {
   /** 大小 */
   size?: 'medium' | 'small'
 
+  /** 是否有细线 */
+  hasLine?: boolean
+
   /** 默认选中的面板  */
   defaultActiveKey?: string
 
@@ -35,6 +38,7 @@ const Tabs = ({
   className,
   style,
   size,
+  hasLine = false,
   defaultActiveKey = '',
   children,
   onActiveKeyChange
@@ -69,10 +73,10 @@ const Tabs = ({
 
   return (
     <div
-      className={componentClassNames('pui-tabs', {}, className)}
+      className={componentClassNames('pui-tabs', { size: size as string }, className)}
       style={style}
     >
-      <div className="pui-tabs-header">
+      <div className={componentClassNames('pui-tabs-header',{line: hasLine +''})}>
         {tabHead.map((tabProps, inx) => (
           <div
             className={componentClassNames('pui-tab', {
