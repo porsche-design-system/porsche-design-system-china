@@ -79,6 +79,10 @@ export const usePopShowState = (
             setPopState(false)
           }
         })
+      } else {
+        allSetPopStates.forEach(setPopState => {
+          setPopState(false)
+        })
       }
     },
     puiPopupWrap
@@ -150,10 +154,12 @@ export const useClickOutside = (
   }, [ref, handler])
 }
 
+let windowResizeEventAdded = false
 export const useElementPos = (elemRef: {
   current: HTMLElement | null
 }): [any, () => void] => {
   const [, setRefresh] = useState(0)
+  const [, setPopState] = usePopShowState()
   const originalElem = elemRef.current
   let elem = originalElem!
   let position = 'absolute'
@@ -213,7 +219,15 @@ export const useElementPos = (elemRef: {
   if (position === 'fixed' && scrollElement) {
     scrollElement.onscroll = () => {
       setRefresh(Math.random())
+      setPopState(false)
     }
+  }
+
+  if (!windowResizeEventAdded) {
+    window.onresize = () => {
+      setRefresh(Math.random())
+    }
+    windowResizeEventAdded = true
   }
 
   return [
