@@ -19,6 +19,18 @@ export const TabsStoryBook = () => {
           </TabPane>
         </Tabs>
       </div>
+      <br/>
+      <br/>
+
+      <div className="showcase">
+        <Tabs hasLine>
+          <TabPane title="标题一">内容一</TabPane>
+          <TabPane title="标题二">内容二</TabPane>
+          <TabPane title="标题三">
+            <Input label="用户名" />
+          </TabPane>
+        </Tabs>
+      </div>
     </div>
   )
 }
