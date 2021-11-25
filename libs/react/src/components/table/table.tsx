@@ -487,7 +487,6 @@ const Table = ({
               </tr>
               {data.map((rowData, inx) => {
                 const isExpandRow = expandRows.includes(inx)
-                console.log(isExpandRow)
 
                 return (
                   <Fragment key={'row' + inx}>
@@ -578,7 +577,10 @@ const Table = ({
                       <tr
                         className={isExpandRow ? ' pui-table-expand-row' : ''}
                       >
-                        <td colSpan={columnCount}>
+                        <td
+                          className="pui-table-expand-cell"
+                          colSpan={columnCount}
+                        >
                           {expandCell ? expandCell(rowData) : ''}
                         </td>
                       </tr>

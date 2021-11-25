@@ -217,6 +217,13 @@
           }
         }
       }
+
+      &-expand-cell::before {
+        background-color: transparent !important;
+      }
+      &-expand-cell::after {
+        background-color: transparent !important;
+      }
     }
   }
 }
