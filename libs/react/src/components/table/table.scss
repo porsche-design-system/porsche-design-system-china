@@ -116,7 +116,8 @@
             background-color: $table-bg-color;
             z-index: 1;
           }
-          .pui-table-selected-row td {
+          .pui-table-selected-row td,
+          .pui-table-expand-row td {
             background-color: $table-selected-bg-color;
           }
 

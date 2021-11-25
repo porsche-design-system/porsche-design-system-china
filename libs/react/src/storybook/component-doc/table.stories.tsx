@@ -102,22 +102,9 @@ export const TableStoryBook2 = () => {
 
   const columns: TableColumn[] = [
     { title: '经销商', key: 'dealerName', fixed: 'left' },
-    {
-      title: '号码',
-      customCell: (rowData: any) => <u>{rowData.dealerCode}</u>
-    },
     { title: '联系号码', key: 'phoneNumber' },
     { title: '地址', key: 'address' },
     { title: '工作时间', key: 'workingTime', sortable: true },
-    { title: '在售车型', key: 'saleModel' },
-    {
-      title: '平均售价',
-      key: 'avgPrice',
-      sortable: true,
-      sortIconPlace: 'left',
-      rowCellStyle: { textAlign: 'right' },
-      headCellStyle: { textAlign: 'right' }
-    },
     {
       title: '操作',
       fixed: 'right',
@@ -159,6 +146,15 @@ export const TableStoryBook2 = () => {
           console.log(data)
         }}
         onSort={sorter => console.log(sorter)}
+        expandCell={rowData => {
+          return (
+            <div style={{ padding: '10px 0' }}>
+              经销商号码: {rowData.dealerCode}
+              <br />
+              其他信息其他信息其他信息其他信息其他信息
+            </div>
+          )
+        }}
       />
     </div>
   )

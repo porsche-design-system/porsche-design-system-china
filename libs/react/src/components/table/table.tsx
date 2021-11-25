@@ -1,6 +1,12 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  Fragment,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import { renderToString } from 'react-dom/server'
-import { IconDown, IconPlus } from '@pui/icons'
+import { IconDown, IconPlus, IconMinus } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize } from '../../shared/hooks'
@@ -64,6 +70,9 @@ export interface TableProps {
 
   /* 可展开行 */
   rowExpandable?: boolean
+
+  /* 可展开行渲染 */
+  expandCell?: (rowData: any) => React.ReactNode
 }
 
 const Table = ({
@@ -77,7 +86,8 @@ const Table = ({
   size,
   selectable = false,
   rowExpandable = false,
-  defaultSorter = {}
+  defaultSorter = {},
+  expandCell
 }: TableProps) => {
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
@@ -85,10 +95,12 @@ const Table = ({
   const [allChecked, setAllChecked] = useState(false)
   const [partChecked, setPartChecked] = useState(false)
   const [selectedRows, setSelectedRows] = useState<number[]>([])
+  const [expandRows, setExpandRows] = useState<number[]>([])
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
 
   useEffect(() => {
+    setExpandRows([])
     setSelectedRows([])
   }, [data])
 
@@ -473,66 +485,107 @@ const Table = ({
                   .concat(rightColumns)
                   .map((column, inx) => renderMeasureCell(column, inx))}
               </tr>
-              {data.map((rowData, inx) => (
-                <tr
-                  key={'row' + inx}
-                  className={
-                    selectedRows.includes(inx) ? 'pui-table-selected-row' : ''
-                  }
-                >
-                  {selectable && (
-                    <td
-                      className="pui-table-fixed-left pui-table-selectable"
-                      style={{ left: 0 }}
+              {data.map((rowData, inx) => {
+                const isExpandRow = expandRows.includes(inx)
+                console.log(isExpandRow)
+
+                return (
+                  <Fragment key={'row' + inx}>
+                    <tr
+                      className={
+                        (selectedRows.includes(inx)
+                          ? 'pui-table-selected-row'
+                          : '') + (isExpandRow ? ' pui-table-expand-row' : '')
+                      }
                     >
-                      <CheckBox
-                        size="small"
-                        onCheckedChange={checked => {
-                          if (checked) {
-                            selectedRows.push(inx)
-                          } else {
-                            selectedRows.splice(selectedRows.indexOf(inx), 1)
-                          }
-                          selectCallback(selectedRows)
-                          setAllChecked(
-                            selectedRows.length === data.length &&
-                              selectedRows.length > 0
-                          )
-                          setPartChecked(
-                            selectedRows.length < data.length &&
-                              selectedRows.length > 0
-                          )
-                        }}
-                        checked={selectedRows.includes(inx)}
-                      />
-                    </td>
-                  )}
-                  {rowExpandable && (
-                    <td
-                      className="pui-table-fixed-left pui-table-selectable"
-                      style={{ left: 0 }}
-                    >
-                      <IconPlus className="pui-table-expand-button" />
-                    </td>
-                  )}
-                  {leftColumns.map((column, inx) =>
-                    renderDataCell(column, inx, 'left', rowData, {
-                      left:
-                        fixColumnLeft[
-                          inx + (selectable ? 1 : 0) + (rowExpandable ? 1 : 0)
-                        ] + 'px'
-                    })
-                  )}
-                  {middleColumns.map((column, inx) =>
-                    renderDataCell(column, inx, null, rowData, {})
-                  )}
-                  {rightColumns.map((column, inx) =>
-                    renderDataCell(column, inx, 'right', rowData, {
-                      right: fixColumnRight[inx] + 'px'
-                    })
-                  )}
-                </tr>
-              ))}
+                      {selectable && (
+                        <td
+                          className="pui-table-fixed-left pui-table-selectable"
+                          style={{ left: 0 }}
+                        >
+                          <CheckBox
+                            size="small"
+                            onCheckedChange={checked => {
+                              if (checked) {
+                                selectedRows.push(inx)
+                              } else {
+                                selectedRows.splice(
+                                  selectedRows.indexOf(inx),
+                                  1
+                                )
+                              }
+                              selectCallback(selectedRows)
+                              setAllChecked(
+                                selectedRows.length === data.length &&
+                                  selectedRows.length > 0
+                              )
+                              setPartChecked(
+                                selectedRows.length < data.length &&
+                                  selectedRows.length > 0
+                              )
+                            }}
+                            checked={selectedRows.includes(inx)}
+                          />
+                        </td>
+                      )}
+                      {rowExpandable && (
+                        <td
+                          className="pui-table-fixed-left pui-table-selectable "
+                          style={{ left: 0 }}
+                        >
+                          {isExpandRow && (
+                            <IconMinus
+                              className="pui-table-expand-button"
+                              onClick={() => {
+                                const rInx = expandRows.findIndex(
+                                  elem => elem === inx
+                                )
+                                expandRows.splice(rInx, 1)
+                                setExpandRows([...expandRows])
+                              }}
+                            />
+                          )}
+                          {!isExpandRow && (
+                            <IconPlus
+                              className="pui-table-expand-button"
+                              onClick={() => {
+                                setExpandRows([...expandRows, inx])
+                              }}
+                            />
+                          )}
+                        </td>
+                      )}
+                      {leftColumns.map((column, inx) =>
+                        renderDataCell(column, inx, 'left', rowData, {
+                          left:
+                            fixColumnLeft[
+                              inx +
+                                (selectable ? 1 : 0) +
+                                (rowExpandable ? 1 : 0)
+                            ] + 'px'
+                        })
+                      )}
+                      {middleColumns.map((column, inx) =>
+                        renderDataCell(column, inx, null, rowData, {})
+                      )}
+                      {rightColumns.map((column, inx) =>
+                        renderDataCell(column, inx, 'right', rowData, {
+                          right: fixColumnRight[inx] + 'px'
+                        })
+                      )}
+                    </tr>
+                    {rowExpandable && expandRows.includes(inx) && (
+                      <tr
+                        className={isExpandRow ? ' pui-table-expand-row' : ''}
+                      >
+                        <td colSpan={columnCount}>
+                          {expandCell ? expandCell(rowData) : ''}
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                )
+              })}
             </tbody>
           </table>
         </div>
