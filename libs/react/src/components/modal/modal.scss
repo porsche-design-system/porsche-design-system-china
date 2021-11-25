@@ -159,6 +159,26 @@
               }
             }
           }
+
+          &-modalsize-medium {
+            width: 750px;
+            .pui-modal-content {
+              .pui-modal-body {
+                min-height: 398px;
+              }
+            }
+          }
+          &-modalsize-small {
+            width: 418px;
+          }
+          &-modalsize-large {
+            width: 1080px;
+            .pui-modal-content {
+              .pui-modal-body {
+                min-height: 558px;
+              }
+            }
+          }
         }
       }
     }
