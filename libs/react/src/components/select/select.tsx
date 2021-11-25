@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { IconArrowHeadDown, IconCheck } from '@pui/icons'
+import { IconArrowHeadDown, IconCheck, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
@@ -60,6 +60,9 @@ export interface SelectProps<T> {
   /* 控制菜单打开 */
   open?: boolean
 
+  /* 显示清除按钮 */
+  showClearButton?: boolean
+
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 }
@@ -83,10 +86,11 @@ Select = FormItem(
     onValueChange,
     placeholder,
     defaultOpen,
+    showClearButton = false,
     open,
     onMenuVisibleChange
   }: SelectProps<T>) => {
-    const selectState = useState(defaultValue || [])
+    const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
     const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
@@ -101,6 +105,7 @@ Select = FormItem(
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
+    const isDestroyed = useRef(false)
     const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
@@ -168,11 +173,12 @@ Select = FormItem(
     return (
       <div
         ref={rootElement => {
-          rootElementRef.current = rootElement
+          isDestroyed.current = rootElement === null
           if (rootElement && rootElementRef.current === null) {
+            rootElementRef.current = rootElement
             updatePos()
             setTimeout(() => {
-              if (rootElementRef.current) {
+              if (!isDestroyed.current) {
                 updatePos()
               }
             }, 1000)
@@ -201,6 +207,18 @@ Select = FormItem(
           }}
           disabled={disabled}
         />
+        {showClearButton && selectValue && (
+          <IconErrorFilled
+            className="pui-select-clear-icon"
+            onClick={evt => {
+              setSelectValue(null as any)
+              onValueChange && onValueChange(null as any)
+              evt.stopPropagation()
+              evt.preventDefault()
+              setShowOptionList(false)
+            }}
+          />
+        )}
         <IconArrowHeadDown className="pui-select-icon" />
         {(menuOpen !== undefined ? menuOpen : showOptionList) &&
           !disabled &&

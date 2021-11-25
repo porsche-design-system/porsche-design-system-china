@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Select, Form, Button } from '../..'
+import React from 'react'
+import { Select, Form } from '../..'
 import './select.stories.scss'
 
 export default {
@@ -79,6 +79,28 @@ export const SelectStoryBook4 = () => {
   return (
     <div style={{ width: '300px' }}>
       <Form>
+        <div>显示清除按钮</div>
+        <div className="select-story">
+          <Select
+            defaultValue="dog"
+            options="狗:dog,猫,狮子,老虎,鲸鱼"
+            label="动物"
+            placeholder="请选择"
+            width="200px"
+            showClearButton
+          />
+        </div>
+      </Form>
+    </div>
+  )
+}
+
+SelectStoryBook4.storyName = 'Clear Button'
+
+export const SelectStoryBook5 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
         <div>控制菜单显示</div>
         <div className="select-story">
           <Select
@@ -94,4 +116,4 @@ export const SelectStoryBook4 = () => {
   )
 }
 
-SelectStoryBook4.storyName = 'Menu Control'
+SelectStoryBook5.storyName = 'Menu Control'

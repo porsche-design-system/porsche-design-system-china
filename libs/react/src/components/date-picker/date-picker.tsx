@@ -107,6 +107,7 @@ const DatePicker = FormItem(
     )
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
+    const isDestroyed = useRef(false)
     const [menuPos, updatePos] = useElementPos(rootElementRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
@@ -257,11 +258,12 @@ const DatePicker = FormItem(
     return (
       <div
         ref={rootElement => {
-          rootElementRef.current = rootElement
+          isDestroyed.current = rootElement === null
           if (rootElement && rootElementRef.current === null) {
+            rootElementRef.current = rootElement
             updatePos()
             setTimeout(() => {
-              if (rootElementRef.current) {
+              if (!isDestroyed.current) {
                 updatePos()
               }
             }, 1000)
