@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Modal,
@@ -8,8 +8,11 @@ import {
   TextArea,
   Row,
   Col,
-  Message
+  Message,
+  Tabs,
+  TabPane
 } from '../..'
+import { IconClose } from '@pui/icons'
 
 export default {
   title: 'Feedback/Modal',
@@ -17,38 +20,42 @@ export default {
 }
 
 export const ModalStoryBook = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-
-  const handleOk = () => {
-    Form.findById['updateForm'].submit()
-  }
-
-  const handleSubmit = (data: any, error: any) => {
-    if (!error) {
-      setTimeout(() => {
-        Message.pop('success', '数据更新成功')
-        setIsModalVisible(false)
-      }, 1000)
+  useEffect(() => {
+    const mainStory = document.getElementById(
+      'anchor--feedback-modal--modal-story-book'
+    )
+    if (mainStory) {
+      mainStory.style.display = 'none'
     }
-  }
+    const mainTitles = document.getElementsByClassName('sbdocs-title')
+    if (mainTitles.length > 0) {
+      const mainTitle = mainTitles[0] as HTMLElement
+      mainTitle.style.marginBottom = '48px'
+    }
+  })
+  return <div />
+}
 
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-  return (
-    <>
-      <Button
+ModalStoryBook.storyName = 'Modal'
+
+export const ModalStoryBook1 = () => {
+ 
+  const Tab1 = () => {
+    return (<>
+     <Button
         onClick={() =>
           Modal.show({
             title: '对话框标题',
             content:
-              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
+            cancelIcon: IconClose,
+            style:{width:'418px'},         
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                  reject()
+                  resolve('ok')
                 }, 2000)
               })
             }
@@ -58,180 +65,472 @@ export const ModalStoryBook = () => {
       >
         基础对话框 - 默认
       </Button>
-      <br />
-      <br />
-    </>
+    </>)
+  }
+
+  const Tab2 = () =>{
+    return (<>
+    <Button
+        style={{ marginRight: '40px' }}
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            titleIconType: 'info',
+            content:
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            cancelIcon: IconClose, 
+            style:{width:'418px'},        
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve('ok')
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        确认对话框 - 默认
+      </Button>
+
+      <Button
+        style={{ marginRight: '40px' }}
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            titleIconType: 'warning',
+            content:
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            cancelIcon: IconClose, 
+            style:{width:'418px'},        
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve('ok')
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        确认对话框 - 警告
+      </Button>
+      <Button
+         style={{ marginRight: '40px' }}
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            titleIconType: 'error',
+            content:
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            cancelIcon: IconClose,
+            style:{width:'418px'},         
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve('ok')
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        确认对话框 - 报错
+      </Button>
+
+      <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            titleIconType: 'success',
+            content:
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            cancelIcon: IconClose,  
+            style:{width:'418px'},       
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve('ok')
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        确认对话框 - 成功
+      </Button>
+    </>)
+  }
+
+  const Tab3 = () =>{
+    return (<>
+     <Button
+        onClick={() =>
+          Modal.show({
+            title: '对话框标题',
+            content:
+              '协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。',
+            okText: '主要按钮',
+            cancelText: '次要按钮',
+            cancelIcon: IconClose,
+            style:{width:'418px'},    
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  resolve('ok')
+                }, 2000)
+              })
+            }
+          })
+        }
+        type="secondary"
+      >
+        内容较多的对话框 
+      </Button>
+    </>)
+  }
+  return (
+    <div>    
+        <Tabs
+          size="small"
+          hasLine   
+        >
+          <TabPane title="Default" >
+             <Tab1 />  
+          </TabPane>
+          <TabPane title="Confirm" >
+             <Tab2 />
+          </TabPane>
+          <TabPane title="Minimum" >
+             <Tab3 />
+          </TabPane>
+        </Tabs> 
+    </div>
   )
 }
 
-ModalStoryBook.storyName = 'Modal'
+ModalStoryBook1.storyName = 'Dialogue Small'
 
-export const ModalStoryBook1 = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-
-  const handleOk = () => {
-    Form.findById['updateForm'].submit()
+export const ModalStoryBook2 = () => {
+  const Tab1 = () => {
+    return ( <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          content:<div style={{height:'398px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'750px',height:'540px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      基础对话框 - 默认
+    </Button>)
   }
 
-  const handleSubmit = (data: any, error: any) => {
-    if (!error) {
-      setTimeout(() => {
-        Message.pop('success', '数据更新成功')
-        setIsModalVisible(false)
-      }, 1000)
-    }
+  const Tab2 = () =>{
+    return (<>
+    <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          subtitle: '警示性说明描述文字，言简意赅。',
+          content:<div style={{height:'398px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'750px',height:'540px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      含副标题的对话框
+    </Button>
+    </>)
   }
 
-  const handleCancel = () => {
-    setIsModalVisible(false)
+  const Tab3 = () =>{
+    return (<>
+     <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          content:<div style={{height:'398px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'750px',height:'540px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      底部包含其他操作的对话框 
+    </Button>
+    </>)
   }
-  return (
-    <>
-      <Modal
-        style={{ width: '800px' }}
-        title="对话框标题"
-        subtitle="对话框副标题"
-        hasDivider
-        okText="主要按钮"
-        cancelText="次要按钮"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form
-          onSubmit={handleSubmit}
-          onDataChange={data => {
-            console.log(data)
-          }}
-          name="updateForm"
-        >
-          <Row>
-            <Col span={12}>
-              <Input
-                label="名称"
-                width="96%"
-                name="channelName"
-                placeholder="请输入名称"
-                rules={{ required: true, message: '请输入渠道名称' }}
-              />
-            </Col>
-            <Col span={12} style={{ textAlign: 'right' }}>
-              <Select
+
+  const Tab4 = () =>{
+    return (<>
+     <Button
+      onClick={() =>
+        Modal.show({
+          title: 'M号最小对话框标题',
+          content:<div>
+            删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。
+            <Select
                 label="类型"
                 width="96%"
                 options="PDC:0,第三方:1,自定义:2"
                 name="channelType"
                 rules={{ required: true, message: '请选择类型' }}
               />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <TextArea label="描述" placeholder="请输入描述" />
-            </Col>
-          </Row>
-        </Form>
-      </Modal>
-      <Button
-        onClick={() => {
-          setIsModalVisible(true)
-        }}
-        type="primary"
-      >
-        复合对话话框
-      </Button>
-
-      <br />
-      <br />
-    </>
-  )
-}
-
-ModalStoryBook1.storyName = 'Composite Modal'
-
-export const ModalStoryBook2 = () => {
+              <br/>
+              <br/>
+               <Select
+                label="类型"
+                width="96%"
+                options="PDC:0,第三方:1,自定义:2"
+                name="channelType"
+                rules={{ required: true, message: '请选择类型' }}
+              />
+          </div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'418px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      M号最小对话框标题
+    </Button>
+    </>)
+  }
   return (
-    <>
-      <Button
-        onClick={() =>
-          Modal.show({
-            title: '对话框标题',
-            subtitle: '对话框副标题',
-            content:
-              '纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框文字内容纯文字对话框',
-            okText: '主要按钮',
-            cancelText: '次要按钮'
-          })
-        }
-        type="secondary"
-      >
-        基础对话框 - 含副标题
-      </Button>
-
-      <br />
-      <br />
-    </>
+    <div>    
+        <Tabs
+          size="small"
+          hasLine   
+        >
+          <TabPane title="Default" >
+             <Tab1 />  
+          </TabPane>
+          <TabPane title="With Subtitle" >
+             <Tab2 />
+          </TabPane>
+          <TabPane title="With Subaction" >
+             <Tab3 />
+          </TabPane>
+          <TabPane title="Minimum" >
+             <Tab4 />
+          </TabPane>
+        </Tabs> 
+    </div>
   )
 }
 
-ModalStoryBook2.storyName = 'With Subtitles'
+ModalStoryBook2.storyName = 'Dialogue Medium'
 
 export const ModalStoryBook3 = () => {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          Modal.show({
-            title: '对话框标题',
-            titleIconType: 'warning',
-            content: '确定执行这个操作吗？',
-            showClose: false,
-            okText: '确定删除',
-            okIcon: null,
-            cancelText: '我再想想',
-            cancelIcon: null
-          })
-        }
-        type="secondary"
-      >
-        警示对话框
-      </Button>
 
-      <br />
-      <br />
-    </>
+  const Tab1 = () => {
+    return ( <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          content:<div style={{height:'558px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'1081px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      基础对话框 - 默认
+    </Button>)
+  }
+
+
+  const Tab2 = () =>{
+    return (<>
+    <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          subtitle: '警示性说明描述文字，言简意赅。',
+          content:<div style={{height:'558px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'1081px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      含副标题的对话框
+    </Button>
+    </>)
+  }
+
+  const Tab3 = () =>{
+    return (<>
+     <Button
+      onClick={() =>
+        Modal.show({
+          title: '对话框标题',
+          content:<div style={{height:'558px'}}></div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'1081px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      底部包含其他操作的对话框 
+    </Button>
+    </>)
+  }
+
+  const Tab4 = () =>{
+    return (<>
+     <Button
+      onClick={() =>
+        Modal.show({
+          title: 'M号最小对话框标题',
+          content:<div>
+            删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。
+            <Select
+                label="类型"
+                width="96%"
+                options="PDC:0,第三方:1,自定义:2"
+                name="channelType"
+                rules={{ required: true, message: '请选择类型' }}
+              />
+              <br/>
+              <br/>
+               <Select
+                label="类型"
+                width="96%"
+                options="PDC:0,第三方:1,自定义:2"
+                name="channelType"
+                rules={{ required: true, message: '请选择类型' }}
+              />
+          </div>,
+          okText: '主要按钮',
+          cancelText: '次要按钮',
+          cancelIcon: IconClose,
+          hasDivider: true,
+          style:{width:'418px'},         
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve('ok')
+              }, 2000)
+            })
+          }
+        })
+      }
+      type="secondary"
+    >
+      L号最小对话框标题
+    </Button>
+    </>)
+  }
+  return (
+    <div>    
+        <Tabs
+          size="small"
+          hasLine   
+        >
+          <TabPane title="Default" >
+             <Tab1 />  
+          </TabPane>
+          <TabPane title="With Subtitle" >
+             <Tab2 />
+          </TabPane>
+          <TabPane title="With Subaction" >
+             <Tab3 />
+          </TabPane>
+          <TabPane title="Maximum" >
+             <Tab4 />
+          </TabPane>
+        </Tabs> 
+    </div>
   )
 }
 
-ModalStoryBook3.storyName = 'Warning Modal'
+ModalStoryBook3.storyName = 'Dialogue Large'
 
-export const ModalStoryBook4 = () => {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          Modal.show({
-            title: '对话框标题',
-            subtitle: '对话框副标题',
-            titleIconType: 'warning',
-            content: (
-              <div>
-                <Select options="测试1,测试2,测试3,测试4,测试5,测试6,测试7,测试8" />
-              </div>
-            ),
-            showClose: false,
-            okText: '确定删除',
-            okIcon: null,
-            cancelText: '我再想想',
-            cancelIcon: null
-          })
-        }
-        type="secondary"
-      >
-        警示对话框 - 含副标题
-      </Button>
-    </>
-  )
-}
 
-ModalStoryBook4.storyName = 'Warning Modal With Subtitles'
