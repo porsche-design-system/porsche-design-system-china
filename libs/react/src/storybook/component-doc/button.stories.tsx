@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { IconArrowHeadRight } from '@pui/icons'
 
-import { Button, Radio, RadioGroup, Tabs, TabPane } from '../..'
+import { Button, Tabs, TabPane } from '../..'
 import './button.stories.scss'
 
 export default {
@@ -29,43 +29,89 @@ export const ButtonStoryBook = () => {
 ButtonStoryBook.storyName = 'Button'
 
 export const ButtonStoryBook2 = () => {
-  const [buttonType, setButtonType] = useState('IconText')
-  const icon = buttonType.indexOf('Icon') >= 0 ? IconArrowHeadRight : undefined
-  const showText = buttonType.indexOf('Text') >= 0
+  const Tab1 = () => {
+    return (
+      <>
+        <Button type="primary" marginRight="40px" icon={IconArrowHeadRight}>
+          Primary
+        </Button>
+        <Button type="secondary" marginRight="40px" icon={IconArrowHeadRight}>
+          Secondary
+        </Button>
+        <Button type="default" marginRight="40px" icon={IconArrowHeadRight}>
+          Default
+        </Button>
+        <Button type="text" marginRight="40px" icon={IconArrowHeadRight}>
+          Text
+        </Button>
+        <Button type="link" marginRight="40px">
+          Link
+        </Button>
+      </>
+    )
+  }
 
+  const Tab2 = () => {
+    return (
+      <>
+        <Button
+          type="primary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        ></Button>
+        <Button
+          type="secondary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        ></Button>
+        <Button
+          type="default"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        ></Button>
+        <Button
+          type="text"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+        ></Button>
+      </>
+    )
+  }
+
+  const Tab3 = () => {
+    return (
+      <>
+        <Button type="primary" marginRight="40px">
+          Primary
+        </Button>
+        <Button type="secondary" marginRight="40px">
+          Secondary
+        </Button>
+        <Button type="default" marginRight="40px">
+          Default
+        </Button>
+        <Button type="text" marginRight="40px">
+          Text
+        </Button>
+        <Button type="link" marginRight="40px">
+          Link
+        </Button>
+      </>
+    )
+  }
   return (
     <div>
-      
-        <Tabs
-          size="small"
-          hasLine
-          onActiveKeyChange={key => {
-            setButtonType(key)
-          }}
-        >
-          <TabPane tabKey="IconText" title="Icon + Text" />
-          <TabPane tabKey="Icon" title="Icon" />
-          <TabPane tabKey="Text" title="Text" />
-        </Tabs>
-     
-      <div>
-        <Button type="primary" marginRight="40px" icon={icon}>
-          {showText ? 'Primary' : ''}
-        </Button>
-        <Button type="secondary" marginRight="40px" icon={icon}>
-          {showText ? 'Secondary' : ''}
-        </Button>
-        <Button type="default" marginRight="40px" icon={icon}>
-          {showText ? 'Default' : ''}
-        </Button>
-        <Button type="text" marginRight="40px" icon={icon}>
-          {showText ? 'Text' : ''}
-        </Button>
-
-        <Button type="link" marginRight="40px">
-          {showText ? 'Link' : ''}
-        </Button>
-      </div>
+      <Tabs size="small" hasLine>
+        <TabPane tabKey="IconText" title="Icon + Text">
+          <Tab1 />
+        </TabPane>
+        <TabPane tabKey="Icon" title="Icon">
+          <Tab2 />
+        </TabPane>
+        <TabPane tabKey="Text" title="Text">
+          <Tab3 />
+        </TabPane>
+      </Tabs>
     </div>
   )
 }
@@ -73,29 +119,14 @@ export const ButtonStoryBook2 = () => {
 ButtonStoryBook2.storyName = 'Types'
 
 export const ButtonStoryBook3 = () => {
-  const [status, setStatus] = useState('Disable')
-  const isDisable = status === 'Disable'
-  const isLoading = status === 'Loading'
-
-  return (
-    <div>
-        <Tabs
-          size="small"
-          hasLine
-          onActiveKeyChange={key => {
-            setStatus(key)
-          }}
-        >
-          <TabPane tabKey="Disabled" title="Disabled" />
-          <TabPane tabKey="Loading" title="Loading" />
-        </Tabs>
-      <div>
+  const Tab1 = () => {
+    return (
+      <>
         <Button
           type="primary"
           marginRight="40px"
           icon={IconArrowHeadRight}
-          disabled={isDisable}
-          loading={isLoading}
+          disabled
         >
           Primary
         </Button>
@@ -103,8 +134,7 @@ export const ButtonStoryBook3 = () => {
           type="secondary"
           marginRight="40px"
           icon={IconArrowHeadRight}
-          disabled={isDisable}
-          loading={isLoading}
+          disabled
         >
           Secondary
         </Button>
@@ -112,8 +142,7 @@ export const ButtonStoryBook3 = () => {
           type="default"
           marginRight="40px"
           icon={IconArrowHeadRight}
-          disabled={isDisable}
-          loading={isLoading}
+          disabled
         >
           Default
         </Button>
@@ -121,20 +150,70 @@ export const ButtonStoryBook3 = () => {
           type="text"
           marginRight="40px"
           icon={IconArrowHeadRight}
-          disabled={isDisable}
-          loading={isLoading}
+          disabled
         >
           Text
         </Button>
-        <Button
-          type="link"
-          marginRight="40px"
-          disabled={isDisable}
-          loading={isLoading}
-        >
+        <Button type="link" marginRight="40px" disabled>
           Link
         </Button>
-      </div>
+      </>
+    )
+  }
+
+  const Tab2 = () => {
+    return (
+      <>
+        <Button
+          type="primary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          loading
+        >
+          Primary
+        </Button>
+        <Button
+          type="secondary"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          loading
+        >
+          Secondary
+        </Button>
+        <Button
+          type="default"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          loading
+        >
+          Default
+        </Button>
+        <Button
+          type="text"
+          marginRight="40px"
+          icon={IconArrowHeadRight}
+          loading
+        >
+          Text
+        </Button>
+        <Button type="link" marginRight="40px" loading>
+          Link
+        </Button>
+      </>
+    )
+  }
+
+  return (
+    <div>
+      <Tabs size="small" hasLine>
+        <TabPane tabKey="Disabled" title="Disabled">
+          <Tab1 />
+        </TabPane>
+        <TabPane tabKey="Loading" title="Loading">
+          <Tab2 />
+        </TabPane>
+      </Tabs>
+      <div></div>
     </div>
   )
 }
