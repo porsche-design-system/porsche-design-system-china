@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { renderToString } from 'react-dom/server'
-import { IconDown } from '@pui/icons'
+import { IconDown, IconPlus } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize } from '../../shared/hooks'
@@ -25,6 +25,9 @@ export interface TableColumn {
   fixed?: 'none' | 'left' | 'right'
   multiline?: boolean
   sortable?: boolean
+  sortIconPlace?: 'left' | 'right'
+  headCellStyle?: CSSProperties
+  rowCellStyle?: CSSProperties
   customCell?: (rowData: any) => React.ReactNode
 }
 
@@ -48,7 +51,7 @@ export interface TableProps {
   maxRows?: number
 
   /* 大小 */
-  size: 'medium' | 'small'
+  size?: 'medium' | 'small'
 
   /* 排序事件 */
   onSort?: (sorter: Sorter) => void
@@ -58,6 +61,9 @@ export interface TableProps {
 
   /* 默认排序方式 */
   defaultSorter?: Sorter
+
+  /* 可展开行 */
+  rowExpandable?: boolean
 }
 
 const Table = ({
@@ -70,6 +76,7 @@ const Table = ({
   maxRows,
   size,
   selectable = false,
+  rowExpandable = false,
   defaultSorter = {}
 }: TableProps) => {
   const middleColumns: TableColumn[] = []
@@ -194,8 +201,12 @@ const Table = ({
   const defaultWidth = 150
   const charWidth = 8
   const selectColumnWidth = 50
+  const expandColumnWidth = 50
   const paddingLeftRight = 40
   let columnsTableWidth = 0
+  const columnCount =
+    columns.length + (selectable ? 1 : 0) + (rowExpandable ? 1 : 0)
+
   columns.forEach(col => {
     if (col.width === undefined) {
       col.width = 0
@@ -227,6 +238,7 @@ const Table = ({
   })
 
   columnsTableWidth += selectable ? selectColumnWidth : 0
+  columnsTableWidth += rowExpandable ? expandColumnWidth : 0
   const tableWidth = columnsTableWidth + 'px'
   const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto'
 
@@ -237,6 +249,15 @@ const Table = ({
         className="pui-table-measure"
         style={{ width: column.width + 'px' }}
       />
+    )
+  }
+
+  const sortIcon = (isAscend: boolean, isDescend: boolean) => {
+    return (
+      <span className="sort-btn">
+        <IconDown className={`asc-btn ${isAscend ? 'sort-active' : ''}`} />
+        <IconDown className={`des-btn ${isDescend ? 'sort-active' : ''}`} />
+      </span>
     )
   }
 
@@ -261,18 +282,14 @@ const Table = ({
         style={style}
         onClick={() => sortCallback(column)}
       >
-        <div className="title-content">
+        <div className="title-content" style={column.headCellStyle}>
+          {column.sortable &&
+            column.sortIconPlace === 'left' &&
+            sortIcon(isAscend, isDescend)}
           <span className="title-text">{column.title || ''}</span>
-          {column.sortable && (
-            <span className="sort-btn">
-              <IconDown
-                className={`asc-btn ${isAscend ? 'sort-active' : ''}`}
-              />
-              <IconDown
-                className={`des-btn ${isDescend ? 'sort-active' : ''}`}
-              />
-            </span>
-          )}
+          {column.sortable &&
+            (column.sortIconPlace === 'right' || !column.sortIconPlace) &&
+            sortIcon(isAscend, isDescend)}
         </div>
       </td>
     )
@@ -295,9 +312,11 @@ const Table = ({
         }
         style={style}
       >
-        {column.customCell
-          ? column.customCell(rowData)
-          : column.key && rowData[column.key]}
+        <div className="cell-wrap" style={column.rowCellStyle}>
+          {column.customCell
+            ? column.customCell(rowData)
+            : column.key && rowData[column.key]}
+        </div>
       </td>
     )
   }
@@ -306,6 +325,10 @@ const Table = ({
   let accumulateLeft = 0
   if (selectable) {
     accumulateLeft += selectColumnWidth
+    fixColumnLeft.push(accumulateLeft)
+  }
+  if (rowExpandable) {
+    accumulateLeft += expandColumnWidth
     fixColumnLeft.push(accumulateLeft)
   }
   leftColumns.forEach(col => {
@@ -356,6 +379,12 @@ const Table = ({
                     style={{ width: selectColumnWidth + 'px' }}
                   />
                 )}
+                {rowExpandable && (
+                  <td
+                    className="pui-table-fixed-left pui-table-measure"
+                    style={{ width: expandColumnWidth + 'px' }}
+                  />
+                )}
                 {leftColumns
                   .concat(middleColumns)
                   .concat(rightColumns)
@@ -364,8 +393,10 @@ const Table = ({
               <tr>
                 {selectable && (
                   <td
-                    className="pui-table-fixed-left pui-table-selectable"
-                    style={{ left: 0 }}
+                    className="pui-table-fixed-left"
+                    style={{
+                      left: 0
+                    }}
                   >
                     <CheckBox
                       size="small"
@@ -389,9 +420,20 @@ const Table = ({
                     />
                   </td>
                 )}
+                {rowExpandable && (
+                  <td
+                    className="pui-table-fixed-left"
+                    style={{
+                      left: (selectable ? selectColumnWidth : 0) + 'px'
+                    }}
+                  />
+                )}
                 {leftColumns.map((column, inx) => {
                   return renderTitleCell(column, inx, 'left', {
-                    left: fixColumnLeft[inx + (selectable ? 1 : 0)] + 'px'
+                    left:
+                      fixColumnLeft[
+                        inx + (selectable ? 1 : 0) + (rowExpandable ? 1 : 0)
+                      ] + 'px'
                   })
                 })}
                 {middleColumns.map((column, inx) =>
@@ -418,6 +460,12 @@ const Table = ({
                   <td
                     className="pui-table-fixed-left  pui-table-measure"
                     style={{ width: selectColumnWidth + 'px' }}
+                  />
+                )}
+                {rowExpandable && (
+                  <td
+                    className="pui-table-fixed-left pui-table-measure"
+                    style={{ width: expandColumnWidth + 'px' }}
                   />
                 )}
                 {leftColumns
@@ -459,9 +507,20 @@ const Table = ({
                       />
                     </td>
                   )}
+                  {rowExpandable && (
+                    <td
+                      className="pui-table-fixed-left pui-table-selectable"
+                      style={{ left: 0 }}
+                    >
+                      <IconPlus className="pui-table-expand-button" />
+                    </td>
+                  )}
                   {leftColumns.map((column, inx) =>
                     renderDataCell(column, inx, 'left', rowData, {
-                      left: fixColumnLeft[inx + (selectable ? 1 : 0)] + 'px'
+                      left:
+                        fixColumnLeft[
+                          inx + (selectable ? 1 : 0) + (rowExpandable ? 1 : 0)
+                        ] + 'px'
                     })
                   )}
                   {middleColumns.map((column, inx) =>
