@@ -60,6 +60,7 @@
           .pui-table-fixed-left,
           .pui-table-fixed-right,
           td {
+            z-index: 1;
             background-color: $table-head-bg-color;
             font-weight: bold;
           }
@@ -72,27 +73,28 @@
             }
 
             .title-content {
-              display: flex;
+              // display: flex;
               // justify-content: space-between;
 
               .sort-btn {
                 margin-left: 5px;
-                display: flex;
-                flex-direction: column;
-                margin-right: 10px;
+                margin-right: 15px;
                 height: 25px;
                 position: relative;
                 color: $container-bg-color-4;
+                overflow: hidden;
 
                 .asc-btn {
                   font-size: 16px;
                   transform: rotate(180deg);
+                  position: absolute;
+                  top: 0px;
                 }
 
                 .des-btn {
                   font-size: 16px;
                   position: absolute;
-                  bottom: 0;
+                  bottom: 0px;
                 }
 
                 .sort-active {
@@ -177,6 +179,10 @@
         pointer-events: none;
       }
 
+      &-expand-button {
+        cursor: pointer;
+      }
+
       &-size-small {
         .title-text {
           line-height: 26px;
@@ -196,6 +202,14 @@
         }
 
         .pui-table-head {
+          .asc-btn {
+            top: -1px !important;
+          }
+
+          .des-btn {
+            bottom: -1px !important;
+          }
+
           td {
             height: 36px;
             font-size: 14px;
