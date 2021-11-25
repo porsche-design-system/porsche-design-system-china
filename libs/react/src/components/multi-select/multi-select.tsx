@@ -106,6 +106,7 @@ MultiSelect = FormItem(
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
+    const isDestroyed = useRef(false)
     size = size || defaultSize
 
     if (value) {
@@ -171,11 +172,12 @@ MultiSelect = FormItem(
     return (
       <div
         ref={rootElement => {
-          rootElementRef.current = rootElement
+          isDestroyed.current = rootElement === null
           if (rootElement && rootElementRef.current === null) {
+            rootElementRef.current = rootElement
             updatePos()
             setTimeout(() => {
-              if (rootElementRef.current) {
+              if (!isDestroyed.current) {
                 updatePos()
               }
             }, 1000)

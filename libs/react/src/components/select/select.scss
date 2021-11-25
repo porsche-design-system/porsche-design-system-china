@@ -58,6 +58,7 @@
       }
 
       &-option {
+        text-align: left;
         padding: 12px;
         cursor: pointer;
         &-selected {
@@ -74,6 +75,23 @@
 
       &-option:hover {
         font-weight: bold;
+      }
+
+      .pui-select-clear-icon {
+        top: 12px;
+        display: none;
+      }
+
+      &:hover {
+        .pui-select-clear-icon {
+          display: block;
+          position: absolute;
+          right: 41px;
+          opacity: 0.5;
+        }
+        .pui-select-clear-icon:hover {
+          opacity: 1;
+        }
       }
 
       &-icon {
