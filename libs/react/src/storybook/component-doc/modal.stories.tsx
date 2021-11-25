@@ -50,8 +50,7 @@ export const ModalStoryBook1 = () => {
               '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose,
-            style:{width:'418px'},         
+            modalSize: 'small',         
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -80,8 +79,7 @@ export const ModalStoryBook1 = () => {
               '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose, 
-            style:{width:'418px'},        
+            modalSize: 'small',            
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -106,8 +104,7 @@ export const ModalStoryBook1 = () => {
               '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose, 
-            style:{width:'418px'},        
+            modalSize: 'small',            
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -131,8 +128,7 @@ export const ModalStoryBook1 = () => {
               '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose,
-            style:{width:'418px'},         
+            modalSize: 'small',             
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -156,8 +152,7 @@ export const ModalStoryBook1 = () => {
               '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose,  
-            style:{width:'418px'},       
+            modalSize: 'small',           
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -184,8 +179,7 @@ export const ModalStoryBook1 = () => {
               '协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。',
             okText: '主要按钮',
             cancelText: '次要按钮',
-            cancelIcon: IconClose,
-            style:{width:'418px'},    
+            modalSize: 'small',       
             onOk() {
               return new Promise((resolve, reject) => {
                 setTimeout(() => {
@@ -229,12 +223,10 @@ export const ModalStoryBook2 = () => {
       onClick={() =>
         Modal.show({
           title: '对话框标题',
-          content:<div style={{height:'398px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
-          hasDivider: true,
-          style:{width:'750px',height:'540px'},         
+          hasDivider: true,     
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -257,12 +249,10 @@ export const ModalStoryBook2 = () => {
         Modal.show({
           title: '对话框标题',
           subtitle: '警示性说明描述文字，言简意赅。',
-          content:<div style={{height:'398px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'750px',height:'540px'},         
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -285,12 +275,10 @@ export const ModalStoryBook2 = () => {
       onClick={() =>
         Modal.show({
           title: '对话框标题',
-          content:<div style={{height:'398px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'750px',height:'540px'},         
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -334,9 +322,8 @@ export const ModalStoryBook2 = () => {
           </div>,
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'418px'},         
+          modalSize: 'small',      
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -384,12 +371,11 @@ export const ModalStoryBook3 = () => {
       onClick={() =>
         Modal.show({
           title: '对话框标题',
-          content:<div style={{height:'558px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'1081px'},         
+          modalSize: 'large',        
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -413,12 +399,11 @@ export const ModalStoryBook3 = () => {
         Modal.show({
           title: '对话框标题',
           subtitle: '警示性说明描述文字，言简意赅。',
-          content:<div style={{height:'558px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'1081px'},         
+          modalSize: 'large',    
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -441,12 +426,11 @@ export const ModalStoryBook3 = () => {
       onClick={() =>
         Modal.show({
           title: '对话框标题',
-          content:<div style={{height:'558px'}}></div>,
+          content:'',
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'1081px'},         
+          modalSize: 'large',         
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -468,7 +452,7 @@ export const ModalStoryBook3 = () => {
      <Button
       onClick={() =>
         Modal.show({
-          title: 'M号最小对话框标题',
+          title: 'L号最小对话框标题',
           content:<div>
             删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。
             <Select
@@ -490,9 +474,8 @@ export const ModalStoryBook3 = () => {
           </div>,
           okText: '主要按钮',
           cancelText: '次要按钮',
-          cancelIcon: IconClose,
           hasDivider: true,
-          style:{width:'418px'},         
+          modalSize: 'small',    
           onOk() {
             return new Promise((resolve, reject) => {
               setTimeout(() => {

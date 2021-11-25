@@ -28,6 +28,9 @@ export interface ModalProps {
   /** 样式 */
   style?: CSSProperties
 
+  /** 弹框大小 */
+  modalSize?: 'small' | 'medium' | 'large'
+
   /** 标题 */
   title?: React.ReactNode
 
@@ -45,7 +48,6 @@ export interface ModalProps {
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
-
 
   /** 确认按钮文字 */
   okText?: string
@@ -87,6 +89,7 @@ let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
   className,
+  modalSize = 'medium',
   visible = false,
   title,
   titleIcon,
@@ -105,7 +108,6 @@ const Modal = ({
   showCancel = true,
   showOk = true,
   showClose = true,
-
   modalRef
 }: ModalProps) => {
   const [show, setShow] = useState(visible)
@@ -130,7 +132,9 @@ const Modal = ({
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
         <div
-          className={componentClassNames('pui-modal', {}, className)}
+          className={componentClassNames('pui-modal', {
+            'modalsize': modalSize+''
+          }, className)}
           style={style}
         >
           <div className="pui-modal-content">
@@ -176,7 +180,7 @@ const Modal = ({
                   icon={
                     cancelIcon === null ? undefined : cancelIcon ===
                       undefined ? (
-                      <IconArrowHeadRight />
+                      <IconClose />
                     ) : (
                       cancelIcon
                     )
@@ -346,6 +350,9 @@ export interface ModalShowProps {
   /** 子组件 */
   content?: React.ReactNode
 
+  /** 弹框大小 */
+  modalSize?: 'small' | 'medium' | 'large'
+
   /* 类名 */
   className?: string
 
@@ -404,6 +411,7 @@ export interface ModalShowProps {
 Modal.show = ({
   style,
   className,
+  modalSize,
   title,
   titleIcon,
   titleIconType,
@@ -436,6 +444,7 @@ Modal.show = ({
     <Modal
       style={style}
       className={className}
+      modalSize={modalSize}
       title={title}
       titleIcon={titleIcon}
       titleIconType={titleIconType}
