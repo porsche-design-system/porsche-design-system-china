@@ -23,7 +23,7 @@
           td {
             border-bottom: 1px solid $table-cell-border-color;
             height: 60px;
-            padding-left: 20px;
+            padding-left: 16px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -214,6 +214,13 @@
           td {
             height: 36px;
             font-size: 14px;
+            padding-left: 12px;
+          }
+        }
+
+        .pui-table-body {
+          td {
+            padding-left: 12px;
           }
         }
       }
