@@ -212,8 +212,8 @@ const Table = ({
 
   const defaultWidth = 150
   const charWidth = 8
-  const selectColumnWidth = 50
-  const expandColumnWidth = 50
+  const selectColumnWidth = 40
+  const expandColumnWidth = 30
   const paddingLeftRight = 40
   let columnsTableWidth = 0
   const columnCount =
