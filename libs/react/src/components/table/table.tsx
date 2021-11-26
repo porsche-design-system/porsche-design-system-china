@@ -6,7 +6,7 @@ import React, {
   useState
 } from 'react'
 import { renderToString } from 'react-dom/server'
-import { IconDown, IconPlus, IconMinus } from '@pui/icons'
+import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize } from '../../shared/hooks'
@@ -533,7 +533,7 @@ const Table = ({
                           style={{ left: 0 }}
                         >
                           {isExpandRow && (
-                            <IconMinus
+                            <IconArrowHeadDown
                               className="pui-table-expand-button"
                               onClick={() => {
                                 const rInx = expandRows.findIndex(
@@ -545,7 +545,7 @@ const Table = ({
                             />
                           )}
                           {!isExpandRow && (
-                            <IconPlus
+                            <IconArrowHeadRight
                               className="pui-table-expand-button"
                               onClick={() => {
                                 setExpandRows([...expandRows, inx])
