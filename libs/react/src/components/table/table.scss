@@ -182,6 +182,9 @@
 
       &-expand-button {
         cursor: pointer;
+        color: $text-color-1;
+        font-size: 16px;
+        opacity: 0.5;
       }
 
       &-size-small {
