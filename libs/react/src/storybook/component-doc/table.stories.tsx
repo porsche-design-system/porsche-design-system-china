@@ -108,7 +108,7 @@ export const TableStoryBook2 = () => {
     {
       title: '操作',
       fixed: 'right',
-      width: 150,
+      width: 120,
       customCell: rowData => (
         <>
           <Button type="link" marginRight="16px">
@@ -148,7 +148,7 @@ export const TableStoryBook2 = () => {
         onSort={sorter => console.log(sorter)}
         expandCell={rowData => {
           return (
-            <div style={{ padding: '10px 0' }}>
+            <div style={{ padding: '10px 0', paddingLeft: '35px' }}>
               经销商号码: {rowData.dealerCode}
               <br />
               其他信息其他信息其他信息其他信息其他信息

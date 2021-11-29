@@ -98,9 +98,13 @@
                 }
 
                 .sort-active {
-                  color: $text-color-1;
+                  color: $table-sort-active-color;
                 }
               }
+            }
+
+            .title-content:hover .sort-active {
+              color: $table-sort-active-hover-color;
             }
           }
         }
