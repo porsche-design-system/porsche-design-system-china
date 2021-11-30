@@ -20,7 +20,7 @@ import {
 export interface UploadProps {
   /** 上传的地址 */
   action: string
-  /** image Upload数量 */
+  /** image Upload（仅限）数量 */
   count?: number
   /** 默认已经上传的文件列表 */
   defaultFileList?: UploadFile[]
@@ -34,7 +34,7 @@ export interface UploadProps {
   locale?: UploadLocale
   /** 上传所需额外参数 */
   data?: { [key: string]: any }
-  /** 上传按钮属性,详见ButtonProps */
+  /** 用于配置默认的上传按钮属性，如有children，则覆盖默认按钮。详见Button组件ButtonProps */
   btnProps?: ButtonProps
   /** 接受上传的文件类型 */
   accept?: string
@@ -113,7 +113,7 @@ const Upload: FC<UploadProps> = props => {
   const [previewImage, setPreviewImage] = useState('')
 
   React.useMemo(() => {
-    ;(fileList || []).forEach((file, index) => {
+    ; (fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         const random = Math.random().toString().replace(/0./, '')
         file.uid = `${random}_${index}`
@@ -423,6 +423,6 @@ Upload.defaultProps = {
   locale: defaultLocale,
   count: 1,
   disabled: false,
-  listIgnore: false
+  listIgnore: true
 }
 export { Upload }
