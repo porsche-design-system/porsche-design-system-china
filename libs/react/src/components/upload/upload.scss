@@ -204,10 +204,6 @@ $picture-card-size: 160px;
           vertical-align: top;
         }
 
-        #{$upload}-list-info-content {
-          display: block !important;
-        }
-
         #{$upload-item} {
           position: relative;
           height: 100%;
@@ -221,6 +217,8 @@ $picture-card-size: 160px;
             border: 1px dashed $status-error-color;
 
             #{$upload-item}-actions {
+              margin-top: 12px;
+
               #{$upload-item}-card-actions-btn {
                 .porscheicon {
                   color: $brand-color;
@@ -231,6 +229,17 @@ $picture-card-size: 160px;
                     color: $brand-color;
                   }
                 }
+              }
+            }
+
+            #{$upload}-list-info-content {
+
+              #{$upload-item}-file {
+                height: unset;
+                align-items: center;
+                position: absolute !important;
+                margin-top: -30px;
+
               }
             }
           }
@@ -409,6 +418,7 @@ $picture-card-size: 160px;
           }
 
           .pui-progress-close {
+            background-color: transparent;
             right: 0;
           }
 

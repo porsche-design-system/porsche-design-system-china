@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { UploadFile } from 'src/components/upload/interface'
-import { Upload, Row, Col, Message, Button } from '../..'
+import { Upload, Row, Col, Message, Button, Tabs, TabPane } from '../..'
 
 import './upload.stories.scss'
 
@@ -50,7 +50,7 @@ export const UploadStoryBook1 = () => {
         status: 'error'
       }
     ],
-    handleBeforeUpload: (file: File) => {
+    beforeUpload: (file: File) => {
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
       if (!isJpgOrPng) {
         Message.pop('error', '请上传jpg或png格式的文件')
@@ -70,17 +70,19 @@ export const UploadStoryBook1 = () => {
       <Row>
         <Col span={12}>
           <Upload
-            btnProps={{ type: 'primary', size: 'small' }}
+            // btnProps={{ type: 'primary', size: 'small' }}
             action={action}
             headers={{
               Authorization
             }}
             multiple
-            tip="要求文件格式jpg,png, 大小不超过20M"
+            // tip="要求文件格式jpg,png, 大小不超过2M"
             {...uploadProps}
-            // accept='.png,.jpg'
           />
         </Col>
+      </Row>
+      <Row style={{ marginTop: '20px' }}>
+        <small> <big>*</big> btnProps 可修饰默认按钮， 如有children，则覆盖默认按钮。</small>
       </Row>
     </>
   )
@@ -118,19 +120,25 @@ export const UploadStoryBook2 = () => {
     </>
   )
 }
-UploadStoryBook2.storyName = 'Upload Custom'
+UploadStoryBook2.storyName = 'Upload Drag'
 
 export const UploadStoryBook7 = () => {
+  const [btnDisabled, setBtnDisabled] = useState(true)
   const [fileList, setFileList] = useState<UploadFile[]>([])
+  useEffect(() => {
+    if (fileList.length) {
+      setBtnDisabled(false);
+    }
+  }, [fileList])
   const uploadProps = {
-    // listIgnore: true,
+    listIgnore: false,
     action,
     headers: {
       Authorization
     },
     fileList,
+    // 测试defaultFileList与fileList同时存在时，以fileList为准
     defaultFileList: [
-      // 测试defaultFileList与fileList同时存在时，以fileList为准
       {
         uid: '-1',
         name: 'image.png',
@@ -163,7 +171,8 @@ export const UploadStoryBook7 = () => {
   }
 
   const uploadHandle = () => {
-    console.log(fileList)
+    console.log(fileList);
+    Message.pop('success', '上传成功')
     setFileList([])
   }
 
@@ -175,79 +184,18 @@ export const UploadStoryBook7 = () => {
         </Col>
       </Row>
       <Row style={{ marginBottom: '20px' }}>
-        <Button onClick={uploadHandle}>开始上传</Button>
+        <Button disabled={btnDisabled} onClick={uploadHandle}>开始上传</Button>
       </Row>
       <Row style={{ marginBottom: '20px' }}>
-        <p>beforeUpload 返回 false 后，手动上传文件。</p>
+        <small> <big>*</big> beforeUpload 返回 false 后，手动上传文件。可手动控制setFileList是否清空所选文件列表。</small>
       </Row>
     </>
   )
 }
-UploadStoryBook7.storyName = '手动上传'
+UploadStoryBook7.storyName = 'Upload Manually'
 
 export const UploadStoryBook3 = () => {
-  return (
-    <>
-      <div className="upload-component-list">
-        <Upload
-          action={action}
-          headers={{
-            Authorization
-          }}
-          listType="picture-card"
-        />
-        <Upload
-          action={action}
-          headers={{
-            Authorization
-          }}
-          listType="picture-card"
-        />
-      </div>
-    </>
-  )
-}
-UploadStoryBook3.storyName = 'Upload Pictures Default'
-
-export const UploadStoryBook4 = () => {
-  const defaultFileList = [
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url:
-        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-xxx',
-      percent: 100,
-      name: 'image.png',
-      status: 'success',
-      url:
-        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
-  ]
-
-  return (
-    <>
-      <div className="uploading-list">
-        <Upload
-          action={action}
-          headers={{
-            Authorization
-          }}
-          listType="picture-card"
-          defaultFileList={defaultFileList}
-        />
-      </div>
-    </>
-  )
-}
-UploadStoryBook4.storyName = 'Upload Pictures Uploading'
-
-export const UploadStoryBook5 = () => {
-  const fileList2 = [
+  const successFileList = [
     {
       uid: '-1',
       name: 'image.png',
@@ -256,29 +204,7 @@ export const UploadStoryBook5 = () => {
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
   ]
-
-  return (
-    <>
-      <div className="uploaded-list">
-        <div className="uploaded-tip">
-          限定数量:当上传照片数到达限制后，上传按钮消失。
-        </div>
-        <Upload
-          action={action}
-          headers={{ Authorization }}
-          listType="picture-card"
-          defaultFileList={fileList2}
-          className="list-uploaded"
-          count={3}
-        />
-      </div>
-    </>
-  )
-}
-UploadStoryBook5.storyName = 'Upload Pictures Uploaded'
-
-export const UploadStoryBook6 = () => {
-  const fileList3 = [
+  const errorFileList = [
     {
       uid: '-1',
       name: 'image.png',
@@ -287,19 +213,90 @@ export const UploadStoryBook6 = () => {
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }
   ]
+  const uploadingFileList = [
+    {
+      uid: '-xxx',
+      percent: 50,
+      name: 'image.png',
+      status: 'uploading',
+      url:
+        'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    }
+  ]
+
+  const [buttonType, setButtonType] = useState('1')
 
   return (
     <>
-      <div className="uploaded-list">
-        <div className="uploaded-tip">Error</div>
-        <Upload
-          action={action}
-          headers={{ Authorization }}
-          listType="picture-card"
-          defaultFileList={fileList3}
-        />
-      </div>
+      <Tabs
+        size="small"
+        hasLine
+        onActiveKeyChange={key => {
+          setButtonType(key)
+        }}
+      >
+        <TabPane tabKey="1" title="Default" />
+        <TabPane tabKey="2" title="Success" />
+        <TabPane tabKey="3" title="Error" />
+        <TabPane tabKey="4" title="Uploading" />
+      </Tabs>
+
+      {
+        buttonType === '1' &&
+        <div className="upload-component-list">
+          <Upload
+            action={action}
+            headers={{
+              Authorization
+            }}
+            listType="picture-card"
+          />
+          <Upload
+            action={action}
+            headers={{
+              Authorization
+            }}
+            listType="picture-card"
+          />
+        </div>
+      }
+      {
+        buttonType === '2' &&
+        <div className="upload-component-list">
+          <Upload
+            action={action}
+            headers={{ Authorization }}
+            listType="picture-card"
+            defaultFileList={successFileList}
+            className="list-uploaded"
+          />
+        </div>
+      }
+      {
+        buttonType === '3' &&
+        <div className="upload-component-list">
+          <Upload
+            action={action}
+            headers={{ Authorization }}
+            listType="picture-card"
+            defaultFileList={errorFileList}
+            className="list-uploaded"
+          />
+        </div>
+      }
+      {
+        buttonType === '4' &&
+        <div className="upload-component-list">
+          <Upload
+            action={action}
+            headers={{ Authorization }}
+            listType="picture-card"
+            defaultFileList={uploadingFileList}
+            className="list-uploaded"
+          />
+        </div>
+      }
     </>
   )
 }
-UploadStoryBook6.storyName = 'Upload Pictures Error'
+UploadStoryBook3.storyName = 'Upload Pictures'
