@@ -125,11 +125,16 @@
             background-color: $table-selected-bg-color;
           }
 
+          .pui-table-expand-row-active td {
+            border: none;
+          }
+
           td {
             transition: background-color 0.1s;
             position: relative;
           }
 
+          /* 中间表格悬浮 */
           tr:hover td::before {
             content: '';
             background-color: $container-bg-opacity-color-1;
@@ -137,17 +142,39 @@
             left: 0;
             top: 0;
             width: 100%;
-            height: 60px;
+            height: 100%;
             overflow: hidden;
             pointer-events: none;
           }
+
+          .pui-table-expand-row-active:hover td::before {
+            background-color: transparent;
+          }
+        }
+      }
+
+      &-va-top {
+        td {
+          vertical-align: top;
+        }
+      }
+
+      &-va-middle {
+        td {
+          vertical-align: middle;
+        }
+      }
+
+      &-va-bottom {
+        td {
+          vertical-align: bottom;
         }
       }
 
       &-scrollLeft-true table .pui-table-fixed-left::after,
       &-scrollRight-true table .pui-table-fixed-right::before,
       &-scrollRight-true table tr:hover .pui-table-fixed-right::before {
-        height: 60px;
+        height: 100%;
         content: '';
         width: 24px;
         position: absolute;
@@ -179,7 +206,7 @@
         left: 0;
         top: 0;
         width: 100%;
-        height: 60px;
+        height: 100%;
         overflow: hidden;
         pointer-events: none;
       }
@@ -187,8 +214,10 @@
       &-expand-button {
         cursor: pointer;
         color: $text-color-1;
-        font-size: 16px;
+        font-size: 24px;
         opacity: 0.5;
+        margin-top: 1px;
+        user-select: none;
       }
 
       &-size-small {
@@ -200,13 +229,16 @@
           td {
             height: 48px;
           }
-
           td::before {
-            height: 48px !important;
+            height: 48px;
           }
           td::after {
-            height: 48px !important;
+            height: 48px;
           }
+        }
+
+        .pui-table-expand-button {
+          font-size: 20px;
         }
 
         .pui-table-head {

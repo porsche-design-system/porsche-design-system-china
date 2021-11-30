@@ -53,8 +53,8 @@ export interface TableProps {
   /* 可选定行 */
   selectable?: boolean
 
-  /* 最大行数 */
-  maxRows?: number
+  /* 表格高度 */
+  tableHeight?: string
 
   /* 大小 */
   size?: 'medium' | 'small'
@@ -73,6 +73,12 @@ export interface TableProps {
 
   /* 可展开行渲染 */
   expandCell?: (rowData: any) => React.ReactNode
+
+  /* 扩展箭头样式 */
+  expandArrowStyle?: CSSProperties
+
+  /* 单元纵向对齐方式 */
+  cellVerticalAlign?: 'middle' | 'top' | 'bottom'
 }
 
 const Table = ({
@@ -82,11 +88,13 @@ const Table = ({
   data,
   onSort,
   onSelect,
-  maxRows,
+  tableHeight = 'auto',
   size,
   selectable = false,
   rowExpandable = false,
   defaultSorter = {},
+  cellVerticalAlign = 'middle',
+  expandArrowStyle,
   expandCell
 }: TableProps) => {
   const middleColumns: TableColumn[] = []
@@ -207,7 +215,7 @@ const Table = ({
   }
 
   const removeHtml = (str: string) => {
-    return str.replace(/<[^>]+>/g, '')
+    return str.replace(/<\/.+>/g, '\n').replace(/<[^>]+>/g, '')
   }
 
   const defaultWidth = 150
@@ -222,14 +230,16 @@ const Table = ({
   columns.forEach(col => {
     if (col.width === undefined) {
       col.width = 0
-
       if (col.customCell) {
         data.forEach(d => {
-          const dataColWidth =
-            getByteLength(
-              removeHtml(renderToString(col.customCell!(d) as any))
-            ) * charWidth
-          col.width = (col.width || 0) < dataColWidth ? dataColWidth : col.width
+          const textLines = removeHtml(
+            renderToString(col.customCell!(d) as any)
+          ).split('\n')
+          textLines.forEach(lineText => {
+            const dataColWidth = getByteLength(lineText) * charWidth
+            col.width =
+              (col.width || 0) < dataColWidth ? dataColWidth : col.width
+          })
         })
       } else if (!col.key) {
         col.width = defaultWidth
@@ -252,7 +262,6 @@ const Table = ({
   columnsTableWidth += selectable ? selectColumnWidth : 0
   columnsTableWidth += rowExpandable ? expandColumnWidth : 0
   const tableWidth = columnsTableWidth + 'px'
-  const tableHeight = maxRows ? 60 * maxRows + 'px' : 'auto'
 
   const renderMeasureCell = (column: TableColumn, inx: number) => {
     return (
@@ -465,7 +474,10 @@ const Table = ({
           ref={tableBodyRefLoaded}
           style={{ height: tableHeight }}
         >
-          <table style={{ width: tableWidth }}>
+          <table
+            style={{ width: tableWidth }}
+            className={'pui-table-va-' + cellVerticalAlign}
+          >
             <tbody>
               <tr>
                 {selectable && (
@@ -494,7 +506,11 @@ const Table = ({
                       className={
                         (selectedRows.includes(inx)
                           ? 'pui-table-selected-row'
-                          : '') + (isExpandRow ? ' pui-table-expand-row' : '')
+                          : '') +
+                        (isExpandRow ? ' pui-table-expand-row' : '') +
+                        (rowExpandable && expandRows.includes(inx)
+                          ? ' pui-table-expand-row-active'
+                          : '')
                       }
                     >
                       {selectable && (
@@ -535,6 +551,7 @@ const Table = ({
                           {isExpandRow && (
                             <IconArrowHeadDown
                               className="pui-table-expand-button"
+                              style={expandArrowStyle}
                               onClick={() => {
                                 const rInx = expandRows.findIndex(
                                   elem => elem === inx
@@ -547,6 +564,7 @@ const Table = ({
                           {!isExpandRow && (
                             <IconArrowHeadRight
                               className="pui-table-expand-button"
+                              style={expandArrowStyle}
                               onClick={() => {
                                 setExpandRows([...expandRows, inx])
                               }}

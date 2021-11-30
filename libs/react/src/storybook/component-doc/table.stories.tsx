@@ -1,4 +1,4 @@
-import { IconEdit } from '@pui/icons'
+import { IconMenuDotsHorizontal } from '@pui/icons'
 import React from 'react'
 import { Table, Button, TableColumn, Modal } from '../..'
 
@@ -39,15 +39,15 @@ export const TableStoryBook = () => {
     {
       title: '操作',
       fixed: 'right',
-      width: 150,
+      width: 140,
       customCell: rowData => (
         <>
-          <Button type="link" marginRight="16px">
+          <Button type="link" marginRight="12px">
             修改
           </Button>
           <Button
             type="link"
-            marginRight="5px"
+            marginRight="12px"
             onClick={() => {
               Modal.confirm('警告', '确认要删除吗?', () => {
                 Modal.alert(
@@ -61,7 +61,7 @@ export const TableStoryBook = () => {
           >
             删除
           </Button>
-          <Button icon={IconEdit} type="link" />
+          <Button icon={IconMenuDotsHorizontal} type="link" />
         </>
       )
     }
@@ -72,7 +72,6 @@ export const TableStoryBook = () => {
         data={tableData}
         columns={columns}
         selectable
-        maxRows={10}
         onSelect={data => {
           console.log(data)
         }}
@@ -96,7 +95,7 @@ export const TableStoryBook2 = () => {
   }
 
   const tableData: any[] = []
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     tableData.push(rowData)
   }
 
@@ -108,15 +107,15 @@ export const TableStoryBook2 = () => {
     {
       title: '操作',
       fixed: 'right',
-      width: 120,
+      width: 140,
       customCell: rowData => (
         <>
-          <Button type="link" marginRight="16px">
+          <Button type="link" marginRight="12px">
             修改
           </Button>
           <Button
             type="link"
-            marginRight="5px"
+            marginRight="12px"
             onClick={() => {
               Modal.confirm('警告', '确认要删除吗?', () => {
                 Modal.alert(
@@ -130,7 +129,7 @@ export const TableStoryBook2 = () => {
           >
             删除
           </Button>
-          <Button icon={IconEdit} type="link" />
+          <Button icon={IconMenuDotsHorizontal} type="link" />
         </>
       )
     }
@@ -140,18 +139,28 @@ export const TableStoryBook2 = () => {
       <Table
         data={tableData}
         columns={columns}
-        rowExpandable
-        maxRows={10}
         onSelect={data => {
           console.log(data)
         }}
         onSort={sorter => console.log(sorter)}
+        rowExpandable
         expandCell={rowData => {
           return (
             <div style={{ padding: '10px 0', paddingLeft: '35px' }}>
-              经销商号码: {rowData.dealerCode}
-              <br />
-              其他信息其他信息其他信息其他信息其他信息
+              <div style={{ display: 'inline-block', marginRight: '24px' }}>
+                经销商号码: {rowData.dealerCode}
+                <br />
+                <div style={{ color: '#999', fontSize: '12px' }}>
+                  其他信息其他信息其他信息其他信息其他信息
+                </div>
+              </div>
+              <div style={{ display: 'inline-block' }}>
+                经销商号码: {rowData.dealerCode}
+                <br />
+                <div style={{ color: '#999', fontSize: '12px' }}>
+                  其他信息其他信息其他信息其他信息其他信息
+                </div>
+              </div>
             </div>
           )
         }}
@@ -161,6 +170,114 @@ export const TableStoryBook2 = () => {
 }
 
 TableStoryBook2.storyName = 'Row Expandable Table'
+
+export const TableStoryBook3 = () => {
+  const rowData = {
+    dealerName: '上海浦东保时捷中心',
+    dealerCode: '1000000',
+    phoneNumber: '021-22211111',
+    address: '上海市东方路123号',
+    avgPrice: '￥1000000',
+    workingTime: '10:00AM - 10:30PM',
+    saleModel: '911 718 Taycan Panamera Macan Cayenne'
+  }
+
+  const tableData: any[] = []
+  for (let i = 0; i < 5; i++) {
+    tableData.push(rowData)
+  }
+
+  const renderCell = (key: string) => (rowData: any) =>
+    (
+      <div style={{ padding: '10px 0' }}>
+        <div>{rowData[key]}</div>
+        <div style={{ color: '#999', fontSize: '12px' }}>第二行文字</div>
+      </div>
+    )
+
+  const columns: TableColumn[] = [
+    {
+      title: '经销商',
+      customCell: renderCell('dealerName')
+    },
+    {
+      title: '联系号码',
+      customCell: renderCell('phoneNumber')
+    },
+    { title: '地址', customCell: renderCell('address') },
+    {
+      title: '工作时间',
+      sortable: true,
+      customCell: renderCell('workingTime')
+    },
+    {
+      title: '操作',
+      fixed: 'right',
+      width: 140,
+      customCell: rowData => (
+        <div style={{ padding: '2px 0' }}>
+          <Button type="link" marginRight="12px">
+            修改
+          </Button>
+          <Button
+            type="link"
+            marginRight="12px"
+            onClick={() => {
+              Modal.confirm('警告', '确认要删除吗?', () => {
+                Modal.alert(
+                  '提示信息',
+                  <div>
+                    <b>{rowData.dealerName}</b> 已删除！
+                  </div>
+                )
+              })
+            }}
+          >
+            删除
+          </Button>
+          <Button icon={IconMenuDotsHorizontal} type="link" />
+        </div>
+      )
+    }
+  ]
+  return (
+    <div>
+      <Table
+        data={tableData}
+        columns={columns}
+        rowExpandable
+        onSelect={data => {
+          console.log(data)
+        }}
+        expandArrowStyle={{ marginTop: '11px' }}
+        cellVerticalAlign="top"
+        onSort={sorter => console.log(sorter)}
+        expandCell={rowData => {
+          return (
+            <div style={{ padding: '10px 0', paddingLeft: '35px' }}>
+              <div style={{ display: 'inline-block', marginRight: '24px' }}>
+                经销商号码: {rowData.dealerCode}
+                <br />
+                <div style={{ color: '#999', fontSize: '12px' }}>
+                  其他信息其他信息其他信息其他信息其他信息
+                </div>
+              </div>
+              <div style={{ display: 'inline-block' }}>
+                经销商号码: {rowData.dealerCode}
+                <br />
+                <div style={{ color: '#999', fontSize: '12px' }}>
+                  其他信息其他信息其他信息其他信息其他信息
+                </div>
+              </div>
+            </div>
+          )
+        }}
+      />
+    </div>
+  )
+}
+
+TableStoryBook3.storyName = 'Multi Row Line Table'
 
 export default {
   title: 'Data Display/Table',
