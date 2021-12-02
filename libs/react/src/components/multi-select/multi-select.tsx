@@ -173,8 +173,10 @@ MultiSelect = FormItem(
       <div
         ref={rootElement => {
           isDestroyed.current = rootElement === null
-          if (rootElement && rootElementRef.current === null) {
+          if (rootElement) {
             rootElementRef.current = rootElement
+          }
+          if (rootElement && rootElementRef.current === null) {
             updatePos()
             setTimeout(() => {
               if (!isDestroyed.current) {
