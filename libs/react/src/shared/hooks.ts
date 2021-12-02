@@ -154,13 +154,13 @@ export const useClickOutside = (
   }, [ref, handler])
 }
 
-let windowResizeEventAdded = false
 export const useElementPos = (elemRef: {
   current: HTMLElement | null
 }): [any, () => void] => {
   const [, setRefresh] = useState(0)
   const [, setPopState] = usePopShowState()
   const originalElem = elemRef.current
+  const windowResizeEventAdded = useRef(false)
   let elem = originalElem!
   let position = 'absolute'
 
@@ -168,13 +168,20 @@ export const useElementPos = (elemRef: {
     setRefresh(Math.random())
   }
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (scrollElement) {
-  //       scrollElement.onscroll = null
-  //     }
-  //   }
-  // }, [])
+  const resizeEvent = () => {
+    setRefresh(Math.random())
+  }
+
+  if (!windowResizeEventAdded.current) {
+    window.addEventListener('resize', resizeEvent)
+    windowResizeEventAdded.current = true
+  }
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('resize', resizeEvent)
+    }
+  }, [])
 
   if (!elemRef.current) {
     return [{ left: 0, top: 0 }, updatePos]
@@ -221,13 +228,6 @@ export const useElementPos = (elemRef: {
       setRefresh(Math.random())
       setPopState(false)
     }
-  }
-
-  if (!windowResizeEventAdded) {
-    window.onresize = () => {
-      setRefresh(Math.random())
-    }
-    windowResizeEventAdded = true
   }
 
   return [
