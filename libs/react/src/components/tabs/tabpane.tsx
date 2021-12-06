@@ -19,7 +19,7 @@ export interface TabPaneProps {
 const TabPane = (props: TabPaneProps) => {
   return (
     <div
-      style={{ display: (props as any).show ? 'block' : 'none' }}
+      style={(props as any).show ? {} : {height:0,minHeight:0,overflow:'hidden'}}
       className="pui-tabs-content"
     >
       {props.children}
