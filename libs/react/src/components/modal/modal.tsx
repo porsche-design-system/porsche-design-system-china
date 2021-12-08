@@ -56,7 +56,7 @@ export interface ModalProps {
   cancelText?: string
 
   /** ok 按钮 props */
-  okButtonProps?:ButtonProps
+  okButtonProps?: ButtonProps
 
   /** cancel 按钮 props */
   cancelButtonProps?: ButtonProps
@@ -98,9 +98,9 @@ const Modal = ({
   hasDivider = false,
   children,
   okText = '确认',
-  okButtonProps={},
+  okButtonProps = {},
   cancelText = '取消',
-  cancelButtonProps ={},
+  cancelButtonProps = {},
   okIcon,
   cancelIcon,
   onOk,
@@ -132,9 +132,13 @@ const Modal = ({
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
         <div
-          className={componentClassNames('pui-modal', {
-            'modalsize': modalSize+''
-          }, className)}
+          className={componentClassNames(
+            'pui-modal',
+            {
+              modalsize: modalSize + ''
+            },
+            className
+          )}
           style={style}
         >
           <div className="pui-modal-content">
@@ -246,6 +250,7 @@ Modal.alert = (
     <Modal
       title={title}
       okText={okText}
+      modalSize="small"
       showClose={false}
       modalRef={(r: any) => {
         currentPop = r
@@ -305,6 +310,7 @@ Modal.confirm = (
     <Modal
       title={title}
       okText={okText}
+      modalSize="small"
       showClose={false}
       onCancel={() => {
         document.body.removeChild(modalContainer!)
@@ -381,7 +387,7 @@ export interface ModalShowProps {
   cancelText?: string
 
   /** ok 按钮 props */
-  okButtonProps?:ButtonProps
+  okButtonProps?: ButtonProps
 
   /** cancel 按钮 props */
   cancelButtonProps?: ButtonProps
@@ -472,7 +478,6 @@ Modal.show = ({
           const loadingPromise = onOk()
 
           if (loadingPromise) {
-
             modalSetIsLoading(true)
             ;(loadingPromise as Promise<unknown>)
               .then(() => {
@@ -484,7 +489,6 @@ Modal.show = ({
                 modalSetIsLoading(false)
               })
           } else {
-            
             document.body.removeChild(modalContainer!)
             document.body.removeChild(currentPop)
           }

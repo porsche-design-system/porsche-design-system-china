@@ -7,7 +7,7 @@
 
   .sbdocs.sbdocs-preview {
     box-shadow: none;
-    border: 1px solid #e3e4e5;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0;
   }
 
@@ -16,7 +16,7 @@
   }
 
   .pui-theme-dark .sbdocs.sbdocs-preview {
-    border: 1px solid #666;
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .docblock-argstable-body {
@@ -151,8 +151,8 @@
   .docs-story > div:nth-child(1) {
     padding: 30px 20px;
   }
-  .docs-story .pui-tabs{
-    margin-top:-30px;
+  .docs-story .pui-tabs {
+    margin-top: -30px;
   }
   .docs-story .pui-tabs .pui-tabs-header-line-true::after {
     left: -20px !important;
@@ -220,9 +220,9 @@
               return
             }
 
-            let argTable = document.getElementsByClassName(
-              'docblock-argstable'
-            )[0].parentNode
+            let argTable =
+              document.getElementsByClassName('docblock-argstable')[0]
+                .parentNode
             if (argTable.parentNode.id === 'panel-tab-content') {
               argTable = argTable.parentNode.parentNode
             }

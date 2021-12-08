@@ -54,26 +54,10 @@ export const ButtonStoryBook2 = () => {
   const Tab2 = () => {
     return (
       <>
-        <Button
-          type="primary"
-          marginRight="40px"
-          icon={IconArrowHeadRight}
-        ></Button>
-        <Button
-          type="secondary"
-          marginRight="40px"
-          icon={IconArrowHeadRight}
-        ></Button>
-        <Button
-          type="default"
-          marginRight="40px"
-          icon={IconArrowHeadRight}
-        ></Button>
-        <Button
-          type="text"
-          marginRight="40px"
-          icon={IconArrowHeadRight}
-        ></Button>
+        <Button type="primary" marginRight="40px" icon={IconArrowHeadRight} />
+        <Button type="secondary" marginRight="40px" icon={IconArrowHeadRight} />
+        <Button type="default" marginRight="40px" icon={IconArrowHeadRight} />
+        <Button type="text" marginRight="40px" icon={IconArrowHeadRight} />
       </>
     )
   }
