@@ -1,6 +1,7 @@
 import React, {
   CSSProperties,
   Fragment,
+  ReactNode,
   useEffect,
   useRef,
   useState
@@ -25,7 +26,7 @@ export interface Sorter {
 }
 
 export interface TableColumn {
-  title?: string
+  title?: ReactNode
   key?: string
   width?: number
   fixed?: 'none' | 'left' | 'right'
