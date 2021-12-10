@@ -66,7 +66,7 @@ const ListItem: FC<UploadListProps> = props => {
         </div>
       )
     } else {
-      const thumbnail = isImgUrl?.(file) ? (
+      const thumbnail = isImgUrl && isImgUrl(file) ? (
         <img
           src={file.thumbUrl || file.url}
           alt={file.name}
@@ -95,7 +95,7 @@ const ListItem: FC<UploadListProps> = props => {
 
   const handleStopUpload = () => {
     onRemove(file) // 同时删除
-    file.source?.cancel('取消成功')
+    file.source && file.source.cancel('取消成功')
   }
 
   const removeIcon = showRemoveIcon
