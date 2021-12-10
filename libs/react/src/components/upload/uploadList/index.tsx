@@ -50,7 +50,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (listType !== 'picture' && listType !== 'picture-card') {
       return
     }
-    ;(fileList || []).forEach((file: UploadFile) => {
+    ; (fileList || []).forEach((file: UploadFile) => {
       if (
         typeof document === 'undefined' ||
         typeof window === 'undefined' ||
@@ -81,11 +81,11 @@ const UploadList: FC<UploadListProps> = props => {
     if (!onPreview) {
       return
     }
-    e?.preventDefault()
+    e && e.preventDefault()
     return onPreview(file)
   }
   const onInternalClose = (file: UploadFile) => {
-    onRemove?.(file)
+    onRemove && onRemove(file)
   }
 
   const internalIconRender = (file: UploadFile) => {
@@ -124,7 +124,7 @@ const UploadList: FC<UploadListProps> = props => {
     if (isValidElement(customIcon)) {
       const btnIcon = cloneElement(customIcon, {
         ...customIcon.props,
-        onClick: () => {}
+        onClick: () => { }
       })
 
       return <Button {...btnProps} icon={btnIcon} />
