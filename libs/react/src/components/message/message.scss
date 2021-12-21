@@ -36,6 +36,7 @@
         }
         &.error {
           background: $status-bg-error-color;
+          border: 1px solid rgba(224, 0, 0, 0.4);
           .porscheicon {
             color: $status-error-color;
           }
@@ -43,6 +44,7 @@
 
         &.success {
           background: $status-bg-success-color;
+          border: 1px solid rgba(1, 186, 29, 0.3);
           .porscheicon {
             color: $status-success-color;
           }
@@ -50,6 +52,7 @@
 
         &.warning {
           background: $status-bg-warning-color;
+          border: 1px solid rgba(255, 155, 0, 0.6);
           .porscheicon {
             color: $status-warning-color;
           }
@@ -57,6 +60,7 @@
 
         &.info {
           background: $status-bg-neutral-color;
+          border: 1px solid rgba(0, 97, 189, 0.6);
           .porscheicon {
             color: $status-neutral-color;
           }
