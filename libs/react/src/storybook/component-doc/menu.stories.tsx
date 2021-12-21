@@ -4,9 +4,12 @@ import { IconEdit, IconAdd, IconBell } from '@pui/icons'
 import { Menu } from '../..'
 import './menu.stories.scss'
 
+const { Item, ItemGroup, SubMenu } = Menu
+
 export default {
   title: 'Feedback/Menu',
-  component: Menu
+  component: Menu,
+  subcomponents: { Item, ItemGroup, SubMenu }
 }
 
 export const ProgressStoryBook = () => {

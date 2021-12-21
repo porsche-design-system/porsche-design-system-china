@@ -17,17 +17,33 @@ export const BreadcrumbStoryBook = () => {
           setClickedItem(JSON.stringify(item))
         }}
         items={[
-          { text: '首页', icon: IconHome, iconSize: 20, path: '/home' },
+          { text: '首页', icon: IconHome, iconSize: 24, path: '/home' },
           {
             text: '车辆订单列表',
             icon: IconCar,
-            iconSize: 30,
+            iconSize: 28,
             path: '/order-list'
           },
           { text: '订单详情' }
         ]}
       />
       <br />
+      <Breadcrumb
+        size="small"
+        onClick={item => {
+          setClickedItem(JSON.stringify(item))
+        }}
+        items={[
+          { text: '首页', icon: IconHome, iconSize: 18, path: '/home' },
+          {
+            text: '车辆订单列表',
+            icon: IconCar,
+            iconSize: 24,
+            path: '/order-list'
+          },
+          { text: '订单详情' }
+        ]}
+      />
       <br />
       {clickedItem}
     </div>
