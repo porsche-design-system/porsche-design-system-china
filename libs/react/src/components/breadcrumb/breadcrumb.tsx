@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
 import { IconAdd } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 
 import './breadcrumb.scss'
 
@@ -19,6 +20,8 @@ export interface BreadcrumbProps {
 
   /** 样式 */
   style?: CSSProperties
+  /* 大小 */
+  size?: 'small' | 'medium'
 
   /* 导航内容 */
   items?: BreadcrumbItem[]
@@ -33,12 +36,19 @@ export interface BreadcrumbProps {
 const Breadcrumb = ({
   className,
   style,
+  size,
   items = [],
   onClick
 }: BreadcrumbProps) => {
+  const [defaultSize] = useDefaultSize()
+
   return (
     <div
-      className={componentClassNames('pui-breadcrumb', {}, className)}
+      className={componentClassNames(
+        'pui-breadcrumb',
+        { size: size || defaultSize },
+        className
+      )}
       style={style}
     >
       {items.map((item, inx) => {

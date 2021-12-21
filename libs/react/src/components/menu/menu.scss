@@ -150,14 +150,14 @@ $submenu-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),
         &.submenu-item {
           > .submenu-title {
             > .porscheicon-icon_-arrow-head-right {
+              font-size: 20px;
+              margin-left: 8px;
               transform: rotate(90deg) !important;
             }
           }
-        }
-      }
-      > .menu-item.submenu-item {
-        > .porscheicon-icon_-arrow-head-right {
-          display: none;
+          > .porscheicon-icon_-arrow-head-right {
+            display: none;
+          }
         }
       }
       .pui-submenu {
@@ -171,7 +171,6 @@ $submenu-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),
         > .submenu-item {
           &.is-opened {
             .submenu-title {
-              // font-weight: 600;
               color: $menu-item-active-color;
               border-bottom: none;
             }

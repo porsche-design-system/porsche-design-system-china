@@ -13,7 +13,6 @@
         .porscheicon {
           vertical-align: middle;
           margin-top: -2px;
-          margin-right: 8px;
         }
       }
 
@@ -25,7 +24,25 @@
       &-slash {
         vertical-align: top;
         display: inline-block;
-        margin: 0 8px;
+      }
+
+      &.pui-breadcrumb-size-medium {
+        font-size: 16px;
+        .porscheicon {
+          margin-right: 8px;
+        }
+        .pui-breadcrumb-slash {
+          margin: 0 8px;
+        }
+      }
+      &.pui-breadcrumb-size-small {
+        font-size: 14px;
+        .porscheicon {
+          margin-right: 4px;
+        }
+        .pui-breadcrumb-slash {
+          margin: 0 4px;
+        }
       }
     }
   }
