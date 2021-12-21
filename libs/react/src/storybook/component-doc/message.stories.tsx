@@ -27,7 +27,7 @@ export const knobsMessage = () => {
         Error
       </Button>
       <Button
-        onClick={() => onClick('info', { closable: true })}
+        onClick={() => onClick('error', { closable: true })}
         type="default"
       >
         Closeable
