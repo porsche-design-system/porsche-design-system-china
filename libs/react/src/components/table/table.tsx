@@ -253,7 +253,8 @@ const Table = ({
           }
         })
       }
-      const headColWidth = getByteLength(col.title || '') * charWidth
+      const headColWidth =
+        getByteLength(removeHtml((col.title || '').toString())) * charWidth
       col.width = col.width < headColWidth ? headColWidth : col.width
       col.width += paddingLeftRight
     }

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Slider, Row, Col, InputNumber, Tabs, TabPane } from '../..'
 import './slider.stories.scss'
 
@@ -28,22 +28,20 @@ SliderStroyBook.storyName = 'Slider'
 
 export const SliderStoryBook1 = () => {
   const Tab1 = () => {
-    return (
-      <Slider defaultValue={30} />
-    )
+    return <Slider defaultValue={30} />
   }
   const Tab2 = () => {
-    return (
-      <Slider range defaultValue={[10, 60]} />
-    )
+    return <Slider range defaultValue={[10, 60]} />
   }
   return (
     <div>
       <Tabs size="small" hasLine>
-        <TabPane tabKey="single" title="Single" >
+        <TabPane tabKey="single" title="Single">
+          <br />
           <Tab1 />
         </TabPane>
         <TabPane tabKey="double" title="Double">
+          <br />
           <Tab2 />
         </TabPane>
       </Tabs>
@@ -63,10 +61,12 @@ export const SliderStoryBook2 = () => {
   return (
     <div>
       <Tabs size="small" hasLine>
-        <TabPane tabKey="single" title="Single" >
+        <TabPane tabKey="single" title="Single">
+          <br />
           <Tab1 />
         </TabPane>
         <TabPane tabKey="double" title="Double">
+          <br />
           <Tab2 />
         </TabPane>
       </Tabs>
@@ -79,8 +79,8 @@ SliderStoryBook2.storyName = 'Disabled'
 export const SliderStoryBook3 = () => {
   const [value, setValue] = useState(60)
   return (
-    <div style={{margin: '25px 0'}}>
-      <Row style={{alignItems:'center'}}>
+    <div style={{ margin: '25px 0' }}>
+      <Row style={{ alignItems: 'center' }}>
         <Col span={5}>
           <InputNumber
             type="arrow"
@@ -127,12 +127,10 @@ export const SliderStoryBook4 = () => {
     return (
       <>
         <div className="title">节点区间滑块</div>
-        <Slider
-          defaultValue={30}
-          marks={marks}
-          tipFormatter={tipFormatter}
-        />
-        <div className="title" style={{marginTop: '50px'}}>节点区间滑块-滑块仅可置于节点上</div>
+        <Slider defaultValue={30} marks={marks} tipFormatter={tipFormatter} />
+        <div className="title" style={{ marginTop: '50px' }}>
+          节点区间滑块-滑块仅可置于节点上
+        </div>
         <Slider
           defaultValue={25}
           marks={marks}
@@ -152,7 +150,9 @@ export const SliderStoryBook4 = () => {
           tipFormatter={tipFormatter}
           range
         />
-        <div className="title" style={{marginTop: '50px'}}>节点区间滑块-滑块仅可置于节点上</div>
+        <div className="title" style={{ marginTop: '50px' }}>
+          节点区间滑块-滑块仅可置于节点上
+        </div>
         <Slider
           defaultValue={[25, 50]}
           marks={marks}
@@ -164,9 +164,9 @@ export const SliderStoryBook4 = () => {
     )
   }
   return (
-    <div style={{marginBottom: '30px'}}>
+    <div style={{ marginBottom: '30px' }}>
       <Tabs size="small" hasLine>
-        <TabPane tabKey="single" title="Single" >
+        <TabPane tabKey="single" title="Single">
           <Tab1 />
         </TabPane>
         <TabPane tabKey="double" title="Double">

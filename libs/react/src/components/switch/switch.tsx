@@ -33,7 +33,7 @@ export interface SwitchProps<T> {
   error?: FormErrorText
 
   /* 开关值 */
-  alterValues?: T | [T, T]
+  alterValues?: [T, T] | 'FalseOrTrue' | 'ZeroOrOne' | string
 
   /* 值改变事件 */
   onValueChange?: (value: T) => void
@@ -76,12 +76,16 @@ Switch = FormItem(
     } else if (defaultValue !== undefined) {
       dValue = defaultValue
     }
+
     if (dValue !== switchValues[0] && dValue !== switchValues[1]) {
       dValue = switchValues[0]
-      setTimeout(() => {
-        onValueChange && onValueChange(dValue)
-      })
+      if (value !== undefined) {
+        setTimeout(() => {
+          onValueChange && onValueChange(dValue)
+        })
+      }
     }
+
     const [switchValue, setSwitchValue] = useState(dValue)
 
     useEffect(() => {
