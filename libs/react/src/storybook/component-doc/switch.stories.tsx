@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import { Switch, Form } from '../..'
+import './switch.stories.scss'
 
 export default {
   title: 'Data Entry/Switch',
@@ -44,18 +46,18 @@ export const SwitchBook2 = () => {
   return (
     <div>
       <Form>
-        <div>修改值为 0/1</div>
+        <div className="session-title">修改值为 0/1</div>
         <Switch
-          label={{ text: '修改值为 0/1', position: 'left', width: '120px' }}
+          label={{ text: '有无发票', position: 'left', width: '120px' }}
           alterValues="ZeroOrOne"
           onValueChange={val => {
             console.log(val)
           }}
         />
-        <div>修改值为 false/true</div>
+        <div className="session-title">修改值为 false/true</div>
         <Switch
           label={{
-            text: '修改值为 false/true',
+            text: '是否有驾驶证',
             position: 'left',
             width: '150px'
           }}
@@ -64,10 +66,10 @@ export const SwitchBook2 = () => {
             console.log(val)
           }}
         />
-        <div>修改值为 male/female</div>
+        <div className="session-title">修改值为 "Male"/"Female"</div>
         <Switch
           label={{
-            text: '修改值为 male/female',
+            text: '性别',
             position: 'left',
             width: '150px'
           }}
@@ -81,4 +83,4 @@ export const SwitchBook2 = () => {
   )
 }
 
-SwitchBook2.storyName = 'Switch Value'
+SwitchBook2.storyName = 'Alter Values'
