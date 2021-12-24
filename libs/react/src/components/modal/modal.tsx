@@ -121,6 +121,7 @@ const Modal = ({
     undefined: () => null
   }
 
+  
   useEffect(() => {
     setShow(visible)
   }, [visible])
