@@ -72,6 +72,7 @@ export const TableStoryBook = () => {
         data={tableData}
         columns={columns}
         selectable
+        height="300px"
         onSelect={data => {
           console.log(data)
         }}

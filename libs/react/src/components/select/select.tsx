@@ -205,6 +205,9 @@ Select = FormItem(
           onClick={evt => {
             evt.stopPropagation()
             updatePos()
+            if (!showOptionList) {
+              setFilterValue('')
+            }
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
