@@ -83,6 +83,7 @@ const Search = ({
       <Input
         value={value}
         defaultValue={defaultValue}
+        hideMaxLengthText
         showClearButton={showClearButton}
         maxLength={maxLength}
         onValueChange={val => {

@@ -55,7 +55,7 @@ export interface TableProps {
   selectable?: boolean
 
   /* 表格高度 */
-  tableHeight?: string
+  height?: string
 
   /* 大小 */
   size?: 'medium' | 'small'
@@ -89,7 +89,7 @@ const Table = ({
   data,
   onSort,
   onSelect,
-  tableHeight = 'auto',
+  height = 'auto',
   size,
   selectable = false,
   rowExpandable = false,
@@ -222,7 +222,7 @@ const Table = ({
   const defaultWidth = 150
   const charWidth = 8
   const selectColumnWidth = 40
-  const expandColumnWidth = 30
+  const expandColumnWidth = size === 'medium' ? 35 : 30
   const paddingLeftRight = 40
   let columnsTableWidth = 0
   const columnCount =
@@ -474,7 +474,7 @@ const Table = ({
         <div
           className="pui-table-body"
           ref={tableBodyRefLoaded}
-          style={{ height: tableHeight }}
+          style={{ height }}
         >
           <table
             style={{ width: tableWidth }}

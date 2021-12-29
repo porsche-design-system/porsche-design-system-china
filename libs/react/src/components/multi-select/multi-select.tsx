@@ -203,6 +203,9 @@ MultiSelect = FormItem(
           placeholder={placeholder}
           onClick={evt => {
             evt.stopPropagation()
+            if (!showOptionList) {
+              setFilterValue('')
+            }
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}

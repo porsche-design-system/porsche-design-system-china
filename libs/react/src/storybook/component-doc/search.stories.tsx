@@ -27,9 +27,20 @@ export const InputStoryBook1 = () => {
   return (
     <div>
       <div>显示清除按钮</div>
-      <Search placeholder="显示清除按钮" width="300px" showClearButton />
+      <Search placeholder="显示清除按钮" width="360px" showClearButton />
     </div>
   )
 }
 
-InputStoryBook1.storyName = 'Show Clear Button'
+InputStoryBook1.storyName = 'Limit Text Length'
+
+export const InputStoryBook2 = () => {
+  return (
+    <div>
+      <div>限制文字长度</div>
+      <Search placeholder="显示清除按钮" maxLength={30} width="360px" />
+    </div>
+  )
+}
+
+InputStoryBook2.storyName = 'Show Clear Button'

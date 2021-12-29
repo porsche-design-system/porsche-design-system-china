@@ -67,6 +67,9 @@ export interface InputProps {
   /* 显示密码按钮 */
   showViewPasswordButton?: boolean
 
+  /* 不显示最大长度文字提示 */
+  hideMaxLengthText?: boolean
+
   /* 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
@@ -89,6 +92,7 @@ const Input = FormItem(
     value,
     onChange,
     error,
+    hideMaxLengthText = false,
     onValueChange,
     onBlur,
     onFocus,
@@ -157,14 +161,17 @@ const Input = FormItem(
             }
           }}
         />
-        {maxLength && !showClearButton && !showViewPasswordButton && (
-          <div className="pui-input-char-count">
-            {displayValueLength > 0 && displayValueLength}
-            <span>
-              {displayValueLength === 0 && displayValueLength}/{maxLength}
-            </span>
-          </div>
-        )}
+        {maxLength &&
+          !showClearButton &&
+          !showViewPasswordButton &&
+          !hideMaxLengthText && (
+            <div className="pui-input-char-count">
+              {displayValueLength > 0 && displayValueLength}
+              <span>
+                {displayValueLength === 0 && displayValueLength}/{maxLength}
+              </span>
+            </div>
+          )}
         {showClearButton && valueLength > 0 && (
           <IconErrorFilled
             className="pui-input-right-button pui-input-clear"
