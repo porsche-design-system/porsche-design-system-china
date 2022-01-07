@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { InputNumber } from '../..'
 
 export default {
@@ -7,6 +7,7 @@ export default {
 }
 
 export const InputNumberStoryBook = () => {
+  const [value,setValue] = useState<number | string>(0)
   return (
     <div className="input-number-story">
       <div className="group">
@@ -19,7 +20,12 @@ export const InputNumberStoryBook = () => {
             max={10}
             width="150px"
             marginRight="30px"
-            onValueChange={val => console.log(val)}
+            onValueChange={val => {
+              console.log(val);
+              setValue(val);
+            }}
+            step={3}
+            value={value}
           />
           <InputNumber
             defaultValue="3"
