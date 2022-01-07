@@ -19,7 +19,7 @@ export interface InputNumberProps {
   className?: string
 
   /** 默认初始值 */
-  defaultValue?: string
+  defaultValue?: string | number
 
   /** 禁用 */
   disabled?: boolean
@@ -40,10 +40,10 @@ export interface InputNumberProps {
   type?: 'default' | 'arrow'
 
   /** 当前值 */
-  value?: string
+  value?: string | number
 
   /** 值改变回调 */
-  onValueChange?: (val: string) => void
+  onValueChange?: (val: number | string) => void
 }
 
 const InputNumber = FormItem(
@@ -62,55 +62,69 @@ const InputNumber = FormItem(
     const initialValue = value || defaultValue || ''
     const [currentValue, setCurrentValue] = useState(initialValue)
     useEffect(() => {
-      if (value !== currentValue && value !== undefined)
-        setCurrentValue(value as string)
+      if (Number(value) !== Number(currentValue) && value !== undefined)
+        setCurrentValue(String(value));
     }, [value])
-    useEffect(() => {
-      onValueChange && onValueChange(currentValue)
-    }, [currentValue])
     const handleValueChange = (val: string) => {
       if (!/[^.\-\d]/.test(val)) {
-        setCurrentValue(val)
+        const nextValue = val==='' || Number.isNaN(Number(val)) ? val : Number(val);
+        setCurrentValue(val);
+        onValueChange && onValueChange(nextValue);
       }
     }
     const add = () => {
       if (!disabled) {
-        setCurrentValue(currentValue => {
-          const nextValue = Number(currentValue) + Number(step)
-          if (nextValue > max) {
-            return currentValue
-          }
-          return String(nextValue)
-        })
+        const nextValue = Number(currentValue) + Number(step);
+        if(value !== undefined){
+          if (nextValue > max) return;
+          onValueChange && onValueChange(nextValue);
+        }else{
+          setCurrentValue(currentValue => {
+            if (nextValue > max) {
+              return currentValue;
+            }
+            onValueChange && onValueChange(nextValue);
+            return String(nextValue);
+          });
+        }
       }
     }
     const reduce = () => {
       if (!disabled) {
-        setCurrentValue(currentValue => {
-          const nextValue = Number(currentValue) - Number(step)
-          if (nextValue < min) {
-            return currentValue
-          }
-          return String(nextValue)
-        })
+        const nextValue = Number(currentValue) - Number(step)
+        if(value !== undefined){
+          if(nextValue < min) return;
+          onValueChange && onValueChange(nextValue);
+        }else{
+          setCurrentValue(currentValue => {
+            if (nextValue < min) {
+              return currentValue
+            }
+            onValueChange && onValueChange(nextValue);
+            return String(nextValue)
+          })
+        }
       }
+      
     }
     const handleBlur = (e: React.FocusEvent) => {
-      let value: number | string = (e.target as HTMLInputElement).value
-      value = parseFloat(value)
-      if (Number.isNaN(value)) {
-        value = ''
-      } else {
-        if (value > max) {
-          value = String(max)
-        }
-        if (value < min) {
-          value = String(min)
-        } else {
-          value = String(value)
+      let nextValue: number | string = (e.target as HTMLInputElement).value
+      nextValue = parseFloat(nextValue)
+      if (Number.isNaN(nextValue)) {
+        setCurrentValue('')
+        onValueChange && onValueChange('');
+      }else if (nextValue > max) {
+        setCurrentValue(String(max));
+        onValueChange && onValueChange(max);
+      }else if (nextValue < min) {
+        setCurrentValue(String(min));
+        onValueChange && onValueChange(min);
+      }else {
+        setCurrentValue(String(nextValue))
+        if(String(nextValue) !== currentValue){
+          onValueChange && onValueChange(nextValue);
         }
       }
-      setCurrentValue(value)
     }
     return (
       <div
@@ -181,7 +195,7 @@ const InputNumber = FormItem(
           })}
           disabled={disabled}
           onValueChange={handleValueChange}
-          value={currentValue}
+          value={currentValue as string}
           onBlur={handleBlur}
         />
       </div>
