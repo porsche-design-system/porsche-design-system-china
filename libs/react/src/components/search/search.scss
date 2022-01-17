@@ -10,10 +10,18 @@
       width: 100%;
       .pui-input {
         .pui-input-right-button {
-          right: 50px;
+          right: 45px;
         }
         input {
           padding-right: 40px;
+        }
+      }
+
+      &-size-small {
+        .pui-input {
+          .pui-input-right-button {
+            right: 35px;
+          }
         }
       }
 
