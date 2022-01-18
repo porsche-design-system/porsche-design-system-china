@@ -10,6 +10,7 @@ import {
 import { FormItem } from '../form/form-item'
 import { Input } from '../input/input'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 
 import './input-number.scss'
 
@@ -29,6 +30,9 @@ export interface InputNumberProps {
 
   /** 最小值 */
   min?: number
+
+  /* 大小 */
+  size?: 'small' | 'medium'
 
   /** 每次改变步数，可以为小数 */
   step?: string | number
@@ -53,6 +57,7 @@ const InputNumber = FormItem(
     disabled = false,
     max = Infinity,
     min = -Infinity,
+    size,
     step = 1,
     style,
     type = 'default',
@@ -61,6 +66,8 @@ const InputNumber = FormItem(
   }: InputNumberProps) => {
     const initialValue = value || defaultValue || ''
     const [currentValue, setCurrentValue] = useState(initialValue)
+    const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
     useEffect(() => {
       if (Number(value) !== Number(currentValue) && value !== undefined)
         setCurrentValue(String(value));
@@ -130,7 +137,7 @@ const InputNumber = FormItem(
       <div
         className={componentClassNames(
           `${prefixCls}-wrap`,
-          { type },
+          { type,size },
           className
         )}
         style={style}
@@ -197,6 +204,7 @@ const InputNumber = FormItem(
           onValueChange={handleValueChange}
           value={currentValue as string}
           onBlur={handleBlur}
+          size={size}
         />
       </div>
     )
