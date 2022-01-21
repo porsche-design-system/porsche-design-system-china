@@ -19,7 +19,8 @@
     "build-all": "npm run build-es5 && npm run build-es6",
     "vremove": "npm unpublish @pui/react@0.0.20 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
-    "test": "jest"
+    "test": "jest",
+    "changelog": "npx lerna-changelog"
   },
   "changelog": {
     "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/libs/react",
