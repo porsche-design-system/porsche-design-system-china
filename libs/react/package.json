@@ -18,7 +18,7 @@
     "build-es5": "babel --delete-dir-on-start src -d lib  --config-file ./babelrc-es5 --extensions .js,.ts,.tsx --copy-files --no-copy-ignored && tsc -p tsconfig-build-es5.json && rm ./lib/**/**/*.stories.scss",
     "build-all": "npm run build-es5 && npm run build-es6",
     "vremove": "npm unpublish @pui/react@0.0.20 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
-    "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
+    "vrelease": "standard-version && npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "jest",
     "changelog": "npx lerna-changelog"
   },
@@ -107,7 +107,9 @@
     "sass-resources-loader": "^2.1.1",
     "ts-jest": "^26.4.4",
     "typescript": "4.1.3",
-    "@svgr/webpack": "5.5.0"
+    "@svgr/webpack": "5.5.0",
+    "markdown-it": "12.3.2",
+    "standard-version": "9.3.2"
   },
   "dependencies": {
     "axios": "^0.19.0",
