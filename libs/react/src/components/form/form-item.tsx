@@ -31,12 +31,24 @@ export interface FormItemProps {
 
   /* 样式 */
   style?: CSSProperties
+
+  /* 过滤器选项模式 */
+  filterMode?: boolean
 }
 
 export const FormItem =
   <T,>(func: (...args: T[]) => React.ReactNode) =>
   (props: FormItemProps & T) => {
-    const { label, error, width, marginLeft, marginRight, rules, style } = props
+    const {
+      label,
+      error,
+      width,
+      marginLeft,
+      marginRight,
+      rules,
+      style,
+      filterMode = false
+    } = props
     const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()
     const blurTriggered = useRef(false)
@@ -121,7 +133,7 @@ export const FormItem =
           />
         )}
         {React.cloneElement(comp, {
-          style: { width: `calc(100% - ${labelWidth})` }
+          style: { width: filterMode ? '' : `calc(100% - ${labelWidth})` }
         })}
         {displayError && displayError.show && (
           <ErrorText {...displayError} label={label} />
