@@ -156,14 +156,6 @@ const Upload: FC<UploadProps> = props => {
   const uploadFiles = (files: FileList) => {
     const postFiles = Array.from(files)
     postFiles.forEach(file => {
-      if (accept) {
-        const acceptList = accept.replace(/\s/g, '').split(',')
-        const name = file.name.split('.')
-        const type = name[name.length - 1]
-        if (!(acceptList.includes(type) || acceptList.includes(file.type)))
-          return
-      }
-
       if (!beforeUpload) {
         postFile(file)
       } else {
