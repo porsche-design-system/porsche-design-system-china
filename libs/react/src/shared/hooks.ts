@@ -178,6 +178,9 @@ export const useElementPos = (elemRef: {
   }
 
   useEffect(() => {
+    setTimeout(() => {
+      setRefresh(Math.random())
+    }, 500)
     return () => {
       window.removeEventListener('resize', resizeEvent)
     }
