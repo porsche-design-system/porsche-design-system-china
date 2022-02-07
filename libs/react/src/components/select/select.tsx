@@ -63,6 +63,9 @@ export interface SelectProps<T> {
   /* 显示清除按钮 */
   showClearButton?: boolean
 
+  /* 过滤器选项模式 */
+  filterMode?: boolean
+
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 }
@@ -88,6 +91,7 @@ Select = FormItem(
     defaultOpen,
     showClearButton = false,
     open,
+    filterMode = false,
     onMenuVisibleChange
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
@@ -200,7 +204,11 @@ Select = FormItem(
         <input
           className="pui-select-input"
           readOnly
-          value={displayText}
+          value={
+            filterMode && displayText
+              ? placeholder + ' : ' + displayText
+              : displayText
+          }
           placeholder={placeholder}
           onClick={evt => {
             evt.stopPropagation()

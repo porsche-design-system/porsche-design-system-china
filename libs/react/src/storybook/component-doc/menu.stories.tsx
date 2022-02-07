@@ -16,7 +16,7 @@ export const ProgressStoryBook = () => {
   return (
     <div className="menu-demo">
       <div className="test-one">
-        <Menu>
+        <Menu defaultIndex="1">
           <Menu.Item>test</Menu.Item>
           <Menu.Item>about</Menu.Item>
           <Menu.Item disabled>prod</Menu.Item>

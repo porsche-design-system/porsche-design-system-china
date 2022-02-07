@@ -117,3 +117,23 @@ export const SelectStoryBook5 = () => {
 }
 
 SelectStoryBook5.storyName = 'Menu Control'
+
+export const SelectStoryBook6 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <div>过滤器模式</div>
+        <div className="select-story">
+          <Select
+            options="狗:dog,猫,狮子,老虎,鲸鱼"
+            placeholder="动物"
+            width="200px"
+            filterMode
+          />
+        </div>
+      </Form>
+    </div>
+  )
+}
+
+SelectStoryBook6.storyName = 'Filter Mode'
