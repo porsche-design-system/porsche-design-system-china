@@ -13,13 +13,23 @@
         height: 48px;
         border: 1px solid $border-color-3;
         cursor: pointer;
-        padding: 12px;
+        padding-left: 12px;
         font-size: 16px;
         padding-right: 40px;
         text-overflow: ellipsis;
         color: $text-color-1;
         background-color: transparent;
         transition: all 0.1s;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      &-input-placeholder {
+        color: $border-color-3;
+      }
+
+      &-input-with-clear-button {
+        padding-right: 70px;
       }
 
       &-input:hover,
@@ -42,7 +52,7 @@
 
       &-list {
         font-size: 16px;
-        width: 100%;
+        min-width: 100%;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
         position: absolute;
         left: 0;
@@ -61,6 +71,7 @@
         text-align: left;
         padding: 12px;
         cursor: pointer;
+        white-space: nowrap;
         &-selected {
           font-weight: bold;
           color: $brand-color !important;
@@ -156,6 +167,10 @@
         .pui-select-list {
           font-size: 14px;
           top: 40px;
+        }
+
+        .pui-select-clear-icon {
+          top: 6px;
         }
 
         .pui-select-option {

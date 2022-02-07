@@ -201,15 +201,16 @@ Select = FormItem(
           className
         )}
       >
-        <input
-          className="pui-select-input"
-          readOnly
-          value={
-            filterMode && displayText
-              ? placeholder + ' : ' + displayText
-              : displayText
+        <button
+          className={
+            'pui-select-input ' +
+            (!displayText ? 'pui-select-input-placeholder' : '') +
+            ' ' +
+            (showClearButton && selectValue
+              ? 'pui-select-input-with-clear-button'
+              : '')
           }
-          placeholder={placeholder}
+          type="button"
           onClick={evt => {
             evt.stopPropagation()
             updatePos()
@@ -219,7 +220,14 @@ Select = FormItem(
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
-        />
+          style={{ width: filterMode ? 'auto' : '' }}
+        >
+          {displayText
+            ? filterMode
+              ? placeholder + ' : ' + displayText
+              : displayText
+            : placeholder}
+        </button>
         {showClearButton && selectValue && (
           <IconErrorFilled
             className="pui-select-clear-icon"
