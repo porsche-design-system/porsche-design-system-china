@@ -1,10 +1,22 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import ReactDOM from 'react-dom'
-import { IconArrowHeadDown, IconCheck, IconErrorFilled } from '@pui/icons'
+import {
+  IconArrowHeadDown,
+  IconCheck,
+  IconErrorFilled,
+  IconSearch
+} from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
+import { getNodeText } from '../../shared/string-util'
 import {
   useDefaultSize,
   usePopShowState,
@@ -14,8 +26,13 @@ import {
 import './select.scss'
 
 export interface SelectOption<T> {
-  text: string
+  text: ReactNode
   value: T
+}
+
+export interface GroupSelectOption<T> {
+  group: string
+  options: SelectOption<T>[]
 }
 
 export interface SelectProps<T> {
@@ -46,7 +63,7 @@ export interface SelectProps<T> {
   filterInput?: boolean
 
   /* 选项 */
-  options?: string | string[] | SelectOption<T>[]
+  options?: string | string[] | SelectOption<T>[] | GroupSelectOption<T>[]
 
   /* 错误 */
   error?: FormErrorText
@@ -122,6 +139,8 @@ Select = FormItem(
     }
 
     let selectOptions: SelectOption<T>[] = []
+    const groupNames: { index: number; name: string }[] = []
+
     if (typeof options === 'string') {
       const optionParts = options.split(',')
       optionParts.forEach(optionPart => {
@@ -135,7 +154,21 @@ Select = FormItem(
       })
     } else if (Array.isArray(options)) {
       if (options.length > 0 && typeof options[0] === 'object') {
-        selectOptions = options as SelectOption<T>[]
+        if ((options[0] as GroupSelectOption<T>).group !== undefined) {
+          let pos = 0
+          ;(options as GroupSelectOption<T>[]).forEach(o => {
+            if (o.options.length) {
+              groupNames.push({
+                index: pos,
+                name: (o as GroupSelectOption<T>).group
+              })
+              selectOptions.push(...(o as GroupSelectOption<T>).options)
+              pos += o.options.length
+            }
+          })
+        } else {
+          selectOptions = options as SelectOption<T>[]
+        }
       } else {
         ;(options as string[]).forEach(option => {
           selectOptions.push({ text: option, value: option as any })
@@ -143,7 +176,7 @@ Select = FormItem(
       }
     }
 
-    let displayText = ''
+    let displayText: ReactNode = ''
     if (isControlledByValue.current) {
       selectOptions.forEach(option => {
         if (option.value === value) {
@@ -204,11 +237,15 @@ Select = FormItem(
         <button
           className={
             'pui-select-input ' +
-            (!displayText ? 'pui-select-input-placeholder' : '') +
+            (!displayText && !filterMode
+              ? 'pui-select-input-placeholder'
+              : '') +
             ' ' +
             (showClearButton && selectValue
               ? 'pui-select-input-with-clear-button'
-              : '')
+              : '') +
+            ' ' +
+            (displayText && filterMode ? 'pui-select-input-highlight' : '')
           }
           type="button"
           onClick={evt => {
@@ -222,11 +259,20 @@ Select = FormItem(
           disabled={disabled}
           style={{ width: filterMode ? 'auto' : '' }}
         >
-          {displayText
-            ? filterMode
-              ? placeholder + ' : ' + displayText
-              : displayText
-            : placeholder}
+          {displayText ? (
+            filterMode ? (
+              <>
+                <span className="pui-select-input-placeholder">
+                  {placeholder || ''}
+                </span>{' '}
+                : {displayText}
+              </>
+            ) : (
+              displayText
+            )
+          ) : (
+            placeholder || ''
+          )}
         </button>
         {showClearButton && selectValue && (
           <IconErrorFilled
@@ -255,49 +301,65 @@ Select = FormItem(
                 }}
               >
                 {filterInput && (
-                  <input
-                    value={filterValue}
-                    placeholder="请输入选项"
-                    onChange={evt => {
-                      setFilterValue(evt.target.value)
-                    }}
-                    className="pui-select-filter"
-                  />
+                  <>
+                    <IconSearch className="pui-select-search-icon" />
+                    <input
+                      value={filterValue}
+                      placeholder="请输入选项"
+                      onChange={evt => {
+                        setFilterValue(evt.target.value)
+                      }}
+                      className="pui-select-filter"
+                    />
+                  </>
                 )}
                 <div className="pui-select-option-wrap">
-                  {selectOptions
-                    .filter(item => {
-                      if (filterValue) {
-                        return (
-                          item.text
-                            .toLowerCase()
-                            .indexOf(filterValue.toLowerCase()) >= 0
-                        )
-                      }
-                      return true
-                    })
-                    .map((option, inx) => (
-                      <div
-                        key={option.value + ' ' + inx}
-                        className={
-                          'pui-select-option ' +
-                          (option.value === selectValue
-                            ? 'pui-select-option-selected'
-                            : '')
-                        }
-                        onClick={() => {
-                          if (open === undefined) {
-                            setMenuOpen(undefined)
-                          }
-                          setShowOptionList(false)
-                          setSelectValue(option.value)
-                          onValueChange && onValueChange(option.value)
-                        }}
-                      >
-                        {option.text}
-                        {option.value === selectValue && <IconCheck />}
-                      </div>
-                    ))}
+                  {selectOptions.map((option, inx) => {
+                    const gn = groupNames.find(gn => gn.index === inx)
+                    return (
+                      <>
+                        {gn && (
+                          <div className="pui-select-group-name">{gn.name}</div>
+                        )}
+                        {getNodeText(option.text)
+                          .toLowerCase()
+                          .indexOf(filterValue.toLowerCase()) >= 0 && (
+                          <div
+                            key={option.value + ' ' + inx}
+                            className={
+                              'pui-select-option ' +
+                              (option.value === selectValue
+                                ? 'pui-select-option-selected'
+                                : '')
+                            }
+                            onClick={() => {
+                              if (open === undefined) {
+                                setMenuOpen(undefined)
+                              }
+                              setShowOptionList(false)
+                              setSelectValue(option.value)
+                              onValueChange && onValueChange(option.value)
+                            }}
+                          >
+                            {option.text}
+                            {option.value === selectValue && <IconCheck />}
+                          </div>
+                        )}
+                      </>
+                    )
+                  })}
+                  {selectOptions.filter(item => {
+                    if (filterValue) {
+                      return (
+                        getNodeText(item.text)
+                          .toLowerCase()
+                          .indexOf(filterValue.toLowerCase()) >= 0
+                      )
+                    }
+                    return true
+                  }).length === 0 && (
+                    <div className="pui-select-no-data">暂无数据</div>
+                  )}
                 </div>
               </div>
             </div>,
