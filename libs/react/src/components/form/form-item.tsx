@@ -117,7 +117,12 @@ export const FormItem =
     return (
       <div
         className="pui-form-item"
-        style={{ ...style, width, marginLeft, marginRight }}
+        style={{
+          ...style,
+          width: width || (filterMode ? 'auto' : ''),
+          marginLeft,
+          marginRight
+        }}
         onKeyUp={() => {
           if (blurTriggered.current) {
             validateFormItem()

@@ -28,8 +28,13 @@
         color: $border-color-3;
       }
 
+      &-input-highlight {
+        border-color: $filter-highlight-border-color;
+        background-color: $filter-highlight-bg-color;
+      }
+
       &-input-with-clear-button {
-        padding-right: 70px;
+        padding-right: 60px;
       }
 
       &-input:hover,
@@ -84,6 +89,15 @@
         }
       }
 
+      &-group-name {
+        padding: 0 12px;
+        font-size: 12px;
+        border-top: 1px solid $border-color-1;
+        padding-top: 12px;
+        padding-bottom: 5px;
+        color: $text-opacity-color-2;
+      }
+
       &-option:hover {
         font-weight: bold;
       }
@@ -97,7 +111,7 @@
         .pui-select-clear-icon {
           display: block;
           position: absolute;
-          right: 41px;
+          right: 37px;
           opacity: 0.5;
         }
         .pui-select-clear-icon:hover {
@@ -143,6 +157,14 @@
         font-size: 16px;
         padding: 0 12px;
         background-color: transparent;
+        padding-left: 30px;
+      }
+
+      &-search-icon {
+        position: absolute;
+        left: 19px;
+        top: 22px;
+        font-size: 19px;
       }
 
       &-filter::placeholder {
@@ -152,6 +174,12 @@
       &-filter:hover,
       &-filter:focus {
         border-color: $border-color-5;
+      }
+
+      &-no-data {
+        text-align: center;
+        color: $text-opacity-color-1;
+        padding-bottom: 10px;
       }
 
       &-size-small {
@@ -170,11 +198,23 @@
         }
 
         .pui-select-clear-icon {
-          top: 6px;
+          top: 9px;
+          font-size: 18px;
         }
 
         .pui-select-option {
           padding: 8px 12px;
+        }
+
+        .pui-select-filter {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-select-search-icon {
+          top: 22px;
+          left: 22px;
+          font-size: 15px;
         }
       }
     }

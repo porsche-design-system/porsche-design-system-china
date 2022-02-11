@@ -43,6 +43,72 @@ export const SelectStoryBook1 = () => {
 
 SelectStoryBook1.storyName = 'String Options'
 
+export const SelectStoryBook11 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <Select
+          label="分组选项"
+          options={[
+            {
+              group: '动物',
+              options: [
+                { text: '狗', value: '狗' },
+                { text: '猫', value: '猫' }
+              ]
+            },
+            {
+              group: '交通工具',
+              options: [
+                { text: '汽车', value: '汽车' },
+                { text: '飞机', value: '飞机' }
+              ]
+            }
+          ]}
+          placeholder="请选择"
+          width="200px"
+        />
+      </Form>
+    </div>
+  )
+}
+
+SelectStoryBook11.storyName = 'Group Options'
+
+export const SelectStoryBook12 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <Select
+          label="分组选项"
+          options={[
+            {
+              text: (
+                <>
+                  猫 <span className="leg">4条腿</span>
+                </>
+              ),
+              value: '狗'
+            },
+            {
+              text: (
+                <>
+                  企鹅 <span className="leg">2条腿</span>
+                </>
+              ),
+              value: '猫'
+            }
+          ]}
+          placeholder="请选择"
+          width="200px"
+        />
+      </Form>
+    </div>
+  )
+}
+
+SelectStoryBook12.storyName = 'Custom Options Style'
+
 export const SelectStoryBook2 = () => {
   return (
     <div style={{ width: '300px' }}>
