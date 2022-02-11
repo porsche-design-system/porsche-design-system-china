@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState
 } from 'react'
+import classNames from 'classnames'
 import ReactDOM from 'react-dom'
 import {
   IconArrowHeadDown,
@@ -25,12 +26,12 @@ import {
 
 import './select.scss'
 
-export interface SelectOption<T> {
+export type SelectOption<T> = {
   text: ReactNode
   value: T
 }
 
-export interface GroupSelectOption<T> {
+export type GroupSelectOption<T> = {
   group: string
   options: SelectOption<T>[]
 }
@@ -235,18 +236,15 @@ Select = FormItem(
         )}
       >
         <button
-          className={
-            'pui-select-input ' +
-            (!displayText && !filterMode
-              ? 'pui-select-input-placeholder'
-              : '') +
-            ' ' +
-            (showClearButton && selectValue
-              ? 'pui-select-input-with-clear-button'
-              : '') +
-            ' ' +
-            (displayText && filterMode ? 'pui-select-input-highlight' : '')
-          }
+          className={classNames(
+            'pui-select-input',
+            { 'pui-select-input-placeholder': !displayText && !filterMode },
+            {
+              'pui-select-input-with-clear-button':
+                showClearButton && selectValue
+            },
+            { 'pui-select-input-highlight': displayText && filterMode }
+          )}
           type="button"
           onClick={evt => {
             evt.stopPropagation()
