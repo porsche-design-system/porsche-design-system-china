@@ -88,4 +88,10 @@
 
   // switch
   $switch-button-color: #0080fa !global;
+
+  $filter: rgba(33, 147, 255, 0.65) !global;
+
+  // filter highlight
+  $filter-highlight-border-color: rgba(33, 147, 255, 1) !global;
+  $filter-highlight-bg-color: rgba(33, 147, 255, 0.1) !global;
 }
