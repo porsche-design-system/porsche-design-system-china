@@ -17,7 +17,7 @@ import {
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
-import { getNodeText } from '../../shared/string-util'
+import { containText, getNodeText } from '../../shared/string-util'
 import {
   useDefaultSize,
   usePopShowState,
@@ -319,17 +319,13 @@ Select = FormItem(
                         {gn && (
                           <div className="pui-select-group-name">{gn.name}</div>
                         )}
-                        {getNodeText(option.text)
-                          .toLowerCase()
-                          .indexOf(filterValue.toLowerCase()) >= 0 && (
+                        {containText(getNodeText(option.text), filterValue) && (
                           <div
                             key={option.value + ' ' + inx}
-                            className={
-                              'pui-select-option ' +
-                              (option.value === selectValue
-                                ? 'pui-select-option-selected'
-                                : '')
-                            }
+                            className={classNames('pui-select-option', {
+                              'pui-select-option-selected':
+                                option.value === selectValue
+                            })}
                             onClick={() => {
                               if (open === undefined) {
                                 setMenuOpen(undefined)
@@ -348,11 +344,7 @@ Select = FormItem(
                   })}
                   {selectOptions.filter(item => {
                     if (filterValue) {
-                      return (
-                        getNodeText(item.text)
-                          .toLowerCase()
-                          .indexOf(filterValue.toLowerCase()) >= 0
-                      )
+                      return containText(getNodeText(item.text), filterValue)
                     }
                     return true
                   }).length === 0 && (
