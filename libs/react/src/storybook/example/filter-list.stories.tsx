@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Select } from '../..'
+import { DatePicker, Select } from '../..'
 import './filter-list.stories.scss'
 
 export default {
@@ -14,14 +14,14 @@ export const FilterStoryBook = () => {
         filterMode
         filterInput
         options="上海保时捷中心,北京保时捷中心"
-        placeholder="经销商"
+        label="经销商"
         showClearButton
         marginRight="10px"
       />
       <Select
         filterMode
         options="911,718"
-        placeholder="车型"
+        label="车型"
         showClearButton
         marginRight="10px"
       />
@@ -46,7 +46,7 @@ export const FilterStoryBook = () => {
             )
           }
         ]}
-        placeholder="业务员"
+        label="业务员"
         showClearButton
         marginRight="10px"
       />
@@ -82,10 +82,12 @@ export const FilterStoryBook = () => {
             ]
           }
         ]}
-        placeholder="业务员"
+        label="业务员"
         showClearButton
         marginRight="10px"
       />
+
+      <DatePicker filterMode label="预约试驾日期" />
     </div>
   )
 }

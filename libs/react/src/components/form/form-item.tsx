@@ -9,7 +9,7 @@ import './form-item.scss'
 
 export interface FormItemProps {
   /* 标签 */
-  label?: FormItemLabelProps | string
+  label?: string | FormItemLabelProps
 
   /* 表单绑定key，需要配合<Form>使用 */
   name?: string
@@ -130,7 +130,7 @@ export const FormItem =
         }}
         onBlur={validateFormItem}
       >
-        {label && (
+        {label && !filterMode && (
           <Label
             requiredMark={required}
             {...labelProps}

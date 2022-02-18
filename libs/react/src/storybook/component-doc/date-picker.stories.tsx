@@ -85,3 +85,20 @@ export const DatePickerStoryBook3 = () => {
 }
 
 DatePickerStoryBook3.storyName = 'Limited Time'
+
+export const DatePickerStoryBook4 = () => {
+  return (
+    <div>
+      <div>过滤器模式</div>
+      <DatePicker
+        width="600px"
+        label="来访日期"
+        placeholder="请选择"
+        filterMode
+      />
+      <br /> <br /> <br />
+    </div>
+  )
+}
+
+DatePickerStoryBook4.storyName = 'Limited Time'
