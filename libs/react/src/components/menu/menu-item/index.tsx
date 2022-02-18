@@ -1,17 +1,8 @@
 import React, { useContext } from 'react'
 import classNames from 'classnames'
 import { IconCheck } from '@pui/icons'
-import { MenuContext } from './menu'
-
-export interface MenuItemProps {
-  index?: string
-  icon?: React.ReactElement
-  disabled?: boolean
-  divider?: boolean
-  selectAfter?: boolean
-  className?: string
-  style?: React.CSSProperties
-}
+import { MenuContext } from '../index'
+import { MenuItemProps } from '../types'
 
 const MenuItem: React.FC<MenuItemProps> = props => {
   const {
@@ -24,6 +15,7 @@ const MenuItem: React.FC<MenuItemProps> = props => {
     divider,
     selectAfter
   } = props
+
   const context = useContext(MenuContext)
   const classes = classNames(className, {
     'is-disabled': disabled,
@@ -36,7 +28,12 @@ const MenuItem: React.FC<MenuItemProps> = props => {
     }
   }
   return (
-    <li className={classes} style={style} onClick={handleClick}>
+    <li
+      className={classes}
+      style={style}
+      onClick={handleClick}
+      data-index={index}
+    >
       <span className="menu-title-content">
         {icon}
         {children}

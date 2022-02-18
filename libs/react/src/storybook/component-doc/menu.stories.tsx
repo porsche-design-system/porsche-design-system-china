@@ -1,5 +1,4 @@
 import React from 'react'
-import { IconEdit, IconAdd, IconBell } from '@pui/icons'
 
 import { Menu } from '../..'
 import './menu.stories.scss'
@@ -16,18 +15,29 @@ export const ProgressStoryBook = () => {
   return (
     <div className="menu-demo">
       <div className="test-one">
-        <Menu defaultIndex="1">
-          <Menu.Item>test</Menu.Item>
-          <Menu.Item>about</Menu.Item>
-          <Menu.Item disabled>prod</Menu.Item>
-          <Menu.SubMenu title="submit">
-            <Menu.Item>test1</Menu.Item>
-            <Menu.Item>about2</Menu.Item>
-            <Menu.Item disabled>prod3</Menu.Item>
-            <Menu.SubMenu title="submit-submit">
-              <Menu.Item>test1</Menu.Item>
-              <Menu.Item>about2</Menu.Item>
-              <Menu.Item disabled>prod3</Menu.Item>
+        <Menu activeIndex="test">
+          <Menu.Item index="test">test</Menu.Item>
+          <Menu.Item index="about">about</Menu.Item>
+          <Menu.Item disabled index="prod">
+            prod
+          </Menu.Item>
+          <Menu.SubMenu title="submit" index="submit">
+            <Menu.Item index="submit-test">test1</Menu.Item>
+            <Menu.Item index="submit-about">about2</Menu.Item>
+            <Menu.Item disabled index="submit-prod">
+              prod3
+            </Menu.Item>
+            <Menu.Item index="submit-test1">test1</Menu.Item>
+            <Menu.Item index="submit-about2">about2</Menu.Item>
+            <Menu.Item disabled index="submit-prod3">
+              prod3
+            </Menu.Item>
+            <Menu.SubMenu title="submit-submit" index="submit-submit">
+              <Menu.Item index="submit-submit-test1">test1</Menu.Item>
+              <Menu.Item index="submit-submit-about2">about2</Menu.Item>
+              <Menu.Item disabled index="submit-submit-prod3">
+                prod3
+              </Menu.Item>
             </Menu.SubMenu>
           </Menu.SubMenu>
         </Menu>
@@ -38,36 +48,36 @@ export const ProgressStoryBook = () => {
 
 ProgressStoryBook.storyName = 'Menu Horizontal'
 
-export const ProgressStoryBook1 = () => {
-  return (
-    <div className="menu-demo">
-      <div className="test-two">
-        <Menu mode="vertical">
-          <Menu.Item icon={<IconEdit />} selectAfter>
-            test
-          </Menu.Item>
-          <Menu.Item icon={<IconAdd />} selectAfter>
-            about
-          </Menu.Item>
-          <Menu.Item disabled icon={<IconEdit />} selectAfter>
-            prod
-          </Menu.Item>
-          <Menu.SubMenu title="submit">
-            <Menu.Item icon={<IconEdit />} selectAfter>
-              test1
-            </Menu.Item>
-            <Menu.Item icon={<IconBell />} selectAfter>
-              about2
-            </Menu.Item>
-            <Menu.Item disabled icon={<IconEdit />} selectAfter>
-              prod3
-            </Menu.Item>
-          </Menu.SubMenu>
-          {null}
-        </Menu>
-      </div>
-    </div>
-  )
-}
+// export const ProgressStoryBook1 = () => {
+//   return (
+//     <div className="menu-demo">
+//       <div className="test-two">
+//         <Menu mode="vertical">
+//           <Menu.Item icon={<IconEdit />} selectAfter index="test">
+//             test
+//           </Menu.Item>
+//           <Menu.Item icon={<IconAdd />} selectAfter index="about">
+//             about
+//           </Menu.Item>
+//           <Menu.Item disabled icon={<IconEdit />} selectAfter index="prod">
+//             prod
+//           </Menu.Item>
+//           <Menu.SubMenu title="submit" index="submit">
+//             <Menu.Item icon={<IconEdit />} selectAfter index="test1">
+//               test1
+//             </Menu.Item>
+//             <Menu.Item icon={<IconBell />} selectAfter index="about2">
+//               about2
+//             </Menu.Item>
+//             <Menu.Item disabled icon={<IconEdit />} selectAfter index="prod3">
+//               prod3
+//             </Menu.Item>
+//           </Menu.SubMenu>
+//           {null}
+//         </Menu>
+//       </div>
+//     </div>
+//   )
+// }
 
-ProgressStoryBook1.storyName = 'Menu Vertical'
+// ProgressStoryBook1.storyName = 'Menu Vertical'

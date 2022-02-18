@@ -1,13 +1,6 @@
 import React, { FunctionComponentElement } from 'react'
 import classNames from 'classnames'
-
-import { MenuItemProps } from './menu-item'
-
-export interface ItemGroupProps {
-  index?: string
-  title: string
-  className?: string
-}
+import { ItemGroupProps, MenuItemProps } from '../types'
 
 const ItemGroup: React.FC<ItemGroupProps> = ({
   index,
