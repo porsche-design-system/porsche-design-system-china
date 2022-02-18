@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Select } from '../..'
+import { DatePicker, Select } from '../..'
 import './filter-list.stories.scss'
 
 export default {
@@ -86,6 +86,8 @@ export const FilterStoryBook = () => {
         showClearButton
         marginRight="10px"
       />
+
+      <DatePicker filterMode label="预约试驾日期" />
     </div>
   )
 }
