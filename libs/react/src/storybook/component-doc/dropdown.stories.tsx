@@ -10,35 +10,51 @@ export default {
 }
 const oneMenu = (
   <Menu>
-    <Menu.Item icon={<IconEdit />} selectAfter>
+    <Menu.Item icon={<IconEdit />} selectAfter index="test1">
       test
     </Menu.Item>
-    <Menu.Item icon={<IconAdd />} selectAfter divider>
-      <a href="https://baidu.com">百度</a>
+    <Menu.Item icon={<IconAdd />} index="test2" selectAfter divider>
+      <a href="http://react-dev.qa4.porsche-preview.cn/">PUI</a>
     </Menu.Item>
-    <Menu.Item disabled>disabled</Menu.Item>
-    <Menu.SubMenu title="submit" subStyle={{ right: -208 }}>
-      <Menu.Item selectAfter>test1</Menu.Item>
-      <Menu.Item selectAfter>about2</Menu.Item>
-      <Menu.Item disabled>prod3</Menu.Item>
+    <Menu.Item disabled index="test3">
+      disabled
+    </Menu.Item>
+    <Menu.SubMenu title="submit" index="submit">
+      <Menu.Item selectAfter index="submit1">
+        test1
+      </Menu.Item>
+      <Menu.Item selectAfter index="submit2">
+        about2
+      </Menu.Item>
+      <Menu.Item disabled index="submit3">
+        prod3
+      </Menu.Item>
     </Menu.SubMenu>
   </Menu>
 )
 const twoMenu = (
   <Menu>
     <Menu.ItemGroup title="ItemGroup">
-      <Menu.Item icon={<IconEdit />} selectAfter>
+      <Menu.Item index="test" icon={<IconEdit />} selectAfter>
         test
       </Menu.Item>
-      <Menu.Item icon={<IconAdd />} selectAfter>
-        <a href="https://baidu.com">百度</a>
+      <Menu.Item icon={<IconAdd />} selectAfter index="test2">
+        <a href="http://react-dev.qa4.porsche-preview.cn/">PUI</a>
       </Menu.Item>
-      <Menu.Item disabled>disabled</Menu.Item>
+      <Menu.Item disabled index="disabled">
+        disabled
+      </Menu.Item>
     </Menu.ItemGroup>
     <Menu.ItemGroup title="ItemGroup">
-      <Menu.Item selectAfter>test1</Menu.Item>
-      <Menu.Item selectAfter>about2</Menu.Item>
-      <Menu.Item disabled>prod3</Menu.Item>
+      <Menu.Item selectAfter index="test3">
+        test1
+      </Menu.Item>
+      <Menu.Item selectAfter index="about2">
+        about2
+      </Menu.Item>
+      <Menu.Item disabled index="prod3">
+        prod3
+      </Menu.Item>
     </Menu.ItemGroup>
   </Menu>
 )

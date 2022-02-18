@@ -1,8 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { CSSTransition } from 'react-transition-group'
+import ReactDOM from 'react-dom'
 import classnames from 'classnames'
-import { useClickOutside } from '../../shared/hooks'
-import { MenuProps } from '../menu/menu'
+import {
+  useClickOutside,
+  useElementPos,
+  usePopShowState
+} from '../../shared/hooks'
+import { MenuProps } from '../menu'
 import './dropdown.scss'
 
 type OverlayFunc = () => React.ReactElement
@@ -28,12 +32,20 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     overlayClassName,
     overlayStyle,
     children,
-    trigger,
-    visible,
+    trigger = 'hover',
+    visible = false,
     disabled
   } = props
-  const [showDropdown, setShowDropdown] = useState(visible || false)
-
+  const rootElementRef = useRef<any>(null)
+  const [showDropdown, setShowDropdown] = useState(visible)
+  const [menuPos, updatePos] = useElementPos(rootElementRef)
+  const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
+    () => {
+      if (showDropdown) {
+        setShowDropdown(false)
+      }
+    }
+  )
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setShowDropdown(!showDropdown)
@@ -61,9 +73,11 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
           }
         }
       : {}
-
-  const renderMenu = () => {
-    return React.Children.map(overlay, child => {
+  const renderChildren = () => {
+    const dropdownClasses = classnames('pui-dropdown-menu', overlayClassName, {
+      'pui-dropdown-open': showDropdown
+    })
+    const childrenComponent = React.Children.map(overlay, child => {
       const childElement = child as React.FunctionComponentElement<MenuProps>
       const { displayName } = childElement.type
       if (displayName === 'Menu') {
@@ -73,41 +87,39 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       } else {
         console.error('Warning: overlay is not a Menu component')
       }
+      return null
     })
-  }
-
-  const generateDropdown = () => {
-    return (
-      <CSSTransition
-        in={showDropdown}
-        animation="zoom-in-top"
-        timeout={300}
-        onExited={() => setShowDropdown(false)}
+    const contentList = (
+      <div
+        className={dropdownClasses}
+        style={{ position: 'absolute', ...menuPos, ...overlayStyle }}
       >
-        <>{renderMenu()}</>
-      </CSSTransition>
+        {childrenComponent}
+      </div>
     )
+    if (showDropdown) {
+      return ReactDOM.createPortal(contentList, puiPopupWrap)
+    }
+    return null
   }
-
-  const dropdownClasses = classnames('pui-dropdown-menu', overlayClassName, {
-    'pui-dropdown-open': showDropdown
-  })
-
   const componentRef = useRef<HTMLDivElement>(null)
   useClickOutside(componentRef, () => setShowDropdown(false))
-
+  const Children = renderChildren()
   return (
-    <div className="pui-dropdown" {...hoverEvents}>
+    <div
+      {...hoverEvents}
+      className="pui-dropdown"
+      ref={rootElement => {
+        if (rootElement) {
+          rootElementRef.current = rootElement
+        }
+      }}
+    >
       <div className="pui-dropdown-trigger" {...clickEvents} ref={componentRef}>
         {children}
       </div>
-      <div className={dropdownClasses} style={overlayStyle}>
-        {generateDropdown()}
-      </div>
+
+      {Children}
     </div>
   )
-}
-
-Dropdown.defaultProps = {
-  trigger: 'hover'
 }
