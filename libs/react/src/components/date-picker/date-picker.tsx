@@ -8,7 +8,7 @@ import {
   IconArrowDoubleRight,
   IconErrorFilled
 } from '@pui/icons'
-
+import classNames from 'classnames'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import {
@@ -18,6 +18,7 @@ import {
 } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './date-picker.scss'
+import { FormItemLabelProps } from '../form/form'
 
 export interface DatePickerProps {
   /** 类名 */
@@ -55,6 +56,12 @@ export interface DatePickerProps {
 
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
+
+  /* 过滤器模式 */
+  filterMode?: boolean
+
+  /* 标签 */
+  label?: string | FormItemLabelProps
 }
 
 const DatePicker = FormItem(
@@ -70,7 +77,9 @@ const DatePicker = FormItem(
     placeholder,
     open,
     defaultOpen,
-    onMenuVisibleChange
+    onMenuVisibleChange,
+    filterMode = false,
+    label
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr.split('-')
@@ -281,14 +290,13 @@ const DatePicker = FormItem(
           className
         )}
       >
-        <input
-          className={
-            'pui-date-picker-box ' +
-            (calenderOpen ? 'pui-date-picker-box-active' : '')
-          }
-          readOnly
-          placeholder={placeholder}
-          value={displayValue}
+        <button
+          type="button"
+          className={classNames('pui-date-picker-box', {
+            'pui-date-picker-box-active': calenderOpen,
+            'pui-date-picker-box-with-clear-button': displayValue,
+            'pui-date-picker-box-highlight': displayValue && filterMode
+          })}
           disabled={disabled}
           onClick={evt => {
             evt.stopPropagation()
@@ -301,7 +309,22 @@ const DatePicker = FormItem(
               : new Date()
             updateCalendar()
           }}
-        />
+        >
+          {filterMode ? (
+            displayValue ? (
+              <>
+                <span className="pui-select-input-placeholder">
+                  {label || ''} :
+                </span>{' '}
+                {displayValue}
+              </>
+            ) : (
+              label || ''
+            )
+          ) : (
+            displayValue || placeholder
+          )}
+        </button>
         <IconCalendar className="pui-date-picker-icon" />
         {displayValue && (
           <IconErrorFilled
