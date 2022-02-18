@@ -36,6 +36,11 @@
         color: $border-color-3 !important;
       }
 
+      &-box-highlight {
+        border-color: $filter-highlight-border-color !important;
+        background-color: $filter-highlight-bg-color !important;
+      }
+
       &-icon {
         position: absolute;
         right: 11px;
@@ -175,7 +180,9 @@
         }
 
         .pui-date-picker-clear-icon {
-          margin-top: 6px;
+          margin-top: 9px;
+          font-size: 18px;
+          margin-left: -55px;
         }
 
         .pui-date-picker-calendar {

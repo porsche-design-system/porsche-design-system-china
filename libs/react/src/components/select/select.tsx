@@ -25,6 +25,7 @@ import {
 } from '../../shared/hooks'
 
 import './select.scss'
+import { FormItemLabelProps } from '../form/form'
 
 export type SelectOption<T> = {
   text: ReactNode
@@ -86,6 +87,9 @@ export interface SelectProps<T> {
 
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
+
+  /* 标签 */
+  label?: string | FormItemLabelProps
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -110,7 +114,8 @@ Select = FormItem(
     showClearButton = false,
     open,
     filterMode = false,
-    onMenuVisibleChange
+    onMenuVisibleChange,
+    label
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
@@ -261,15 +266,15 @@ Select = FormItem(
             filterMode ? (
               <>
                 <span className="pui-select-input-placeholder">
-                  {placeholder || ''}
+                  {label || ''} :
                 </span>{' '}
-                : {displayText}
+                {displayText}
               </>
             ) : (
               displayText
             )
           ) : (
-            placeholder || ''
+            label || ''
           )}
         </button>
         {showClearButton && selectValue && (
