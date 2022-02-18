@@ -61,7 +61,7 @@ export interface DatePickerProps {
   filterMode?: boolean
 
   /* 标签 */
-  label?: FormItemLabelProps | string
+  label?: string | FormItemLabelProps
 }
 
 const DatePicker = FormItem(
@@ -294,7 +294,8 @@ const DatePicker = FormItem(
           type="button"
           className={classNames('pui-date-picker-box', {
             'pui-date-picker-box-active': calenderOpen,
-            'pui-date-picker-box-with-clear-button': displayValue
+            'pui-date-picker-box-with-clear-button': displayValue,
+            'pui-date-picker-box-highlight': displayValue && filterMode
           })}
           disabled={disabled}
           onClick={evt => {
@@ -313,9 +314,9 @@ const DatePicker = FormItem(
             displayValue ? (
               <>
                 <span className="pui-select-input-placeholder">
-                  {label || ''}
-                </span>
-                : {displayValue}
+                  {label || ''} :
+                </span>{' '}
+                {displayValue}
               </>
             ) : (
               label || ''
