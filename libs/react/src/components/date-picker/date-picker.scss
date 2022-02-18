@@ -28,17 +28,17 @@
         border-color: $border-color-5;
       }
 
-      &-box-with-clear-button {
-        padding-right: 60px !important;
+      .pui-date-picker-box-with-clear-button {
+        padding-right: 60px;
       }
 
       &-box-placeholder {
-        color: $border-color-3 !important;
+        color: $border-color-3;
       }
 
-      &-box-highlight {
-        border-color: $filter-highlight-border-color !important;
-        background-color: $filter-highlight-bg-color !important;
+      .pui-date-picker-box-highlight {
+        border-color: $filter-highlight-border-color;
+        background-color: $filter-highlight-bg-color;
       }
 
       &-icon {
