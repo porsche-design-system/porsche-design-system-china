@@ -27,6 +27,7 @@ import {
 
 import './select.scss'
 import { FormItemLabelProps } from '../form/form'
+import { supportTouch } from '../../shared/device'
 
 export type SelectOption<T> = {
   text: ReactNode
@@ -83,6 +84,9 @@ export interface SelectProps<T> {
   /* 显示清除按钮 */
   showClearButton?: boolean
 
+  /* 清除按钮是否一直显示 触屏设备默认为true */
+  keepClearButton?: boolean
+
   /* 过滤器选项模式 */
   filterMode?: boolean
 
@@ -116,6 +120,7 @@ Select = FormItem(
     placeholder,
     defaultOpen,
     showClearButton = false,
+    keepClearButton = false,
     open,
     filterMode = false,
     maxWidth,
@@ -220,6 +225,8 @@ Select = FormItem(
       }
     }, [open])
 
+    const newKeepClearButton = keepClearButton || supportTouch()
+
     return (
       <div
         ref={rootElement => {
@@ -242,7 +249,9 @@ Select = FormItem(
             size,
             disabled: disabled + '',
             active: showOptionList + '',
-            error: error ? error.show + '' : 'false'
+            error: error ? error.show + '' : 'false',
+            'keep-clear-button':
+              (showClearButton && newKeepClearButton && !!displayText) + ''
           },
           className
         )}
