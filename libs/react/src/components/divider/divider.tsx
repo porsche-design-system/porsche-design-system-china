@@ -20,7 +20,7 @@ const Divider = ({
   className,
   style,
   type = 'horizontal',
-  contrast = 'low'
+  contrast = 'medium'
 }: DividerProps) => {
   return (
     <div
@@ -29,7 +29,10 @@ const Divider = ({
         { type, contrast },
         className
       )}
-      style={style}
+      style={{
+        display: type === 'vertical' ? 'inline-block' : 'block',
+        ...style
+      }}
     />
   )
 }
