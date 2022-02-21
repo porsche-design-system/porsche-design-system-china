@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import classNames from 'classnames'
 import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
@@ -13,6 +14,8 @@ import {
 import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
+import { FormItemLabelProps } from '../form/form'
+import { supportTouch } from '../../shared/device'
 
 interface MultiSelectOption<T> {
   text: string
@@ -49,6 +52,9 @@ export interface MultiSelectProps<T> {
   /* 选项 */
   options?: string | string[] | MultiSelectOption<T>[]
 
+  /* 选项style样式 */
+  optionsStyle?: CSSProperties
+
   /* 错误 */
   error?: FormErrorText
 
@@ -60,6 +66,18 @@ export interface MultiSelectProps<T> {
 
   /* 控制菜单打开 */
   open?: boolean
+
+  /* 显示清除按钮 */
+  showClearButton?: boolean
+
+  /* 清除按钮是否一直显示 触屏设备默认为true */
+  keepClearButton?: boolean
+
+  /* 过滤器选项模式 */
+  filterMode?: boolean
+
+  /* 最大宽度 */
+  maxWidth?: string
 
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
@@ -79,13 +97,18 @@ MultiSelect = FormItem(
     defaultValue,
     error,
     options = [],
+    placeholder,
     defaultOpen,
+    showClearButton = false,
+    keepClearButton = false,
     open,
+    filterMode = false,
+    maxWidth,
+    optionsStyle,
     onMenuVisibleChange,
     filterInput,
     size,
-    onValueChange,
-    placeholder
+    onValueChange
   }: MultiSelectProps<T>) => {
     const selectState = useState<T[]>(defaultValue || [])
     let selectValue = selectState[0]
@@ -169,6 +192,8 @@ MultiSelect = FormItem(
     const partChecked =
       displayTextArr.length < selectOptions.length && displayTextArr.length > 0
 
+    const newKeepClearButton = keepClearButton || supportTouch()
+
     return (
       <div
         ref={rootElement => {
@@ -189,28 +214,56 @@ MultiSelect = FormItem(
           'pui-multi-select',
           {
             size,
+
             disabled: disabled + '',
             active: showOptionList + '',
-            error: error ? error.show + '' : 'false'
+            error: error ? error.show + '' : 'false',
+            'keep-clear-button':
+              (showClearButton && newKeepClearButton && !!displayText) + ''
           },
           className
         )}
       >
-        <input
-          className="pui-multi-select-input"
-          readOnly
-          value={displayText}
-          placeholder={placeholder}
+        <button
+          className={classNames(
+            'pui-multi-select-input',
+            {
+              'pui-multi-select-input-placeholder': !displayText && !filterMode
+            },
+            {
+              'pui-multi-select-input-with-clear-button':
+                showClearButton && !!selectValue.length
+            },
+            { 'pui-multi-select-input-highlight': displayText && filterMode }
+          )}
+          type="button"
           onClick={evt => {
             evt.stopPropagation()
+            updatePos()
             if (!showOptionList) {
               setFilterValue('')
             }
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
-        />
-        {selectValue.length > 0 && (
+          style={{
+            width: filterMode ? 'auto' : '',
+            maxWidth: maxWidth + '',
+            overflow: maxWidth ? 'hidden' : ''
+          }}
+        >
+          {filterMode ? (
+            <>
+              <span className="pui-multi-select-input-placeholder">
+                {placeholder}
+              </span>
+              {displayText ? ': ' + displayText : ''}
+            </>
+          ) : (
+            displayText || placeholder || ''
+          )}
+        </button>
+        {showClearButton && selectValue.length > 0 && (
           <IconErrorFilled
             className="pui-multi-select-clear-icon"
             onClick={evt => {
@@ -228,7 +281,11 @@ MultiSelect = FormItem(
           !disabled &&
           ReactDOM.createPortal(
             <div
-              style={{ position: 'absolute', ...menuPos }}
+              style={{
+                position: 'absolute',
+                ...menuPos,
+                ...optionsStyle
+              }}
               className={`pui-multi-select-size-${size}`}
             >
               <div

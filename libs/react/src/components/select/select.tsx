@@ -118,9 +118,9 @@ Select = FormItem(
     showClearButton = false,
     open,
     filterMode = false,
-    onMenuVisibleChange,
     maxWidth,
-    label
+    label,
+    onMenuVisibleChange
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
@@ -269,7 +269,7 @@ Select = FormItem(
           disabled={disabled}
           style={{
             width: filterMode ? 'auto' : '',
-            maxWidth: maxWidth ? `calc(${maxWidth} - 60px)` : '',
+            maxWidth: maxWidth + '',
             overflow: maxWidth ? 'hidden' : ''
           }}
         >

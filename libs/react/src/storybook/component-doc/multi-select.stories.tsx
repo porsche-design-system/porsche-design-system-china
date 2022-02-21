@@ -21,7 +21,12 @@ export const SelectStoryBook = () => {
         />
         <br />
         <div>禁用状态</div>
-        <MultiSelect options="狗,猫,狮子,老虎,鲸鱼" disabled />
+        <MultiSelect
+          options="狗:dog,猫,狮子,老虎,鲸鱼"
+          label="动物"
+          placeholder="请选择"
+          disabled
+        />
       </Form>
     </div>
   )
@@ -53,6 +58,7 @@ export const SelectStoryBook2 = () => {
         <div>出错状态</div>
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼"
+          placeholder="请选择"
           error={{ show: true, message: '未选择' }}
         />
       </Form>
@@ -68,10 +74,48 @@ export const SelectStoryBook3 = () => {
         <div>显示过滤输入框</div>
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          placeholder="请选择"
           filterInput
         />
       </Form>
     </div>
   )
 }
-SelectStoryBook3.storyName = 'Show filter Input'
+SelectStoryBook3.storyName = 'Filter Input'
+
+export const SelectStoryBook4 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <div>显示清楚按钮</div>
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          placeholder="动物"
+          filterInput
+          showClearButton
+        />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook4.storyName = 'Show Clear Button'
+
+export const SelectStoryBook5 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <div>filterMode</div>
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          filterInput
+          filterMode
+          showClearButton
+          placeholder="动物"
+          maxWidth="300px"
+          optionsStyle={{ minWidth: '200px' }}
+        />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook5.storyName = 'Filter Mode'
