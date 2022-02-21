@@ -86,6 +86,9 @@ export interface SelectProps<T> {
   /* 过滤器选项模式 */
   filterMode?: boolean
 
+  /* 最大宽度 */
+  maxWidth?: string
+
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 
@@ -116,6 +119,7 @@ Select = FormItem(
     open,
     filterMode = false,
     onMenuVisibleChange,
+    maxWidth,
     label
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
@@ -263,7 +267,11 @@ Select = FormItem(
             setShowOptionList(!showOptionList)
           }}
           disabled={disabled}
-          style={{ width: filterMode ? 'auto' : '' }}
+          style={{
+            width: filterMode ? 'auto' : '',
+            maxWidth: maxWidth ? `calc(${maxWidth} - 60px)` : '',
+            overflow: maxWidth ? 'hidden' : ''
+          }}
         >
           {filterMode ? (
             displayText ? (

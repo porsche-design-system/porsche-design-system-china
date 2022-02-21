@@ -80,11 +80,12 @@
         &-selected {
           font-weight: bold;
           color: $brand-color !important;
+          padding-right: 32px;
           .porscheicon {
             float: right;
             font-size: 20px;
             margin-top: 2px;
-            margin-right: -2px;
+            margin-right: -26px;
           }
         }
       }
@@ -186,6 +187,9 @@
         .pui-select-input {
           height: 36px;
           font-size: 14px;
+          &-with-clear-button {
+            padding-right: 56px;
+          }
         }
 
         .pui-select-icon {
@@ -204,6 +208,9 @@
 
         .pui-select-option {
           padding: 8px 12px;
+          &-selected {
+            padding-right: 32px;
+          }
         }
 
         .pui-select-filter {
