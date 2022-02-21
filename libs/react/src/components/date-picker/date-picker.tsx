@@ -79,7 +79,7 @@ const DatePicker = FormItem(
     defaultOpen,
     onMenuVisibleChange,
     filterMode = false,
-    label
+    label = ''
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr.split('-')
@@ -238,6 +238,8 @@ const DatePicker = FormItem(
       )
     }
 
+    const labelText = typeof label === 'object' ? label.text : label
+
     useEffect(() => {
       if (!isFirstLoad.current) {
         onMenuVisibleChange &&
@@ -314,12 +316,12 @@ const DatePicker = FormItem(
             displayValue ? (
               <>
                 <span className="pui-select-input-placeholder">
-                  {label || ''} :
+                  {labelText || ''} :
                 </span>{' '}
                 {displayValue}
               </>
             ) : (
-              label || ''
+              labelText || ''
             )
           ) : (
             displayValue || placeholder

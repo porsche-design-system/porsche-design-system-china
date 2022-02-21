@@ -116,7 +116,7 @@ Select = FormItem(
     open,
     filterMode = false,
     onMenuVisibleChange,
-    label
+    label = ''
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
