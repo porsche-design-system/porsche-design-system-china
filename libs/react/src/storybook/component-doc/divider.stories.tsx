@@ -44,6 +44,13 @@ export const RowStoryBook = () => {
           <Divider type="vertical" contrast="high" />
         </Col>
       </Row>
+      <br />
+      <h4>
+        <b>文字分隔</b>
+      </h4>
+      <div>
+        文字1 <Divider type="vertical" /> 文字2
+      </div>
     </>
   )
 }
