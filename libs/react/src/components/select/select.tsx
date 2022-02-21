@@ -1,5 +1,6 @@
 import React, {
   CSSProperties,
+  Fragment,
   ReactNode,
   useEffect,
   useRef,
@@ -182,6 +183,8 @@ Select = FormItem(
       }
     }
 
+    const labelText = typeof label === 'object' ? label.text : label
+
     let displayText: ReactNode = ''
     if (isControlledByValue.current) {
       selectOptions.forEach(option => {
@@ -262,19 +265,19 @@ Select = FormItem(
           disabled={disabled}
           style={{ width: filterMode ? 'auto' : '' }}
         >
-          {displayText ? (
-            filterMode ? (
+          {filterMode ? (
+            displayText ? (
               <>
                 <span className="pui-select-input-placeholder">
-                  {label || ''} :
+                  {labelText || ''} :
                 </span>{' '}
                 {displayText}
               </>
             ) : (
-              displayText
+              labelText
             )
           ) : (
-            label || ''
+            displayText || placeholder
           )}
         </button>
         {showClearButton && selectValue && (
@@ -320,13 +323,12 @@ Select = FormItem(
                   {selectOptions.map((option, inx) => {
                     const gn = groupNames.find(gn => gn.index === inx)
                     return (
-                      <>
+                      <Fragment key={option.value + ' ' + inx}>
                         {gn && (
                           <div className="pui-select-group-name">{gn.name}</div>
                         )}
                         {containText(getNodeText(option.text), filterValue) && (
                           <div
-                            key={option.value + ' ' + inx}
                             className={classNames('pui-select-option', {
                               'pui-select-option-selected':
                                 option.value === selectValue
@@ -344,7 +346,7 @@ Select = FormItem(
                             {option.value === selectValue && <IconCheck />}
                           </div>
                         )}
-                      </>
+                      </Fragment>
                     )
                   })}
                   {selectOptions.filter(item => {
