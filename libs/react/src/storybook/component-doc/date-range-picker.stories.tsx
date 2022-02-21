@@ -58,3 +58,18 @@ export const DateRangePickerStoryBook2 = () => {
   )
 }
 DateRangePickerStoryBook2.storyName = 'Limited Date'
+
+export const DateRangePickerStoryBook3 = () => {
+  return (
+    <div>
+      <DateRangePicker
+        label="保修时间"
+        placeholderStartDate="开始日期"
+        placeholderEndDate="结束日期"
+        range="2012-10-12,2012-12-12"
+        filterMode
+      />
+    </div>
+  )
+}
+DateRangePickerStoryBook3.storyName = 'Filter Mode'

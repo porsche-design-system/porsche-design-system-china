@@ -8,7 +8,7 @@ import {
   IconArrowDoubleRight,
   IconErrorFilled
 } from '@pui/icons'
-
+import classNames from 'classnames'
 import {
   addMonth,
   dateToStr,
@@ -26,6 +26,7 @@ import {
 } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './date-range-picker.scss'
+import { FormItemLabelProps } from '../form/form'
 
 export interface DateRangePickerProps {
   /** 类名 */
@@ -72,6 +73,12 @@ export interface DateRangePickerProps {
 
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
+
+  /* 标签 */
+  label?: string | FormItemLabelProps
+
+  /* 过滤器模式 */
+  filterMode?: boolean
 }
 
 const DateRangePicker = FormItem(
@@ -88,7 +95,9 @@ const DateRangePicker = FormItem(
     placeholderEndDate,
     open,
     defaultOpen,
-    onMenuVisibleChange
+    onMenuVisibleChange,
+    label = '',
+    filterMode = false
   }: DateRangePickerProps) => {
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
@@ -176,6 +185,8 @@ const DateRangePicker = FormItem(
         getMonthCalDates(addMonth(displayDate.current))
       ])
     }
+
+    const labelText = typeof label === 'object' ? label.text : label
 
     useEffect(() => {
       if (defaultValue === undefined) {
@@ -439,16 +450,25 @@ const DateRangePicker = FormItem(
           className
         )}
       >
-        <input
-          className={
-            'pui-date-range-picker-box ' +
-            (currentInputPlace === 0 && calenderOpen
-              ? 'pui-date-range-picker-box-active'
-              : '')
-          }
-          readOnly
-          placeholder={placeholderStartDate}
-          value={displayValues[0]}
+        {filterMode && (
+          <div className="pui-date-range-picker-filter-label">
+            {displayValues[0] || displayValues[1] ? (
+              <>
+                <span className="pui-date-range-picker-placeholder">
+                  {labelText || ''} :
+                </span>
+              </>
+            ) : (
+              labelText || ''
+            )}
+          </div>
+        )}
+        <button
+          className={classNames('pui-date-range-picker-box', {
+            'pui-date-range-picker-box-active':
+              currentInputPlace === 0 && calenderOpen
+          })}
+          type="button"
           disabled={disabled}
           onClick={evt => {
             evt.stopPropagation()
@@ -462,18 +482,20 @@ const DateRangePicker = FormItem(
               : new Date()
             updateCalendar()
           }}
-        />
+        >
+          {displayValues[0] || (
+            <span className="pui-date-range-picker-placeholder">
+              {placeholderStartDate}
+            </span>
+          )}
+        </button>
         <span className="pui-date-range-picker-to">至</span>
-        <input
-          className={
-            'pui-date-range-picker-box ' +
-            (currentInputPlace === 1 && calenderOpen
-              ? 'pui-date-range-picker-box-active'
-              : '')
-          }
-          readOnly
-          placeholder={placeholderEndDate}
-          value={displayValues[1]}
+        <button
+          type="button"
+          className={classNames('pui-date-range-picker-box', {
+            'pui-date-range-picker-box-active':
+              currentInputPlace === 1 && calenderOpen
+          })}
           disabled={disabled}
           onClick={evt => {
             evt.stopPropagation()
@@ -492,7 +514,13 @@ const DateRangePicker = FormItem(
             }
             updateCalendar()
           }}
-        />
+        >
+          {displayValues[1] || (
+            <span className="pui-date-range-picker-placeholder">
+              {placeholderEndDate}
+            </span>
+          )}
+        </button>
         {pickedDates[0] && pickedDates[1] && (
           <IconErrorFilled
             className="pui-date-range-picker-clear-icon"

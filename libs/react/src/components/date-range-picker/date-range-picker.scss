@@ -16,9 +16,9 @@
       position: relative;
       border: 1px solid $border-color-3;
       height: 50px;
+      padding-right: 20px;
 
-      input {
-        width: calc((100% - 128px) / 2);
+      button {
         height: 48px;
         cursor: pointer;
         padding: 12px;
@@ -32,8 +32,16 @@
         border-top-color: transparent;
       }
 
+      .pui-date-range-picker-filter-label {
+        margin-left: 10px;
+        display: inline-block;
+      }
+
+      .pui-date-range-picker-placeholder {
+        color: $border-color-3;
+      }
+
       .pui-date-range-picker-box-active {
-        border-top: 2px solid transparent;
         border-bottom: 2px solid $brand-color;
       }
 
@@ -69,7 +77,7 @@
         }
       }
 
-      input:disabled {
+      button:disabled {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
         cursor: not-allowed;
@@ -248,7 +256,7 @@
       &-size-small {
         height: 36px;
         font-size: 14px;
-        input {
+        button {
           height: 36px;
           font-size: 14px;
         }
