@@ -15,10 +15,10 @@ import './table.scss'
 
 export enum SortType {
   ASC = 'asc',
-  DES = 'des'
+  DESC = 'desc'
 }
 
-const ORDER_QUEUE = [undefined, SortType.DES, SortType.ASC]
+const ORDER_QUEUE = [undefined, SortType.DESC, SortType.ASC]
 
 export interface Sorter {
   key?: string
@@ -32,6 +32,7 @@ export interface TableColumn {
   fixed?: 'none' | 'left' | 'right'
   multiline?: boolean
   sortable?: boolean
+  ignoreUnsortedState?: boolean
   sortIconPlace?: 'left' | 'right'
   headCellStyle?: CSSProperties
   rowCellStyle?: CSSProperties
@@ -297,7 +298,7 @@ const Table = ({
     const isAscend =
       sorter.key === column.key && sorter.sortType === SortType.ASC
     const isDescend =
-      sorter.key === column.key && sorter.sortType === SortType.DES
+      sorter.key === column.key && sorter.sortType === SortType.DESC
     return (
       <td
         key={'head' + inx}
@@ -381,7 +382,10 @@ const Table = ({
       return
     }
     const prevOrder = sorter.key === column.key ? sorter.sortType : undefined
-    const order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
+    let order = ORDER_QUEUE[ORDER_QUEUE.indexOf(prevOrder) + 1]
+    if (column.ignoreUnsortedState && order === undefined) {
+      order = ORDER_QUEUE[ORDER_QUEUE.indexOf(order) + 1]
+    }
     setSorter({ key: column.key, sortType: order })
     onSort && onSort({ key: column.key, sortType: order })
   }
