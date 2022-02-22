@@ -87,7 +87,7 @@ export const SelectStoryBook4 = () => {
   return (
     <div style={{ width: '300px' }}>
       <Form>
-        <div>显示清楚按钮</div>
+        <div>显示清除按钮</div>
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
           placeholder="动物"
