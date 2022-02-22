@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DatePicker, Select } from '../..'
+import { DatePicker, Select, MultiSelect } from '../..'
 import './filter-list.stories.scss'
 
 export default {
@@ -84,6 +84,19 @@ export const FilterStoryBook = () => {
         ]}
         label="业务员"
         showClearButton
+        keepClearButton
+        marginRight="10px"
+      />
+
+      <MultiSelect
+        options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+        filterInput
+        filterMode
+        showClearButton
+        keepClearButton
+        label="动物"
+        maxWidth="300px"
+        optionsStyle={{ minWidth: '200px' }}
         marginRight="10px"
       />
 
