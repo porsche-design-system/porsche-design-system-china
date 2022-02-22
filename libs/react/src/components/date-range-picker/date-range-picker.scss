@@ -6,7 +6,8 @@
 
     .pui-date-range-picker:hover {
       border-color: $border-color-5;
-      .pui-date-range-picker-clear-icon {
+      .pui-date-range-picker-clear-icon-0,
+      .pui-date-range-picker-clear-icon-1 {
         display: block;
       }
     }
@@ -15,13 +16,21 @@
       display: inline-block;
       position: relative;
       border: 1px solid $border-color-3;
-      height: 50px;
+      height: 48px;
+      padding-right: 40px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.1s;
 
-      input {
-        width: calc((100% - 128px) / 2);
-        height: 48px;
+      &-highlight-true {
+        border-color: $filter-highlight-border-color;
+        background-color: $filter-highlight-bg-color;
+      }
+
+      button {
+        height: 46px;
         cursor: pointer;
-        padding: 12px;
+        transition: all 0.1s;
         font-size: 16px;
         color: $text-color-1;
         background-color: transparent;
@@ -30,10 +39,22 @@
         text-align: center;
         margin: 0 12px;
         border-top-color: transparent;
+        min-width: 110px;
+        white-space: nowrap;
+        position: relative;
+      }
+
+      .pui-date-range-picker-filter-label {
+        margin-left: 12px;
+        display: inline-block;
+        line-height: 46px;
+      }
+
+      .pui-date-range-picker-placeholder {
+        color: $border-color-3;
       }
 
       .pui-date-range-picker-box-active {
-        border-top: 2px solid transparent;
         border-bottom: 2px solid $brand-color;
       }
 
@@ -50,16 +71,18 @@
         pointer-events: none;
       }
 
-      &-clear-icon {
+      &-clear-icon-1,
+      &-clear-icon-0 {
         display: none;
         position: absolute;
-        right: 41px;
-        top: 12px;
+        right: -10px;
+        top: 9px;
         cursor: pointer;
         opacity: 0.2;
       }
 
-      &-clear-icon:hover {
+      &-clear-icon-0:hover,
+      &-clear-icon-1:hover {
         opacity: 0.7;
       }
 
@@ -69,7 +92,7 @@
         }
       }
 
-      input:disabled {
+      button:disabled {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
         cursor: not-allowed;
@@ -248,16 +271,23 @@
       &-size-small {
         height: 36px;
         font-size: 14px;
-        input {
-          height: 36px;
+        button {
+          height: 34px;
           font-size: 14px;
         }
 
         .pui-date-range-picker-icon {
           top: 6px;
         }
-        .pui-date-range-picker-clear-icon {
-          margin-top: 6px;
+
+        .pui-date-range-picker-filter-label {
+          line-height: 34px;
+        }
+
+        .pui-date-range-picker-clear-icon-0,
+        .pui-date-range-picker-clear-icon-1 {
+          top: 8px;
+          font-size: 18px;
         }
 
         .pui-date-range-picker-calendar {

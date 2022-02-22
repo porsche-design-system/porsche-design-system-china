@@ -9,6 +9,7 @@ import {
   IconErrorFilled
 } from '@pui/icons'
 import classNames from 'classnames'
+import { supportTouch } from '../../shared/device'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import {
@@ -62,6 +63,9 @@ export interface DatePickerProps {
 
   /* 标签 */
   label?: string | FormItemLabelProps
+
+  /* 一直显示清除按钮 */
+  keepClearButton?: boolean
 }
 
 const DatePicker = FormItem(
@@ -79,7 +83,8 @@ const DatePicker = FormItem(
     defaultOpen,
     onMenuVisibleChange,
     filterMode = false,
-    label
+    label = '',
+    keepClearButton = false
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr.split('-')
@@ -102,6 +107,8 @@ const DatePicker = FormItem(
       }
       return null
     }
+
+    const newKeepClearButton = keepClearButton || supportTouch()
 
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
@@ -238,6 +245,8 @@ const DatePicker = FormItem(
       )
     }
 
+    const labelText = typeof label === 'object' ? label.text : label
+
     useEffect(() => {
       if (!isFirstLoad.current) {
         onMenuVisibleChange &&
@@ -285,7 +294,8 @@ const DatePicker = FormItem(
           {
             disabled: disabled + '',
             error: error ? error.show + '' : 'false',
-            size
+            size,
+            'keep-clear-button': (newKeepClearButton && !!displayValue) + ''
           },
           className
         )}
@@ -314,12 +324,12 @@ const DatePicker = FormItem(
             displayValue ? (
               <>
                 <span className="pui-select-input-placeholder">
-                  {label || ''} :
+                  {labelText || ''} :
                 </span>{' '}
                 {displayValue}
               </>
             ) : (
-              label || ''
+              labelText || ''
             )
           ) : (
             displayValue || placeholder
