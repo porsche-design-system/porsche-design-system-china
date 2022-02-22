@@ -110,7 +110,7 @@ export const SelectStoryBook5 = () => {
           filterInput
           filterMode
           showClearButton
-          placeholder="动物"
+          label="动物"
           maxWidth="300px"
           optionsStyle={{ minWidth: '200px' }}
         />

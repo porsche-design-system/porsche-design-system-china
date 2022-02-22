@@ -81,6 +81,9 @@ export interface MultiSelectProps<T> {
 
   /* 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
+
+  /* 标签 */
+  label?: string | FormItemLabelProps
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -108,6 +111,7 @@ MultiSelect = FormItem(
     onMenuVisibleChange,
     filterInput,
     size,
+    label,
     onValueChange
   }: MultiSelectProps<T>) => {
     const selectState = useState<T[]>(defaultValue || [])
@@ -194,6 +198,8 @@ MultiSelect = FormItem(
 
     const newKeepClearButton = keepClearButton || supportTouch()
 
+    const labelText = typeof label === 'object' ? label.text : label
+
     return (
       <div
         ref={rootElement => {
@@ -253,14 +259,18 @@ MultiSelect = FormItem(
           }}
         >
           {filterMode ? (
-            <>
-              <span className="pui-multi-select-input-placeholder">
-                {placeholder}
-              </span>
-              {displayText ? ': ' + displayText : ''}
-            </>
+            displayText ? (
+              <>
+                <span className="pui-multi-select-input-placeholder">
+                  {labelText || ''} :
+                </span>{' '}
+                {displayText}
+              </>
+            ) : (
+              labelText
+            )
           ) : (
-            displayText || placeholder || ''
+            displayText || placeholder
           )}
         </button>
         {showClearButton && selectValue.length > 0 && (
