@@ -4,20 +4,23 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
     .pui-input input.pui-input-number {
-      padding-left:55px;
-      padding-right:55px;
+      padding-left: 55px;
+      padding-right: 55px;
       text-align: center;
     }
-    .pui-input input.pui-input-number-arrow{
-      padding-right:36px;
+    .pui-input input.pui-input-number-arrow {
+      padding-right: 36px;
     }
-    .pui-input-number-wrap{
+    .pui-input-number-wrap {
       position: relative;
       display: inline-block;
-      .pui-form-item{
+      height: 48px;
+
+      .pui-form-item {
         z-index: 1;
       }
-      .pui-minus-wrap,.pui-plus-wrap{
+      .pui-minus-wrap,
+      .pui-plus-wrap {
         width: 47px;
         height: 100%;
         background: $container-bg-opacity-color-3;
@@ -29,17 +32,17 @@
         z-index: 2;
         user-select: none;
       }
-      .pui-minus-wrap{
+      .pui-minus-wrap {
         left: 0;
       }
-      .pui-plus-wrap{
+      .pui-plus-wrap {
         right: 0;
       }
-      .pui-input-number-icon-transparent{
+      .pui-input-number-icon-transparent {
         background: transparent;
-        z-index:0;
+        z-index: 0;
       }
-      .pui-arrow-wrap{
+      .pui-arrow-wrap {
         display: none;
         flex-direction: column;
         width: 36px;
@@ -52,26 +55,27 @@
       }
     }
     .pui-input-number-wrap:hover {
-      .pui-arrow-wrap:not(.pui-disabled){
+      .pui-arrow-wrap:not(.pui-disabled) {
         display: flex;
       }
-      .pui-form-item .pui-input input:not([disabled]){
+      .pui-form-item .pui-input input:not([disabled]) {
         border-color: $border-color-5;
       }
     }
-    .pui-input-number-icon-default{
+    .pui-input-number-icon-default {
       color: $border-color-3;
       cursor: pointer;
     }
-    .pui-input-number-icon-default:hover{
+    .pui-input-number-icon-default:hover {
       color: $border-color-5;
     }
-    .pui-input-number-icon-disabled{
+    .pui-input-number-icon-disabled {
       color: $border-color-2;
       cursor: not-allowed;
     }
     .pui-input-number-wrap-size-small {
-      .porscheicon{
+      height: 36px;
+      .porscheicon {
         font-size: 18px;
       }
     }

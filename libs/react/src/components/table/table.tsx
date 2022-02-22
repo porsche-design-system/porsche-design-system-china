@@ -86,7 +86,7 @@ const Table = ({
   className,
   style,
   columns,
-  data,
+  data = [],
   onSort,
   onSelect,
   height = 'auto',

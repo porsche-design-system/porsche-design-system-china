@@ -28,7 +28,7 @@ export const DateRangePickerStoryBook1 = () => {
   return (
     <div>
       <DateRangePicker
-        width="400px"
+        width="330px"
         label="来访日期"
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
@@ -48,7 +48,7 @@ export const DateRangePickerStoryBook2 = () => {
   return (
     <div>
       <DateRangePicker
-        width="400px"
+        width="330px"
         label="限定日期"
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"

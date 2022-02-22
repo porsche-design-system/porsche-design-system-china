@@ -9,6 +9,7 @@ import {
   IconErrorFilled
 } from '@pui/icons'
 import classNames from 'classnames'
+import { supportTouch } from '../../shared/device'
 import {
   addMonth,
   dateToStr,
@@ -79,6 +80,9 @@ export interface DateRangePickerProps {
 
   /* 过滤器模式 */
   filterMode?: boolean
+
+  /* 保留清除按钮 */
+  keepClearButton?: boolean
 }
 
 const DateRangePicker = FormItem(
@@ -91,13 +95,14 @@ const DateRangePicker = FormItem(
     size,
     error,
     range,
-    placeholderStartDate,
-    placeholderEndDate,
+    placeholderStartDate = '　',
+    placeholderEndDate = '　',
     open,
     defaultOpen,
     onMenuVisibleChange,
     label = '',
-    filterMode = false
+    filterMode = false,
+    keepClearButton = false
   }: DateRangePickerProps) => {
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
@@ -118,6 +123,8 @@ const DateRangePicker = FormItem(
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
+
+    const newKeepClearButton = keepClearButton || supportTouch()
 
     // 当前日期
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -202,15 +209,16 @@ const DateRangePicker = FormItem(
       }
     }, [value])
 
-    useEffect(() => {
-      if (!calenderOpen) {
-        setPrePickedDates([null, null])
-        if (!pickedDates[0] || !pickedDates[1]) {
-          setPickedDates([null, null])
-          setDisplayValues(['', ''])
-        }
-      }
-    }, [calenderOpen])
+    // 不再限制选择起始
+    // useEffect(() => {
+    //   if (!calenderOpen) {
+    //     setPrePickedDates([null, null])
+    //     if (!pickedDates[0] || !pickedDates[1]) {
+    //       setPickedDates([null, null])
+    //       setDisplayValues(['', ''])
+    //     }
+    //   }
+    // }, [calenderOpen])
 
     useEffect(() => {
       if (!isFirstLoad.current) {
@@ -244,10 +252,10 @@ const DateRangePicker = FormItem(
 
       return (
         <div
-          className={
-            'pui-date-range-picker-calendar pui-date-range-picker-calendar-' +
-            calInx
-          }
+          className={classNames(
+            'pui-date-range-picker-calendar',
+            'pui-date-range-picker-calendar-' + calInx
+          )}
           onClick={evt => {
             evt.stopPropagation()
           }}
@@ -445,10 +453,23 @@ const DateRangePicker = FormItem(
           {
             disabled: disabled + '',
             error: error ? error.show + '' : 'false',
-            size
+            size,
+            highlight: (displayValues[0] !== '' || displayValues[1] !== '') + ''
           },
           className
         )}
+        onClick={evt => {
+          evt.stopPropagation()
+          setCurrentInputPlace(0)
+          setCalendarOpen(true)
+          setCurrentDate(new Date())
+          displayDate.current = pickedDates[0]
+            ? new Date(pickedDates[0])
+            : range
+            ? new Date((range as [Date, Date])[0])
+            : new Date()
+          updateCalendar()
+        }}
       >
         {filterMode && (
           <div className="pui-date-range-picker-filter-label">
@@ -463,73 +484,117 @@ const DateRangePicker = FormItem(
             )}
           </div>
         )}
-        <button
-          className={classNames('pui-date-range-picker-box', {
-            'pui-date-range-picker-box-active':
-              currentInputPlace === 0 && calenderOpen
-          })}
-          type="button"
-          disabled={disabled}
-          onClick={evt => {
-            evt.stopPropagation()
-            setCurrentInputPlace(0)
-            setCalendarOpen(true)
-            setCurrentDate(new Date())
-            displayDate.current = pickedDates[0]
-              ? new Date(pickedDates[0])
-              : range
-              ? new Date((range as [Date, Date])[0])
-              : new Date()
-            updateCalendar()
-          }}
-        >
-          {displayValues[0] || (
-            <span className="pui-date-range-picker-placeholder">
-              {placeholderStartDate}
-            </span>
-          )}
-        </button>
-        <span className="pui-date-range-picker-to">至</span>
-        <button
-          type="button"
-          className={classNames('pui-date-range-picker-box', {
-            'pui-date-range-picker-box-active':
-              currentInputPlace === 1 && calenderOpen
-          })}
-          disabled={disabled}
-          onClick={evt => {
-            evt.stopPropagation()
-            setCurrentInputPlace(1)
-            setCalendarOpen(true)
-            setCurrentDate(new Date())
-            displayDate.current = pickedDates[1]
-              ? new Date(pickedDates[1])
-              : range
-              ? new Date((range as [Date, Date])[0])
-              : new Date()
-            if (pickedDates[1] && pickedDates[0]) {
-              if (pickedDates[1].getMonth() !== pickedDates[0].getMonth()) {
-                displayDate.current = addMonth(displayDate.current, -1)
-              }
-            }
-            updateCalendar()
-          }}
-        >
-          {displayValues[1] || (
-            <span className="pui-date-range-picker-placeholder">
-              {placeholderEndDate}
-            </span>
-          )}
-        </button>
-        {pickedDates[0] && pickedDates[1] && (
-          <IconErrorFilled
-            className="pui-date-range-picker-clear-icon"
-            onClick={() => {
-              setPickedDates([null, null])
-              setDisplayValues(['', ''])
-              onValueChange && onValueChange(['', ''])
-            }}
-          />
+        {(((displayValues[0] || displayValues[1] || calenderOpen) &&
+          filterMode) ||
+          !filterMode) && (
+          <>
+            <button
+              className={classNames('pui-date-range-picker-box', {
+                'pui-date-range-picker-box-active':
+                  currentInputPlace === 0 && calenderOpen
+              })}
+              type="button"
+              disabled={disabled}
+              onClick={evt => {
+                evt.stopPropagation()
+                setCurrentInputPlace(0)
+                setCalendarOpen(true)
+                setCurrentDate(new Date())
+                displayDate.current = pickedDates[0]
+                  ? new Date(pickedDates[0])
+                  : range
+                  ? new Date((range as [Date, Date])[0])
+                  : new Date()
+                updateCalendar()
+              }}
+              style={{
+                minWidth: filterMode ? 'auto' : '',
+                paddingRight:
+                  filterMode && displayValues[0]
+                    ? size === 'small'
+                      ? '12px'
+                      : '20px'
+                    : ''
+              }}
+            >
+              {displayValues[0] || (
+                <span className="pui-date-range-picker-placeholder">
+                  {placeholderStartDate}
+                </span>
+              )}
+              {pickedDates[0] && (
+                <IconErrorFilled
+                  className="pui-date-range-picker-clear-icon-0"
+                  style={{
+                    display: newKeepClearButton ? 'inline-block' : ''
+                  }}
+                  onClick={evt => {
+                    evt.preventDefault()
+                    evt.stopPropagation()
+                    setPickedDates([null, pickedDates[1]])
+                    setDisplayValues(['', displayValues[1]])
+                    onValueChange && onValueChange(['', displayValues[1]])
+                  }}
+                />
+              )}
+            </button>
+            <span className="pui-date-range-picker-to">至</span>
+            <button
+              type="button"
+              className={classNames('pui-date-range-picker-box', {
+                'pui-date-range-picker-box-active':
+                  currentInputPlace === 1 && calenderOpen
+              })}
+              style={{
+                minWidth: filterMode ? 'auto' : '',
+                paddingRight:
+                  filterMode && displayValues[1]
+                    ? size === 'small'
+                      ? '15px'
+                      : '20px'
+                    : ''
+              }}
+              disabled={disabled}
+              onClick={evt => {
+                evt.stopPropagation()
+                setCurrentInputPlace(1)
+                setCalendarOpen(true)
+                setCurrentDate(new Date())
+                displayDate.current = pickedDates[1]
+                  ? new Date(pickedDates[1])
+                  : range
+                  ? new Date((range as [Date, Date])[0])
+                  : new Date()
+                if (pickedDates[1] && pickedDates[0]) {
+                  if (pickedDates[1].getMonth() !== pickedDates[0].getMonth()) {
+                    displayDate.current = addMonth(displayDate.current, -1)
+                  }
+                }
+                updateCalendar()
+              }}
+            >
+              {displayValues[1] || (
+                <span className="pui-date-range-picker-placeholder">
+                  {placeholderEndDate}
+                </span>
+              )}
+              {pickedDates[1] && (
+                <IconErrorFilled
+                  className="pui-date-range-picker-clear-icon-1"
+                  style={{
+                    display: newKeepClearButton ? 'inline-block' : ''
+                  }}
+                  onClick={evt => {
+                    evt.preventDefault()
+                    evt.stopPropagation()
+                    setPickedDates([pickedDates[0], null])
+                    setDisplayValues([displayValues[0], ''])
+                    onValueChange && onValueChange([displayValues[0], ''])
+                  }}
+                />
+              )}
+            </button>
+          </>
         )}
         <IconCalendar className="pui-date-range-picker-icon" />
         {(menuOpen !== undefined ? menuOpen : calenderOpen) &&
