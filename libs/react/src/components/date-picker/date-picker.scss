@@ -165,8 +165,12 @@
         display: none;
       }
 
+      &-keep-clear-button-true .pui-date-picker-clear-icon {
+        display: inline-block;
+      }
+
       &-clear-icon:hover {
-        opacity: 0.8;
+        opacity: 0.7;
       }
 
       &-size-small {

@@ -17,14 +17,6 @@
         }
       }
 
-      &-size-small {
-        .pui-input {
-          .pui-input-right-button {
-            right: 35px;
-          }
-        }
-      }
-
       &-show-clear-button-true {
         .pui-input {
           input {
@@ -35,8 +27,11 @@
 
       .pui-search-button {
         position: absolute;
-        top: 12px;
-        right: 13px;
+        top: 0;
+        right: 0;
+        width: 48px;
+        height: 48px;
+        padding: 12px;
         color: $text-opacity-color-2;
         user-select: none;
       }
@@ -45,10 +40,58 @@
         color: $text-color-1;
       }
 
-      &-size-small {
+      &-show-search-button-bg-true {
         .pui-search-button {
-          top: 7px;
-          right: 7px;
+          background-color: $container-bg-color-8;
+          color: $text-color-2;
+          &:hover {
+            background-color: $container-bg-color-7;
+          }
+          :hover {
+            color: $text-color-2;
+          }
+        }
+        &.pui-search-show-clear-button-true {
+          .pui-input {
+            input {
+              padding-right: 86px;
+            }
+            &-right-button {
+              right: 56px;
+            }
+          }
+        }
+      }
+
+      &-size-small {
+        .pui-input {
+          .pui-input-right-button {
+            right: 36px;
+          }
+        }
+        .pui-search-button {
+          width: 36px;
+          height: 36px;
+          padding: 8px;
+        }
+        &.pui-search {
+          &-show-clear-button-true {
+            .pui-input {
+              input {
+                padding-right: 64px;
+              }
+            }
+          }
+          &-show-search-button-bg-true {
+            .pui-input {
+              input {
+                padding-right: 70px;
+              }
+              .pui-input-right-button {
+                right: 40px;
+              }
+            }
+          }
         }
       }
     }
