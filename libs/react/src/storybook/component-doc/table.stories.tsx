@@ -1,6 +1,11 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React from 'react'
-import { Table, Button, TableColumn, Modal } from '../..'
+import { Table, Button, TableColumn, Modal, SortType } from '../..'
+
+export default {
+  title: 'Data Display/Table',
+  component: Table
+}
 
 export const TableStoryBook = () => {
   const rowData = {
@@ -280,7 +285,60 @@ export const TableStoryBook3 = () => {
 
 TableStoryBook3.storyName = 'Multi Row Line Table'
 
-export default {
-  title: 'Data Display/Table',
-  component: Table
+export const TableStoryBook4 = () => {
+  const rowData = {
+    id: 0,
+    dealerName: '上海浦东保时捷中心',
+    dealerCode: 1000000,
+    phoneNumber: '021-22211111',
+    address: '上海市东方路123号',
+    avgPrice: '￥1000000',
+    workingTime: '10:00AM - 10:30PM',
+    saleModel: '911 718 Taycan Panamera Macan Cayenne'
+  }
+
+  const tableData: any[] = []
+  for (let i = 0; i < 5; i++) {
+    rowData.id = i + 1
+    rowData.dealerCode = Math.floor(Math.random() * 10000)
+    tableData.push({ ...rowData })
+  }
+
+  const columns: TableColumn[] = [
+    {
+      title: 'Id',
+      key: 'id',
+      sortable: true,
+      ignoreUnsortedState: true
+    },
+    {
+      title: '经销商',
+      key: 'dealerName'
+    },
+    {
+      title: '经销商号码',
+      key: 'dealerCode',
+      sortable: true
+    },
+    { title: '地址', key: 'address' },
+    {
+      title: '工作时间',
+      key: 'workingTime'
+    }
+  ]
+  return (
+    <div>
+      <Table
+        data={tableData}
+        columns={columns}
+        defaultSorter={{ key: 'id', sortType: SortType.DESC }}
+        onSelect={data => {
+          console.log(data)
+        }}
+        onSort={sorter => console.log(sorter)}
+      />
+    </div>
+  )
 }
+
+TableStoryBook4.storyName = 'Multi Column Sort'
