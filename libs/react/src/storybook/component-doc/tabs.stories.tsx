@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Tabs, TabPane, Input } from '../..'
 
 import './tabs.stories.scss'
@@ -10,6 +10,8 @@ export default {
 }
 
 export const TabsStoryBook = () => {
+  const [currentTab, setCurrentTab] = useState('Tab3')
+
   return (
     <div className="group">
       <div className="showcase">
@@ -24,13 +26,30 @@ export const TabsStoryBook = () => {
       </div>
       <br />
       <br />
-
       <div className="showcase">
         <div className="tabs-session-title">底部有线</div>
         <Tabs hasLine>
           <TabPane title="标题一">内容一</TabPane>
           <TabPane title="标题二">内容二</TabPane>
           <TabPane title="标题三">
+            <Input label="用户名" />
+          </TabPane>
+        </Tabs>
+      </div>
+
+      <br />
+      <br />
+
+      <div className="showcase">
+        <div className="tabs-session-title">受控Tab</div>
+        <Tabs hasLine activeKey={currentTab} onActiveKeyChange={setCurrentTab}>
+          <TabPane title="标题一" tabKey="Tab1">
+            内容一
+          </TabPane>
+          <TabPane title="标题二" tabKey="Tab2">
+            内容二
+          </TabPane>
+          <TabPane title="标题三" tabKey="Tab3">
             <Input label="用户名" />
           </TabPane>
         </Tabs>
