@@ -38,6 +38,9 @@ export interface SearchProps {
   /* 显示清除按钮 */
   showClearButton?: boolean
 
+  /* 显示清除按钮 */
+  showSearchButtonBg?: boolean
+
   /* 最大长度 */
   maxLength?: number
 
@@ -63,6 +66,7 @@ const Search = ({
   size,
   onValueChange,
   showClearButton,
+  showSearchButtonBg = false,
   marginLeft,
   marginRight,
   onSearch
@@ -75,7 +79,11 @@ const Search = ({
     <div
       className={componentClassNames(
         'pui-search',
-        { 'show-clear-button': showClearButton + '', size },
+        {
+          'show-clear-button': (showClearButton && !!searchValue) + '',
+          'show-search-button-bg': showSearchButtonBg + '',
+          size
+        },
         className
       )}
       style={{ width, marginLeft, marginRight, ...style }}
