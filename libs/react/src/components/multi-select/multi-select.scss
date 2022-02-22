@@ -13,13 +13,28 @@
         height: 48px;
         border: 1px solid $border-color-3;
         cursor: pointer;
-        padding: 12px;
+        padding-left: 12px;
         font-size: 16px;
-        padding-right: 60px;
+        padding-right: 40px;
         text-overflow: ellipsis;
         color: $text-color-1;
+        text-align: left;
         background-color: transparent;
         transition: all 0.1s;
+        white-space: nowrap;
+      }
+
+      &-input-placeholder {
+        color: $border-color-3;
+      }
+
+      &-input-highlight {
+        border-color: $filter-highlight-border-color;
+        background-color: $filter-highlight-bg-color;
+      }
+
+      &-input-with-clear-button {
+        padding-right: 60px;
       }
 
       &-input:hover,
@@ -81,13 +96,16 @@
         display: none;
       }
 
-      &:hover {
+      &:hover,
+      &-keep-clear-button-true {
         .pui-multi-select-clear-icon {
           display: block;
           position: absolute;
-          right: 41px;
+          right: 36px;
           opacity: 0.5;
         }
+      }
+      &:hover {
         .pui-multi-select-clear-icon:hover {
           opacity: 1;
         }
@@ -149,7 +167,8 @@
         }
 
         .pui-multi-select-clear-icon {
-          top: 6px;
+          font-size: 18px;
+          top: 9px;
         }
 
         .pui-multi-select-arrow-icon {
