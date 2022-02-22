@@ -30,6 +30,9 @@ export interface TabsProps {
   /** 默认选中的面板  */
   defaultActiveKey?: string
 
+  /** 激活面板的TabKey  */
+  activeKey?: string
+
   /** 选中面板更改事件 */
   onActiveKeyChange?: (activeKey: string) => void
 }
@@ -40,10 +43,13 @@ const Tabs = ({
   size,
   hasLine = false,
   defaultActiveKey = '',
+  activeKey,
   children,
   onActiveKeyChange
 }: TabsProps) => {
-  const [tabActiveKey, setTabActiveKey] = useState(defaultActiveKey)
+  const [tabActiveKey, setTabActiveKey] = useState(
+    activeKey || defaultActiveKey
+  )
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
 
@@ -71,12 +77,26 @@ const Tabs = ({
     }
   }, [])
 
+  useEffect(() => {
+    if (activeKey) {
+      setTabActiveKey(activeKey || '')
+    }
+  }, [activeKey])
+
   return (
     <div
-      className={componentClassNames('pui-tabs', { size: size as string }, className)}
+      className={componentClassNames(
+        'pui-tabs',
+        { size: size as string },
+        className
+      )}
       style={style}
     >
-      <div className={componentClassNames('pui-tabs-header',{line: hasLine +''})}>
+      <div
+        className={componentClassNames('pui-tabs-header', {
+          line: hasLine + ''
+        })}
+      >
         {tabHead.map((tabProps, inx) => (
           <div
             className={componentClassNames('pui-tab', {
@@ -85,7 +105,9 @@ const Tabs = ({
             })}
             key={'TabKey' + inx}
             onClick={() => {
-              setTabActiveKey(tabProps.tabKey!)
+              if (!activeKey) {
+                setTabActiveKey(tabProps.tabKey!)
+              }
               onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
             }}
           >
