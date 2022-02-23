@@ -13,7 +13,16 @@ export const InputsStoryBook = () => {
     <div>
       <div className="states">Default</div>
       <div>
-        <TextArea placeholder="请输入" width="400px" />
+        <TextArea
+          placeholder="请输入"
+          width="400px"
+          onValueChange={val => {
+            console.log(val)
+          }}
+          onBlur={evt => {
+            console.log(evt)
+          }}
+        />
       </div>
       <br />
       <div className="states">Disabled</div>

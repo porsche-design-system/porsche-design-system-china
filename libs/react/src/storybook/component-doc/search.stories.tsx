@@ -16,6 +16,12 @@ export const InputStoryBook = () => {
         onSearch={val => {
           console.log(val)
         }}
+        onValueChange={val => {
+          console.log(val)
+        }}
+        onBlur={evt => {
+          console.log(evt)
+        }}
       />
     </div>
   )
@@ -27,11 +33,7 @@ export const InputStoryBook1 = () => {
   return (
     <div>
       <div>显示清除按钮</div>
-      <Search
-        placeholder="显示清除按钮"
-        width="360px"
-        showClearButton
-      />
+      <Search placeholder="显示清除按钮" width="360px" showClearButton />
     </div>
   )
 }
