@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Input, Row, Col, Form, Button } from '../..'
+import React from 'react'
+import { Input, Row, Col, Form } from '../..'
 
 import './input.stories.scss'
 
@@ -14,7 +14,15 @@ export const InputsStoryBook = () => {
       <Col span={12}>
         <div className="states">Default</div>
         <div>
-          <Input placeholder="请输入" />
+          <Input
+            placeholder="请输入"
+            onValueChange={val => {
+              console.log(val)
+            }}
+            onBlur={evt => {
+              console.log(evt)
+            }}
+          />
         </div>
         <br />
         <div className="states">Disabled</div>
