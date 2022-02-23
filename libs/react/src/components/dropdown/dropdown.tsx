@@ -6,7 +6,7 @@ import {
   useElementPos,
   usePopShowState
 } from '../../shared/hooks'
-import { MenuProps } from '../menu'
+import { MenuProps } from '../menu/types'
 import './dropdown.scss'
 
 type OverlayFunc = () => React.ReactElement
