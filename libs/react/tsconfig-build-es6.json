@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "target": "esnext",
     "jsx": "react",
     "declaration": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "moduleResolution": "node",
     "module": "esnext",
     "allowSyntheticDefaultImports":true,
