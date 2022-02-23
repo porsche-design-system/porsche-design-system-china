@@ -64,6 +64,9 @@ export interface DatePickerProps {
   /* 标签 */
   label?: string | FormItemLabelProps
 
+  /* 显示清除按钮 */
+  showClearButton?: boolean
+
   /* 一直显示清除按钮 */
   keepClearButton?: boolean
 }
@@ -81,10 +84,11 @@ const DatePicker = FormItem(
     placeholder,
     open,
     defaultOpen,
+    showClearButton = false,
+    keepClearButton = false,
     onMenuVisibleChange,
     filterMode = false,
-    label = '',
-    keepClearButton = false
+    label = ''
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
       const datePart = dateStr.split('-')
@@ -295,7 +299,9 @@ const DatePicker = FormItem(
             disabled: disabled + '',
             error: error ? error.show + '' : 'false',
             size,
-            'keep-clear-button': (newKeepClearButton && !!displayValue) + ''
+            'show-clear-button': (showClearButton && !!displayValue) + '',
+            'keep-clear-button':
+              (showClearButton && newKeepClearButton && !!displayValue) + ''
           },
           className
         )}
@@ -304,7 +310,8 @@ const DatePicker = FormItem(
           type="button"
           className={classNames('pui-date-picker-box', {
             'pui-date-picker-box-active': calenderOpen,
-            'pui-date-picker-box-with-clear-button': displayValue,
+            'pui-date-picker-box-with-clear-button':
+              showClearButton && displayValue && !disabled,
             'pui-date-picker-box-highlight': displayValue && filterMode
           })}
           disabled={disabled}
@@ -336,7 +343,7 @@ const DatePicker = FormItem(
           )}
         </button>
         <IconCalendar className="pui-date-picker-icon" />
-        {displayValue && (
+        {displayValue && showClearButton && !disabled && (
           <IconErrorFilled
             className="pui-date-picker-clear-icon"
             onClick={() => {
