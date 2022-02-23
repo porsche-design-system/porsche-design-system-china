@@ -48,12 +48,6 @@
         pointer-events: none;
       }
 
-      &-disabled-true {
-        .porscheicon {
-          opacity: 0.5;
-        }
-      }
-
       button:disabled {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
@@ -164,13 +158,26 @@
         opacity: 0.2;
         display: none;
       }
-
-      &-keep-clear-button-true .pui-date-picker-clear-icon {
-        display: inline-block;
+      &:hover,
+      &-keep-clear-button-true {
+        .pui-date-picker-clear-icon {
+          display: inline-block;
+          position: absolute;
+          right: 37px;
+          opacity: 0.2;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
       }
 
-      &-clear-icon:hover {
-        opacity: 0.7;
+      &-disabled-true {
+        .porscheicon {
+          opacity: 0.5;
+          &.pui-date-picker-clear-icon {
+            display: none;
+          }
+        }
       }
 
       &-size-small {
@@ -192,12 +199,6 @@
         .pui-date-picker-calendar {
           font-size: 14px;
         }
-      }
-    }
-
-    .pui-date-picker:hover {
-      .pui-date-picker-clear-icon {
-        display: initial;
       }
     }
   }
