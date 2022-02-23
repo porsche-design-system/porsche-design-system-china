@@ -55,7 +55,10 @@ const Menu: React.FC<MenuProps> = props => {
         })
 
         if (displayName === 'SubMenu') {
-          const path = findIndexs([element], currentActive)
+          let path = findIndexs([element], currentActive)
+          if (passedContext.selectSubMenus?.length) {
+            path = [...passedContext.selectSubMenus, ...path]
+          }
           passedContext.selectSubMenus = path
         }
 

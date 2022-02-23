@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "isolatedModules": true,
+    "isolatedModules": false,
     "baseUrl": ".",
     "importHelpers": false,
     "jsx": "react",

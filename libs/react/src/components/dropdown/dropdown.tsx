@@ -6,7 +6,7 @@ import {
   useElementPos,
   usePopShowState
 } from '../../shared/hooks'
-import { MenuProps } from '../menu'
+import { MenuProps } from '../menu/types'
 import './dropdown.scss'
 
 type OverlayFunc = () => React.ReactElement
@@ -25,7 +25,8 @@ export interface DropdownConfig {
   /** 触发下拉行为 */
   trigger?: triggerType
 }
-
+const PADDING_SIZE = 12
+const SUB_MENU_WIDTH = 160
 export const Dropdown: React.FC<DropdownConfig> = props => {
   const {
     overlay,
@@ -48,6 +49,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   )
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
+    updatePos()
     setShowDropdown(!showDropdown)
   }
 
@@ -55,6 +57,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
     clearTimeout(timer)
     e.preventDefault()
+    updatePos()
     timer = setTimeout(() => {
       setShowDropdown(toggle)
     }, 300)
@@ -89,10 +92,18 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       }
       return null
     })
+    const dropdownPosition: { left: number; top: number } = { ...menuPos }
+    const clientWidth = rootElementRef.current?.offsetWidth || 0
+    const windowWidth = document.body.offsetWidth
+    const positionDifference =
+      windowWidth - (dropdownPosition.left + SUB_MENU_WIDTH)
+    if (positionDifference <= PADDING_SIZE) {
+      dropdownPosition.left -= SUB_MENU_WIDTH - clientWidth
+    }
     const contentList = (
       <div
         className={dropdownClasses}
-        style={{ position: 'absolute', ...menuPos, ...overlayStyle }}
+        style={{ position: 'absolute', ...dropdownPosition, ...overlayStyle }}
       >
         {childrenComponent}
       </div>
