@@ -106,6 +106,8 @@ const Input = FormItem(
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
     const [defaultSize] = useDefaultSize()
+    const isCompositionStarted = useRef(false)
+
     size = size || defaultSize
 
     useEffect(() => {
@@ -133,9 +135,21 @@ const Input = FormItem(
           placeholder={placeholder}
           maxLength={maxLength}
           type={inputType}
-          onCompositionEnd={onCompositionEnd}
-          onCompositionStart={onCompositionStart}
+          onCompositionStart={(evt: any) => {
+            isCompositionStarted.current = true
+            onCompositionStart && onCompositionStart(evt)
+          }}
+          onCompositionEnd={(evt: any) => {
+            if (isCompositionStarted.current) {
+              onValueChange && onValueChange(evt.target.value)
+              isCompositionStarted.current = false
+            }
+            onCompositionEnd && onCompositionEnd(evt)
+          }}
           onChange={evt => {
+            if (isCompositionStarted.current) {
+              return
+            }
             onChange && onChange(evt)
             onValueChange && onValueChange(evt.target.value)
           }}

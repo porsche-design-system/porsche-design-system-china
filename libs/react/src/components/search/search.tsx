@@ -1,4 +1,9 @@
-import React, { CSSProperties, useState } from 'react'
+import React, {
+  CSSProperties,
+  FocusEventHandler,
+  useRef,
+  useState
+} from 'react'
 import { IconSearch } from '@pui/icons'
 
 import { Input } from '../input/input'
@@ -52,6 +57,9 @@ export interface SearchProps {
 
   /* 点击搜索按钮 */
   onSearch?: (value: string) => void
+
+  /* 失去焦点回调 */
+  onBlur?: FocusEventHandler<HTMLInputElement>
 }
 
 const Search = ({
@@ -69,10 +77,12 @@ const Search = ({
   showSearchButtonBg = false,
   marginLeft,
   marginRight,
+  onBlur,
   onSearch
 }: SearchProps) => {
   const [searchValue, setSearchValue] = useState(value || defaultValue || '')
   const [defaultSize] = useDefaultSize()
+
   size = size || defaultSize
 
   return (
@@ -94,6 +104,7 @@ const Search = ({
         hideMaxLengthText
         showClearButton={showClearButton}
         maxLength={maxLength}
+        onBlur={onBlur}
         onValueChange={val => {
           setSearchValue(val)
           onValueChange && onValueChange(val)
