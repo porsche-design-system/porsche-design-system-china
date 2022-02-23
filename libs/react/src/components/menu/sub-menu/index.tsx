@@ -97,12 +97,15 @@ const SubMenu: React.FC<SubMenuProps> = ({
       return null
     })
     const subPosition: { left: number; top: number } = { ...menuPos }
-    const clientWidth = rootElementRef.current?.offsetWidth || 0
+    let clientWidth = rootElementRef.current?.offsetWidth || 0
     const clientHeight = rootElementRef.current?.offsetHeight || 0
     const windowWidth = document.body.offsetWidth
     let positionDifference = windowWidth - (subPosition.left + SUB_MENU_WIDTH)
     if (positionDifference <= PADDING_SIZE) {
-      subPosition.left += positionDifference - PADDING_SIZE
+      subPosition.left -= SUB_MENU_WIDTH - clientWidth
+    }
+    if (clientWidth < SUB_MENU_WIDTH) {
+      clientWidth = SUB_MENU_WIDTH
     }
     if (hasSubItem || context.mode === 'dropdown') {
       subPosition.left += clientWidth + MARGIN_LEFT
