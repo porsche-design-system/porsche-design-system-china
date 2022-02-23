@@ -17,7 +17,7 @@
     "build-es6": "rm -rf ./es && tsc -p tsconfig-build-es6.json && copyfiles -u 1 \"./src/**/*.scss\" \"./src/**/*.js\" \"./src/assets/**/*\" \"./src/styles/**/*\" \"./src/assets/**/*\" es && rm ./es/**/**/*.stories.scss",
     "build-es5": "babel --delete-dir-on-start src -d lib  --config-file ./babelrc-es5 --extensions .js,.ts,.tsx --copy-files --no-copy-ignored && tsc -p tsconfig-build-es5.json && rm ./lib/**/**/*.stories.scss",
     "build-all": "npm run build-es5 && npm run build-es6",
-    "vremove": "npm unpublish @pui/react@0.0.20 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
+    "vremove": "npm unpublish @pui/react@0.1.6 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "jest",
     "changelog": "standard-version"
