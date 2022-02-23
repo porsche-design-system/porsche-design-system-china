@@ -2,6 +2,8 @@ import React, {
   ChangeEventHandler,
   CompositionEventHandler,
   CSSProperties,
+  FocusEventHandler,
+  useRef,
   useState
 } from 'react'
 import { useDefaultSize } from '../../shared/hooks'
@@ -53,6 +55,9 @@ export interface TextAreaProps {
   /* 值改变事件 */
   onValueChange?: (value: string) => void
 
+  /* 输入框失去焦点事件 */
+  onBlur?: FocusEventHandler<HTMLTextAreaElement>
+
   /* 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLTextAreaElement>
 
@@ -76,10 +81,13 @@ const TextArea = FormItem(
     onChange,
     onValueChange,
     onCompositionStart,
-    onCompositionEnd
+    onCompositionEnd,
+    onBlur
   }: TextAreaProps) => {
     const [valueLength, setValueLength] = useState(0)
     const [defaultSize] = useDefaultSize()
+    const isCompositionStarted = useRef(false)
+
     size = size || defaultSize
 
     const updateHeight = (element: HTMLTextAreaElement) => {
@@ -98,8 +106,17 @@ const TextArea = FormItem(
         <textarea
           value={value}
           defaultValue={defaultValue}
-          onCompositionStart={onCompositionStart}
-          onCompositionEnd={onCompositionEnd}
+          onCompositionStart={(evt: any) => {
+            isCompositionStarted.current = true
+            onCompositionStart && onCompositionStart(evt)
+          }}
+          onCompositionEnd={(evt: any) => {
+            if (isCompositionStarted.current) {
+              onValueChange && onValueChange(evt.target.value)
+              isCompositionStarted.current = false
+            }
+            onCompositionEnd && onCompositionEnd(evt)
+          }}
           ref={(element: HTMLTextAreaElement) => {
             if (maxLength && element) {
               updateHeight(element)
@@ -108,6 +125,9 @@ const TextArea = FormItem(
           maxLength={maxLength}
           placeholder={placeholder}
           onChange={evt => {
+            if (isCompositionStarted.current) {
+              return
+            }
             onChange && onChange(evt)
             onValueChange && onValueChange(evt.target.value)
           }}
@@ -122,6 +142,7 @@ const TextArea = FormItem(
               }
             }
           }}
+          onBlur={onBlur}
         />
         {maxLength && (
           <div className="pui-textarea-char-count">
