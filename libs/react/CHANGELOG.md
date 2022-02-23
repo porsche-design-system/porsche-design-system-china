@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * 补全输入组件events，优化onChange回调方法 ([2ec0675](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2ec0675c8f9539357b818d7c63e836ee8b91c86b))
 * 完成日期范围选择组件  修整所有过滤器组件 ([a2c1e7d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a2c1e7d26f2634c275f383a042c892a110487bba))
-* 重构 Memu ([413aa4e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/413aa4eecdda1024b998a9f7ce3d62afb4f0b53b))
+* 重构 Menu ([413aa4e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/413aa4eecdda1024b998a9f7ce3d62afb4f0b53b))
 * add filter mode ([a62e697](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a62e697f50f297e6e5667b23758f5b565d14a25f))
 * add select component "maxWidth" option ([b5558d6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b5558d6a4dfc035ded0476e3197737ab71beb479))
 * datepicker 加入过滤器模式 ([d48759b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d48759b00199967cb405b2c44d86deb5d015cedc))
