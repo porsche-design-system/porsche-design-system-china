@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+      "skipLibCheck": true,
       "jsx": "react",
       "target": "es5",
       "declaration": true,
       "emitDeclarationOnly": true,
-      "isolatedModules": true,
+      "isolatedModules": false,
       "moduleResolution": "node",
       "esModuleInterop":true,
       "outDir":"lib",

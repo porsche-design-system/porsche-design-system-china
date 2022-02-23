@@ -47,8 +47,6 @@
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
   "license": "ISC",
   "devDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.12.1",
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
@@ -74,7 +72,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.19",
     "@types/node": "^14.14.31",
-    "@types/react":  "^17.0.0",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-transition-group": "^4.4.1",
     "copyfiles": "^2.4.1",
@@ -96,20 +94,18 @@
     "typescript": "4.4.2",
     "@svgr/webpack": "5.5.0",
     "markdown-it": "12.3.2",
-    "standard-version": "9.3.2"
+    "standard-version": "9.3.2",
+    "@types/classnames": "^2.2.9",
+    "@typescript-eslint/parser": "^5.12.1"
   },
   "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "@pui/icons": "0.0.7",
-    "@types/classnames": "^2.2.9",
-    "@typescript-eslint/parser": "^5.12.1",
     "async-validator": "^3.5.1",
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "react-transition-group": "^4.4.2",
     "sass": "^1.32.12"
-  },
-  "peerdependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
   }
 }
