@@ -10,9 +10,6 @@ export default {
 }
 
 export const StepsStoryBook = () => {
-  const handleCurrentChange = (current: number) => {
-    console.log(current)
-  }
   return (
     <div className="steps-story">
       <div className="group">
@@ -48,9 +45,6 @@ export const StepsStoryBook = () => {
 StepsStoryBook.storyName = 'Steps'
 
 export const StepsStoryBook1 = () => {
-  const handleCurrentChange = (current: number) => {
-    console.log(current)
-  }
   return (
     <div className="steps-story">
       <div className="group">

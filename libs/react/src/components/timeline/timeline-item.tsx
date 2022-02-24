@@ -17,6 +17,7 @@ export interface TimelineItemProps {
 }
 export const TimelineItem = ({
   children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   color = 'red'
 }: TimelineItemProps) => {
   return <div>{children}</div>
