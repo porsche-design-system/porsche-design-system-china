@@ -42,9 +42,21 @@ export const PaginationStoryBook = () => {
         </Col>
         <Col span={12}>
           <div className="title">受控制的页码</div>
-          <Pagination current={current} total={222} onCurrentChange={handleCurrentChange} />
+          <Pagination
+            current={current}
+            total={222}
+            onCurrentChange={handleCurrentChange}
+          />
         </Col>
       </Row>
+      <div>
+        对齐方式（靠左）
+        <Pagination total={100} pageSize={10} align="left" />
+        对齐方式（居中）
+        <Pagination total={100} pageSize={10} align="center" />
+        对齐方式（靠右）
+        <Pagination total={100} pageSize={10} align="right" />
+      </div>
     </>
   )
 }
