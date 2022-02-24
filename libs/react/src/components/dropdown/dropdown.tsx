@@ -7,6 +7,7 @@ import {
   usePopShowState
 } from '../../shared/hooks'
 import { MenuProps } from '../menu/types'
+import { PADDING_SIZE, SUB_MENU_WIDTH } from '../menu/const'
 import './dropdown.scss'
 
 type OverlayFunc = () => React.ReactElement
@@ -25,8 +26,7 @@ export interface DropdownConfig {
   /** 触发下拉行为 */
   trigger?: triggerType
 }
-const PADDING_SIZE = 12
-const SUB_MENU_WIDTH = 160
+
 export const Dropdown: React.FC<DropdownConfig> = props => {
   const {
     overlay,
@@ -38,6 +38,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     disabled
   } = props
   const rootElementRef = useRef<any>(null)
+  const mouseInMenu = useRef(false)
   const [showDropdown, setShowDropdown] = useState(visible)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,9 +60,15 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     clearTimeout(timer)
     e.preventDefault()
     updatePos()
-    timer = setTimeout(() => {
+    if (!toggle) {
+      timer = setTimeout(() => {
+        if (!mouseInMenu.current) {
+          setShowDropdown(toggle)
+        }
+      }, 100)
+    } else {
       setShowDropdown(toggle)
-    }, 300)
+    }
   }
 
   const clickEvents =
@@ -103,6 +110,12 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     }
     const contentList = (
       <div
+        onMouseEnter={() => {
+          mouseInMenu.current = true
+        }}
+        onMouseLeave={() => {
+          mouseInMenu.current = false
+        }}
         className={dropdownClasses}
         style={{ position: 'absolute', ...dropdownPosition, ...overlayStyle }}
       >

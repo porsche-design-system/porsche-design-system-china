@@ -64,7 +64,11 @@ export const ProgressStoryBook = () => {
     <div className="dropdown-demo dropdown-demo-one">
       <div className="test-one">
         <Dropdown overlay={oneMenu} trigger="click">
-          下拉菜单
+          <span>click: 下拉菜单</span>
+        </Dropdown>
+        <br />
+        <Dropdown overlay={oneMenu} trigger="hover">
+          <span>hover: 下拉菜单</span>
         </Dropdown>
       </div>
     </div>
