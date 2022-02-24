@@ -42,12 +42,6 @@
         border-color: $border-color-5;
       }
 
-      &-disabled-true {
-        .porscheicon {
-          opacity: 0.5;
-        }
-      }
-
       &-input:disabled {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
@@ -158,6 +152,15 @@
       &-filter:hover,
       &-filter:focus {
         border-color: $border-color-5;
+      }
+
+      &-disabled-true {
+        .porscheicon {
+          opacity: 0.5;
+          &.pui-multi-select-clear-icon {
+            display: none;
+          }
+        }
       }
 
       &-size-small {
