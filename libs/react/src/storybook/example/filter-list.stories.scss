@@ -19,15 +19,19 @@
 }
 
 .pui-default-size-medium {
-  .pui-form-item {
-    margin-bottom: 16px;
-    margin-right: 16px;
+  .filter-list-wrap {
+    .pui-form-item {
+      margin-bottom: 16px;
+      margin-right: 16px;
+    }
   }
 }
 
 .pui-default-size-small {
-  .pui-form-item {
-    margin-bottom: 12px;
-    margin-right: 12px;
+  .filter-list-wrap {
+    .pui-form-item {
+      margin-bottom: 12px;
+      margin-right: 12px;
+    }
   }
 }

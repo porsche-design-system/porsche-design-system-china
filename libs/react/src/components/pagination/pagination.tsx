@@ -26,6 +26,9 @@ export interface PaginationProps {
 
   /** 数据总数 */
   total: number
+
+  /** 对齐方式 */
+  align?: 'left' | 'center' | 'right'
 }
 
 const prefixCls = 'pui-pagination'
@@ -38,7 +41,8 @@ const Pagination = ({
   pageSize = 1,
   onCurrentChange,
   style,
-  total
+  total,
+  align = 'left'
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent
   const [currentPage, setCurrentPage] = useState(initialCurrent)
@@ -86,7 +90,7 @@ const Pagination = ({
     }
     return list
   }
-  const initialList = useMemo(() => calculatePageList(initialCurrent), []);
+  const initialList = useMemo(() => calculatePageList(initialCurrent), [])
   const [list, setList] = useState(initialList)
   // 更新分页数据
   const updatePageData = (page: number) => {
@@ -134,15 +138,26 @@ const Pagination = ({
     }
     onCurrentChange && onCurrentChange(nextPage)
   }
+
+  const positionMapping = {
+    left: 'start',
+    center: 'center',
+    right: 'end'
+  }
+
   return (
     <ul
       className={componentClassNames('pui-pagination', {}, className)}
-      style={style}
+      style={{ justifyContent: positionMapping[align], ...style }}
     >
       <li
-        className={classNames(`${prefixCls}-item`, {
-          'pui-pagination-disabled': currentPage === 1
-        })}
+        className={classNames(
+          `${prefixCls}-item`,
+          'pui-pagination-arrow-left',
+          {
+            'pui-pagination-disabled': currentPage === 1
+          }
+        )}
         onClick={prevPage}
       >
         <IconArrowHeadLeft />
@@ -162,9 +177,13 @@ const Pagination = ({
         )
       })}
       <li
-        className={classNames(`${prefixCls}-item`, {
-          'pui-pagination-disabled': currentPage === maxPage
-        })}
+        className={classNames(
+          `${prefixCls}-item`,
+          'pui-pagination-arrow-right',
+          {
+            'pui-pagination-disabled': currentPage === maxPage
+          }
+        )}
         onClick={nextPage}
       >
         <IconArrowHeadRight />

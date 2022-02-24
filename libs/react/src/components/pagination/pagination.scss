@@ -6,11 +6,20 @@
 
     .pui-pagination {
       display: flex;
+
       &-item {
         padding: 8px 15px;
         cursor: pointer;
         user-select: none;
       }
+
+      &-arrow-left {
+        padding-left: 0;
+      }
+      &-arrow-right {
+        padding-right: 0;
+      }
+
       &-item-active {
         color: $brand-color;
         font-weight: bold;

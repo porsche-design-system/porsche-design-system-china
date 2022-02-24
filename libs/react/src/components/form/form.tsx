@@ -136,7 +136,9 @@ const Form = <T extends object>({
   }
 
   const newChildren = overrideChildren(children, (elementName, props) => {
+    console.log(elementName, props)
     if (
+      elementName === 'Search' ||
       elementName === 'Input' ||
       elementName === 'InputNumber' ||
       elementName === 'TextArea' ||
@@ -303,7 +305,8 @@ const Form = <T extends object>({
             'Switch',
             'Input',
             'InputNumber',
-            'TextArea'
+            'TextArea',
+            'Search'
           ].includes(elementName)
         ) {
           inputProps.onValueChange = value => {
