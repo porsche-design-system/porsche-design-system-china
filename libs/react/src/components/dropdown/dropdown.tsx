@@ -40,6 +40,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   const rootElementRef = useRef<any>(null)
   const [showDropdown, setShowDropdown] = useState(visible)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
     () => {
       if (showDropdown) {

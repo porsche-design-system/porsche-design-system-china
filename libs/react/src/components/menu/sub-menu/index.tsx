@@ -33,6 +33,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
       : false
   const [menuOpen, setOpen] = useState(isOpend)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
     () => {
       if (menuOpen) {
