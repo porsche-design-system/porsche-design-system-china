@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://gitlab.porsche-preview.cn///compare/v0.1.6...v0.1.8) (2022-02-24)
+
+
+### Features
+
+* 加强Search和和Pagination功能 @Jack verify ([1b11ee4](https://gitlab.porsche-preview.cn///commit/1b11ee4a405d6ddf17cd207a05676c7d00265f05))
+
+
+### Bug Fixes
+
+* 0.1.6 发版，另外修改了编译错误 ([edfbc87](https://gitlab.porsche-preview.cn///commit/edfbc8756e8766d7bdccdee9ff39a6c22a0f6ec8))
+* dropdown menu 边界位置处理 @Asimov校验 ([67e5d10](https://gitlab.porsche-preview.cn///commit/67e5d104ffd07c73309734a3a2463b4b87acda2c))
+* DSCWCN-108 | fixed dateRangePicker clear-button style ([d4a0aad](https://gitlab.porsche-preview.cn///commit/d4a0aadc9c047070502434e515c97650d3669e49))
+* 修复下拉菜单间距,调整默认宽度 ([7b13cef](https://gitlab.porsche-preview.cn///commit/7b13cef91c0bde0cce49bfd4c4702a97b84e03dd))
+* 修正所有ESlint错误和Babel错误 ([b51422f](https://gitlab.porsche-preview.cn///commit/b51422fd55e48f8815c9d830b33035885dbdc7db))
+* 菜单默认值变更无效,新增onClick事件 @立超验证 ([2bfb4fd](https://gitlab.porsche-preview.cn///commit/2bfb4fd9bad9ce1cad9e7201c5ef8eac2d38ead3))
+* **react, icons:** compile issues of typescript dependances ([fa498e5](https://gitlab.porsche-preview.cn///commit/fa498e5147e9cff9206f5e09ac0c6cccb2ef1025))
+
 ### [0.1.7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.0...v0.1.7) (2022-02-23)
 
 
