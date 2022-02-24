@@ -251,7 +251,10 @@ Select = FormItem(
             active: showOptionList + '',
             error: error ? error.show + '' : 'false',
             'keep-clear-button':
-              (showClearButton && newKeepClearButton && !!displayText) + ''
+              (showClearButton &&
+                newKeepClearButton &&
+                !disabled &&
+                !!displayText) + ''
           },
           className
         )}
@@ -262,7 +265,7 @@ Select = FormItem(
             { 'pui-select-input-placeholder': !displayText && !filterMode },
             {
               'pui-select-input-with-clear-button':
-                showClearButton && selectValue
+                showClearButton && selectValue && !disabled
             },
             { 'pui-select-input-highlight': displayText && filterMode }
           )}
@@ -297,7 +300,7 @@ Select = FormItem(
             displayText || placeholder
           )}
         </button>
-        {showClearButton && selectValue && (
+        {showClearButton && selectValue && !disabled && (
           <IconErrorFilled
             className="pui-select-clear-icon"
             onClick={evt => {

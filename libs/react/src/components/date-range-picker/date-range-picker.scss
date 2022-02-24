@@ -37,7 +37,8 @@
         display: inline-block;
         border: none;
         text-align: center;
-        margin: 0 12px;
+        padding: 0 8px;
+        margin: 0 8px;
         border-top-color: transparent;
         min-width: 110px;
         white-space: nowrap;
@@ -54,10 +55,17 @@
         color: $border-color-3;
       }
 
-      .pui-date-range-picker-box-active {
-        border-bottom: 2px solid $brand-color;
+      .pui-date-range-picker-box {
+        &-active {
+          border-bottom: 2px solid $brand-color;
+        }
+        &-with-clear-button {
+          padding-right: 16px;
+        }
+        &:last-of-type {
+          margin-right: 4px;
+        }
       }
-
       .pui-date-range-picker-to {
         display: inline-block;
         width: 18px;
@@ -66,8 +74,8 @@
 
       &-icon {
         position: absolute;
-        right: 11px;
-        top: 11px;
+        right: 10px;
+        top: 10px;
         pointer-events: none;
       }
 
@@ -75,8 +83,8 @@
       &-clear-icon-0 {
         display: none;
         position: absolute;
-        right: -10px;
-        top: 9px;
+        right: -8px;
+        top: 10px;
         cursor: pointer;
         opacity: 0.2;
       }
@@ -86,16 +94,25 @@
         opacity: 0.7;
       }
 
-      &-disabled-true {
+      &-disabled-true,
+      &-disabled-true:hover {
+        background: $container-bg-opacity-color-3;
+        border: 1px solid $border-color-2;
+        cursor: not-allowed;
+        opacity: 1;
         .porscheicon {
           opacity: 0.5;
+          &.pui-date-range-picker-clear-icon-0,
+          &.pui-date-range-picker-clear-icon-1 {
+            display: none;
+          }
         }
       }
 
       button:disabled {
-        background: $container-bg-opacity-color-3;
-        border: 1px solid $border-color-2;
-        cursor: not-allowed;
+        background: transparent;
+        border: none;
+        pointer-events: none;
         opacity: 1;
       }
 

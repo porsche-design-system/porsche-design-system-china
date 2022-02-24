@@ -225,7 +225,10 @@ MultiSelect = FormItem(
             active: showOptionList + '',
             error: error ? error.show + '' : 'false',
             'keep-clear-button':
-              (showClearButton && newKeepClearButton && !!displayText) + ''
+              (showClearButton &&
+                newKeepClearButton &&
+                !disabled &&
+                !!displayText) + ''
           },
           className
         )}
@@ -238,7 +241,7 @@ MultiSelect = FormItem(
             },
             {
               'pui-multi-select-input-with-clear-button':
-                showClearButton && !!selectValue.length
+                showClearButton && !!selectValue.length && !disabled
             },
             { 'pui-multi-select-input-highlight': displayText && filterMode }
           )}
@@ -273,7 +276,7 @@ MultiSelect = FormItem(
             displayText || placeholder
           )}
         </button>
-        {showClearButton && selectValue.length > 0 && (
+        {showClearButton && selectValue.length > 0 && !disabled && (
           <IconErrorFilled
             className="pui-multi-select-clear-icon"
             onClick={evt => {
