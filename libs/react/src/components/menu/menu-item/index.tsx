@@ -13,7 +13,8 @@ const MenuItem: React.FC<MenuItemProps> = props => {
     children,
     icon,
     divider,
-    selectAfter
+    selectAfter,
+    onClick
   } = props
 
   const context = useContext(MenuContext)
@@ -22,9 +23,10 @@ const MenuItem: React.FC<MenuItemProps> = props => {
     'is-divider': context.mode === 'dropdown' && divider,
     'is-active': context.index === index
   })
-  const handleClick = () => {
+  const handleClick = (event: any) => {
     if (context.onSelect && !disabled && typeof index === 'string') {
       context.onSelect(index)
+      onClick && onClick(event)
     }
   }
   return (
