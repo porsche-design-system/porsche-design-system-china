@@ -6,7 +6,8 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
   index,
   title,
   children,
-  className
+  className,
+  onClick
 }) => {
   const classes = classNames('menu-item item-group', className, {})
 
@@ -27,7 +28,7 @@ const ItemGroup: React.FC<ItemGroupProps> = ({
     return <ul className="group-menu">{childrenComponent}</ul>
   }
   return (
-    <li key={index} className={classes}>
+    <li key={index} className={classes} onClick={onClick}>
       <span className="group-title">{title}</span>
       {renderChildren()}
     </li>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { findIndexs } from '../libs'
 import { useDefaultSize } from '../../../shared/hooks'
 import { componentClassNames } from '../../../shared/class-util'
@@ -30,6 +30,7 @@ const Menu: React.FC<MenuProps> = props => {
       onSelect(index)
     }
   }
+
   const passedContext: IMenuContext = {
     index: currentActive,
     onSelect: handleClick,
@@ -71,6 +72,10 @@ const Menu: React.FC<MenuProps> = props => {
       return null
     })
   }
+
+  useEffect(() => {
+    setActive(activeIndex)
+  }, [activeIndex])
 
   const Children = renderChildren()
   return (
