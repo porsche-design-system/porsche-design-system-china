@@ -10,11 +10,8 @@ import { IconArrowHeadRight } from '@pui/icons'
 import { MenuContext } from '../index'
 import { useElementPos, usePopShowState } from '../../../shared/hooks'
 import { MenuItemProps, SubMenuProps } from '../types'
+import { PADDING_SIZE, SUB_MENU_WIDTH, MARGIN_LEFT } from '../const'
 import './index.scss'
-
-const PADDING_SIZE = 12
-const SUB_MENU_WIDTH = 160
-const MARGIN_LEFT = 4
 
 const SubMenu: React.FC<SubMenuProps> = ({
   index,
@@ -59,7 +56,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     e.preventDefault()
     timer = setTimeout(() => {
       setOpen(toggle)
-    }, 300)
+    }, 100)
   }
   const clickEvents = {
     onClick: handleClick
