@@ -19,6 +19,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
   children,
   className,
   subStyle,
+  onClick,
   hasSubItem
 }) => {
   const rootElementRef = useRef<any>(null)
@@ -133,6 +134,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
       {...clickEvents}
       key={index}
       className={classes}
+      onClick={onClick}
       ref={rootElement => {
         if (rootElement) {
           rootElementRef.current = rootElement
