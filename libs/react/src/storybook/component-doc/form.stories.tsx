@@ -16,7 +16,8 @@ import {
   CheckBoxGroup,
   CheckBox,
   DatePicker,
-  Switch
+  Switch,
+  Search
 } from '../..'
 
 export default {
@@ -121,6 +122,7 @@ export const ExampleStoryBook = () => {
                 { type: 'number', message: '手机号必须是数字' }
               ]}
             />
+            <Search name="search" />
             <Switch label="保时捷车主" name="ownCar" />
             <RadioGroup name="job" label="职业">
               <Radio text="教师" />
