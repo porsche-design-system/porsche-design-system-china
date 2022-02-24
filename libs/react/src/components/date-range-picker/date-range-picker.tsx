@@ -213,17 +213,6 @@ const DateRangePicker = FormItem(
       }
     }, [value])
 
-    // 不再限制选择起始
-    // useEffect(() => {
-    //   if (!calenderOpen) {
-    //     setPrePickedDates([null, null])
-    //     if (!pickedDates[0] || !pickedDates[1]) {
-    //       setPickedDates([null, null])
-    //       setDisplayValues(['', ''])
-    //     }
-    //   }
-    // }, [calenderOpen])
-
     useEffect(() => {
       if (!isFirstLoad.current) {
         onMenuVisibleChange &&

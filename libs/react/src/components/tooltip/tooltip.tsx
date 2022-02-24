@@ -77,8 +77,10 @@ const Tooltip = ({
   visible
 }: TooltipProps) => {
   const [isMountedContent, setIsMountedContent] = useState(false)
-  const [visibleContent, setVisibleContent] = useState(false) //mouseEnter、mouseLeave 显示/隐藏content
-  const [showContent, setShowContent] = usePopShowState() //click 显示/隐藏content
+  // mouseEnter、mouseLeave 显示/隐藏content
+  const [visibleContent, setVisibleContent] = useState(false)
+  // click 显示/隐藏content
+  const [showContent, setShowContent] = usePopShowState()
   const [contentPosition, setContentPosition] = useState<
     { top: number; left: number } | undefined
   >()
@@ -89,6 +91,7 @@ const Tooltip = ({
   const [arrowPlacementCls, setArrowPlacementCls] = useState('')
   const originRef = useRef(null)
   const boxRef = useRef(null)
+  // eslint-disable-next-line prefer-const
   let [firstChild, ...restChildren] = React.Children.toArray(children)
   // 计算提示框位置
   const calcTooltipPosition = (boxDom: any, targetDom: any, originDom: any) => {

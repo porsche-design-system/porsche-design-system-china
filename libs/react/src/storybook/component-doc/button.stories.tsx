@@ -197,7 +197,6 @@ export const ButtonStoryBook3 = () => {
           <Tab2 />
         </TabPane>
       </Tabs>
-      <div></div>
     </div>
   )
 }
