@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Menu } from '../..'
+import { Menu, Button, Modal } from '../..'
 import './menu.stories.scss'
 
 const { Item, ItemGroup, SubMenu } = Menu
@@ -12,16 +12,26 @@ export default {
 }
 
 export const ProgressStoryBook = () => {
+  const [index, setIndex] = React.useState('submit-test')
   return (
     <div className="menu-demo">
       <div className="test-one">
-        <Menu activeIndex="test">
-          <Menu.Item index="test">test</Menu.Item>
+        <Menu activeIndex={index} onSelect={setIndex}>
+          <Menu.Item
+            index="test"
+            onClick={() => Modal.confirm('onClick事件', '点击了 test')}
+          >
+            test
+          </Menu.Item>
           <Menu.Item index="about">about</Menu.Item>
           <Menu.Item disabled index="prod">
             prod
           </Menu.Item>
-          <Menu.SubMenu title="submit" index="submit">
+          <Menu.SubMenu
+            title="submit"
+            index="submit"
+            onClick={() => Modal.confirm('onClick事件', '点击了子标题')}
+          >
             <Menu.Item index="submit-test">test1</Menu.Item>
             <Menu.Item index="submit-about">about2</Menu.Item>
             <Menu.Item disabled index="submit-prod">
@@ -48,6 +58,12 @@ export const ProgressStoryBook = () => {
             </Menu.Item>
           </Menu.SubMenu>
         </Menu>
+        <br />
+        <br />
+        <Button onClick={() => setIndex('submit-submit-test14')}>
+          {' '}
+          设置默认值{' '}
+        </Button>
       </div>
     </div>
   )
