@@ -9,7 +9,7 @@ export default {
 
 export const FilterStoryBook = () => {
   return (
-    <div>
+    <div className="filter-list-wrap">
       <div>
         <Select
           filterMode
