@@ -406,6 +406,9 @@ export const FilterStoryBook = () => {
             placeholderEndDate="不限"
             showClearButton
             keepClearButton
+            onValueChange={vals => {
+              console.log(vals)
+            }}
           />
         </Form>
       </div>
