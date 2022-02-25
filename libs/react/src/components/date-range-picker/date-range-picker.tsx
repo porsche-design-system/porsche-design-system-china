@@ -391,7 +391,7 @@ const DateRangePicker = FormItem(
                         setMenuOpen(undefined)
                       }
                     }
-                    if (displayValues[0] && displayValues[1]) {
+                    if (displayValues[0] || displayValues[1]) {
                       onValueChange && onValueChange([...displayValues])
                     }
                   }}
@@ -424,12 +424,6 @@ const DateRangePicker = FormItem(
         </div>
       )
     }
-
-    console.log(
-      'displayValues: ',
-      (displayValues[0] !== '' || displayValues[1] !== '') + '',
-      disabled
-    )
 
     return (
       <div
