@@ -17,7 +17,8 @@ import {
   CheckBox,
   DatePicker,
   Switch,
-  Search
+  Search,
+  DateRangePicker
 } from '../..'
 
 export default {
@@ -114,6 +115,7 @@ export const ExampleStoryBook = () => {
               name="email"
               rules={{ type: 'email', message: '邮件格式不正确' }}
             />
+            <DateRangePicker label="上牌日期" name="dateRange" />
             <Input
               label="手机号"
               name="mobile"
