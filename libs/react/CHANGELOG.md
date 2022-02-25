@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://gitlab.porsche-preview.cn///compare/v0.1.8...v0.1.9) (2022-02-25)
+
+
+### Features
+
+* Table加入行点击事件，加入行样式设置 @刘毅 verified  @顺波 verified  @赵忠事 verified ([72b88fc](https://gitlab.porsche-preview.cn///commit/72b88fc6409e56c55403c622e0d8e5ee4346ec69))
+
+
+### Bug Fixes
+
+* 解决menu点击事件错误 ([75b834c](https://gitlab.porsche-preview.cn///commit/75b834ca37f86a16dda6c1420107a89163c5661a))
+
 ### [0.1.8](https://gitlab.porsche-preview.cn///compare/v0.1.6...v0.1.8) (2022-02-24)
 
 
