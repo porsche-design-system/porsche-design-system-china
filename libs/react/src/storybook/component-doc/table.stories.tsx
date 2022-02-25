@@ -18,16 +18,18 @@ export const TableStoryBook = () => {
     saleModel: '911 718 Taycan Panamera Macan Cayenne'
   }
 
-  const tableData: any[] = []
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
   for (let i = 0; i < 10; i++) {
     tableData.push(rowData)
   }
 
-  const columns: TableColumn[] = [
+  const columns: TableColumn<DataType>[] = [
     { title: '经销商', key: 'dealerName', fixed: 'left' },
     {
       title: '号码',
-      customCell: (rowData: any) => <u>{rowData.dealerCode}</u>
+      customCell: rowData => <u>{rowData.dealerCode}</u>
     },
     { title: '联系号码', key: 'phoneNumber' },
     { title: '地址', key: 'address' },
@@ -100,12 +102,14 @@ export const TableStoryBook2 = () => {
     saleModel: '911 718 Taycan Panamera Macan Cayenne'
   }
 
+  type DataType = typeof rowData
+
   const tableData: any[] = []
   for (let i = 0; i < 5; i++) {
     tableData.push(rowData)
   }
 
-  const columns: TableColumn[] = [
+  const columns: TableColumn<DataType>[] = [
     { title: '经销商', key: 'dealerName', fixed: 'left' },
     { title: '联系号码', key: 'phoneNumber' },
     { title: '地址', key: 'address' },
@@ -188,7 +192,9 @@ export const TableStoryBook3 = () => {
     saleModel: '911 718 Taycan Panamera Macan Cayenne'
   }
 
-  const tableData: any[] = []
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
   for (let i = 0; i < 5; i++) {
     tableData.push(rowData)
   }
@@ -201,7 +207,7 @@ export const TableStoryBook3 = () => {
       </div>
     )
 
-  const columns: TableColumn[] = [
+  const columns: TableColumn<DataType>[] = [
     {
       title: '经销商',
       customCell: renderCell('dealerName')
@@ -297,14 +303,16 @@ export const TableStoryBook4 = () => {
     saleModel: '911 718 Taycan Panamera Macan Cayenne'
   }
 
-  const tableData: any[] = []
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
   for (let i = 0; i < 5; i++) {
     rowData.id = i + 1
     rowData.dealerCode = Math.floor(Math.random() * 10000)
     tableData.push({ ...rowData })
   }
 
-  const columns: TableColumn[] = [
+  const columns: TableColumn<DataType>[] = [
     {
       title: 'Id',
       key: 'id',
@@ -332,9 +340,6 @@ export const TableStoryBook4 = () => {
         data={tableData}
         columns={columns}
         defaultSorter={{ key: 'id', sortType: SortType.DESC }}
-        onSelect={data => {
-          console.log(data)
-        }}
         onSort={sorter => console.log(sorter)}
       />
     </div>
@@ -342,3 +347,71 @@ export const TableStoryBook4 = () => {
 }
 
 TableStoryBook4.storyName = 'Multi Column Sort'
+
+export const TableStoryBook5 = () => {
+  const rowData = {
+    id: 0,
+    dealerName: '上海浦东保时捷中心',
+    dealerCode: 1000000,
+    phoneNumber: '021-22211111',
+    address: '上海市东方路123号',
+    avgPrice: '￥1000000',
+    workingTime: '10:00AM - 10:30PM',
+    saleModel: '911 718 Taycan Panamera Macan Cayenne'
+  }
+
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
+  for (let i = 0; i < 5; i++) {
+    rowData.id = i + 1
+    rowData.dealerCode = Math.floor(Math.random() * 10000)
+    tableData.push({ ...rowData })
+  }
+
+  const columns: TableColumn<DataType>[] = [
+    {
+      title: 'Id',
+      key: 'id',
+      sortable: true,
+      ignoreUnsortedState: true
+    },
+    {
+      title: '经销商',
+      key: 'dealerName'
+    },
+    {
+      title: '经销商号码',
+      key: 'dealerCode',
+      sortable: true
+    },
+    { title: '地址', key: 'address' },
+    {
+      title: '工作时间',
+      key: 'workingTime'
+    }
+  ]
+
+  return (
+    <div>
+      <div>通过 rowClassName 或 rowStyle 改变行样式 onRowClick 行点击事件</div>
+      <br />
+      <Table
+        data={tableData}
+        columns={columns}
+        rowClassName={(rowData, row) => 'table-row' + row}
+        onRowClick={rowData => {
+          console.log(rowData)
+        }}
+        rowStyle={(rowData, row) => {
+          if (row === 1) {
+            return { color: 'red' }
+          }
+          return {}
+        }}
+      />
+    </div>
+  )
+}
+
+TableStoryBook5.storyName = 'Row Style'

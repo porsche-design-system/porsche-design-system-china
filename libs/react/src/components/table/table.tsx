@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState
 } from 'react'
+import classNames from 'classnames'
 import { renderToString } from 'react-dom/server'
 import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
@@ -25,9 +26,9 @@ export interface Sorter {
   sortType?: SortType
 }
 
-export interface TableColumn {
+export interface TableColumn<T = any> {
   title?: ReactNode
-  key?: string
+  key?: keyof T
   width?: number
   fixed?: 'none' | 'left' | 'right'
   multiline?: boolean
@@ -36,10 +37,10 @@ export interface TableColumn {
   sortIconPlace?: 'left' | 'right'
   headCellStyle?: CSSProperties
   rowCellStyle?: CSSProperties
-  customCell?: (rowData: any) => React.ReactNode
+  customCell?: (rowData: T) => React.ReactNode
 }
 
-export interface TableProps {
+export interface TableProps<T = any> {
   /* 类名 */
   className?: string
 
@@ -47,10 +48,10 @@ export interface TableProps {
   style?: CSSProperties
 
   /* 列属性 */
-  columns: TableColumn[]
+  columns: TableColumn<T>[]
 
   /* 数据 */
-  data: any[]
+  data: T[]
 
   /* 可选定行 */
   selectable?: boolean
@@ -65,7 +66,7 @@ export interface TableProps {
   onSort?: (sorter: Sorter) => void
 
   /* 选定事件 */
-  onSelect?: (selectedRowData: any[]) => void
+  onSelect?: (selectedRowData: T[]) => void
 
   /* 默认排序方式 */
   defaultSorter?: Sorter
@@ -74,16 +75,25 @@ export interface TableProps {
   rowExpandable?: boolean
 
   /* 可展开行渲染 */
-  expandCell?: (rowData: any) => React.ReactNode
+  expandCell?: (rowData: T) => React.ReactNode
 
   /* 扩展箭头样式 */
   expandArrowStyle?: CSSProperties
 
   /* 单元纵向对齐方式 */
   cellVerticalAlign?: 'middle' | 'top' | 'bottom'
+
+  /* 行样式 */
+  rowClassName?: (rowData: T, rowNumber?: number) => string
+
+  /* 行样式 */
+  rowStyle?: (rowData: T, rowNumber?: number) => CSSProperties
+
+  /* 行点击事件 */
+  onRowClick?: (rowData: T, rowNumber?: number) => void
 }
 
-const Table = ({
+const Table = <T,>({
   className,
   style,
   columns,
@@ -97,8 +107,13 @@ const Table = ({
   defaultSorter = {},
   cellVerticalAlign = 'middle',
   expandArrowStyle,
-  expandCell
-}: TableProps) => {
+  expandCell,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  rowClassName = (rowDate: T, inx?: number) => '',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  rowStyle = (rowDate: T, inx?: number) => ({}),
+  onRowClick
+}: TableProps<T>) => {
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
   const rightColumns: TableColumn[] = []
@@ -248,7 +263,8 @@ const Table = ({
       } else {
         data.forEach(d => {
           if (d[col.key!]) {
-            const dataColWidth = getByteLength(d[col.key!]) * charWidth
+            const dataColWidth =
+              getByteLength(d[col.key! as string]) * charWidth
             col.width =
               (col.width || 0) < dataColWidth ? dataColWidth : col.width
           }
@@ -386,8 +402,8 @@ const Table = ({
     if (column.ignoreUnsortedState && order === undefined) {
       order = ORDER_QUEUE[ORDER_QUEUE.indexOf(order) + 1]
     }
-    setSorter({ key: column.key, sortType: order })
-    onSort && onSort({ key: column.key, sortType: order })
+    setSorter({ key: column.key as string, sortType: order })
+    onSort && onSort({ key: column.key as string, sortType: order })
   }
 
   return (
@@ -509,15 +525,19 @@ const Table = ({
                 return (
                   <Fragment key={'row' + inx}>
                     <tr
-                      className={
-                        (selectedRows.includes(inx)
-                          ? 'pui-table-selected-row'
-                          : '') +
-                        (isExpandRow ? ' pui-table-expand-row' : '') +
-                        (rowExpandable && expandRows.includes(inx)
-                          ? ' pui-table-expand-row-active'
-                          : '')
-                      }
+                      className={classNames(
+                        {
+                          'pui-table-selected-row': selectedRows.includes(inx),
+                          'pui-table-expand-row': isExpandRow,
+                          'pui-table-expand-row-active':
+                            rowExpandable && expandRows.includes(inx)
+                        },
+                        rowClassName(rowData, inx)
+                      )}
+                      style={rowStyle(rowData, inx)}
+                      onClick={() => {
+                        onRowClick && onRowClick(rowData, inx)
+                      }}
                     >
                       {selectable && (
                         <td
