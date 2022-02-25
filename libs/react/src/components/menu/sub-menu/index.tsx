@@ -49,6 +49,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setOpen(!menuOpen)
+    onClick && onClick(e)
     updatePos()
   }
   let timer: any
@@ -134,7 +135,6 @@ const SubMenu: React.FC<SubMenuProps> = ({
       {...clickEvents}
       key={index}
       className={classes}
-      onClick={onClick}
       ref={rootElement => {
         if (rootElement) {
           rootElementRef.current = rootElement
