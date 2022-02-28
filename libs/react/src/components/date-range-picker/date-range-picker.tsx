@@ -518,7 +518,7 @@ const DateRangePicker = FormItem(
               )}
               {showClearButton && displayValues[0] && !disabled && (
                 <IconErrorFilled
-                  className="pui-date-range-picker-clear-icon-0"
+                  className="pui-drpci-start"
                   style={{
                     display: newKeepClearButton ? 'inline-block' : ''
                   }}
@@ -570,7 +570,7 @@ const DateRangePicker = FormItem(
               )}
               {showClearButton && displayValues[1] && !disabled && (
                 <IconErrorFilled
-                  className="pui-date-range-picker-clear-icon-1"
+                  className="pui-drpci-end"
                   style={{
                     display: newKeepClearButton ? 'inline-block' : ''
                   }}
