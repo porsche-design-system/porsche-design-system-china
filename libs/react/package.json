@@ -20,7 +20,7 @@
     "vremove": "npm unpublish @pui/react@0.1.6 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "jest",
-    "changelog": "standard-version"
+    "vfixed": "standard-version"
   },
   "husky": {
     "hooks": {
