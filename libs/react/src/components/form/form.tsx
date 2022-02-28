@@ -64,8 +64,11 @@ export interface FormProps<T> {
   /* 表单名字，可以用Form.findById['{name}']获取表单，调用提交 */
   name?: string
 
+  /* 过滤器模式 */
+  filterMode?: boolean
+
   /* 数据改变回调 */
-  onDataChange?: (data: T) => void
+  onDataChange?: (data: T, isComposing?: boolean) => void
 
   /* 数据提交事件 */
   onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>
@@ -88,7 +91,8 @@ const Form = <T extends object>({
   labelLayout,
   width,
   height,
-  lineGap
+  lineGap,
+  filterMode
 }: FormProps<T>) => {
   const [formData, setFormData] = useState(data || defaultData || {})
   const [formErrors, setFormErrors] = useState([] as ErrorList)
@@ -154,8 +158,9 @@ const Form = <T extends object>({
         name?: string
         nameStartDate?: string
         nameEndDate?: string
+        filterMode?: boolean
         onChange?: ChangeEventHandler<HTMLInputElement>
-        onValueChange?: (val: string) => void
+        onValueChange?: (val: string, isComposing?: boolean) => void
         label?: FormItemLabelProps | string
         value?: any
         rules?: RuleItem[] | RuleItem
@@ -165,6 +170,10 @@ const Form = <T extends object>({
 
       if (lineGap) {
         inputProps.style = { marginBottom: lineGap, ...inputProps.style }
+      }
+
+      if (inputProps.filterMode === undefined) {
+        inputProps.filterMode = filterMode
       }
 
       if (
@@ -289,7 +298,7 @@ const Form = <T extends object>({
             if (data === undefined) {
               setFormData(newFormData)
             }
-            onDataChange && onDataChange(newFormData as T)
+            onDataChange && onDataChange(newFormData as T, false)
             formItemOnChange && formItemOnChange(evt)
             validForm(newFormData)
           }
@@ -308,7 +317,7 @@ const Form = <T extends object>({
             'Search'
           ].includes(elementName)
         ) {
-          inputProps.onValueChange = value => {
+          inputProps.onValueChange = (value, isComposing) => {
             let newFormData = fData
             if (inputProps.name) {
               newFormData = { ...fData, [inputProps.name]: value }
@@ -330,7 +339,10 @@ const Form = <T extends object>({
             if (data === undefined) {
               setFormData(newFormData)
             }
-            onDataChange && onDataChange(newFormData as T)
+            if (isComposing === undefined) {
+              isComposing = false
+            }
+            onDataChange && onDataChange(newFormData as T, isComposing)
             formItemOnValueChange && formItemOnValueChange(value as string)
             validForm(newFormData)
           }

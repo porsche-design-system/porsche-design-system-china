@@ -59,7 +59,7 @@ export interface InputProps {
   onEnter?: (value: string) => void
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: string, isComposing?: boolean) => void
 
   /* 显示清除按钮 */
   showClearButton?: boolean
@@ -102,6 +102,7 @@ const Input = FormItem(
     onCompositionStart,
     onCompositionEnd
   }: InputProps) => {
+    const [, setForceUpdate] = useState(0)
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
@@ -138,20 +139,19 @@ const Input = FormItem(
           onCompositionStart={(evt: any) => {
             isCompositionStarted.current = true
             onCompositionStart && onCompositionStart(evt)
+            setForceUpdate(Math.random())
           }}
           onCompositionEnd={(evt: any) => {
             if (isCompositionStarted.current) {
-              onValueChange && onValueChange(evt.target.value)
+              onValueChange && onValueChange(evt.target.value, false)
               isCompositionStarted.current = false
             }
             onCompositionEnd && onCompositionEnd(evt)
           }}
           onChange={evt => {
-            if (isCompositionStarted.current) {
-              return
-            }
             onChange && onChange(evt)
-            onValueChange && onValueChange(evt.target.value)
+            onValueChange &&
+              onValueChange(evt.target.value, isCompositionStarted.current)
           }}
           disabled={disabled}
           value={value}
