@@ -12,6 +12,7 @@ export const DateRangePickerStoryBook = () => {
       <DateRangePicker
         width="400px"
         label="来访日期"
+        showClearButton
         placeholderStartDate="请选择开始日期"
         placeholderEndDate="请选择结束日期"
         onValueChange={v => {
@@ -30,6 +31,7 @@ export const DateRangePickerStoryBook1 = () => {
       <DateRangePicker
         width="330px"
         label="来访日期"
+        showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
         nameStartDate="startDate"
@@ -50,6 +52,7 @@ export const DateRangePickerStoryBook2 = () => {
       <DateRangePicker
         width="330px"
         label="限定日期"
+        showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
         range="2012-10-12,2012-12-12"
@@ -64,6 +67,7 @@ export const DateRangePickerStoryBook3 = () => {
     <div>
       <DateRangePicker
         label="保修时间"
+        showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
         range="2012-10-12,2012-12-12"
