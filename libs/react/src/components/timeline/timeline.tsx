@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import {  TimelineItemProps } from './timeline-item'
+import { TimelineItemProps } from './timeline-item'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
 import './timeline.scss'
 import { useDefaultSize } from '../../shared/hooks'
@@ -46,7 +46,6 @@ export const Timeline = ({
       style={style}
     >
       {timelineItems.map((item: TimelineItemProps, index: number) => {
-        console.log(item)
         return (
           <li
             className={componentClassNames(
