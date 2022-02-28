@@ -53,7 +53,7 @@ export interface TextAreaProps {
   onChange?: ChangeEventHandler
 
   /* 值改变事件 */
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: string, isComposing?: boolean) => void
 
   /* 输入框失去焦点事件 */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
@@ -112,7 +112,7 @@ const TextArea = FormItem(
           }}
           onCompositionEnd={(evt: any) => {
             if (isCompositionStarted.current) {
-              onValueChange && onValueChange(evt.target.value)
+              onValueChange && onValueChange(evt.target.value, false)
               isCompositionStarted.current = false
             }
             onCompositionEnd && onCompositionEnd(evt)
@@ -125,11 +125,9 @@ const TextArea = FormItem(
           maxLength={maxLength}
           placeholder={placeholder}
           onChange={evt => {
-            if (isCompositionStarted.current) {
-              return
-            }
             onChange && onChange(evt)
-            onValueChange && onValueChange(evt.target.value)
+            onValueChange &&
+              onValueChange(evt.target.value, isCompositionStarted.current)
           }}
           disabled={disabled}
           onInput={event => {

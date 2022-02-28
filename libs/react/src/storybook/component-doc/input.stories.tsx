@@ -16,8 +16,10 @@ export const InputsStoryBook = () => {
         <div>
           <Input
             placeholder="请输入"
-            onValueChange={val => {
-              console.log(val)
+            onValueChange={(val, isComposing) => {
+              if (!isComposing) {
+                console.log(val)
+              }
             }}
             onBlur={evt => {
               console.log(evt)
