@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://gitlab.porsche-preview.cn///compare/v0.1.9...v0.1.10) (2022-02-28)
+
+
+### Features
+
+* 加入form过滤器模式，加入composing选项 ([b2e5081](https://gitlab.porsche-preview.cn///commit/b2e50816e1c7ffc7fb8e7a6fa4a5d2e06b148be9))
+
 ### [0.1.9](https://gitlab.porsche-preview.cn///compare/v0.1.8...v0.1.9) (2022-02-25)
 
 ### Features
