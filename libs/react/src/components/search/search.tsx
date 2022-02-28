@@ -124,4 +124,5 @@ const Search = ({
   )
 }
 
+;(Search as any).displayName = 'Search'
 export { Search }

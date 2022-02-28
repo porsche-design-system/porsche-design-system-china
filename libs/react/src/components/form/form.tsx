@@ -136,7 +136,6 @@ const Form = <T extends object>({
   }
 
   const newChildren = overrideChildren(children, (elementName, props) => {
-    console.log(elementName, props)
     if (
       elementName === 'Search' ||
       elementName === 'Input' ||
