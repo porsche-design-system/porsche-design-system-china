@@ -6,8 +6,8 @@
 
     .pui-date-range-picker:hover {
       border-color: $border-color-5;
-      .pui-date-range-picker-clear-icon-0,
-      .pui-date-range-picker-clear-icon-1 {
+      .pui-drpci-start,
+      .pui-drpci-end {
         display: block;
       }
     }
@@ -79,8 +79,8 @@
         pointer-events: none;
       }
 
-      &-clear-icon-1,
-      &-clear-icon-0 {
+      .pui-drpci-start,
+      .pui-drpci-end {
         display: none;
         position: absolute;
         right: -8px;
@@ -89,8 +89,8 @@
         opacity: 0.2;
       }
 
-      &-clear-icon-0:hover,
-      &-clear-icon-1:hover {
+      .pui-drpci-start:hover,
+      .pui-drpci-end:hover {
         opacity: 0.7;
       }
 
@@ -102,8 +102,8 @@
         opacity: 1;
         .porscheicon {
           opacity: 0.5;
-          &.pui-date-range-picker-clear-icon-0,
-          &.pui-date-range-picker-clear-icon-1 {
+          &.pui-drpci-start,
+          &.pui-drpci-end {
             display: none;
           }
         }
@@ -294,15 +294,16 @@
         }
 
         .pui-date-range-picker-icon {
-          top: 6px;
+          top: 7px;
+          font-size: 20px;
         }
 
         .pui-date-range-picker-filter-label {
           line-height: 34px;
         }
 
-        .pui-date-range-picker-clear-icon-0,
-        .pui-date-range-picker-clear-icon-1 {
+        .pui-drpci-start,
+        .pui-drpci-end {
           top: 8px;
           font-size: 18px;
         }
