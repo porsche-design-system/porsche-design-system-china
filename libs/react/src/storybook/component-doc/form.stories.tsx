@@ -77,7 +77,8 @@ export const ExampleStoryBook = () => {
           <Form
             labelLayout={labelLayout}
             data={data}
-            onDataChange={d => {
+            onDataChange={(d, isComposing) => {
+              console.log('isComposing', isComposing)
               setData(d)
             }}
             onSubmit={(data, error) => {

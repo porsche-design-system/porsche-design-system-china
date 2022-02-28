@@ -300,11 +300,10 @@ export const FilterStoryBook = () => {
         />
       </div>
       <br /> <br />
-      保留清除按钮-Form <br /> <br />
+      保留清除按钮-在 Form 中是使用filterMode <br /> <br />
       <div>
-        <Form>
+        <Form filterMode>
           <Select
-            filterMode
             filterInput
             options="上海保时捷中心,北京保时捷中心"
             label="经销商"
@@ -313,7 +312,6 @@ export const FilterStoryBook = () => {
             keepClearButton
           />
           <Select
-            filterMode
             options="911,718"
             label="车型"
             showClearButton
@@ -321,7 +319,6 @@ export const FilterStoryBook = () => {
             keepClearButton
           />
           <Select
-            filterMode
             filterInput
             options={[
               {
@@ -347,7 +344,6 @@ export const FilterStoryBook = () => {
           />
 
           <Select
-            filterMode
             filterInput
             options={[
               {
@@ -385,7 +381,6 @@ export const FilterStoryBook = () => {
           <MultiSelect
             options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
             filterInput
-            filterMode
             showClearButton
             label="动物"
             maxWidth="300px"
@@ -393,14 +388,8 @@ export const FilterStoryBook = () => {
             optionsStyle={{ minWidth: '200px' }}
           />
 
-          <DatePicker
-            filterMode
-            label="预约试驾日期"
-            keepClearButton
-            showClearButton
-          />
+          <DatePicker label="预约试驾日期" keepClearButton showClearButton />
           <DateRangePicker
-            filterMode
             label="活动时间"
             placeholderStartDate="不限"
             placeholderEndDate="不限"
