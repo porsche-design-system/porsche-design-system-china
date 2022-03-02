@@ -141,7 +141,6 @@ export const ModalStoryBook1 = () => {
         <Button
           onClick={() =>
             Modal.show({
-              className: 'modal-demo-maximnu-height',
               title: '对话框标题',
               content:
                 '协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容： 协议文本内容。协议文本内容。协议文本内容。协议文本内容协议文本内容协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。协议文本内容。',
@@ -250,13 +249,13 @@ export const ModalStoryBook2 = () => {
 
   const Tab3 = () => {
     const [visible, setVisible] = useState(false)
-    const [loading,setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
     return (
       <>
         <Modal
           visible={visible}
           title="对话框标题"
-          onCancel={()=>setVisible(false)}
+          onCancel={() => setVisible(false)}
           footer={
             <div
               style={{
@@ -265,20 +264,24 @@ export const ModalStoryBook2 = () => {
                 alignItems: 'center'
               }}
             >
-              <div><Button type='link' icon={<IconArrowHeadRight/>}>链接按钮</Button></div>
+              <div>
+                <Button type="link" icon={<IconArrowHeadRight />}>
+                  链接按钮
+                </Button>
+              </div>
               <div>
                 <Button
                   type="default"
                   marginRight="10px"
                   onClick={() => setVisible(false)}
-                  icon={<IconClose/>}
+                  icon={<IconClose />}
                 >
                   次要按钮
                 </Button>
                 <Button
                   type="primary"
                   disabled={loading}
-                  icon={<IconArrowHeadRight/>}
+                  icon={<IconArrowHeadRight />}
                   onClick={() => {
                     return new Promise(resolve => {
                       setLoading(true)
@@ -287,12 +290,12 @@ export const ModalStoryBook2 = () => {
                         setLoading(false)
                         setTimeout(() => {
                           setVisible(false)
-                        },200)
+                        }, 200)
                       }, 2000)
                     })
                   }}
                 >
-                  {loading?'loading...':'主要按钮'}
+                  {loading ? 'loading...' : '主要按钮'}
                 </Button>
               </div>
             </div>
@@ -300,7 +303,6 @@ export const ModalStoryBook2 = () => {
           okText="主要按钮"
           cancelText="次要按钮"
           hasDivider
-          
         >
           {' '}
         </Modal>
@@ -323,7 +325,6 @@ export const ModalStoryBook2 = () => {
               okText: '主要按钮',
               cancelText: '次要按钮',
               hasDivider: true,
-              className: 'minimum-modal',
               onOk() {
                 return new Promise(resolve => {
                   setTimeout(() => {
@@ -367,7 +368,7 @@ export const ModalStoryBook3 = () => {
     const [visible, setVisible] = useState(false)
     return (
       <>
-       <Modal
+        <Modal
           visible={visible}
           title="对话框标题"
           okText="主要按钮"
@@ -386,18 +387,11 @@ export const ModalStoryBook3 = () => {
         >
           {' '}
         </Modal>
-      <Button
-        onClick={() =>
-          setVisible(true)
-        }
-        type="secondary"
-      >
-        基础对话框 - 默认
-      </Button>
+        <Button onClick={() => setVisible(true)} type="secondary">
+          基础对话框 - 默认
+        </Button>
       </>
-      
     )
-    
   }
 
   const Tab2 = () => {
@@ -438,14 +432,14 @@ export const ModalStoryBook3 = () => {
 
   const Tab3 = () => {
     const [visible, setVisible] = useState(false)
-    const [loading,setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
     return (
       <>
         <Modal
           visible={visible}
           title="对话框标题"
           modalSize="large"
-          onCancel={()=>setVisible(false)}
+          onCancel={() => setVisible(false)}
           footer={
             <div
               style={{
@@ -454,20 +448,24 @@ export const ModalStoryBook3 = () => {
                 alignItems: 'center'
               }}
             >
-              <div><Button type='link' icon={<IconArrowHeadRight/>}>链接按钮</Button></div>
+              <div>
+                <Button type="link" icon={<IconArrowHeadRight />}>
+                  链接按钮
+                </Button>
+              </div>
               <div>
                 <Button
                   type="default"
                   marginRight="10px"
                   onClick={() => setVisible(false)}
-                  icon={<IconClose/>}
+                  icon={<IconClose />}
                 >
                   次要按钮
                 </Button>
                 <Button
                   type="primary"
                   disabled={loading}
-                  icon={<IconArrowHeadRight/>}
+                  icon={<IconArrowHeadRight />}
                   onClick={() => {
                     return new Promise(resolve => {
                       setLoading(true)
@@ -476,12 +474,12 @@ export const ModalStoryBook3 = () => {
                         setLoading(false)
                         setTimeout(() => {
                           setVisible(false)
-                        },200)
+                        }, 200)
                       }, 2000)
                     })
                   }}
                 >
-                  {loading?'loading...':'主要按钮'}
+                  {loading ? 'loading...' : '主要按钮'}
                 </Button>
               </div>
             </div>
@@ -489,7 +487,6 @@ export const ModalStoryBook3 = () => {
           okText="主要按钮"
           cancelText="次要按钮"
           hasDivider
-          
         >
           {' '}
         </Modal>
@@ -512,7 +509,7 @@ export const ModalStoryBook3 = () => {
               okText: '主要按钮',
               cancelText: '次要按钮',
               hasDivider: true,
-              className: 'minimum-modal',
+              modalSize: 'large',
               onOk() {
                 return new Promise(resolve => {
                   setTimeout(() => {
