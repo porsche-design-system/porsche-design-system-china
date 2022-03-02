@@ -1,9 +1,10 @@
 import {
   IconArrowHeadRight,
   IconClose,
-  IconClock,
   IconInformation,
-  IconExclamation
+  IconWarningFilled,
+  IconErrorFilled,
+  IconCorrectFilled
 } from '@pui/icons'
 import React, {
   CSSProperties,
@@ -15,6 +16,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 import { ButtonProps } from '../button/button'
 import './modal.scss'
 
@@ -27,6 +29,9 @@ export interface ModalProps {
 
   /** 样式 */
   style?: CSSProperties
+
+  /** 大小 */
+  size?: 'medium' | 'small' | 'tiny'
 
   /** 弹框大小 */
   modalSize?: 'small' | 'medium' | 'large'
@@ -48,6 +53,9 @@ export interface ModalProps {
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
+
+  /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
+  footer?: React.ReactNode
 
   /** 确认按钮文字 */
   okText?: string
@@ -89,6 +97,7 @@ let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
   className,
+  size,
   modalSize = 'medium',
   visible = false,
   title,
@@ -97,6 +106,7 @@ const Modal = ({
   subtitle = '',
   hasDivider = false,
   children,
+  footer,
   okText = '确认',
   okButtonProps = {},
   cancelText = '取消',
@@ -112,74 +122,17 @@ const Modal = ({
 }: ModalProps) => {
   const [show, setShow] = useState(visible)
   const [isLoading, setIsLoading] = useState(false)
-  modalSetIsLoading = setIsLoading
-  const TitleIcon = {
-    info: () => <IconInformation />,
-    success: () => <IconClock />,
-    warning: () => <IconExclamation />,
-    error: () => <IconClose />,
-    undefined: () => null
-  }
-
-  
-  useEffect(() => {
-    setShow(visible)
-  }, [visible])
-  return ReactDOM.createPortal(
-    <div
-      ref={modalRef}
-      className={componentClassNames('pui-modal-root', { hide: !show + '' })}
-    >
-      <div className="pui-modal-mask" />
-      <div className="pui-modal-wrap">
-        <div
-          className={componentClassNames(
-            'pui-modal',
-            {
-              modalsize: modalSize + ''
-            },
-            className
-          )}
-          style={style}
-        >
-          <div className="pui-modal-content">
-            {showClose && (
-              <div
-                className="pui-modal-close"
-                onClick={() => {
-                  onCancel && onCancel()
-                }}
-              >
-                <IconClose />
-              </div>
-            )}
-
-            <div
-              className={componentClassNames('pui-modal-header', {
-                divider: hasDivider + ''
-              })}
-            >
-              <div className="pui-modal-title">
-                {titleIconType && (
-                  <div
-                    className={componentClassNames('pui-modal-title-icon', {
-                      type: titleIconType
-                    })}
-                  >
-                    {titleIcon || TitleIcon[titleIconType]()}
-                  </div>
-                )}
-                {title}
-              </div>
-              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
-            </div>
-            <div className="pui-modal-body">{children}</div>
-            <div
-              className={componentClassNames('pui-modal-footer', {
-                divider: hasDivider + ''
-              })}
-            >
-              {showCancel && (
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
+  let Footer:React.ReactNode=()=>footer
+  // if(footer){
+  //   Footer=()=>footer
+  // }
+  if(footer===undefined){
+    Footer= ()=>{
+      return (
+        <div>
+          {showCancel && (
                 <Button
                   onClick={() => onCancel && onCancel()}
                   icon={
@@ -223,6 +176,82 @@ const Modal = ({
                   {okText}
                 </Button>
               )}
+        </div>
+      )
+    }
+  }
+
+  console.log('footer',Footer)
+
+  modalSetIsLoading = setIsLoading
+  const TitleIcon = {
+    info: () => <IconInformation />,
+    success: () => <IconCorrectFilled />,
+    warning: () => <IconWarningFilled />,
+    error: () => <IconErrorFilled />,
+    undefined: () => null
+  }
+
+  
+  useEffect(() => {
+    setShow(visible)
+  }, [visible])
+  return ReactDOM.createPortal(
+    <div
+      ref={modalRef}
+      className={componentClassNames('pui-modal-root', { hide: !show + '' })}
+    >
+      <div className="pui-modal-mask" />
+      <div className="pui-modal-wrap">
+        <div
+          className={componentClassNames(
+            'pui-modal',
+            {
+              modalsize: modalSize + '',
+              size
+            },
+            className
+          )}
+         
+        >
+          <div className="pui-modal-content">
+            {showClose && (
+              <div
+                className="pui-modal-close"
+                onClick={() => {
+                  onCancel && onCancel()
+                }}
+              >
+                <IconClose />
+              </div>
+            )}
+
+            <div
+              className={componentClassNames('pui-modal-header', {
+                divider: hasDivider + ''
+              })}
+            >
+              <div className="pui-modal-title">
+                {titleIconType && (
+                  <div
+                    className={componentClassNames('pui-modal-title-icon', {
+                      type: titleIconType
+                    })}
+                  >
+                    {titleIcon || TitleIcon[titleIconType]()}
+                  </div>
+                )}
+                {title}
+              </div>
+              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
+            </div>
+            <div className="pui-modal-body"  style={style}>{children}</div>
+            <div
+              className={componentClassNames('pui-modal-footer', {
+                divider: hasDivider + ''
+              })}
+            >
+           <Footer/>
             </div>
           </div>
         </div>
@@ -357,6 +386,9 @@ export interface ModalShowProps {
   /** 子组件 */
   content?: React.ReactNode
 
+  /** 大小 */
+  size?: 'medium' | 'small' | 'tiny'
+
   /** 弹框大小 */
   modalSize?: 'small' | 'medium' | 'large'
 
@@ -380,6 +412,9 @@ export interface ModalShowProps {
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
+
+  /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
+  footer?: React.ReactNode
 
   /** 确认按钮文字 */
   okText?: string
@@ -418,12 +453,14 @@ export interface ModalShowProps {
 Modal.show = ({
   style,
   className,
+  size,
   modalSize,
   title,
   titleIcon,
   titleIconType,
   subtitle,
   hasDivider,
+  footer,
   showOk,
   showClose,
   okText,
@@ -451,12 +488,14 @@ Modal.show = ({
     <Modal
       style={style}
       className={className}
+      size={size}
       modalSize={modalSize}
       title={title}
       titleIcon={titleIcon}
       titleIconType={titleIconType}
       subtitle={subtitle}
       hasDivider={hasDivider}
+      footer={footer}
       okText={okText}
       okButtonProps={okButtonProps}
       okIcon={okIcon}
