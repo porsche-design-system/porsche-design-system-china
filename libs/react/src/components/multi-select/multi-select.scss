@@ -29,6 +29,13 @@
         color: $border-color-3;
       }
 
+      &-search-icon {
+        position: absolute;
+        left: 19px;
+        top: 22px;
+        font-size: 19px;
+      }
+
       &-input-highlight {
         border-color: $filter-highlight-border-color;
         background-color: $filter-highlight-bg-color;
@@ -144,6 +151,7 @@
         font-size: 16px;
         padding: 0 12px;
         background-color: transparent;
+        padding-left: 30px;
       }
 
       &-filter::placeholder {
@@ -196,6 +204,12 @@
 
         .pui-multi-select-option {
           padding: 8px 12px;
+        }
+
+        .pui-select-search-icon {
+          top: 22px;
+          left: 22px;
+          font-size: 15px;
         }
       }
     }
