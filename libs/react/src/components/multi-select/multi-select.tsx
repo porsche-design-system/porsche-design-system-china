@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
-import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
+import { IconArrowHeadDown, IconErrorFilled, IconSearch } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
@@ -320,25 +320,28 @@ MultiSelect = FormItem(
                 }}
               >
                 {filterInput && (
-                  <input
-                    value={filterValue}
-                    placeholder="请输入选项"
-                    onCompositionStart={() => {
-                      isComposing.current = true
-                    }}
-                    onCompositionEnd={(evt: any) => {
-                      isComposing.current = false
-                      setFilterWord(evt.target.value)
-                      setFilterValue(evt.target.value)
-                    }}
-                    onChange={(evt: any) => {
-                      if (!isComposing.current) {
+                  <>
+                    <IconSearch className="pui-multi-select-search-icon" />
+                    <input
+                      value={filterValue}
+                      placeholder="请输入选项"
+                      onCompositionStart={() => {
+                        isComposing.current = true
+                      }}
+                      onCompositionEnd={(evt: any) => {
+                        isComposing.current = false
                         setFilterWord(evt.target.value)
-                      }
-                      setFilterValue(evt.target.value)
-                    }}
-                    className="pui-multi-select-filter"
-                  />
+                        setFilterValue(evt.target.value)
+                      }}
+                      onChange={(evt: any) => {
+                        if (!isComposing.current) {
+                          setFilterWord(evt.target.value)
+                        }
+                        setFilterValue(evt.target.value)
+                      }}
+                      className="pui-multi-select-filter"
+                    />
+                  </>
                 )}
                 {filteredOptions.length > 0 && (
                   <div
