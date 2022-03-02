@@ -22,6 +22,7 @@
         background-color: transparent;
         transition: all 0.1s;
         white-space: nowrap;
+        overflow: hidden;
       }
 
       &-input-placeholder {
@@ -163,10 +164,20 @@
         }
       }
 
+      &-no-data {
+        text-align: center;
+        color: $text-opacity-color-1;
+        padding-bottom: 10px;
+      }
+
       &-size-small {
         .pui-multi-select-input {
           height: 36px;
+        }
+
+        .pui-multi-select-filter {
           font-size: 14px;
+          height: 36px;
         }
 
         .pui-multi-select-clear-icon {

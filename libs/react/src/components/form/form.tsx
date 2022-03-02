@@ -12,65 +12,68 @@ import { ButtonProps } from '../button/button'
 import { FormErrorText } from '../error-text/error-text'
 
 export interface FormLabelStyle {
-  /* 标签位置 */
+  /** 标签位置 */
   position?: 'top' | 'left'
 
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 标签位置 */
+  /** 标签位置 */
   textAlign?: 'left' | 'right'
 
-  /* 标签宽度 */
+  /** 标签宽度 */
   width?: string
 }
 
 export interface FormItemLabelProps extends FormLabelStyle {
-  /* Label显示文字 */
+  /** Label显示文字 */
   text: string
 }
 
 export interface FormProps<T> {
-  /* 子组件 */
+  /** 子组件 */
   children?: React.ReactNode
 
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 默认表单数据 */
+  /** 默认表单数据 */
   defaultData?: T
 
-  /* 表单数据 */
+  /** 表单数据 */
   data?: T
 
-  /* 宽度 */
+  /** 宽度 */
   width?: string
 
-  /* 高度 */
+  /** 高度 */
   height?: string
 
-  /* 行间距 */
-  lineGap?: string
+  /** 表单内控件的统一样式 */
+  itemStyle?: CSSProperties
 
-  /* 表单内所有Label样式 */
+  /** 表单内控件的统一样式类 */
+  itemClassName?: string
+
+  /** 表单内所有Label样式 */
   labelLayout?: FormLabelStyle
 
-  /* 表单名字，可以用Form.findById['{name}']获取表单，调用提交 */
+  /** 表单名字，可以用Form.findById['{name}']获取表单，调用提交 */
   name?: string
 
-  /* 过滤器模式 */
+  /** 过滤器模式 */
   filterMode?: boolean
 
-  /* 数据改变回调 */
-  onDataChange?: (data: T, isComposing?: boolean) => void
+  /** 数据改变回调 */
+  onDataChange?: (data: T) => void
 
-  /* 数据提交事件 */
+  /** 数据提交事件 */
   onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>
 }
 
@@ -91,7 +94,8 @@ const Form = <T extends object>({
   labelLayout,
   width,
   height,
-  lineGap,
+  itemStyle,
+  itemClassName,
   filterMode
 }: FormProps<T>) => {
   const [formData, setFormData] = useState(data || defaultData || {})
@@ -159,8 +163,9 @@ const Form = <T extends object>({
         nameStartDate?: string
         nameEndDate?: string
         filterMode?: boolean
+        className?: string
         onChange?: ChangeEventHandler<HTMLInputElement>
-        onValueChange?: (val: string, isComposing?: boolean) => void
+        onValueChange?: (val: string) => void
         label?: FormItemLabelProps | string
         value?: any
         rules?: RuleItem[] | RuleItem
@@ -168,8 +173,12 @@ const Form = <T extends object>({
         style?: CSSProperties
       }
 
-      if (lineGap) {
-        inputProps.style = { marginBottom: lineGap, ...inputProps.style }
+      if (itemStyle) {
+        inputProps.style = { ...itemStyle, ...inputProps.style }
+      }
+
+      if (itemClassName) {
+        inputProps.className = itemClassName + ' ' + inputProps.className
       }
 
       if (inputProps.filterMode === undefined) {
@@ -298,7 +307,7 @@ const Form = <T extends object>({
             if (data === undefined) {
               setFormData(newFormData)
             }
-            onDataChange && onDataChange(newFormData as T, false)
+            onDataChange && onDataChange(newFormData as T)
             formItemOnChange && formItemOnChange(evt)
             validForm(newFormData)
           }
@@ -317,7 +326,7 @@ const Form = <T extends object>({
             'Search'
           ].includes(elementName)
         ) {
-          inputProps.onValueChange = (value, isComposing) => {
+          inputProps.onValueChange = value => {
             let newFormData = fData
             if (inputProps.name) {
               newFormData = { ...fData, [inputProps.name]: value }
@@ -339,10 +348,8 @@ const Form = <T extends object>({
             if (data === undefined) {
               setFormData(newFormData)
             }
-            if (isComposing === undefined) {
-              isComposing = false
-            }
-            onDataChange && onDataChange(newFormData as T, isComposing)
+
+            onDataChange && onDataChange(newFormData as T)
             formItemOnValueChange && formItemOnValueChange(value as string)
             validForm(newFormData)
           }

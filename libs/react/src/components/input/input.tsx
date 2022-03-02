@@ -16,64 +16,64 @@ import { useDefaultSize } from '../../shared/hooks'
 import './input.scss'
 
 export interface InputProps {
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 类型 */
+  /** 类型 */
   type?: 'text' | 'password'
 
-  /* 默认输入值 */
+  /** 默认输入值 */
   defaultValue?: string
 
-  /* 输入值 */
+  /** 输入值 */
   value?: string
 
-  /* 占位符 */
+  /** 占位符 */
   placeholder?: string
 
-  /* 大小 */
+  /** 大小 */
   size?: 'small' | 'medium'
 
-  /* 最多输入字符数 */
+  /** 最多输入字符数 */
   maxLength?: number
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 是否禁用 */
+  /** 是否禁用 */
   disabled?: boolean
 
-  /* 控件值改变事件 */
+  /** 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
 
-  /* 输入框失去焦点事件 */
+  /** 输入框失去焦点事件 */
   onBlur?: FocusEventHandler<HTMLInputElement>
 
-  /* 输入框获取焦点事件 */
+  /** 输入框获取焦点事件 */
   onFocus?: FocusEventHandler<HTMLInputElement>
 
-  /* 回车事件 */
+  /** 回车事件 */
   onEnter?: (value: string) => void
 
-  /* 值改变事件 */
-  onValueChange?: (value: string, isComposing?: boolean) => void
+  /** 值改变事件 */
+  onValueChange?: (value: string) => void
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /* 显示密码按钮 */
+  /** 显示密码按钮 */
   showViewPasswordButton?: boolean
 
-  /* 不显示最大长度文字提示 */
+  /** 不显示最大长度文字提示 */
   hideMaxLengthText?: boolean
 
-  /* 中文打字开始 */
+  /** 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
-  /* 中文打字结束 */
+  /** 中文打字结束 */
   onCompositionEnd?: CompositionEventHandler<HTMLInputElement>
 }
 
@@ -102,12 +102,12 @@ const Input = FormItem(
     onCompositionStart,
     onCompositionEnd
   }: InputProps) => {
-    const [, setForceUpdate] = useState(0)
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
+    const [internalValue, setInternalValue] = useState('')
 
     size = size || defaultSize
 
@@ -116,6 +116,10 @@ const Input = FormItem(
     }, [type])
 
     const displayValueLength = value !== undefined ? value.length : valueLength
+
+    if (isCompositionStarted.current && value !== undefined) {
+      value = internalValue
+    }
 
     return (
       <div
@@ -139,19 +143,23 @@ const Input = FormItem(
           onCompositionStart={(evt: any) => {
             isCompositionStarted.current = true
             onCompositionStart && onCompositionStart(evt)
-            setForceUpdate(Math.random())
           }}
           onCompositionEnd={(evt: any) => {
             if (isCompositionStarted.current) {
-              onValueChange && onValueChange(evt.target.value, false)
+              onChange && onChange(evt)
+              onValueChange && onValueChange(evt.target.value)
               isCompositionStarted.current = false
             }
             onCompositionEnd && onCompositionEnd(evt)
           }}
           onChange={evt => {
+            if (isCompositionStarted.current) {
+              setInternalValue(evt.target.value)
+              return
+            }
+
             onChange && onChange(evt)
-            onValueChange &&
-              onValueChange(evt.target.value, isCompositionStarted.current)
+            onValueChange && onValueChange(evt.target.value)
           }}
           disabled={disabled}
           value={value}
@@ -186,7 +194,7 @@ const Input = FormItem(
               </span>
             </div>
           )}
-        {showClearButton && valueLength > 0 && (
+        {showClearButton && displayValueLength > 0 && (
           <IconErrorFilled
             className="pui-input-right-button pui-input-clear"
             onClick={() => {

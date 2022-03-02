@@ -54,49 +54,49 @@ export interface SelectProps<T> {
   /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 值 */
+  /** 值 */
   value?: T
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: T
 
-  /* 占位符 */
+  /** 占位符 */
   placeholder?: string
 
-  /* 显示过滤输入框 */
+  /** 显示过滤输入框 */
   filterInput?: boolean
 
-  /* 选项 */
-  options?: string | string[] | SelectOption<T>[] | GroupSelectOption<T>[]
+  /** 选项 */
+  options?: T | T[] | SelectOption<T>[] | GroupSelectOption<T>[]
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 值改变事件 */
+  /** 值改变事件 */
   onValueChange?: (value: T) => void
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   defaultOpen?: boolean
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   open?: boolean
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /* 清除按钮是否一直显示 触屏设备默认为true */
+  /** 清除按钮是否一直显示 触屏设备默认为true */
   keepClearButton?: boolean
 
-  /* 过滤器选项模式 */
+  /** 过滤器选项模式 */
   filterMode?: boolean
 
-  /* 最大宽度 */
+  /** 最大宽度 */
   maxWidth?: string
 
-  /* 菜单显示状态改变 */
+  /** 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 
-  /* 标签 */
+  /** 标签 */
   label?: string | FormItemLabelProps
 }
 
@@ -139,6 +139,7 @@ Select = FormItem(
     )
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
+    const [filterWord, setFilterWord] = useState('')
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
@@ -147,6 +148,8 @@ Select = FormItem(
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
+    const isComposing = useRef(false)
+
     size = size || defaultSize
 
     if (value) {
@@ -186,8 +189,8 @@ Select = FormItem(
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ;(options as string[]).forEach(option => {
-          selectOptions.push({ text: option, value: option as any })
+        ;(options as unknown as string[]).forEach(option => {
+          selectOptions.push({ text: option + '', value: option as any })
         })
       }
     }
@@ -275,6 +278,7 @@ Select = FormItem(
             updatePos()
             if (!showOptionList) {
               setFilterValue('')
+              setFilterWord('')
             }
             setShowOptionList(!showOptionList)
           }}
@@ -332,7 +336,18 @@ Select = FormItem(
                     <input
                       value={filterValue}
                       placeholder="请输入选项"
-                      onChange={evt => {
+                      onCompositionStart={() => {
+                        isComposing.current = true
+                      }}
+                      onCompositionEnd={(evt: any) => {
+                        isComposing.current = false
+                        setFilterWord(evt.target.value)
+                        setFilterValue(evt.target.value)
+                      }}
+                      onChange={(evt: any) => {
+                        if (!isComposing.current) {
+                          setFilterWord(evt.target.value)
+                        }
                         setFilterValue(evt.target.value)
                       }}
                       className="pui-select-filter"
@@ -343,11 +358,11 @@ Select = FormItem(
                   {selectOptions.map((option, inx) => {
                     const gn = groupNames.find(gn => gn.index === inx)
                     return (
-                      <Fragment key={option.value + ' ' + inx}>
+                      <Fragment key={option.value + ' ' + inx + filterWord}>
                         {gn && (
                           <div className="pui-select-group-name">{gn.name}</div>
                         )}
-                        {containText(getNodeText(option.text), filterValue) && (
+                        {containText(getNodeText(option.text), filterWord) && (
                           <div
                             className={classNames('pui-select-option', {
                               'pui-select-option-selected':
@@ -371,7 +386,7 @@ Select = FormItem(
                   })}
                   {selectOptions.filter(item => {
                     if (filterValue) {
-                      return containText(getNodeText(item.text), filterValue)
+                      return containText(getNodeText(item.text), filterWord)
                     }
                     return true
                   }).length === 0 && (

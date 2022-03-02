@@ -20,22 +20,22 @@ export interface SwitchProps<T> {
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: T
 
-  /* 大小 */
+  /** 大小 */
   size?: 'small' | 'medium'
 
-  /* 值 */
+  /** 值 */
   value?: T
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 开关值 */
+  /** 开关值 */
   alterValues?: [T, T] | 'FalseOrTrue' | 'ZeroOrOne' | string
 
-  /* 值改变事件 */
+  /** 值改变事件 */
   onValueChange?: (value: T) => void
 }
 

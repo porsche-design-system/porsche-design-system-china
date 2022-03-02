@@ -51,11 +51,35 @@ export const DateRangePickerStoryBook2 = () => {
     <div>
       <DateRangePicker
         width="330px"
-        label="限定日期"
+        label="限定日期 2022-05-01 ~ 2022-05-31"
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
-        range="2012-10-12,2012-12-12"
+        range={['2022-05-01', '2022-05-31']}
+      />
+
+      <br />
+      <br />
+
+      <DateRangePicker
+        width="330px"
+        label="限定结束日期 2022-10-12"
+        showClearButton
+        placeholderStartDate="开始日期"
+        placeholderEndDate="结束日期"
+        range={[null, '2022-10-12']}
+      />
+
+      <br />
+      <br />
+
+      <DateRangePicker
+        width="330px"
+        label="限定开始日期 2022-03-12"
+        showClearButton
+        placeholderStartDate="开始日期"
+        placeholderEndDate="结束日期"
+        range={['2022-03-12', null]}
       />
     </div>
   )
@@ -70,10 +94,25 @@ export const DateRangePickerStoryBook3 = () => {
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
-        range="2012-10-12,2012-12-12"
         filterMode
       />
     </div>
   )
 }
 DateRangePickerStoryBook3.storyName = 'Filter Mode'
+
+export const DateRangePickerStoryBook4 = () => {
+  return (
+    <div>
+      <DateRangePicker
+        label="保修时间"
+        showClearButton
+        placeholderStartDate="开始日期"
+        placeholderEndDate="结束日期"
+        filterMode
+        mustPickStartEnd
+      />
+    </div>
+  )
+}
+DateRangePickerStoryBook4.storyName = 'Force to pick start and end'
