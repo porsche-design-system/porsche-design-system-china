@@ -14,31 +14,31 @@ export interface CheckBoxProps<T> {
   /** 样式 */
   style?: CSSProperties
 
-  /* 显示文字 */
+  /** 显示文字 */
   text?: string
 
-  /* 选项值 */
+  /** 选项值 */
   value?: T
 
-  /* 是否禁用 */
+  /** 是否禁用 */
   disabled?: boolean
 
-  /* 大小 */
+  /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 点击事件 */
+  /** 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
 
-  /* 值改变事件 */
+  /** 值改变事件 */
   onCheckedChange?: (checked: boolean) => void
 
-  /* 是否选定 */
+  /** 是否选定 */
   checked?: boolean
 
-  /* 是否默认选定 */
+  /** 是否默认选定 */
   defaultChecked?: boolean
 
-  /* 是否是部分选定 */
+  /** 是否是部分选定 */
   partChecked?: boolean
 }
 

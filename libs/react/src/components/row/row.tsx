@@ -12,7 +12,7 @@ export interface RowProps {
   /** 样式 */
   style?: CSSProperties
 
-  /* 点击事件 */
+  /** 点击事件 */
   onClick?: React.MouseEventHandler
 }
 

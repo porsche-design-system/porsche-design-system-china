@@ -20,5 +20,7 @@ export const getNodeText = (node: any) => {
 }
 
 export const containText = (text: string, searchText: string) => {
-  return text.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) >= 0
+  return (
+    text.toLocaleLowerCase().indexOf(searchText.trim().toLocaleLowerCase()) >= 0
+  )
 }

@@ -288,9 +288,14 @@
       &-size-small {
         height: 36px;
         font-size: 14px;
+
         button {
           height: 34px;
           font-size: 14px;
+        }
+
+        .pui-date-range-picker-calendars {
+          top: 40px;
         }
 
         .pui-date-range-picker-icon {

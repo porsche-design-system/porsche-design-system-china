@@ -31,7 +31,7 @@ export interface InputNumberProps {
   /** 最小值 */
   min?: number
 
-  /* 大小 */
+  /** 大小 */
   size?: 'small' | 'medium'
 
   /** 每次改变步数，可以为小数 */
@@ -70,66 +70,66 @@ const InputNumber = FormItem(
     size = size || defaultSize
     useEffect(() => {
       if (Number(value) !== Number(currentValue) && value !== undefined)
-        setCurrentValue(String(value));
+        setCurrentValue(String(value))
     }, [value])
     const handleValueChange = (val: string) => {
       if (!/[^.\-\d]/.test(val)) {
-        const nextValue = val==='' || Number.isNaN(Number(val)) ? val : Number(val);
-        setCurrentValue(val);
-        onValueChange && onValueChange(nextValue);
+        const nextValue =
+          val === '' || Number.isNaN(Number(val)) ? val : Number(val)
+        setCurrentValue(val)
+        onValueChange && onValueChange(nextValue)
       }
     }
     const add = () => {
       if (!disabled) {
-        const nextValue = Number(currentValue) + Number(step);
-        if(value !== undefined){
-          if (nextValue > max) return;
-          onValueChange && onValueChange(nextValue);
-        }else{
+        const nextValue = Number(currentValue) + Number(step)
+        if (value !== undefined) {
+          if (nextValue > max) return
+          onValueChange && onValueChange(nextValue)
+        } else {
           setCurrentValue(currentValue => {
             if (nextValue > max) {
-              return currentValue;
+              return currentValue
             }
-            onValueChange && onValueChange(nextValue);
-            return String(nextValue);
-          });
+            onValueChange && onValueChange(nextValue)
+            return String(nextValue)
+          })
         }
       }
     }
     const reduce = () => {
       if (!disabled) {
         const nextValue = Number(currentValue) - Number(step)
-        if(value !== undefined){
-          if(nextValue < min) return;
-          onValueChange && onValueChange(nextValue);
-        }else{
+        if (value !== undefined) {
+          if (nextValue < min) return
+          onValueChange && onValueChange(nextValue)
+        } else {
           setCurrentValue(currentValue => {
             if (nextValue < min) {
               return currentValue
             }
-            onValueChange && onValueChange(nextValue);
+            onValueChange && onValueChange(nextValue)
             return String(nextValue)
           })
         }
       }
-      
     }
     const handleBlur = (e: React.FocusEvent) => {
       let nextValue: number | string = (e.target as HTMLInputElement).value
       nextValue = parseFloat(nextValue)
       if (Number.isNaN(nextValue)) {
         setCurrentValue('')
-        onValueChange && onValueChange('');
-      }else if (nextValue > max) {
-        setCurrentValue(String(max));
-        onValueChange && onValueChange(max);
-      }else if (nextValue < min) {
-        setCurrentValue(String(min));
-        onValueChange && onValueChange(min);
-      }else {
+        onValueChange && onValueChange('')
+      } else if (nextValue > max) {
+        setCurrentValue(String(max))
+        onValueChange && onValueChange(max)
+      } else if (nextValue < min) {
+        setCurrentValue(String(min))
+        onValueChange && onValueChange(min)
+      } else {
         setCurrentValue(String(nextValue))
-        if(String(nextValue) !== currentValue){
-          onValueChange && onValueChange(nextValue);
+        if (String(nextValue) !== currentValue) {
+          onValueChange && onValueChange(nextValue)
         }
       }
     }
@@ -137,7 +137,7 @@ const InputNumber = FormItem(
       <div
         className={componentClassNames(
           `${prefixCls}-wrap`,
-          { type,size },
+          { type, size },
           className
         )}
         style={style}

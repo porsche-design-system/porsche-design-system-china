@@ -10,6 +10,9 @@ export const sameDate = (d1: Date | null, d2: Date | null) => {
 }
 
 export const strToDate = (dateStr: string) => {
+  if (dateStr === null) {
+    return null
+  }
   const datePart = dateStr.split('-')
   if (datePart.length === 3) {
     if (
@@ -47,23 +50,36 @@ export const dateToStr = (date: Date) => {
   )
 }
 
-export const inDateRange = (date: Date, range: [Date, Date] | null) => {
+export const inDateRange = (
+  date: Date,
+  range: [Date, Date] | null,
+  nullIsUnlimited = false
+) => {
   if (range) {
-    if (range[0] == null || range[1] == null) {
-      return false
+    range = range as [Date, Date]
+    let matchRangeStart = false
+    if (range[0] === null) {
+      matchRangeStart = nullIsUnlimited
+    } else {
+      range[0].setHours(0)
+      range[0].setMinutes(0)
+      range[0].setSeconds(0)
+      range[0].setHours(0)
+      range[0].setMinutes(0)
+      range[0].setSeconds(0)
+      matchRangeStart = date.getTime() >= range[0].getTime()
     }
 
-    range = range as [Date, Date]
-    range[0].setHours(0)
-    range[0].setMinutes(0)
-    range[0].setSeconds(0)
-    range[1].setHours(23)
-    range[1].setMinutes(59)
-    range[1].setSeconds(59)
-    return (
-      date.getTime() >= range[0].getTime() &&
-      date.getTime() <= range[1].getTime()
-    )
+    let matchRangeEnd = false
+    if (range[1] === null) {
+      matchRangeEnd = nullIsUnlimited
+    } else {
+      range[1].setHours(23)
+      range[1].setMinutes(59)
+      range[1].setSeconds(59)
+      matchRangeEnd = date.getTime() <= range[1].getTime()
+    }
+    return matchRangeStart && matchRangeEnd
   }
   return true
 }

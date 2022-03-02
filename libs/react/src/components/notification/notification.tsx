@@ -43,10 +43,10 @@ export interface NotificationConfigProps {
   /** 是否显示底部button */
   showButton?: boolean
 
-  /* 显示确认按钮 */
+  /** 显示确认按钮 */
   showOk?: boolean
 
-  /* 显示取消按钮 */
+  /** 显示取消按钮 */
   showCancel?: boolean
 
   /** 取消按钮文字 */
@@ -67,13 +67,13 @@ export interface NotificationConfigProps {
   /** 通知提醒标题，必选 */
   message: ReactNode
 
-  /* 点击确定回调 */
+  /** 点击确定回调 */
   onOk?: () => void
 
-  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  /** 点击遮罩层或右上角叉或取消按钮的回调 */
   onCancel?: () => void
 
-  /* 弹出位置，可选 topLeft topRight bottomLeft bottomRight */
+  /** 弹出位置，可选 topLeft topRight bottomLeft bottomRight */
   placement?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
 }
 

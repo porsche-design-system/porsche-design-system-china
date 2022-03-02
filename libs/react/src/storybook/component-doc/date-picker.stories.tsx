@@ -75,9 +75,23 @@ export const DatePickerStoryBook3 = () => {
       <br /> <br /> <br />
       <DatePicker
         width="600px"
-        label="来访日期(限定时间，Date数组写法{[new Date(2020, 5, 1), new Date(2021, 5, 21)]} )"
+        label="限定时间，Date数组写法{[new Date(2020, 5, 1), new Date(2020, 5, 21)]}(5是六月)"
         placeholder="请选择"
-        range={[new Date(2020, 5, 1), new Date(2021, 5, 21)]}
+        range={[new Date(2020, 5, 1), new Date(2020, 5, 21)]}
+      />
+      <br /> <br />
+      <DatePicker
+        width="600px"
+        label="限定开始时间 2022-04-04"
+        placeholder="请选择"
+        range={['2022-04-04', null]}
+      />
+      <br /> <br />
+      <DatePicker
+        width="600px"
+        label="限定结束时间 2022-10-13"
+        placeholder="请选择"
+        range={[null, '2022-10-13']}
       />
       <br /> <br />
     </div>

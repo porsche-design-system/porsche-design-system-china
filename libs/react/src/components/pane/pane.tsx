@@ -14,7 +14,7 @@ export interface PaneProps {
   /** 样式 */
   style?: CSSProperties
 
-  /* 内边距 */
+  /** 内边距 */
   padding?: string
 }
 
