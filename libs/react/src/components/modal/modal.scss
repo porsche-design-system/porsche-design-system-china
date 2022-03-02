@@ -38,6 +38,7 @@
         .pui-modal {
           box-sizing: border-box;
           position: relative;
+          width: 766px;
           // 先不隐藏
           // overflow: hidden;
 
@@ -123,8 +124,11 @@
 
             .pui-modal-body {
               padding: 12px 24px;
-              min-height: 40px;
-              max-height: calc(100vh - 400px);
+              box-sizing: border-box;
+              max-height: calc(100vh - 200px);
+              font-size: 16px;
+              line-height: 24px;
+              font-weight: 400;
               overflow: auto;
               color: $text-opacity-color-1;
               -webkit-overflow-scrolling: touch;
@@ -157,22 +161,91 @@
             }
           }
 
-          &-modalsize-medium {
-            width: 750px;
+          // 弹框大小设置
+          &-modalsize-small {
+            width: 480px;
             .pui-modal-content {
               .pui-modal-body {
-                min-height: 398px;
+                min-height: 96px;
+                max-height: 418px;
+                padding: 12px 24px;
               }
             }
           }
-          &-modalsize-small {
-            width: 418px;
-          }
-          &-modalsize-large {
-            width: 1080px;
+          
+          &-modalsize-medium {
             .pui-modal-content {
               .pui-modal-body {
-                min-height: 558px;
+                min-height: 400px;
+              }
+            }
+          }
+
+          &-modalsize-large {
+            width: 1240px;
+            .pui-modal-content {
+              .pui-modal-body {
+                min-height: 508px;
+              }
+            }
+          }
+
+          // PUI整体元素的大小设置
+          &-size-small {
+            &.pui-modal-modalsize-small {
+              width: 424px;
+              .pui-modal-content {
+                .pui-modal-body {
+                  min-height: 72px;
+                  max-height: 398px;
+                  padding: 0 24px 2px 24px;
+                }
+              }
+            }
+
+            &.pui-modal-modalsize-medium {
+              width: 760px;
+              .pui-modal-content {
+                .pui-modal-body {
+                  min-height: 398px;
+                }
+              }
+            }
+
+            &.pui-modal-modalsize-large {
+              width: 1096px;
+              .pui-modal-content {
+                .pui-modal-body {
+                  min-height: 504px;
+                }
+              }
+            }
+            .pui-modal-content {
+              .pui-modal-close {
+                top: 22px;
+                .porscheicon {
+                  font-size: 21px;
+                }
+              }
+              .pui-modal-header {
+                padding: 19px 24px;
+                .pui-modal-title {
+                  font-size: 18px;
+                  line-height: 26px;
+                  font-weight: 500;
+                }
+
+                .pui-modal-subtitle {
+                  font-size: 14px;
+                }
+              }
+
+              .pui-modal-body {
+                font-size: 14px;
+              }
+
+              .pui-modal-footer {
+                padding: 20px 24px;
               }
             }
           }
