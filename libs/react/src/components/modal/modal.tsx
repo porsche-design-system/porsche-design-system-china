@@ -124,64 +124,58 @@ const Modal = ({
   const [isLoading, setIsLoading] = useState(false)
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
-  let Footer:React.ReactNode=()=>footer
-  // if(footer){
-  //   Footer=()=>footer
-  // }
-  if(footer===undefined){
-    Footer= ()=>{
+  let Footer: React.ReactNode = () => footer
+  if (footer === undefined) {
+    Footer = () => {
       return (
         <div>
           {showCancel && (
-                <Button
-                  onClick={() => onCancel && onCancel()}
-                  icon={
-                    cancelIcon === null ? undefined : cancelIcon ===
-                      undefined ? (
-                      <IconClose />
-                    ) : (
-                      cancelIcon
-                    )
+            <Button
+              onClick={() => onCancel && onCancel()}
+              icon={
+                cancelIcon === null ? undefined : cancelIcon === undefined ? (
+                  <IconClose />
+                ) : (
+                  cancelIcon
+                )
+              }
+              marginRight="10px"
+              {...cancelButtonProps}
+            >
+              {cancelText}
+            </Button>
+          )}
+          {showOk && (
+            <Button
+              type="primary"
+              loading={isLoading}
+              icon={
+                okIcon === null ? undefined : okIcon === undefined ? (
+                  <IconArrowHeadRight />
+                ) : (
+                  okIcon
+                )
+              }
+              onClick={() => {
+                if (onOk) {
+                  const loadingPromise = onOk()
+                  if (typeof loadingPromise === 'object') {
+                    setIsLoading(true)
+                    ;(loadingPromise as Promise<unknown>).finally(() => {
+                      setIsLoading(false)
+                    })
                   }
-                  marginRight="10px"
-                  {...cancelButtonProps}
-                >
-                  {cancelText}
-                </Button>
-              )}
-              {showOk && (
-                <Button
-                  type="primary"
-                  loading={isLoading}
-                  icon={
-                    okIcon === null ? undefined : okIcon === undefined ? (
-                      <IconArrowHeadRight />
-                    ) : (
-                      okIcon
-                    )
-                  }
-                  onClick={() => {
-                    if (onOk) {
-                      const loadingPromise = onOk()
-                      if (typeof loadingPromise === 'object') {
-                        setIsLoading(true)
-                        ;(loadingPromise as Promise<unknown>).finally(() => {
-                          setIsLoading(false)
-                        })
-                      }
-                    }
-                  }}
-                  {...okButtonProps}
-                >
-                  {okText}
-                </Button>
-              )}
+                }
+              }}
+              {...okButtonProps}
+            >
+              {okText}
+            </Button>
+          )}
         </div>
       )
     }
   }
-
-  console.log('footer',Footer)
 
   modalSetIsLoading = setIsLoading
   const TitleIcon = {
@@ -192,7 +186,6 @@ const Modal = ({
     undefined: () => null
   }
 
-  
   useEffect(() => {
     setShow(visible)
   }, [visible])
@@ -212,7 +205,6 @@ const Modal = ({
             },
             className
           )}
-         
         >
           <div className="pui-modal-content">
             {showClose && (
@@ -245,13 +237,15 @@ const Modal = ({
               </div>
               {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
             </div>
-            <div className="pui-modal-body"  style={style}>{children}</div>
+            <div className="pui-modal-body" style={style}>
+              {children}
+            </div>
             <div
               className={componentClassNames('pui-modal-footer', {
                 divider: hasDivider + ''
               })}
             >
-           <Footer/>
+              <Footer />
             </div>
           </div>
         </div>
