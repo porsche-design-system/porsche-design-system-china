@@ -24,7 +24,7 @@ export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
 
-  /* 类名 */
+  /**  类名 */
   className?: string
 
   /** 样式 */
@@ -75,19 +75,19 @@ export interface ModalProps {
   /** 取消按钮Icon */
   cancelIcon?: ReactElement | null
 
-  /* 点击确定回调 */
+  /** 点击确定回调 */
   onOk?: () => void | Promise<unknown>
 
-  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  /** 点击遮罩层或右上角叉或取消按钮的回调 */
   onCancel?: () => void
 
-  /* 显示取消按钮 */
+  /** 显示取消按钮 */
   showCancel?: boolean
 
-  /* 显示确认按钮 */
+  /** 显示确认按钮 */
   showOk?: boolean
 
-  /* 显示关闭按钮 */
+  /** 显示关闭按钮 */
   showClose?: boolean
 
   modalRef?: any
@@ -395,7 +395,7 @@ export interface ModalShowProps {
   /** 弹框大小 */
   modalSize?: 'small' | 'medium' | 'large'
 
-  /* 类名 */
+  /** 类名 */
   className?: string
 
   /** 样式 */
@@ -437,19 +437,19 @@ export interface ModalShowProps {
   /** 取消按钮Icon */
   cancelIcon?: ReactElement | null
 
-  /* 点击确定回调 */
+  /** 点击确定回调 */
   onOk?: () => void | Promise<unknown>
 
-  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  /** 点击遮罩层或右上角叉或取消按钮的回调 */
   onCancel?: () => void
 
-  /* 显示取消按钮 */
+  /** 显示取消按钮 */
   showCancel?: boolean
 
-  /* 显示确认按钮 */
+  /** 显示确认按钮 */
   showOk?: boolean
 
-  /* 显示关闭按钮 */
+  /** 显示关闭按钮 */
   showClose?: boolean
 }
 
