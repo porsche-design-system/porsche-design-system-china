@@ -172,9 +172,9 @@ export const ModalStoryBook1 = () => {
             Modal.show({
               title: '对话框标题',
               content:
-              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+                '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
               modalSize: 'small',
-              footer:null
+              footer: null
             })
           }
           type="secondary"
