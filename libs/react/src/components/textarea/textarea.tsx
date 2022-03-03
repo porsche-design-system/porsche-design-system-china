@@ -16,52 +16,52 @@ import './textarea.scss'
 export interface TextAreaProps {
   // 组件属性 //
 
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
   /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 标签 */
+  /** 标签 */
   label?: FormItemLabelProps | string
 
-  /* 占位符 */
+  /** 占位符 */
   placeholder?: string
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 最多输入字符 */
+  /** 最多输入字符 */
   maxLength?: number
 
-  /* 是否禁用 */
+  /** 是否禁用 */
   disabled?: boolean
 
-  /* 表单绑定key，需要配合<Form>使用 */
+  /** 表单绑定key，需要配合<Form>使用 */
   name?: string
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: string
 
-  /* 值 */
+  /** 值 */
   value?: string
 
-  /* 控件值改变事件 */
+  /** 控件值改变事件 */
   onChange?: ChangeEventHandler
 
-  /* 值改变事件 */
-  onValueChange?: (value: string, isComposing?: boolean) => void
+  /** 值改变事件 */
+  onValueChange?: (value: string) => void
 
   /* 输入框失去焦点事件 */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
 
-  /* 中文打字开始 */
+  /** 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLTextAreaElement>
 
-  /* 中文打字结束 */
+  /** 中文打字结束 */
   onCompositionEnd?: CompositionEventHandler<HTMLTextAreaElement>
 }
 
@@ -87,12 +87,17 @@ const TextArea = FormItem(
     const [valueLength, setValueLength] = useState(0)
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
+    const [internalValue, setInternalValue] = useState('')
 
     size = size || defaultSize
 
     const updateHeight = (element: HTMLTextAreaElement) => {
       element.style.height = '5px'
       element.style.height = element.scrollHeight + 20 + 'px'
+    }
+
+    if (isCompositionStarted.current && value !== undefined) {
+      value = internalValue
     }
 
     return (
@@ -112,7 +117,8 @@ const TextArea = FormItem(
           }}
           onCompositionEnd={(evt: any) => {
             if (isCompositionStarted.current) {
-              onValueChange && onValueChange(evt.target.value, false)
+              onChange && onChange(evt)
+              onValueChange && onValueChange(evt.target.value)
               isCompositionStarted.current = false
             }
             onCompositionEnd && onCompositionEnd(evt)
@@ -125,9 +131,12 @@ const TextArea = FormItem(
           maxLength={maxLength}
           placeholder={placeholder}
           onChange={evt => {
+            if (isCompositionStarted.current) {
+              setInternalValue(evt.target.value)
+              return
+            }
             onChange && onChange(evt)
-            onValueChange &&
-              onValueChange(evt.target.value, isCompositionStarted.current)
+            onValueChange && onValueChange(evt.target.value)
           }}
           disabled={disabled}
           onInput={event => {

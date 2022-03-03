@@ -8,55 +8,55 @@ import { useDefaultSize } from '../../shared/hooks'
 import './search.scss'
 
 export interface SearchProps {
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 占位符 */
+  /** 占位符 */
   placeholder?: string
 
-  /* 是否禁用 */
+  /** 是否禁用 */
   disabled?: boolean
 
-  /* 值 */
+  /** 值 */
   value?: string
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: string
 
-  /* 宽度 */
+  /** 宽度 */
   width?: string
 
-  /* 右间距 */
+  /** 右间距 */
   marginRight?: string
 
-  /* 左间距 */
+  /** 左间距 */
   marginLeft?: string
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showSearchButtonBg?: boolean
 
-  /* 最大长度 */
+  /** 最大长度 */
   maxLength?: number
 
-  /* 大小 */
+  /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 文字改变事件 */
+  /** 文字改变事件 */
   onValueChange?: (value: string) => void
 
-  /* 点击搜索按钮 */
+  /** 点击搜索按钮 */
   onSearch?: (value: string) => void
 
-  /* 失去焦点回调 */
+  /** 失去焦点回调 */
   onBlur?: FocusEventHandler<HTMLInputElement>
 
-  /* 表单属性 */
+  /** 表单属性 */
   name?: string
 }
 
@@ -96,6 +96,12 @@ const Search = ({
         className
       )}
       style={{ width, marginLeft, marginRight, ...style }}
+      onKeyUp={(evt: any) => {
+        if (evt.key === 'Enter') {
+          evt.preventDefault()
+          onSearch && onSearch(evt.target.value)
+        }
+      }}
     >
       <Input
         value={value}

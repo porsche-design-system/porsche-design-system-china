@@ -1,6 +1,7 @@
 import { IconArrowHeadRight, IconClose } from '@pui/icons'
 import React, { useState } from 'react'
 import { FormLabelStyle } from '../../components/form/form'
+import './form.stories.scss'
 
 import {
   Select,
@@ -77,8 +78,7 @@ export const ExampleStoryBook = () => {
           <Form
             labelLayout={labelLayout}
             data={data}
-            onDataChange={(d, isComposing) => {
-              console.log('isComposing', isComposing)
+            onDataChange={d => {
               setData(d)
             }}
             onSubmit={(data, error) => {
@@ -116,7 +116,17 @@ export const ExampleStoryBook = () => {
               name="email"
               rules={{ type: 'email', message: '邮件格式不正确' }}
             />
-            <DateRangePicker label="上牌日期" name="dateRange" />
+            <DateRangePicker
+              label="上牌日期"
+              name="dateRange"
+              showClearButton
+              mustPickStartEnd
+            />
+            <DateRangePicker
+              label="修理时间"
+              name="dateRange2"
+              showClearButton
+            />
             <Input
               label="手机号"
               name="mobile"

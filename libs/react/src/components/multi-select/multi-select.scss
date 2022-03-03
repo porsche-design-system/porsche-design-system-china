@@ -22,10 +22,18 @@
         background-color: transparent;
         transition: all 0.1s;
         white-space: nowrap;
+        overflow: hidden;
       }
 
       &-input-placeholder {
         color: $border-color-3;
+      }
+
+      &-search-icon {
+        position: absolute;
+        left: 19px;
+        top: 22px;
+        font-size: 19px;
       }
 
       &-input-highlight {
@@ -143,6 +151,7 @@
         font-size: 16px;
         padding: 0 12px;
         background-color: transparent;
+        padding-left: 30px;
       }
 
       &-filter::placeholder {
@@ -163,10 +172,20 @@
         }
       }
 
+      &-no-data {
+        text-align: center;
+        color: $text-opacity-color-1;
+        padding-bottom: 10px;
+      }
+
       &-size-small {
         .pui-multi-select-input {
           height: 36px;
+        }
+
+        .pui-multi-select-filter {
           font-size: 14px;
+          height: 36px;
         }
 
         .pui-multi-select-clear-icon {
@@ -185,6 +204,12 @@
 
         .pui-multi-select-option {
           padding: 8px 12px;
+        }
+
+        .pui-select-search-icon {
+          top: 22px;
+          left: 22px;
+          font-size: 15px;
         }
       }
     }
