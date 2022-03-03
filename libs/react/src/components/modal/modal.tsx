@@ -55,7 +55,7 @@ export interface ModalProps {
   hasDivider?: boolean
 
   /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
-  footer?: React.ReactNode
+  footer?: ReactElement | undefined | null
 
   /** 确认按钮文字 */
   okText?: string
@@ -124,7 +124,7 @@ const Modal = ({
   const [isLoading, setIsLoading] = useState(false)
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
-  let Footer: React.ReactNode = () => footer
+  let Footer = () => footer || <></>
   if (footer === undefined) {
     Footer = () => {
       return (
