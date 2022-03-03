@@ -1,5 +1,6 @@
 import { IconArrowHeadRight, IconClose, IconWarningFilled } from '@pui/icons'
 import React, { useEffect, useState } from 'react'
+import { useDefaultSize } from '../../shared/hooks'
 import { Button, Modal, Tabs, TabPane } from '../..'
 import './modal.stories.scss'
 
@@ -208,6 +209,8 @@ export const ModalStoryBook1 = () => {
 ModalStoryBook1.storyName = 'Dialogue Small'
 
 export const ModalStoryBook2 = () => {
+  const [defaultSize] = useDefaultSize()
+  const ButtonMargin = defaultSize === 'small' ? '12px' : '24px'
   const Tab1 = () => {
     const [visible, setVisible] = useState(false)
     return (
@@ -297,7 +300,7 @@ export const ModalStoryBook2 = () => {
               <div>
                 <Button
                   type="default"
-                  marginRight="10px"
+                  marginRight={ButtonMargin}
                   onClick={() => setVisible(false)}
                   icon={<IconClose />}
                 >
@@ -412,6 +415,8 @@ export const ModalStoryBook2 = () => {
 ModalStoryBook2.storyName = 'Dialogue Medium'
 
 export const ModalStoryBook3 = () => {
+  const [defaultSize] = useDefaultSize()
+  const ButtonMargin = defaultSize === 'small' ? '12px' : '24px'
   const Tab1 = () => {
     const [visible, setVisible] = useState(false)
     return (
@@ -504,7 +509,7 @@ export const ModalStoryBook3 = () => {
               <div>
                 <Button
                   type="default"
-                  marginRight="10px"
+                  marginRight={ButtonMargin}
                   onClick={() => setVisible(false)}
                   icon={<IconClose />}
                 >

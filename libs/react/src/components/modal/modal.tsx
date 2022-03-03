@@ -1,10 +1,10 @@
 import {
   IconArrowHeadRight,
   IconClose,
-  IconInformation,
   IconWarningFilled,
   IconErrorFilled,
-  IconCorrectFilled
+  IconCorrectFilled,
+  IconInformationFilled
 } from '@pui/icons'
 import React, {
   CSSProperties,
@@ -125,8 +125,9 @@ const Modal = ({
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
   modalSetIsLoading = setIsLoading
+  const ButtonMargin = size === 'small' ? '12px' : '24px'
   const TitleIcon = {
-    info: () => <IconInformation />,
+    info: () => <IconInformationFilled />,
     success: () => <IconCorrectFilled />,
     warning: () => <IconWarningFilled />,
     error: () => <IconErrorFilled />,
@@ -161,7 +162,7 @@ const Modal = ({
                   cancelIcon
                 )
               }
-              marginRight="10px"
+              marginRight={ButtonMargin}
               {...cancelButtonProps}
             >
               {cancelText}
@@ -206,60 +207,68 @@ const Modal = ({
   }, [visible])
 
   return ReactDOM.createPortal(
-    <div
-      ref={modalRef}
-      className={componentClassNames('pui-modal-root', { hide: !show + '' })}
-    >
-      <div className="pui-modal-mask" />
-      <div className="pui-modal-wrap">
+    <>
+      {show && (
         <div
-          style={style}
-          className={componentClassNames(
-            'pui-modal',
-            {
-              modalsize: modalSize + '',
-              size
-            },
-            className
-          )}
+          ref={modalRef}
+          className={componentClassNames('pui-modal-root', {
+            hide: !show + ''
+          })}
         >
-          <div className="pui-modal-content">
-            {showClose && (
-              <div
-                className="pui-modal-close"
-                onClick={() => {
-                  onCancel && onCancel()
-                }}
-              >
-                <IconClose />
-              </div>
-            )}
-
+          <div className="pui-modal-mask" />
+          <div className="pui-modal-wrap">
             <div
-              className={componentClassNames('pui-modal-header', {
-                divider: hasDivider + ''
-              })}
+              style={style}
+              className={componentClassNames(
+                'pui-modal',
+                {
+                  modalsize: modalSize + '',
+                  size
+                },
+                className
+              )}
             >
-              <div className="pui-modal-title">
-                {titleIconType && (
+              <div className="pui-modal-content">
+                {showClose && (
                   <div
-                    className={componentClassNames('pui-modal-title-icon', {
-                      type: titleIconType
-                    })}
+                    className="pui-modal-close"
+                    onClick={() => {
+                      onCancel && onCancel()
+                    }}
                   >
-                    {titleIcon || TitleIcon[titleIconType]()}
+                    <IconClose />
                   </div>
                 )}
-                {title}
+
+                <div
+                  className={componentClassNames('pui-modal-header', {
+                    divider: hasDivider + ''
+                  })}
+                >
+                  <div className="pui-modal-title">
+                    {titleIconType && (
+                      <div
+                        className={componentClassNames('pui-modal-title-icon', {
+                          type: titleIconType
+                        })}
+                      >
+                        {titleIcon || TitleIcon[titleIconType]()}
+                      </div>
+                    )}
+                    {title}
+                  </div>
+                  {subtitle && (
+                    <div className="pui-modal-subtitle">{subtitle}</div>
+                  )}
+                </div>
+                <div className="pui-modal-body">{children}</div>
+                <Footer />
               </div>
-              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
             </div>
-            <div className="pui-modal-body">{children}</div>
-            <Footer />
           </div>
         </div>
-      </div>
-    </div>,
+      )}
+    </>,
     document.body
   )
 }
