@@ -1,6 +1,7 @@
 import { IconArrowHeadRight, IconClose, IconWarningFilled } from '@pui/icons'
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, Tabs, TabPane } from '../..'
+import './modal.stories.scss'
 
 export default {
   title: 'Feedback/Modal',
@@ -343,7 +344,7 @@ export const ModalStoryBook2 = () => {
         <Button
           onClick={() =>
             Modal.show({
-              style: { minHeight: '264px' },
+              className:'modal-demo-example-1',
               title: 'M号最小对话框标题',
               content: '',
               okText: '主要按钮',
@@ -550,7 +551,7 @@ export const ModalStoryBook3 = () => {
         <Button
           onClick={() =>
             Modal.show({
-              style: { minHeight: '264px' },
+              className:'modal-demo-example-2',
               title: 'L号最小对话框标题',
               content: '',
               okText: '主要按钮',
