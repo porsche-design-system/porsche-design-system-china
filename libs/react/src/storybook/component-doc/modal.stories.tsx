@@ -163,6 +163,27 @@ export const ModalStoryBook1 = () => {
       </>
     )
   }
+
+  const Tab4 = () => {
+    return (
+      <>
+        <Button
+          onClick={() =>
+            Modal.show({
+              title: '对话框标题',
+              content:
+              '删除后，该模版就将作为历史版本记录在【历史上传记录】中，可随时下载查看。确定是否需要删除该模版？ 确定是否需要删除该模版？ ',
+              modalSize: 'small',
+              footer:null
+            })
+          }
+          type="secondary"
+        >
+          不含Footer
+        </Button>
+      </>
+    )
+  }
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -174,6 +195,9 @@ export const ModalStoryBook1 = () => {
         </TabPane>
         <TabPane title="Maximum">
           <Tab3 />
+        </TabPane>
+        <TabPane title="Without Footer">
+          <Tab4 />
         </TabPane>
       </Tabs>
     </div>
@@ -341,6 +365,26 @@ export const ModalStoryBook2 = () => {
       </>
     )
   }
+
+  const Tab5 = () => {
+    const [visible, setVisible] = useState(false)
+    return (
+      <>
+        <Modal
+          visible={visible}
+          title="对话框标题"
+          hasDivider
+          onCancel={() => setVisible(false)}
+          footer={null}
+        >
+          {' '}
+        </Modal>
+        <Button onClick={() => setVisible(true)} type="secondary">
+          基础对话框 - 不含Footer
+        </Button>
+      </>
+    )
+  }
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -355,6 +399,9 @@ export const ModalStoryBook2 = () => {
         </TabPane>
         <TabPane title="Minimum">
           <Tab4 />
+        </TabPane>
+        <TabPane title="Without Footer">
+          <Tab5 />
         </TabPane>
       </Tabs>
     </div>
@@ -526,6 +573,27 @@ export const ModalStoryBook3 = () => {
       </>
     )
   }
+
+  const Tab5 = () => {
+    const [visible, setVisible] = useState(false)
+    return (
+      <>
+        <Modal
+          visible={visible}
+          title="对话框标题"
+          hasDivider
+          modalSize="large"
+          onCancel={() => setVisible(false)}
+          footer={null}
+        >
+          {' '}
+        </Modal>
+        <Button onClick={() => setVisible(true)} type="secondary">
+          基础对话框 - 无Footer
+        </Button>
+      </>
+    )
+  }
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -540,6 +608,9 @@ export const ModalStoryBook3 = () => {
         </TabPane>
         <TabPane title="Minimum">
           <Tab4 />
+        </TabPane>
+        <TabPane title="Without Footer">
+          <Tab5 />
         </TabPane>
       </Tabs>
     </div>
