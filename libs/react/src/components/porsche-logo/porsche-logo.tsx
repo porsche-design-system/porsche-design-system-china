@@ -2,10 +2,19 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { useTheme } from '../../shared/hooks'
 
 export interface PorscheLogoProps {
+  /** 样式 */
   style?: CSSProperties
+
+  /** 样式 */
   className?: string
+
+  /** 大小 */
   size?: number
+
+  /** 主题样式 */
   mode?: 'dark' | 'light'
+
+  /** 点击事件 */
   onClick?: React.MouseEventHandler
 }
 

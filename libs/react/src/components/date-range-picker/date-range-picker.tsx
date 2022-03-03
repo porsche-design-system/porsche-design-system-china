@@ -26,8 +26,9 @@ import {
   useElementPos
 } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
-import './date-range-picker.scss'
 import { FormItemLabelProps } from '../form/form'
+
+import './date-range-picker.scss'
 
 export interface DateRangePickerProps {
   /** 类名 */
@@ -36,56 +37,59 @@ export interface DateRangePickerProps {
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: string[]
 
-  /* 开始日期表单捆绑值 */
+  /** 开始日期表单捆绑值 */
   nameStartDate?: string
 
-  /* 开始日期表单捆绑值 */
+  /** 开始日期表单捆绑值 */
   nameEndDate?: string
 
-  /* 值 */
+  /** 值 */
   value?: string[]
 
-  /* 大小 */
+  /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 占位符开始日期 */
+  /** 占位符开始日期 */
   placeholderStartDate?: string
 
-  /* 占位符结束日期 */
+  /** 占位符结束日期 */
   placeholderEndDate?: string
 
-  /* 值改变事件 */
+  /** 值改变事件 */
   onValueChange?: (value: string[]) => void
 
-  /* 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
-  range?: string | string[] | Date[]
+  /** 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
+  range?: string | (string | null)[] | Date[]
 
-  /* 提示错误 */
+  /** 提示错误 */
   error?: FormErrorText
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   defaultOpen?: boolean
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   open?: boolean
 
-  /* 菜单显示状态改变 */
+  /** 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 
-  /* 标签 */
+  /** 标签 */
   label?: string | FormItemLabelProps
 
-  /* 过滤器模式 */
+  /** 过滤器模式 */
   filterMode?: boolean
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /* 保留清除按钮 */
+  /** 保留清除按钮 */
   keepClearButton?: boolean
+
+  /** 限定必须选定起始终止 */
+  mustPickStartEnd?: boolean
 }
 
 const DateRangePicker = FormItem(
@@ -106,7 +110,8 @@ const DateRangePicker = FormItem(
     keepClearButton = false,
     onMenuVisibleChange,
     label = '',
-    filterMode = false
+    filterMode = false,
+    mustPickStartEnd = false
   }: DateRangePickerProps) => {
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
@@ -123,12 +128,14 @@ const DateRangePicker = FormItem(
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     const isDestroyed = useRef(false)
-    const [menuPos, updatePos] = useElementPos(rootElementRef)
+    const [menuPos, updatePos] = useElementPos(rootElementRef, 680)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
 
     const newKeepClearButton = keepClearButton || supportTouch()
+
+    const [, setForceUpdate] = useState(0)
 
     // 当前日期
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -159,6 +166,16 @@ const DateRangePicker = FormItem(
     // 日历上标题上显示的Date
     const displayDate = useRef(new Date())
 
+    if (typeof range === 'object') {
+      if (typeof range[0] === 'object' && range[0] !== null) {
+        range[0] = new Date(range[0] as Date)
+      }
+      if (typeof range[1] === 'object' && range[1] !== null) {
+        range[1] = new Date(range[1] as Date)
+      }
+      range = [...range] as any
+    }
+
     if (typeof range === 'string') {
       if (/In(\d)Days/.test(range)) {
         const days = RegExp.$1
@@ -171,20 +188,20 @@ const DateRangePicker = FormItem(
     }
 
     if (Array.isArray(range) && range.length === 2) {
-      if (typeof range[0] === 'string' && typeof range[1] === 'string') {
+      if (typeof range[0] === 'string') {
         const startDate = strToDate(range[0])
-        const endDate = strToDate(range[1])
         if (!startDate) {
           console.error('Format Incorrect', range[0])
         }
+        range[0] = startDate
+      }
+
+      if (typeof range[1] === 'string') {
+        const endDate = strToDate(range[1])
         if (!endDate) {
           console.error('Format Incorrect', range[1])
         }
-        if (startDate && endDate) {
-          range = [startDate, endDate]
-        }
-      } else {
-        range = range as [Date, Date]
+        range[1] = endDate
       }
     } else {
       range = undefined
@@ -230,12 +247,16 @@ const DateRangePicker = FormItem(
     }, [open])
 
     useEffect(() => {
+      if (!calenderOpen && mustPickStartEnd) {
+        if (!displayValues[0] || !displayValues[1]) {
+          setPickedDates([null, null])
+          setDisplayValues(['', ''])
+        }
+      }
+    }, [calenderOpen])
+
+    useEffect(() => {
       setCurrentDate(new Date())
-      displayDate.current = pickedDates[0]
-        ? new Date(pickedDates[0])
-        : range
-        ? new Date((range as [Date, Date])[0])
-        : new Date()
       updateCalendar()
     }, [])
 
@@ -321,7 +342,7 @@ const DateRangePicker = FormItem(
                       ? 'pui-date-range-picker-calendar-today'
                       : '') +
                     ' ' +
-                    (!inDateRange(date, range as [Date, Date])
+                    (!inDateRange(date, range as [Date, Date], true)
                       ? 'pui-date-range-picker-calendar-unavailable'
                       : '') +
                     ' ' +
@@ -356,7 +377,7 @@ const DateRangePicker = FormItem(
                       : '')
                   }
                   onClick={() => {
-                    if (!inDateRange(date, range as [Date, Date])) {
+                    if (!inDateRange(date, range as [Date, Date], true)) {
                       return
                     }
                     pickedDates[currentInputPlace] = new Date(date)
@@ -392,11 +413,18 @@ const DateRangePicker = FormItem(
                       }
                     }
                     if (displayValues[0] || displayValues[1]) {
-                      onValueChange && onValueChange([...displayValues])
+                      if (
+                        (mustPickStartEnd &&
+                          displayValues[0] &&
+                          displayValues[1]) ||
+                        !mustPickStartEnd
+                      ) {
+                        onValueChange && onValueChange([...displayValues])
+                      }
                     }
                   }}
                   onMouseEnter={() => {
-                    if (!inDateRange(date, range as [Date, Date])) {
+                    if (!inDateRange(date, range as [Date, Date], true)) {
                       return
                     }
 
@@ -425,6 +453,65 @@ const DateRangePicker = FormItem(
       )
     }
 
+    const startDateClick = (evt: any) => {
+      evt.stopPropagation()
+      setCurrentInputPlace(0)
+      setCalendarOpen(true)
+      setCurrentDate(new Date())
+      let initDate = new Date()
+      // 如果选了开始日期，从结束日期开始
+      if (pickedDates[0]) {
+        initDate = new Date(pickedDates[0])
+      }
+      // 如果没有选开始日期，有限定范围，从限定范围开始开始
+      else if (range && range[0]) {
+        initDate = range[0] as Date
+      }
+      // 如果没有选开始日期，有限定范围，从限定范围结束开始
+      else if (range && range[1]) {
+        initDate = range[1] as Date
+        initDate.setMonth(initDate.getMonth() - 1)
+      }
+      displayDate.current = initDate
+      updateCalendar()
+      setTimeout(() => {
+        setForceUpdate(Math.random())
+      }, 10)
+    }
+
+    const endDateClick = (evt: any) => {
+      evt.stopPropagation()
+      setCurrentInputPlace(1)
+      setCalendarOpen(true)
+      setCurrentDate(new Date())
+
+      let initDate = new Date()
+      // 如果选了结束日期，从结束日期开始
+      if (pickedDates[1]) {
+        initDate = new Date(pickedDates[1])
+      }
+      // 如果没有选结束日期，有限定范围，从限定范围开始开始
+      else if (range && range[0]) {
+        initDate = range[0] as Date
+      }
+      // 如果没有选结束日期，有限定范围，从限定范围结束开始
+      else if (range && range[1]) {
+        initDate = range[1] as Date
+        initDate.setMonth(initDate.getMonth() - 1)
+      }
+      displayDate.current = initDate
+
+      if (pickedDates[1] && pickedDates[0]) {
+        if (pickedDates[1].getMonth() !== pickedDates[0].getMonth()) {
+          displayDate.current = addMonth(displayDate.current, -1)
+        }
+      }
+      updateCalendar()
+      setTimeout(() => {
+        setForceUpdate(Math.random())
+      }, 10)
+    }
+
     return (
       <div
         ref={rootElement => {
@@ -447,22 +534,13 @@ const DateRangePicker = FormItem(
             disabled: disabled + '',
             error: error ? error.show + '' : 'false',
             size,
-            highlight: (displayValues[0] !== '' || displayValues[1] !== '') + ''
+            highlight:
+              ((displayValues[0] !== '' || displayValues[1] !== '') &&
+                filterMode) + ''
           },
           className
         )}
-        onClick={evt => {
-          evt.stopPropagation()
-          setCurrentInputPlace(0)
-          setCalendarOpen(true)
-          setCurrentDate(new Date())
-          displayDate.current = pickedDates[0]
-            ? new Date(pickedDates[0])
-            : range
-            ? new Date((range as [Date, Date])[0])
-            : new Date()
-          updateCalendar()
-        }}
+        onClick={startDateClick}
       >
         {filterMode && (
           <div className="pui-date-range-picker-filter-label">
@@ -495,18 +573,7 @@ const DateRangePicker = FormItem(
               )}
               type="button"
               disabled={disabled}
-              onClick={evt => {
-                evt.stopPropagation()
-                setCurrentInputPlace(0)
-                setCalendarOpen(true)
-                setCurrentDate(new Date())
-                displayDate.current = pickedDates[0]
-                  ? new Date(pickedDates[0])
-                  : range
-                  ? new Date((range as [Date, Date])[0])
-                  : new Date()
-                updateCalendar()
-              }}
+              onClick={startDateClick}
               style={{
                 minWidth: filterMode ? 'auto' : ''
               }}
@@ -525,8 +592,15 @@ const DateRangePicker = FormItem(
                   onClick={evt => {
                     evt.preventDefault()
                     evt.stopPropagation()
-                    setPickedDates([null, pickedDates[1]])
-                    setDisplayValues(['', displayValues[1]])
+                    if (mustPickStartEnd) {
+                      displayValues[0] = ''
+                      displayValues[1] = ''
+                      setPickedDates([null, null])
+                      setDisplayValues(['', ''])
+                    } else {
+                      setPickedDates([null, pickedDates[1]])
+                      setDisplayValues(['', displayValues[1]])
+                    }
                     onValueChange && onValueChange(['', displayValues[1]])
                   }}
                 />
@@ -545,23 +619,7 @@ const DateRangePicker = FormItem(
                 minWidth: filterMode ? 'auto' : ''
               }}
               disabled={disabled}
-              onClick={evt => {
-                evt.stopPropagation()
-                setCurrentInputPlace(1)
-                setCalendarOpen(true)
-                setCurrentDate(new Date())
-                displayDate.current = pickedDates[1]
-                  ? new Date(pickedDates[1])
-                  : range
-                  ? new Date((range as [Date, Date])[0])
-                  : new Date()
-                if (pickedDates[1] && pickedDates[0]) {
-                  if (pickedDates[1].getMonth() !== pickedDates[0].getMonth()) {
-                    displayDate.current = addMonth(displayDate.current, -1)
-                  }
-                }
-                updateCalendar()
-              }}
+              onClick={endDateClick}
             >
               {displayValues[1] || (
                 <span className="pui-date-range-picker-placeholder">
@@ -577,8 +635,15 @@ const DateRangePicker = FormItem(
                   onClick={evt => {
                     evt.preventDefault()
                     evt.stopPropagation()
-                    setPickedDates([pickedDates[0], null])
-                    setDisplayValues([displayValues[0], ''])
+                    if (mustPickStartEnd) {
+                      displayValues[0] = ''
+                      displayValues[1] = ''
+                      setPickedDates([null, null])
+                      setDisplayValues(['', ''])
+                    } else {
+                      setPickedDates([pickedDates[0], null])
+                      setDisplayValues([displayValues[0], ''])
+                    }
                     onValueChange && onValueChange([displayValues[0], ''])
                   }}
                 />
@@ -591,8 +656,8 @@ const DateRangePicker = FormItem(
           !disabled &&
           ReactDOM.createPortal(
             <div
-              style={{ position: 'absolute', ...menuPos }}
-              className={`pui-date-picker-size-${size}`}
+              style={{ position: 'absolute', height: 0, ...menuPos }}
+              className={`pui-date-range-picker-size-${size}`}
             >
               <div className="pui-date-range-picker-calendars">
                 {calendarView(0)}

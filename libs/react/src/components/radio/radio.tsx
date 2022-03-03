@@ -12,31 +12,31 @@ export interface RadioProps<T> {
   /** 样式 */
   style?: CSSProperties
 
-  /* 显示文字 */
+  /** 显示文字 */
   text?: string
 
-  /* 分组名 */
+  /** 分组名 */
   name?: string
 
-  /* 值 */
+  /** 值 */
   value?: T
 
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 是否选定 */
+  /** 是否选定 */
   checked?: boolean
 
-  /* 默认选定 */
+  /** 默认选定 */
   defaultChecked?: boolean
 
-  /* 大小 */
+  /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 选定事件 */
+  /** 选定事件 */
   onCheckedChange?: (checked: boolean) => void
 
-  /* 点击事件 */
+  /** 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
