@@ -344,7 +344,7 @@ export const ModalStoryBook2 = () => {
         <Button
           onClick={() =>
             Modal.show({
-              className:'modal-demo-example-1',
+              className: 'modal-demo-example-1',
               title: 'M号最小对话框标题',
               content: '',
               okText: '主要按钮',
@@ -551,7 +551,7 @@ export const ModalStoryBook3 = () => {
         <Button
           onClick={() =>
             Modal.show({
-              className:'modal-demo-example-2',
+              className: 'modal-demo-example-2',
               title: 'L号最小对话框标题',
               content: '',
               okText: '主要按钮',
