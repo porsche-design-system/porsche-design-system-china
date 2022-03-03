@@ -148,6 +148,10 @@
               }
             }
 
+            .pui-modal-nofooter {
+              height: 24px;
+            }
+
             @keyframes pui-modal-zoom {
               0% {
                 transform: scale(0.9);
@@ -172,7 +176,7 @@
               }
             }
           }
-          
+
           &-modalsize-medium {
             .pui-modal-content {
               .pui-modal-body {

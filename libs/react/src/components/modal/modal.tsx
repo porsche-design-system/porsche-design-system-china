@@ -124,11 +124,24 @@ const Modal = ({
   const [isLoading, setIsLoading] = useState(false)
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
-  let Footer = () => footer || <></>
-  if (footer === undefined) {
-    Footer = () => {
+  const Footer = () => {
+    if (footer) {
       return (
-        <div>
+        <div
+          className={componentClassNames('pui-modal-footer', {
+            divider: hasDivider + ''
+          })}
+        >
+          {footer}
+        </div>
+      )
+    } else if (footer === undefined) {
+      return (
+        <div
+          className={componentClassNames('pui-modal-footer', {
+            divider: hasDivider + ''
+          })}
+        >
           {showCancel && (
             <Button
               onClick={() => onCancel && onCancel()}
@@ -175,6 +188,8 @@ const Modal = ({
         </div>
       )
     }
+
+    return <div className="pui-modal-nofooter" />
   }
 
   modalSetIsLoading = setIsLoading
@@ -240,13 +255,7 @@ const Modal = ({
             <div className="pui-modal-body" style={style}>
               {children}
             </div>
-            <div
-              className={componentClassNames('pui-modal-footer', {
-                divider: hasDivider + ''
-              })}
-            >
-              <Footer />
-            </div>
+            <Footer />
           </div>
         </div>
       </div>
@@ -408,7 +417,7 @@ export interface ModalShowProps {
   hasDivider?: boolean
 
   /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
-  footer?: React.ReactNode
+  footer?: ReactElement | undefined | null
 
   /** 确认按钮文字 */
   okText?: string
