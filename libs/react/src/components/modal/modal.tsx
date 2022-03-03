@@ -40,10 +40,10 @@ export interface ModalProps {
   title?: React.ReactNode
 
   /** 标题左侧Icon */
-  titleIcon?: ReactElement | undefined
+  titleIcon?: ReactElement
 
   /** 标题左侧Iconl类型 */
-  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+  titleIconType?: 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
   subtitle?: React.ReactNode
@@ -55,7 +55,7 @@ export interface ModalProps {
   hasDivider?: boolean
 
   /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
-  footer?: ReactElement | undefined | null
+  footer?: ReactElement | null
 
   /** 确认按钮文字 */
   okText?: string
@@ -70,10 +70,10 @@ export interface ModalProps {
   cancelButtonProps?: ButtonProps
 
   /** 确认按钮Icon */
-  okIcon?: ReactElement | undefined | null
+  okIcon?: ReactElement | null
 
   /** 取消按钮Icon */
-  cancelIcon?: ReactElement | undefined | null
+  cancelIcon?: ReactElement | null
 
   /* 点击确定回调 */
   onOk?: () => void | Promise<unknown>
@@ -124,6 +124,15 @@ const Modal = ({
   const [isLoading, setIsLoading] = useState(false)
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
+  modalSetIsLoading = setIsLoading
+  const TitleIcon = {
+    info: () => <IconInformation />,
+    success: () => <IconCorrectFilled />,
+    warning: () => <IconWarningFilled />,
+    error: () => <IconErrorFilled />,
+    undefined: () => null
+  }
+
   const Footer = () => {
     if (footer) {
       return (
@@ -192,18 +201,10 @@ const Modal = ({
     return <div className="pui-modal-nofooter" />
   }
 
-  modalSetIsLoading = setIsLoading
-  const TitleIcon = {
-    info: () => <IconInformation />,
-    success: () => <IconCorrectFilled />,
-    warning: () => <IconWarningFilled />,
-    error: () => <IconErrorFilled />,
-    undefined: () => null
-  }
-
   useEffect(() => {
     setShow(visible)
   }, [visible])
+
   return ReactDOM.createPortal(
     <div
       ref={modalRef}
@@ -212,6 +213,7 @@ const Modal = ({
       <div className="pui-modal-mask" />
       <div className="pui-modal-wrap">
         <div
+          style={style}
           className={componentClassNames(
             'pui-modal',
             {
@@ -252,7 +254,7 @@ const Modal = ({
               </div>
               {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
             </div>
-            <div className="pui-modal-body" style={style}>
+            <div className="pui-modal-body">
               {children}
             </div>
             <Footer />
@@ -405,10 +407,10 @@ export interface ModalShowProps {
   title?: React.ReactNode
 
   /** 标题左侧Icon */
-  titleIcon?: ReactElement | undefined
+  titleIcon?: ReactElement
 
   /** 标题左侧Iconl类型 */
-  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+  titleIconType?: 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
   subtitle?: React.ReactNode
@@ -417,7 +419,7 @@ export interface ModalShowProps {
   hasDivider?: boolean
 
   /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
-  footer?: ReactElement | undefined | null
+  footer?: ReactElement | null
 
   /** 确认按钮文字 */
   okText?: string
@@ -432,10 +434,10 @@ export interface ModalShowProps {
   cancelButtonProps?: ButtonProps
 
   /** 确认按钮Icon */
-  okIcon?: ReactElement | undefined | null
+  okIcon?: ReactElement | null
 
   /** 取消按钮Icon */
-  cancelIcon?: ReactElement | undefined | null
+  cancelIcon?: ReactElement | null
 
   /* 点击确定回调 */
   onOk?: () => void | Promise<unknown>
