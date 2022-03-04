@@ -13,28 +13,28 @@ interface Option<T> {
 export interface RadioGroupProps<T> {
   // 组件属性 //
 
-  /* 默认值 */
+  /**  默认值 */
   defaultValue?: T
 
-  /* 值 */
+  /** 值 */
   value?: T
 
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 表单绑定key，需要配合<Form>使用 */
+  /** 表单绑定key，需要配合<Form>使用 */
   name?: string
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 点击事件 */
+  /** 点击事件 */
   onValueChange?: (val: T) => void
 
-  /* 选项 */
+  /** 选项 */
   options?: string | string[] | Option<T>[]
 
-  /* 允许取消选项 */
+  /** 允许取消选项 */
   allowCancelSelection?: boolean
 
   /** 子组件 */

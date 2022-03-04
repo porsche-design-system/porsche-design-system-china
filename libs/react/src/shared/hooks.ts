@@ -154,9 +154,12 @@ export const useClickOutside = (
   }, [ref, handler])
 }
 
-export const useElementPos = (elemRef: {
-  current: HTMLElement | null
-}): [any, () => void] => {
+export const useElementPos = (
+  elemRef: {
+    current: HTMLElement | null
+  },
+  popContentWidth = 0
+): [any, () => void] => {
   const [, setRefresh] = useState(0)
   const [, setPopState] = usePopShowState()
   const originalElem = elemRef.current
@@ -233,13 +236,15 @@ export const useElementPos = (elemRef: {
     }
   }
 
-  return [
-    {
-      left: offsetLeft - (position === 'fixed' ? firstScrollLeft : 0),
-      top: offsetTop - (position === 'fixed' ? firstScrollTop : 0),
-      position,
-      minWidth: originalElem!.offsetWidth
-    },
-    updatePos
-  ]
+  const pos = {
+    left: offsetLeft - (position === 'fixed' ? firstScrollLeft : 0),
+    top: offsetTop - (position === 'fixed' ? firstScrollTop : 0),
+    position,
+    minWidth: originalElem!.offsetWidth
+  }
+
+  if (pos.left + popContentWidth + 10 > window.innerWidth) {
+    pos.left = window.innerWidth - popContentWidth - 10
+  }
+  return [pos, updatePos]
 }

@@ -16,6 +16,7 @@ export const SelectStoryBook = () => {
           label="动物"
           placeholder="请选择"
           width="200px"
+          onValueChange={val => {}}
         />
         <div>禁用状态</div>
         <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
@@ -31,6 +32,26 @@ export const SelectStoryBook1 = () => {
     <div style={{ width: '300px' }}>
       <Form>
         <Select
+          options={[10, 12, 33]}
+          label="数字"
+          placeholder="请选择"
+          width="200px"
+          onValueChange={val => {
+            console.log(typeof val)
+          }}
+        />
+      </Form>
+    </div>
+  )
+}
+
+SelectStoryBook1.storyName = 'Number Options'
+
+export const SelectStoryBook11 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <Select
           options="狗:dog,猫,狮子,老虎,鲸鱼"
           label="动物"
           placeholder="请选择"
@@ -41,9 +62,9 @@ export const SelectStoryBook1 = () => {
   )
 }
 
-SelectStoryBook1.storyName = 'String Options'
+SelectStoryBook11.storyName = 'String Options'
 
-export const SelectStoryBook11 = () => {
+export const SelectStoryBook12 = () => {
   return (
     <div style={{ width: '300px' }}>
       <Form>
@@ -73,9 +94,9 @@ export const SelectStoryBook11 = () => {
   )
 }
 
-SelectStoryBook11.storyName = 'Group Options'
+SelectStoryBook12.storyName = 'Group Options'
 
-export const SelectStoryBook12 = () => {
+export const SelectStoryBook13 = () => {
   return (
     <div style={{ width: '300px' }}>
       <Form>
@@ -107,7 +128,7 @@ export const SelectStoryBook12 = () => {
   )
 }
 
-SelectStoryBook12.storyName = 'Custom Options Style'
+SelectStoryBook13.storyName = 'Custom Options Style'
 
 export const SelectStoryBook2 = () => {
   return (

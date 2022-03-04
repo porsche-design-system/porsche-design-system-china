@@ -42,13 +42,11 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   const [showDropdown, setShowDropdown] = useState(visible)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
-    () => {
-      if (showDropdown) {
-        setShowDropdown(false)
-      }
+  const [, , puiPopupWrap] = usePopShowState(() => {
+    if (showDropdown) {
+      setShowDropdown(false)
     }
-  )
+  })
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     updatePos()
@@ -93,13 +91,20 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       const { displayName } = childElement.type
       if (displayName === 'Menu') {
         return React.cloneElement(childElement, {
-          mode: 'dropdown'
+          mode: 'dropdown',
+          onClick: () => {
+            if (childElement.props && childElement.props.onClick) {
+              childElement.props.onClick()
+            }
+            setShowDropdown(false)
+          }
         })
       } else {
         console.error('Warning: overlay is not a Menu component')
       }
       return null
     })
+
     const dropdownPosition: { left: number; top: number } = { ...menuPos }
     const clientWidth = rootElementRef.current?.offsetWidth || 0
     const windowWidth = document.body.offsetWidth
@@ -127,9 +132,11 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     }
     return null
   }
+
   const componentRef = useRef<HTMLDivElement>(null)
   useClickOutside(componentRef, () => setShowDropdown(false))
   const Children = renderChildren()
+
   return (
     <div
       {...hoverEvents}

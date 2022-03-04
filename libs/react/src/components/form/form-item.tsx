@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import classNames from 'classnames'
 import { getLabelWidth, Label, getLabelProps } from '../label/label'
 import { FormItemLabelProps } from './form'
 import { ErrorText, FormErrorText } from '../error-text/error-text'
@@ -8,31 +9,34 @@ import { useDefaultSize } from '../../shared/hooks'
 import './form-item.scss'
 
 export interface FormItemProps {
-  /* 标签 */
+  /** 标签 */
   label?: string | FormItemLabelProps
 
-  /* 表单绑定key，需要配合<Form>使用 */
+  /** 表单绑定key，需要配合<Form>使用 */
   name?: string
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 验证规则 */
+  /** 验证规则 */
   rules?: RuleItem[] | RuleItem
 
-  /* 宽度 */
+  /** 宽度 */
   width?: string
 
-  /* 左边距 */
+  /** 左边距 */
   marginLeft?: string
 
-  /* 右边距 */
+  /** 右边距 */
   marginRight?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 过滤器选项模式 */
+  /** 样式类 */
+  className?: string
+
+  /** 过滤器选项模式 */
   filterMode?: boolean
 }
 
@@ -47,7 +51,8 @@ export const FormItem =
       marginRight,
       rules,
       style,
-      filterMode = false
+      filterMode = false,
+      className
     } = props
     const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()
@@ -116,7 +121,7 @@ export const FormItem =
 
     return (
       <div
-        className="pui-form-item"
+        className={classNames('pui-form-item', className)}
         style={{
           ...style,
           width: width || (filterMode ? 'auto' : ''),

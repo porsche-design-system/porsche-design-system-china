@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
-import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
+import { IconArrowHeadDown, IconErrorFilled, IconSearch } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
@@ -15,6 +15,7 @@ import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
 import { FormItemLabelProps } from '../form/form'
+import { containText } from '../../shared/string-util'
 import { supportTouch } from '../../shared/device'
 
 interface MultiSelectOption<T> {
@@ -34,55 +35,55 @@ export interface MultiSelectProps<T> {
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 值 */
+  /** 值 */
   value?: T[]
 
   /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 默认值 */
+  /** 默认值 */
   defaultValue?: T[]
 
-  /* 占位符 */
+  /** 占位符 */
   placeholder?: string
 
-  /* 显示过滤输入框 */
+  /** 显示过滤输入框 */
   filterInput?: boolean
 
-  /* 选项 */
-  options?: string | string[] | MultiSelectOption<T>[]
+  /** 选项 */
+  options?: T | T[] | MultiSelectOption<T>[]
 
-  /* 选项style样式 */
+  /** 选项style样式 */
   optionsStyle?: CSSProperties
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
 
-  /* 值改变事件 */
+  /** 值改变事件 */
   onValueChange?: (value: T[]) => void
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   defaultOpen?: boolean
 
-  /* 控制菜单打开 */
+  /** 控制菜单打开 */
   open?: boolean
 
-  /* 显示清除按钮 */
+  /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /* 清除按钮是否一直显示 触屏设备默认为true */
+  /** 清除按钮是否一直显示 触屏设备默认为true */
   keepClearButton?: boolean
 
-  /* 过滤器选项模式 */
+  /** 过滤器选项模式 */
   filterMode?: boolean
 
-  /* 最大宽度 */
+  /** 最大宽度 */
   maxWidth?: string
 
-  /* 菜单显示状态改变 */
+  /** 菜单显示状态改变 */
   onMenuVisibleChange?: (visible: boolean) => void
 
-  /* 标签 */
+  /** 标签 */
   label?: string | FormItemLabelProps
 }
 
@@ -125,6 +126,7 @@ MultiSelect = FormItem(
       }
     )
     const [filterValue, setFilterValue] = useState('')
+    const [filterWord, setFilterWord] = useState('')
     const hasValue = useRef(value !== undefined)
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
@@ -133,7 +135,9 @@ MultiSelect = FormItem(
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
+    const isComposing = useRef(false)
     const isDestroyed = useRef(false)
+
     size = size || defaultSize
 
     if (value) {
@@ -160,8 +164,8 @@ MultiSelect = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         selectOptions = options as MultiSelectOption<T>[]
       } else {
-        ;(options as string[]).forEach(option => {
-          selectOptions.push({ text: option, value: option as any })
+        ;(options as unknown as string[]).forEach(option => {
+          selectOptions.push({ text: option + '', value: option as any })
         })
       }
     }
@@ -199,6 +203,13 @@ MultiSelect = FormItem(
     const newKeepClearButton = keepClearButton || supportTouch()
 
     const labelText = typeof label === 'object' ? label.text : label
+
+    const filteredOptions = selectOptions.filter(item => {
+      if (filterWord) {
+        return containText(item.text, filterWord)
+      }
+      return true
+    })
 
     return (
       <div
@@ -251,6 +262,7 @@ MultiSelect = FormItem(
             updatePos()
             if (!showOptionList) {
               setFilterValue('')
+              setFilterWord('')
             }
             setShowOptionList(!showOptionList)
           }}
@@ -308,79 +320,86 @@ MultiSelect = FormItem(
                 }}
               >
                 {filterInput && (
-                  <input
-                    value={filterValue}
-                    placeholder="请输入选项"
-                    onChange={evt => {
-                      setFilterValue(evt.target.value)
-                    }}
-                    className="pui-multi-select-filter"
-                  />
-                )}
-
-                <div
-                  className="pui-multi-select-option "
-                  onClick={() => {
-                    const allValues: T[] = []
-                    if (!allChecked) {
-                      selectOptions.forEach(item => {
-                        allValues.push(item.value)
-                      })
-                    }
-                    setSelectValue(allValues)
-                    onValueChange && onValueChange(allValues)
-                  }}
-                >
-                  <CheckBox
-                    className="pui-multi-select-pick"
-                    size="small"
-                    checked={allChecked}
-                    partChecked={partChecked}
-                  />
-                  全选
-                </div>
-                <div className="pui-multi-select-option-wrap">
-                  {selectOptions
-                    .filter(item => {
-                      if (filterValue) {
-                        return (
-                          item.text
-                            .toLowerCase()
-                            .indexOf(filterValue.toLowerCase()) >= 0
-                        )
-                      }
-                      return true
-                    })
-                    .map((option, inx) => (
-                      <div
-                        key={option.value + ' ' + inx}
-                        className={
-                          'pui-multi-select-option ' +
-                          (selectValue.includes(option.value)
-                            ? 'pui-multi-select-option-selected'
-                            : '')
+                  <>
+                    <IconSearch className="pui-multi-select-search-icon" />
+                    <input
+                      value={filterValue}
+                      placeholder="请输入选项"
+                      onCompositionStart={() => {
+                        isComposing.current = true
+                      }}
+                      onCompositionEnd={(evt: any) => {
+                        isComposing.current = false
+                        setFilterWord(evt.target.value)
+                        setFilterValue(evt.target.value)
+                      }}
+                      onChange={(evt: any) => {
+                        if (!isComposing.current) {
+                          setFilterWord(evt.target.value)
                         }
-                        onClick={() => {
-                          if (selectValue.includes(option.value)) {
-                            selectValue.splice(
-                              selectValue.indexOf(option.value),
-                              1
-                            )
-                          } else {
-                            selectValue.push(option.value)
-                          }
-                          setSelectValue([...selectValue])
-                          onValueChange && onValueChange([...selectValue])
-                        }}
-                      >
-                        <CheckBox
-                          className="pui-multi-select-pick"
-                          size="small"
-                          checked={selectValue.includes(option.value)}
-                        />
-                        {option.text}
-                      </div>
-                    ))}
+                        setFilterValue(evt.target.value)
+                      }}
+                      className="pui-multi-select-filter"
+                    />
+                  </>
+                )}
+                {filteredOptions.length > 0 && (
+                  <div
+                    className="pui-multi-select-option "
+                    onClick={() => {
+                      const allValues: T[] = []
+                      if (!allChecked) {
+                        selectOptions.forEach(item => {
+                          allValues.push(item.value)
+                        })
+                      }
+                      setSelectValue(allValues)
+                      onValueChange && onValueChange(allValues)
+                    }}
+                  >
+                    <CheckBox
+                      className="pui-multi-select-pick"
+                      size="small"
+                      checked={allChecked}
+                      partChecked={partChecked}
+                    />
+                    全选
+                  </div>
+                )}
+                {filteredOptions.length === 0 && (
+                  <div className="pui-multi-select-no-data">暂无数据</div>
+                )}
+                <div className="pui-multi-select-option-wrap">
+                  {filteredOptions.map((option, inx) => (
+                    <div
+                      key={option.value + ' ' + inx}
+                      className={
+                        'pui-multi-select-option ' +
+                        (selectValue.includes(option.value)
+                          ? 'pui-multi-select-option-selected'
+                          : '')
+                      }
+                      onClick={() => {
+                        if (selectValue.includes(option.value)) {
+                          selectValue.splice(
+                            selectValue.indexOf(option.value),
+                            1
+                          )
+                        } else {
+                          selectValue.push(option.value)
+                        }
+                        setSelectValue([...selectValue])
+                        onValueChange && onValueChange([...selectValue])
+                      }}
+                    >
+                      <CheckBox
+                        className="pui-multi-select-pick"
+                        size="small"
+                        checked={selectValue.includes(option.value)}
+                      />
+                      {option.text}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>,
