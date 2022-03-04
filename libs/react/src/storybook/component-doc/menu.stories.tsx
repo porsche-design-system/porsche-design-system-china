@@ -19,7 +19,7 @@ export const ProgressStoryBook = () => {
         <Menu activeIndex={index} onSelect={setIndex}>
           <Menu.Item
             index="test"
-            onClick={() => Modal.confirm('onClick事件', '点击了 test')}
+            onClick={() => console.log('onClick事件', '点击了 test')}
           >
             test
           </Menu.Item>
@@ -30,7 +30,7 @@ export const ProgressStoryBook = () => {
           <Menu.SubMenu
             title="submit"
             index="submit"
-            onClick={() => Modal.confirm('onClick事件', '点击了子标题')}
+            onClick={() => console.log('onClick事件', '点击了子标题')}
           >
             <Menu.Item index="submit-test">test1</Menu.Item>
             <Menu.Item index="submit-about">about2</Menu.Item>
