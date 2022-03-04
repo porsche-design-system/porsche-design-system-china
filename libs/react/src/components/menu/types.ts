@@ -13,6 +13,8 @@ export interface MenuProps {
   style?: CSSProperties
   /** 点击菜单项触发的回掉函数 */
   onSelect?: (selectedIndex: string) => void
+  /** 点击菜单项触发的回掉函数 */
+  onClick?: () => void
   /** 设置子菜单的默认打开 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[]
   /** 大小 */

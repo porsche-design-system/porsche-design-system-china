@@ -10,11 +10,24 @@ export default {
 }
 const oneMenu = (
   <Menu>
-    <Menu.Item icon={<IconEdit />} selectAfter index="test1">
+    <Menu.Item
+      icon={<IconEdit />}
+      selectAfter
+      index="test1"
+      onClick={() => {
+        console.log('test1111')
+      }}
+    >
       test
     </Menu.Item>
-    <Menu.Item icon={<IconAdd />} index="test2" selectAfter divider>
-      <a href="http://react-dev.qa4.porsche-preview.cn/">PUI</a>
+    <Menu.Item
+      icon={<IconAdd />}
+      index="test2"
+      onClick={() => console.log('test2')}
+      selectAfter
+      divider
+    >
+      test2
     </Menu.Item>
     <Menu.Item disabled index="test3">
       disabled
