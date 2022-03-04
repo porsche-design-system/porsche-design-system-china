@@ -64,23 +64,8 @@ const InputNumber = FormItem(
     value,
     onValueChange
   }: InputNumberProps) => {
-    const initialValue = (() => {
-      if((typeof value).toLowerCase() !== 'undefined'){
-        if((typeof value).toLowerCase() === 'number'){
-          return String(value)
-        }else{
-          return value
-        }
-      }else if((typeof defaultValue).toLowerCase() !== 'undefined'){
-        if((typeof defaultValue).toLowerCase() === 'number'){
-          return String(defaultValue)
-        }else{
-          return defaultValue
-        }
-      }else{
-        return undefined
-      }
-    })()
+    let initialValue = value!==undefined ? value : defaultValue;
+    initialValue = (typeof initialValue).toLowerCase() === 'number' ? String(initialValue) : initialValue;
     const [currentValue, setCurrentValue] = useState(initialValue)
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
