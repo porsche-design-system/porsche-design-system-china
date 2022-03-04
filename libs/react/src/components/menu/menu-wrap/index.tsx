@@ -13,7 +13,8 @@ const Menu: React.FC<MenuProps> = props => {
     size,
     children,
     activeIndex = '',
-    onSelect
+    onSelect,
+    onClick
   } = props
   const [currentActive, setActive] = useState(activeIndex)
   const [defaultSize] = useDefaultSize()
@@ -28,6 +29,9 @@ const Menu: React.FC<MenuProps> = props => {
     setActive(index)
     if (onSelect) {
       onSelect(index)
+    }
+    if (onClick) {
+      onClick()
     }
   }
 
