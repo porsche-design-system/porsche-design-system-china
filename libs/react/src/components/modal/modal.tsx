@@ -1,9 +1,10 @@
 import {
   IconArrowHeadRight,
   IconClose,
-  IconClock,
-  IconInformation,
-  IconExclamation
+  IconWarningFilled,
+  IconErrorFilled,
+  IconCorrectFilled,
+  IconInformationFilled
 } from '@pui/icons'
 import React, {
   CSSProperties,
@@ -15,6 +16,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 import { ButtonProps } from '../button/button'
 import './modal.scss'
 
@@ -22,11 +24,14 @@ export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
 
-  /** 类名 */
+  /**  类名 */
   className?: string
 
   /** 样式 */
   style?: CSSProperties
+
+  /** 大小 */
+  size?: 'medium' | 'small' | 'tiny'
 
   /** 弹框大小 */
   modalSize?: 'small' | 'medium' | 'large'
@@ -35,10 +40,10 @@ export interface ModalProps {
   title?: React.ReactNode
 
   /** 标题左侧Icon */
-  titleIcon?: ReactElement | undefined
+  titleIcon?: ReactElement
 
   /** 标题左侧Iconl类型 */
-  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+  titleIconType?: 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
   subtitle?: React.ReactNode
@@ -48,6 +53,9 @@ export interface ModalProps {
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
+
+  /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
+  footer?: ReactElement | null
 
   /** 确认按钮文字 */
   okText?: string
@@ -62,10 +70,10 @@ export interface ModalProps {
   cancelButtonProps?: ButtonProps
 
   /** 确认按钮Icon */
-  okIcon?: ReactElement | undefined | null
+  okIcon?: ReactElement | null
 
   /** 取消按钮Icon */
-  cancelIcon?: ReactElement | undefined | null
+  cancelIcon?: ReactElement | null
 
   /** 点击确定回调 */
   onOk?: () => void | Promise<unknown>
@@ -89,6 +97,7 @@ let modalSetIsLoading: (val: boolean) => void
 const Modal = ({
   style,
   className,
+  size,
   modalSize = 'medium',
   visible = false,
   title,
@@ -97,6 +106,7 @@ const Modal = ({
   subtitle = '',
   hasDivider = false,
   children,
+  footer,
   okText = '确认',
   okButtonProps = {},
   cancelText = '取消',
@@ -112,121 +122,153 @@ const Modal = ({
 }: ModalProps) => {
   const [show, setShow] = useState(visible)
   const [isLoading, setIsLoading] = useState(false)
+  const [defaultSize] = useDefaultSize()
+  size = size || defaultSize
   modalSetIsLoading = setIsLoading
+  const ButtonMargin = size === 'small' ? '12px' : '24px'
   const TitleIcon = {
-    info: () => <IconInformation />,
-    success: () => <IconClock />,
-    warning: () => <IconExclamation />,
-    error: () => <IconClose />,
+    info: () => <IconInformationFilled />,
+    success: () => <IconCorrectFilled />,
+    warning: () => <IconWarningFilled />,
+    error: () => <IconErrorFilled />,
     undefined: () => null
+  }
+
+  const Footer = () => {
+    if (footer) {
+      return (
+        <div
+          className={componentClassNames('pui-modal-footer', {
+            divider: hasDivider + ''
+          })}
+        >
+          {footer}
+        </div>
+      )
+    } else if (footer === undefined) {
+      return (
+        <div
+          className={componentClassNames('pui-modal-footer', {
+            divider: hasDivider + ''
+          })}
+        >
+          {showCancel && (
+            <Button
+              onClick={() => onCancel && onCancel()}
+              icon={
+                cancelIcon === null ? undefined : cancelIcon === undefined ? (
+                  <IconClose />
+                ) : (
+                  cancelIcon
+                )
+              }
+              marginRight={ButtonMargin}
+              {...cancelButtonProps}
+            >
+              {cancelText}
+            </Button>
+          )}
+          {showOk && (
+            <Button
+              type="primary"
+              loading={isLoading}
+              icon={
+                okIcon === null ? undefined : okIcon === undefined ? (
+                  <IconArrowHeadRight />
+                ) : (
+                  okIcon
+                )
+              }
+              onClick={() => {
+                if (onOk) {
+                  const loadingPromise = onOk()
+                  if (typeof loadingPromise === 'object') {
+                    setIsLoading(true)
+                    ;(loadingPromise as Promise<unknown>).finally(() => {
+                      setIsLoading(false)
+                    })
+                  }
+                }
+              }}
+              {...okButtonProps}
+            >
+              {okText}
+            </Button>
+          )}
+        </div>
+      )
+    }
+
+    return <div className="pui-modal-nofooter" />
   }
 
   useEffect(() => {
     setShow(visible)
   }, [visible])
-  return ReactDOM.createPortal(
-    <div
-      ref={modalRef}
-      className={componentClassNames('pui-modal-root', { hide: !show + '' })}
-    >
-      <div className="pui-modal-mask" />
-      <div className="pui-modal-wrap">
-        <div
-          className={componentClassNames(
-            'pui-modal',
-            {
-              modalsize: modalSize + ''
-            },
-            className
-          )}
-          style={style}
-        >
-          <div className="pui-modal-content">
-            {showClose && (
-              <div
-                className="pui-modal-close"
-                onClick={() => {
-                  onCancel && onCancel()
-                }}
-              >
-                <IconClose />
-              </div>
-            )}
 
+  return ReactDOM.createPortal(
+    <>
+      {show && (
+        <div
+          ref={modalRef}
+          className={componentClassNames('pui-modal-root', {
+            hide: !show + ''
+          })}
+        >
+          <div className="pui-modal-mask" />
+          <div className="pui-modal-wrap">
             <div
-              className={componentClassNames('pui-modal-header', {
-                divider: hasDivider + ''
-              })}
+              style={style}
+              className={componentClassNames(
+                'pui-modal',
+                {
+                  modalsize: modalSize + '',
+                  size
+                },
+                className
+              )}
             >
-              <div className="pui-modal-title">
-                {titleIconType && (
+              <div className="pui-modal-content">
+                {showClose && (
                   <div
-                    className={componentClassNames('pui-modal-title-icon', {
-                      type: titleIconType
-                    })}
+                    className="pui-modal-close"
+                    onClick={() => {
+                      onCancel && onCancel()
+                    }}
                   >
-                    {titleIcon || TitleIcon[titleIconType]()}
+                    <IconClose />
                   </div>
                 )}
-                {title}
+
+                <div
+                  className={componentClassNames('pui-modal-header', {
+                    divider: hasDivider + ''
+                  })}
+                >
+                  <div className="pui-modal-title">
+                    {titleIconType && (
+                      <div
+                        className={componentClassNames('pui-modal-title-icon', {
+                          type: titleIconType
+                        })}
+                      >
+                        {titleIcon || TitleIcon[titleIconType]()}
+                      </div>
+                    )}
+                    {title}
+                  </div>
+                  {subtitle && (
+                    <div className="pui-modal-subtitle">{subtitle}</div>
+                  )}
+                </div>
+                <div className="pui-modal-body">{children}</div>
+                <Footer />
               </div>
-              {subtitle && <div className="pui-modal-subtitle">{subtitle}</div>}
-            </div>
-            <div className="pui-modal-body">{children}</div>
-            <div
-              className={componentClassNames('pui-modal-footer', {
-                divider: hasDivider + ''
-              })}
-            >
-              {showCancel && (
-                <Button
-                  onClick={() => onCancel && onCancel()}
-                  icon={
-                    cancelIcon === null ? undefined : cancelIcon ===
-                      undefined ? (
-                      <IconClose />
-                    ) : (
-                      cancelIcon
-                    )
-                  }
-                  marginRight="10px"
-                  {...cancelButtonProps}
-                >
-                  {cancelText}
-                </Button>
-              )}
-              {showOk && (
-                <Button
-                  type="primary"
-                  loading={isLoading}
-                  icon={
-                    okIcon === null ? undefined : okIcon === undefined ? (
-                      <IconArrowHeadRight />
-                    ) : (
-                      okIcon
-                    )
-                  }
-                  onClick={() => {
-                    if (onOk) {
-                      const loadingPromise = onOk()
-                      if (typeof loadingPromise === 'object') {
-                        setIsLoading(true)
-                        ;(loadingPromise as Promise<unknown>).finally(() => {
-                          setIsLoading(false)
-                        })
-                      }
-                    }
-                  }}
-                  {...okButtonProps}
-                >
-                  {okText}
-                </Button>
-              )}
             </div>
           </div>
         </div>
-      </div>
-    </div>,
+      )}
+    </>,
     document.body
   )
 }
@@ -356,10 +398,13 @@ export interface ModalShowProps {
   /** 子组件 */
   content?: React.ReactNode
 
+  /** 大小 */
+  size?: 'medium' | 'small' | 'tiny'
+
   /** 弹框大小 */
   modalSize?: 'small' | 'medium' | 'large'
 
-  /* 类名 */
+  /** 类名 */
   className?: string
 
   /** 样式 */
@@ -369,16 +414,19 @@ export interface ModalShowProps {
   title?: React.ReactNode
 
   /** 标题左侧Icon */
-  titleIcon?: ReactElement | undefined
+  titleIcon?: ReactElement
 
   /** 标题左侧Iconl类型 */
-  titleIconType?: undefined | 'info' | 'success' | 'warning' | 'error'
+  titleIconType?: 'info' | 'success' | 'warning' | 'error'
 
   /** 副标题 */
   subtitle?: React.ReactNode
 
   /** 头部页脚是否用细线隔开 */
   hasDivider?: boolean
+
+  /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
+  footer?: ReactElement | null
 
   /** 确认按钮文字 */
   okText?: string
@@ -393,36 +441,38 @@ export interface ModalShowProps {
   cancelButtonProps?: ButtonProps
 
   /** 确认按钮Icon */
-  okIcon?: ReactElement | undefined | null
+  okIcon?: ReactElement | null
 
   /** 取消按钮Icon */
-  cancelIcon?: ReactElement | undefined | null
+  cancelIcon?: ReactElement | null
 
-  /* 点击确定回调 */
+  /** 点击确定回调 */
   onOk?: () => void | Promise<unknown>
 
-  /* 点击遮罩层或右上角叉或取消按钮的回调 */
+  /** 点击遮罩层或右上角叉或取消按钮的回调 */
   onCancel?: () => void
 
-  /* 显示取消按钮 */
+  /** 显示取消按钮 */
   showCancel?: boolean
 
-  /* 显示确认按钮 */
+  /** 显示确认按钮 */
   showOk?: boolean
 
-  /* 显示关闭按钮 */
+  /** 显示关闭按钮 */
   showClose?: boolean
 }
 
 Modal.show = ({
   style,
   className,
+  size,
   modalSize,
   title,
   titleIcon,
   titleIconType,
   subtitle,
   hasDivider,
+  footer,
   showOk,
   showClose,
   okText,
@@ -450,12 +500,14 @@ Modal.show = ({
     <Modal
       style={style}
       className={className}
+      size={size}
       modalSize={modalSize}
       title={title}
       titleIcon={titleIcon}
       titleIconType={titleIconType}
       subtitle={subtitle}
       hasDivider={hasDivider}
+      footer={footer}
       okText={okText}
       okButtonProps={okButtonProps}
       okIcon={okIcon}
