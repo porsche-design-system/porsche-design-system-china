@@ -26,5 +26,5 @@ TransMenu.Item = MenuItem
 TransMenu.SubMenu = SubMenu
 TransMenu.ItemGroup = ItemGroup
 
-export { TransMenu }
+export { TransMenu, MenuItem, SubMenu, ItemGroup }
 export * from './types'

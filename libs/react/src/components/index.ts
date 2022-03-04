@@ -29,7 +29,12 @@ export { Loading } from './loading/loading'
 export { LoadingIcon } from './loading/loading-icon'
 export { Pagination } from './pagination/pagination'
 export { Tooltip } from './tooltip/tooltip'
-export { TransMenu as Menu } from './menu/index'
+export {
+  TransMenu as Menu,
+  MenuItem,
+  ItemGroup as MenuItemGroup,
+  SubMenu
+} from './menu/index'
 export { Dropdown } from './dropdown/dropdown'
 export { Steps } from './steps/steps'
 export { Timeline } from './timeline/timeline'
