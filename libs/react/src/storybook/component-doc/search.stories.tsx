@@ -14,7 +14,7 @@ export const InputStoryBook = () => {
         width="360px"
         marginRight="30px"
         onSearch={val => {
-          console.log(val)
+          console.log('Search:', val)
         }}
         onValueChange={val => {
           console.log(val)

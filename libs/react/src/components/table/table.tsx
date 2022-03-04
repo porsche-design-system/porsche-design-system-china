@@ -41,55 +41,55 @@ export interface TableColumn<T = any> {
 }
 
 export interface TableProps<T = any> {
-  /* 类名 */
+  /** 类名 */
   className?: string
 
-  /* 样式 */
+  /** 样式 */
   style?: CSSProperties
 
-  /* 列属性 */
+  /** 列属性 */
   columns: TableColumn<T>[]
 
-  /* 数据 */
+  /** 数据 */
   data: T[]
 
-  /* 可选定行 */
+  /** 可选定行 */
   selectable?: boolean
 
-  /* 表格高度 */
+  /** 表格高度 */
   height?: string
 
-  /* 大小 */
+  /** 大小 */
   size?: 'medium' | 'small'
 
-  /* 排序事件 */
+  /** 排序事件 */
   onSort?: (sorter: Sorter) => void
 
-  /* 选定事件 */
+  /** 选定事件 */
   onSelect?: (selectedRowData: T[]) => void
 
-  /* 默认排序方式 */
+  /** 默认排序方式 */
   defaultSorter?: Sorter
 
-  /* 可展开行 */
+  /** 可展开行 */
   rowExpandable?: boolean
 
-  /* 可展开行渲染 */
+  /** 可展开行渲染 */
   expandCell?: (rowData: T) => React.ReactNode
 
-  /* 扩展箭头样式 */
+  /** 扩展箭头样式 */
   expandArrowStyle?: CSSProperties
 
-  /* 单元纵向对齐方式 */
+  /** 单元纵向对齐方式 */
   cellVerticalAlign?: 'middle' | 'top' | 'bottom'
 
-  /* 行样式 */
+  /** 行样式 */
   rowClassName?: (rowData: T, rowNumber?: number) => string
 
-  /* 行样式 */
+  /** 行样式 */
   rowStyle?: (rowData: T, rowNumber?: number) => CSSProperties
 
-  /* 行点击事件 */
+  /** 行点击事件 */
   onRowClick?: (rowData: T, rowNumber?: number) => void
 }
 
