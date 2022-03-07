@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Menu, Button, Modal } from '../..'
+import { Menu, Button } from '../..'
 import './menu.stories.scss'
 
 const { Item, ItemGroup, SubMenu } = Menu
