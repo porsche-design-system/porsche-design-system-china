@@ -212,12 +212,13 @@ export const SelectStoryBook6 = () => {
         <div>过滤器模式</div>
         <div className="select-story">
           <Select
-            options="狗:dog,猫,狮子,老虎,鲸鱼,非常非常非常非常非常长的动物"
+            options="狗:dog,猫,狮子,老虎,鲸鱼,动物"
             width="200px"
             label="动物"
             maxWidth="260px"
             filterMode
             showClearButton
+            optionsStyle={{ minWidth: '100px' }}
           />
         </div>
       </Form>

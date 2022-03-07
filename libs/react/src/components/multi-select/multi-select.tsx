@@ -131,7 +131,11 @@ MultiSelect = FormItem(
     const [defaultSize] = useDefaultSize()
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, updatePos] = useElementPos(rootElementRef)
+    const [menuPos, updatePos] = useElementPos(
+      rootElementRef,
+      0,
+      parseInt(`${optionsStyle?.minWidth}`, 10)
+    )
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -164,7 +168,7 @@ MultiSelect = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         selectOptions = options as MultiSelectOption<T>[]
       } else {
-        ;(options as unknown as string[]).forEach(option => {
+        ;((options as unknown) as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -308,8 +312,8 @@ MultiSelect = FormItem(
             <div
               style={{
                 position: 'absolute',
-                ...menuPos,
-                ...optionsStyle
+                ...optionsStyle,
+                ...menuPos
               }}
               className={`pui-multi-select-size-${size}`}
             >
