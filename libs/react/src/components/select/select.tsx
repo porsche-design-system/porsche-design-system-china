@@ -69,6 +69,9 @@ export interface SelectProps<T> {
   /** 选项 */
   options?: T | T[] | SelectOption<T>[] | GroupSelectOption<T>[]
 
+  /** 选项style样式 */
+  optionsStyle?: CSSProperties
+
   /** 错误 */
   error?: FormErrorText
 
@@ -124,6 +127,7 @@ Select = FormItem(
     open,
     filterMode = false,
     maxWidth,
+    optionsStyle,
     label,
     onMenuVisibleChange
   }: SelectProps<T>) => {
@@ -144,7 +148,11 @@ Select = FormItem(
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     const isDestroyed = useRef(false)
-    const [menuPos, updatePos] = useElementPos(rootElementRef)
+    const [menuPos, updatePos] = useElementPos(
+      rootElementRef,
+      0,
+      parseInt(`${optionsStyle?.minWidth}`, 10)
+    )
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -189,7 +197,7 @@ Select = FormItem(
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ;(options as unknown as string[]).forEach(option => {
+        ;((options as unknown) as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -321,7 +329,11 @@ Select = FormItem(
           !disabled &&
           ReactDOM.createPortal(
             <div
-              style={{ position: 'absolute', ...menuPos }}
+              style={{
+                position: 'absolute',
+                ...optionsStyle,
+                ...menuPos
+              }}
               className={`pui-select-size-${size}`}
             >
               <div
