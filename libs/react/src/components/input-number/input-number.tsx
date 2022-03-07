@@ -64,7 +64,8 @@ const InputNumber = FormItem(
     value,
     onValueChange
   }: InputNumberProps) => {
-    const initialValue = value || defaultValue || ''
+    let initialValue = value !== undefined ? value : defaultValue
+    if((typeof initialValue).toLowerCase() === 'number') initialValue = String(initialValue)
     const [currentValue, setCurrentValue] = useState(initialValue)
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
