@@ -158,7 +158,8 @@ export const useElementPos = (
   elemRef: {
     current: HTMLElement | null
   },
-  popContentWidth = 0
+  popContentWidth = 0,
+  popMinWidth = 0
 ): [any, () => void] => {
   const [, setRefresh] = useState(0)
   const [, setPopState] = usePopShowState()
@@ -240,7 +241,10 @@ export const useElementPos = (
     left: offsetLeft - (position === 'fixed' ? firstScrollLeft : 0),
     top: offsetTop - (position === 'fixed' ? firstScrollTop : 0),
     position,
-    minWidth: originalElem!.offsetWidth
+    minWidth:
+      !!popMinWidth && originalElem!.offsetWidth < popMinWidth
+        ? popMinWidth
+        : originalElem!.offsetWidth
   }
 
   if (pos.left + popContentWidth + 10 > window.innerWidth) {
