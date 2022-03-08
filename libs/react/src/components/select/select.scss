@@ -8,6 +8,10 @@
       position: relative;
       display: inline-block;
 
+      &-size-medium {
+        transition: all 0.1s;
+      }
+
       &-input {
         width: 100%;
         height: 48px;
@@ -16,12 +20,11 @@
         padding-left: 12px;
         font-size: 16px;
         padding-right: 40px;
-        text-overflow: ellipsis;
         color: $text-color-1;
         background-color: transparent;
         transition: all 0.1s;
         text-align: left;
-        white-space: nowrap;
+        @extend .single-line-ellipsis;
       }
 
       &-input-placeholder {
@@ -86,7 +89,7 @@
 
       &-group-name {
         padding: 0 12px;
-        font-size: 12px;
+        font-size: 14px;
         border-top: 1px solid $border-color-1;
         padding-top: 12px;
         padding-bottom: 5px;
@@ -190,6 +193,7 @@
       }
 
       &-size-small {
+        transition: all 0.1s;
         .pui-select-input {
           height: 36px;
           font-size: 14px;
@@ -217,6 +221,10 @@
           &-selected {
             padding-right: 32px;
           }
+        }
+
+        .pui-select-group-name {
+          font-size: 12px;
         }
 
         .pui-select-filter {
