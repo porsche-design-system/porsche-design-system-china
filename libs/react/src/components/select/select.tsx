@@ -151,9 +151,7 @@ Select = FormItem(
     const isDestroyed = useRef(false)
 
     // 选项框默认最小宽度
-    const defaultOptionsWidth = size === 'medium' ? 272 : 200
-    let minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
-    minWidth = minWidth > defaultOptionsWidth ? minWidth : defaultOptionsWidth
+    const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
     const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
@@ -367,6 +365,13 @@ Select = FormItem(
                         setFilterValue(evt.target.value)
                       }}
                       className="pui-select-filter"
+                      style={{
+                        minWidth: filterMode
+                          ? size === 'medium'
+                            ? 248
+                            : 176
+                          : ''
+                      }}
                     />
                   </>
                 )}

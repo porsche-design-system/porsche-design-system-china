@@ -1,4 +1,5 @@
 @import '../../styles/theme/index';
+@import '../../styles/common';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -7,10 +8,6 @@
     .pui-select {
       position: relative;
       display: inline-block;
-
-      &-size-medium {
-        transition: all 0.1s;
-      }
 
       &-input {
         width: 100%;
@@ -122,7 +119,7 @@
 
       &-icon {
         position: absolute;
-        right: 11px;
+        right: 10px;
         top: 12px;
         pointer-events: none;
         transition: 0.2s transform;
@@ -157,15 +154,16 @@
         height: 40px;
         font-size: 16px;
         padding: 0 12px;
+        caret-color: $brand-color;
         background-color: transparent;
-        padding-left: 30px;
+        padding-left: 32px;
       }
 
       &-search-icon {
         position: absolute;
-        left: 19px;
+        left: 20px;
         top: 22px;
-        font-size: 19px;
+        font-size: 20px;
       }
 
       &-filter::placeholder {
@@ -193,7 +191,6 @@
       }
 
       &-size-small {
-        transition: all 0.1s;
         .pui-select-input {
           height: 36px;
           font-size: 14px;
@@ -203,7 +200,9 @@
         }
 
         .pui-select-icon {
-          top: 6px;
+          top: 8px;
+          right: 8px;
+          font-size: 20px;
         }
 
         .pui-select-list {
@@ -233,9 +232,7 @@
         }
 
         .pui-select-search-icon {
-          top: 22px;
-          left: 22px;
-          font-size: 15px;
+          font-size: 18px;
         }
       }
     }

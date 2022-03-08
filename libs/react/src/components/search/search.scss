@@ -40,6 +40,13 @@
         color: $text-color-1;
       }
 
+      &-disabled-true {
+        cursor: not-allowed;
+        .pui-search-button {
+          pointer-events: none;
+        }
+      }
+
       &-show-search-button-bg-true {
         .pui-search-button {
           background-color: $container-bg-color-8;
@@ -59,6 +66,11 @@
             &-right-button {
               right: 56px;
             }
+          }
+        }
+        &.pui-search-disabled-true {
+          .pui-search-button {
+            background-color: $brand-color-disable;
           }
         }
       }
