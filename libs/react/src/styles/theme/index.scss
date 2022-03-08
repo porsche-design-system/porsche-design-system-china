@@ -19,3 +19,17 @@ $themes: light, dark;
 // share style
 $form-element-margin-right: 24px;
 $form-element-margin-bottom: 36px;
+
+.single-line-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.multi-line-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

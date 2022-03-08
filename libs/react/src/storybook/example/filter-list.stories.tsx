@@ -16,9 +16,8 @@ export const FilterStoryBook = () => {
           filterInput
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
-          marginRight="10px"
         />
-        <Select filterMode options="911,718" label="车型" marginRight="10px" />
+        <Select filterMode options="911,718" label="车型" />
         <Select
           filterMode
           filterInput
@@ -103,15 +102,8 @@ export const FilterStoryBook = () => {
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
         />
-        <Select
-          filterMode
-          options="911,718"
-          label="车型"
-          showClearButton
-          marginRight="10px"
-        />
+        <Select filterMode options="911,718" label="车型" showClearButton />
         <Select
           filterMode
           filterInput
@@ -200,7 +192,6 @@ export const FilterStoryBook = () => {
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
           keepClearButton
         />
         <Select
@@ -208,7 +199,6 @@ export const FilterStoryBook = () => {
           options="911,718"
           label="车型"
           showClearButton
-          marginRight="10px"
           keepClearButton
         />
         <Select
@@ -308,14 +298,12 @@ export const FilterStoryBook = () => {
             options="上海保时捷中心,北京保时捷中心"
             label="经销商"
             showClearButton
-            marginRight="10px"
             keepClearButton
           />
           <Select
             options="911,718"
             label="车型"
             showClearButton
-            marginRight="10px"
             keepClearButton
           />
           <Select
@@ -411,7 +399,6 @@ export const FilterStoryBook = () => {
           value="北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
           keepClearButton
           disabled
         />
@@ -421,7 +408,6 @@ export const FilterStoryBook = () => {
           value="911"
           label="车型"
           showClearButton
-          marginRight="10px"
           keepClearButton
           disabled
         />
