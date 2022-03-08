@@ -13,7 +13,7 @@ export const ExampleStoryBook = () => {
       <Modal
         visible
         onOk={() => {
-          Form.findById['updateForm'].submit()
+          Form.findById('updateForm').submit()
         }}
       >
         <Form
