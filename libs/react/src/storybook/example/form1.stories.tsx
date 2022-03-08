@@ -152,7 +152,7 @@ export const ExampleStoryBook = () => {
       <Button
         type="primary"
         onClick={() => {
-          Form.findById['form1'].submit()
+          Form.findById('form1').submit()
         }}
       >
         Submit
