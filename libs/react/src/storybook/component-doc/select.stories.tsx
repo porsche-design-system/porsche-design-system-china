@@ -16,7 +16,7 @@ export const SelectStoryBook = () => {
           label="动物"
           placeholder="请选择"
           width="200px"
-          onValueChange={val => {}}
+          onValueChange={() => {}}
         />
         <div>禁用状态</div>
         <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
