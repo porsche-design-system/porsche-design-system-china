@@ -64,7 +64,7 @@ export interface FormProps<T> {
   /** 表单内所有Label样式 */
   labelLayout?: FormLabelStyle
 
-  /** 表单名字，可以用Form.findById['{name}']获取表单，调用提交 */
+  /** 表单名字，可以用Form.findById('{FORM_NAME}')获取表单，调用提交 */
   name?: string
 
   /** 过滤器模式 */
