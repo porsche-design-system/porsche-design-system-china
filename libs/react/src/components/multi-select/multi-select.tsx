@@ -133,9 +133,7 @@ MultiSelect = FormItem(
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     // 选项框默认最小宽度
-    const defaultOptionsWidth = size === 'medium' ? 270 : 240
-    let minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
-    minWidth = minWidth > defaultOptionsWidth ? minWidth : defaultOptionsWidth
+    const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
     const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
@@ -347,6 +345,13 @@ MultiSelect = FormItem(
                         setFilterValue(evt.target.value)
                       }}
                       className="pui-multi-select-filter"
+                      style={{
+                        minWidth: filterMode
+                          ? size === 'medium'
+                            ? 248
+                            : 176
+                          : ''
+                      }}
                     />
                   </>
                 )}

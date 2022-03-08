@@ -73,7 +73,7 @@ export const SelectStoryBook3 = () => {
       <Form>
         <div>显示过滤输入框</div>
         <MultiSelect
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger,非常长非常长非常长非常长非常长非常长非常长非常长动物"
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger,动物"
           placeholder="请选择"
           filterInput
         />
