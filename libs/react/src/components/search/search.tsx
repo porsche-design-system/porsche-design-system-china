@@ -1,4 +1,5 @@
 import React, { CSSProperties, FocusEventHandler, useState } from 'react'
+import classNames from 'classnames'
 import { IconSearch } from '@pui/icons'
 
 import { Input } from '../input/input'
@@ -91,13 +92,14 @@ const Search = ({
         {
           'show-clear-button': (showClearButton && !!searchValue) + '',
           'show-search-button-bg': showSearchButtonBg + '',
+          disabled: disabled + '',
           size
         },
         className
       )}
       style={{ width, marginLeft, marginRight, ...style }}
       onKeyUp={(evt: any) => {
-        if (evt.key === 'Enter') {
+        if (evt.key === 'Enter' && !disabled) {
           evt.preventDefault()
           onSearch && onSearch(evt.target.value)
         }
@@ -123,7 +125,7 @@ const Search = ({
         className="pui-search-button"
         onClick={evt => {
           evt.preventDefault()
-          onSearch && onSearch(searchValue)
+          !disabled && onSearch && onSearch(searchValue)
         }}
       />
     </div>
