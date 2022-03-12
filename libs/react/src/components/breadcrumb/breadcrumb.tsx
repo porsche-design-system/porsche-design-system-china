@@ -66,7 +66,9 @@ const Breadcrumb = ({
                   onClick && onClick(item)
                 }
               }}
-              className={classNames('pui-breadcrumb-item', { 'pui-breadcrumb-nonePath': !item.path })}
+              className={classNames('pui-breadcrumb-item', {
+                'pui-breadcrumb-nonePath': !item.path
+              })}
             >
               {Icon && (
                 <Icon
@@ -78,7 +80,9 @@ const Breadcrumb = ({
               {item.text}
             </div>
             {inx !== items.length - 1 && (
-              <div className="pui-breadcrumb-separator">{separator ? separator : '/'}</div>
+              <div className="pui-breadcrumb-separator">
+                {separator || '/'}
+              </div>
             )}
           </span>
         )
