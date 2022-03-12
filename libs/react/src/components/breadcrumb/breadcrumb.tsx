@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, ReactNode } from 'react'
 import { IconAdd } from '@pui/icons'
+import classNames from 'classnames'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
 
@@ -15,6 +16,9 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
+  /** 分隔符 */
+  separator?: ReactNode
+
   /** 类名 */
   className?: string
 
@@ -34,6 +38,7 @@ export interface BreadcrumbProps {
  * Primary UI component for user interaction
  */
 const Breadcrumb = ({
+  separator,
   className,
   style,
   size,
@@ -61,10 +66,7 @@ const Breadcrumb = ({
                   onClick && onClick(item)
                 }
               }}
-              className={
-                'pui-breadcrumb-item ' +
-                (item.path ? '' : 'pui-breadcrumb-has-no-path')
-              }
+              className={classNames('pui-breadcrumb-item', { 'pui-breadcrumb-nonePath': !item.path })}
             >
               {Icon && (
                 <Icon
@@ -76,7 +78,7 @@ const Breadcrumb = ({
               {item.text}
             </div>
             {inx !== items.length - 1 && (
-              <div className="pui-breadcrumb-slash"> / </div>
+              <div className="pui-breadcrumb-separator">{separator ? separator : '/'}</div>
             )}
           </span>
         )
@@ -85,4 +87,7 @@ const Breadcrumb = ({
   )
 }
 
+Breadcrumb.defaultProps = {
+  separator: '/'
+}
 export { Breadcrumb }
