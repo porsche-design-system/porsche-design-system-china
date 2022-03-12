@@ -8,13 +8,12 @@ export default {
 }
 
 export const BreadcrumbStoryBook = () => {
-
   const Tab1 = () => {
     const [clickedItem, setClickedItem] = useState('')
     return (
       <div>
         <Breadcrumb
-          separator='-'
+          separator="-"
           onClick={item => {
             setClickedItem(JSON.stringify(item))
           }}
@@ -62,7 +61,7 @@ export const BreadcrumbStoryBook = () => {
     return (
       <div>
         <Breadcrumb
-          separator='>'
+          separator=">"
           onClick={item => {
             setClickedItem(JSON.stringify(item))
           }}
@@ -97,4 +96,3 @@ export const BreadcrumbStoryBook = () => {
   )
 }
 BreadcrumbStoryBook.storyName = ''
-
