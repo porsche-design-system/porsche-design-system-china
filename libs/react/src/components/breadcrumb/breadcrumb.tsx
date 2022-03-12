@@ -80,9 +80,7 @@ const Breadcrumb = ({
               {item.text}
             </div>
             {inx !== items.length - 1 && (
-              <div className="pui-breadcrumb-separator">
-                {separator || '/'}
-              </div>
+              <div className="pui-breadcrumb-separator">{separator || '/'}</div>
             )}
           </span>
         )
