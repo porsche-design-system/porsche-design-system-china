@@ -1,6 +1,6 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React from 'react'
-import { Table, Button, TableColumn, Modal, SortType } from '../..'
+import { Table, Button, TableColumn, Modal, SortType, Select } from '../..'
 
 export default {
   title: 'Data Display/Table',
@@ -35,6 +35,17 @@ export const TableStoryBook = () => {
     { title: '地址', key: 'address' },
     { title: '工作时间', key: 'workingTime', sortable: true },
     { title: '在售车型', key: 'saleModel' },
+    {
+      title: '经销商等级',
+      width: 200,
+      customCell() {
+        return (
+          <div>
+            <Select options="普通经销商,卓越经销商" defaultValue="普通经销商" />
+          </div>
+        )
+      }
+    },
     {
       title: '平均售价',
       key: 'avgPrice',

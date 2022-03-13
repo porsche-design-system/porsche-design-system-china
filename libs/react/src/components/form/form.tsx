@@ -64,7 +64,7 @@ export interface FormProps<T> {
   /** 表单内所有Label样式 */
   labelLayout?: FormLabelStyle
 
-  /** 表单名字，可以用Form.findById('{FORM_NAME}')获取表单，调用提交 */
+  /** 表单名字，可以用Form.findByName('{FORM_NAME}')获取表单，调用提交 */
   name?: string
 
   /** 过滤器模式 */
@@ -74,7 +74,7 @@ export interface FormProps<T> {
   onDataChange?: (data: T) => void
 
   /** 数据提交事件 */
-  onSubmit?: (data: T, errors: ErrorList) => void | Promise<any>
+  onSubmit?: (data: T, errors: ErrorList | null) => void | Promise<any>
 }
 
 export interface FormRef {
@@ -128,11 +128,15 @@ const Form = <T extends object>({
         return fData
       },
       submit() {
+        let submitReturn: any
         validate(formDataValidators.current, fData, errorList => {
           shouldAutoValidForm.current = true
           setFormErrors(errorList)
-          onSubmit && onSubmit(fData as T, errorList)
+          if (onSubmit) {
+            submitReturn = onSubmit(fData as T, errorList)
+          }
         })
+        return submitReturn
       },
       validate(callback?: (errorList: ErrorList) => void) {
         validate(formDataValidators.current, fData, errorList => {
@@ -404,6 +408,7 @@ const Form = <T extends object>({
       }
       return buttonProps
     }
+
     return props
   })
 
@@ -417,9 +422,9 @@ const Form = <T extends object>({
   )
 }
 
-Form.findById = (id: string) => {
-  return Form[id] as {
-    submit: () => {}
+Form.findByName = (name: string) => {
+  return Form[name] as {
+    submit: () => void | Promise<any>
     validate: (callback?: (errorList: ErrorList) => void) => void
   }
 }

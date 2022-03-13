@@ -6,6 +6,9 @@ import { IconArrowHeadDown, IconErrorFilled, IconSearch } from '@pui/icons'
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
+import { FormItemLabelProps } from '../form/form'
+import { containText } from '../../shared/string-util'
+import { supportTouch } from '../../shared/device'
 import {
   useDefaultSize,
   useElementPos,
@@ -14,9 +17,6 @@ import {
 import { CheckBox } from '../checkbox/checkbox'
 
 import './multi-select.scss'
-import { FormItemLabelProps } from '../form/form'
-import { containText } from '../../shared/string-util'
-import { supportTouch } from '../../shared/device'
 
 interface MultiSelectOption<T> {
   text: string
@@ -51,7 +51,7 @@ export interface MultiSelectProps<T> {
   filterInput?: boolean
 
   /** 选项 */
-  options?: T | T[] | MultiSelectOption<T>[]
+  options?: MultiSelectOption<T>[] | T | T[]
 
   /** 选项style样式 */
   optionsStyle?: CSSProperties
@@ -85,6 +85,9 @@ export interface MultiSelectProps<T> {
 
   /** 标签 */
   label?: string | FormItemLabelProps
+
+  /** 过滤器输入框占位符 */
+  filterInputPlaceholder?: string
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -113,7 +116,8 @@ MultiSelect = FormItem(
     filterInput,
     size,
     label,
-    onValueChange
+    onValueChange,
+    filterInputPlaceholder
   }: MultiSelectProps<T>) => {
     const selectState = useState<T[]>(defaultValue || [])
     let selectValue = selectState[0]
@@ -134,7 +138,12 @@ MultiSelect = FormItem(
     const rootElementRef = useRef<any>(null)
     // 选项框默认最小宽度
     const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
-    const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
+    const popMenuRef = useRef<any>(null)
+    const [menuPos, updatePos] = useElementPos(
+      rootElementRef,
+      popMenuRef,
+      minWidth
+    )
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -165,7 +174,7 @@ MultiSelect = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         selectOptions = options as MultiSelectOption<T>[]
       } else {
-        ;((options as unknown) as string[]).forEach(option => {
+        ;(options as unknown as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -236,7 +245,6 @@ MultiSelect = FormItem(
           'pui-multi-select',
           {
             size,
-
             disabled: disabled + '',
             active: showOptionList + '',
             error: error ? error.show + '' : 'false',
@@ -319,6 +327,16 @@ MultiSelect = FormItem(
               className={`pui-multi-select-size-${size}`}
             >
               <div
+                ref={popMenuElem => {
+                  if (popMenuElem) {
+                    if (popMenuRef.current !== popMenuElem) {
+                      popMenuRef.current = popMenuElem
+                      setTimeout(() => {
+                        updatePos()
+                      }, 10)
+                    }
+                  }
+                }}
                 className="pui-multi-select-list"
                 onClick={evt => {
                   evt.stopPropagation()
@@ -328,8 +346,8 @@ MultiSelect = FormItem(
                   <>
                     <IconSearch className="pui-multi-select-search-icon" />
                     <input
+                      placeholder={filterInputPlaceholder}
                       value={filterValue}
-                      placeholder="请输入选项"
                       onCompositionStart={() => {
                         isComposing.current = true
                       }}
