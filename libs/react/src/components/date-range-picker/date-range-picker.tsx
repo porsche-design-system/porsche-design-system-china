@@ -128,7 +128,8 @@ const DateRangePicker = FormItem(
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     const isDestroyed = useRef(false)
-    const [menuPos, updatePos] = useElementPos(rootElementRef, 680)
+    const popMenuRef = useRef<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef, popMenuRef)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -659,7 +660,19 @@ const DateRangePicker = FormItem(
               style={{ position: 'absolute', height: 0, ...menuPos }}
               className={`pui-date-range-picker-size-${size}`}
             >
-              <div className="pui-date-range-picker-calendars">
+              <div
+                className="pui-date-range-picker-calendars"
+                ref={popMenuElem => {
+                  if (popMenuElem) {
+                    if (popMenuRef.current !== popMenuElem) {
+                      popMenuRef.current = popMenuElem
+                      setTimeout(() => {
+                        updatePos()
+                      }, 10)
+                    }
+                  }
+                }}
+              >
                 {calendarView(0)}
                 {calendarView(1)}
               </div>

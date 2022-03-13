@@ -321,9 +321,13 @@ export const FilterStoryBook = () => {
         />
       </div>
       <br /> <br />
-      保留清除按钮-在 Form 中是使用filterMode <br /> <br />
+      保留清除按钮-在 Form 中是使用filterMode itemStyle 统一设置过滤器样式
+      <br /> <br />
       <div>
-        <Form filterMode>
+        <Form
+          filterMode
+          itemStyle={{ marginRight: '12px', marginBottom: '12px' }}
+        >
           <Search
             showSearchButtonBg
             showClearButton

@@ -462,6 +462,19 @@ export interface ModalShowProps {
   showClose?: boolean
 }
 
+let modalNode: any = null
+Modal.close = () => {
+  const modalId = '$ModalContainer-' + modalCounter
+  const modalContainer = document.getElementById(modalId)
+  if (modalContainer) {
+    document.body.removeChild(modalContainer)
+    modalCounter--
+  }
+  if (modalNode) {
+    document.body.removeChild(modalNode)
+  }
+}
+
 Modal.show = ({
   style,
   className,
@@ -524,6 +537,7 @@ Modal.show = ({
       cancelIcon={cancelIcon}
       modalRef={(r: any) => {
         currentPop = r
+        modalNode = r
       }}
       onOk={() => {
         if (onOk) {

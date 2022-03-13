@@ -112,6 +112,15 @@ export const DateRangePickerStoryBook4 = () => {
         filterMode
         mustPickStartEnd
       />
+      <br /> <br />
+      <DateRangePicker
+        label="保修时间"
+        showClearButton
+        placeholderStartDate="开始日期"
+        placeholderEndDate="结束日期"
+        mustPickStartEnd
+        width="300px"
+      />
     </div>
   )
 }
