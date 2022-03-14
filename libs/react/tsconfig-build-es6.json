@@ -2,15 +2,14 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "target": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsxdev",
     "declaration": true,
     "isolatedModules": false,
     "moduleResolution": "node",
     "module": "esnext",
-    "allowSyntheticDefaultImports":true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./es"
   },
   "include": ["src"],
-  "exclude": ["src/**/*.stories.tsx","src/**/*.stories.scss"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.stories.scss"]
 }
- 
