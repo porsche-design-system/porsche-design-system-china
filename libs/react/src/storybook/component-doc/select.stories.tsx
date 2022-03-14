@@ -16,7 +16,7 @@ export const SelectStoryBook = () => {
           label="动物"
           placeholder="请选择"
           width="200px"
-          onValueChange={val => {}}
+          onValueChange={() => {}}
         />
         <div>禁用状态</div>
         <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
@@ -148,11 +148,11 @@ SelectStoryBook2.storyName = 'Error'
 
 export const SelectStoryBook3 = () => {
   return (
-    <div style={{ width: '300px' }}>
+    <div style={{ width: '200px' }}>
       <Form>
         <div>显示过滤输入框</div>
         <Select
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger,动物"
           filterInput
         />
       </Form>
@@ -192,7 +192,7 @@ export const SelectStoryBook5 = () => {
         <div className="select-story">
           <Select
             defaultOpen
-            options="狗:dog,猫,狮子,老虎,鲸鱼"
+            options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
             label="动物"
             placeholder="请选择"
             width="200px"
@@ -212,11 +212,10 @@ export const SelectStoryBook6 = () => {
         <div>过滤器模式</div>
         <div className="select-story">
           <Select
-            options="狗:dog,猫,狮子,老虎,鲸鱼,动物"
-            width="200px"
-            label="动物"
-            maxWidth="260px"
+            options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
+            label="动物-宽度自动"
             filterMode
+            filterInput
             showClearButton
             optionsStyle={{ minWidth: '100px' }}
           />

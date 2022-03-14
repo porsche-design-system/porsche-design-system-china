@@ -1,4 +1,5 @@
 @import '../../styles/theme/index';
+@import '../../styles/common';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -16,24 +17,15 @@
         padding-left: 12px;
         font-size: 16px;
         padding-right: 40px;
-        text-overflow: ellipsis;
         color: $text-color-1;
         text-align: left;
         background-color: transparent;
         transition: all 0.1s;
-        white-space: nowrap;
-        overflow: hidden;
+        @extend .single-line-ellipsis;
       }
 
       &-input-placeholder {
         color: $border-color-3;
-      }
-
-      &-search-icon {
-        position: absolute;
-        left: 19px;
-        top: 22px;
-        font-size: 19px;
       }
 
       &-input-highlight {
@@ -59,7 +51,7 @@
 
       &-list {
         font-size: 16px;
-        width: 100%;
+        min-width: 100%;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
         position: absolute;
         left: 0;
@@ -84,6 +76,7 @@
         text-align: left;
         padding: 12px;
         cursor: pointer;
+        white-space: nowrap;
         &-selected {
           font-weight: bold;
         }
@@ -115,7 +108,7 @@
 
       &-arrow-icon {
         position: absolute;
-        right: 11px;
+        right: 10px;
         top: 12px;
         pointer-events: none;
         transition: 0.2s transform;
@@ -150,8 +143,16 @@
         height: 40px;
         font-size: 16px;
         padding: 0 12px;
+        caret-color: $brand-color;
         background-color: transparent;
-        padding-left: 30px;
+        padding-left: 32px;
+      }
+
+      &-search-icon {
+        position: absolute;
+        left: 20px;
+        top: 22px;
+        font-size: 20px;
       }
 
       &-filter::placeholder {
@@ -181,6 +182,7 @@
       &-size-small {
         .pui-multi-select-input {
           height: 36px;
+          font-size: 14px;
         }
 
         .pui-multi-select-filter {
@@ -194,7 +196,9 @@
         }
 
         .pui-multi-select-arrow-icon {
-          top: 6px;
+          top: 8px;
+          right: 8px;
+          font-size: 20px;
         }
 
         .pui-multi-select-list {
@@ -206,10 +210,8 @@
           padding: 8px 12px;
         }
 
-        .pui-select-search-icon {
-          top: 22px;
-          left: 22px;
-          font-size: 15px;
+        .pui-multi-select-search-icon {
+          font-size: 18px;
         }
       }
     }

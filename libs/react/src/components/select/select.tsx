@@ -145,20 +145,18 @@ Select = FormItem(
     const [filterValue, setFilterValue] = useState('')
     const [filterWord, setFilterWord] = useState('')
     const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     const isDestroyed = useRef(false)
-    const [menuPos, updatePos] = useElementPos(
-      rootElementRef,
-      0,
-      parseInt(`${optionsStyle?.minWidth}`, 10)
-    )
+
+    // 选项框默认最小宽度
+    const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
+    const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
     const isComposing = useRef(false)
-
-    size = size || defaultSize
 
     if (value) {
       selectValue = value
@@ -235,6 +233,10 @@ Select = FormItem(
         setMenuOpen(open)
       }
     }, [open])
+
+    useEffect(() => {
+      updatePos()
+    }, [displayText])
 
     const newKeepClearButton = keepClearButton || supportTouch()
 
@@ -363,6 +365,13 @@ Select = FormItem(
                         setFilterValue(evt.target.value)
                       }}
                       className="pui-select-filter"
+                      style={{
+                        minWidth: filterMode
+                          ? size === 'medium'
+                            ? 248
+                            : 176
+                          : ''
+                      }}
                     />
                   </>
                 )}

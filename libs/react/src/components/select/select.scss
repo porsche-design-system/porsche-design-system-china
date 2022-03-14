@@ -1,4 +1,5 @@
 @import '../../styles/theme/index';
+@import '../../styles/common';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -16,12 +17,11 @@
         padding-left: 12px;
         font-size: 16px;
         padding-right: 40px;
-        text-overflow: ellipsis;
         color: $text-color-1;
         background-color: transparent;
         transition: all 0.1s;
         text-align: left;
-        white-space: nowrap;
+        @extend .single-line-ellipsis;
       }
 
       &-input-placeholder {
@@ -86,7 +86,7 @@
 
       &-group-name {
         padding: 0 12px;
-        font-size: 12px;
+        font-size: 14px;
         border-top: 1px solid $border-color-1;
         padding-top: 12px;
         padding-bottom: 5px;
@@ -119,7 +119,7 @@
 
       &-icon {
         position: absolute;
-        right: 11px;
+        right: 10px;
         top: 12px;
         pointer-events: none;
         transition: 0.2s transform;
@@ -154,15 +154,16 @@
         height: 40px;
         font-size: 16px;
         padding: 0 12px;
+        caret-color: $brand-color;
         background-color: transparent;
-        padding-left: 30px;
+        padding-left: 32px;
       }
 
       &-search-icon {
         position: absolute;
-        left: 19px;
+        left: 20px;
         top: 22px;
-        font-size: 19px;
+        font-size: 20px;
       }
 
       &-filter::placeholder {
@@ -199,7 +200,9 @@
         }
 
         .pui-select-icon {
-          top: 6px;
+          top: 8px;
+          right: 8px;
+          font-size: 20px;
         }
 
         .pui-select-list {
@@ -219,15 +222,17 @@
           }
         }
 
+        .pui-select-group-name {
+          font-size: 12px;
+        }
+
         .pui-select-filter {
           height: 36px;
           font-size: 14px;
         }
 
         .pui-select-search-icon {
-          top: 22px;
-          left: 22px;
-          font-size: 15px;
+          font-size: 18px;
         }
       }
     }
