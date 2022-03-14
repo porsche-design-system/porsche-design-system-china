@@ -76,6 +76,7 @@ export const SelectStoryBook3 = () => {
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger,动物"
           placeholder="请选择"
           filterInput
+          filterInputPlaceholder="查找动物"
         />
       </Form>
     </div>
@@ -92,6 +93,7 @@ export const SelectStoryBook4 = () => {
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
           placeholder="动物"
           filterInput
+          filterInputPlaceholder="查找动物"
           showClearButton
         />
       </Form>

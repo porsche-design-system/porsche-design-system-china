@@ -113,6 +113,7 @@ const Search = ({
         maxLength={maxLength}
         onBlur={onBlur}
         name={name}
+        style={{ marginBottom: 0 }}
         onValueChange={val => {
           setSearchValue(val)
           onValueChange && onValueChange(val)

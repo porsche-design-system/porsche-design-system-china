@@ -52,8 +52,10 @@ export const FormItem =
       rules,
       style,
       filterMode = false,
-      className
+      className,
+      name
     } = props
+
     const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()
     const blurTriggered = useRef(false)
@@ -84,8 +86,8 @@ export const FormItem =
         ? (props as any).value[0]
         : (props as any).value
 
-      if (rules) {
-        validate({ $VALUE: rules }, { $VALUE: validateValue }, errorList => {
+      if (rules && name) {
+        validate({ [name]: rules }, { [name]: validateValue }, errorList => {
           blurTriggered.current = true
           if (errorList && errorList.length > 0) {
             setInternalError(errorList[0].message)
@@ -125,8 +127,8 @@ export const FormItem =
         style={{
           ...style,
           width: width || (filterMode ? 'auto' : ''),
-          marginLeft,
-          marginRight
+          marginLeft: marginLeft || style?.marginLeft,
+          marginRight: marginRight || style?.marginRight
         }}
         onKeyUp={() => {
           if (blurTriggered.current) {
