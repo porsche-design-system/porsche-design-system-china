@@ -1,5 +1,4 @@
 import React, { CSSProperties, FocusEventHandler, useState } from 'react'
-import classNames from 'classnames'
 import { IconSearch } from '@pui/icons'
 
 import { Input } from '../input/input'

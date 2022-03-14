@@ -4,36 +4,43 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.12](https://gitlab.porsche-preview.cn///compare/v0.1.11...v0.1.12) (2022-03-14)
 
-
 ### Bug Fixes
 
-* DSCWCN-107| UI走查 ([9b7dffd](https://gitlab.porsche-preview.cn///commit/9b7dffd2524ef437696d0bb7d2cac8bd2d59a2aa))
-* DSCWCN-107|Select&Multi|下拉默认宽度设置 ([b113394](https://gitlab.porsche-preview.cn///commit/b113394e9c4526845b35541f9809806833425235))
-* 修正各种bug ([7294938](https://gitlab.porsche-preview.cn///commit/7294938b811bcaa21a7cdf15f5ed78289ecee1b1))
-* 更新tsx转换模式，修正清除按钮透明度 ([c2e66ba](https://gitlab.porsche-preview.cn///commit/c2e66baf5ad78a4c5dd26570b0fd9300feac3011))
+- DSCWCN-107| UI 走查 ([9b7dffd](https://gitlab.porsche-preview.cn///commit/9b7dffd2524ef437696d0bb7d2cac8bd2d59a2aa))
+- DSCWCN-107|Select&Multi|下拉默认宽度设置 ([b113394](https://gitlab.porsche-preview.cn///commit/b113394e9c4526845b35541f9809806833425235))
+- 修正各种 bug ([7294938](https://gitlab.porsche-preview.cn///commit/7294938b811bcaa21a7cdf15f5ed78289ecee1b1))
+- 更新 tsx 转换模式，修正清除按钮透明度 ([c2e66ba](https://gitlab.porsche-preview.cn///commit/c2e66baf5ad78a4c5dd26570b0fd9300feac3011))
+- 修正 select / multi-select 优先匹配类型推断
+- 修正 select 优先匹配 value 显示打钩，而不是全显示打钩
+- 修正 Form.findByName() 命名
+- 修正 Search 向上对齐方式
+- 非表单 Require 去掉红色错误框，不再判断
+- 修正弹出框出边界
+- 加入 Modal.close() 方法方便关闭弹框
+- Form 的 submit 方法改良返回 promise，支持与 Modal 联动
+- 添加 filterInputPlaceholder（2 处）支持 select 过滤器修改 placeholder
+- 修正 itemStyle 错误
+- 修正 table 行 key 在 Fragment 中不起作用的 bug
 
 ### [0.1.11](https://gitlab.porsche-preview.cn///compare/v0.1.10...v0.1.11) (2022-03-07)
 
-
 ### Features
 
-* multi-search 过滤关键字 加入放大镜 ([d917ca2](https://gitlab.porsche-preview.cn///commit/d917ca20b9bbb82e9caabb415c5a894ef1424669))
-
+- multi-search 过滤关键字 加入放大镜 ([d917ca2](https://gitlab.porsche-preview.cn///commit/d917ca20b9bbb82e9caabb415c5a894ef1424669))
 
 ### Bug Fixes
 
-* a lot of improments ([3b03d7d](https://gitlab.porsche-preview.cn///commit/3b03d7d3a9dc7659d7229d9bd3dbafee7d75aacc))
-* DSCWCN-107|Select和MultiSelect菜单的最小宽度调整 ([f95e9ad](https://gitlab.porsche-preview.cn///commit/f95e9ad539eecbe81352ed8ae1d95a74c2deaef2))
-* Modal属性lint报错 ([88d86d1](https://gitlab.porsche-preview.cn///commit/88d86d1edbfe8babadd18010b36caa159ab314e5))
-* Modal框Footer按钮间距 ([752b731](https://gitlab.porsche-preview.cn///commit/752b7311937aa4dc07c7e5792c0912de3b2f6195))
-* 解决dropdown点击菜单不自动隐藏 ([ce03712](https://gitlab.porsche-preview.cn///commit/ce037127f8e28b8f2dbfcccfad01aa625a1f93ab))
+- a lot of improments ([3b03d7d](https://gitlab.porsche-preview.cn///commit/3b03d7d3a9dc7659d7229d9bd3dbafee7d75aacc))
+- DSCWCN-107|Select 和 MultiSelect 菜单的最小宽度调整 ([f95e9ad](https://gitlab.porsche-preview.cn///commit/f95e9ad539eecbe81352ed8ae1d95a74c2deaef2))
+- Modal 属性 lint 报错 ([88d86d1](https://gitlab.porsche-preview.cn///commit/88d86d1edbfe8babadd18010b36caa159ab314e5))
+- Modal 框 Footer 按钮间距 ([752b731](https://gitlab.porsche-preview.cn///commit/752b7311937aa4dc07c7e5792c0912de3b2f6195))
+- 解决 dropdown 点击菜单不自动隐藏 ([ce03712](https://gitlab.porsche-preview.cn///commit/ce037127f8e28b8f2dbfcccfad01aa625a1f93ab))
 
 ### [0.1.10](https://gitlab.porsche-preview.cn///compare/v0.1.9...v0.1.10) (2022-02-28)
 
-
 ### Features
 
-* 加入form过滤器模式，加入composing选项 ([b2e5081](https://gitlab.porsche-preview.cn///commit/b2e50816e1c7ffc7fb8e7a6fa4a5d2e06b148be9))
+- 加入 form 过滤器模式，加入 composing 选项 ([b2e5081](https://gitlab.porsche-preview.cn///commit/b2e50816e1c7ffc7fb8e7a6fa4a5d2e06b148be9))
 
 ### [0.1.9](https://gitlab.porsche-preview.cn///compare/v0.1.8...v0.1.9) (2022-02-25)
 

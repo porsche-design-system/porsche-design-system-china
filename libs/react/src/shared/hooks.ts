@@ -169,7 +169,7 @@ export const useElementPos = (
   } | null = null,
   popMinWidth = 0
 ): [any, () => void] => {
-  const [r, setRefresh] = useState(0)
+  const [, setRefresh] = useState(0)
   const [, setPopState] = usePopShowState()
   const originalElem = elemRef.current
   const windowResizeEventAdded = useRef(false)
