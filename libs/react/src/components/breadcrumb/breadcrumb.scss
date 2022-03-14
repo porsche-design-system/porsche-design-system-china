@@ -3,44 +3,55 @@
 @each $theme in $themes {
   .pui-theme-#{$theme} {
     @include theme($theme);
+
     .pui-breadcrumb {
       overflow: hidden;
+
       &-item {
-        color: $text-link-color;
         cursor: pointer;
         display: inline-block;
         vertical-align: top;
+
         .porscheicon {
           vertical-align: middle;
           margin-top: -2px;
         }
+
+        &:hover:not(.pui-breadcrumb-nonePath) {
+          color: $text-link-color-hover;
+        }
       }
 
-      &-has-no-path {
-        color: $text-opacity-color-1;
+      &-nonePath {
+        color: $text-opacity-color-2;
         cursor: default;
       }
 
-      &-slash {
+      &-separator {
         vertical-align: top;
         display: inline-block;
       }
 
       &.pui-breadcrumb-size-medium {
         font-size: 16px;
+
         .porscheicon {
           margin-right: 8px;
         }
-        .pui-breadcrumb-slash {
+
+        .pui-breadcrumb-separator {
           margin: 0 8px;
         }
       }
+
       &.pui-breadcrumb-size-small {
         font-size: 14px;
+
         .porscheicon {
           margin-right: 4px;
         }
-        .pui-breadcrumb-slash {
+
+        .pui-breadcrumb-separator {
           margin: 0 4px;
         }
       }
