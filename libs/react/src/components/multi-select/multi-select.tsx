@@ -129,20 +129,17 @@ MultiSelect = FormItem(
     const [filterWord, setFilterWord] = useState('')
     const hasValue = useRef(value !== undefined)
     const [defaultSize] = useDefaultSize()
+    size = size || defaultSize
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
-    const [menuPos, updatePos] = useElementPos(
-      rootElementRef,
-      0,
-      parseInt(`${optionsStyle?.minWidth}`, 10)
-    )
+    // 选项框默认最小宽度
+    const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
+    const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
     const isComposing = useRef(false)
     const isDestroyed = useRef(false)
-
-    size = size || defaultSize
 
     if (value) {
       selectValue = value
@@ -214,6 +211,10 @@ MultiSelect = FormItem(
       }
       return true
     })
+
+    useEffect(() => {
+      updatePos()
+    }, [displayText])
 
     return (
       <div
@@ -344,6 +345,13 @@ MultiSelect = FormItem(
                         setFilterValue(evt.target.value)
                       }}
                       className="pui-multi-select-filter"
+                      style={{
+                        minWidth: filterMode
+                          ? size === 'medium'
+                            ? 248
+                            : 176
+                          : ''
+                      }}
                     />
                   </>
                 )}

@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://gitlab.porsche-preview.cn///compare/v0.1.10...v0.1.11) (2022-03-07)
+
+
+### Features
+
+* multi-search 过滤关键字 加入放大镜 ([d917ca2](https://gitlab.porsche-preview.cn///commit/d917ca20b9bbb82e9caabb415c5a894ef1424669))
+
+
+### Bug Fixes
+
+* a lot of improments ([3b03d7d](https://gitlab.porsche-preview.cn///commit/3b03d7d3a9dc7659d7229d9bd3dbafee7d75aacc))
+* DSCWCN-107|Select和MultiSelect菜单的最小宽度调整 ([f95e9ad](https://gitlab.porsche-preview.cn///commit/f95e9ad539eecbe81352ed8ae1d95a74c2deaef2))
+* Modal属性lint报错 ([88d86d1](https://gitlab.porsche-preview.cn///commit/88d86d1edbfe8babadd18010b36caa159ab314e5))
+* Modal框Footer按钮间距 ([752b731](https://gitlab.porsche-preview.cn///commit/752b7311937aa4dc07c7e5792c0912de3b2f6195))
+* 解决dropdown点击菜单不自动隐藏 ([ce03712](https://gitlab.porsche-preview.cn///commit/ce037127f8e28b8f2dbfcccfad01aa625a1f93ab))
+
 ### [0.1.10](https://gitlab.porsche-preview.cn///compare/v0.1.9...v0.1.10) (2022-02-28)
 
 

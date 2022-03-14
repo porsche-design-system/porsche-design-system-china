@@ -1,6 +1,13 @@
 import React from 'react'
 
-import { DatePicker, Select, MultiSelect, DateRangePicker, Form } from '../..'
+import {
+  DatePicker,
+  Select,
+  MultiSelect,
+  DateRangePicker,
+  Form,
+  Search
+} from '../..'
 import './filter-list.stories.scss'
 
 export default {
@@ -11,17 +18,27 @@ export const FilterStoryBook = () => {
   return (
     <div className="filter-list-wrap">
       <div>
+        <Search
+          showSearchButtonBg
+          width="200px"
+          placeholder="搜索"
+          className="pui-form-item"
+        />
         <Select
           filterMode
           filterInput
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
-          marginRight="10px"
         />
-        <Select filterMode options="911,718" label="车型" marginRight="10px" />
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,TigerTigerTigerTigerTigerTigerTiger"
+          filterInput
+          filterMode
+          label="动物"
+        />
+        <Select filterMode options="911,718" label="车型" />
         <Select
           filterMode
-          filterInput
           options={[
             {
               value: 1,
@@ -97,24 +114,23 @@ export const FilterStoryBook = () => {
       <br /> <br />
       显示清除按钮 <br /> <br />
       <div>
+        <Search
+          showSearchButtonBg
+          showClearButton
+          width="200px"
+          placeholder="搜索"
+          className="pui-form-item"
+        />
         <Select
           filterMode
           filterInput
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
         />
+        <Select filterMode options="911,718" label="车型" showClearButton />
         <Select
           filterMode
-          options="911,718"
-          label="车型"
-          showClearButton
-          marginRight="10px"
-        />
-        <Select
-          filterMode
-          filterInput
           options={[
             {
               value: 1,
@@ -194,13 +210,19 @@ export const FilterStoryBook = () => {
       <br /> <br />
       保留清除按钮 <br /> <br />
       <div>
+        <Search
+          showSearchButtonBg
+          showClearButton
+          width="200px"
+          placeholder="搜索"
+          className="pui-form-item"
+        />
         <Select
           filterMode
           filterInput
           options="上海保时捷中心,北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
           keepClearButton
         />
         <Select
@@ -208,7 +230,6 @@ export const FilterStoryBook = () => {
           options="911,718"
           label="车型"
           showClearButton
-          marginRight="10px"
           keepClearButton
         />
         <Select
@@ -303,19 +324,24 @@ export const FilterStoryBook = () => {
       保留清除按钮-在 Form 中是使用filterMode <br /> <br />
       <div>
         <Form filterMode>
+          <Search
+            showSearchButtonBg
+            showClearButton
+            width="200px"
+            placeholder="搜索"
+            className="pui-form-item"
+          />
           <Select
             filterInput
             options="上海保时捷中心,北京保时捷中心"
             label="经销商"
             showClearButton
-            marginRight="10px"
             keepClearButton
           />
           <Select
             options="911,718"
             label="车型"
             showClearButton
-            marginRight="10px"
             keepClearButton
           />
           <Select
@@ -404,6 +430,14 @@ export const FilterStoryBook = () => {
       <br /> <br />
       禁用状态 <br /> <br />
       <div>
+        <Search
+          showSearchButtonBg
+          showClearButton
+          width="200px"
+          placeholder="搜索"
+          className="pui-form-item"
+          disabled
+        />
         <Select
           filterMode
           filterInput
@@ -411,7 +445,6 @@ export const FilterStoryBook = () => {
           value="北京保时捷中心"
           label="经销商"
           showClearButton
-          marginRight="10px"
           keepClearButton
           disabled
         />
@@ -421,7 +454,6 @@ export const FilterStoryBook = () => {
           value="911"
           label="车型"
           showClearButton
-          marginRight="10px"
           keepClearButton
           disabled
         />
