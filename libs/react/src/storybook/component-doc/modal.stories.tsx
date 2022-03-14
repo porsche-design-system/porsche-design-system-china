@@ -591,9 +591,7 @@ export const ModalStoryBook3 = () => {
           modalSize="large"
           onCancel={() => setVisible(false)}
           footer={null}
-        >
-          {' '}
-        </Modal>
+        />
         <Button onClick={() => setVisible(true)} type="secondary">
           基础对话框 - 无Footer
         </Button>
@@ -624,3 +622,30 @@ export const ModalStoryBook3 = () => {
 }
 
 ModalStoryBook3.storyName = 'Dialogue Large'
+
+export const ModalStoryBook4 = () => {
+  return (
+    <Button
+      onClick={() => {
+        Modal.show({
+          title: '弹框',
+          content: (
+            <div>
+              <Button
+                onClick={() => {
+                  Modal.close()
+                }}
+              >
+                关闭弹框
+              </Button>
+            </div>
+          )
+        })
+      }}
+    >
+      显示弹框
+    </Button>
+  )
+}
+
+ModalStoryBook4.storyName = 'Modal show/close by event'

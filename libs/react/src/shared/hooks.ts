@@ -136,6 +136,12 @@ export const useThrottle = <T, U extends any[]>(
   return state
 }
 
+const getWindowScroll = () => {
+  const left = window.pageXOffset || document.documentElement.scrollLeft
+  const top = window.pageYOffset || document.documentElement.scrollTop
+  return { left, top }
+}
+
 export const useClickOutside = (
   ref: RefObject<HTMLElement>,
   handler: Function
@@ -158,10 +164,12 @@ export const useElementPos = (
   elemRef: {
     current: HTMLElement | null
   },
-  popContentWidth = 0,
+  popElemRef: {
+    current: HTMLElement | null
+  } | null = null,
   popMinWidth = 0
 ): [any, () => void] => {
-  const [, setRefresh] = useState(0)
+  const [r, setRefresh] = useState(0)
   const [, setPopState] = usePopShowState()
   const originalElem = elemRef.current
   const windowResizeEventAdded = useRef(false)
@@ -195,7 +203,6 @@ export const useElementPos = (
   }
   let offsetLeft = 0
   let offsetTop = 0
-  let isFirstScroll = true
 
   do {
     if (!Number.isNaN(elem.offsetLeft)) {
@@ -206,40 +213,43 @@ export const useElementPos = (
   } while ((elem = elem.offsetParent as any))
 
   elem = originalElem!
-  let firstScrollLeft = 0
-  let firstScrollTop = 0
-  let scrollElement: any = null
+  let elemsScrollLeft = 0
+  let elemsScrollTop = 0
+  const scrollElements: any[] = []
   do {
     if (!Number.isNaN(elem.offsetLeft)) {
       const style = window.getComputedStyle(elem, null)
       if (style.position === 'fixed') {
         position = 'fixed'
       }
-      if (
-        isFirstScroll &&
-        (style.overflow === 'auto' || style.position === 'scroll') &&
-        elem.tagName !== 'BODY' &&
-        elem.tagName !== 'HTML'
-      ) {
-        isFirstScroll = false
-        firstScrollLeft = elem.scrollLeft
-        firstScrollTop = elem.scrollTop
-        scrollElement = elem
+      if (elem.tagName !== 'BODY' && elem.tagName !== 'HTML') {
+        elemsScrollLeft += elem.scrollLeft
+        elemsScrollTop += elem.scrollTop
+
+        if (
+          elem.style.overflow === '' ||
+          elem.style.overflow === 'auto' ||
+          elem.style.overflow === 'scroll'
+        ) {
+          scrollElements.push(elem)
+        }
       }
     }
     // eslint-disable-next-line no-cond-assign
   } while ((elem = elem.parentElement as any))
 
-  if (position === 'fixed' && scrollElement) {
-    scrollElement.onscroll = () => {
-      setRefresh(Math.random())
-      setPopState(false)
-    }
+  if (scrollElements.length) {
+    scrollElements.forEach(se => {
+      se.onscroll = () => {
+        setRefresh(Math.random())
+        setPopState(false)
+      }
+    })
   }
 
   const pos = {
-    left: offsetLeft - (position === 'fixed' ? firstScrollLeft : 0),
-    top: offsetTop - (position === 'fixed' ? firstScrollTop : 0),
+    left: offsetLeft - elemsScrollLeft,
+    top: offsetTop - elemsScrollTop,
     position,
     minWidth:
       !!popMinWidth && originalElem!.offsetWidth < popMinWidth
@@ -247,8 +257,37 @@ export const useElementPos = (
         : originalElem!.offsetWidth
   }
 
-  if (pos.left + popContentWidth + 10 > window.innerWidth) {
-    pos.left = window.innerWidth - popContentWidth - 10
+  let popContentWidth = 0
+  if (popElemRef) {
+    popContentWidth = popElemRef.current?.offsetWidth || 0
   }
+
+  let popContentHeight = 0
+  if (popElemRef) {
+    popContentHeight = popElemRef.current?.offsetHeight || 0
+  }
+
+  const docScroll = getWindowScroll()
+
+  if (position === 'fixed') {
+    docScroll.left = 0
+    docScroll.top = 0
+  }
+
+  if (pos.left + popContentWidth + 10 - docScroll.left > window.innerWidth) {
+    pos.left = window.innerWidth - popContentWidth - 10 + docScroll.left
+  }
+  if (pos.top + popContentHeight + 60 - docScroll.top > window.innerHeight) {
+    pos.top = window.innerHeight - popContentHeight - 60 + docScroll.top
+  }
+
+  if (pos.left < 10) {
+    pos.left = 10
+  }
+
+  if (pos.top < 10) {
+    pos.top = 10
+  }
+
   return [pos, updatePos]
 }

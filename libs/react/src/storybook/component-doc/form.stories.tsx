@@ -19,7 +19,8 @@ import {
   DatePicker,
   Switch,
   Search,
-  DateRangePicker
+  DateRangePicker,
+  Modal
 } from '../..'
 
 export default {
@@ -90,7 +91,7 @@ export const ExampleStoryBook = () => {
               label="姓"
               name="lastName"
               width="44%"
-              rules={{ required: true, message: '必须填写' }}
+              rules={{ required: true }}
               marginRight="2%"
             />
             <Input
@@ -497,7 +498,7 @@ export const ExampleStoryBook5 = () => {
       <Button
         type="primary"
         onClick={() => {
-          Form.findById('form').submit()
+          Form.findByName('form').submit()
         }}
       >
         Submit
@@ -507,3 +508,50 @@ export const ExampleStoryBook5 = () => {
 }
 
 ExampleStoryBook5.storyName = 'Outside Submit Button'
+
+export const ExampleStoryBook6 = () => {
+  return (
+    <Button
+      onClick={() => {
+        Modal.show({
+          title: '样例弹出表单',
+          onOk() {
+            // 这里会调用form的onSubmit方法，记得return
+            return Form.findByName('MyForm').submit()
+          },
+          content: (
+            <div>
+              <Form
+                name="MyForm"
+                onSubmit={(_d, error) => {
+                  // 有错误
+                  if (error) {
+                    return Promise.reject()
+                  }
+                  // 表单无错，发请求（模拟）
+                  return new Promise(resolve => {
+                    setTimeout(() => {
+                      resolve('')
+                    }, 2000)
+                  })
+                }}
+              >
+                <Input label="姓名" rules={[{ required: true }]} name="name" />
+                <Select
+                  label="性别"
+                  rules={[{ required: true }]}
+                  name="gender"
+                  options="男,女"
+                />
+              </Form>
+            </div>
+          )
+        })
+      }}
+    >
+      显示弹出表单
+    </Button>
+  )
+}
+
+ExampleStoryBook6.storyName = 'Modal Form Submit'
