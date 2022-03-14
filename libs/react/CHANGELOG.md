@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://gitlab.porsche-preview.cn///compare/v0.1.11...v0.1.12) (2022-03-14)
+
+
+### Bug Fixes
+
+* DSCWCN-107| UI走查 ([9b7dffd](https://gitlab.porsche-preview.cn///commit/9b7dffd2524ef437696d0bb7d2cac8bd2d59a2aa))
+* DSCWCN-107|Select&Multi|下拉默认宽度设置 ([b113394](https://gitlab.porsche-preview.cn///commit/b113394e9c4526845b35541f9809806833425235))
+* 修正各种bug ([7294938](https://gitlab.porsche-preview.cn///commit/7294938b811bcaa21a7cdf15f5ed78289ecee1b1))
+* 更新tsx转换模式，修正清除按钮透明度 ([c2e66ba](https://gitlab.porsche-preview.cn///commit/c2e66baf5ad78a4c5dd26570b0fd9300feac3011))
+
 ### [0.1.11](https://gitlab.porsche-preview.cn///compare/v0.1.10...v0.1.11) (2022-03-07)
 
 
