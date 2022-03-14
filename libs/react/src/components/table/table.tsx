@@ -523,8 +523,9 @@ const Table = <T,>({
                 const isExpandRow = expandRows.includes(inx)
 
                 return (
-                  <Fragment key={'row' + inx}>
+                  <Fragment key={'rowf' + inx}>
                     <tr
+                      key={'row' + inx}
                       className={classNames(
                         {
                           'pui-table-selected-row': selectedRows.includes(inx),
@@ -619,6 +620,7 @@ const Table = <T,>({
                     </tr>
                     {rowExpandable && expandRows.includes(inx) && (
                       <tr
+                        key={'rowe' + inx}
                         className={isExpandRow ? ' pui-table-expand-row' : ''}
                       >
                         <td

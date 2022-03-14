@@ -67,7 +67,7 @@ export interface SelectProps<T> {
   filterInput?: boolean
 
   /** 选项 */
-  options?: T | T[] | SelectOption<T>[] | GroupSelectOption<T>[]
+  options?: SelectOption<T>[] | GroupSelectOption<T>[] | T[] | T
 
   /** 选项style样式 */
   optionsStyle?: CSSProperties
@@ -101,6 +101,9 @@ export interface SelectProps<T> {
 
   /** 标签 */
   label?: string | FormItemLabelProps
+
+  /** 过滤器输入框占位符 */
+  filterInputPlaceholder?: string
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -129,7 +132,8 @@ Select = FormItem(
     maxWidth,
     optionsStyle,
     label,
-    onMenuVisibleChange
+    onMenuVisibleChange,
+    filterInputPlaceholder
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
@@ -148,11 +152,16 @@ Select = FormItem(
     size = size || defaultSize
     const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
+    const popMenuRef = useRef<any>(null)
     const isDestroyed = useRef(false)
 
     // 选项框默认最小宽度
     const minWidth = parseInt(`${optionsStyle?.minWidth}`, 10)
-    const [menuPos, updatePos] = useElementPos(rootElementRef, 0, minWidth)
+    const [menuPos, updatePos] = useElementPos(
+      rootElementRef,
+      popMenuRef,
+      minWidth
+    )
     const [menuOpen, setMenuOpen] = useState(
       open !== undefined ? open : defaultOpen
     )
@@ -195,7 +204,7 @@ Select = FormItem(
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ;((options as unknown) as string[]).forEach(option => {
+        ;(options as unknown as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -239,6 +248,8 @@ Select = FormItem(
     }, [displayText])
 
     const newKeepClearButton = keepClearButton || supportTouch()
+
+    let valueMatchCounter = 0
 
     return (
       <div
@@ -339,6 +350,16 @@ Select = FormItem(
               className={`pui-select-size-${size}`}
             >
               <div
+                ref={popMenuElem => {
+                  if (popMenuElem) {
+                    if (popMenuRef.current !== popMenuElem) {
+                      popMenuRef.current = popMenuElem
+                      setTimeout(() => {
+                        updatePos()
+                      }, 10)
+                    }
+                  }
+                }}
                 className="pui-select-list"
                 onClick={evt => {
                   evt.stopPropagation()
@@ -349,7 +370,7 @@ Select = FormItem(
                     <IconSearch className="pui-select-search-icon" />
                     <input
                       value={filterValue}
-                      placeholder="请输入选项"
+                      placeholder={filterInputPlaceholder}
                       onCompositionStart={() => {
                         isComposing.current = true
                       }}
@@ -378,6 +399,9 @@ Select = FormItem(
                 <div className="pui-select-option-wrap">
                   {selectOptions.map((option, inx) => {
                     const gn = groupNames.find(gn => gn.index === inx)
+                    if (option.value === selectValue) {
+                      valueMatchCounter++
+                    }
                     return (
                       <Fragment key={option.value + ' ' + inx + filterWord}>
                         {gn && (
@@ -387,7 +411,8 @@ Select = FormItem(
                           <div
                             className={classNames('pui-select-option', {
                               'pui-select-option-selected':
-                                option.value === selectValue
+                                option.value === selectValue &&
+                                valueMatchCounter === 1
                             })}
                             onClick={() => {
                               if (open === undefined) {
@@ -399,7 +424,8 @@ Select = FormItem(
                             }}
                           >
                             {option.text}
-                            {option.value === selectValue && <IconCheck />}
+                            {option.value === selectValue &&
+                              valueMatchCounter === 1 && <IconCheck />}
                           </div>
                         )}
                       </Fragment>
