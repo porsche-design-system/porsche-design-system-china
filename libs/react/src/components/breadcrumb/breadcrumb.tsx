@@ -34,9 +34,6 @@ export interface BreadcrumbProps {
   onClick?: (item: BreadcrumbItem) => void
 }
 
-/**
- * Primary UI component for user interaction
- */
 const Breadcrumb = ({
   separator,
   className,

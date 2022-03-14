@@ -11,9 +11,8 @@ export const BreadcrumbStoryBook = () => {
   const Tab1 = () => {
     const [clickedItem, setClickedItem] = useState('')
     return (
-      <div>
+      <>
         <Breadcrumb
-          separator="-"
           onClick={item => {
             setClickedItem(JSON.stringify(item))
           }}
@@ -28,14 +27,14 @@ export const BreadcrumbStoryBook = () => {
         />
         <br />
         {clickedItem}
-      </div>
+      </>
     )
   }
 
   const Tab2 = () => {
     const [clickedItem, setClickedItem] = useState('')
     return (
-      <div>
+      <>
         <Breadcrumb
           onClick={item => {
             setClickedItem(JSON.stringify(item))
@@ -52,14 +51,14 @@ export const BreadcrumbStoryBook = () => {
         />
         <br />
         {clickedItem}
-      </div>
+      </>
     )
   }
 
   const Tab3 = () => {
     const [clickedItem, setClickedItem] = useState('')
     return (
-      <div>
+      <>
         <Breadcrumb
           separator=">"
           onClick={item => {
@@ -76,11 +75,11 @@ export const BreadcrumbStoryBook = () => {
         />
         <br />
         {clickedItem}
-      </div>
+      </>
     )
   }
   return (
-    <div>
+    <>
       <Tabs size="small" hasLine>
         <TabPane tabKey="Text" title="Default">
           <Tab1 />
@@ -92,7 +91,7 @@ export const BreadcrumbStoryBook = () => {
           <Tab3 />
         </TabPane>
       </Tabs>
-    </div>
+    </>
   )
 }
-BreadcrumbStoryBook.storyName = ''
+BreadcrumbStoryBook.storyName = 'Breadcrumb'
