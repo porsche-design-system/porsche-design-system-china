@@ -1,5 +1,11 @@
 import ReactDOM from 'react-dom'
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import classNames from 'classnames'
 import { IconArrowHeadDown, IconErrorFilled, IconSearch } from '@pui/icons'
 
@@ -84,10 +90,13 @@ export interface MultiSelectProps<T> {
   onMenuVisibleChange?: (visible: boolean) => void
 
   /** 标签 */
-  label?: string | FormItemLabelProps
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 过滤器输入框占位符 */
   filterInputPlaceholder?: string
+
+  /** 在列表显示【全选】选项 */
+  showCheckAll?: boolean
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -115,9 +124,10 @@ MultiSelect = FormItem(
     onMenuVisibleChange,
     filterInput,
     size,
-    label,
+    label = '',
     onValueChange,
-    filterInputPlaceholder
+    filterInputPlaceholder,
+    showCheckAll = true
   }: MultiSelectProps<T>) => {
     const selectState = useState<T[]>(defaultValue || [])
     let selectValue = selectState[0]
@@ -212,7 +222,8 @@ MultiSelect = FormItem(
 
     const newKeepClearButton = keepClearButton || supportTouch()
 
-    const labelText = typeof label === 'object' ? label.text : label
+    const labelText =
+      (label as any).text !== undefined ? (label as any).text : label
 
     const filteredOptions = selectOptions.filter(item => {
       if (filterWord) {
@@ -373,7 +384,7 @@ MultiSelect = FormItem(
                     />
                   </>
                 )}
-                {filteredOptions.length > 0 && (
+                {filteredOptions.length > 0 && showCheckAll && (
                   <div
                     className="pui-multi-select-option "
                     onClick={() => {

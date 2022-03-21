@@ -20,12 +20,7 @@ export interface TimelineProps {
   size?: 'medium' | 'small'
 }
 
-export const Timeline = ({
-  className,
-  style,
-  size,
-  children
-}: TimelineProps) => {
+const Timeline = ({ className, style, size, children }: TimelineProps) => {
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
   const timelineItems: TimelineItemProps[] = []
@@ -69,3 +64,6 @@ export const Timeline = ({
     </div>
   )
 }
+
+;(Timeline as any).displayName = 'Timeline'
+export { Timeline }

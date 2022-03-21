@@ -82,7 +82,7 @@ export interface FormRef {
   submit: () => void
 }
 
-const Form = <T extends object>({
+function Form<T = any>({
   className,
   style,
   children,
@@ -97,7 +97,7 @@ const Form = <T extends object>({
   itemStyle,
   itemClassName,
   filterMode
-}: FormProps<T>) => {
+}: FormProps<T>) {
   const [formData, setFormData] = useState(data || defaultData || {})
   const [formErrors, setFormErrors] = useState([] as ErrorList)
   const formDataValidators = useRef({} as any)
@@ -170,6 +170,8 @@ const Form = <T extends object>({
         className?: string
         onChange?: ChangeEventHandler<HTMLInputElement>
         onValueChange?: (val: string) => void
+        checked: boolean
+        onCheckedChange?: (val: boolean) => void
         label?: FormItemLabelProps | string
         value?: any
         rules?: RuleItem[] | RuleItem
@@ -271,7 +273,11 @@ const Form = <T extends object>({
         }
 
         if (inputProps.name) {
-          inputProps.value = fData[inputProps.name]
+          if (elementName === 'CheckBox') {
+            inputProps.checked = fData[inputProps.name]
+          } else {
+            inputProps.value = fData[inputProps.name]
+          }
         }
 
         if (inputProps.nameStartDate) {
@@ -299,20 +305,24 @@ const Form = <T extends object>({
         //   }
         // };
 
-        const formItemOnChange = inputProps.onChange
         const formItemOnValueChange = inputProps.onValueChange
-
         if (['CheckBox'].includes(elementName)) {
-          inputProps.onChange = evt => {
+          console.log('inputProps.value', typeof inputProps.value)
+          const formItemOnCheckedChange = inputProps.onCheckedChange
+          inputProps.onCheckedChange = val => {
             const newFormData = {
               ...fData,
-              [inputProps.name!]: evt.target.value
+              [inputProps.name!]: val
+                ? inputProps.value || val
+                : inputProps.value !== undefined
+                ? ''
+                : false
             }
             if (data === undefined) {
               setFormData(newFormData)
             }
             onDataChange && onDataChange(newFormData as T)
-            formItemOnChange && formItemOnChange(evt)
+            formItemOnCheckedChange && formItemOnCheckedChange(val)
             validForm(newFormData)
           }
         } else if (

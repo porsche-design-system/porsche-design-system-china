@@ -121,3 +121,22 @@ export const SelectStoryBook5 = () => {
   )
 }
 SelectStoryBook5.storyName = 'Filter Mode'
+
+export const SelectStoryBook6 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <div>去掉全选按钮</div>
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          placeholder="动物"
+          filterInput
+          filterInputPlaceholder="查找动物"
+          showClearButton
+          showCheckAll={false}
+        />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook6.storyName = 'Remove [全选] option'

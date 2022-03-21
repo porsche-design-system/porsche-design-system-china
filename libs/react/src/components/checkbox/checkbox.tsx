@@ -26,6 +26,9 @@ export interface CheckBoxProps<T> {
   /** 大小 */
   size?: 'medium' | 'small'
 
+  /** 表单属性 */
+  name?: string
+
   /** 点击事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
 
@@ -57,6 +60,7 @@ const CheckBox = <T,>({
   value,
   disabled = false,
   size,
+  style,
   checked,
   defaultChecked,
   partChecked,
@@ -75,6 +79,7 @@ const CheckBox = <T,>({
         { disabled: disabled + '', size },
         className
       )}
+      style={style}
     >
       <input
         id={id}

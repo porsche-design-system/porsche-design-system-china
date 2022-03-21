@@ -63,7 +63,7 @@ const Button = ({
   type = 'default',
   size,
   icon,
-  loading,
+  loading = false,
   disabled = false,
   marginRight,
   marginLeft,
@@ -72,7 +72,6 @@ const Button = ({
   onMouseLeave
 }: ButtonProps) => {
   const [defaultSize] = useDefaultSize()
-  loading = loading || false
   size = size || defaultSize
 
   let paddingStyle = {}

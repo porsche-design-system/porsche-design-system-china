@@ -15,10 +15,12 @@ export interface TimelineItemProps {
   /** 颜色 */
   color?: 'red' | 'green' | 'blue' | 'yellow' | 'gray'
 }
-export const TimelineItem = ({
+const TimelineItem = ({
   children,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   color = 'red'
 }: TimelineItemProps) => {
   return <div>{children}</div>
 }
+;(TimelineItem as any).displayName = 'TimelineItem'
+export { TimelineItem }
