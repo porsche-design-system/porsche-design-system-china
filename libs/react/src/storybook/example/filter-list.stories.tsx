@@ -28,7 +28,7 @@ export const FilterStoryBook = () => {
           filterMode
           filterInput
           options="上海保时捷中心,北京保时捷中心"
-          label="经销商"
+          label={<span style={{ color: '#d5001c' }}>经销商</span>}
         />
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,TigerTigerTigerTigerTigerTigerTiger"

@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, ReactNode } from 'react'
 import { IconAsterisk } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import './label.scss'
@@ -10,7 +10,7 @@ export interface LabelProps {
   style?: CSSProperties
 
   /* 标签 */
-  text: string
+  text: string | ReactNode
 
   /* 标签位置 */
   textAlign?: 'left' | 'right'
@@ -64,31 +64,33 @@ const Label = (props: LabelProps) => {
   )
 }
 
-const getLabelWidth = (props?: LabelProps | string) => {
+const getLabelWidth = (props?: LabelProps | string | ReactNode) => {
   if (typeof props === 'string' || !props) {
     return '0px'
   }
 
   if (typeof props === 'object') {
-    if (props.position === 'top' || !props.position) {
+    if ((props as any).position === 'top' || !(props as any).position) {
       return '0px'
     }
   }
   let width = null
   if (typeof props === 'object') {
-    width = props.width
+    width = (props as any).width
   }
   return width || '100px'
 }
 
-const getLabelProps = (props?: LabelProps | string): LabelProps => {
+const getLabelProps = (props?: LabelProps | string | ReactNode): LabelProps => {
   if (!props) {
     return { text: '' }
   }
-  if (typeof props === 'string') {
-    return { text: props }
+
+  if (typeof props === 'object' && (props as LabelProps).text !== undefined) {
+    return props as LabelProps
   }
-  return props
+
+  return { text: props as string | ReactNode }
 }
 
 export { Label, getLabelWidth, getLabelProps }

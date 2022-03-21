@@ -165,6 +165,7 @@ export const TableStoryBook2 = () => {
         }}
         onSort={sorter => console.log(sorter)}
         rowExpandable
+        expandData={tableData}
         expandCell={rowData => {
           return (
             <div style={{ padding: '10px 0', paddingLeft: '35px' }}>
@@ -275,6 +276,7 @@ export const TableStoryBook3 = () => {
         expandArrowStyle={{ marginTop: '11px' }}
         cellVerticalAlign="top"
         onSort={sorter => console.log(sorter)}
+        expandData={tableData}
         expandCell={rowData => {
           return (
             <div style={{ padding: '10px 0', paddingLeft: '35px' }}>
