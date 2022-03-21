@@ -51,3 +51,12 @@ export const overrideChildren = (
 
   return newChildrenArray
 }
+
+/**
+ * 判断是否为 React 组件
+ * @param component
+ * @returns
+ */
+export const isReactElemet = (component: any) => {
+  return component.$$typeof.toString() === 'Symbol(react.element)'
+}

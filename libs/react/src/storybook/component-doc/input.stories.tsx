@@ -1,5 +1,6 @@
+import { IconCheck, IconLink } from '@pui/icons'
 import React from 'react'
-import { Input, Row, Col, Form } from '../..'
+import { Input, Row, Col, Form, Tooltip } from '../..'
 
 import './input.stories.scss'
 
@@ -175,5 +176,32 @@ export const InputsStoryBook7 = () => {
     </Row>
   )
 }
-
 InputsStoryBook7.storyName = 'Show View Password Button'
+
+export const InputsStoryBook8 = () => {
+  return (
+    <Row>
+      <Col span={12}>
+        <div className="states">自定义后缀ICON</div>
+        <div>
+          <Input placeholder="自定义ICON" suffixIcon={IconCheck} />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input
+            placeholder="自定义ICON"
+            suffixIcon={
+              <Tooltip content="Show View Suffix Icon">
+                <IconLink />
+              </Tooltip>
+            }
+          />
+        </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook8.storyName = 'Show View Suffix Icon'
