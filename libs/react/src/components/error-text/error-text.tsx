@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { getLabelWidth } from '../label/label'
 import { FormItemLabelProps } from '../form/form'
 import { useDefaultSize } from '../../shared/hooks'
@@ -15,7 +15,7 @@ export interface FormErrorText {
 
 export interface ErrorTextProps extends FormErrorText {
   /* 标签 */
-  label?: FormItemLabelProps | string
+  label?: FormItemLabelProps | string | ReactNode
 }
 
 /**

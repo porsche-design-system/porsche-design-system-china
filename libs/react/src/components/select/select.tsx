@@ -28,10 +28,12 @@ import {
 import './select.scss'
 import { FormItemLabelProps } from '../form/form'
 import { supportTouch } from '../../shared/device'
+import { LoadingIcon } from '../loading/loading-icon'
 
 export type SelectOption<T> = {
   text: ReactNode
   value: T
+  disabled?: boolean
 }
 
 export type GroupSelectOption<T> = {
@@ -100,10 +102,16 @@ export interface SelectProps<T> {
   onMenuVisibleChange?: (visible: boolean) => void
 
   /** 标签 */
-  label?: string | FormItemLabelProps
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 过滤器输入框占位符 */
   filterInputPlaceholder?: string
+
+  /** 底部元素 */
+  bottomElement?: ReactNode
+
+  /** 显示加载中 */
+  loading?: boolean
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -131,9 +139,11 @@ Select = FormItem(
     filterMode = false,
     maxWidth,
     optionsStyle,
-    label,
+    label = '',
     onMenuVisibleChange,
-    filterInputPlaceholder
+    filterInputPlaceholder,
+    bottomElement,
+    loading = false
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
@@ -150,7 +160,6 @@ Select = FormItem(
     const [filterWord, setFilterWord] = useState('')
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
-    const isFirstLoad = useRef(true)
     const rootElementRef = useRef<any>(null)
     const popMenuRef = useRef<any>(null)
     const isDestroyed = useRef(false)
@@ -210,7 +219,8 @@ Select = FormItem(
       }
     }
 
-    const labelText = typeof label === 'object' ? label.text : label
+    const labelText =
+      (label as any).text !== undefined ? (label as any).text : label
 
     let displayText: ReactNode = ''
     if (isControlledByValue.current) {
@@ -228,18 +238,29 @@ Select = FormItem(
     }
 
     useEffect(() => {
-      if (!isFirstLoad.current) {
-        onMenuVisibleChange &&
-          onMenuVisibleChange(
-            (menuOpen !== undefined ? menuOpen : showOptionList) && !disabled
-          )
+      if (defaultOpen !== undefined) {
+        setShowOptionList(defaultOpen)
       }
-      isFirstLoad.current = false
-    }, [(menuOpen !== undefined ? menuOpen : showOptionList) && !disabled])
+    }, [])
+
+    useEffect(() => {
+      if (menuOpen !== undefined) {
+        onMenuVisibleChange && onMenuVisibleChange(menuOpen && !disabled)
+      }
+    }, [menuOpen])
+
+    useEffect(() => {
+      if (!showOptionList) {
+        onMenuVisibleChange && onMenuVisibleChange(showOptionList && !disabled)
+      }
+    }, [showOptionList])
 
     useEffect(() => {
       if (open !== undefined) {
         setMenuOpen(open)
+        setTimeout(() => {
+          setShowOptionList(open)
+        }, 10)
       }
     }, [open])
 
@@ -272,7 +293,7 @@ Select = FormItem(
           {
             size,
             disabled: disabled + '',
-            active: showOptionList + '',
+            active: (open !== undefined ? open : showOptionList) + '',
             error: error ? error.show + '' : 'false',
             'keep-clear-button':
               (showClearButton &&
@@ -302,6 +323,9 @@ Select = FormItem(
               setFilterWord('')
             }
             setShowOptionList(!showOptionList)
+            if (open !== undefined) {
+              setMenuOpen(!showOptionList)
+            }
           }}
           disabled={disabled}
           style={{
@@ -337,8 +361,14 @@ Select = FormItem(
             }}
           />
         )}
-        <IconArrowHeadDown className="pui-select-icon" />
-        {(menuOpen !== undefined ? menuOpen : showOptionList) &&
+        {loading ? (
+          <span className="pui-select-loading">
+            <LoadingIcon size={size === 'medium' ? 30 : 25} />
+          </span>
+        ) : (
+          <IconArrowHeadDown className="pui-select-icon" />
+        )}
+        {(open !== undefined ? open : showOptionList) &&
           !disabled &&
           ReactDOM.createPortal(
             <div
@@ -412,11 +442,15 @@ Select = FormItem(
                             className={classNames('pui-select-option', {
                               'pui-select-option-selected':
                                 option.value === selectValue &&
-                                valueMatchCounter === 1
+                                valueMatchCounter === 1,
+                              'pui-select-option-disabled': option.disabled
                             })}
                             onClick={() => {
-                              if (open === undefined) {
-                                setMenuOpen(undefined)
+                              if (option.disabled === true) {
+                                return
+                              }
+                              if (open !== undefined) {
+                                setMenuOpen(false)
                               }
                               setShowOptionList(false)
                               setSelectValue(option.value)
@@ -440,6 +474,7 @@ Select = FormItem(
                     <div className="pui-select-no-data">暂无数据</div>
                   )}
                 </div>
+                {bottomElement}
               </div>
             </div>,
             puiPopupWrap

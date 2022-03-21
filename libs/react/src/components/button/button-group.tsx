@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItemLabelProps } from '../form/form'
 import { Label, getLabelProps } from '../label/label'
@@ -7,7 +7,7 @@ import './button-group.scss'
 export interface ButtonGroupProps {
   // 组件属性 //
 
-  label?: FormItemLabelProps | string
+  label?: FormItemLabelProps | string | ReactNode
 
   /** 是否禁用 */
   disabled?: boolean

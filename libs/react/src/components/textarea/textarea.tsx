@@ -3,6 +3,7 @@ import React, {
   CompositionEventHandler,
   CSSProperties,
   FocusEventHandler,
+  ReactNode,
   useRef,
   useState
 } from 'react'
@@ -26,7 +27,7 @@ export interface TextAreaProps {
   size?: 'medium' | 'small'
 
   /** 标签 */
-  label?: FormItemLabelProps | string
+  label?: FormItemLabelProps | string | ReactNode
 
   /** 占位符 */
   placeholder?: string

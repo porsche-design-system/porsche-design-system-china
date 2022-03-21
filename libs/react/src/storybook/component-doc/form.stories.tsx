@@ -1,4 +1,4 @@
-import { IconArrowHeadRight, IconClose } from '@pui/icons'
+import { IconArrowHeadRight, IconClose, IconInformation } from '@pui/icons'
 import React, { useState } from 'react'
 import { FormLabelStyle } from '../../components/form/form'
 import './form.stories.scss'
@@ -20,7 +20,8 @@ import {
   Switch,
   Search,
   DateRangePicker,
-  Modal
+  Modal,
+  Tooltip
 } from '../..'
 
 export default {
@@ -166,6 +167,8 @@ export const ExampleStoryBook = () => {
               rules={{ required: true, message: '必须填写' }}
               name="address"
             />
+            <CheckBox name="agree" text="同意条款" />
+            <br /> <br />
             <ButtonGroup align={buttonAlign as any}>
               <Button type="primary" icon={IconArrowHeadRight} submit>
                 提交
@@ -223,6 +226,32 @@ export const ExampleStoryBook2 = () => {
       <Form labelLayout={{ position: 'left', textAlign: 'right' }}>
         <Input label="Field A" width="44%" marginRight="2%" />
         <Input label="Field B" width="54%" />
+      </Form>
+      <br />
+      <div>自定义标签</div>
+      <Form labelLayout={{ position: 'left', textAlign: 'right' }}>
+        <Input
+          label={
+            <span>
+              <span style={{ color: 'red' }}>自定义</span>Label
+              <Tooltip content="提示信息">
+                <IconInformation style={{ fontSize: '16px' }} />
+              </Tooltip>
+            </span>
+          }
+          width="44%"
+          marginRight="2%"
+        />
+        <Input
+          label={{
+            text: (
+              <span>
+                <span style={{ color: 'red' }}>自定义</span>Label
+              </span>
+            )
+          }}
+          width="54%"
+        />
       </Form>
       <div>按钮在左边</div>
       <br />

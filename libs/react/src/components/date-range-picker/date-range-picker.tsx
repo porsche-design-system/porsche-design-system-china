@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import {
   IconArrowDoubleLeft,
@@ -77,7 +77,7 @@ export interface DateRangePickerProps {
   onMenuVisibleChange?: (visible: boolean) => void
 
   /** 标签 */
-  label?: string | FormItemLabelProps
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 过滤器模式 */
   filterMode?: boolean
@@ -215,7 +215,8 @@ const DateRangePicker = FormItem(
       ])
     }
 
-    const labelText = typeof label === 'object' ? label.text : label
+    const labelText =
+      (label as any).text !== undefined ? (label as any).text : label
 
     useEffect(() => {
       if (defaultValue === undefined) {
