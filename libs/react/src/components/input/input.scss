@@ -76,13 +76,12 @@
           padding-right: 42px;
         }
       }
-
+      &-suffix-icon,
       &-right-button {
         position: absolute;
         right: 10px;
         top: 12px;
       }
-
       &-clear,
       &-view {
         opacity: 0.2;
@@ -104,7 +103,10 @@
           font-size: 14px;
           margin-top: -39px;
         }
-
+        .pui-input-suffix-icon {
+          font-size: 16px;
+          top: 6px;
+        }
         .pui-input-right-button {
           font-size: 18px;
           top: 9px;
