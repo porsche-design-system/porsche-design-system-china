@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://gitlab.porsche-preview.cn///compare/v0.1.13...v0.1.14) (2022-03-21)
+
+
+### Features
+
+* input 组件新增后缀suffixIcon @立超校验 ([6bee23c](https://gitlab.porsche-preview.cn///commit/6bee23ccfb827c71673fac81de91e2242ffebf4f))
+
+
+### Bug Fixes
+
+* fix bugs and add features ([8d1af7e](https://gitlab.porsche-preview.cn///commit/8d1af7e3bb05b9c3bc889609e4427cb87487b507))
+* 编译模式改 react-jsx 兼容 POS 团队项目配置 ([adf8a27](https://gitlab.porsche-preview.cn///commit/adf8a2791d09268472f5d030a517f02e31cffaf4))
+
 ### [0.1.13](https://gitlab.porsche-preview.cn///compare/v0.1.12...v0.1.13) (2022-03-15)
 
 
