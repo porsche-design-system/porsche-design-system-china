@@ -5,16 +5,18 @@ import React, {
   useEffect,
   useRef,
   useState,
-  CompositionEventHandler
+  CompositionEventHandler,
+  ReactElement
 } from 'react'
-import { IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
-import { componentClassNames } from '../../shared/class-util'
+import { IconAdd, IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
+import { componentClassNames, isReactElemet } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import { useDefaultSize } from '../../shared/hooks'
 
 import './input.scss'
 
+type PUIIcon = typeof IconAdd
 export interface InputProps {
   /** 类名 */
   className?: string
@@ -70,6 +72,11 @@ export interface InputProps {
   /** 不显示最大长度文字提示 */
   hideMaxLengthText?: boolean
 
+  /** 后缀ICON */
+  suffixIcon?: PUIIcon | ReactElement
+  /** 后缀样式 */
+  suffixStyle?: CSSProperties
+
   /** 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
@@ -100,7 +107,9 @@ const Input = FormItem(
     showClearButton,
     showViewPasswordButton,
     onCompositionStart,
-    onCompositionEnd
+    onCompositionEnd,
+    suffixIcon,
+    suffixStyle
   }: InputProps) => {
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
@@ -120,7 +129,7 @@ const Input = FormItem(
     if (isCompositionStarted.current && value !== undefined) {
       value = internalValue
     }
-
+    const SuffixComponent = suffixIcon as any
     return (
       <div
         className={componentClassNames('pui-input', {
@@ -205,6 +214,16 @@ const Input = FormItem(
             }}
           />
         )}
+        {type !== 'password' && suffixIcon ? (
+          <span className="pui-input-suffix-icon" style={suffixStyle}>
+            {' '}
+            {isReactElemet(SuffixComponent) ? (
+              SuffixComponent
+            ) : (
+              <SuffixComponent />
+            )}
+          </span>
+        ) : null}
         {showViewPasswordButton &&
           type === 'password' &&
           (inputType === 'password' ? (
