@@ -206,6 +206,7 @@ export const SelectStoryBook5 = () => {
           label="动物"
           placeholder="请选择"
           width="200px"
+          onMenuVisibleChange={setIsOpen}
         />
       </div>
     </div>
@@ -233,3 +234,68 @@ export const SelectStoryBook6 = () => {
 }
 
 SelectStoryBook6.storyName = 'Filter Mode'
+
+export const SelectStoryBook7 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <div>禁用选项</div>
+      <div className="select-story">
+        <Select
+          options={[
+            { text: '可用选项1', value: 0 },
+            { text: '不可用选项', value: 1, disabled: true },
+            { text: '可用选项2', value: 2 },
+            { text: '可用选项3', value: 3 }
+          ]}
+          optionsStyle={{ minWidth: '100px' }}
+        />
+      </div>
+    </div>
+  )
+}
+
+SelectStoryBook7.storyName = 'Disable Options'
+
+export const SelectStoryBook8 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <div>自定义底部</div>
+      <div className="select-story">
+        <Select
+          options={[
+            { text: '可用选项1', value: 0 },
+            { text: '可用选项2', value: 2 },
+            { text: '可用选项3', value: 3 }
+          ]}
+          optionsStyle={{ minWidth: '100px' }}
+          bottomElement={
+            <div style={{ textAlign: 'center', padding: '15px' }}>底部内容</div>
+          }
+        />
+      </div>
+    </div>
+  )
+}
+
+SelectStoryBook8.storyName = 'Bottom Element'
+
+export const SelectStoryBook9 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <div>加载中状态</div>
+      <div className="select-story">
+        <Select
+          options={[
+            { text: '可用选项1', value: 0 },
+            { text: '可用选项2', value: 2 },
+            { text: '可用选项3', value: 3 }
+          ]}
+          optionsStyle={{ minWidth: '100px' }}
+          loading
+        />
+      </div>
+    </div>
+  )
+}
+
+SelectStoryBook9.storyName = 'Loading State'

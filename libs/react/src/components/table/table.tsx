@@ -40,7 +40,7 @@ export interface TableColumn<T = any> {
   customCell?: (rowData: T) => React.ReactNode
 }
 
-export interface TableProps<T = any> {
+export interface TableProps<T = any, K = any> {
   /** 类名 */
   className?: string
 
@@ -74,8 +74,17 @@ export interface TableProps<T = any> {
   /** 可展开行 */
   rowExpandable?: boolean
 
+  /** 可展开行数据 */
+  expandData?: K[]
+
   /** 可展开行渲染 */
-  expandCell?: (rowData: T) => React.ReactNode
+  expandCell?: (expandRowData: K) => React.ReactNode
+
+  /** 行展开事件 */
+  onExpand?: (rowData: T, index: number) => void
+
+  /** 行收起事件 */
+  onCollapse?: (rowData: T, index: number) => void
 
   /** 扩展箭头样式 */
   expandArrowStyle?: CSSProperties
@@ -93,7 +102,7 @@ export interface TableProps<T = any> {
   onRowClick?: (rowData: T, rowNumber?: number) => void
 }
 
-const Table = <T,>({
+const Table = <T, K>({
   className,
   style,
   columns,
@@ -107,13 +116,16 @@ const Table = <T,>({
   defaultSorter = {},
   cellVerticalAlign = 'middle',
   expandArrowStyle,
+  expandData = [],
+  onExpand,
+  onCollapse,
   expandCell,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowClassName = (rowDate: T, inx?: number) => '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowStyle = (rowDate: T, inx?: number) => ({}),
   onRowClick
-}: TableProps<T>) => {
+}: TableProps<T, K>) => {
   const middleColumns: TableColumn[] = []
   const leftColumns: TableColumn[] = []
   const rightColumns: TableColumn[] = []
@@ -531,7 +543,7 @@ const Table = <T,>({
                           'pui-table-selected-row': selectedRows.includes(inx),
                           'pui-table-expand-row': isExpandRow,
                           'pui-table-expand-row-active':
-                            rowExpandable && expandRows.includes(inx)
+                            rowExpandable && isExpandRow
                         },
                         rowClassName(rowData, inx)
                       )}
@@ -585,6 +597,7 @@ const Table = <T,>({
                                 )
                                 expandRows.splice(rInx, 1)
                                 setExpandRows([...expandRows])
+                                onCollapse && onCollapse(rowData, inx)
                               }}
                             />
                           )}
@@ -594,6 +607,7 @@ const Table = <T,>({
                               style={expandArrowStyle}
                               onClick={() => {
                                 setExpandRows([...expandRows, inx])
+                                onExpand && onExpand(rowData, inx)
                               }}
                             />
                           )}
@@ -624,10 +638,12 @@ const Table = <T,>({
                         className={isExpandRow ? ' pui-table-expand-row' : ''}
                       >
                         <td
-                          className="pui-table-expand-cell"
+                          className="pui-table-expand-cell pui-table-expand-cell-row"
                           colSpan={columnCount}
                         >
-                          {expandCell ? expandCell(rowData) : ''}
+                          {expandCell && expandData[inx]
+                            ? expandCell(expandData[inx])
+                            : ''}
                         </td>
                       </tr>
                     )}

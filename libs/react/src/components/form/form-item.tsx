@@ -1,4 +1,10 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react'
+import React, {
+  CSSProperties,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import classNames from 'classnames'
 import { getLabelWidth, Label, getLabelProps } from '../label/label'
 import { FormItemLabelProps } from './form'
@@ -10,7 +16,7 @@ import './form-item.scss'
 
 export interface FormItemProps {
   /** 标签 */
-  label?: string | FormItemLabelProps
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 表单绑定key，需要配合<Form>使用 */
   name?: string

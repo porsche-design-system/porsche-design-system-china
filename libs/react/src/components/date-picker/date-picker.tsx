@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import {
   IconArrowDoubleLeft,
@@ -63,7 +63,7 @@ export interface DatePickerProps {
   filterMode?: boolean
 
   /** 标签 */
-  label?: string | FormItemLabelProps
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 显示清除按钮 */
   showClearButton?: boolean
@@ -246,7 +246,8 @@ const DatePicker = FormItem(
       )
     }
 
-    const labelText = typeof label === 'object' ? label.text : label
+    const labelText =
+      (label as any).text !== undefined ? (label as any).text : label
 
     useEffect(() => {
       if (!isFirstLoad.current) {
