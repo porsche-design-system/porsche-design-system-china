@@ -2,15 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.1.13](https://gitlab.porsche-preview.cn///compare/v0.1.12...v0.1.13) (2022-03-15)
-
+### [0.1.14](https://gitlab.porsche-preview.cn///compare/v0.1.13...v0.1.14) (2022-03-21)
 
 ### Features
 
-* dscwcn110 面包屑调整 ([72d2baf](https://gitlab.porsche-preview.cn///commit/72d2baf9449445d4d2cb6a556cfb5d29eb15e5e5))
-* dscwcn110 面包屑调整 ([c6d4edd](https://gitlab.porsche-preview.cn///commit/c6d4edd713641a782086939fcd3a3db716f94ae7))
-* dscwcn110 面包屑调整 ([f130236](https://gitlab.porsche-preview.cn///commit/f130236a2ab4d7fde3d7f8612bd8cf70603c6333))
-* dscwcn110 面包屑调整 ([cae4656](https://gitlab.porsche-preview.cn///commit/cae465650dadacfe605d30cf23a738363db5a3e2))
+- input 组件新增后缀 suffixIcon @立超校验 ([6bee23c](https://gitlab.porsche-preview.cn///commit/6bee23ccfb827c71673fac81de91e2242ffebf4f))
+
+- Select 支持 disable 选项
+- Select MultiSelect 可隐藏显示【全部】选择
+- CheckBox 加入表单 name 功能
+- 表单中的 label 支持 JSX 自定义写法
+- Select 支持右侧 loading 显示，支持底部扩展内容
+- Table 扩展行优化支持扩展行单独刷新，独立数据，展开与合拢事件
+- Input 支持设置右侧图标
+
+### Bug Fixes
+
+- fix bugs and add features ([8d1af7e](https://gitlab.porsche-preview.cn///commit/8d1af7e3bb05b9c3bc889609e4427cb87487b507))
+- 编译模式改 react-jsx 兼容 POS 团队项目配置 ([adf8a27](https://gitlab.porsche-preview.cn///commit/adf8a2791d09268472f5d030a517f02e31cffaf4))
+- Form 提交 submit data 类型推断优化
+- GroupButton 修正 paddingBottom
+- Timeline 组件错误正式版打包出错
+- Tiny Button 上下对齐调整
+- 修正 CheckBox style 不起作用
+- Select/MultiSelect 暂无数据 在没有数据的时候调整 marginTop
+- Select 修正菜单弹出受控 bug
+
+### [0.1.13](https://gitlab.porsche-preview.cn///compare/v0.1.12...v0.1.13) (2022-03-15)
+
+### Features
+
+- dscwcn110 面包屑调整 ([72d2baf](https://gitlab.porsche-preview.cn///commit/72d2baf9449445d4d2cb6a556cfb5d29eb15e5e5))
+- dscwcn110 面包屑调整 ([c6d4edd](https://gitlab.porsche-preview.cn///commit/c6d4edd713641a782086939fcd3a3db716f94ae7))
+- dscwcn110 面包屑调整 ([f130236](https://gitlab.porsche-preview.cn///commit/f130236a2ab4d7fde3d7f8612bd8cf70603c6333))
+- dscwcn110 面包屑调整 ([cae4656](https://gitlab.porsche-preview.cn///commit/cae465650dadacfe605d30cf23a738363db5a3e2))
 
 ### [0.1.12](https://gitlab.porsche-preview.cn///compare/v0.1.11...v0.1.12) (2022-03-14)
 
