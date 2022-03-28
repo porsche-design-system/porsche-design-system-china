@@ -24,6 +24,9 @@ const SubMenu: React.FC<SubMenuProps> = ({
   disabled,
   visible = true
 }) => {
+  if (!visible) {
+    return null
+  }
   const rootElementRef = useRef<any>(null)
   const context = useContext(MenuContext)
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
