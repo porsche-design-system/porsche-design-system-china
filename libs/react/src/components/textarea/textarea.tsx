@@ -85,6 +85,9 @@ const TextArea = FormItem(
     onCompositionEnd,
     onBlur
   }: TextAreaProps) => {
+    if (value === null) {
+      value = undefined
+    }
     const [valueLength, setValueLength] = useState(0)
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
