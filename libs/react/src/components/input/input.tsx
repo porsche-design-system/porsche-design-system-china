@@ -111,6 +111,10 @@ const Input = FormItem(
     suffixIcon,
     suffixStyle
   }: InputProps) => {
+    if (value === null) {
+      value = undefined
+    }
+
     const [valueLength, setValueLength] = useState(0)
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()

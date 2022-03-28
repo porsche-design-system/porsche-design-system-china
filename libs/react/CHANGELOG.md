@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://gitlab.porsche-preview.cn///compare/v0.1.14...v0.1.15) (2022-03-28)
+
+### Features
+
+- menu 组件新增 visible 属性 ([a3662b0](https://gitlab.porsche-preview.cn///commit/a3662b07b1a3cad6a07a4dbecc6de06c271c01f4))
+- MultiSelect Label 支持 TSX 写法
+- Menu 支持隐藏菜单
+
+### Bug Fixes
+
+- merge menu component ([f7fc524](https://gitlab.porsche-preview.cn///commit/f7fc524527ec4071fdc26e0a2e39c5abf00a132d))
+- 修正 menu 弹出隐藏显示状态错误 ([e969eeb](https://gitlab.porsche-preview.cn///commit/e969eebce07227431befca337e99ca554628e74a))
+- 修正 Input/TextArea 传 value 传 null 会出错误
+- Table 展开功能不固定在左侧
+- 修正 Modal.close()调用两次出错
+
 ### [0.1.14](https://gitlab.porsche-preview.cn///compare/v0.1.13...v0.1.14) (2022-03-21)
 
 ### Features

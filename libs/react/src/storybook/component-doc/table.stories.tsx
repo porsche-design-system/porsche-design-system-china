@@ -121,7 +121,7 @@ export const TableStoryBook2 = () => {
   }
 
   const columns: TableColumn<DataType>[] = [
-    { title: '经销商', key: 'dealerName', fixed: 'left' },
+    { title: '经销商', key: 'dealerName' },
     { title: '联系号码', key: 'phoneNumber' },
     { title: '地址', key: 'address' },
     { title: '工作时间', key: 'workingTime', sortable: true },

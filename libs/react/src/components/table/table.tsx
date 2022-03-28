@@ -477,7 +477,6 @@ const Table = <T, K>({
                 )}
                 {rowExpandable && (
                   <td
-                    className="pui-table-fixed-left"
                     style={{
                       left: (selectable ? selectColumnWidth : 0) + 'px'
                     }}
@@ -522,7 +521,7 @@ const Table = <T, K>({
                 )}
                 {rowExpandable && (
                   <td
-                    className="pui-table-fixed-left pui-table-measure"
+                    className="pui-table-measure"
                     style={{ width: expandColumnWidth + 'px' }}
                   />
                 )}
@@ -584,7 +583,7 @@ const Table = <T, K>({
                       )}
                       {rowExpandable && (
                         <td
-                          className="pui-table-fixed-left pui-table-selectable "
+                          className="pui-table-selectable "
                           style={{ left: 0 }}
                         >
                           {isExpandRow && (
