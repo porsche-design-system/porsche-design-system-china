@@ -4,22 +4,22 @@ import { IconCheck } from '@pui/icons'
 import { MenuContext } from '../index'
 import { MenuItemProps } from '../types'
 
-const MenuItem: React.FC<MenuItemProps> = props => {
-  const {
-    index,
-    disabled,
-    className,
-    style,
-    children,
-    icon,
-    divider,
-    selectAfter,
-    onClick
-  } = props
-
+const MenuItem: React.FC<MenuItemProps> = ({
+  index,
+  disabled,
+  className,
+  style,
+  children,
+  icon,
+  divider,
+  selectAfter,
+  onClick,
+  visible = true
+}) => {
   const context = useContext(MenuContext)
   const classes = classNames(className, {
     'is-disabled': disabled,
+    'is-visible': !visible,
     'is-divider': context.mode === 'dropdown' && divider,
     'is-active': context.index === index
   })

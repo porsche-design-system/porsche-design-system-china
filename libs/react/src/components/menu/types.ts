@@ -43,6 +43,10 @@ export interface SubMenuProps {
   subStyle?: CSSProperties
   /** 组件内部调用，无需传参 */
   hasSubItem?: boolean
+  /** 是否禁用 */
+  disabled?: boolean
+  /** 显示隐藏 */
+  visible?: boolean
 }
 export interface MenuItemProps {
   /** 唯一标志 */
@@ -63,6 +67,8 @@ export interface MenuItemProps {
   onClick?: MouseEventHandler
   /** 组件内部调用，无需传参 */
   hasSubItem?: boolean
+  /** 显示隐藏 */
+  visible?: boolean
 }
 export interface ItemGroupProps {
   /** 唯一标志 */
