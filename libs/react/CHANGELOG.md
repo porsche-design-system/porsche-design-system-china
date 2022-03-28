@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 - menu 组件新增 visible 属性 ([a3662b0](https://gitlab.porsche-preview.cn///commit/a3662b07b1a3cad6a07a4dbecc6de06c271c01f4))
-- menu 组件新增 visible 属性 ([6ce8570](https://gitlab.porsche-preview.cn///commit/6ce857092ed4193fbd46700369034f3db487382f))
 - MultiSelect Label 支持 TSX 写法
 - Menu 支持隐藏菜单
 
