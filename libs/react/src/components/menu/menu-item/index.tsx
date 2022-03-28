@@ -29,6 +29,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
       onClick && onClick(event)
     }
   }
+  if (!visible) {
+    return null
+  }
   return (
     <li
       className={classes}

@@ -11,7 +11,7 @@ export default {
   subcomponents: { Item, ItemGroup, SubMenu }
 }
 
-export const ProgressStoryBook1 = () => {
+export const MenuStoryBook1 = () => {
   const [index, setIndex] = React.useState('submit-test')
   const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
@@ -44,9 +44,11 @@ export const ProgressStoryBook1 = () => {
   )
 }
 
-ProgressStoryBook1.storyName = 'Menu Horizontal'
-export const ProgressStoryBook2 = () => {
+MenuStoryBook1.storyName = 'Menu Horizontal'
+
+export const MenuStoryBook2 = () => {
   const [index, setIndex] = React.useState('test')
+  const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
     <div className="menu-demo">
       <h1>使用 Menu 、SubMenu、MenuItem 构建下拉菜单</h1>
@@ -65,20 +67,27 @@ export const ProgressStoryBook2 = () => {
             disabled
             onClick={() => console.log('onClick事件', '点击了子标题')}
           >
-            <Menu.Item index="submit-test">test1</Menu.Item>
+            <Menu.Item index="submit-test" visible={hiddenItem}>
+              test visible1
+            </Menu.Item>
             <Menu.Item index="submit-about">about2</Menu.Item>
             <Menu.Item disabled index="submit-prod">
               prod3
             </Menu.Item>
-            <Menu.Item index="submit-test1">test1</Menu.Item>
-            <Menu.Item index="submit-about2">about2</Menu.Item>
+            <Menu.Item index="submit-test1">submit-test1</Menu.Item>
+            <Menu.Item index="submit-about2" visible={hiddenItem}>
+              submit-visible
+            </Menu.Item>
             <Menu.Item disabled index="submit-prod3">
               prod3
             </Menu.Item>
             <Menu.SubMenu title="submit-submit" index="submit-submit">
               <Menu.Item index="submit-submit-test1">test1</Menu.Item>
               <Menu.Item index="submit-submit-about2">about2</Menu.Item>
-              <Menu.Item disabled index="submit-submit-prod3">
+              <Menu.Item index="submit-submit-visible" visible={hiddenItem}>
+                submit-visible
+              </Menu.Item>
+              <Menu.Item visible={hiddenItem} index="submit-submit-prod3">
                 prod3
               </Menu.Item>
             </Menu.SubMenu>
@@ -98,43 +107,11 @@ export const ProgressStoryBook2 = () => {
           设置默认值{' '}
         </Button>
         <br />
+        <br />
+        <Button onClick={() => setHiddenItem(!hiddenItem)}>菜单是否显示</Button>
       </div>
     </div>
   )
 }
 
-ProgressStoryBook2.storyName = 'SubMenu '
-
-// export const ProgressStoryBook1 = () => {
-//   return (
-//     <div className="menu-demo">
-//       <div className="test-two">
-//         <Menu mode="vertical">
-//           <Menu.Item icon={<IconEdit />} selectAfter index="test">
-//             test
-//           </Menu.Item>
-//           <Menu.Item icon={<IconAdd />} selectAfter index="about">
-//             about
-//           </Menu.Item>
-//           <Menu.Item disabled icon={<IconEdit />} selectAfter index="prod">
-//             prod
-//           </Menu.Item>
-//           <Menu.SubMenu title="submit" index="submit">
-//             <Menu.Item icon={<IconEdit />} selectAfter index="test1">
-//               test1
-//             </Menu.Item>
-//             <Menu.Item icon={<IconBell />} selectAfter index="about2">
-//               about2
-//             </Menu.Item>
-//             <Menu.Item disabled icon={<IconEdit />} selectAfter index="prod3">
-//               prod3
-//             </Menu.Item>
-//           </Menu.SubMenu>
-//           {null}
-//         </Menu>
-//       </div>
-//     </div>
-//   )
-// }
-
-// ProgressStoryBook1.storyName = 'Menu Vertical'
+MenuStoryBook2.storyName = 'SubMenu '

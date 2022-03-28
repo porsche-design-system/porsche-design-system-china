@@ -472,6 +472,7 @@ Modal.close = () => {
   }
   if (modalNode) {
     document.body.removeChild(modalNode)
+    modalNode = null
   }
 }
 
