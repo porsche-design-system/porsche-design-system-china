@@ -20,8 +20,13 @@ const SubMenu: React.FC<SubMenuProps> = ({
   className,
   subStyle,
   onClick,
-  hasSubItem
+  hasSubItem,
+  disabled,
+  visible = true
 }) => {
+  if (!visible) {
+    return null
+  }
   const rootElementRef = useRef<any>(null)
   const context = useContext(MenuContext)
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
@@ -31,19 +36,16 @@ const SubMenu: React.FC<SubMenuProps> = ({
       : false
   const [menuOpen, setOpen] = useState(isOpend)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
-    () => {
-      if (menuOpen) {
-        setOpen(false)
-      }
+  const [, , puiPopupWrap] = usePopShowState(() => {
+    if (menuOpen) {
+      setOpen(false)
     }
-  )
+  })
   const classes = classNames('submenu-item', className, {
     'is-active': context.selectSubMenus?.includes(index || ''),
     'is-opened': menuOpen,
     'is-vertical': context.mode === 'vertical',
-    'menu-item': context.mode !== 'dropdown',
+    'is-disabled': disabled,
     'dropdown-menu-item': context.mode === 'dropdown'
   })
   const handleClick = (e: React.MouseEvent) => {
@@ -60,11 +62,9 @@ const SubMenu: React.FC<SubMenuProps> = ({
       setOpen(toggle)
     }, 100)
   }
-  const clickEvents = {
-    onClick: handleClick
-  }
+  const clickEvents = !disabled ? { onClick: handleClick } : {}
   const hoverEvents =
-    context.mode !== 'vertical'
+    context.mode !== 'vertical' && !disabled
       ? {
           onMouseEnter: (e: React.MouseEvent) => {
             updatePos()
