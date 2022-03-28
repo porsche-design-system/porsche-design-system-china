@@ -122,15 +122,18 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
           mouseInMenu.current = false
         }}
         className={dropdownClasses}
-        style={{ position: 'absolute', ...dropdownPosition, ...overlayStyle }}
+        style={{
+          position: 'absolute',
+          display: showDropdown ? '' : 'none',
+          ...dropdownPosition,
+          ...overlayStyle
+        }}
       >
-        {childrenComponent}
+        {showDropdown && childrenComponent}
       </div>
     )
-    if (showDropdown) {
-      return ReactDOM.createPortal(contentList, puiPopupWrap)
-    }
-    return null
+
+    return ReactDOM.createPortal(contentList, puiPopupWrap)
   }
 
   const componentRef = useRef<HTMLDivElement>(null)
