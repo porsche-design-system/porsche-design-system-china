@@ -11,10 +11,12 @@ export default {
   subcomponents: { Item, ItemGroup, SubMenu }
 }
 
-export const ProgressStoryBook = () => {
+export const ProgressStoryBook1 = () => {
   const [index, setIndex] = React.useState('submit-test')
+  const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
     <div className="menu-demo">
+      <h1>使用 Menu 与 MenuItem 构建基础菜单</h1>
       <div className="test-one">
         <Menu activeIndex={index} onSelect={setIndex}>
           <Menu.Item
@@ -23,13 +25,44 @@ export const ProgressStoryBook = () => {
           >
             test
           </Menu.Item>
+          <Menu.Item
+            index="test visible"
+            visible={hiddenItem}
+            onClick={() => console.log('onClick事件', '点击了 test')}
+          >
+            test visible
+          </Menu.Item>
           <Menu.Item index="about">about</Menu.Item>
           <Menu.Item disabled index="prod">
             prod
           </Menu.Item>
+        </Menu>
+      </div>
+      <br />
+      <Button onClick={() => setHiddenItem(!hiddenItem)}>菜单是否显示</Button>
+    </div>
+  )
+}
+
+ProgressStoryBook1.storyName = 'Menu Horizontal'
+export const ProgressStoryBook2 = () => {
+  const [index, setIndex] = React.useState('test')
+  return (
+    <div className="menu-demo">
+      <h1>使用 Menu 、SubMenu、MenuItem 构建下拉菜单</h1>
+      <div className="test-one">
+        <Menu activeIndex={index} onSelect={setIndex}>
+          <Menu.Item
+            index="test"
+            onClick={() => console.log('onClick事件', '点击了 test')}
+          >
+            test
+          </Menu.Item>
+
           <Menu.SubMenu
             title="submit"
             index="submit"
+            disabled
             onClick={() => console.log('onClick事件', '点击了子标题')}
           >
             <Menu.Item index="submit-test">test1</Menu.Item>
@@ -64,12 +97,13 @@ export const ProgressStoryBook = () => {
           {' '}
           设置默认值{' '}
         </Button>
+        <br />
       </div>
     </div>
   )
 }
 
-ProgressStoryBook.storyName = 'Menu Horizontal'
+ProgressStoryBook2.storyName = 'SubMenu '
 
 // export const ProgressStoryBook1 = () => {
 //   return (
