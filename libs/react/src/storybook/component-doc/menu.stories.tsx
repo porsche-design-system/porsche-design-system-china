@@ -11,7 +11,7 @@ export default {
   subcomponents: { Item, ItemGroup, SubMenu }
 }
 
-export const ProgressStoryBook1 = () => {
+export const MenuStoryBook1 = () => {
   const [index, setIndex] = React.useState('submit-test')
   const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
@@ -44,8 +44,9 @@ export const ProgressStoryBook1 = () => {
   )
 }
 
-ProgressStoryBook1.storyName = 'Menu Horizontal'
-export const ProgressStoryBook2 = () => {
+MenuStoryBook1.storyName = 'Menu Horizontal'
+
+export const MenuStoryBook2 = () => {
   const [index, setIndex] = React.useState('test')
   const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
@@ -91,7 +92,7 @@ export const ProgressStoryBook2 = () => {
               </Menu.Item>
             </Menu.SubMenu>
           </Menu.SubMenu>
-          <Menu.SubMenu title="submit-submit4" index="submit-submit4" disabled>
+          <Menu.SubMenu title="submit-submit4" index="submit-submit4">
             <Menu.Item index="submit-submit-test14">test1</Menu.Item>
             <Menu.Item index="submit-submit-about24">about2</Menu.Item>
             <Menu.Item disabled index="submit-submit-prod34">
@@ -113,4 +114,4 @@ export const ProgressStoryBook2 = () => {
   )
 }
 
-ProgressStoryBook2.storyName = 'SubMenu '
+MenuStoryBook2.storyName = 'SubMenu '

@@ -249,7 +249,7 @@
   }, 100)
 
   function updateButtonTheme() {
-    if (PUI) {
+    if (window.PUI) {
       document.getElementById('default-size-small').className =
         PUI.getDefaultSize() == 'small' ? 'active' : ''
       document.getElementById('default-size-medium').className =
