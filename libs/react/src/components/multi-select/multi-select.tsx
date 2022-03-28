@@ -13,7 +13,7 @@ import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItem, FormItemProps } from '../form/form-item'
 import { FormItemLabelProps } from '../form/form'
-import { containText } from '../../shared/string-util'
+import { containText, getNodeText } from '../../shared/string-util'
 import { supportTouch } from '../../shared/device'
 import {
   useDefaultSize,
@@ -25,7 +25,7 @@ import { CheckBox } from '../checkbox/checkbox'
 import './multi-select.scss'
 
 interface MultiSelectOption<T> {
-  text: string
+  text: string | ReactNode
   value: T
 }
 
@@ -190,7 +190,7 @@ MultiSelect = FormItem(
       }
     }
 
-    const displayTextArr: string[] = []
+    const displayTextArr: string | ReactNode[] = []
     selectOptions.forEach(option => {
       if (selectValue.includes(option.value)) {
         displayTextArr.push(option.text)
@@ -227,7 +227,7 @@ MultiSelect = FormItem(
 
     const filteredOptions = selectOptions.filter(item => {
       if (filterWord) {
-        return containText(item.text, filterWord)
+        return containText(getNodeText(item.text), filterWord)
       }
       return true
     })
