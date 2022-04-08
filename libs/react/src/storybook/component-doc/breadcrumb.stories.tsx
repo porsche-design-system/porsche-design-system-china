@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IconCar, IconHome } from '@pui/icons'
+import { IconCar, IconHome, IconCalendar } from '@pui/icons'
 import { Breadcrumb, Tabs, TabPane } from '../..'
 
 export default {
@@ -40,13 +40,20 @@ export const BreadcrumbStoryBook = () => {
             setClickedItem(JSON.stringify(item))
           }}
           items={[
-            { text: '首页', icon: IconHome, path: '/home' },
+            {
+              text: '首页',
+              icon: IconHome,
+              path: '/home'
+            },
             {
               icon: IconCar,
               text: '车辆订单列表',
               path: '/order-list'
             },
-            { text: '订单详情' }
+            {
+              icon: IconCalendar,
+              text: '订单详情'
+            }
           ]}
         />
         <br />
