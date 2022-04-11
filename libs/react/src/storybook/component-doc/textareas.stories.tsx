@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextArea } from '../..'
+import { TextArea, FashionTextArea } from '../..'
 
 import './textareas.stories.scss'
 
@@ -45,6 +45,16 @@ export const InputsStoryBook1 = () => {
 }
 
 InputsStoryBook1.storyName = 'MAX LENGTH'
+
+export const DefaultHideMaxLengthTextarea = () => {
+  return (
+    <div>
+      <FashionTextarea placeholder="最多输入20个字符" maxLength={20} width="400px" />
+    </div>
+  )
+}
+
+DefaultHideMaxLengthTextarea.storyName = 'Default HIDE MAX LENGTH'
 
 export const InputsStoryBook2 = () => {
   return (
