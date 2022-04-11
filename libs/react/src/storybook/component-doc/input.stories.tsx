@@ -1,6 +1,6 @@
 import { IconCheck, IconLink } from '@pui/icons'
 import React from 'react'
-import { Input, Row, Col, Form, Tooltip } from '../..'
+import { Input, FashionInput, Row, Col, Form, Tooltip } from '../..'
 
 import './input.stories.scss'
 
@@ -49,6 +49,22 @@ export const InputsStoryBook1 = () => {
 }
 
 InputsStoryBook1.storyName = 'MAX LENGTH'
+
+export const InputBlurHideMaxLength = () => {
+  return (
+    <Row>
+      <Col span={12}>
+        <div className="states">BLUR HIDE MAX LENGTH</div>
+        <div>
+          <FashionInput placeholder="最多输入30个字符" maxLength={30} />
+        </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputBlurHideMaxLength.storyName = 'BLUR HIDE MAX LENGTH'
 
 export const InputsStoryBook2 = () => {
   return (

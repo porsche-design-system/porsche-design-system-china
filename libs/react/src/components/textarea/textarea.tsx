@@ -38,6 +38,9 @@ export interface TextAreaProps {
   /** 最多输入字符 */
   maxLength?: number
 
+  /** hide"最多输入字符" dom */
+  hideMaxLength?: boolean
+
   /** 是否禁用 */
   disabled?: boolean
 
@@ -52,6 +55,9 @@ export interface TextAreaProps {
 
   /** 控件值改变事件 */
   onChange?: ChangeEventHandler
+
+  /** 输入框获取焦点事件 */
+  onFocus?: FocusEventHandler<HTMLTextAreaElement>
 
   /** 值改变事件 */
   onValueChange?: (value: string) => void
@@ -79,6 +85,8 @@ const TextArea = FormItem(
     value,
     disabled = false,
     maxLength,
+    hideMaxLength = false,
+    onFocus,
     onChange,
     onValueChange,
     onCompositionStart,
@@ -134,6 +142,7 @@ const TextArea = FormItem(
           }}
           maxLength={maxLength}
           placeholder={placeholder}
+          onFocus={onFocus}
           onChange={evt => {
             if (isCompositionStarted.current) {
               setInternalValue(evt.target.value)
@@ -155,7 +164,7 @@ const TextArea = FormItem(
           }}
           onBlur={onBlur}
         />
-        {maxLength && (
+        {maxLength && !hideMaxLength && (
           <div className="pui-textarea-char-count">
             {valueLength > 0 && valueLength}
             <span>
@@ -168,5 +177,18 @@ const TextArea = FormItem(
   }
 )
 
-;(TextArea as any).displayName = 'TextArea'
-export { TextArea }
+const FashionTextArea = (txtAreaProps: TextAreaProps) => {
+  let [hide, setHide] = React.useState(true);
+  return (
+    <TextArea
+      {...txtAreaProps}
+      onFocus={() => setHide(false)}
+      onBlur={() => setHide(true)}
+      hideMaxLength={hide}
+    />
+  )
+}
+
+  ; (TextArea as any).displayName = 'TextArea'
+  ; (FashionTextArea as any).displayName = 'FashionTextarea'
+export { TextArea, FashionTextArea }
