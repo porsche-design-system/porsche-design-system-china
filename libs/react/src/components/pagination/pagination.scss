@@ -11,6 +11,8 @@
         padding: 8px 15px;
         cursor: pointer;
         user-select: none;
+        display:flex;
+        align-items: center;
       }
 
       &-arrow-left {
@@ -36,6 +38,28 @@
       }
       &-disabled:hover {
         color: $container-bg-color-3;
+      }
+
+      &-more-info{
+        display:flex;
+        align-items: center;
+        padding: 8px 15px 8px 0;
+        cursor: pointer;
+        user-select: none;
+      }
+
+
+      &-size-change{
+        display:flex;
+        align-items: center;
+        white-space: nowrap;  
+        &-text-start{
+           margin-right:10px;
+        }
+        &-text-end{
+          margin-left:10px;
+        }
+        
       }
     }
   }
