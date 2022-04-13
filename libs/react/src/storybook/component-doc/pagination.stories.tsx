@@ -9,9 +9,14 @@ export default {
 
 export const PaginationStoryBook = () => {
   const [current, setCurrent] = useState(3)
+  const [pageSize, setPageSize] = useState(10)
   const handleCurrentChange = (page: number) => {
     console.log(page)
     setCurrent(page)
+  }
+
+  const handlePageSizeChange = (pageSize: number) => {
+    setPageSize(pageSize)
   }
   return (
     <>
@@ -49,6 +54,16 @@ export const PaginationStoryBook = () => {
           />
         </Col>
       </Row>
+      <div>
+        页面数&gt;7 ，设置一页显示多少数据
+        <Pagination
+          align="left"
+          simple={false}
+          pageSize={pageSize}
+          total={222}
+          onPageSizeChange={handlePageSizeChange}
+        />
+      </div>
       <div>
         对齐方式（靠左）
         <Pagination total={100} pageSize={10} align="left" />
