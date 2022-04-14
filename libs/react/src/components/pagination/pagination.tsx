@@ -162,8 +162,10 @@ const Pagination = ({
     right: 'end'
   }
 
-  if(!simple && !onPageSizeChange){
-    console.warn('请为你的分页组件设置onPageSizeChange属性，否则无法改变每页条数')
+  if (!simple && !onPageSizeChange) {
+    console.warn(
+      '请为你的分页组件设置onPageSizeChange属性，否则无法改变每页条数'
+    )
   }
 
   return (
