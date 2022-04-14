@@ -65,7 +65,7 @@ export const PaginationStoryBook1 = () => {
           <div className="title">设置一页显示多少数据</div>
           <Pagination
             align="right"
-            simple={false}
+            type="full"
             pageSize={pageSize}
             total={1225}
             onPageSizeChange={handlePageSizeChange}
