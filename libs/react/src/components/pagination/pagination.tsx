@@ -162,30 +162,30 @@ const Pagination = ({
     right: 'end'
   }
 
+  if(!simple && !onPageSizeChange){
+    console.warn('请为你的分页组件设置onPageSizeChange属性，否则无法改变每页条数')
+  }
+
   return (
     <ul
       className={componentClassNames('pui-pagination', {}, className)}
       style={{ justifyContent: positionMapping[align], ...style }}
     >
       {!simple && (
-        <>
-          <li className={`${prefixCls}-more-info`}>
-            <div className={`${prefixCls}-total-text`}>
-              {showTotal(total)}，
-            </div>
-            <div className={`${prefixCls}-size-change`}>
-              <span className={`${prefixCls}-size-change-text-start`}>
-                每页显示
-              </span>
-              <Select
-                options={pageSizeOptions}
-                value={pageSize}
-                onValueChange={onPageSizeChange}
-              />
-              <span className={`${prefixCls}-size-change-text-end`}>条</span>
-            </div>
-          </li>
-        </>
+        <li className={`${prefixCls}-more-info`}>
+          <div className={`${prefixCls}-total-text`}>{showTotal(total)}，</div>
+          <div className={`${prefixCls}-size-change`}>
+            <span className={`${prefixCls}-size-change-text-start`}>
+              每页显示
+            </span>
+            <Select
+              options={pageSizeOptions}
+              value={pageSize}
+              onValueChange={onPageSizeChange}
+            />
+            <span className={`${prefixCls}-size-change-text-end`}>条</span>
+          </div>
+        </li>
       )}
       <li
         className={classNames(

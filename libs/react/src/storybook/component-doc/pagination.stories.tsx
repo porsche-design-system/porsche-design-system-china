@@ -9,7 +9,7 @@ export default {
 
 export const PaginationStoryBook = () => {
   const [current, setCurrent] = useState(3)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(20)
   const handleCurrentChange = (page: number) => {
     console.log(page)
     setCurrent(page)
@@ -60,7 +60,7 @@ export const PaginationStoryBook = () => {
           align="left"
           simple={false}
           pageSize={pageSize}
-          total={222}
+          total={1225}
           onPageSizeChange={handlePageSizeChange}
         />
       </div>
