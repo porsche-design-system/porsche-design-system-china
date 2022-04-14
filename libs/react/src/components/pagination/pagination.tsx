@@ -13,6 +13,9 @@ export interface PaginationProps {
   /** 样式 */
   style?: CSSProperties
 
+  /** 类型 */
+  type?: 'simple' | 'full'
+
   /** 当前页码 */
   current?: number
 
@@ -27,9 +30,6 @@ export interface PaginationProps {
 
   /** 数据总数 */
   total: number
-
-  /** 是否显示为简单分页 */
-  simple?: boolean
 
   /** 用于显示数据总量 */
   showTotal?: (total: number) => string
@@ -49,17 +49,17 @@ const ellipsis = '...'
 
 const Pagination = ({
   className,
+  style,
+  type = 'simple',
   current,
   defaultCurrent = 1,
   pageSize = 1,
   pageSizeOptions = [10, 20, 50, 100],
-  onCurrentChange,
-  onPageSizeChange,
-  style,
   total,
-  simple = true,
   showTotal = (total: number) => `共 ${total} 条数据`,
-  align = 'left'
+  align = 'left',
+  onCurrentChange,
+  onPageSizeChange
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent
   const [currentPage, setCurrentPage] = useState(initialCurrent)
@@ -162,7 +162,7 @@ const Pagination = ({
     right: 'end'
   }
 
-  if (!simple && !onPageSizeChange) {
+  if (type === 'full' && !onPageSizeChange) {
     console.warn(
       '请为你的分页组件设置onPageSizeChange属性，否则无法改变每页条数'
     )
@@ -173,7 +173,7 @@ const Pagination = ({
       className={componentClassNames('pui-pagination', {}, className)}
       style={{ justifyContent: positionMapping[align], ...style }}
     >
-      {!simple && (
+      {type === 'full' && (
         <li className={`${prefixCls}-more-info`}>
           <div className={`${prefixCls}-total-text`}>{showTotal(total)}，</div>
           <div className={`${prefixCls}-size-change`}>
