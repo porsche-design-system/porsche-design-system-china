@@ -4,10 +4,17 @@ import { IconArrowHeadLeft, IconArrowHeadRight } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 
 import './pagination.scss'
+import { Select } from '../select/select'
 
 export interface PaginationProps {
   /** 类名 */
   className?: string
+
+  /** 样式 */
+  style?: CSSProperties
+
+  /** 类型 */
+  type?: 'simple' | 'full'
 
   /** 当前页码 */
   current?: number
@@ -18,17 +25,23 @@ export interface PaginationProps {
   /** 每页条数 */
   pageSize?: number
 
-  /** 页码 改变的回调，参数是改变后的页码及每页条数 */
-  onCurrentChange?: (page: number) => void
-
-  /** 样式 */
-  style?: CSSProperties
+  /** 指定每页可以显示多少条 */
+  pageSizeOptions?: number[]
 
   /** 数据总数 */
   total: number
 
+  /** 用于显示数据总量 */
+  showTotal?: (total: number) => string
+
   /** 对齐方式 */
   align?: 'left' | 'center' | 'right'
+
+  /** 页码 改变的回调，参数是改变后的页码及每页条数 */
+  onCurrentChange?: (page: number) => void
+
+  /** pageSize 变化的回调 */
+  onPageSizeChange?: (pageSize: number) => void
 }
 
 const prefixCls = 'pui-pagination'
@@ -36,13 +49,17 @@ const ellipsis = '...'
 
 const Pagination = ({
   className,
+  style,
+  type = 'simple',
   current,
   defaultCurrent = 1,
   pageSize = 1,
-  onCurrentChange,
-  style,
+  pageSizeOptions = [10, 20, 50, 100],
   total,
-  align = 'left'
+  showTotal = (total: number) => `共 ${total} 条数据`,
+  align = 'left',
+  onCurrentChange,
+  onPageSizeChange
 }: PaginationProps) => {
   const initialCurrent = current || defaultCurrent
   const [currentPage, setCurrentPage] = useState(initialCurrent)
@@ -145,11 +162,33 @@ const Pagination = ({
     right: 'end'
   }
 
+  if (type === 'full' && !onPageSizeChange) {
+    console.warn(
+      '请为你的分页组件设置onPageSizeChange属性，否则无法改变每页条数'
+    )
+  }
+
   return (
     <ul
       className={componentClassNames('pui-pagination', {}, className)}
       style={{ justifyContent: positionMapping[align], ...style }}
     >
+      {type === 'full' && (
+        <li className={`${prefixCls}-more-info`}>
+          <div className={`${prefixCls}-total-text`}>{showTotal(total)}，</div>
+          <div className={`${prefixCls}-size-change`}>
+            <span className={`${prefixCls}-size-change-text-start`}>
+              每页显示
+            </span>
+            <Select
+              options={pageSizeOptions}
+              value={pageSize}
+              onValueChange={onPageSizeChange}
+            />
+            <span className={`${prefixCls}-size-change-text-end`}>条</span>
+          </div>
+        </li>
+      )}
       <li
         className={classNames(
           `${prefixCls}-item`,
