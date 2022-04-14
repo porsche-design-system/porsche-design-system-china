@@ -41,19 +41,19 @@ export const PaginationStoryBook1 = () => {
     return (
       <>
         <div className="row-cls">
-          <div className='title'>选中页≤5时</div>
-          <Pagination defaultCurrent={2}  total={222}   align="right" />
+          <div className="title">选中页≤5时</div>
+          <Pagination defaultCurrent={2} total={222} align="right" />
         </div>
         <div className="row-cls">
-          <div className='title'>选中页&gt;5时</div>
-          <Pagination total={222} defaultCurrent={6}  align="right" />
+          <div className="title">选中页&gt;5时</div>
+          <Pagination total={222} defaultCurrent={6} align="right" />
         </div>
         <div className="row-cls">
-          <div className='title'>选中页为倒数5个页面内</div>
-          <Pagination total={222} defaultCurrent={219}  align="right" />
+          <div className="title">选中页为倒数5个页面内</div>
+          <Pagination total={222} defaultCurrent={219} align="right" />
         </div>
         <div className="row-cls">
-          <div className='title'>受控制的页码</div>
+          <div className="title">受控制的页码</div>
           <Pagination
             current={current}
             total={222}
@@ -62,7 +62,7 @@ export const PaginationStoryBook1 = () => {
           />
         </div>
         <div className="row-cls">
-          <div className='title'>设置一页显示多少数据</div>
+          <div className="title">设置一页显示多少数据</div>
           <Pagination
             align="right"
             simple={false}
@@ -83,19 +83,19 @@ export const PaginationStoryBook1 = () => {
   }
 
   return (
-      <div>
-        <Tabs size="small" hasLine>
-          <TabPane title="Pages≥7">
-            <Tab1 />
-          </TabPane>
-          <TabPane title="Pages2-7">
-            <Tab2 />
-          </TabPane>
-          <TabPane title="Pages=1">
-            <Tab3 />
-          </TabPane>
-        </Tabs>
-      </div>  
+    <div>
+      <Tabs size="small" hasLine>
+        <TabPane title="Pages≥7">
+          <Tab1 />
+        </TabPane>
+        <TabPane title="Pages2-7">
+          <Tab2 />
+        </TabPane>
+        <TabPane title="Pages=1">
+          <Tab3 />
+        </TabPane>
+      </Tabs>
+    </div>
   )
 }
 
@@ -110,7 +110,7 @@ export const PaginationStoryBook2 = () => {
   }
 
   const Tab3 = () => {
-    return  <Pagination total={100} pageSize={10} align="left" />
+    return <Pagination total={100} pageSize={10} align="left" />
   }
 
   return (
