@@ -34,7 +34,7 @@ export interface ModalProps {
   size?: 'medium' | 'small' | 'tiny'
 
   /** 弹框大小 */
-  modalSize?: 'small' | 'medium' | 'large'
+  modalSize?: 'small' | 'medium' | 'large' | 'fullscreen'
 
   /** 标题 */
   title?: React.ReactNode
@@ -239,30 +239,35 @@ const Modal = ({
                     <IconClose />
                   </div>
                 )}
-
-                <div
-                  className={componentClassNames('pui-modal-header', {
-                    divider: hasDivider + ''
-                  })}
-                >
-                  <div className="pui-modal-title">
-                    {titleIconType && (
-                      <div
-                        className={componentClassNames('pui-modal-title-icon', {
-                          type: titleIconType
-                        })}
-                      >
-                        {titleIcon || TitleIcon[titleIconType]()}
-                      </div>
+                {modalSize !== 'fullscreen' && (
+                  <div
+                    className={componentClassNames('pui-modal-header', {
+                      divider: hasDivider + ''
+                    })}
+                  >
+                    <div className="pui-modal-title">
+                      {titleIconType && (
+                        <div
+                          className={componentClassNames(
+                            'pui-modal-title-icon',
+                            {
+                              type: titleIconType
+                            }
+                          )}
+                        >
+                          {titleIcon || TitleIcon[titleIconType]()}
+                        </div>
+                      )}
+                      {title}
+                    </div>
+                    {subtitle && (
+                      <div className="pui-modal-subtitle">{subtitle}</div>
                     )}
-                    {title}
                   </div>
-                  {subtitle && (
-                    <div className="pui-modal-subtitle">{subtitle}</div>
-                  )}
-                </div>
+                )}
+
                 <div className="pui-modal-body">{children}</div>
-                <Footer />
+                {modalSize !== 'fullscreen' && <Footer />}
               </div>
             </div>
           </div>
@@ -402,7 +407,7 @@ export interface ModalShowProps {
   size?: 'medium' | 'small' | 'tiny'
 
   /** 弹框大小 */
-  modalSize?: 'small' | 'medium' | 'large'
+  modalSize?: 'small' | 'medium' | 'large' | 'fullscreen'
 
   /** 类名 */
   className?: string
