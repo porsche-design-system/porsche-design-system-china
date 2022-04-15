@@ -178,7 +178,7 @@ const TextArea = FormItem(
 )
 
 const FashionTextArea = (txtAreaProps: TextAreaProps) => {
-  let [hide, setHide] = React.useState(true);
+  const [hide, setHide] = React.useState(true)
   return (
     <TextArea
       {...txtAreaProps}
@@ -189,6 +189,6 @@ const FashionTextArea = (txtAreaProps: TextAreaProps) => {
   )
 }
 
-  ; (TextArea as any).displayName = 'TextArea'
-  ; (FashionTextArea as any).displayName = 'FashionTextarea'
+;(TextArea as any).displayName = 'TextArea'
+;(FashionTextArea as any).displayName = 'FashionTextarea'
 export { TextArea, FashionTextArea }
