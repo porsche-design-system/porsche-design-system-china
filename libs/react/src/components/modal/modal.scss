@@ -202,8 +202,13 @@
                 height: 68px;
                 top: 0;
                 right: -92px;
-                background-color: $background-color-3;
+                color: #fff;
+                background-color: rgba(50, 54, 57, 0.8);
                 box-sizing: border-box;
+                &:focus,
+                &:hover {
+                  color: rgba(255, 255, 255, 0.65);
+                }
                 .porscheicon {
                   font-size: 38px;
                   box-sizing: border-box;
@@ -254,7 +259,6 @@
                   height: 48px;
                   top: 0;
                   right: -64px;
-                  background-color: $background-color-3;
                   box-sizing: border-box;
                   .porscheicon {
                     font-size: 28px;
