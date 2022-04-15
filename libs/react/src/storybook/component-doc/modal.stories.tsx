@@ -653,7 +653,7 @@ ModalStoryBook4.storyName = 'Full Screen'
 export const ModalStoryBook5 = () => {
   return (
     <Button
-     type="secondary"
+      type="secondary"
       onClick={() => {
         Modal.show({
           title: '弹框',
