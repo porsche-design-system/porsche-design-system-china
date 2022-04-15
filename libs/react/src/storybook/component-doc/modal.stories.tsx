@@ -626,6 +626,34 @@ ModalStoryBook3.storyName = 'Dialogue Large'
 export const ModalStoryBook4 = () => {
   return (
     <Button
+      type="secondary"
+      onClick={() => {
+        Modal.show({
+          modalSize: 'fullscreen',
+          title: '弹框',
+          content: (
+            <div>
+              <img
+                style={{ width: '845px', height: 'auto' }}
+                alt=""
+                src="https://files.porsche.cn/filestore/image/multimedia/none/carrange-flyout-718/small/ccc805c0-6693-11e9-80c4-005056bbdc38;sP;twebp;c1693;gc/porsche-small.webp"
+              />
+            </div>
+          )
+        })
+      }}
+    >
+      全屏弹框
+    </Button>
+  )
+}
+
+ModalStoryBook4.storyName = 'Full Screen'
+
+export const ModalStoryBook5 = () => {
+  return (
+    <Button
+     type="secondary"
       onClick={() => {
         Modal.show({
           title: '弹框',
@@ -648,4 +676,4 @@ export const ModalStoryBook4 = () => {
   )
 }
 
-ModalStoryBook4.storyName = 'Modal show/close by event'
+ModalStoryBook5.storyName = 'Modal show/close by event'
