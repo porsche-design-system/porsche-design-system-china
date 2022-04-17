@@ -56,6 +56,7 @@ const Menu: React.FC<MenuProps> = props => {
       ) {
         const element = React.cloneElement(childElement, {
           index: childElement.props.index || index.toString(),
+          size: curSize,
           className: mode === 'dropdown' ? 'dropdown-menu-item' : 'menu-item'
         })
 
