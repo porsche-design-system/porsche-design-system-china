@@ -15,30 +15,60 @@ export default {
 }
 
 export const FilterStoryBook = () => {
-  return (
-    <div className="filter-list-wrap">
+  const renderFilter = (props?: any, labelStyle?: any) => {
+    const renderLabel = (text: string) => {
+      return labelStyle ? <span style={{ ...labelStyle }}>{text}</span> : text
+    }
+
+    return (
       <div>
         <Search
           showSearchButtonBg
           width="200px"
           placeholder="搜索"
           className="pui-form-item"
+          {...props}
+        />
+        <Select
+          filterMode
+          options="911,718"
+          label={renderLabel('车型')}
+          {...props}
         />
         <Select
           filterMode
           filterInput
           options="上海保时捷中心,北京保时捷中心"
-          label={<span style={{ color: '#d5001c' }}>经销商</span>}
+          label={renderLabel('经销商')}
+          {...props}
+        />
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,TigerTigerTigerTigerTigerTigerTiger"
+          filterMode
+          label={renderLabel('动物')}
+          {...props}
         />
         <MultiSelect
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,TigerTigerTigerTigerTigerTigerTiger"
           filterInput
           filterMode
-          label="动物"
+          label={renderLabel('动物')}
+          {...props}
         />
-        <Select filterMode options="911,718" label="车型" />
+
+        <MultiSelect
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          filterInput
+          filterMode
+          label={renderLabel('动物')}
+          maxWidth="300px"
+          optionsStyle={{ minWidth: '200px' }}
+          {...props}
+        />
+
         <Select
           filterMode
+          filterInput
           options={[
             {
               value: 1,
@@ -57,7 +87,8 @@ export const FilterStoryBook = () => {
               )
             }
           ]}
-          label="业务员"
+          label={renderLabel('业务员')}
+          {...props}
         />
 
         <Select
@@ -91,474 +122,48 @@ export const FilterStoryBook = () => {
               ]
             }
           ]}
-          label="业务员"
+          label={renderLabel('业务员')}
+          {...props}
         />
 
-        <MultiSelect
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
-          filterInput
-          filterMode
-          label="动物"
-          maxWidth="300px"
-          optionsStyle={{ minWidth: '200px' }}
-        />
-
-        <DatePicker filterMode label="预约试驾日期" />
+        <DatePicker filterMode label={renderLabel('预约试驾日期')} {...props} />
         <DateRangePicker
           filterMode
-          label="活动时间"
+          label={renderLabel('活动时间')}
           placeholderStartDate="不限"
           placeholderEndDate="不限"
+          {...props}
         />
       </div>
+    )
+  }
+
+  return (
+    <div className="filter-list-wrap">
+      {renderFilter()}
+      <br /> <br />
+      自定义标签颜色 <br /> <br />
+      {renderFilter({}, { color: '#d5001c' })}
       <br /> <br />
       显示清除按钮 <br /> <br />
-      <div>
-        <Search
-          showSearchButtonBg
-          showClearButton
-          width="200px"
-          placeholder="搜索"
-          className="pui-form-item"
-        />
-        <Select
-          filterMode
-          filterInput
-          options="上海保时捷中心,北京保时捷中心"
-          label="经销商"
-          showClearButton
-        />
-        <Select filterMode options="911,718" label="车型" showClearButton />
-        <Select
-          filterMode
-          options={[
-            {
-              value: 1,
-              text: (
-                <>
-                  李军<span className="title-info"> (主管)</span>
-                </>
-              )
-            },
-            {
-              value: 2,
-              text: (
-                <>
-                  熊丽<span className="title-info"> (员工)</span>
-                </>
-              )
-            }
-          ]}
-          label="业务员"
-          showClearButton
-        />
-
-        <Select
-          filterMode
-          filterInput
-          options={[
-            {
-              group: '主管',
-              options: [
-                {
-                  value: 1,
-                  text: '李军'
-                },
-                {
-                  value: 2,
-                  text: '林宁'
-                }
-              ]
-            },
-            {
-              group: '员工',
-              options: [
-                {
-                  value: 3,
-                  text: '熊力'
-                },
-                {
-                  value: 6,
-                  text: '李江'
-                }
-              ]
-            }
-          ]}
-          label="业务员"
-          showClearButton
-        />
-
-        <MultiSelect
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
-          filterInput
-          filterMode
-          label="动物"
-          maxWidth="300px"
-          optionsStyle={{ minWidth: '200px' }}
-          showClearButton
-        />
-
-        <DatePicker filterMode label="预约试驾日期" showClearButton />
-        <DateRangePicker
-          filterMode
-          label="活动时间"
-          placeholderStartDate="不限"
-          placeholderEndDate="不限"
-          showClearButton
-        />
-      </div>
+      {renderFilter({ showClearButton: true })}
       <br /> <br />
       保留清除按钮 <br /> <br />
-      <div>
-        <Search
-          showSearchButtonBg
-          showClearButton
-          width="200px"
-          placeholder="搜索"
-          className="pui-form-item"
-        />
-        <Select
-          filterMode
-          filterInput
-          options="上海保时捷中心,北京保时捷中心"
-          label="经销商"
-          showClearButton
-          keepClearButton
-        />
-        <Select
-          filterMode
-          options="911,718"
-          label="车型"
-          showClearButton
-          keepClearButton
-        />
-        <Select
-          filterMode
-          filterInput
-          options={[
-            {
-              value: 1,
-              text: (
-                <>
-                  李军<span className="title-info"> (主管)</span>
-                </>
-              )
-            },
-            {
-              value: 2,
-              text: (
-                <>
-                  熊丽<span className="title-info"> (员工)</span>
-                </>
-              )
-            }
-          ]}
-          label="业务员"
-          keepClearButton
-          showClearButton
-        />
-
-        <Select
-          filterMode
-          filterInput
-          options={[
-            {
-              group: '主管',
-              options: [
-                {
-                  value: 1,
-                  text: '李军'
-                },
-                {
-                  value: 2,
-                  text: '林宁'
-                }
-              ]
-            },
-            {
-              group: '员工',
-              options: [
-                {
-                  value: 3,
-                  text: '熊力'
-                },
-                {
-                  value: 6,
-                  text: '李江'
-                }
-              ]
-            }
-          ]}
-          label="业务员"
-          showClearButton
-          keepClearButton
-        />
-
-        <MultiSelect
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
-          filterInput
-          filterMode
-          showClearButton
-          label="动物"
-          maxWidth="300px"
-          keepClearButton
-          optionsStyle={{ minWidth: '200px' }}
-        />
-
-        <DatePicker
-          filterMode
-          label="预约试驾日期"
-          keepClearButton
-          showClearButton
-        />
-        <DateRangePicker
-          filterMode
-          label="活动时间"
-          placeholderStartDate="不限"
-          placeholderEndDate="不限"
-          showClearButton
-          keepClearButton
-        />
-      </div>
+      {renderFilter({ showClearButton: true, keepClearButton: true })}
       <br /> <br />
       保留清除按钮-在 Form 中是使用filterMode itemStyle 统一设置过滤器样式
       <br /> <br />
       <div>
         <Form
           filterMode
-          itemStyle={{ marginRight: '12px', marginBottom: '12px' }}
+          // itemStyle={{ marginRight: '12px', marginBottom: '12px' }}
         >
-          <Search
-            showSearchButtonBg
-            showClearButton
-            width="200px"
-            placeholder="搜索"
-            className="pui-form-item"
-          />
-          <Select
-            filterInput
-            options="上海保时捷中心,北京保时捷中心"
-            label="经销商"
-            showClearButton
-            keepClearButton
-          />
-          <Select
-            options="911,718"
-            label="车型"
-            showClearButton
-            keepClearButton
-          />
-          <Select
-            filterInput
-            options={[
-              {
-                value: 1,
-                text: (
-                  <>
-                    李军<span className="title-info"> (主管)</span>
-                  </>
-                )
-              },
-              {
-                value: 2,
-                text: (
-                  <>
-                    熊丽<span className="title-info"> (员工)</span>
-                  </>
-                )
-              }
-            ]}
-            label="业务员"
-            keepClearButton
-            showClearButton
-          />
-
-          <Select
-            filterInput
-            options={[
-              {
-                group: '主管',
-                options: [
-                  {
-                    value: 1,
-                    text: '李军'
-                  },
-                  {
-                    value: 2,
-                    text: '林宁'
-                  }
-                ]
-              },
-              {
-                group: '员工',
-                options: [
-                  {
-                    value: 3,
-                    text: '熊力'
-                  },
-                  {
-                    value: 6,
-                    text: '李江'
-                  }
-                ]
-              }
-            ]}
-            label="业务员"
-            showClearButton
-            keepClearButton
-          />
-
-          <MultiSelect
-            options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
-            filterInput
-            showClearButton
-            label="动物"
-            maxWidth="300px"
-            keepClearButton
-            optionsStyle={{ minWidth: '200px' }}
-          />
-
-          <DatePicker label="预约试驾日期" keepClearButton showClearButton />
-          <DateRangePicker
-            label="活动时间"
-            placeholderStartDate="不限"
-            placeholderEndDate="不限"
-            showClearButton
-            keepClearButton
-            onValueChange={vals => {
-              console.log(vals)
-            }}
-          />
+          {renderFilter({ showClearButton: true, keepClearButton: true })}
         </Form>
       </div>
       <br /> <br />
       禁用状态 <br /> <br />
-      <div>
-        <Search
-          showSearchButtonBg
-          showClearButton
-          width="200px"
-          placeholder="搜索"
-          className="pui-form-item"
-          disabled
-        />
-        <Select
-          filterMode
-          filterInput
-          options="上海保时捷中心,北京保时捷中心"
-          value="北京保时捷中心"
-          label="经销商"
-          showClearButton
-          keepClearButton
-          disabled
-        />
-        <Select
-          filterMode
-          options="911,718"
-          value="911"
-          label="车型"
-          showClearButton
-          keepClearButton
-          disabled
-        />
-        <Select
-          filterMode
-          filterInput
-          options={[
-            {
-              value: 1,
-              text: (
-                <>
-                  李军<span className="title-info"> (主管)</span>
-                </>
-              )
-            },
-            {
-              value: 2,
-              text: (
-                <>
-                  熊丽<span className="title-info"> (员工)</span>
-                </>
-              )
-            }
-          ]}
-          value={2}
-          label="业务员"
-          keepClearButton
-          showClearButton
-          disabled
-        />
-
-        <Select
-          filterMode
-          filterInput
-          options={[
-            {
-              group: '主管',
-              options: [
-                {
-                  value: 1,
-                  text: '李军'
-                },
-                {
-                  value: 2,
-                  text: '林宁'
-                }
-              ]
-            },
-            {
-              group: '员工',
-              options: [
-                {
-                  value: 3,
-                  text: '熊力'
-                },
-                {
-                  value: 6,
-                  text: '李江'
-                }
-              ]
-            }
-          ]}
-          value={6}
-          label="业务员"
-          showClearButton
-          keepClearButton
-          disabled
-        />
-
-        <MultiSelect
-          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
-          value={['狗', '老虎']}
-          filterInput
-          filterMode
-          showClearButton
-          label="动物"
-          maxWidth="300px"
-          keepClearButton
-          optionsStyle={{ minWidth: '200px' }}
-          disabled
-        />
-
-        <DatePicker
-          filterMode
-          label="预约试驾日期"
-          value="2022-02-16"
-          showClearButton
-          keepClearButton
-          disabled
-        />
-        <DateRangePicker
-          filterMode
-          label="活动时间"
-          value={['2022-02-16']}
-          placeholderStartDate="不限"
-          placeholderEndDate="不限"
-          showClearButton
-          keepClearButton
-          disabled
-        />
-      </div>
+      {renderFilter({ disabled: true })}
     </div>
   )
 }
