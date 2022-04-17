@@ -49,7 +49,7 @@
         }
       }
 
-      &-show-search-button-bg-true {
+      &.pui-search-show-search-button-bg-true {
         .pui-search-button {
           background-color: $container-bg-color-8;
           color: $text-color-2;
@@ -60,13 +60,18 @@
             color: $text-color-2;
           }
         }
+        .pui-input {
+          input {
+            padding-right: 56px;
+          }
+          &-right-button {
+            right: 56px;
+          }
+        }
         &.pui-search-show-clear-button-true {
           .pui-input {
             input {
               padding-right: 86px;
-            }
-            &-right-button {
-              right: 56px;
             }
           }
         }
@@ -91,20 +96,20 @@
         }
 
         &.pui-search {
-          &-show-clear-button-true {
+          &.pui-search-show-search-button-bg-true {
             .pui-input {
               input {
-                padding-right: 64px;
-              }
-            }
-          }
-          &-show-search-button-bg-true {
-            .pui-input {
-              input {
-                padding-right: 70px;
+                padding-right: 40px;
               }
               .pui-input-right-button {
                 right: 40px;
+              }
+            }
+            &.pui-search-show-clear-button-true {
+              .pui-input {
+                input {
+                  padding-right: 60px;
+                }
               }
             }
           }
