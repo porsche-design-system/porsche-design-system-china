@@ -8,9 +8,18 @@ import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import { IconArrowHeadRight } from '@pui/icons'
 import { MenuContext } from '../index'
-import { useElementPos, usePopShowState } from '../../../shared/hooks'
+import {
+  useElementPos,
+  usePopShowState,
+  useDefaultSize
+} from '../../../shared/hooks'
 import { MenuItemProps, SubMenuProps } from '../types'
-import { PADDING_SIZE, SUB_MENU_WIDTH, MARGIN_LEFT } from '../const'
+import {
+  PADDING_SIZE,
+  SUB_MENU_WIDTH,
+  MARGIN_LEFT,
+  SUB_MENU_SMALL_WIDTH
+} from '../const'
 import './index.scss'
 
 const SubMenu: React.FC<SubMenuProps> = ({
@@ -22,11 +31,15 @@ const SubMenu: React.FC<SubMenuProps> = ({
   onClick,
   hasSubItem,
   disabled,
+  size,
   visible = true
 }) => {
   if (!visible) {
     return null
   }
+  const [defaultSize] = useDefaultSize()
+  const curSize = size || defaultSize
+  const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
   const rootElementRef = useRef<any>(null)
   const context = useContext(MenuContext)
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
@@ -51,9 +64,9 @@ const SubMenu: React.FC<SubMenuProps> = ({
   })
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
+    updatePos()
     setOpen(!menuOpen)
     onClick && onClick(e)
-    updatePos()
   }
   let timer: any
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
@@ -77,7 +90,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
         }
       : {}
   const renderChildren = () => {
-    const subMenuClasses = classNames('pui-submenu', {
+    const subMenuClasses = classNames(`pui-submenu pui-menu-size-${curSize}`, {
       'menu-opened': menuOpen
     })
     const childrenComponent = React.Children.map(children, (child, i) => {
@@ -101,17 +114,17 @@ const SubMenu: React.FC<SubMenuProps> = ({
     let clientWidth = rootElementRef.current?.offsetWidth || 0
     const clientHeight = rootElementRef.current?.offsetHeight || 0
     const windowWidth = document.body.offsetWidth
-    let positionDifference = windowWidth - (subPosition.left + SUB_MENU_WIDTH)
+    let positionDifference = windowWidth - (subPosition.left + MENU_WIDTH)
     if (positionDifference <= PADDING_SIZE) {
-      subPosition.left -= SUB_MENU_WIDTH - clientWidth
+      subPosition.left -= MENU_WIDTH - clientWidth
     }
-    if (clientWidth < SUB_MENU_WIDTH) {
-      clientWidth = SUB_MENU_WIDTH
+    if (clientWidth < MENU_WIDTH) {
+      clientWidth = MENU_WIDTH
     }
     if (hasSubItem || context.mode === 'dropdown') {
       subPosition.left += clientWidth + MARGIN_LEFT
       subPosition.top -= clientHeight
-      positionDifference = windowWidth - (subPosition.left + SUB_MENU_WIDTH)
+      positionDifference = windowWidth - (subPosition.left + MENU_WIDTH)
       if (positionDifference <= PADDING_SIZE) {
         subPosition.left = menuPos.left - clientWidth - MARGIN_LEFT
       }

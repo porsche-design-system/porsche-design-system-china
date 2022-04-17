@@ -72,13 +72,14 @@ const twoMenu = (
   </Menu>
 )
 
-export const ProgressStoryBook = () => {
+export const DropdownStoryBook1 = () => {
   return (
     <div className="dropdown-demo dropdown-demo-one">
       <div className="test-one">
         <Dropdown overlay={oneMenu} trigger="click">
           <span>click: 下拉菜单</span>
         </Dropdown>
+        <br />
         <br />
         <Dropdown overlay={oneMenu} trigger="hover">
           <span>hover: 下拉菜单</span>
@@ -88,9 +89,9 @@ export const ProgressStoryBook = () => {
   )
 }
 
-ProgressStoryBook.storyName = 'Menu'
+DropdownStoryBook1.storyName = 'Menu'
 
-export const ProgressStoryBook1 = () => {
+export const DropdownStoryBook2 = () => {
   return (
     <div className="dropdown-demo">
       <div className="test-two">
@@ -102,4 +103,23 @@ export const ProgressStoryBook1 = () => {
   )
 }
 
-ProgressStoryBook1.storyName = 'Grouping Menu'
+DropdownStoryBook2.storyName = 'Grouping Menu'
+
+export const DropdownStoryBook3 = () => {
+  return (
+    <div className="dropdown-demo">
+      <div className="test-two">
+        <Dropdown overlay={twoMenu} trigger="click" size="small">
+          小尺寸下拉菜单
+        </Dropdown>
+        <br />
+        <br />
+        <Dropdown overlay={oneMenu} trigger="click" size="small">
+          <span>click: 下拉菜单</span>
+        </Dropdown>
+      </div>
+    </div>
+  )
+}
+
+DropdownStoryBook3.storyName = 'Small Dropdown Menu'

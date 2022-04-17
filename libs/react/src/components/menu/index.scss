@@ -1,17 +1,5 @@
 @import '../../styles/theme/index';
-
-// menu
-$menu-border-width: 1px !default;
-$menu-border-color: $border-color-1 !default;
-
-// menu-item
-$menu-item-padding-y: 12px !default;
-$menu-item-padding-x: 12px !default;
-$menu-item-active-border-width: 2px !default;
-$menu-item-disabled-color: $text-opacity-color-2 !default;
-
-//sub-menu
-$submenu-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+@import './variable.scss';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -24,9 +12,7 @@ $submenu-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
       > .menu-item {
         margin-right: 36px;
         cursor: pointer;
-        font-size: 16px;
         font-weight: 400;
-        min-height: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -121,14 +107,23 @@ $submenu-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
           }
         }
       }
-      // &-size-medium {
-      // }
-      &-size-small {
+      &-size-medium {
         .menu-item {
-          min-height: 32px;
+          min-height: $menu-height;
           &.submenu-item {
             .submenu-title {
-              min-height: 32px;
+              min-height: $menu-height;
+            }
+          }
+        }
+      }
+      &-size-small {
+        .menu-item {
+          min-height: $menu-small-height;
+          font-size: 14px;
+          &.submenu-item {
+            .submenu-title {
+              min-height: $menu-small-height;
             }
           }
         }
