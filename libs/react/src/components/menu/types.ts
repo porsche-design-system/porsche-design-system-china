@@ -18,7 +18,7 @@ export interface MenuProps {
   /** 设置子菜单的默认打开 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[]
   /** 大小 */
-  size?: 'medium' | 'small' | 'tiny'
+  size?: 'medium' | 'small'
 }
 
 export interface IMenuContext {
@@ -47,6 +47,8 @@ export interface SubMenuProps {
   disabled?: boolean
   /** 显示隐藏 */
   visible?: boolean
+  /** 大小 */
+  size?: 'medium' | 'small'
 }
 export interface MenuItemProps {
   /** 唯一标志 */
@@ -69,6 +71,8 @@ export interface MenuItemProps {
   hasSubItem?: boolean
   /** 显示隐藏 */
   visible?: boolean
+  /** 大小 */
+  size?: 'medium' | 'small'
 }
 export interface ItemGroupProps {
   /** 唯一标志 */
