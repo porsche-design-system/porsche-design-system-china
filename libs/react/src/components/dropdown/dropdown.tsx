@@ -4,10 +4,15 @@ import classnames from 'classnames'
 import {
   useClickOutside,
   useElementPos,
-  usePopShowState
+  usePopShowState,
+  useDefaultSize
 } from '../../shared/hooks'
 import { MenuProps } from '../menu/types'
-import { PADDING_SIZE, SUB_MENU_WIDTH } from '../menu/const'
+import {
+  PADDING_SIZE,
+  SUB_MENU_WIDTH,
+  SUB_MENU_SMALL_WIDTH
+} from '../menu/const'
 import './dropdown.scss'
 
 type OverlayFunc = () => React.ReactElement
@@ -25,6 +30,8 @@ export interface DropdownConfig {
   disabled?: boolean
   /** 触发下拉行为 */
   trigger?: triggerType
+  /** 大小 */
+  size?: 'medium' | 'small'
 }
 
 export const Dropdown: React.FC<DropdownConfig> = props => {
@@ -35,8 +42,12 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     children,
     trigger = 'hover',
     visible = false,
-    disabled
+    disabled,
+    size
   } = props
+  const [defaultSize] = useDefaultSize()
+  const curSize = size || defaultSize
+  const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
   const rootElementRef = useRef<any>(null)
   const mouseInMenu = useRef(false)
   const [showDropdown, setShowDropdown] = useState(visible)
@@ -92,6 +103,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       if (displayName === 'Menu') {
         return React.cloneElement(childElement, {
           mode: 'dropdown',
+          size,
           onClick: () => {
             if (childElement.props && childElement.props.onClick) {
               childElement.props.onClick()
@@ -109,9 +121,9 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     const clientWidth = rootElementRef.current?.offsetWidth || 0
     const windowWidth = document.body.offsetWidth
     const positionDifference =
-      windowWidth - (dropdownPosition.left + SUB_MENU_WIDTH)
+      windowWidth - (dropdownPosition.left + MENU_WIDTH)
     if (positionDifference <= PADDING_SIZE) {
-      dropdownPosition.left -= SUB_MENU_WIDTH - clientWidth
+      dropdownPosition.left -= MENU_WIDTH - clientWidth
     }
     const contentList = (
       <div

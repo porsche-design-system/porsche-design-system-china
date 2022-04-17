@@ -33,22 +33,27 @@ const MenuItem: React.FC<MenuItemProps> = ({
     return null
   }
   return (
-    <li
-      className={classes}
-      style={style}
-      onClick={handleClick}
-      data-index={index}
-    >
-      <span className="menu-title-content">
-        {icon}
-        {children}
-      </span>
-      {selectAfter && context.index === index && (
-        <span>
-          <IconCheck />
+    <>
+      <li
+        className={classes}
+        style={style}
+        onClick={handleClick}
+        data-index={index}
+      >
+        <span className="menu-title-content">
+          {icon}
+          {children}
         </span>
-      )}
-    </li>
+        {selectAfter && context.index === index && (
+          <span>
+            <IconCheck />
+          </span>
+        )}
+      </li>
+      {context.mode === 'dropdown' && divider ? (
+        <div className="divider" />
+      ) : null}
+    </>
   )
 }
 

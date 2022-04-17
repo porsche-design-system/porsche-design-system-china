@@ -93,8 +93,12 @@ export const MenuStoryBook2 = () => {
             </Menu.SubMenu>
           </Menu.SubMenu>
           <Menu.SubMenu title="submit-submit4" index="submit-submit4">
-            <Menu.Item index="submit-submit-test14">test1</Menu.Item>
-            <Menu.Item index="submit-submit-about24">about2</Menu.Item>
+            <Menu.Item selectAfter index="submit-submit-test14">
+              test1
+            </Menu.Item>
+            <Menu.Item selectAfter index="submit-submit-about24">
+              about2
+            </Menu.Item>
             <Menu.Item disabled index="submit-submit-prod34">
               prod4
             </Menu.Item>
@@ -115,3 +119,37 @@ export const MenuStoryBook2 = () => {
 }
 
 MenuStoryBook2.storyName = 'SubMenu '
+export const MenuStoryBook3 = () => {
+  const [index, setIndex] = React.useState('test')
+  const [hiddenItem, setHiddenItem] = React.useState(true)
+  return (
+    <div className="menu-demo">
+      <h1>small menu</h1>
+      <div className="test-one">
+        <Menu activeIndex={index} onSelect={setIndex} size="small">
+          <Menu.Item
+            index="test"
+            onClick={() => console.log('onClick事件', '点击了 test')}
+          >
+            test
+          </Menu.Item>
+          <Menu.Item index="test2">test2</Menu.Item>
+          <Menu.Item index="test3">test3</Menu.Item>
+          <Menu.SubMenu title="submit-submit4" index="submit-submit4">
+            <Menu.Item selectAfter index="submit-submit-test14">
+              test1
+            </Menu.Item>
+            <Menu.Item selectAfter index="submit-submit-about24">
+              about2
+            </Menu.Item>
+            <Menu.Item disabled index="submit-submit-prod34">
+              prod4
+            </Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
+      </div>
+    </div>
+  )
+}
+
+MenuStoryBook3.storyName = 'Small Menu '
