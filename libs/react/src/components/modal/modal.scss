@@ -252,21 +252,15 @@
             }
 
             &.pui-modal-modalsize-fullscreen {
-              width: unset;
               .pui-modal-content {
                 .pui-modal-close {
                   width: 48px;
                   height: 48px;
-                  top: 0;
+                  top:0;
                   right: -64px;
-                  box-sizing: border-box;
                   .porscheicon {
                     font-size: 28px;
-                    box-sizing: border-box;
                   }
-                }
-                .pui-modal-body {
-                  padding: 0;
                 }
               }
             }
