@@ -215,7 +215,13 @@ const Modal = ({
             hide: !show + ''
           })}
         >
-          <div className="pui-modal-mask" />
+          <div
+            className={`${
+              modalSize === 'fullscreen'
+                ? 'pui-modal-fullscreen pui-modal-mask'
+                : 'pui-modal-mask'
+            }`}
+          />
           <div className="pui-modal-wrap">
             <div
               style={style}
