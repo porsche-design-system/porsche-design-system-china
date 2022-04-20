@@ -18,8 +18,11 @@
         bottom: 0;
         height: 100%;
         z-index: 1000;
-        background: $mask-color;
+        background-color: $mask-color;
         animation: pui-fade-in 0.2s ease-out;
+        &.pui-modal-fullscreen {
+          background-color: $fullscreen-mask-color;
+        }
       }
 
       .pui-modal-wrap {
@@ -256,7 +259,7 @@
                 .pui-modal-close {
                   width: 48px;
                   height: 48px;
-                  top:0;
+                  top: 0;
                   right: -64px;
                   .porscheicon {
                     font-size: 28px;
