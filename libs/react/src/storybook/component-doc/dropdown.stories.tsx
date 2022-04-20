@@ -1,6 +1,15 @@
 import React from 'react'
-import { IconEdit, IconAdd } from '@pui/icons'
-import { Dropdown, Menu } from '../..'
+import {
+  IconEdit,
+  IconAdd,
+  IconDelete,
+  IconSend,
+  IconDownload,
+  IconEmail,
+  IconQq,
+  IconWechat
+} from '@pui/icons'
+import { Dropdown, Menu, Button, Tabs, TabPane } from '../..'
 
 import './dropdown.stories.scss'
 
@@ -8,118 +17,162 @@ export default {
   title: 'Feedback/Dropdown',
   component: Dropdown
 }
-const oneMenu = (
+
+const defaultMenu = (
   <Menu>
     <Menu.Item
-      icon={<IconEdit />}
-      selectAfter
+      index="add"
+      onClick={() => {
+        console.log('test1111')
+      }}
+    >
+      新增
+    </Menu.Item>
+    <Menu.Item
       index="test1"
       onClick={() => {
         console.log('test1111')
       }}
     >
-      test
+      编辑
     </Menu.Item>
+    <Menu.Item index="test2" onClick={() => console.log('test2')}>
+      分享
+    </Menu.Item>
+    <Menu.Item divider disabled index="test3">
+      下载
+    </Menu.Item>
+    <Menu.Item index="delete">删除</Menu.Item>
+  </Menu>
+)
+const iconMenu = (
+  <Menu>
+    <Menu.ItemGroup title="操作选项">
+      <Menu.Item
+        icon={<IconAdd />}
+        index="add"
+        onClick={() => {
+          console.log('test1111')
+        }}
+      >
+        新增
+      </Menu.Item>
+      <Menu.Item
+        index="test1"
+        icon={<IconEdit />}
+        onClick={() => {
+          console.log('test1111')
+        }}
+      >
+        编辑
+      </Menu.Item>
+      <Menu.Item
+        icon={<IconSend />}
+        index="test2"
+        onClick={() => console.log('test2')}
+      >
+        分享
+      </Menu.Item>
+      <Menu.Item icon={<IconDownload />} disabled index="test3">
+        下载
+      </Menu.Item>
+      <Menu.Item icon={<IconDelete />} index="delete">
+        删除
+      </Menu.Item>
+    </Menu.ItemGroup>
+    <Menu.ItemGroup title="内容分组">
+      <Menu.Item icon={<IconSend />} index="test3">
+        test1
+      </Menu.Item>
+      <Menu.Item icon={<IconSend />} index="about2">
+        about2
+      </Menu.Item>
+      <Menu.Item icon={<IconSend />} index="prod3">
+        prod3
+      </Menu.Item>
+    </Menu.ItemGroup>
+  </Menu>
+)
+
+const subMenu = (
+  <Menu>
     <Menu.Item
       icon={<IconAdd />}
-      index="test2"
-      onClick={() => console.log('test2')}
-      selectAfter
-      divider
+      index="add"
+      onClick={() => {
+        console.log('test1111')
+      }}
     >
-      test2
+      新增
     </Menu.Item>
-    <Menu.Item disabled index="test3">
-      disabled
+    <Menu.Item
+      index="test1"
+      icon={<IconEdit />}
+      onClick={() => {
+        console.log('test1111')
+      }}
+    >
+      编辑
     </Menu.Item>
-    <Menu.SubMenu title="submit" index="submit">
-      <Menu.Item selectAfter index="submit1">
-        test1
+    <Menu.SubMenu divider icon={<IconSend />} title="分享" index="submit">
+      <Menu.Item icon={<IconEmail />} index="submit1">
+        邮件
       </Menu.Item>
-      <Menu.Item selectAfter index="submit2">
-        about2
+      <Menu.Item icon={<IconQq />} index="submit2">
+        短信
       </Menu.Item>
-      <Menu.Item disabled index="submit3">
-        prod3
+      <Menu.Item icon={<IconWechat />} disabled index="submit3">
+        微信
       </Menu.Item>
     </Menu.SubMenu>
-  </Menu>
-)
-const twoMenu = (
-  <Menu>
-    <Menu.ItemGroup title="ItemGroup">
-      <Menu.Item index="test" icon={<IconEdit />} selectAfter>
-        test
-      </Menu.Item>
-      <Menu.Item icon={<IconAdd />} selectAfter index="test2">
-        <a href="http://react-dev.qa4.porsche-preview.cn/">PUI</a>
-      </Menu.Item>
-      <Menu.Item disabled index="disabled">
-        disabled
-      </Menu.Item>
-    </Menu.ItemGroup>
-    <Menu.ItemGroup title="ItemGroup">
-      <Menu.Item selectAfter index="test3">
-        test1
-      </Menu.Item>
-      <Menu.Item selectAfter index="about2">
-        about2
-      </Menu.Item>
-      <Menu.Item disabled index="prod3">
-        prod3
-      </Menu.Item>
-    </Menu.ItemGroup>
+    <Menu.Item icon={<IconDelete />} index="delete">
+      删除
+    </Menu.Item>
   </Menu>
 )
 
-export const DropdownStoryBook1 = () => {
+const Tab1 = () => (
+  <div className="dropdown-demo">
+    <div style={{ marginRight: '36px' }}>
+      <Dropdown overlay={defaultMenu} trigger="click">
+        无图样式
+      </Dropdown>
+    </div>
+    <Dropdown overlay={defaultMenu} trigger="click">
+      <Button type="primary">无图样式</Button>
+    </Dropdown>
+  </div>
+)
+const Tab2 = () => (
+  <Dropdown overlay={iconMenu} trigger="click">
+    图标+分组
+  </Dropdown>
+)
+const Tab3 = () => (
+  <Dropdown trigger="click" overlay={subMenu}>
+    图标+子菜单
+  </Dropdown>
+)
+
+export const DropdownStoryBook = () => {
   return (
-    <div className="dropdown-demo dropdown-demo-one">
-      <div className="test-one">
-        <Dropdown overlay={oneMenu} trigger="click">
-          <span>click: 下拉菜单</span>
-        </Dropdown>
-        <br />
-        <br />
-        <Dropdown overlay={oneMenu} trigger="hover">
-          <span>hover: 下拉菜单</span>
-        </Dropdown>
-      </div>
+    <div>
+      <Tabs hasLine>
+        <TabPane tabKey="IconText" title="Default Dropdown">
+          <Tab1 />
+        </TabPane>
+        <TabPane tabKey="Icon" title="Icon Dropdown">
+          <div className="dropdown-demo">
+            <Tab2 />
+          </div>
+        </TabPane>
+        <TabPane tabKey="Text" title="SubMenu Dropdown">
+          <div className="dropdown-demo">
+            <Tab3 />
+          </div>
+        </TabPane>
+      </Tabs>
     </div>
   )
 }
-
-DropdownStoryBook1.storyName = 'Menu'
-
-export const DropdownStoryBook2 = () => {
-  return (
-    <div className="dropdown-demo">
-      <div className="test-two">
-        <Dropdown overlay={twoMenu} trigger="click">
-          分组下拉菜单
-        </Dropdown>
-      </div>
-    </div>
-  )
-}
-
-DropdownStoryBook2.storyName = 'Grouping Menu'
-
-export const DropdownStoryBook3 = () => {
-  return (
-    <div className="dropdown-demo">
-      <div className="test-two">
-        <Dropdown overlay={twoMenu} trigger="click" size="small">
-          小尺寸下拉菜单
-        </Dropdown>
-        <br />
-        <br />
-        <Dropdown overlay={oneMenu} trigger="click" size="small">
-          <span>click: 下拉菜单</span>
-        </Dropdown>
-      </div>
-    </div>
-  )
-}
-
-DropdownStoryBook3.storyName = 'Small Dropdown Menu'
+DropdownStoryBook.storyName = 'DropdownStoryBook'

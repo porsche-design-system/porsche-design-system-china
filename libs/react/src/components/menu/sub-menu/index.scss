@@ -22,6 +22,21 @@
         line-height: $menu-height;
         display: flex;
         justify-content: space-between;
+        .menu-title-content {
+          flex: 1;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          .porscheicon {
+            margin-right: 8px;
+            font-size: 20px;
+          }
+          a {
+            display: inline-block;
+            width: 100%;
+            text-decoration: none;
+          }
+        }
         &.submenu-item {
           padding: 0;
           .submenu-title {
@@ -70,6 +85,13 @@
           .porscheicon-icon_-check {
             font-size: 18px;
           }
+          .menu-title-content,
+          .submenu-item-text {
+            .porscheicon {
+              margin-right: 4px;
+              font-size: 18px;
+            }
+          }
         }
       }
     }
@@ -87,6 +109,14 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        &-text {
+          display: flex;
+          align-items: center;
+          .porscheicon {
+            margin-right: 8px;
+            font-size: 20px;
+          }
+        }
       }
       .porscheicon-icon_-arrow-head-down {
         transition: transform 0.25s ease-in-out;

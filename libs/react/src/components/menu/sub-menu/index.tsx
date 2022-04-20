@@ -25,6 +25,8 @@ import './index.scss'
 const SubMenu: React.FC<SubMenuProps> = ({
   index,
   title,
+  icon,
+  divider,
   children,
   className,
   subStyle,
@@ -58,6 +60,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     'is-active': context.selectSubMenus?.includes(index || ''),
     'is-opened': menuOpen,
     'is-visible': !visible,
+    'is-divider': divider,
     'is-vertical': context.mode === 'vertical',
     'is-disabled': disabled,
     'dropdown-menu-item': context.mode === 'dropdown'
@@ -144,23 +147,29 @@ const SubMenu: React.FC<SubMenuProps> = ({
   }
   const Children = renderChildren()
   return (
-    <li
-      {...hoverEvents}
-      {...clickEvents}
-      key={index}
-      className={classes}
-      ref={rootElement => {
-        if (rootElement) {
-          rootElementRef.current = rootElement
-        }
-      }}
-    >
-      <span className="submenu-title">
-        {title}
-        <IconArrowHeadRight />
-      </span>
-      {Children}
-    </li>
+    <>
+      <li
+        {...hoverEvents}
+        {...clickEvents}
+        key={index}
+        className={classes}
+        ref={rootElement => {
+          if (rootElement) {
+            rootElementRef.current = rootElement
+          }
+        }}
+      >
+        <span className="submenu-title">
+          <span className="submenu-title-text">
+            {icon}
+            {title}
+          </span>
+          <IconArrowHeadRight />
+        </span>
+        {Children}
+      </li>
+      {divider ? <div className="divider" /> : null}
+    </>
   )
 }
 
