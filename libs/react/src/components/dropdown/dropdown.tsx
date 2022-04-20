@@ -49,6 +49,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   const curSize = size || defaultSize
   const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
   const rootElementRef = useRef<any>(null)
+  const componentRef = useRef<HTMLDivElement>(null)
   const mouseInMenu = useRef(false)
   const [showDropdown, setShowDropdown] = useState(visible)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
@@ -119,6 +120,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
 
     const dropdownPosition: { left: number; top: number } = { ...menuPos }
     const clientWidth = rootElementRef.current?.offsetWidth || 0
+    const clientHeight = componentRef?.current?.clientHeight || 32
     const windowWidth = document.body.offsetWidth
     const positionDifference =
       windowWidth - (dropdownPosition.left + MENU_WIDTH)
@@ -136,6 +138,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
         className={dropdownClasses}
         style={{
           position: 'absolute',
+          marginTop: `${clientHeight + 4}px`,
           display: showDropdown ? '' : 'none',
           ...dropdownPosition,
           ...overlayStyle
@@ -148,7 +151,6 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     return ReactDOM.createPortal(contentList, puiPopupWrap)
   }
 
-  const componentRef = useRef<HTMLDivElement>(null)
   useClickOutside(componentRef, () => setShowDropdown(false))
   const Children = renderChildren()
 
