@@ -33,6 +33,10 @@ export interface IMenuContext {
 export interface SubMenuProps {
   /** 唯一标志 */
   index: string
+  /** 自定义icon  */
+  icon?: ReactElement
+  /** 分隔线 */
+  divider?: boolean
   /** 子菜单标题 */
   title: string
   /* 点击事件 */
@@ -57,7 +61,7 @@ export interface MenuItemProps {
   icon?: ReactElement
   /** 禁用 */
   disabled?: boolean
-  /** 分数线 */
+  /** 分隔线 */
   divider?: boolean
   /** 选中标致 */
   selectAfter?: boolean
