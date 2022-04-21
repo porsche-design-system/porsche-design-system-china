@@ -193,7 +193,7 @@ MultiSelect = FormItem(
     const displayTextArr: string | ReactNode[] = []
     selectOptions.forEach(option => {
       if (selectValue.includes(option.value)) {
-        displayTextArr.push(option.text)
+        displayTextArr.push(getNodeText(option.text))
       }
     })
 
@@ -214,11 +214,6 @@ MultiSelect = FormItem(
     }, [open])
 
     const displayText = displayTextArr.join(', ')
-    const allChecked =
-      displayTextArr.length === selectOptions.length &&
-      displayTextArr.length > 0
-    const partChecked =
-      displayTextArr.length < selectOptions.length && displayTextArr.length > 0
 
     const newKeepClearButton = keepClearButton || supportTouch()
 
@@ -231,6 +226,14 @@ MultiSelect = FormItem(
       }
       return true
     })
+
+    const allChecked =
+      displayTextArr.length >= filteredOptions.length &&
+      displayTextArr.length > 0
+
+    const partChecked =
+      displayTextArr.length < filteredOptions.length &&
+      displayTextArr.length > 0
 
     useEffect(() => {
       updatePos()
@@ -390,7 +393,7 @@ MultiSelect = FormItem(
                     onClick={() => {
                       const allValues: T[] = []
                       if (!allChecked) {
-                        selectOptions.forEach(item => {
+                        filteredOptions.forEach(item => {
                           allValues.push(item.value)
                         })
                       }
