@@ -249,27 +249,27 @@ const Input = FormItem(
     )
   }
 )
-  ; (Input as any).displayName = 'Input'
+;(Input as any).displayName = 'Input'
 
 /**
- * @param inputProps 
- * @returns Input component 
+ * @param inputProps
+ * @returns Input component
  */
 const FashionInput = (inputProps: InputProps) => {
-  let [hide, setHide] = React.useState(true)
+  const [hide, setHide] = React.useState(true)
   return (
     <Input
       {...inputProps}
       onBlur={() => {
-        setHide(true);
+        setHide(true)
       }}
       onFocus={() => {
-        setHide(false);
+        setHide(false)
       }}
       hideMaxLengthText={hide}
     />
   )
 }
-  ; (FashionInput as any).displayName = 'FashionInput'
+;(FashionInput as any).displayName = 'FashionInput'
 
 export { Input, FashionInput }
