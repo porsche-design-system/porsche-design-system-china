@@ -97,6 +97,9 @@ export interface MultiSelectProps<T> {
 
   /** 在列表显示【全选】选项 */
   showCheckAll?: boolean
+
+  /** 弹出菜单的样式名字 */
+  popupMenuClassName?: string
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -108,6 +111,7 @@ let MultiSelect = <T,>(props: MultiSelectProps<T> & FormItemProps) => {
 MultiSelect = FormItem(
   <T,>({
     className,
+    popupMenuClassName,
     disabled = false,
     value,
     defaultValue,
@@ -351,7 +355,10 @@ MultiSelect = FormItem(
                     }
                   }
                 }}
-                className="pui-multi-select-list"
+                className={classNames(
+                  'pui-multi-select-list',
+                  popupMenuClassName
+                )}
                 onClick={evt => {
                   evt.stopPropagation()
                 }}
