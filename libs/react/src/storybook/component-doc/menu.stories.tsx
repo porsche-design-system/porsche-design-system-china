@@ -121,7 +121,6 @@ export const MenuStoryBook2 = () => {
 MenuStoryBook2.storyName = 'SubMenu '
 export const MenuStoryBook3 = () => {
   const [index, setIndex] = React.useState('test')
-  const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
     <div className="menu-demo">
       <h1>small menu</h1>
