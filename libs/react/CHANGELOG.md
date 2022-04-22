@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.17](https://gitlab.porsche-preview.cn///compare/v0.1.15...v0.1.17) (2022-04-22)
+
+
+### Features
+
+* DSCWCN-114 | 【调整】Dropdown，包括新增S号 ([c308214](https://gitlab.porsche-preview.cn///commit/c308214611b362a4f470ad79de7efb9f6a2f6246))
+* 调整 dropdown 组件文档样式 ([17cc400](https://gitlab.porsche-preview.cn///commit/17cc400ef7be7537dabf553e65037c11df1ef5ca))
+* **input, textarea:** DSCWCN-59: add the feature of default hide maxLength dom ([3ad2fb7](https://gitlab.porsche-preview.cn///commit/3ad2fb7ac5a9651b75713faf5d34748ed6e22a0a))
+
+
+### Bug Fixes
+
+* breadcrumb 为storybook示例补充缺失的icon ([8570e53](https://gitlab.porsche-preview.cn///commit/8570e53869ee7dd5f661c38834b03e32c3600d11))
+* DSCWCN-107|UI走查｜【调整】单选（包含Filter） ([b899724](https://gitlab.porsche-preview.cn///commit/b899724d21e7313a419d435211ca1763ab845a60))
+* format 代码格式 ([8383b10](https://gitlab.porsche-preview.cn///commit/8383b1065e62837e9f71bdf5771954c2905353db))
+* remove冗余css定义 ([e1cf095](https://gitlab.porsche-preview.cn///commit/e1cf09596900836fdb86480b00c933ef0b6cab05))
+* remove冗余标签 ([6e33808](https://gitlab.porsche-preview.cn///commit/6e33808a2312cb6cb54581763082b5980403591c))
+* 优化分页属性名 ([3d54c44](https://gitlab.porsche-preview.cn///commit/3d54c44d93c68527c03fa0299564528ff59928a0))
+* 修正multi-select 选定bug @Kevin verified ([aa9fe11](https://gitlab.porsche-preview.cn///commit/aa9fe11f2bec7af26674013240348d8b976a459d))
+* 全屏Modal关闭按钮颜色 ([7449239](https://gitlab.porsche-preview.cn///commit/744923941001e966bb5fc0876ab9d172fca035ab))
+* 分页选择框大小调整 ([7b2f1f0](https://gitlab.porsche-preview.cn///commit/7b2f1f01986808b5d71431ccd251b128ea467811))
+* **react/textarea:** case issue ([187d6b2](https://gitlab.porsche-preview.cn///commit/187d6b286014e972a5510f119752494fbd712554))
+* **storybook:** dom selecting error ([b5ba464](https://gitlab.porsche-preview.cn///commit/b5ba464d01d1478d48464f3969be3e112600e9c5))
+* 分页storybook排版调整 ([3aedeff](https://gitlab.porsche-preview.cn///commit/3aedeff33f734d12db114e6d183faf04fc2b6958))
+* 分页组件storybook排版调整 ([301396e](https://gitlab.porsche-preview.cn///commit/301396e17f06387bb934da5f9834b60affce881b))
+
 ### [0.1.15](https://gitlab.porsche-preview.cn///compare/v0.1.14...v0.1.15) (2022-03-28)
 
 ### Features
