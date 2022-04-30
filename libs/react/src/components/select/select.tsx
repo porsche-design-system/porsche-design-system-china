@@ -78,7 +78,7 @@ export interface SelectProps<T> {
   error?: FormErrorText
 
   /** 值改变事件 */
-  onValueChange?: (value: T) => void
+  onValueChange?: (value: T, option: object | null) => void
 
   /** 控制菜单打开 */
   defaultOpen?: boolean
@@ -112,6 +112,15 @@ export interface SelectProps<T> {
 
   /** 显示加载中 */
   loading?: boolean
+
+  /** 定义option列表展示字段，默认为text，且仅限option属性值为简单类型如字符串或数字 */
+  display?: Array<string> | string
+
+  /** option列表展示字段分隔符，仅在display为数组的时候才有效，默认为冒号: */
+  separator?: string
+
+  /** option列表展示与选中后显示结果是否一致，默认一致，如不一致则option只显示text */
+  isSameDisplay?: boolean
 }
 
 // 必须骗下storybook，让它能显示属性列表
@@ -143,7 +152,10 @@ Select = FormItem(
     onMenuVisibleChange,
     filterInputPlaceholder,
     bottomElement,
-    loading = false
+    loading = false,
+    display = 'text',
+    separator = ':',
+    isSameDisplay = true
   }: SelectProps<T>) => {
     const selectState = useState(defaultValue || null)
     let selectValue = selectState[0]
@@ -199,21 +211,21 @@ Select = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         if ((options[0] as GroupSelectOption<T>).group !== undefined) {
           let pos = 0
-          ;(options as GroupSelectOption<T>[]).forEach(o => {
-            if (o.options.length) {
-              groupNames.push({
-                index: pos,
-                name: (o as GroupSelectOption<T>).group
-              })
-              selectOptions.push(...(o as GroupSelectOption<T>).options)
-              pos += o.options.length
-            }
-          })
+            ; (options as GroupSelectOption<T>[]).forEach(o => {
+              if (o.options.length) {
+                groupNames.push({
+                  index: pos,
+                  name: (o as GroupSelectOption<T>).group
+                })
+                selectOptions.push(...(o as GroupSelectOption<T>).options)
+                pos += o.options.length
+              }
+            })
         } else {
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ;(options as unknown as string[]).forEach(option => {
+        ; (options as unknown as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -222,17 +234,32 @@ Select = FormItem(
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label
 
+    const resolveDisplay = (displayText: ReactNode, display: Array<string> | string, option: object) => {
+      if (Array.isArray(display)) {
+        display.forEach((item, index) => {
+          if (['string', 'number', 'boolean'].includes(typeof option[item])) {
+            displayText = displayText + option[item] + (display.length === index + 1 ? '' : separator);
+          } else {
+            console.error(`option.${item}不符合规范`);
+          }
+        })
+      } else if (typeof display === 'string') {
+        displayText = option[display]
+      }
+      return displayText;
+    }
+
     let displayText: ReactNode = ''
     if (isControlledByValue.current) {
       selectOptions.forEach(option => {
         if (option.value === value) {
-          displayText = option.text
+          displayText = resolveDisplay(displayText, display, option)
         }
       })
     } else {
       selectOptions.forEach(option => {
         if (option.value === selectValue) {
-          displayText = option.text
+          displayText = resolveDisplay(displayText, display, option)
         }
       })
     }
@@ -354,7 +381,7 @@ Select = FormItem(
             className="pui-select-clear-icon"
             onClick={evt => {
               setSelectValue(null as any)
-              onValueChange && onValueChange(null as any)
+              onValueChange && onValueChange(null as any, null)
               evt.stopPropagation()
               evt.preventDefault()
               setShowOptionList(false)
@@ -454,10 +481,10 @@ Select = FormItem(
                               }
                               setShowOptionList(false)
                               setSelectValue(option.value)
-                              onValueChange && onValueChange(option.value)
+                              onValueChange && onValueChange(option.value, option)
                             }}
                           >
-                            {option.text}
+                            {isSameDisplay ? resolveDisplay('', display, option) : option.text}
                             {option.value === selectValue &&
                               valueMatchCounter === 1 && <IconCheck />}
                           </div>
@@ -471,8 +498,8 @@ Select = FormItem(
                     }
                     return true
                   }).length === 0 && (
-                    <div className="pui-select-no-data">暂无数据</div>
-                  )}
+                      <div className="pui-select-no-data">暂无数据</div>
+                    )}
                 </div>
                 {bottomElement}
               </div>
@@ -483,5 +510,5 @@ Select = FormItem(
     )
   }
 )
-;(Select as any).displayName = 'Select'
+  ; (Select as any).displayName = 'Select'
 export { Select }
