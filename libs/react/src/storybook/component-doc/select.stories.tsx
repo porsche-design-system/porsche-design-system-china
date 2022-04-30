@@ -31,7 +31,6 @@ export const SelectStoryBook1 = () => {
         options={[10, 12, 33]}
         label="数字"
         placeholder="请选择"
-        display={['value', 'text', 'aaa']}
         onValueChange={val => {
           console.log(typeof val)
         }}
