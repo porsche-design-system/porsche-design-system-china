@@ -211,21 +211,21 @@ Select = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         if ((options[0] as GroupSelectOption<T>).group !== undefined) {
           let pos = 0
-            ; (options as GroupSelectOption<T>[]).forEach(o => {
-              if (o.options.length) {
-                groupNames.push({
-                  index: pos,
-                  name: (o as GroupSelectOption<T>).group
-                })
-                selectOptions.push(...(o as GroupSelectOption<T>).options)
-                pos += o.options.length
-              }
-            })
+          ;(options as GroupSelectOption<T>[]).forEach(o => {
+            if (o.options.length) {
+              groupNames.push({
+                index: pos,
+                name: (o as GroupSelectOption<T>).group
+              })
+              selectOptions.push(...(o as GroupSelectOption<T>).options)
+              pos += o.options.length
+            }
+          })
         } else {
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ; (options as unknown as string[]).forEach(option => {
+        ;(options as unknown as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -234,19 +234,26 @@ Select = FormItem(
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label
 
-    const resolveDisplay = (displayText: ReactNode, display: Array<string> | string, option: object) => {
+    const resolveDisplay = (
+      displayText: ReactNode,
+      display: Array<string> | string,
+      option: object
+    ) => {
       if (Array.isArray(display)) {
         display.forEach((item, index) => {
           if (['string', 'number', 'boolean'].includes(typeof option[item])) {
-            displayText = displayText + option[item] + (display.length === index + 1 ? '' : separator);
+            displayText =
+              displayText +
+              option[item] +
+              (display.length === index + 1 ? '' : separator)
           } else {
-            console.error(`option.${item}不符合规范`);
+            console.error(`option.${item}不符合规范`)
           }
         })
       } else if (typeof display === 'string') {
         displayText = option[display]
       }
-      return displayText;
+      return displayText
     }
 
     let displayText: ReactNode = ''
@@ -481,10 +488,13 @@ Select = FormItem(
                               }
                               setShowOptionList(false)
                               setSelectValue(option.value)
-                              onValueChange && onValueChange(option.value, option)
+                              onValueChange &&
+                                onValueChange(option.value, option)
                             }}
                           >
-                            {isSameDisplay ? resolveDisplay('', display, option) : option.text}
+                            {isSameDisplay
+                              ? resolveDisplay('', display, option)
+                              : option.text}
                             {option.value === selectValue &&
                               valueMatchCounter === 1 && <IconCheck />}
                           </div>
@@ -498,8 +508,8 @@ Select = FormItem(
                     }
                     return true
                   }).length === 0 && (
-                      <div className="pui-select-no-data">暂无数据</div>
-                    )}
+                    <div className="pui-select-no-data">暂无数据</div>
+                  )}
                 </div>
                 {bottomElement}
               </div>
@@ -510,5 +520,5 @@ Select = FormItem(
     )
   }
 )
-  ; (Select as any).displayName = 'Select'
+;(Select as any).displayName = 'Select'
 export { Select }
