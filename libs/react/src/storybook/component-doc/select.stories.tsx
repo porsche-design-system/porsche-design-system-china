@@ -298,30 +298,29 @@ export const SelectStoryBook10 = () => {
     <>
       <div>定义option选项展示哪些字段以及分隔符: </div>
       <br />
-      <div style={{ width: '300px' }} className='select-story'>
+      <div style={{ width: '300px' }} className="select-story">
         <Select
           options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
-          label='text:value'
+          label="text:value"
           placeholder="请选择"
           display={['text', 'value']}
         />
         <Select
-          options='狗:dog,猫:cat,狮子:lion,老虎:tiger'
-          label='isSameDisplay=false'
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          label="isSameDisplay=false"
           placeholder="请选择"
           display={['text', 'value']}
           isSameDisplay={false}
         />
         <Select
-          options='狗:dog,猫:cat,狮子:lion,老虎:tiger'
-          label='value-text'
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          label="value-text"
           placeholder="请选择"
           display={['value', 'text']}
-          separator='-'
+          separator="-"
         />
       </div>
     </>
-
   )
 }
 
