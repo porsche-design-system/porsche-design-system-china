@@ -29,6 +29,9 @@ export interface ButtonProps {
   /** 图标 */
   icon?: PUIIcon | ReactElement
 
+  /** 后置图标 */
+  suffixIcon?: PUIIcon | ReactElement
+
   /** 是否加载中 */
   loading?: boolean
 
@@ -63,6 +66,7 @@ const Button = ({
   type = 'default',
   size,
   icon,
+  suffixIcon,
   loading = false,
   disabled = false,
   marginRight,
@@ -81,10 +85,12 @@ const Button = ({
   } else if (size === 'tiny') {
     padding = '5px'
   }
-  if (!children) {
+  if (!children || (icon && suffixIcon)) {
     paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
     paddingStyle = { paddingLeft: padding }
+  } else if (suffixIcon) {
+    paddingStyle = { paddingRight: padding }
   }
 
   let loadingSize = 24
@@ -95,6 +101,7 @@ const Button = ({
   }
 
   const IconComponent = icon as any
+  const SuffixIconComponent = suffixIcon as any
   return (
     <button
       type="button"
@@ -148,6 +155,20 @@ const Button = ({
         </span>
       )}
       <span className="pui-button-content">{children}</span>
+      {suffixIcon && !loading && (
+        <span
+          className={classNames(
+            'pui-button-suffix-icon',
+            children ? 'pui-button-suffix-icon-content' : ''
+          )}
+        >
+          {isReactElemet(SuffixIconComponent) ? (
+            SuffixIconComponent
+          ) : (
+            <SuffixIconComponent />
+          )}
+        </span>
+      )}
     </button>
   )
 }
