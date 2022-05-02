@@ -85,10 +85,12 @@ const Button = ({
   } else if (size === 'tiny') {
     padding = '5px'
   }
-  if (!children) {
+  if (!children || (icon && suffixIcon)) {
     paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
     paddingStyle = { paddingLeft: padding }
+  } else if (suffixIcon) {
+    paddingStyle = { paddingRight: padding }
   }
 
   let loadingSize = 24

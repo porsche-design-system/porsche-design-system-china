@@ -92,11 +92,7 @@ export const ButtonStoryBook2 = () => {
           >
             Default
           </Button>
-          <Button
-            type="text"
-            marginRight="40px"
-            suffixIcon={IconArrowHeadDown}
-          >
+          <Button type="text" marginRight="40px" suffixIcon={IconArrowHeadDown}>
             Text
           </Button>
         </div>
@@ -105,7 +101,6 @@ export const ButtonStoryBook2 = () => {
           <Dropdown overlay={defaultMenu} trigger="click">
             <Button
               type="default"
-              marginRight="40px"
               icon={IconUpload}
               suffixIcon={IconArrowHeadDown}
             >
