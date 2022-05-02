@@ -2,6 +2,12 @@
   .select-story_button {
     margin-top: 30px;
   }
+
+  .pui-form-item {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
 }
 
 .leg {
