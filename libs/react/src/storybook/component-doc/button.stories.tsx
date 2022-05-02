@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { IconArrowHeadRight } from '@pui/icons'
+import { IconArrowHeadDown, IconArrowHeadRight, IconUpload } from '@pui/icons'
 
-import { Button, Tabs, TabPane } from '../..'
+import { Button, Tabs, TabPane, Menu, Dropdown } from '../..'
 import './button.stories.scss'
 
 export default {
@@ -30,23 +30,84 @@ ButtonStoryBook.storyName = 'Button'
 
 export const ButtonStoryBook2 = () => {
   const Tab1 = () => {
+    const defaultMenu = (
+      <Menu>
+        <Menu.Item
+          index="upload1"
+          onClick={() => {
+            console.log('PVMS订单号导入')
+          }}
+        >
+          PVMS订单号导入
+        </Menu.Item>
+        <Menu.Item
+          index="upload2"
+          onClick={() => {
+            console.log('Excel导入')
+          }}
+        >
+          Excel导入
+        </Menu.Item>
+      </Menu>
+    )
     return (
       <>
-        <Button type="primary" marginRight="40px" icon={IconArrowHeadRight}>
-          Primary
-        </Button>
-        <Button type="secondary" marginRight="40px" icon={IconArrowHeadRight}>
-          Secondary
-        </Button>
-        <Button type="default" marginRight="40px" icon={IconArrowHeadRight}>
-          Default
-        </Button>
-        <Button type="text" marginRight="40px" icon={IconArrowHeadRight}>
-          Text
-        </Button>
-        <Button type="link" marginRight="40px">
-          Link
-        </Button>
+        <div>
+          <Button type="primary" marginRight="40px" icon={IconArrowHeadRight}>
+            Primary
+          </Button>
+          <Button type="secondary" marginRight="40px" icon={IconArrowHeadRight}>
+            Secondary
+          </Button>
+          <Button type="default" marginRight="40px" icon={IconArrowHeadRight}>
+            Default
+          </Button>
+          <Button type="text" marginRight="40px" icon={IconArrowHeadRight}>
+            Text
+          </Button>
+          <Button type="link" marginRight="40px">
+            Link
+          </Button>
+        </div>
+        <br />
+        <div>
+          <Button
+            type="primary"
+            marginRight="40px"
+            suffixIcon={IconArrowHeadDown}
+          >
+            Primary
+          </Button>
+          <Button
+            type="secondary"
+            marginRight="40px"
+            suffixIcon={IconArrowHeadDown}
+          >
+            Secondary
+          </Button>
+          <Button
+            type="default"
+            marginRight="40px"
+            suffixIcon={IconArrowHeadDown}
+          >
+            Default
+          </Button>
+          <Button type="text" marginRight="40px" suffixIcon={IconArrowHeadDown}>
+            Text
+          </Button>
+        </div>
+        <br />
+        <div style={{ width: '200px' }}>
+          <Dropdown overlay={defaultMenu} trigger="click">
+            <Button
+              type="default"
+              icon={IconUpload}
+              suffixIcon={IconArrowHeadDown}
+            >
+              导入
+            </Button>
+          </Dropdown>
+        </div>
       </>
     )
   }

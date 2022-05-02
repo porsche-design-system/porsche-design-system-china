@@ -1,4 +1,4 @@
-@import '../../styles/theme/index';
+@import "../../styles/theme/index";
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -12,7 +12,8 @@
       box-sizing: border-box;
       overflow: hidden;
 
-      &-icon {
+      &-icon,
+      &-suffix-icon {
         pointer-events: none;
         width: 24px;
         height: 24px;
@@ -29,6 +30,9 @@
 
       &-icon-content {
         margin-right: 4px;
+      }
+      &-suffix-icon-content {
+        margin-left: 4px;
       }
 
       /* type */
@@ -56,7 +60,8 @@
           border: 1px solid $brand-color-disable;
           background-color: transparent;
           cursor: not-allowed;
-          .pui-button-icon {
+          .pui-button-icon,
+          .pui-button-suffix-icon {
             opacity: 0.5;
           }
         }
@@ -124,7 +129,8 @@
           color: $brand-color-disable;
           background-color: transparent;
           cursor: not-allowed;
-          .pui-button-icon {
+          .pui-button-icon,
+          .pui-button-suffix-icon {
             opacity: 0.5;
           }
         }
@@ -149,7 +155,8 @@
         &-disabled {
           color: $brand-color-disable;
           cursor: not-allowed;
-          .pui-button-icon {
+          .pui-button-icon,
+          .pui-button-suffix-icon {
             opacity: 0.5;
           }
         }
@@ -165,8 +172,7 @@
       }
 
       &-loading-circle {
-        animation: pui-button-loading-rotate 1s linear infinite,
-          pui-button-loading-length-change 3s linear infinite;
+        animation: pui-button-loading-rotate 1s linear infinite, pui-button-loading-length-change 3s linear infinite;
       }
 
       &-loading-circle2 {
@@ -206,7 +212,8 @@
         .porscheicon {
           font-size: 20px;
         }
-        .pui-button-icon {
+        .pui-button-icon,
+        .pui-button-suffix-icon {
           width: 20px;
           height: 20px;
           margin-top: 1px;
@@ -214,6 +221,9 @@
 
         .pui-button-icon-content {
           margin-right: 2px;
+        }
+        .pui-button-suffix-icon-content {
+          margin-left: 2px;
         }
 
         .pui-button-loading-circle,
@@ -234,7 +244,8 @@
         .porscheicon {
           font-size: 16px;
         }
-        .pui-button-icon {
+        .pui-button-icon,
+        .pui-button-suffix-icon {
           width: 16px;
           height: 16px;
           margin-top: 1px;
@@ -242,6 +253,10 @@
 
         .pui-button-icon-content {
           margin-right: 2px;
+        }
+
+        .pui-button-suffix-icon-content {
+          margin-left: 2px;
         }
 
         .pui-button-loading-circle,
