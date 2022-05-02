@@ -12,11 +12,9 @@ export const SelectStoryBook = () => {
   return (
     <div style={{ width: '300px' }}>
       <Select
-        options="狗:dog,猫,猫,狮子,老虎,鲸鱼"
+        options="狗:dog,猫,狮子,老虎,鲸鱼"
         label="动物"
         placeholder="请选择"
-        width="200px"
-        onValueChange={() => {}}
       />
       <div>禁用状态</div>
       <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
@@ -33,7 +31,6 @@ export const SelectStoryBook1 = () => {
         options={[10, 12, 33]}
         label="数字"
         placeholder="请选择"
-        width="200px"
         onValueChange={val => {
           console.log(typeof val)
         }}
@@ -51,7 +48,6 @@ export const SelectStoryBook11 = () => {
         options="狗:dog,猫,狮子,老虎,鲸鱼"
         label="动物"
         placeholder="请选择"
-        width="200px"
       />
     </div>
   )
@@ -81,7 +77,6 @@ export const SelectStoryBook12 = () => {
           }
         ]}
         placeholder="请选择"
-        width="200px"
       />
     </div>
   )
@@ -113,7 +108,6 @@ export const SelectStoryBook13 = () => {
           }
         ]}
         placeholder="请选择"
-        width="200px"
       />
     </div>
   )
@@ -144,7 +138,7 @@ SelectStoryBook2.storyName = 'Error'
 
 export const SelectStoryBook3 = () => {
   return (
-    <div style={{ width: '200px' }}>
+    <div style={{ width: '300px' }}>
       <div>显示过滤输入框</div>
       <Select
         options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger,动物"
@@ -167,7 +161,6 @@ export const SelectStoryBook4 = () => {
           options="狗:dog,猫,狮子,老虎,鲸鱼"
           label="动物"
           placeholder="请选择"
-          width="200px"
           showClearButton
         />
       </div>
@@ -205,7 +198,6 @@ export const SelectStoryBook5 = () => {
           options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
           label="动物"
           placeholder="请选择"
-          width="200px"
           onMenuVisibleChange={setIsOpen}
         />
       </div>
@@ -299,3 +291,36 @@ export const SelectStoryBook9 = () => {
 }
 
 SelectStoryBook9.storyName = 'Loading State'
+
+export const SelectStoryBook10 = () => {
+  return (
+    <>
+      <div>定义option选项展示哪些字段以及分隔符: </div>
+      <br />
+      <div style={{ width: '300px' }} className="select-story">
+        <Select
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          label="text:value"
+          placeholder="请选择"
+          display={['text', 'value']}
+        />
+        <Select
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          label="isSameDisplay=false"
+          placeholder="请选择"
+          display={['text', 'value']}
+          isSameDisplay={false}
+        />
+        <Select
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          label="value-text"
+          placeholder="请选择"
+          display={['value', 'text']}
+          separator="-"
+        />
+      </div>
+    </>
+  )
+}
+
+SelectStoryBook10.storyName = 'Customize Option'
