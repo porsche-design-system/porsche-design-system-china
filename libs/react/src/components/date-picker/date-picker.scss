@@ -178,6 +178,11 @@
             display: none;
           }
         }
+        &:not(.pui-date-picker-filter-mode-true) {
+          .pui-date-picker-box:disabled {
+            color: $text-opacity-color-2;
+          }
+        }
       }
 
       &-size-small {

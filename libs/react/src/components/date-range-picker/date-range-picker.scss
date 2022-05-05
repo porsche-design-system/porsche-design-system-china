@@ -107,6 +107,11 @@
             display: none;
           }
         }
+        &:not(.pui-date-range-picker-filter-mode-true) {
+          .pui-date-range-picker-box:disabled {
+            color: $text-opacity-color-2;
+          }
+        }
       }
 
       button:disabled {

@@ -1,5 +1,5 @@
-import React from 'react'
-import { DatePicker } from '../..'
+import React, { useState } from 'react'
+import { DatePicker, Form } from '../..'
 
 export default {
   title: 'Data Entry/DatePicker',
@@ -7,25 +7,34 @@ export default {
 }
 
 export const DatePickerStoryBook = () => {
+  const [val, setVal] = useState<string>('2020-01-01')
   return (
     <div>
-      <DatePicker
-        width="300px"
-        label="来访日期"
-        placeholder="请选择"
-        onValueChange={v => {
-          console.log(v)
-        }}
-      />
-      <br />
-      <br />
-      <div>禁用状态</div>
-      <DatePicker
-        width="300px"
-        label="来访日期"
-        placeholder="请选择"
-        disabled
-      />
+      <Form>
+        <DatePicker
+          width="300px"
+          label="来访日期"
+          placeholder="请选择"
+          value={val}
+          onValueChange={v => {
+            console.log(v)
+            setVal(v)
+          }}
+        />
+        <br />
+        <div>禁用状态</div>
+        <DatePicker
+          width="300px"
+          label="来访日期"
+          placeholder="请选择"
+          value={val}
+          onValueChange={v => {
+            console.log(v)
+            setVal(v)
+          }}
+          disabled
+        />
+      </Form>
     </div>
   )
 }
@@ -101,16 +110,33 @@ export const DatePickerStoryBook3 = () => {
 DatePickerStoryBook3.storyName = 'Limited Time'
 
 export const DatePickerStoryBook4 = () => {
+  const [val, setVal] = useState<string>('2020-01-01')
   return (
     <div>
       <div>过滤器模式</div>
-      <DatePicker
-        width="600px"
-        label="来访日期"
-        placeholder="请选择"
-        filterMode
-      />
-      <br /> <br /> <br />
+      <Form>
+        <DatePicker
+          value={val}
+          width="600px"
+          label="来访日期"
+          placeholder="请选择"
+          filterMode
+          showClearButton
+          onValueChange={setVal}
+        />
+        <br />
+        <div>禁用状态</div>
+        <DatePicker
+          value={val}
+          width="600px"
+          label="来访日期"
+          placeholder="请选择"
+          filterMode
+          showClearButton
+          onValueChange={setVal}
+          disabled
+        />
+      </Form>
     </div>
   )
 }

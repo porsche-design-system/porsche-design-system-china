@@ -171,6 +171,11 @@
             display: none;
           }
         }
+        &:not(.pui-multi-select-filter-mode-true) {
+          .pui-multi-select-input:disabled {
+            color: $text-opacity-color-2;
+          }
+        }
       }
 
       &-no-data {

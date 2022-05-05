@@ -22,9 +22,12 @@ export const SelectStoryBook = () => {
         <br />
         <div>禁用状态</div>
         <MultiSelect
+          value={val}
           options="狗:dog,猫,狮子,老虎,鲸鱼"
           label="动物"
           placeholder="请选择"
+          onValueChange={setVal}
+          width="200px"
           disabled
         />
       </Form>
@@ -103,18 +106,35 @@ export const SelectStoryBook4 = () => {
 SelectStoryBook4.storyName = 'Show Clear Button'
 
 export const SelectStoryBook5 = () => {
+  const [val, setVal] = useState<any>(['老虎'])
   return (
     <div style={{ width: '300px' }}>
       <Form>
         <div>filterMode</div>
         <MultiSelect
+          value={val}
           options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
           filterInput
           filterMode
           showClearButton
           label="动物"
           maxWidth="300px"
+          onValueChange={setVal}
           optionsStyle={{ minWidth: '200px' }}
+        />
+        <br />
+        <div>禁用状态</div>
+        <MultiSelect
+          value={val}
+          options="狗,猫,狮子,老虎,鲸鱼,牛,鸡,长颈鹿,Wolf,Deer,Tiger"
+          filterInput
+          filterMode
+          showClearButton
+          label="动物"
+          maxWidth="300px"
+          onValueChange={setVal}
+          optionsStyle={{ minWidth: '200px' }}
+          disabled
         />
       </Form>
     </div>
