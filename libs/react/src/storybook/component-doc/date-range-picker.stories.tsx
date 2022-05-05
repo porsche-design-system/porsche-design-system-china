@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DateRangePicker } from '../..'
+import { DateRangePicker, Form } from '../..'
 
 export default {
   title: 'Data Entry/DateRangePicker',
@@ -7,18 +7,38 @@ export default {
 }
 
 export const DateRangePickerStoryBook = () => {
+  const [val, setVal] = useState<string[]>(['2020-01-01', '2020-01-02'])
   return (
     <div>
-      <DateRangePicker
-        width="400px"
-        label="来访日期"
-        showClearButton
-        placeholderStartDate="请选择开始日期"
-        placeholderEndDate="请选择结束日期"
-        onValueChange={v => {
-          console.log(v)
-        }}
-      />
+      <Form>
+        <DateRangePicker
+          value={val}
+          width="330px"
+          label="来访日期"
+          showClearButton
+          placeholderStartDate="请选择开始日期"
+          placeholderEndDate="请选择结束日期"
+          onValueChange={v => {
+            console.log(v)
+            setVal(v)
+          }}
+        />
+        <br />
+        <div>禁用状态</div>
+        <DateRangePicker
+          width="330px"
+          label="来访日期"
+          value={val}
+          showClearButton
+          placeholderStartDate="请选择开始日期"
+          placeholderEndDate="请选择结束日期"
+          onValueChange={v => {
+            console.log(v)
+            setVal(v)
+          }}
+          disabled
+        />
+      </Form>
     </div>
   )
 }
@@ -87,15 +107,32 @@ export const DateRangePickerStoryBook2 = () => {
 DateRangePickerStoryBook2.storyName = 'Limited Date'
 
 export const DateRangePickerStoryBook3 = () => {
+  const [val, setVal] = useState<string[]>(['2020-01-01', '2020-01-02'])
   return (
     <div>
-      <DateRangePicker
-        label="保修时间"
-        showClearButton
-        placeholderStartDate="开始日期"
-        placeholderEndDate="结束日期"
-        filterMode
-      />
+      <Form>
+        <DateRangePicker
+          value={val}
+          label="保修时间"
+          showClearButton
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          filterMode
+          onValueChange={setVal}
+        />
+        <br />
+        <div>禁用状态</div>
+        <DateRangePicker
+          value={val}
+          label="保修时间"
+          showClearButton
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          filterMode
+          onValueChange={setVal}
+          disabled
+        />
+      </Form>
     </div>
   )
 }

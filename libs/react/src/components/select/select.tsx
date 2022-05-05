@@ -333,7 +333,8 @@ Select = FormItem(
               (showClearButton &&
                 newKeepClearButton &&
                 !disabled &&
-                !!displayText) + ''
+                !!displayText) + '',
+            'filter-mode': filterMode + ''
           },
           className
         )}

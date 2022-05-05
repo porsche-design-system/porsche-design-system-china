@@ -9,15 +9,26 @@ export default {
 }
 
 export const SelectStoryBook = () => {
+  const [val, setVal] = useState<string>('老虎')
   return (
     <div style={{ width: '300px' }}>
-      <Select
-        options="狗:dog,猫,狮子,老虎,鲸鱼"
-        label="动物"
-        placeholder="请选择"
-      />
-      <div>禁用状态</div>
-      <Select options="狗,猫,狮子,老虎,鲸鱼" disabled />
+      <Form>
+        <Select
+          value={val}
+          options="狗:dog,猫,狮子,老虎,鲸鱼"
+          label="动物"
+          onValueChange={setVal}
+          placeholder="请选择"
+        />
+        <br />
+        <div>禁用状态</div>
+        <Select
+          value={val}
+          options="狗,猫,狮子,老虎,鲸鱼"
+          onValueChange={setVal}
+          disabled
+        />
+      </Form>
     </div>
   )
 }
@@ -208,18 +219,36 @@ export const SelectStoryBook5 = () => {
 SelectStoryBook5.storyName = 'Menu Control'
 
 export const SelectStoryBook6 = () => {
+  const [val, setVal] = useState<string>('老虎')
   return (
     <div style={{ width: '300px' }}>
       <div>过滤器模式</div>
       <div className="select-story">
-        <Select
-          options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
-          label="动物-宽度自动"
-          filterMode
-          filterInput
-          showClearButton
-          optionsStyle={{ minWidth: '100px' }}
-        />
+        <Form>
+          <Select
+            value={val}
+            options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
+            label="动物-宽度自动"
+            filterMode
+            filterInput
+            showClearButton
+            onValueChange={setVal}
+            optionsStyle={{ minWidth: '100px' }}
+          />
+          <br />
+          <div>禁用状态</div>
+          <Select
+            value={val}
+            options="狗:dog,猫,狮子,老虎,鲸鱼,非常长非常长非常长非常长非常长非常长非常长非常长动物"
+            label="动物-宽度自动"
+            filterMode
+            filterInput
+            showClearButton
+            disabled
+            onValueChange={setVal}
+            optionsStyle={{ minWidth: '100px' }}
+          />
+        </Form>
       </div>
     </div>
   )

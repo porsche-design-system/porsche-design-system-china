@@ -213,6 +213,11 @@
             display: none;
           }
         }
+        &:not(.pui-select-filter-mode-true) {
+          .pui-select-input:disabled {
+            color: $text-opacity-color-2;
+          }
+        }
       }
 
       &-size-small {
