@@ -538,7 +538,8 @@ const DateRangePicker = FormItem(
             size,
             highlight:
               ((displayValues[0] !== '' || displayValues[1] !== '') &&
-                filterMode) + ''
+                filterMode) + '',
+            'filter-mode': filterMode + ''
           },
           className
         )}

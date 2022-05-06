@@ -299,7 +299,8 @@ const DatePicker = FormItem(
             size,
             'show-clear-button': (showClearButton && !!displayValue) + '',
             'keep-clear-button':
-              (showClearButton && newKeepClearButton && !!displayValue) + ''
+              (showClearButton && newKeepClearButton && !!displayValue) + '',
+            'filter-mode': filterMode + ''
           },
           className
         )}
