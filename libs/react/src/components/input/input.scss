@@ -59,6 +59,9 @@
         cursor: not-allowed;
         opacity: 1;
         color: $text-opacity-color-2;
+        & + .pui-input-suffix-icon {
+          color: $text-opacity-color-2;
+        }
       }
 
       &-error-true {

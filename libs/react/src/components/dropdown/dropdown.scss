@@ -29,18 +29,28 @@
             cursor: inherit;
             margin: 0;
             padding: 0;
+            border-bottom: 1px solid $border-color-2;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            &:last-child {
+              border-bottom: none;
+              padding-bottom: 0px;
+              margin-bottom: 0px;
+            }
             &:hover {
               background-color: transparent;
               color: inherit;
             }
             .group-title {
               display: inline-block;
-              font-weight: 600;
               padding: 12px;
+              padding-bottom: 4px;
+              font-size: 14px;
+              color: $border-color-3;
+              font-weight: 400;
             }
             .group-menu {
               .group-menu-item {
-                padding-left: 24px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -62,7 +72,7 @@
 
             .porscheicon {
               margin-right: 8px;
-              font-size: 20px;
+              font-size: 24px;
             }
             a {
               display: inline-block;
@@ -71,7 +81,7 @@
             }
           }
           &:hover {
-            // font-weight: 600;
+            font-weight: 600;
             background-color: $container-bg-opacity-color-2;
           }
           &.is-active {
@@ -110,7 +120,6 @@
               }
               &:hover {
                 color: $text-color-1;
-                font-weight: 400;
                 .porscheicon-icon_-arrow_head_down {
                   transform: rotate(-90deg);
                 }
@@ -142,13 +151,16 @@
             &.item-group {
               height: inherit;
               line-height: inherit;
+              .group-title {
+                font-size: 12px;
+              }
             }
             .porscheicon-icon_-arrow_head_down {
               font-size: 20px;
             }
             .porscheicon {
               margin-right: 4px;
-              font-size: 18px;
+              font-size: 20px;
             }
           }
         }
