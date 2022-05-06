@@ -1,6 +1,6 @@
 stages:
   - Build
-  - Publish
+  # - Publish
   - Package
   # - Test
   - Deployment
@@ -65,33 +65,33 @@ build:
 #     - sonar-scanner
 #     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
 
-npm_publish:
-  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
-  stage: Publish
-  # when: manual
-  only:
-    refs:
-      - develop #TODO
-      # - master
-      # - merge_requests
-  dependencies:
-    # - build
-  variables:
-    NPM_REGISTRY: '$NPM_REGISTRY'
-    NPM_REGISTRY_ACCOUNT: '$NPM_REGISTRY_ACCOUNT'
-    NPM_REGISTRY_PWD: '$NPM_REGISTRY_PWD'
-    NPM_REGISTRY_EMAIL: '$NPM_REGISTRY_EMAIL'
-  script:
-    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./package.json
-    - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
-    - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
-    - npm run bootstrap
-    - lerna exec --scope @pui/react -- npm run build-all
-    - ls -al ./libs/react/lib
-    - ls -al ./libs/react/es
-    - lerna exec --scope @pui/react -- npm run vrelease
-  tags:
-    - common-runner
+# npm_publish:
+#   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
+#   stage: Publish
+#   # when: manual
+#   only:
+#     refs:
+#       - develop #TODO
+#       # - master
+#       # - merge_requests
+#   dependencies:
+#     # - build
+#   variables:
+#     NPM_REGISTRY: '$NPM_REGISTRY'
+#     NPM_REGISTRY_ACCOUNT: '$NPM_REGISTRY_ACCOUNT'
+#     NPM_REGISTRY_PWD: '$NPM_REGISTRY_PWD'
+#     NPM_REGISTRY_EMAIL: '$NPM_REGISTRY_EMAIL'
+#   script:
+#     - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./package.json
+#     - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
+#     - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
+#     - npm run bootstrap
+#     - lerna exec --scope @pui/react -- npm run build-all
+#     - ls -al ./libs/react/lib
+#     - ls -al ./libs/react/es
+#     - lerna exec --scope @pui/react -- npm run vrelease
+#   tags:
+#     - common-runner
 
 buid_image:
   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
