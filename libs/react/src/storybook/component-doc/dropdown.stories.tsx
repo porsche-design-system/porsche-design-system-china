@@ -9,7 +9,7 @@ import {
   IconQq,
   IconWechat
 } from '@pui/icons'
-import { Dropdown, Menu, Button, Tabs, TabPane } from '../..'
+import { Dropdown, Menu, Button, Tabs, TabPane, Form } from '../..'
 
 import './dropdown.stories.scss'
 
@@ -132,16 +132,18 @@ const subMenu = (
 )
 
 const Tab1 = () => (
-  <div className="dropdown-demo">
-    <div style={{ marginRight: '36px' }}>
+  <Form>
+    <br />
+    <Dropdown overlay={defaultMenu} trigger="click">
+      <Button type="primary">嵌套按钮</Button>
+    </Dropdown>
+    <br />
+    <div>
       <Dropdown overlay={defaultMenu} trigger="click">
-        无图样式
+        无图标样式
       </Dropdown>
     </div>
-    <Dropdown overlay={defaultMenu} trigger="click">
-      <Button type="primary">无图样式</Button>
-    </Dropdown>
-  </div>
+  </Form>
 )
 const Tab2 = () => (
   <Dropdown overlay={iconMenu} trigger="click">
@@ -158,15 +160,17 @@ export const DropdownStoryBook = () => {
   return (
     <div>
       <Tabs hasLine>
-        <TabPane tabKey="IconText" title="Default Dropdown">
-          <Tab1 />
+        <TabPane tabKey="IconText" title="Default + Dropdown">
+          <div className="dropdown-demo">
+            <Tab1 />
+          </div>
         </TabPane>
-        <TabPane tabKey="Icon" title="Icon Dropdown">
+        <TabPane tabKey="Icon" title="Icon + Dropdown">
           <div className="dropdown-demo">
             <Tab2 />
           </div>
         </TabPane>
-        <TabPane tabKey="Text" title="SubMenu Dropdown">
+        <TabPane tabKey="Text" title="SubMenu + Dropdown">
           <div className="dropdown-demo">
             <Tab3 />
           </div>
