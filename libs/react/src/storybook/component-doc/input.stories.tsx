@@ -25,7 +25,7 @@ export const InputsStoryBook = () => {
         <br />
         <div className="states">Disabled</div>
         <div>
-          <Input placeholder="请输入" disabled />
+          <Input placeholder="请输入" disabled suffixIcon={IconCheck} />
         </div>
         <br />
       </Col>

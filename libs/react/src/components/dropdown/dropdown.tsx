@@ -11,7 +11,9 @@ import { MenuProps } from '../menu/types'
 import {
   PADDING_SIZE,
   SUB_MENU_WIDTH,
-  SUB_MENU_SMALL_WIDTH
+  SUB_MENU_SMALL_WIDTH,
+  MARGIN_LEFT,
+  MARGIN_TOP
 } from '../menu/const'
 import './dropdown.scss'
 
@@ -138,7 +140,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
         className={dropdownClasses}
         style={{
           position: 'absolute',
-          marginTop: `${clientHeight + 4}px`,
+          marginTop: `${clientHeight + MARGIN_TOP}px`,
           display: showDropdown ? '' : 'none',
           ...dropdownPosition,
           ...overlayStyle
