@@ -84,13 +84,18 @@ const Tooltip = ({
   const [contentPosition, setContentPosition] = useState<
     { top: number; left: number } | undefined
   >()
-  const [arrowPosition, setArrowPosition] =
-    useState<{ top?: number; bottom?: number; left?: number; right?: number }>()
+  const [arrowPosition, setArrowPosition] = useState<{
+    top?: number
+    bottom?: number
+    left?: number
+    right?: number
+  }>()
   const [isResized, setIsResized] = useState(false)
   const [targetDom, setTargetDom] = useState(null)
   const [arrowPlacementCls, setArrowPlacementCls] = useState('')
   const originRef = useRef(null)
   const boxRef = useRef(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
   // eslint-disable-next-line prefer-const
   let [firstChild, ...restChildren] = React.Children.toArray(children)
   // 计算提示框位置
@@ -320,18 +325,16 @@ const Tooltip = ({
     }
   }, [showContent, isResized, isMountedContent])
   useEffect(() => {
-    if (isMountedContent) {
+    if (isMountedContent && targetDom) {
       calcTooltipPosition(boxRef.current, targetDom, originRef.current)
       calcArrowPosition(boxRef.current)
       if (typeof visible !== 'boolean') {
-        if (trigger === 'hover') {
-          setVisibleContent(true)
-        } else if (trigger === 'click') {
+        if (trigger === 'click') {
           setShowContent(true)
         }
       }
     }
-  }, [isMountedContent])
+  }, [isMountedContent, targetDom])
   useEffect(() => {
     if (boxRef.current) {
       calcTooltipPosition(boxRef.current, targetDom, originRef.current)
@@ -347,7 +350,9 @@ const Tooltip = ({
           style={{
             ...contentPosition,
             visibility:
-              visibleContent || showContent || visible ? 'visible' : 'hidden'
+              (visibleContent || showContent || visible) && contentPosition
+                ? 'visible'
+                : 'hidden'
           }}
         >
           <div
@@ -377,23 +382,33 @@ const Tooltip = ({
       ;(firstChild as any).props.onMouseEnter &&
         (firstChild as any).props.onMouseEnter(evt)
     }
-    if (isMountedContent) {
-      if (typeof visible === 'boolean') return
-      if (isResized) {
-        calcTooltipPosition(
-          boxRef.current,
-          evt.currentTarget,
-          originRef.current
-        )
-        setIsResized(false)
-      }
-      setVisibleContent(true)
-    } else {
-      setTargetDom(evt.currentTarget)
-      setIsMountedContent(true)
-    }
+    timerRef.current = setTimeout(
+      (currentTarget => () => {
+        if (typeof visible !== 'boolean') {
+          setVisibleContent(true)
+        }
+        if (isMountedContent) {
+          if (isResized) {
+            calcTooltipPosition(
+              boxRef.current,
+              currentTarget,
+              originRef.current
+            )
+            setIsResized(false)
+          }
+        } else {
+          setTargetDom(currentTarget)
+          setIsMountedContent(true)
+        }
+      })(evt.currentTarget),
+      100
+    )
   }
   const onMouseLeave = (evt: any) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = undefined
+    }
     if (typeof firstChild !== 'string') {
       ;(firstChild as any).props.onMouseLeave &&
         (firstChild as any).props.onMouseLeave(evt)
