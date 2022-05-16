@@ -12,7 +12,6 @@ import {
   PADDING_SIZE,
   SUB_MENU_WIDTH,
   SUB_MENU_SMALL_WIDTH,
-  MARGIN_LEFT,
   MARGIN_TOP
 } from '../menu/const'
 import './dropdown.scss'
