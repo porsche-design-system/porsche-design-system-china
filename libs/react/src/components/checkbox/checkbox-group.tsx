@@ -121,7 +121,7 @@ const CheckBoxGroup = FormItem(
       })
       checkBoxValues.current = filteredValues
       return newChildren
-    }, [onValueChange, value])
+    }, [onValueChange, value, options])
 
     useEffect(() => {
       if (
