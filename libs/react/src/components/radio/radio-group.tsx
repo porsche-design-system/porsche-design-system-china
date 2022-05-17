@@ -128,7 +128,7 @@ const RadioGroup = FormItem(
       }
 
       return newChildren
-    }, [onValueChange, value, radioValue])
+    }, [onValueChange, value, radioValue, options])
 
     useEffect(() => {
       if (radioValue !== value) {
