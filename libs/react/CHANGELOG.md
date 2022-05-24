@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.19](https://gitlab.porsche-preview.cn///compare/v0.1.18...v0.1.19) (2022-05-24)
+
+
+### Bug Fixes
+
+* 修正 RadioGroup 与 CheckBoxGroup options改变不刷新bug ([f5b4a91](https://gitlab.porsche-preview.cn///commit/f5b4a91b93230d9299252a502d142e20224132f2))
+
 ### [0.1.18](https://gitlab.porsche-preview.cn///compare/v0.1.15...v0.1.18) (2022-05-16)
 
 
