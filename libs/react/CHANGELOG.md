@@ -4,66 +4,63 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.19](https://gitlab.porsche-preview.cn///compare/v0.1.18...v0.1.19) (2022-05-24)
 
-
 ### Bug Fixes
 
-* 修正 RadioGroup 与 CheckBoxGroup options改变不刷新bug ([f5b4a91](https://gitlab.porsche-preview.cn///commit/f5b4a91b93230d9299252a502d142e20224132f2))
+- breadcrumb 修复面包屑在 small 尺寸下的 icon 大小
+
+- 修正 RadioGroup 与 CheckBoxGroup options 改变不刷新 bug ([f5b4a91](https://gitlab.porsche-preview.cn///commit/f5b4a91b93230d9299252a502d142e20224132f2))
 
 ### [0.1.18](https://gitlab.porsche-preview.cn///compare/v0.1.15...v0.1.18) (2022-05-16)
 
-
 ### Features
 
-* DSCWCN-114 | 【调整】Dropdown，包括新增S号 ([c308214](https://gitlab.porsche-preview.cn///commit/c308214611b362a4f470ad79de7efb9f6a2f6246))
-* 调整 dropdown 组件文档样式 ([17cc400](https://gitlab.porsche-preview.cn///commit/17cc400ef7be7537dabf553e65037c11df1ef5ca))
-* **input, textarea:** DSCWCN-59: add the feature of default hide maxLength dom ([3ad2fb7](https://gitlab.porsche-preview.cn///commit/3ad2fb7ac5a9651b75713faf5d34748ed6e22a0a))
-
+- DSCWCN-114 | 【调整】Dropdown，包括新增 S 号 ([c308214](https://gitlab.porsche-preview.cn///commit/c308214611b362a4f470ad79de7efb9f6a2f6246))
+- 调整 dropdown 组件文档样式 ([17cc400](https://gitlab.porsche-preview.cn///commit/17cc400ef7be7537dabf553e65037c11df1ef5ca))
+- **input, textarea:** DSCWCN-59: add the feature of default hide maxLength dom ([3ad2fb7](https://gitlab.porsche-preview.cn///commit/3ad2fb7ac5a9651b75713faf5d34748ed6e22a0a))
 
 ### Bug Fixes
 
-* breadcrumb 为storybook示例补充缺失的icon ([8570e53](https://gitlab.porsche-preview.cn///commit/8570e53869ee7dd5f661c38834b03e32c3600d11))
-* Dropdown / Inpunt icon 禁用状态样式修复 ([937cc96](https://gitlab.porsche-preview.cn///commit/937cc96848c0c6785b872c6c7e936931e567cb9e))
-* DSCWCN-107|UI走查｜【调整】单选（包含Filter） ([b899724](https://gitlab.porsche-preview.cn///commit/b899724d21e7313a419d435211ca1763ab845a60))
-* DSCWCN-121|【修复】Select / DatePicker 的Disabled状态样式实现和设计不符 ([475dbb1](https://gitlab.porsche-preview.cn///commit/475dbb162efd2dc8da2247a3086470eaec0ca518))
-* format 代码格式 ([8383b10](https://gitlab.porsche-preview.cn///commit/8383b1065e62837e9f71bdf5771954c2905353db))
-* InputNumber组件获取初始值类型优化；DRSCN-16906,Tooltip组件提示气泡框展示逻辑优化 ([3567c40](https://gitlab.porsche-preview.cn///commit/3567c406a66818c49b98bae8df002362b1449a9b))
-* remove冗余css定义 ([e1cf095](https://gitlab.porsche-preview.cn///commit/e1cf09596900836fdb86480b00c933ef0b6cab05))
-* remove冗余标签 ([6e33808](https://gitlab.porsche-preview.cn///commit/6e33808a2312cb6cb54581763082b5980403591c))
-* 优化分页属性名 ([3d54c44](https://gitlab.porsche-preview.cn///commit/3d54c44d93c68527c03fa0299564528ff59928a0))
-* 修正multi-select 选定bug @Kevin verified ([aa9fe11](https://gitlab.porsche-preview.cn///commit/aa9fe11f2bec7af26674013240348d8b976a459d))
-* 全屏Modal关闭按钮颜色 ([7449239](https://gitlab.porsche-preview.cn///commit/744923941001e966bb5fc0876ab9d172fca035ab))
-* 分页storybook排版调整 ([3aedeff](https://gitlab.porsche-preview.cn///commit/3aedeff33f734d12db114e6d183faf04fc2b6958))
-* 分页组件storybook排版调整 ([301396e](https://gitlab.porsche-preview.cn///commit/301396e17f06387bb934da5f9834b60affce881b))
-* 分页选择框大小调整 ([7b2f1f0](https://gitlab.porsche-preview.cn///commit/7b2f1f01986808b5d71431ccd251b128ea467811))
-* 样式调整 ([c0214b1](https://gitlab.porsche-preview.cn///commit/c0214b1e75ae51d54e9113c1eac308d79d103941))
-* **react/textarea:** case issue ([187d6b2](https://gitlab.porsche-preview.cn///commit/187d6b286014e972a5510f119752494fbd712554))
-* **storybook:** dom selecting error ([b5ba464](https://gitlab.porsche-preview.cn///commit/b5ba464d01d1478d48464f3969be3e112600e9c5))
+- breadcrumb 为 storybook 示例补充缺失的 icon ([8570e53](https://gitlab.porsche-preview.cn///commit/8570e53869ee7dd5f661c38834b03e32c3600d11))
+- Dropdown / Inpunt icon 禁用状态样式修复 ([937cc96](https://gitlab.porsche-preview.cn///commit/937cc96848c0c6785b872c6c7e936931e567cb9e))
+- DSCWCN-107|UI 走查｜【调整】单选（包含 Filter） ([b899724](https://gitlab.porsche-preview.cn///commit/b899724d21e7313a419d435211ca1763ab845a60))
+- DSCWCN-121|【修复】Select / DatePicker 的 Disabled 状态样式实现和设计不符 ([475dbb1](https://gitlab.porsche-preview.cn///commit/475dbb162efd2dc8da2247a3086470eaec0ca518))
+- format 代码格式 ([8383b10](https://gitlab.porsche-preview.cn///commit/8383b1065e62837e9f71bdf5771954c2905353db))
+- InputNumber 组件获取初始值类型优化；DRSCN-16906,Tooltip 组件提示气泡框展示逻辑优化 ([3567c40](https://gitlab.porsche-preview.cn///commit/3567c406a66818c49b98bae8df002362b1449a9b))
+- remove 冗余 css 定义 ([e1cf095](https://gitlab.porsche-preview.cn///commit/e1cf09596900836fdb86480b00c933ef0b6cab05))
+- remove 冗余标签 ([6e33808](https://gitlab.porsche-preview.cn///commit/6e33808a2312cb6cb54581763082b5980403591c))
+- 优化分页属性名 ([3d54c44](https://gitlab.porsche-preview.cn///commit/3d54c44d93c68527c03fa0299564528ff59928a0))
+- 修正 multi-select 选定 bug @Kevin verified ([aa9fe11](https://gitlab.porsche-preview.cn///commit/aa9fe11f2bec7af26674013240348d8b976a459d))
+- 全屏 Modal 关闭按钮颜色 ([7449239](https://gitlab.porsche-preview.cn///commit/744923941001e966bb5fc0876ab9d172fca035ab))
+- 分页 storybook 排版调整 ([3aedeff](https://gitlab.porsche-preview.cn///commit/3aedeff33f734d12db114e6d183faf04fc2b6958))
+- 分页组件 storybook 排版调整 ([301396e](https://gitlab.porsche-preview.cn///commit/301396e17f06387bb934da5f9834b60affce881b))
+- 分页选择框大小调整 ([7b2f1f0](https://gitlab.porsche-preview.cn///commit/7b2f1f01986808b5d71431ccd251b128ea467811))
+- 样式调整 ([c0214b1](https://gitlab.porsche-preview.cn///commit/c0214b1e75ae51d54e9113c1eac308d79d103941))
+- **react/textarea:** case issue ([187d6b2](https://gitlab.porsche-preview.cn///commit/187d6b286014e972a5510f119752494fbd712554))
+- **storybook:** dom selecting error ([b5ba464](https://gitlab.porsche-preview.cn///commit/b5ba464d01d1478d48464f3969be3e112600e9c5))
 
 ### [0.1.17](https://gitlab.porsche-preview.cn///compare/v0.1.15...v0.1.17) (2022-04-22)
 
-
 ### Features
 
-* DSCWCN-114 | 【调整】Dropdown，包括新增S号 ([c308214](https://gitlab.porsche-preview.cn///commit/c308214611b362a4f470ad79de7efb9f6a2f6246))
-* 调整 dropdown 组件文档样式 ([17cc400](https://gitlab.porsche-preview.cn///commit/17cc400ef7be7537dabf553e65037c11df1ef5ca))
-* **input, textarea:** DSCWCN-59: add the feature of default hide maxLength dom ([3ad2fb7](https://gitlab.porsche-preview.cn///commit/3ad2fb7ac5a9651b75713faf5d34748ed6e22a0a))
-
+- DSCWCN-114 | 【调整】Dropdown，包括新增 S 号 ([c308214](https://gitlab.porsche-preview.cn///commit/c308214611b362a4f470ad79de7efb9f6a2f6246))
+- 调整 dropdown 组件文档样式 ([17cc400](https://gitlab.porsche-preview.cn///commit/17cc400ef7be7537dabf553e65037c11df1ef5ca))
+- **input, textarea:** DSCWCN-59: add the feature of default hide maxLength dom ([3ad2fb7](https://gitlab.porsche-preview.cn///commit/3ad2fb7ac5a9651b75713faf5d34748ed6e22a0a))
 
 ### Bug Fixes
 
-* breadcrumb 为storybook示例补充缺失的icon ([8570e53](https://gitlab.porsche-preview.cn///commit/8570e53869ee7dd5f661c38834b03e32c3600d11))
-* DSCWCN-107|UI走查｜【调整】单选（包含Filter） ([b899724](https://gitlab.porsche-preview.cn///commit/b899724d21e7313a419d435211ca1763ab845a60))
-* format 代码格式 ([8383b10](https://gitlab.porsche-preview.cn///commit/8383b1065e62837e9f71bdf5771954c2905353db))
-* remove冗余css定义 ([e1cf095](https://gitlab.porsche-preview.cn///commit/e1cf09596900836fdb86480b00c933ef0b6cab05))
-* remove冗余标签 ([6e33808](https://gitlab.porsche-preview.cn///commit/6e33808a2312cb6cb54581763082b5980403591c))
-* 优化分页属性名 ([3d54c44](https://gitlab.porsche-preview.cn///commit/3d54c44d93c68527c03fa0299564528ff59928a0))
-* 修正multi-select 选定bug @Kevin verified ([aa9fe11](https://gitlab.porsche-preview.cn///commit/aa9fe11f2bec7af26674013240348d8b976a459d))
-* 全屏Modal关闭按钮颜色 ([7449239](https://gitlab.porsche-preview.cn///commit/744923941001e966bb5fc0876ab9d172fca035ab))
-* 分页选择框大小调整 ([7b2f1f0](https://gitlab.porsche-preview.cn///commit/7b2f1f01986808b5d71431ccd251b128ea467811))
-* **react/textarea:** case issue ([187d6b2](https://gitlab.porsche-preview.cn///commit/187d6b286014e972a5510f119752494fbd712554))
-* **storybook:** dom selecting error ([b5ba464](https://gitlab.porsche-preview.cn///commit/b5ba464d01d1478d48464f3969be3e112600e9c5))
-* 分页storybook排版调整 ([3aedeff](https://gitlab.porsche-preview.cn///commit/3aedeff33f734d12db114e6d183faf04fc2b6958))
-* 分页组件storybook排版调整 ([301396e](https://gitlab.porsche-preview.cn///commit/301396e17f06387bb934da5f9834b60affce881b))
+- breadcrumb 为 storybook 示例补充缺失的 icon ([8570e53](https://gitlab.porsche-preview.cn///commit/8570e53869ee7dd5f661c38834b03e32c3600d11))
+- DSCWCN-107|UI 走查｜【调整】单选（包含 Filter） ([b899724](https://gitlab.porsche-preview.cn///commit/b899724d21e7313a419d435211ca1763ab845a60))
+- format 代码格式 ([8383b10](https://gitlab.porsche-preview.cn///commit/8383b1065e62837e9f71bdf5771954c2905353db))
+- remove 冗余 css 定义 ([e1cf095](https://gitlab.porsche-preview.cn///commit/e1cf09596900836fdb86480b00c933ef0b6cab05))
+- remove 冗余标签 ([6e33808](https://gitlab.porsche-preview.cn///commit/6e33808a2312cb6cb54581763082b5980403591c))
+- 优化分页属性名 ([3d54c44](https://gitlab.porsche-preview.cn///commit/3d54c44d93c68527c03fa0299564528ff59928a0))
+- 修正 multi-select 选定 bug @Kevin verified ([aa9fe11](https://gitlab.porsche-preview.cn///commit/aa9fe11f2bec7af26674013240348d8b976a459d))
+- 全屏 Modal 关闭按钮颜色 ([7449239](https://gitlab.porsche-preview.cn///commit/744923941001e966bb5fc0876ab9d172fca035ab))
+- 分页选择框大小调整 ([7b2f1f0](https://gitlab.porsche-preview.cn///commit/7b2f1f01986808b5d71431ccd251b128ea467811))
+- **react/textarea:** case issue ([187d6b2](https://gitlab.porsche-preview.cn///commit/187d6b286014e972a5510f119752494fbd712554))
+- **storybook:** dom selecting error ([b5ba464](https://gitlab.porsche-preview.cn///commit/b5ba464d01d1478d48464f3969be3e112600e9c5))
+- 分页 storybook 排版调整 ([3aedeff](https://gitlab.porsche-preview.cn///commit/3aedeff33f734d12db114e6d183faf04fc2b6958))
+- 分页组件 storybook 排版调整 ([301396e](https://gitlab.porsche-preview.cn///commit/301396e17f06387bb934da5f9834b60affce881b))
 
 ### [0.1.15](https://gitlab.porsche-preview.cn///compare/v0.1.14...v0.1.15) (2022-03-28)
 
