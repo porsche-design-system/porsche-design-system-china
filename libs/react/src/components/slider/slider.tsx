@@ -56,8 +56,9 @@ const Slider = ({
   const [isHover, setIsHover] = useState(range ? [false, false] : false)
   // 是否在拖动滑块中
   const [isDrag, setIsDrag] = useState(range ? [false, false] : false)
-  const [tooltipContent, setTooltipContent] =
-    useState<ReactNode>(initialTipContent)
+  const [tooltipContent, setTooltipContent] = useState<ReactNode>(
+    initialTipContent
+  )
   const railRef = useRef<HTMLDivElement>(null)
   const handleRef = range
     ? [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
@@ -65,81 +66,87 @@ const Slider = ({
   // 根据value计算left
   const calcLeft = (value: number | Array<number>) => {
     if (railRef.current) {
-      let validVal
       let left
       const railWidth = railRef.current.clientWidth
       if (range) {
-        validVal = (value as Array<number>).map(val =>
-          val < min ? min : val > max ? max : val
+        left = (value as Array<number>).map(
+          item => ((item - min) / (max - min)) * railWidth
         )
-        left = validVal.map(item => (item / (max - min)) * railWidth)
       } else {
-        validVal = value < min ? min : value > max ? max : value
-        left = ((validVal as number) / (max - min)) * railWidth
+        left = (((value as number) - min) / (max - min)) * railWidth
       }
-      const currentTooltipContent = tipFormatter
-        ? tipFormatter(validVal as number)
-        : validVal
+      const currentTooltipContent = tipFormatter ? tipFormatter(value) : value
       setTooltipContent(currentTooltipContent)
       setLeft(left)
-      setCurrentValue(validVal)
+      setCurrentValue(value)
     }
   }
+  // 限定值的范围 min ～ max 之间
+  const limitValue = (value: number | Array<number>) => {
+    let newValue
+    if (range) {
+      newValue = (value as Array<number>).map(val =>
+        val < min ? min : val > max ? max : val
+      )
+    } else {
+      newValue = value < min ? min : value > max ? max : value
+    }
+    return newValue
+  }
   useEffect(() => {
-    calcLeft(initialValue)
+    calcLeft(limitValue(initialValue))
   }, [])
   useEffect(() => {
-    if (value) {
-      calcLeft(value)
+    if (value !== undefined) {
+      calcLeft(limitValue(value))
     }
     if (!isShowHandle) setIsShowHandle(true)
   }, [value])
-  useEffect(() => {
-    onValueChange && onValueChange(currentValue)
-  }, [currentValue])
 
-  const handleMouseMoveWrap =
-    (
-      pageX: number,
-      stepPx: number,
-      originVal: number | Array<number>,
-      index?: number
-    ) =>
-    (evt: MouseEvent) => {
-      let nextCurrentValue = initialValue
-      if (step) {
-        const stepCount = Math.round((evt.pageX - pageX) / stepPx)
-        if (range) {
-          nextCurrentValue = [...(originVal as Array<number>)]
-          nextCurrentValue[index as number] =
-            originVal[index as number] + stepCount * step
-        } else {
-          nextCurrentValue = (originVal as number) + stepCount * step
-        }
-      } else if (marks) {
-        const closeCurrentValue =
-          ((evt.pageX - pageX) /
-            (railRef.current as HTMLDivElement).clientWidth) *
-            (max - min) +
-          (range ? originVal[index as number] : originVal)
-        marks.forEach((mark, index) => {
-          if (index === 0) {
-            nextCurrentValue = mark.value
-          } else if (
-            Math.abs(mark.value - closeCurrentValue) <
-            Math.abs((nextCurrentValue as number) - closeCurrentValue)
-          ) {
-            nextCurrentValue = mark.value
-          }
-        })
-        if (range) {
-          const temp = nextCurrentValue
-          nextCurrentValue = [...(originVal as Array<number>)]
-          nextCurrentValue[index as number] = temp as number
-        }
+  const handleMouseMoveWrap = (
+    pageX: number,
+    stepPx: number,
+    originVal: number | Array<number>,
+    index?: number
+  ) => (evt: MouseEvent) => {
+    let nextCurrentValue = initialValue
+    if (step) {
+      const stepCount = Math.round((evt.pageX - pageX) / stepPx)
+      if (range) {
+        nextCurrentValue = [...(originVal as Array<number>)]
+        nextCurrentValue[index as number] =
+          originVal[index as number] + stepCount * step
+      } else {
+        nextCurrentValue = (originVal as number) + stepCount * step
       }
-      calcLeft(nextCurrentValue)
+    } else if (marks) {
+      const closeCurrentValue =
+        ((evt.pageX - pageX) /
+          (railRef.current as HTMLDivElement).clientWidth) *
+          (max - min) +
+        (range ? originVal[index as number] : originVal)
+      marks.forEach((mark, index) => {
+        if (index === 0) {
+          nextCurrentValue = mark.value
+        } else if (
+          Math.abs(mark.value - closeCurrentValue) <
+          Math.abs((nextCurrentValue as number) - closeCurrentValue)
+        ) {
+          nextCurrentValue = mark.value
+        }
+      })
+      if (range) {
+        const temp = nextCurrentValue
+        nextCurrentValue = [...(originVal as Array<number>)]
+        nextCurrentValue[index as number] = temp as number
+      }
     }
+    const validValue = limitValue(nextCurrentValue)
+    if (value === undefined) {
+      calcLeft(validValue)
+    }
+    onValueChange && onValueChange(validValue)
+  }
   const handleMouseDown: (
     currentValue: number | Array<number>,
     index?: number
@@ -188,13 +195,16 @@ const Slider = ({
             (evt.pageX -
               (railRef.current.getBoundingClientRect().left + window.scrollX)) /
               stepPx
-          ) * step
+          ) *
+            step +
+          min
       } else if (marks) {
         const closeCurrentValue =
           ((evt.pageX -
             (railRef.current.getBoundingClientRect().left + window.scrollX)) /
             railRef.current.clientWidth) *
-          (max - min)
+            (max - min) +
+          min
         marks.forEach((mark, index) => {
           if (index === 0) {
             nextCurrentValue = mark.value
@@ -216,7 +226,10 @@ const Slider = ({
           nextCurrentValue = [currentValue[0], nextCurrentValue]
         }
       }
-      calcLeft(nextCurrentValue)
+      if (value === undefined) {
+        calcLeft(nextCurrentValue)
+      }
+      onValueChange && onValueChange(nextCurrentValue)
     }
   }
   // 点击滑块回调
@@ -224,23 +237,27 @@ const Slider = ({
     evt.stopPropagation()
   }
   // 点击刻度回调
-  const handleMarkClick: (markValue: number) => React.MouseEventHandler =
-    markValue => evt => {
-      if (disabled) return
-      evt.stopPropagation()
-      let nextCurrentValue: number | Array<number> = markValue
-      if (range) {
-        if (
-          Math.abs(currentValue[0] - nextCurrentValue) <
-          Math.abs(currentValue[1] - nextCurrentValue)
-        ) {
-          nextCurrentValue = [nextCurrentValue, currentValue[1]]
-        } else {
-          nextCurrentValue = [currentValue[0], nextCurrentValue]
-        }
+  const handleMarkClick: (
+    markValue: number
+  ) => React.MouseEventHandler = markValue => evt => {
+    if (disabled) return
+    evt.stopPropagation()
+    let nextCurrentValue: number | Array<number> = markValue
+    if (range) {
+      if (
+        Math.abs(currentValue[0] - nextCurrentValue) <
+        Math.abs(currentValue[1] - nextCurrentValue)
+      ) {
+        nextCurrentValue = [nextCurrentValue, currentValue[1]]
+      } else {
+        nextCurrentValue = [currentValue[0], nextCurrentValue]
       }
+    }
+    if (value === undefined) {
       calcLeft(nextCurrentValue)
     }
+    onValueChange && onValueChange(nextCurrentValue)
+  }
   const trackWidth = range ? Math.abs(left[1] - left[0]) : (left as number)
   const trackLeft = range ? (left[1] < left[0] ? left[1] : left[0]) : 0
   return (
@@ -311,7 +328,7 @@ const Slider = ({
               <span
                 key={mark.value}
                 className={`${prefixCls}-dot`}
-                style={{ left: (mark.value / (max - min)) * 100 + '%' }}
+                style={{ left: ((mark.value - min) / (max - min)) * 100 + '%' }}
                 onClick={handleMarkClick(mark.value)}
               >
                 <span
