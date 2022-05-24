@@ -422,9 +422,8 @@ const Tooltip = ({
       ;(firstChild as any).props.onClick &&
         (firstChild as any).props.onClick(evt)
     }
-    if (typeof visible === 'boolean') return
     if (isMountedContent) {
-      if (isResized && !showContent) {
+      if (isResized) {
         calcTooltipPosition(
           boxRef.current,
           evt.currentTarget,
@@ -432,6 +431,7 @@ const Tooltip = ({
         )
         setIsResized(false)
       }
+      if (typeof visible === 'boolean') return
       setShowContent(!showContent)
     } else {
       setTargetDom(evt.currentTarget)
