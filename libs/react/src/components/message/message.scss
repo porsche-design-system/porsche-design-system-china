@@ -1,119 +1,141 @@
 @import '../../styles/theme/index';
 
 @each $theme in $themes {
-  .pui-theme-#{$theme} {
-    @include theme($theme);
+	.pui-theme-#{$theme} {
+		@include theme($theme);
 
-    .pui-message {
-      pointer-events: none;
-      &.open-animate {
-        animation: openAnimate 0.2s ease-in;
-      }
-      &.close-animate {
-        animation: closeAnimate 0.2s ease-in;
-      }
-      .message-text {
-        pointer-events: all;
-        user-select: none;
-        display: inline-flex;
-        align-items: center;
-        line-height: 40px;
-        padding: 10px 16px;
-        color: $text-color-1;
-        font-size: 16px;
-        margin: 10px;
+		.pui-message {
+			pointer-events: none;
 
-        .porscheicon {
-          font-size: 28px;
-          &.porscheicon-icon_-close {
-            color: $text-color-1 !important;
-          }
-        }
+			&.open-animate {
+				animation: openAnimate 0.2s ease-in;
+			}
 
-        .text-content {
-          margin-right: 20px;
-          margin-left: 10px;
-        }
-        &.error {
-          background: $status-bg-error-color;
-          border: 1px solid rgba(224, 0, 0, 0.4);
-          .porscheicon {
-            color: $status-error-color;
-          }
-        }
+			&.close-animate {
+				animation: closeAnimate 0.2s ease-in;
+			}
 
-        &.success {
-          background: $status-bg-success-color;
-          border: 1px solid rgba(1, 186, 29, 0.3);
-          .porscheicon {
-            color: $status-success-color;
-          }
-        }
+			.message-text {
+				pointer-events: all;
+				user-select: none;
+				display: inline-flex;
+				align-items: center;
+				line-height: 24px;
+				padding: 24px 16px;
+				color: $text-color-1;
+				font-size: 16px;
+				margin: 10px;
 
-        &.warning {
-          background: $status-bg-warning-color;
-          border: 1px solid rgba(255, 155, 0, 0.6);
-          .porscheicon {
-            color: $status-warning-color;
-          }
-        }
+				.porscheicon {
+					font-size: 24px;
 
-        &.info {
-          background: $status-bg-neutral-color;
-          border: 1px solid rgba(0, 97, 189, 0.6);
-          .porscheicon {
-            color: $status-neutral-color;
-          }
-        }
-      }
-    }
-  }
+					&.porscheicon-icon_-close {
+						color: $text-color-1 !important;
+					}
+				}
+
+				.text-content {
+					margin-right: 20px;
+					margin-left: 10px;
+				}
+
+				&.error {
+					background: $status-bg-error-color;
+					border: 1px solid rgba(224, 0, 0, 0.4);
+
+					.porscheicon {
+						color: $status-error-color;
+					}
+				}
+
+				&.success {
+					background: $status-bg-success-color;
+					border: 1px solid rgba(1, 186, 29, 0.3);
+
+					.porscheicon {
+						color: $status-success-color;
+					}
+				}
+
+				&.warning {
+					background: $status-bg-warning-color;
+					border: 1px solid rgba(255, 155, 0, 0.6);
+
+					.porscheicon {
+						color: $status-warning-color;
+					}
+				}
+
+				&.info {
+					background: $status-bg-neutral-color;
+					border: 1px solid rgba(0, 97, 189, 0.6);
+
+					.porscheicon {
+						color: $status-neutral-color;
+					}
+				}
+			}
+
+			.message-text-size-small {
+				font-size: 14px;
+				line-height: 22px;
+				padding: 19px 16px;
+
+				.porscheicon {
+					font-size: 20px;
+				}
+			}
+		}
+	}
 }
 
 .pui-theme-dark {
-  .pui-message {
-    .message-text {
-      &.error {
-        border: 1px solid rgba(252, 23, 23, 0.3);
-      }
+	.pui-message {
+		.message-text {
+			&.error {
+				border: 1px solid rgba(252, 23, 23, 0.3);
+			}
 
-      &.success {
-        border: 1px solid rgba(1, 186, 29, 0.3);
-      }
+			&.success {
+				border: 1px solid rgba(1, 186, 29, 0.3);
+			}
 
-      &.warning {
-        border: 1px solid rgba(255, 155, 0, 0.3);
-      }
+			&.warning {
+				border: 1px solid rgba(255, 155, 0, 0.3);
+			}
 
-      &.info {
-        border: 1px solid rgba(33, 147, 255, 0.3);
-      }
-    }
-  }
+			&.info {
+				border: 1px solid rgba(33, 147, 255, 0.3);
+			}
+		}
+	}
 }
 
 @keyframes openAnimate {
-  0% {
-    opacity: 0;
-    margin-top: -30px;
-  }
-  50% {
-    opacity: 0.1;
-    margin-top: -15px;
-  }
-  100% {
-    opacity: 1;
-    margin-top: 0;
-  }
+	0% {
+		opacity: 0;
+		margin-top: -30px;
+	}
+
+	50% {
+		opacity: 0.1;
+		margin-top: -15px;
+	}
+
+	100% {
+		opacity: 1;
+		margin-top: 0;
+	}
 }
 
 @keyframes closeAnimate {
-  0% {
-    opacity: 1;
-    margin-top: 0;
-  }
-  100% {
-    opacity: 0;
-    margin-top: -30px;
-  }
+	0% {
+		opacity: 1;
+		margin-top: 0;
+	}
+
+	100% {
+		opacity: 0;
+		margin-top: -30px;
+	}
 }

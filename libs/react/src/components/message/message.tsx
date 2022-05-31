@@ -14,6 +14,7 @@ import {
   IconErrorFilled
 } from '@pui/icons'
 import './message.scss'
+import { useDefaultSize } from '../../shared/hooks'
 
 export type MessageType = 'info' | 'success' | 'error' | 'warning'
 
@@ -38,6 +39,9 @@ export interface MessageConfig {
 
   /** 最多显示多少个 */
   maxCount: number
+
+  /** 大小 */
+  size?: 'small' | 'medium'
 }
 
 const defaultConfig: MessageConfig = {
@@ -46,7 +50,8 @@ const defaultConfig: MessageConfig = {
   closable: false,
   background: '',
   color: '',
-  maxCount: 5
+  maxCount: 5,
+  size: undefined
 }
 
 let wrap: HTMLElement
@@ -116,6 +121,8 @@ export type MessageProps = {
 export function MessageBox(props: MessageProps) {
   const { rootDom, parentDom, content, fconfig, iconType } = props
   const [close, setClose] = useState(false)
+  const [defaultSize] = useDefaultSize()
+  fconfig.size = defaultSize
 
   const unmount = useMemo(() => {
     return () => {
@@ -169,14 +176,19 @@ export function MessageBox(props: MessageProps) {
 
   return (
     <div className={`pui-message  ${close ? 'close' : 'open'}-animate`}>
-      <span className={`message-text ${iconType}`}>
+      <span
+        className={`message-text ${iconType} message-text-size-${fconfig.size}`}
+      >
         {props.iconType === 'info' && <IconInformationFilled />}
         {props.iconType === 'success' && <IconCorrectFilled />}
         {props.iconType === 'warning' && <IconWarningFilled />}
         {props.iconType === 'error' && <IconErrorFilled />}
         <span className="text-content">{content}</span>
         {fconfig.closable && (
-          <IconClose style={{ fontSize: '24px' }} onClick={handleClose} />
+          <IconClose
+            style={{ fontSize: fconfig.size === 'medium' ? '24px' : '20px' }}
+            onClick={handleClose}
+          />
         )}
       </span>
     </div>
