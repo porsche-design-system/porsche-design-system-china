@@ -6,7 +6,7 @@ stages:
   - Deployment
   #- Trigger
 build:
-  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
+  image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:finder-node14
   stage: Build
   only:
     refs:
@@ -16,7 +16,7 @@ build:
       - release
       # - merge_requests
   tags:
-    - common-runner
+    - pdc-share-runner
   allow_failure: false
   cache:
     paths:
@@ -94,10 +94,10 @@ build:
 #     - common-runner
 
 buid_image:
-  image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
+  image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
   stage: Package
   services:
-    - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
+    - name: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
       alias: docker
       entrypoint: ['env', '-u', 'DOCKER_HOST']
       command: ['dockerd-entrypoint.sh']
@@ -128,7 +128,7 @@ buid_image:
     - docker push $AWS_ECR_REPO:react-$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
     - echo "-----------E:Build image and pushed------------"
   tags:
-    - common-runner
+    - pdc-share-runner
 
 # buid_image_prod:
 #   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
