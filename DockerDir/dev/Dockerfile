@@ -7,7 +7,7 @@ RUN pwd
 RUN ls
 ADD ./libs/react/storybook-static/ /usr/src/app/
 RUN ls -la ${APP_DIR}
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./DockerDir/dev/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Define default command.
 CMD ["nginx", "-g", "daemon off;"]
