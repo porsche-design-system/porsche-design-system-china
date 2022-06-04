@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [{ name: '@storybook/addon-docs', options: { configureJSX: true } }],
-  webpackFinal: (config: any) => {
+  webpackFinal: config => {
     config.module.rules.push(
       {
         test: /\.(scss|sass)$/,
