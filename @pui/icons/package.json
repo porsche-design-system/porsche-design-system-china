@@ -20,10 +20,12 @@
     "generate": "./scripts/cleanup.sh && cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "pipeline-generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "npm run entry && pui-tools build --watch",
-    "build": "npm run eslint && pui-tools build",
+    "build": "pui-tools build",
     "vinstall": "npm install --registry http://s1.web.porsche-preview.cn/repository/npm-group/",
     "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006 --docs",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
@@ -78,9 +80,5 @@
     "classnames": "^2.2.6",
     "insert-css": "^2.0.0",
     "lodash.camelcase": "^4.3.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.porsche-preview.cn:porsche-digital-china/web/pui.git"
   }
 }
