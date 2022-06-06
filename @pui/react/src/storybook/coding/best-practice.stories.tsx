@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable  react/no-danger */
 import React from 'react'
+import '../..'
 
 import './doc.scss'
 

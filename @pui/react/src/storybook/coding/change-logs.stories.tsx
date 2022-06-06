@@ -1,11 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
+import '../..'
 import './doc.scss'
 import './change-logs.scss'
 // @ts-ignore
 import changeLog from '../../../CHANGELOG.md'
 // @ts-ignore
-const MarkdownIt = require('markdown-it')
+import MarkdownIt from 'markdown-it'
 
 const md = new MarkdownIt()
 

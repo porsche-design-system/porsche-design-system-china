@@ -1,10 +1,20 @@
-.release-time{
-    font-size: 14px;
+.release-time {
+  font-size: 14px;
 }
 
-.custom-doc ul{
-    list-style-type:disc;
-    margin-left:20px;
-    font-size: 14px;
-    color:#777;
+.custom-doc ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.custom-doc li {
+  line-height: 30px;
+}
+
+.custom-doc h3 a {
+  font-size: 20px;
+  margin-right: 10px;
 }

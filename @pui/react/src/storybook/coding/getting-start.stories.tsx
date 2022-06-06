@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
+import '../..'
 import './doc.scss'
 
 const GettingStart = () => (
