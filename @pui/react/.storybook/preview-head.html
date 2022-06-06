@@ -262,10 +262,18 @@
     }
   }
 
-  setTimeout(() => {
-    PUI.setDefaultSize('small')
-    updateButtonTheme()
-  }, 500)
+  function init() {
+    setTimeout(() => {
+      if (window.PUI) {
+        PUI.setDefaultSize('small')
+        updateButtonTheme()
+      } else {
+        init()
+      }
+    }, 500)
+  }
+
+  init()
 
   function updateParentTheme(className) {
     window.parent.document.body.className = className
