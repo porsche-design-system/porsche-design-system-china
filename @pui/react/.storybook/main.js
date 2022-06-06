@@ -20,5 +20,9 @@ module.exports = {
     })
 
     return config
-  }
+  },
+  env: config => ({
+    ...config,
+    NODE_ENV: 'production'
+  })
 }
