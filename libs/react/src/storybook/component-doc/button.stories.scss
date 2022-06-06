@@ -38,3 +38,16 @@
 .pui-theme-dark .radio-group {
   border-bottom: 1px solid #666;
 }
+
+.afterAddon{
+  position: relative;
+  &::before{
+    position: absolute;
+    content:'';
+    width:0.5px;
+    height:60%;
+    top:20%;
+    background-color: white;
+    z-index:1;
+  }
+}
