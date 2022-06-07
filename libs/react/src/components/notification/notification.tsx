@@ -16,6 +16,8 @@ import {
   IconArrowHeadRight
 } from '@pui/icons'
 import { Button } from '..'
+import { componentClassNames } from '../../shared/class-util'
+import { useDefaultSize } from '../../shared/hooks'
 import './notification.scss'
 
 export interface NotificationConfigProps {
@@ -48,6 +50,9 @@ export interface NotificationConfigProps {
 
   /** 显示取消按钮 */
   showCancel?: boolean
+
+  /** 大小 */
+  size?: 'medium' | 'small'
 
   /** 取消按钮文字 */
   cancelText?: string
@@ -141,6 +146,8 @@ export type NotificationProps = {
 
 export function NotificationBox(props: NotificationProps) {
   const { rootDom, parentDom, fconfig } = props
+  const [defaultSize] = useDefaultSize()
+  const size = fconfig.size || defaultSize
   const [close, setClose] = useState(false)
   const placementCss = {
     topLeft: { top: '16px', left: '16px' },
@@ -200,7 +207,7 @@ export function NotificationBox(props: NotificationProps) {
   }, [fconfig, unmount])
 
   return (
-    <div className="pui-notification">
+    <div className={componentClassNames('pui-notification', { size })}>
       <div
         className={`notification-text ${fconfig.type}  ${
           close ? 'close' : 'open'
@@ -216,7 +223,10 @@ export function NotificationBox(props: NotificationProps) {
             <span className="text-content">{fconfig.message}</span>
           </div>
           {fconfig.closable && (
-            <IconClose style={{ fontSize: '24px' }} onClick={handleClose} />
+            <IconClose
+              style={{ fontSize: size === 'small' ? '20px' : '24px' }}
+              onClick={handleClose}
+            />
           )}
         </div>
         <div className="notification-content">{fconfig.description}</div>
@@ -234,6 +244,7 @@ export function NotificationBox(props: NotificationProps) {
                   )
                 }
                 marginRight="20px"
+                size={size}
               >
                 {fconfig.cancelText}
               </Button>
@@ -250,6 +261,7 @@ export function NotificationBox(props: NotificationProps) {
                   )
                 }
                 onClick={() => fconfig.onOk && fconfig.onOk()}
+                size={size}
               >
                 {fconfig.okText}
               </Button>
