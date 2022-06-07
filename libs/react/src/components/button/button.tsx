@@ -155,7 +155,7 @@ const Button = ({
         </span>
       )}
       <span className="pui-button-content">{children}</span>
-      {suffixIcon && !loading && (
+      {suffixIcon && (
         <span
           className={classNames(
             'pui-button-suffix-icon',
