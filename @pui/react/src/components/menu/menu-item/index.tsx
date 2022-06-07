@@ -4,7 +4,7 @@ import { IconCheck } from '@pui/icons'
 import { MenuContext } from '../index'
 import { MenuItemProps } from '../types'
 
-const MenuItem: React.FC<MenuItemProps> = ({
+const MenuItem = ({
   index,
   disabled,
   className,
@@ -15,7 +15,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   selectAfter,
   onClick,
   visible = true
-}) => {
+}: MenuItemProps) => {
   const context = useContext(MenuContext)
   const classes = classNames(className, {
     'is-disabled': disabled,
