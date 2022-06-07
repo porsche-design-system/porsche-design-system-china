@@ -105,7 +105,7 @@ export interface MultiSelectProps<T> {
 // 必须骗下storybook，让它能显示属性列表
 // eslint-disable-next-line import/no-mutable-exports
 let MultiSelect = <T,>(props: MultiSelectProps<T> & FormItemProps) => {
-  return <div>{props}</div>
+  return <div>{JSON.stringify(props)}</div>
 }
 
 MultiSelect = FormItem(

@@ -14,6 +14,8 @@ import React, {
   ReactElement
 } from 'react'
 import ReactDOM from 'react-dom'
+import { renderNode } from '../../shared/render-utils'
+
 import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
@@ -299,7 +301,7 @@ Modal.alert = (
   }
 
   let currentPop: any = null
-  ReactDOM.render(
+  renderNode(
     <Modal
       title={title}
       okText={okText}
@@ -359,7 +361,7 @@ Modal.confirm = (
   }
 
   let currentPop: any = null
-  ReactDOM.render(
+  renderNode(
     <Modal
       title={title}
       okText={okText}
@@ -521,7 +523,7 @@ Modal.show = ({
   }
 
   let currentPop: any = null
-  ReactDOM.render(
+  renderNode(
     <Modal
       style={style}
       className={className}

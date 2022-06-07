@@ -31,7 +31,7 @@
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
   "license": "ISC",
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@rgrove/parse-xml": "^2.0.4",

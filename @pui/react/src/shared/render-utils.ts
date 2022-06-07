@@ -1,23 +1,27 @@
 import React from 'react'
-import ReactDOM, { unmountComponentAtNode } from 'react-dom'
+import { unmountComponentAtNode } from 'react-dom'
 
 const IsReact18 = React.version.split('.')[0] === '18'
 
 const renderRootMap = {}
-export const renderNode = (node: any, container: ReactDOM.Container) => {
+export const renderNode = (node: any, container: any) => {
   if (IsReact18) {
-    const react18Renderer = 'react-dom/client'
     if (!(container as any).id) {
       ;(container as any).id =
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
-    import(react18Renderer).then(({ createRoot }) => {
-      const root = createRoot(container)
-      root.render(node)
-      renderRootMap[(container as any).id] = root
-    })
+    // @ts-ignore
+    import('react-dom/client')
+      .then(module => {
+        const root = module.default.createRoot(container)
+        root.render(node)
+        renderRootMap[(container as any).id] = root
+      })
+      .catch(e => {
+        console.log(e)
+      })
   } else {
-    ReactDOM.render(node, container)
+    renderNode(node, container)
   }
 }
 

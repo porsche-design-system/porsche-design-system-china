@@ -78,6 +78,9 @@ export interface SubMenuProps {
 
   /** 大小 */
   size?: 'medium' | 'small'
+
+  /** 子元素 */
+  children: ReactNode
 }
 
 export interface MenuItemProps {
@@ -129,4 +132,7 @@ export interface ItemGroupProps {
 
   /* 点击事件 */
   onClick?: MouseEventHandler
+
+  /* 子元素 */
+  children: ReactNode
 }
