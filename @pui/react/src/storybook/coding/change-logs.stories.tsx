@@ -4,9 +4,9 @@ import '../..'
 import './doc.scss'
 import './change-logs.scss'
 // @ts-ignore
-import changeLog from '../../../CHANGELOG.md'
-// @ts-ignore
 import MarkdownIt from 'markdown-it'
+// @ts-ignore
+import changeLog from '../../../CHANGELOG.md'
 
 const md = new MarkdownIt()
 

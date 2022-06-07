@@ -6,7 +6,6 @@ import React, {
   useCallback,
   ReactElement
 } from 'react'
-import ReactDom, { unmountComponentAtNode } from 'react-dom'
 import {
   IconInformationFilled,
   IconClose,
@@ -15,6 +14,7 @@ import {
   IconErrorFilled,
   IconArrowHeadRight
 } from '@pui/icons'
+import { renderNode, unmountNode } from '../../shared/render-utils'
 import { Button } from '..'
 import './notification.scss'
 
@@ -126,7 +126,7 @@ export const createNotification = () => {
 
     const div = document.createElement('div')
     wrap.appendChild(div)
-    ReactDom.render(
+    renderNode(
       <NotificationBox rootDom={wrap} parentDom={div} fconfig={fconfig} />,
       div
     )
@@ -152,7 +152,7 @@ export function NotificationBox(props: NotificationProps) {
   const unmount = useMemo(() => {
     return () => {
       if (parentDom && rootDom) {
-        unmountComponentAtNode(parentDom)
+        unmountNode(parentDom)
         rootDom.removeChild(parentDom)
       }
     }

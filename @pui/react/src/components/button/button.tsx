@@ -2,7 +2,7 @@ import React, { CSSProperties, ReactElement } from 'react'
 import { IconAdd } from '@pui/icons'
 import classNames from 'classnames'
 import { useDefaultSize } from '../../shared/hooks'
-import { componentClassNames, isReactElemet } from '../../shared/class-util'
+import { componentClassNames, isReactElement } from '../../shared/class-util'
 
 import './button.scss'
 
@@ -151,7 +151,7 @@ const Button = ({
             children ? 'pui-button-icon-content' : ''
           )}
         >
-          {isReactElemet(IconComponent) ? IconComponent : <IconComponent />}
+          {isReactElement(IconComponent) ? IconComponent : <IconComponent />}
         </span>
       )}
       <span className="pui-button-content">{children}</span>
@@ -162,7 +162,7 @@ const Button = ({
             children ? 'pui-button-suffix-icon-content' : ''
           )}
         >
-          {isReactElemet(SuffixIconComponent) ? (
+          {isReactElement(SuffixIconComponent) ? (
             SuffixIconComponent
           ) : (
             <SuffixIconComponent />

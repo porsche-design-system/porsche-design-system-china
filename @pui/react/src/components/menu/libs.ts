@@ -1,4 +1,4 @@
-export function findIndexs(data: any, active: string) {
+export function findIndexes(data: any, active: string) {
   const arrs: string[] = []
   const getNodeRoute = (data: any, active: string) => {
     for (let i = 0; i < data.length; i++) {

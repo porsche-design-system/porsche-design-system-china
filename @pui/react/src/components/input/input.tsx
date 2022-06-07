@@ -9,7 +9,7 @@ import React, {
   ReactElement
 } from 'react'
 import { IconAdd, IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
-import { componentClassNames, isReactElemet } from '../../shared/class-util'
+import { componentClassNames, isReactElement } from '../../shared/class-util'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
 import { useDefaultSize } from '../../shared/hooks'
@@ -221,7 +221,7 @@ const Input = FormItem(
         {type !== 'password' && suffixIcon ? (
           <span className="pui-input-suffix-icon" style={suffixStyle}>
             {' '}
-            {isReactElemet(SuffixComponent) ? (
+            {isReactElement(SuffixComponent) ? (
               SuffixComponent
             ) : (
               <SuffixComponent />

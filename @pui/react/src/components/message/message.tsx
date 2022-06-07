@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useCallback
 } from 'react'
-import ReactDom, { unmountComponentAtNode } from 'react-dom'
 import {
   IconInformationFilled,
   IconClose,
@@ -13,6 +12,7 @@ import {
   IconWarningFilled,
   IconErrorFilled
 } from '@pui/icons'
+import { renderNode, unmountNode } from '../../shared/render-utils'
 import './message.scss'
 import { useDefaultSize } from '../../shared/hooks'
 
@@ -97,7 +97,8 @@ export const createMessage = (type: MessageType) => {
         }
       }
     }
-    ReactDom.render(
+
+    renderNode(
       <MessageBox
         rootDom={wrap}
         parentDom={div}
@@ -127,7 +128,7 @@ export function MessageBox(props: MessageProps) {
   const unmount = useMemo(() => {
     return () => {
       if (parentDom && rootDom) {
-        unmountComponentAtNode(parentDom)
+        unmountNode(parentDom)
         rootDom.removeChild(parentDom)
       }
     }
