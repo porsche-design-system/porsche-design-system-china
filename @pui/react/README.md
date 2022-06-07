@@ -1,13 +1,7 @@
-## 安装 lerna（只需要做一次）
+ ## 安装依赖
 
 ```
-npm run intall
-```
-
-## 安装依赖
-
-```
-npm run bootstrap
+npm run install-all
 ```
 
 ## 本地开发
