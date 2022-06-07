@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  IconArrowHeadDown,
-  IconArrowHeadRight,
-  IconEdit,
-  IconUpload
-} from '@pui/icons'
+import { IconArrowHeadDown, IconArrowHeadRight, IconEdit } from '@pui/icons'
 
 import { Button, Tabs, TabPane, Menu, Dropdown } from '../..'
 import './button.stories.scss'
@@ -33,27 +28,164 @@ export const ButtonStoryBook = () => {
 
 ButtonStoryBook.storyName = 'Button'
 
+export interface SplitButtonProps {
+  size?: 'medium' | 'small' | 'tiny'
+  disabled?: boolean
+  loading?: boolean
+}
+
+const SplitButton = ({
+  size,
+  disabled = false,
+  loading = false
+}: SplitButtonProps) => {
+  const [index, setIndex] = React.useState('sign')
+  const defaultMenu = (
+    <Menu activeIndex={index} onSelect={setIndex}>
+      <Menu.Item
+        selectAfter
+        index="sign"
+        onClick={() => {
+          console.log('电子签署')
+        }}
+      >
+        电子签署
+      </Menu.Item>
+      <Menu.Item
+        selectAfter
+        index="item2"
+        onClick={() => {
+          console.log(' 2nd Item')
+        }}
+      >
+        2nd Item
+      </Menu.Item>
+      <Menu.Item
+        selectAfter
+        index="item3"
+        onClick={() => {
+          console.log(' 3nd Item')
+        }}
+      >
+        3rd Item
+      </Menu.Item>
+      <Menu.Item
+        selectAfter
+        index="item4"
+        onClick={() => {
+          console.log(' 4nd Item')
+        }}
+      >
+        4th Item
+      </Menu.Item>
+    </Menu>
+  )
+
+  return (
+    <>
+      <div style={{ display: 'flex', marginRight: '40px' }}>
+        <Button
+          type="primary"
+          icon={IconEdit}
+          disabled={disabled}
+          size={size}
+          loading={loading}
+        >
+          电子签署
+        </Button>
+
+        <div className="afterAddon">
+          <Dropdown
+            overlay={defaultMenu}
+            trigger="click"
+            disabled={disabled || loading}
+          >
+            <Button
+              type="primary"
+              icon={IconArrowHeadDown}
+              disabled={disabled || loading}
+              size={size}
+            />
+          </Dropdown>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export interface DropdownButtonProps {
+  size?: 'medium' | 'small' | 'tiny'
+  disabled?: boolean
+  loading?: boolean
+}
+
+const DropdownButton = ({
+  size,
+  disabled = false,
+  loading = false
+}: DropdownButtonProps) => {
+  const [index, setIndex] = React.useState('link1')
+  const defaultMenu = (
+    <Menu activeIndex={index} onSelect={setIndex}>
+      <Menu.Item
+        index="link1"
+        onClick={() => {
+          console.log('link 1')
+        }}
+      >
+        1st Link
+      </Menu.Item>
+      <Menu.Item
+        index="link2"
+        onClick={() => {
+          console.log(' link 2')
+        }}
+      >
+        2nd Link
+      </Menu.Item>
+      <Menu.Item
+        index="link3"
+        onClick={() => {
+          console.log('link 3')
+        }}
+      >
+        3rd Link
+      </Menu.Item>
+      <Menu.Item
+        index="link4"
+        onClick={() => {
+          console.log('link4')
+        }}
+      >
+        4th Link
+      </Menu.Item>
+    </Menu>
+  )
+
+  return (
+    <>
+      <div style={{ display: 'flex', marginRight: '40px' }}>
+        <Dropdown
+          overlay={defaultMenu}
+          trigger="click"
+          disabled={disabled || loading}
+        >
+          <Button
+            type="primary"
+            suffixIcon={IconArrowHeadDown}
+            disabled={disabled || loading}
+            size={size}
+            loading={loading}
+          >
+            更多
+          </Button>
+        </Dropdown>
+      </div>
+    </>
+  )
+}
+
 export const ButtonStoryBook2 = () => {
-  // const defaultMenu = (
-  //   <Menu>
-  //     <Menu.Item
-  //       index="upload1"
-  //       onClick={() => {
-  //         console.log('PVMS订单号导入')
-  //       }}
-  //     >
-  //       PVMS订单号导入
-  //     </Menu.Item>
-  //     <Menu.Item
-  //       index="upload2"
-  //       onClick={() => {
-  //         console.log('Excel导入')
-  //       }}
-  //     >
-  //       Excel导入
-  //     </Menu.Item>
-  //   </Menu>
-  // )
   const Tab1 = () => {
     return (
       <>
@@ -101,18 +233,6 @@ export const ButtonStoryBook2 = () => {
             Text
           </Button>
         </div>
-        {/* <br />
-        <div style={{ width: '200px' }}>
-          <Dropdown overlay={defaultMenu} trigger="click">
-            <Button
-              type="default"
-              icon={IconUpload}
-              suffixIcon={IconArrowHeadDown}
-            >
-              导入
-            </Button>
-          </Dropdown>
-        </div> */}
       </>
     )
   }
@@ -150,117 +270,6 @@ export const ButtonStoryBook2 = () => {
     )
   }
 
-  const Tab4 = () => {
-    const [index, setIndex] = React.useState('sign')
-    const defaultMenu = (
-      <Menu activeIndex={index} onSelect={setIndex}>
-        <Menu.Item
-          selectAfter
-          index="sign"
-          onClick={() => {
-            console.log('电子签署')
-          }}
-        >
-          电子签署
-        </Menu.Item>
-        <Menu.Item
-          selectAfter
-          index="item2"
-          onClick={() => {
-            console.log(' 2nd Item')
-          }}
-        >
-          2nd Item
-        </Menu.Item>
-        <Menu.Item
-          selectAfter
-          index="item3"
-          onClick={() => {
-            console.log(' 3nd Item')
-          }}
-        >
-          3rd Item
-        </Menu.Item>
-        <Menu.Item
-          selectAfter
-          index="item4"
-          onClick={() => {
-            console.log(' 4nd Item')
-          }}
-        >
-          4th Item
-        </Menu.Item>
-      </Menu>
-    )
-
-    return (
-      <>
-        <div style={{ width: '180px', display: 'flex' }}>
-          <Button type="primary" icon={IconEdit}>
-            电子签署
-          </Button>
-
-          <div className="afterAddon">
-            <Dropdown overlay={defaultMenu} trigger="click">
-              <Button type="primary" icon={IconArrowHeadDown} />
-            </Dropdown>
-          </div>
-        </div>
-      </>
-    )
-  }
-
-  const Tab5 = () => {
-    const [index, setIndex] = React.useState('link1')
-    const defaultMenu = (
-      <Menu activeIndex={index} onSelect={setIndex}>
-        <Menu.Item
-          index="link1"
-          onClick={() => {
-            console.log('link 1')
-          }}
-        >
-          1st Link
-        </Menu.Item>
-        <Menu.Item
-          index="link2"
-          onClick={() => {
-            console.log(' link 2')
-          }}
-        >
-          2nd Link
-        </Menu.Item>
-        <Menu.Item
-          index="link3"
-          onClick={() => {
-            console.log('link 3')
-          }}
-        >
-          3rd Link
-        </Menu.Item>
-        <Menu.Item
-          index="link4"
-          onClick={() => {
-            console.log('link4')
-          }}
-        >
-          4th Link
-        </Menu.Item>
-      </Menu>
-    )
-
-    return (
-      <>
-        <div style={{ width: '180px', display: 'flex' }}>
-          <Dropdown overlay={defaultMenu} trigger="click">
-            <Button type="primary" suffixIcon={IconArrowHeadDown}>
-              更多
-            </Button>
-          </Dropdown>
-        </div>
-      </>
-    )
-  }
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -274,10 +283,10 @@ export const ButtonStoryBook2 = () => {
           <Tab3 />
         </TabPane>
         <TabPane tabKey="Split" title="the Split Button">
-          <Tab4 />
+          <SplitButton />
         </TabPane>
         <TabPane tabKey="Dropdown" title="the Drop-down Button">
-          <Tab5 />
+          <DropdownButton />
         </TabPane>
       </Tabs>
     </div>
@@ -325,6 +334,12 @@ export const ButtonStoryBook3 = () => {
         <Button type="link" marginRight="40px" disabled>
           Link
         </Button>
+        <br />
+        <br />
+        <div className="flex">
+          <SplitButton disabled />
+          <DropdownButton disabled />
+        </div>
       </>
     )
   }
@@ -367,6 +382,12 @@ export const ButtonStoryBook3 = () => {
         <Button type="link" marginRight="40px" loading>
           Link
         </Button>
+        <br />
+        <br />
+        <div className="flex">
+          <SplitButton loading />
+          <DropdownButton loading />
+        </div>
       </>
     )
   }
@@ -489,6 +510,18 @@ export const ButtonStoryBook4 = () => {
           marginRight="40px"
           icon={IconArrowHeadRight}
         />
+      </div>
+      <br />
+      <div className="flex">
+        <SplitButton size="tiny" />
+        <SplitButton size="tiny" disabled />
+        <SplitButton size="tiny" loading />
+      </div>
+      <br />
+      <div className="flex">
+        <DropdownButton size="tiny" />
+        <DropdownButton size="tiny" disabled />
+        <DropdownButton size="tiny" loading />
       </div>
     </div>
   )
