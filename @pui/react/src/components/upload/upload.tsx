@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, ReactNode, useRef, useState } from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import { IconUpload, IconFile, IconPlus } from '@pui/icons'
@@ -41,7 +41,7 @@ export interface UploadProps {
   /** 是否支持多选文件 */
   multiple?: boolean
   /** 提示语 */
-  tip?: Node | string
+  tip?: ReactNode
   /** 是否可拖拽上传 */
   drag?: boolean
   /** 是否禁用 */
@@ -70,6 +70,8 @@ export interface UploadProps {
   onRemove?: (file: UploadFile) => void
   /** 上传文件之前的钩子 */
   onPreview?: (file: UploadFile) => void
+  /** 子元素 */
+  children: ReactNode
 }
 
 const Upload: FC<UploadProps> = props => {
@@ -113,7 +115,7 @@ const Upload: FC<UploadProps> = props => {
   const [previewImage, setPreviewImage] = useState('')
 
   React.useMemo(() => {
-    ; (fileList || []).forEach((file, index) => {
+    ;(fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         const random = Math.random().toString().replace(/0./, '')
         file.uid = `${random}_${index}`

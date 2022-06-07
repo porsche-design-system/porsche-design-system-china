@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, ReactNode } from 'react'
 import ReactDOM from 'react-dom'
 import classnames from 'classnames'
 import {
@@ -33,6 +33,9 @@ export interface DropdownConfig {
   trigger?: triggerType
   /** 大小 */
   size?: 'medium' | 'small'
+
+  /** 子元素 */
+  children: ReactNode
 }
 
 export const Dropdown: React.FC<DropdownConfig> = props => {
