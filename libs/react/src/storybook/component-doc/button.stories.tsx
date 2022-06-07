@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react'
-import { IconArrowHeadDown, IconArrowHeadRight, IconUpload } from '@pui/icons'
+import {
+  IconArrowHeadDown,
+  IconArrowHeadRight,
+  IconEdit,
+  IconUpload
+} from '@pui/icons'
 
 import { Button, Tabs, TabPane, Menu, Dropdown } from '../..'
 import './button.stories.scss'
@@ -29,27 +34,27 @@ export const ButtonStoryBook = () => {
 ButtonStoryBook.storyName = 'Button'
 
 export const ButtonStoryBook2 = () => {
+  // const defaultMenu = (
+  //   <Menu>
+  //     <Menu.Item
+  //       index="upload1"
+  //       onClick={() => {
+  //         console.log('PVMS订单号导入')
+  //       }}
+  //     >
+  //       PVMS订单号导入
+  //     </Menu.Item>
+  //     <Menu.Item
+  //       index="upload2"
+  //       onClick={() => {
+  //         console.log('Excel导入')
+  //       }}
+  //     >
+  //       Excel导入
+  //     </Menu.Item>
+  //   </Menu>
+  // )
   const Tab1 = () => {
-    const defaultMenu = (
-      <Menu>
-        <Menu.Item
-          index="upload1"
-          onClick={() => {
-            console.log('PVMS订单号导入')
-          }}
-        >
-          PVMS订单号导入
-        </Menu.Item>
-        <Menu.Item
-          index="upload2"
-          onClick={() => {
-            console.log('Excel导入')
-          }}
-        >
-          Excel导入
-        </Menu.Item>
-      </Menu>
-    )
     return (
       <>
         <div>
@@ -96,7 +101,7 @@ export const ButtonStoryBook2 = () => {
             Text
           </Button>
         </div>
-        <br />
+        {/* <br />
         <div style={{ width: '200px' }}>
           <Dropdown overlay={defaultMenu} trigger="click">
             <Button
@@ -107,7 +112,7 @@ export const ButtonStoryBook2 = () => {
               导入
             </Button>
           </Dropdown>
-        </div>
+        </div> */}
       </>
     )
   }
@@ -144,6 +149,118 @@ export const ButtonStoryBook2 = () => {
       </>
     )
   }
+
+  const Tab4 = () => {
+    const [index, setIndex] = React.useState('sign')
+    const defaultMenu = (
+      <Menu activeIndex={index} onSelect={setIndex}>
+        <Menu.Item
+          selectAfter
+          index="sign"
+          onClick={() => {
+            console.log('电子签署')
+          }}
+        >
+          电子签署
+        </Menu.Item>
+        <Menu.Item
+          selectAfter
+          index="item2"
+          onClick={() => {
+            console.log(' 2nd Item')
+          }}
+        >
+          2nd Item
+        </Menu.Item>
+        <Menu.Item
+          selectAfter
+          index="item3"
+          onClick={() => {
+            console.log(' 3nd Item')
+          }}
+        >
+          3rd Item
+        </Menu.Item>
+        <Menu.Item
+          selectAfter
+          index="item4"
+          onClick={() => {
+            console.log(' 4nd Item')
+          }}
+        >
+          4th Item
+        </Menu.Item>
+      </Menu>
+    )
+
+    return (
+      <>
+        <div style={{ width: '180px', display: 'flex' }}>
+          <Button type="primary" icon={IconEdit}>
+            电子签署
+          </Button>
+
+          <div className="afterAddon">
+            <Dropdown overlay={defaultMenu} trigger="click">
+              <Button type="primary" icon={IconArrowHeadDown} />
+            </Dropdown>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  const Tab5 = () => {
+    const [index, setIndex] = React.useState('link1')
+    const defaultMenu = (
+      <Menu activeIndex={index} onSelect={setIndex}>
+        <Menu.Item
+          index="link1"
+          onClick={() => {
+            console.log('link 1')
+          }}
+        >
+          1st Link
+        </Menu.Item>
+        <Menu.Item
+          index="link2"
+          onClick={() => {
+            console.log(' link 2')
+          }}
+        >
+          2nd Link
+        </Menu.Item>
+        <Menu.Item
+          index="link3"
+          onClick={() => {
+            console.log('link 3')
+          }}
+        >
+          3rd Link
+        </Menu.Item>
+        <Menu.Item
+          index="link4"
+          onClick={() => {
+            console.log('link4')
+          }}
+        >
+          4th Link
+        </Menu.Item>
+      </Menu>
+    )
+
+    return (
+      <>
+        <div style={{ width: '180px', display: 'flex' }}>
+          <Dropdown overlay={defaultMenu} trigger="click">
+            <Button type="primary" suffixIcon={IconArrowHeadDown}>
+              更多
+            </Button>
+          </Dropdown>
+        </div>
+      </>
+    )
+  }
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -155,6 +272,12 @@ export const ButtonStoryBook2 = () => {
         </TabPane>
         <TabPane tabKey="Text" title="Text">
           <Tab3 />
+        </TabPane>
+        <TabPane tabKey="Split" title="the Split Button">
+          <Tab4 />
+        </TabPane>
+        <TabPane tabKey="Dropdown" title="the Drop-down Button">
+          <Tab5 />
         </TabPane>
       </Tabs>
     </div>
