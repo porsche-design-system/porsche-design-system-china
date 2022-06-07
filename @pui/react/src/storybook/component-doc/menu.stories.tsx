@@ -1,3 +1,4 @@
+import { IconArrowHeadDown } from '@pui/icons'
 import React from 'react'
 
 import { Menu, Button } from '../..'
@@ -62,7 +63,11 @@ export const MenuStoryBook2 = () => {
           </Menu.Item>
 
           <Menu.SubMenu
-            title="submit"
+            title={
+              <>
+                Submit <IconArrowHeadDown />
+              </>
+            }
             index="submit"
             disabled
             onClick={() => console.log('onClick事件', '点击了子标题')}
@@ -92,7 +97,14 @@ export const MenuStoryBook2 = () => {
               </Menu.Item>
             </Menu.SubMenu>
           </Menu.SubMenu>
-          <Menu.SubMenu title="submit-submit4" index="submit-submit4">
+          <Menu.SubMenu
+            title={
+              <>
+                Submit <IconArrowHeadDown />
+              </>
+            }
+            index="submit-submit4"
+          >
             <Menu.Item selectAfter index="submit-submit-test14">
               test1
             </Menu.Item>

@@ -217,18 +217,6 @@ const Table = <T, K>({
   const tableBodyRefLoaded = (elem: HTMLDivElement) => {
     if (elem) {
       bodyRef.current = elem
-      elem.onscroll = (evt: any) => {
-        if (isWheelMove.current) {
-          setTimeout(() => {
-            isWheelMove.current = false
-          }, 100)
-          return
-        }
-        if (headRef.current) {
-          headRef.current.scrollLeft = evt.target.scrollLeft
-        }
-        updateShadow()
-      }
       updateShadow()
     }
   }
@@ -506,6 +494,18 @@ const Table = <T, K>({
           className="pui-table-body"
           ref={tableBodyRefLoaded}
           style={{ height }}
+          onScroll={(evt: any) => {
+            if (isWheelMove.current) {
+              setTimeout(() => {
+                isWheelMove.current = false
+              }, 100)
+              return
+            }
+            if (headRef.current) {
+              headRef.current.scrollLeft = evt.target.scrollLeft
+            }
+            updateShadow()
+          }}
         >
           <table
             style={{ width: tableWidth }}

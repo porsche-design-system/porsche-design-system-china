@@ -113,7 +113,6 @@
           display: flex;
           align-items: center;
           .porscheicon {
-            margin-right: 8px;
             font-size: 24px;
           }
         }
@@ -123,9 +122,9 @@
         margin-left: 3px;
       }
       &:hover {
-        .porscheicon-icon_-arrow-head-down {
-          transform: rotate(180deg);
-        }
+        // .porscheicon-icon_-arrow-head-down {
+        //   transform: scaleY(-1);
+        // }
       }
     }
   }
