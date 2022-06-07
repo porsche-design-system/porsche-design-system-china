@@ -44,6 +44,11 @@ module.exports = {
     'guard-for-in': 'off',
     'consistent-return': 'off',
     'no-constant-condition': 'off',
-    'import/no-extraneous-dependencies': 'off'
+    'import/no-extraneous-dependencies': 'off',
+    'react/function-component-definition': 'off',
+    'react/require-default-props': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'react/jsx-no-useless-fragment': 'off',
+    'react/no-unused-prop-types': 'off'
   }
 }

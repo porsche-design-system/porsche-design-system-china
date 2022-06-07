@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { findIndexs } from '../libs'
+import { findIndexes } from '../libs'
 import { useDefaultSize } from '../../../shared/hooks'
 import { componentClassNames } from '../../../shared/class-util'
 import { IMenuContext, MenuProps, MenuItemProps } from '../types'
@@ -35,6 +35,7 @@ const Menu: React.FC<MenuProps> = props => {
     }
   }
 
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
   const passedContext: IMenuContext = {
     index: currentActive,
     onSelect: handleClick,
@@ -44,7 +45,8 @@ const Menu: React.FC<MenuProps> = props => {
 
   const renderChildren = () => {
     return React.Children.map(children, (child, index: number) => {
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>
+      const childElement =
+        child as React.FunctionComponentElement<MenuItemProps>
       if (!childElement) {
         return null
       }
@@ -61,7 +63,7 @@ const Menu: React.FC<MenuProps> = props => {
         })
 
         if (displayName === 'SubMenu') {
-          let path = findIndexs([element], currentActive)
+          let path = findIndexes([element], currentActive)
           if (passedContext.selectSubMenus?.length) {
             path = [...passedContext.selectSubMenus, ...path]
           }

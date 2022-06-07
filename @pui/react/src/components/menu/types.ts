@@ -31,6 +31,9 @@ export interface MenuProps {
 
   /** 大小 */
   size?: 'medium' | 'small'
+
+  /** 子元素 */
+  children: ReactNode
 }
 
 export interface IMenuContext {

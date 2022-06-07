@@ -105,7 +105,7 @@ export const useDebounce = (value: any, delay = 300) => {
 export const useThrottle = <T, U extends any[]>(
   fn: (...args: U) => T,
   ms: number = 200,
-  args: U
+  args: U = undefined as any
 ) => {
   const [state, setState] = useState<T | null>(null)
   const timeout = useRef<ReturnType<typeof setTimeout>>()
