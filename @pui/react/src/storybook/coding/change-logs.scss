@@ -6,3 +6,24 @@
   font-size: 20px;
   margin-right: 10px;
 }
+
+.pui-theme-dark .sbdocs-h1 {
+  color: #2193ff;
+}
+
+.pui-theme-dark {
+  .sbdocs-li {
+    color: white;
+
+    a {
+      color: #2193ff;
+    }
+  }
+  .sbdocs-h3 a {
+    color: #2193ff;
+  }
+
+  .sbdocs-p a {
+    color: #2193ff;
+  }
+}
