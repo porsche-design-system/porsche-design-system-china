@@ -1,16 +1,7 @@
 {
   "private": true,
-  "workspaces": [
-    "libs/*"
-  ],
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist --registry http://s1.web.porsche-preview.cn/repository/npm-group/",
-    "prepublish": "lerna run prod",
-    "publish": "lerna publish",
-    "publish:nogit": "npm run publish --  --skip-git --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
-    "remove": "lerna run vremove",
-    "rp": "npm run remove \n npm run publish:nogit",
-    "all": "npm-run-all remove publish:nogit"
+    "install-all": "npm -ws install"
   },
   "changelog": {
     "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/",
@@ -23,8 +14,9 @@
     },
     "cacheDir": ".changelog"
   },
-  "devDependencies": {
-    "lerna": "^4.0.0"
-  },
-  "dependencies": {}
+  "dependencies": {},
+  "workspaces": [
+    "@pui/react",
+    "@pui/icons"
+  ]
 }

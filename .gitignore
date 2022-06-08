@@ -13,14 +13,14 @@ node_modules
 
 # production
 /dist
-/libs/**/dist
-/libs/**/storybook-static
+/@pui/**/dist
+/@pui/**/storybook-static
 
-/libs/react/es
-/libs/react/es/**/*
-/libs/react/lib
-/libs/react/lib/**/*
-/libs/react/override.scss
+/@pui/react/es
+/@pui/react/es/**/*
+/@pui/react/lib
+/@pui/react/lib/**/*
+/@pui/react/override.scss
 
 # misc
 .DS_Store

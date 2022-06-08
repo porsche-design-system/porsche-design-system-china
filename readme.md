@@ -8,7 +8,4 @@
 
 ## Set up LDAP npm first [guide](./management/ldap.md)
 
-## ⌨️ 本地开发 [guide](./management/contribution.md)
-
-
-
+## ⌨️ 本地开发 [guide](./@pui/react/README.md)
