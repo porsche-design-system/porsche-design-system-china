@@ -3,7 +3,7 @@
 lib
 es
 dist
-font
+font/
 src/asn
 src/icons
 package-lock.json
