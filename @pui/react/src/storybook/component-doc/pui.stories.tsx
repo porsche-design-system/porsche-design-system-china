@@ -23,7 +23,7 @@ export const PUIStoryBook = () => {
         </div>
         <br />
         <div>
-          // 全局亮色暗色大小 <br />
+          // 全局亮色暗色 <br />
           PUI.setTheme('light') <br />
           PUI.setTheme('dark')
         </div>
