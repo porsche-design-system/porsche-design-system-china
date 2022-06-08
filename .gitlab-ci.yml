@@ -28,6 +28,7 @@ build:
   script:
     - echo "building artifacts"
     - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" .npmrc
+    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
     - cat .npmrc
     - unset CI
     - pwd && du -sh *
