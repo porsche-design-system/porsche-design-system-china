@@ -100,6 +100,7 @@ const TextArea = FormItem(
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
     const [internalValue, setInternalValue] = useState('')
+    const [, setUpdate] = useState(0)
 
     size = size || defaultSize
 
@@ -132,6 +133,7 @@ const TextArea = FormItem(
               onChange && onChange(evt)
               onValueChange && onValueChange(evt.target.value)
               isCompositionStarted.current = false
+              setUpdate(Math.random())
             }
             onCompositionEnd && onCompositionEnd(evt)
           }}

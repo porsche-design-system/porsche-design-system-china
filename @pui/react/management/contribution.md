@@ -8,7 +8,7 @@
 
 4. run `npm run lint`, check there's not more eslint error/warning, if there are some, fixed them.
 
-5. run `npm run build-all` to compile source code
+5. run `npm run build` to compile source code
 
 6. run `npm run vfixed`, this command will helps to:
 
