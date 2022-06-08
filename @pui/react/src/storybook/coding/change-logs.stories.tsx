@@ -4,18 +4,14 @@ import '../..'
 import './doc.scss'
 import './change-logs.scss'
 // @ts-ignore
-import MarkdownIt from 'markdown-it'
-// @ts-ignore
-import changeLog from '../../../CHANGELOG.md'
+import ChangeLog from '../../../CHANGELOG.md'
 
-const md = new MarkdownIt()
+// const md = new MarkdownIt()
 
 const ChangeLogs = () => (
-  <div
-    className="custom-doc"
-    // eslint-disable-next-line react/no-danger
-    dangerouslySetInnerHTML={{ __html: md.render(changeLog) }}
-  />
+  <div className="custom-doc">
+    <ChangeLog />
+  </div>
 )
 
 export default {

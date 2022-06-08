@@ -22,7 +22,7 @@ export interface RadioGroupProps<T> {
   /** 是否禁用 */
   disabled?: boolean
 
-  /** 表单绑定key，需要配合<Form>使用 */
+  /** 表单绑定key，需要配合&lt;Form&gt;使用 */
   name?: string
 
   /** 错误 */

@@ -1,13 +1,10 @@
 import { create } from '@storybook/theming'
 
-import puiConfig from '../pui.config'
-
 // 设置Storybook界面页面颜色
-const themeColor = puiConfig.baseTheme === 'light' ? '#d5001c' : '#2193FF'
-const logo =
-  puiConfig.baseTheme === 'light' ? 'logo-light.svg' : 'logo-dark.svg'
+const themeColor = '#d5001c'
+const logo = 'logo-light.svg'
 export default create({
-  base: puiConfig.baseTheme as any,
+  base: 'light',
   brandTitle: 'PUI',
   brandImage: logo,
   colorPrimary: themeColor,
