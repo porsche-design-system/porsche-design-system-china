@@ -5,7 +5,7 @@ ARG APP_DIR="/usr/src/app"
 
 RUN pwd
 RUN ls
-ADD ./libs/react/storybook-static/ /usr/src/app/
+ADD ./@pui/react/storybook-static/ /usr/src/app/
 RUN ls -la ${APP_DIR}
 COPY ./DockerDir/dev/nginx.conf /etc/nginx/conf.d/default.conf
 
