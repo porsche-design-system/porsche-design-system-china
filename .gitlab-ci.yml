@@ -1,10 +1,7 @@
 stages:
   - Build
-  # - Publish
-  - Package
-  # - Test
-  - Deployment
-  #- Trigger
+  - Package 
+  - Deployment 
 build:
   image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:finder-node14
   stage: Build
@@ -26,9 +23,8 @@ build:
     expire_in: 20 mins
     when: on_success
     paths:
-      - ./libs/react/storybook-static
-      - ./libs/react/es
-      - ./libs/react/lib
+      - ./@pui/react/storybook-static
+      - ./@pui/react/es 
   script:
     - echo "building artifacts"
     - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./.npmrc
@@ -39,54 +35,9 @@ build:
     - npm -w @pui/icons run pipeline-generate
     - npm -w @pui/icons run build
     - npm -w @pui/react run build-storybook
-    - ls -al ./libs/react/storybook-static/
+    - ls -al ./@pui/react/storybook-static/
     - du -sh *
-
-# code_scan:
-#   image:
-#     name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/sonar-scanner:master
-#   stage: Build
-#   only:
-#     refs:
-#       - master
-#       - staging
-#       - develop
-#       - release
-#       # - merge_requests
-#   tags:
-#     - common-runner
-#   script:
-#     - sonar-scanner
-#     - echo "Please check the result at https://devops.porsche-preview.cn/sonarqube/dashboard?id=${CI_PROJECT_NAME}&branch=${CI_COMMIT_REF_NAME}"
-
-# npm_publish:
-#   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:lts-alpine3.13
-#   stage: Publish
-#   # when: manual
-#   only:
-#     refs:
-#       - develop #TODO
-#       # - master
-#       # - merge_requests
-#   dependencies:
-#     # - build
-#   variables:
-#     NPM_REGISTRY: '$NPM_REGISTRY'
-#     NPM_REGISTRY_ACCOUNT: '$NPM_REGISTRY_ACCOUNT'
-#     NPM_REGISTRY_PWD: '$NPM_REGISTRY_PWD'
-#     NPM_REGISTRY_EMAIL: '$NPM_REGISTRY_EMAIL'
-#   script:
-#     - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./package.json
-#     - echo ${NPM_REGISTRY_ACCOUNT} ${NPM_REGISTRY_PWD} ${NPM_REGISTRY_EMAIL}
-#     - NPM_USER=${NPM_REGISTRY_ACCOUNT} NPM_PASS=${NPM_REGISTRY_PWD} NPM_EMAIL=${NPM_REGISTRY_EMAIL} NPM_REGISTRY=${NPM_REGISTRY} npm-cli-login
-#     - npm run bootstrap
-#     - lerna exec --scope @pui/react -- npm run build-all
-#     - ls -al ./libs/react/lib
-#     - ls -al ./libs/react/es
-#     - lerna exec --scope @pui/react -- npm run vrelease
-#   tags:
-#     - common-runner
-
+ 
 buid_image:
   image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
   stage: Package
@@ -100,7 +51,7 @@ buid_image:
       - develop
       - staging
       - release
-      - merge_requests
+      # - merge_requests
   dependencies:
     - build
   variables:
@@ -111,56 +62,18 @@ buid_image:
     IMAGE_NAME: '$AWS_ECR_REPO:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
   script:
     - ls -al
-    - ls -al ./libs/react/storybook-static/
+    - ls -al ./@pui/react/storybook-static/
     - $(aws ecr get-login --no-include-email --region cn-north-1)
     - echo "-------------S:Build docker image-------------"
     - docker build -f ./DockerDir/dev/Dockerfile -t ${IMAGE_NAME} .
-    # - docker push ${IMAGE_NAME}
-    # - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-    # - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
     - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:react-$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
     - docker push $AWS_ECR_REPO:react-$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
     - echo "-----------E:Build image and pushed------------"
   tags:
     - pdc-share-runner
-
-# buid_image_prod:
-#   image: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
-#   stage: Package
-#   services:
-#     - name: 742678245098.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-dind
-#       alias: docker
-#       entrypoint: ['env', '-u', 'DOCKER_HOST']
-#       command: ['dockerd-entrypoint.sh']
-#   only:
-#     refs:
-#       - master
-#   dependencies:
-#     - build
-#   variables:
-#     # GIT_STRATEGY: none
-#     DOCKER_HOST: tcp://docker:2375/
-#     DOCKER_DRIVER: overlay2
-#     DOCKER_TLS_CERTDIR: ''
-#     IMAGE_NAME: '$AWS_ECR_REPO_PROD:$CI_COMMIT_REF_NAME-$CI_PIPELINE_ID'
-#   script:
-#     - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_PROD
-#     - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_PROD
-#     - export AWS_ECR_REPO=$AWS_ECR_REPO_PROD
-#     - $(aws ecr get-login --no-include-email --region cn-north-1)
-#     - echo "-------------S:Build production docker image-------------"
-#     - docker build -f ./DockerDir/master/Dockerfile -t ${IMAGE_NAME} .
-#     # - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-#     # - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-latest
-#     - docker tag ${IMAGE_NAME} $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
-#     - docker push $AWS_ECR_REPO:$CI_COMMIT_REF_NAME-${CI_PIPELINE_ID}
-#     - echo "-----------E:Build production image and pushed------------"
-#   tags:
-#     - common-runner
-
+ 
 deploy_react:
-  stage: Deployment
-  # when: manual
+  stage: Deployment 
   only:
     refs:
       - develop
@@ -192,43 +105,4 @@ deploy_react:
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/eks-dev/config 
       fi
   tags:
-    - pdcshell
-# deploy_staging:
-#   stage: Deployment
-#   only:
-#     refs:
-#       - staging
-#   script:
-#     - pwd
-#     - sed -i "s/dcpo-frontend\\:[0-9]*.[0-9][0-9]$/dcpo-frontend\\:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-staging.yaml
-#     - /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-staging/config
-#     - /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-staging.yaml --kubeconfig ~/kubeconfig/kube-staging/config
-#   tags:
-#     - pdcshell
-
-# deploy_preprod:
-#   stage: Deployment
-#   only:
-#     refs:
-#       - release
-#   script:
-#     - pwd
-#     - sed -i "s/dcpo-frontend\\:[0-9]*.[0-9][0-9]$/dcpo-frontend\\:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-release.yaml
-#     - /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-staging/config
-#     - /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-release.yaml --kubeconfig ~/kubeconfig/kube-staging/config
-#   tags:
-#     - pdcshell
-
-# deploy_master:
-#   stage: Deployment
-#   only:
-#     refs:
-#       - master
-#   script:
-#     - pwd
-#     - sed -i "s/dcpo-frontend\\:[0-9]*.[0-9][0-9]$/dcpo-frontend\\:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_ID}/g" ./kubedir/frontend_deployment-master.yaml
-#     - /usr/local/bin/kubectl get all --kubeconfig ~/kubeconfig/kube-master/config
-#     - /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-master.yaml --kubeconfig ~/kubeconfig/kube-master/config
-#   tags:
-#     - pdcshell
-
+    - pdcshell 
