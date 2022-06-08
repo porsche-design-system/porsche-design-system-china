@@ -278,4 +278,8 @@
   function updateParentTheme(className) {
     window.parent.document.body.className = className
   }
+
+  console.warn(
+    '[PUI] ReactDOM.render is no longer supported in React 18 / The pseudo class ":first-child" 需要等待Storybook后续版本支持, 请忽略错误。'
+  )
 </script>

@@ -10,8 +10,8 @@
   "scripts": {
     "lint": "eslint --ignore-path=.eslintignore --ext .js,.jsx,.ts,.tsx .",
     "lint-fix": "eslint --fix --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
-    "storybook": "start-storybook -p 6006 -s public --no-manager-cache --docs",
-    "build-storybook": "build-storybook -s public --docs",
+    "storybook": "start-storybook -p 6006 --docs",
+    "build-storybook": "build-storybook --docs",
     "build": "rm -rf ./es && tsc -p tsconfig-build-es6.json && copyfiles -u 1 \"./src/**/*.scss\" \"./src/**/*.js\" \"./src/assets/**/*\" \"./src/styles/**/*\" \"./src/assets/**/*\" es && rm ./es/**/**/*.stories.scss",
     "vremove": "npm unpublish @pui/react@0.1.6 --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
@@ -59,7 +59,6 @@
     "@typescript-eslint/eslint-plugin": "5.18.0",
     "@typescript-eslint/parser": "5.12.1",
     "@lottiefiles/react-lottie-player": "3.4.7",
-    "markdown-it": "13.0.1",
     "sass-loader": "10.1.1",
     "sass": "1.52.2",
     "@storybook/preset-scss": "1.0.3",
@@ -69,7 +68,9 @@
     "@types/react-dom": "^18.0.5",
     "@types/react": "^18.0.12",
     "eslint-config-airbnb": "19.0.4",
-    "copyfiles": "2.4.1"
+    "copyfiles": "2.4.1",
+    "react-dom": "18.1.0",
+    "react": "18.1.0"
   },
   "dependencies": {
     "classnames": "2.3.1",
