@@ -27,8 +27,8 @@ build:
       - ./@pui/react/es 
   script:
     - echo "building artifacts"
-    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./.npmrc
-    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" ./package.json
+    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" .npmrc
+    - cat .npmrc
     - unset CI
     - pwd && du -sh *
     - npm run install-all
