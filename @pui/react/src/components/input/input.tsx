@@ -121,6 +121,7 @@ const Input = FormItem(
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
     const [internalValue, setInternalValue] = useState('')
+    const [, setUpdate] = useState(0)
 
     size = size || defaultSize
 
@@ -129,7 +130,6 @@ const Input = FormItem(
     }, [type])
 
     const displayValueLength = value !== undefined ? value.length : valueLength
-
     if (isCompositionStarted.current && value !== undefined) {
       value = internalValue
     }
@@ -162,6 +162,7 @@ const Input = FormItem(
               onChange && onChange(evt)
               onValueChange && onValueChange(evt.target.value)
               isCompositionStarted.current = false
+              setUpdate(Math.random())
             }
             onCompositionEnd && onCompositionEnd(evt)
           }}
