@@ -11,11 +11,12 @@ export const parameters = {
         'Coding',
         ['Getting Start', 'Best Practice'],
         'Foundation',
-        'Layout',
+        'Theming',
         'Navigation',
         'Data Entry',
         'Data Display',
         'Feedback',
+        'Layout',
         'Example'
       ]
     }
