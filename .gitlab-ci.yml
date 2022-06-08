@@ -3,7 +3,7 @@ stages:
   - Package 
   - Deployment 
 build:
-  image: https://150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:alpine16-current-alpine3.13
+  image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:alpine16-current-alpine3.13
   stage: Build
   only:
     refs:
