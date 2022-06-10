@@ -11,15 +11,15 @@ export const renderNode = (node: any, container: any) => {
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
     // @ts-ignore
-    // import('react-dom/client')
-    //   .then(module => {
-    //     const root = module.default.createRoot(container)
-    //     root.render(node)
-    //     renderRootMap[(container as any).id] = root
-    //   })
-    //   .catch(e => {
-    //     console.log(e)
-    //   })
+    import('react-dom/client')
+      .then(module => {
+        const root = module.default.createRoot(container)
+        root.render(node)
+        renderRootMap[(container as any).id] = root
+      })
+      .catch(e => {
+        console.log(e)
+      })
   } else {
     ReactDOM.render(node, container)
   }
