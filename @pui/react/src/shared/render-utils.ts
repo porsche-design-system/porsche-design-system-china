@@ -6,20 +6,31 @@ const IsReact18 = React.version.split('.')[0] === '18'
 const renderRootMap = {}
 export const renderNode = (node: any, container: any) => {
   if (IsReact18) {
+    // eslint-disable-next-line no-inner-declarations
+    function toggleWarning(skip: boolean) {
+      const { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } =
+        ReactDOM as any
+
+      if (
+        __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED &&
+        typeof __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED === 'object'
+      ) {
+        __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.usingClientEntryPoint =
+          skip
+      }
+    }
+
     if (!(container as any).id) {
       ;(container as any).id =
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
-    // @ts-ignore
-    import('react-dom/client')
-      .then(module => {
-        const root = module.default.createRoot(container)
-        root.render(node)
-        renderRootMap[(container as any).id] = root
-      })
-      .catch(e => {
-        console.log(e)
-      })
+
+    const { createRoot } = ReactDOM as any
+    toggleWarning(true)
+    const root = createRoot(container)
+    root.render(node)
+    renderRootMap[(container as any).id] = root
+    toggleWarning(false)
   } else {
     ReactDOM.render(node, container)
   }
