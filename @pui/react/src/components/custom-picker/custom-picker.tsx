@@ -1,6 +1,18 @@
-import React, { ReactNode } from 'react'
-import { useDefaultSize } from '../../shared/hooks'
+import classNames from 'classnames'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+
+import { componentClassNames } from '../../shared/class-util'
+import { supportTouch } from '../../shared/device'
+import {
+  useDefaultSize,
+  useElementPos,
+  usePopShowState
+} from '../../shared/hooks'
+import { FormErrorText } from '../error-text/error-text'
 import { FormItemProps, FormItem } from '../form/form-item'
+
+import './custom-picker.scss'
 
 export interface CustomPickerProps<T> {
   /** 表单绑定 */
@@ -9,24 +21,46 @@ export interface CustomPickerProps<T> {
   /** 值 */
   value?: T
 
+  /** 占位符 */
+  placeHolder?: ReactNode
+
   /** 值改变会调 */
   onValueChange?: (value: T) => void
 
   /** 大小 */
   size?: 'medium' | 'small'
 
+  /** 是否禁用 */
+  disabled?: boolean
+
+  /** 过滤器模式 */
+  // filterMode?: boolean
+
+  /** 显示清除按钮 */
+  // showClearButton?: boolean
+
+  /** 保持显示清除按钮 */
+  // keepClearButton?: boolean
+
+  /** 错误 */
+  error?: FormErrorText
+
+  /** 样式类 */
+  className?: string
+
   /** 输入框内内容渲染 */
-  inputRender?: (
-    value?: T,
-    onValueChange?: (value: T) => void,
-    width?: string
+  displayRender?: (
+    value: T,
+    onValueChange: (value: T) => void,
+    size: 'medium' | 'small'
   ) => ReactNode
 
   /** 弹出内容渲染 */
   popRender: (
-    value?: T,
-    onValueChange?: (value: T) => void,
-    width?: string
+    value: T,
+    onValueChange: (value: T) => void,
+    hide: () => void,
+    size: 'medium' | 'small'
   ) => ReactNode
 }
 
@@ -40,19 +74,111 @@ CustomPicker = FormItem(
   <T,>({
     size,
     value,
+    disabled,
     onValueChange,
-    inputRender,
-    popRender
+    displayRender,
+    popRender,
+    placeHolder,
+    className,
+    error
   }: CustomPickerProps<T>) => {
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
+    const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState()
+    // const newKeepClearButton = keepClearButton || supportTouch()
+    const rootElementRef = useRef<any>(null)
+    const popMenuRef = useRef<any>(null)
+    const [menuPos, updatePos] = useElementPos(rootElementRef, popMenuRef)
+    const [val, setVal] = useState(value)
+
+    useEffect(() => {
+      if (value !== undefined) {
+        setVal(value)
+      }
+    }, [value])
 
     return (
-      <div>
-        <div>{popRender(value, onValueChange)}</div>
+      <div
+        className={componentClassNames(
+          'pui-custom-picker',
+          {
+            size,
+            disabled: disabled + '',
+            error: error ? error.show + '' : 'false'
+            // 'keep-clear-button':
+            //   (showClearButton && newKeepClearButton && !disabled) + '',
+            // 'filter-mode': filterMode + ''
+          },
+          className
+        )}
+      >
+        <div
+          className="pui-custom-picker-input"
+          onClick={evt => {
+            evt.preventDefault()
+            evt.stopPropagation()
+            setShowOptionList(true)
+          }}
+          ref={rootElementRef}
+        >
+          {placeHolder && !val ? (
+            <span className="pui-custom-picker-input-placeholder">
+              {placeHolder}
+            </span>
+          ) : (
+            ''
+          )}
+          {displayRender ? (
+            displayRender(
+              val as any,
+              v => {
+                setVal(v)
+                onValueChange && onValueChange(v)
+              },
+              size
+            )
+          ) : (
+            <span>{val as any}</span>
+          )}
+        </div>
+        {showOptionList &&
+          createPortal(
+            <div
+              style={menuPos}
+              ref={popMenuRef}
+              className={`pui-custom-picker-size-${size}`}
+            >
+              <div
+                className="pui-custom-picker-menu"
+                onClick={evt => {
+                  evt.preventDefault()
+                  evt.stopPropagation()
+                }}
+              >
+                {popRender(
+                  val as any,
+                  v => {
+                    setVal(v)
+                    onValueChange && onValueChange(v)
+                  },
+                  () => {
+                    setShowOptionList(false)
+                  },
+                  size
+                )}
+              </div>
+            </div>,
+            puiPopupWrap
+          )}
       </div>
     )
   }
 )
 ;(CustomPicker as any).displayName = 'CustomPicker'
-export { CustomPicker }
+
+const createCustomPicker =
+  <T,>(props: CustomPickerProps<T> & FormItemProps) =>
+  () =>
+    <CustomPicker {...props} />
+
+export { CustomPicker, createCustomPicker }
