@@ -9,7 +9,7 @@ import {
   IconErrorFilled
 } from '@pui/icons'
 import classNames from 'classnames'
-import { inDateRange } from '../../shared/date-utils'
+import { inDateRange, inDisableDates } from '../../shared/date-utils'
 import { supportTouch } from '../../shared/device'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
@@ -70,6 +70,9 @@ export interface DatePickerProps {
 
   /** 一直显示清除按钮 */
   keepClearButton?: boolean
+
+  /** 禁用日期 */
+  disableDates?: string[] | Date[] | ((data: Date) => boolean)
 }
 
 const DatePicker = FormItem(
@@ -89,6 +92,7 @@ const DatePicker = FormItem(
     keepClearButton = false,
     onMenuVisibleChange,
     filterMode = false,
+    disableDates,
     label = ''
   }: DatePickerProps) => {
     const strToDate = (dateStr: string) => {
@@ -146,6 +150,20 @@ const DatePicker = FormItem(
     const displayDate = useRef<Date>(initDate || new Date())
 
     const [, setForceUpdate] = useState(0)
+
+    // 改变了范围，并且选定的日期不在范围内
+    useEffect(() => {
+      if (pickedDate) {
+        if (
+          !inDateRange(pickedDate, range as [Date, Date], true) ||
+          inDisableDates(pickedDate, disableDates)
+        ) {
+          setPickedDate(null)
+          setDisplayValue('')
+          onValueChange && onValueChange('')
+        }
+      }
+    }, [disableDates, range])
 
     if (typeof range === 'object') {
       if (typeof range[0] === 'object' && range[0] !== null) {
@@ -451,7 +469,8 @@ const DatePicker = FormItem(
                             ? 'pui-date-picker-calendar-today'
                             : '') +
                           ' ' +
-                          (!inDateRange(date, range as [Date, Date], true)
+                          (!inDateRange(date, range as [Date, Date], true) ||
+                          inDisableDates(date, disableDates)
                             ? 'pui-date-picker-calendar-unavailable'
                             : '') +
                           ' ' +
@@ -464,7 +483,10 @@ const DatePicker = FormItem(
                             : '')
                         }
                         onClick={() => {
-                          if (!inDateRange(date, range as [Date, Date], true)) {
+                          if (
+                            !inDateRange(date, range as [Date, Date], true) ||
+                            inDisableDates(date, disableDates)
+                          ) {
                             return
                           }
                           if (value === undefined) {

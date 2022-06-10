@@ -142,3 +142,40 @@ export const DatePickerStoryBook4 = () => {
 }
 
 DatePickerStoryBook4.storyName = 'Limited Time'
+
+export const DatePickerStoryBook5 = () => {
+  return (
+    <div>
+      <div>禁用日期</div>
+      <div>
+        传参形式可以是3种
+        <br />
+        1. 日期string数组 disableDates=
+        {"{['2021-07-01', '2021-06-01']}"}
+        <br />
+        2. Date数组 disableDates=
+        {'{[new Date(),new Date()]}'}
+        <br />
+        3. 方法，返回true为禁用 disableDates=
+        {'{d => (  d.getDay() === 0 || d.getDay() === 6  )}'}
+      </div>
+      <Form>
+        <DatePicker
+          disableDates={['2022-07-01', '2022-06-01']}
+          width="600px"
+          label="来访日期（7月1日，6月1日不可选）"
+          placeholder="请选择"
+        />
+
+        <DatePicker
+          disableDates={d => d.getDay() === 0 || d.getDay() === 6}
+          width="600px"
+          label="来访日期（周六周日不可选）"
+          placeholder="请选择"
+        />
+      </Form>
+    </div>
+  )
+}
+
+DatePickerStoryBook5.storyName = 'Disabled Dates'
