@@ -6,6 +6,18 @@ npm run install-all
 
 ## 本地开发
 
+首先需要编译Icon库
+```
+npm -w @pui/icons run generate
+或进入 @pui/icons 目录
+npm run generate
+
+npm -w @pui/icons run build
+或进入 @pui/icons 目录
+npm run build
+```
+
+再启动storybook
 ```
 npm -w @pui/react run storybook
 或进入到 @pui/react 目录
