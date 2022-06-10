@@ -7,7 +7,9 @@ npm run install-all
 ## 本地开发
 
 ```
-npm run start-storybook
+npm -w @pui/react run storybook
+或进入到 @pui/react 目录
+npm run storybook
 ```
 
 ## 组件结构
@@ -93,11 +95,9 @@ export const MyBtn = () => <Button type="ghost">按钮</Button>;
 ## 打包
 
 ```
-npm run build-all
+npm -w @pui/react run build
+或进入到 @pui/react 目录
+npm run build
 ```
 
-## 发布
-
-```
-npm run version-publish
-```
+ 
