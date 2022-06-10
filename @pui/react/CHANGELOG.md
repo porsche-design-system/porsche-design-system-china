@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.23](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.22...v0.1.23) (2022-06-10)
+
+
+### Bug Fixes
+
+* DSCWCN-39,Notification组件UI/UX 走查问题修复 ([5ba8320](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/5ba8320e246f6130840f489fdb743b6eca457bd7))
+
 ### [0.1.22](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.21...v0.1.22) (2022-06-09)
 
 * 支持 CRA React17
