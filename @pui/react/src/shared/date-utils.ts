@@ -50,6 +50,27 @@ export const dateToStr = (date: Date) => {
   )
 }
 
+export const inDisableDates = (
+  date: Date,
+  disableDates: string[] | Date[] | ((data: Date) => boolean) | undefined | null
+) => {
+  let isDisableDate = false
+  if (Array.isArray(disableDates)) {
+    disableDates.forEach(disableDate => {
+      if (typeof disableDate === 'string') {
+        if (sameDate(strToDate(disableDate), date)) {
+          isDisableDate = true
+        }
+      } else if (sameDate(disableDate, date)) {
+        isDisableDate = true
+      }
+    })
+  } else if (disableDates) {
+    isDisableDate = disableDates(date)
+  }
+  return isDisableDate
+}
+
 export const inDateRange = (
   date: Date,
   range: [Date, Date] | null,
@@ -81,6 +102,7 @@ export const inDateRange = (
     }
     return matchRangeStart && matchRangeEnd
   }
+
   return true
 }
 
