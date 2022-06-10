@@ -27,7 +27,7 @@
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
         user-select: none;
         max-width: 400px;
-        padding: 20px 0;
+        padding: 24px 0;
         color: $text-color-1;
         font-size: 16px;
         text-align: left;
@@ -38,7 +38,7 @@
           align-items: center;
           font-weight: 600;
           line-height: 24px;
-          padding: 0 24px 12px 20px;
+          padding: 0 24px 16px 18px;
         }
 
         .notification-title-icon {
@@ -47,24 +47,24 @@
         }
 
         .notification-content {
-          padding: 0 24px 0 52px;
+          padding: 0 24px 0 58px;
           line-height: 22px;
           font-size: 16px;
         }
 
         .notification-footer {
-          padding: 24px 24px 0 52px;
+          padding: 16px 24px 0 58px;
           display: flex;
           justify-content: right;
         }
 
         .text-content {
-          margin-left: 8px;
+          margin-left: 16px;
           font-size: 18px;
         }
 
         &.error {
-          border-left: 4px $status-error-color solid;
+          border-left: 6px $status-error-color solid;
 
           .porscheicon-icon_-errorFilled {
             color: $status-error-color;
@@ -73,7 +73,7 @@
         }
 
         &.success {
-          border-left: 4px $status-success-color solid;
+          border-left: 6px $status-success-color solid;
 
           .porscheicon-icon_-correctFilled {
             color: $status-success-color;
@@ -82,7 +82,7 @@
         }
 
         &.warning {
-          border-left: 4px $status-warning-color solid;
+          border-left: 6px $status-warning-color solid;
 
           .porscheicon-icon_-warningFilled {
             color: $status-warning-color;
@@ -91,7 +91,7 @@
         }
 
         &.info {
-          border-left: 4px $status-neutral-color solid;
+          border-left: 6px $status-neutral-color solid;
 
           .porscheicon-icon_-informationFilled {
             color: $status-neutral-color;
@@ -101,31 +101,47 @@
       }
       &-size-small {
         .notification-text {
+          padding: 20px 0;
           &.error {
+            border-left-width: 4px;
             .porscheicon-icon_-errorFilled {
               font-size: 20px;
             }
           }
           &.success {
+            border-left-width: 4px;
             .porscheicon-icon_-correctFilled {
               font-size: 20px;
             }
           }
           &.warning {
+            border-left-width: 4px;
             .porscheicon-icon_-warningFilled {
               font-size: 20px;
             }
           }
           &.info {
+            border-left-width: 4px;
             .porscheicon-icon_-informationFilled {
               font-size: 20px;
             }
           }
           .text-content {
+            margin-left: 12.5px;
             font-size: 16px;
           }
+
+          .notification-title {
+            padding: 0 20px 12px 20px;
+          }
+
           .notification-content {
             font-size: 14px;
+            padding: 0 20px 0 53px;
+          }
+
+          .notification-footer {
+            padding: 12px 20px 0 53px;
           }
         }
       }
