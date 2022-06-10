@@ -1,5 +1,5 @@
 import React from 'react'
-import { unmountComponentAtNode } from 'react-dom'
+import ReactDOM, { unmountComponentAtNode } from 'react-dom'
 
 const IsReact18 = React.version.split('.')[0] === '18'
 
@@ -11,17 +11,17 @@ export const renderNode = (node: any, container: any) => {
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
     // @ts-ignore
-    import('react-dom/client')
-      .then(module => {
-        const root = module.default.createRoot(container)
-        root.render(node)
-        renderRootMap[(container as any).id] = root
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    // import('react-dom/client')
+    //   .then(module => {
+    //     const root = module.default.createRoot(container)
+    //     root.render(node)
+    //     renderRootMap[(container as any).id] = root
+    //   })
+    //   .catch(e => {
+    //     console.log(e)
+    //   })
   } else {
-    renderNode(node, container)
+    ReactDOM.render(node, container)
   }
 }
 
