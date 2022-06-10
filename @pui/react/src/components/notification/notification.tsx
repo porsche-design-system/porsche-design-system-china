@@ -243,7 +243,7 @@ export function NotificationBox(props: NotificationProps) {
                     fconfig.cancelIcon
                   )
                 }
-                marginRight="20px"
+                marginRight="12px"
                 size={size}
               >
                 {fconfig.cancelText}
