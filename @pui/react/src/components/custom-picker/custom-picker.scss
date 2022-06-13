@@ -26,12 +26,24 @@
         .arrow {
           transition: 0.2s all;
           position: absolute;
-          right: 10px;
-          top: 5px;
+          right: 12px;
+          top: 11px;
         }
 
         .arrow-open {
           transform: scaleY(-1);
+        }
+      }
+
+      &-disabled-true {
+        .pui-custom-picker-input {
+          background: $container-bg-opacity-color-3;
+          border: 1px solid $border-color-2;
+          cursor: not-allowed;
+        }
+
+        .pui-custom-picker-input:hover {
+          border: 1px solid $border-color-2;
         }
       }
 
@@ -63,6 +75,13 @@
           line-height: 34px;
           &-with-clear-button {
             padding-right: 56px;
+          }
+          .arrow {
+            transition: 0.2s all;
+            position: absolute;
+            right: 10px;
+            top: 7px;
+            font-size: 20px;
           }
         }
 
