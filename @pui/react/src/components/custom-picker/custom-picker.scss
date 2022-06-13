@@ -22,6 +22,17 @@
         transition: all 0.1s;
         text-align: left;
         line-height: 46px;
+
+        .arrow {
+          transition: 0.2s all;
+          position: absolute;
+          right: 10px;
+          top: 5px;
+        }
+
+        .arrow-open {
+          transform: scaleY(-1);
+        }
       }
 
       &-input-placeholder {

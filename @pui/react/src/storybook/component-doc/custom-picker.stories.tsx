@@ -13,6 +13,7 @@ export const CustomPickerStoryBook = () => {
   const ColorPicker = createCustomPicker({
     label: '颜色选择',
     placeHolder: '请选择',
+    width: '300px',
     displayRender(value: string, onValueChange, size) {
       if (value) {
         return (
@@ -78,6 +79,7 @@ export const CustomPickerStoryBook2 = () => {
     <div>
       <div>直接使用 &lt;CustomPicker /&gt;</div>
       <CustomPicker
+        width="300px"
         popRender={(value: string, onValueChange, hide) => {
           return (
             <div>
