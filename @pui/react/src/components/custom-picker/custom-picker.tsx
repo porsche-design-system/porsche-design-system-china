@@ -14,6 +14,7 @@ import { FormErrorText } from '../error-text/error-text'
 import { FormItemProps, FormItem } from '../form/form-item'
 
 import './custom-picker.scss'
+import { FormItemLabelProps } from '../form/form'
 
 export interface CustomPickerProps<T> {
   /** 表单绑定 */
@@ -35,7 +36,10 @@ export interface CustomPickerProps<T> {
   disabled?: boolean
 
   /** 过滤器模式 */
-  // filterMode?: boolean
+  filterMode?: boolean
+
+  /** 标签 */
+  label?: string | FormItemLabelProps | ReactNode
 
   /** 显示清除按钮 */
   // showClearButton?: boolean
@@ -81,7 +85,9 @@ CustomPicker = FormItem(
     popRender,
     placeHolder,
     className,
-    error
+    error,
+    label = '',
+    filterMode
   }: CustomPickerProps<T>) => {
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
@@ -99,6 +105,9 @@ CustomPicker = FormItem(
       }
     }, [value])
 
+    const labelText =
+      (label as any).text !== undefined ? (label as any).text : label
+
     return (
       <div
         className={componentClassNames(
@@ -106,10 +115,10 @@ CustomPicker = FormItem(
           {
             size,
             disabled: disabled + '',
-            error: error ? error.show + '' : 'false'
+            error: error ? error.show + '' : 'false',
             // 'keep-clear-button':
             //   (showClearButton && newKeepClearButton && !disabled) + '',
-            // 'filter-mode': filterMode + ''
+            'filter-mode': filterMode + ''
           },
           className
         )}
@@ -117,6 +126,9 @@ CustomPicker = FormItem(
         <div
           className="pui-custom-picker-input"
           onClick={evt => {
+            if (disabled) {
+              return
+            }
             evt.preventDefault()
             evt.stopPropagation()
             setShowOptionList(!showOptionList)
@@ -126,13 +138,15 @@ CustomPicker = FormItem(
           }}
           ref={rootElementRef}
         >
-          {placeHolder && !val ? (
+          {placeHolder && !val && !filterMode ? (
             <span className="pui-custom-picker-input-placeholder">
               {placeHolder}
             </span>
           ) : (
             ''
           )}
+          {filterMode ? labelText : ''}
+          {val ? ': ' : ''}
           {displayRender ? (
             displayRender(
               val as any,
@@ -183,7 +197,7 @@ CustomPicker = FormItem(
 
 const createCustomPicker =
   <T,>(props: CustomPickerProps<T> & FormItemProps) =>
-  () =>
-    <CustomPicker {...props} />
+  (cpProps: Partial<CustomPickerProps<T>> & FormItemProps) =>
+    <CustomPicker {...props} {...cpProps} />
 
 export { CustomPicker, createCustomPicker }

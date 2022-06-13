@@ -1,5 +1,5 @@
-import React from 'react'
-import { CustomPicker, createCustomPicker } from '../..'
+import React, { useState } from 'react'
+import { CustomPicker, createCustomPicker, Form } from '../..'
 
 import './col.stories.scss'
 
@@ -10,6 +10,7 @@ export default {
 
 export const CustomPickerStoryBook = () => {
   const colors = ['red', 'blue', 'green', 'yellow']
+
   const ColorPicker = createCustomPicker({
     label: '颜色选择',
     placeHolder: '请选择',
@@ -17,7 +18,7 @@ export const CustomPickerStoryBook = () => {
     displayRender(value: string, onValueChange, size) {
       if (value) {
         return (
-          <div>
+          <div style={{ display: 'inline-block' }}>
             <div
               style={{
                 backgroundColor: value,
@@ -68,6 +69,10 @@ export const CustomPickerStoryBook = () => {
       <div>使用 createCustomPicker 创建自定义选择器</div>
       <br />
       <ColorPicker />
+      <br /> <br />
+      <ColorPicker label="禁用状态" disabled />
+      <br /> <br />
+      <ColorPicker label="颜色选择" filterMode />
     </div>
   )
 }
@@ -108,3 +113,47 @@ export const CustomPickerStoryBook2 = () => {
 }
 
 CustomPickerStoryBook2.storyName = '<CustomPicker />'
+
+export const CustomPickerStoryBook3 = () => {
+  const model = ['911', '718', 'cayenne', 'panamera']
+  const imgPrefix = 'https://static.porsche-preview.cn/static/car-model/'
+
+  const [data, setData] = useState({ model: '911' })
+
+  return (
+    <div>
+      <div>使用Form绑定</div>
+      <Form data={data} onDataChange={setData}>
+        <CustomPicker
+          name="model"
+          width="300px"
+          popRender={(value: string, onValueChange, hide) => {
+            return (
+              <div>
+                {model.map(m => (
+                  <div
+                    style={{
+                      padding: '10px',
+                      cursor: 'pointer',
+                      lineHeight: '30px'
+                    }}
+                    onClick={() => {
+                      onValueChange(m)
+                      hide()
+                    }}
+                  >
+                    <img height="30px" src={`${imgPrefix}${m}.jpg`} alt="" />{' '}
+                    {m.toUpperCase()}
+                  </div>
+                ))}
+              </div>
+            )
+          }}
+        />
+      </Form>
+      {JSON.stringify(data)}
+    </div>
+  )
+}
+
+CustomPickerStoryBook3.storyName = 'Bind with <Form/>'
