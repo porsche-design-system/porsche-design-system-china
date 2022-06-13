@@ -277,6 +277,7 @@ export const useElementPos = (
   if (pos.left + popContentWidth + 10 - docScroll.left > window.innerWidth) {
     pos.left = window.innerWidth - popContentWidth - 10 + docScroll.left
   }
+
   if (pos.top + popContentHeight + 60 - docScroll.top > window.innerHeight) {
     pos.top = window.innerHeight - popContentHeight - 60 + docScroll.top
   }

@@ -1,5 +1,6 @@
-import classNames from 'classnames'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { IconArrowHeadDown } from '@pui/icons'
+import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 
 import { componentClassNames } from '../../shared/class-util'
@@ -94,6 +95,7 @@ CustomPicker = FormItem(
     useEffect(() => {
       if (value !== undefined) {
         setVal(value)
+        updatePos()
       }
     }, [value])
 
@@ -117,7 +119,10 @@ CustomPicker = FormItem(
           onClick={evt => {
             evt.preventDefault()
             evt.stopPropagation()
-            setShowOptionList(true)
+            setShowOptionList(!showOptionList)
+            setTimeout(() => {
+              updatePos()
+            }, 10)
           }}
           ref={rootElementRef}
         >
@@ -140,15 +145,15 @@ CustomPicker = FormItem(
           ) : (
             <span>{val as any}</span>
           )}
+          <IconArrowHeadDown
+            className={classNames(['arrow', { 'arrow-open': showOptionList }])}
+          />
         </div>
         {showOptionList &&
           createPortal(
-            <div
-              style={menuPos}
-              ref={popMenuRef}
-              className={`pui-custom-picker-size-${size}`}
-            >
+            <div style={menuPos} className={`pui-custom-picker-size-${size}`}>
               <div
+                ref={popMenuRef}
                 className="pui-custom-picker-menu"
                 onClick={evt => {
                   evt.preventDefault()
