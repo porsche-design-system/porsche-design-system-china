@@ -14,10 +14,6 @@ All notable changes to this project will be documented in this file. See [standa
 * 完成 CustomPicker ([b9aba78](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b9aba781575ab1b8152233edc810216e82f1ec31))
 
 
-### Bug Fixes
-
-* 修正custom-picker 过滤器 ([23c1cc5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/23c1cc5ff13073486357e31b1f58ccb01f0ccb9f))
-* 加入箭头修正菜单弹出 ([e9f95fc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e9f95fc99dbd2f90cfb1cdea8556ff0ac686ab96))
 
 ### [0.1.23](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.22...v0.1.23) (2022-06-10)
 
