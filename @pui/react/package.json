@@ -76,7 +76,7 @@
     "classnames": "2.3.1",
     "@pui/icons": "0.0.7",
     "react-transition-group": "4.4.2",
-    "async-validator": "^3.5.1",
+    "async-validator": "3.5.2",
     "axios": "0.27.2",
     "sass": "1.52.2"
   },

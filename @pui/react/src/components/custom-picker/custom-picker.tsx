@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
-import { IconArrowHeadDown } from '@pui/icons'
+import { IconArrowHeadDown, IconErrorFilled } from '@pui/icons'
 import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 
@@ -42,10 +42,10 @@ export interface CustomPickerProps<T> {
   label?: string | FormItemLabelProps | ReactNode
 
   /** 显示清除按钮 */
-  // showClearButton?: boolean
+  showClearButton?: boolean
 
   /** 保持显示清除按钮 */
-  // keepClearButton?: boolean
+  keepClearButton?: boolean
 
   /** 错误 */
   error?: FormErrorText
@@ -87,12 +87,14 @@ CustomPicker = FormItem(
     className,
     error,
     label = '',
-    filterMode
+    filterMode,
+    showClearButton,
+    keepClearButton
   }: CustomPickerProps<T>) => {
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
     const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState()
-    // const newKeepClearButton = keepClearButton || supportTouch()
+    const newKeepClearButton = keepClearButton || supportTouch()
     const rootElementRef = useRef<any>(null)
     const popMenuRef = useRef<any>(null)
     const [menuPos, updatePos] = useElementPos(rootElementRef, popMenuRef)
@@ -116,15 +118,13 @@ CustomPicker = FormItem(
             size,
             disabled: disabled + '',
             error: error ? error.show + '' : 'false',
-            // 'keep-clear-button':
-            //   (showClearButton && newKeepClearButton && !disabled) + '',
+            'keep-clear-button': newKeepClearButton + '',
             'filter-mode': filterMode + ''
           },
           className
         )}
       >
         <div
-          className="pui-custom-picker-input"
           onClick={evt => {
             if (disabled) {
               return
@@ -137,6 +137,10 @@ CustomPicker = FormItem(
             }, 10)
           }}
           ref={rootElementRef}
+          className={classNames([
+            'pui-custom-picker-input',
+            { 'pui-custom-picker-input-highlight': !!val && filterMode }
+          ])}
         >
           {placeHolder && !val && !filterMode ? (
             <span className="pui-custom-picker-input-placeholder">
@@ -145,8 +149,14 @@ CustomPicker = FormItem(
           ) : (
             ''
           )}
-          {filterMode ? labelText : ''}
-          {val ? ': ' : ''}
+          {filterMode ? (
+            <span className="pui-custom-picker-input-label-text">
+              {labelText}
+            </span>
+          ) : (
+            ''
+          )}
+          {val && filterMode ? ': ' : ''}
           {displayRender ? (
             displayRender(
               val as any,
@@ -158,6 +168,18 @@ CustomPicker = FormItem(
             )
           ) : (
             <span>{val as any}</span>
+          )}
+          {showClearButton && val && !disabled && (
+            <IconErrorFilled
+              className="pui-select-clear-icon"
+              onClick={evt => {
+                setVal(null as any)
+                onValueChange && onValueChange(null as any)
+                evt.stopPropagation()
+                evt.preventDefault()
+                setShowOptionList(false)
+              }}
+            />
           )}
           <IconArrowHeadDown
             className={classNames(['arrow', { 'arrow-open': showOptionList }])}
