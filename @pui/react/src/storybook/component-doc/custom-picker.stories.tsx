@@ -68,11 +68,11 @@ export const CustomPickerStoryBook = () => {
     <div>
       <div>使用 createCustomPicker 创建自定义选择器</div>
       <br />
-      <ColorPicker showClearButton />
+      <ColorPicker />
       <br /> <br />
       <ColorPicker label="禁用状态" disabled />
       <br /> <br />
-      <ColorPicker label="颜色选择" filterMode />
+      <ColorPicker label="颜色选择" filterMode showClearButton />
       <br /> <br />
       <ColorPicker label="颜色选择(禁用)" filterMode disabled />
     </div>

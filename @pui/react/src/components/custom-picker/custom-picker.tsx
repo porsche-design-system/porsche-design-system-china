@@ -139,7 +139,8 @@ CustomPicker = FormItem(
           ref={rootElementRef}
           className={classNames([
             'pui-custom-picker-input',
-            { 'pui-custom-picker-input-highlight': !!val && filterMode }
+            { 'pui-custom-picker-input-highlight': !!val && filterMode },
+            { 'pui-custom-picker-show-clear-button': !!val && showClearButton }
           ])}
         >
           {placeHolder && !val && !filterMode ? (
@@ -171,7 +172,7 @@ CustomPicker = FormItem(
           )}
           {showClearButton && val && !disabled && (
             <IconErrorFilled
-              className="pui-select-clear-icon"
+              className="pui-custom-picker-clear-icon"
               onClick={evt => {
                 setVal(null as any)
                 onValueChange && onValueChange(null as any)

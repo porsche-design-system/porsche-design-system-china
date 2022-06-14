@@ -34,7 +34,7 @@
           transform: scaleY(-1);
         }
 
-        .pui-select-clear-icon {
+        .pui-custom-picker-clear-icon {
           position: absolute;
           right: 40px;
           margin-top: 10px;
@@ -42,19 +42,23 @@
           display: none;
         }
 
-        .pui-select-clear-icon:hover {
+        .pui-custom-picker-clear-icon:hover {
           opacity: 1;
         }
       }
 
       &-input:hover {
-        .pui-select-clear-icon {
+        .pui-custom-picker-clear-icon {
           display: inline-block;
         }
       }
 
+      &-show-clear-button {
+        padding-right: 70px;
+      }
+
       &-keep-clear-button-true {
-        .pui-select-clear-icon {
+        .pui-custom-picker-clear-icon {
           display: inline-block;
         }
       }
@@ -117,11 +121,15 @@
             font-size: 20px;
           }
 
-          .pui-select-clear-icon {
+          .pui-custom-picker-clear-icon {
             font-size: 18px;
             right: 30px;
             margin-top: 7px;
           }
+        }
+
+        .pui-custom-picker-show-clear-button {
+          padding-right: 50px;
         }
 
         .pui-custom-picker-menu {
