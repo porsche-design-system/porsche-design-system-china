@@ -572,6 +572,19 @@ export const ExampleStoryBook6 = () => {
                   name="gender"
                   options="男,女"
                 />
+                <Input
+                  label="保时捷邮箱"
+                  rules={[
+                    {
+                      type: 'string',
+                      pattern:
+                        /^[.A-Za-z0-9u4e00-u9fa5]+@porsche-[a-zA-Z0-9_-]+.com$/,
+                      message: '仅支持绑定保时捷邮箱'
+                    },
+                    { required: true, message: '请输入邮箱' }
+                  ]}
+                  name="email"
+                />
               </Form>
             </div>
           )

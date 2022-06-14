@@ -1,6 +1,7 @@
 import React, {
   ChangeEventHandler,
   CSSProperties,
+  ReactNode,
   useEffect,
   useRef,
   useState
@@ -30,7 +31,7 @@ export interface FormLabelStyle {
 
 export interface FormItemLabelProps extends FormLabelStyle {
   /** Label显示文字 */
-  text: string
+  text: ReactNode
 }
 
 export interface FormProps<T> {
@@ -116,6 +117,7 @@ function Form<T = any>({
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
+      console.log(formDataValidators.current)
       validate(formDataValidators.current, newFormData, errorList => {
         setFormErrors(errorList)
       })
