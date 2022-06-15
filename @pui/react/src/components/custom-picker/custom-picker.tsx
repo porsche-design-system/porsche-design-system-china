@@ -193,7 +193,6 @@ CustomPicker = FormItem(
                 ref={popMenuRef}
                 className="pui-custom-picker-menu"
                 onClick={evt => {
-                  evt.preventDefault()
                   evt.stopPropagation()
                 }}
               >

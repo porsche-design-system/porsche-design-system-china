@@ -144,7 +144,12 @@ export const CustomPickerStoryBook3 = () => {
                       hide()
                     }}
                   >
-                    <img height="30px" src={`${imgPrefix}${m}.jpg`} alt="" />{' '}
+                    <img
+                      width="65px"
+                      height="30px"
+                      src={`${imgPrefix}${m}.jpg`}
+                      alt=""
+                    />{' '}
                     {m.toUpperCase()}
                   </div>
                 ))}
