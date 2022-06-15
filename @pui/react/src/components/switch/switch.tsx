@@ -29,6 +29,9 @@ export interface SwitchProps<T> {
   /** 值 */
   value?: T
 
+  /** 滑块开启颜色 */
+  color?: string
+
   /** 错误 */
   error?: FormErrorText
 
@@ -53,6 +56,7 @@ Switch = FormItem(
     onValueChange,
     alterValues,
     size,
+    color,
     defaultValue
   }: SwitchProps<T>) => {
     let switchValues: [any, any] = [false, true]
@@ -108,6 +112,7 @@ Switch = FormItem(
       >
         <div
           className="pui-switch-bar"
+          style={{ backgroundColor: color }}
           onClick={() => {
             if (disabled) {
               return

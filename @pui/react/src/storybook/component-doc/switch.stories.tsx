@@ -78,6 +78,8 @@ export const SwitchBook2 = () => {
             console.log(val)
           }}
         />
+        <div className="session-title">自定义滑块颜色</div>
+        <Switch color="#d5001c" />
       </Form>
     </div>
   )
