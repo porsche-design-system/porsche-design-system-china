@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.25](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.24...v0.1.25) (2022-06-15)
+
+
+### Features
+
+* 加入自定义颜色等功能 ([a6a224e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6a224eda42953acc942d194e71b5f64b0b12c7a))
+
+
+### Bug Fixes
+
+* 优化 Checkbox ([6b7d629](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6b7d629c184327eb1f253ccd3015eab17f2ab0b8))
+
 ### [0.1.24](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.23...v0.1.24) (2022-06-14)
 
 
