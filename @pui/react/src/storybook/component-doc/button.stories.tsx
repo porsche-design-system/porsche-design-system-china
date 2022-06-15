@@ -40,6 +40,7 @@ const SplitButton = ({
   loading = false
 }: SplitButtonProps) => {
   const [index, setIndex] = React.useState('sign')
+  const [visible, setVisible] = React.useState(false)
   const defaultMenu = (
     <Menu activeIndex={index} onSelect={setIndex}>
       <Menu.Item
@@ -84,31 +85,35 @@ const SplitButton = ({
   return (
     <>
       <div style={{ display: 'flex', marginRight: '40px' }}>
-        <Button
-          type="primary"
-          icon={IconEdit}
-          disabled={disabled}
-          size={size}
-          loading={loading}
+        <Dropdown
+          overlay={defaultMenu}
+          disabled={disabled || loading}
+          trigger="click"
+          visible={visible}
+          onVisibleChange={setVisible}
         >
-          电子签署
-        </Button>
-
-        <div className="afterAddon">
-          <Dropdown
-            overlay={defaultMenu}
-            trigger="click"
-            disabled={disabled || loading}
-          >
+          <div style={{ display: 'flex'}}>
             <Button
               type="primary"
-              icon={IconArrowHeadDown}
-              disabled={disabled || loading}
+              icon={IconEdit}
+              disabled={disabled}
               size={size}
-            />
-          </Dropdown>
+              loading={loading}
+            >
+              电子签署
+            </Button>
+            <div className="afterAddon">
+              <Button
+                type="primary"
+                icon={IconArrowHeadDown}
+                disabled={disabled || loading}
+                size={size}
+                onClick={() => setVisible(!visible)}
+              />
+            </div>
+          </div>
+        </Dropdown>
         </div>
-      </div>
     </>
   )
 }
