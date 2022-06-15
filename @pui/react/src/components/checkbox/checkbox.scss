@@ -45,6 +45,7 @@
         top: 0px;
         left: 0px;
         transition: all 0.1s;
+        line-height: 25px;
       }
 
       &-part-checkmark {
@@ -84,6 +85,7 @@
         .pui-checkbox-checkmark {
           top: 0px;
           left: 1px;
+          line-height: 22px;
           .porscheicon {
             font-size: 14px;
           }

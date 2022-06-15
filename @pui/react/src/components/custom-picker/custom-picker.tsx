@@ -129,7 +129,6 @@ CustomPicker = FormItem(
             if (disabled) {
               return
             }
-            evt.preventDefault()
             evt.stopPropagation()
             setShowOptionList(!showOptionList)
             setTimeout(() => {
