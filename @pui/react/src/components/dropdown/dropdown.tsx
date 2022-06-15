@@ -1,4 +1,4 @@
-import React, { useState, useRef, ReactNode } from 'react'
+import React, { useState, useRef, ReactNode, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import classnames from 'classnames'
 import {
@@ -33,9 +33,10 @@ export interface DropdownConfig {
   trigger?: triggerType
   /** 大小 */
   size?: 'medium' | 'small'
-
   /** 子元素 */
   children: ReactNode
+  /** 菜单点击回调 */
+  onVisibleChange?: (visible: boolean) => void
 }
 
 export const Dropdown: React.FC<DropdownConfig> = props => {
@@ -45,17 +46,19 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     overlayStyle,
     children,
     trigger = 'hover',
-    visible = false,
+    visible,
+    onVisibleChange,
     disabled,
     size
   } = props
   const [defaultSize] = useDefaultSize()
   const curSize = size || defaultSize
+  const isControlled =  visible !== undefined
   const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
   const rootElementRef = useRef<any>(null)
   const componentRef = useRef<HTMLDivElement>(null)
   const mouseInMenu = useRef(false)
-  const [showDropdown, setShowDropdown] = useState(visible)
+  const [showDropdown, setShowDropdown] = useState(false)
   const [menuPos, updatePos] = useElementPos(rootElementRef)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [, , puiPopupWrap] = usePopShowState(() => {
@@ -63,6 +66,11 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       setShowDropdown(false)
     }
   })
+  useEffect(() => {
+    if (isControlled) {
+      setShowDropdown(!!visible)
+    }
+  }, [visible])
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     updatePos()
@@ -86,9 +94,9 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   }
 
   const clickEvents =
-    trigger === 'click' && !disabled ? { onClick: handleClick } : {}
+    trigger === 'click' && !disabled && !isControlled ? { onClick: handleClick } : {}
   const hoverEvents =
-    trigger === 'hover' && !disabled
+    trigger === 'hover' && !disabled && !isControlled
       ? {
           onMouseEnter: (e: React.MouseEvent) => {
             handleMouse(e, true)
@@ -114,6 +122,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
               childElement.props.onClick()
             }
             setShowDropdown(false)
+            onVisibleChange && onVisibleChange(false)
           }
         })
       } else {
@@ -155,7 +164,10 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     return ReactDOM.createPortal(contentList, puiPopupWrap)
   }
 
-  useClickOutside(componentRef, () => setShowDropdown(false))
+  useClickOutside(componentRef, () => {
+    setShowDropdown(false);
+    onVisibleChange && onVisibleChange(false)
+  })
   const Children = renderChildren()
 
   return (
