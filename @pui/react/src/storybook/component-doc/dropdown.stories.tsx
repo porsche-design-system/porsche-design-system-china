@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   IconEdit,
   IconAdd,
@@ -155,6 +155,18 @@ const Tab3 = () => (
     图标+子菜单
   </Dropdown>
 )
+const Tab4 = () => {
+  const [visible, setVisible] = useState(false)
+  return (
+  <Dropdown 
+    trigger="click" 
+    overlay={defaultMenu} 
+    visible={visible} 
+    onVisibleChange={setVisible}
+  >
+    <Button type="primary" onClick={() => setVisible(!visible)}>受控显示</Button>
+  </Dropdown>
+)}
 
 export const DropdownStoryBook = () => {
   return (
@@ -173,6 +185,11 @@ export const DropdownStoryBook = () => {
         <TabPane tabKey="Text" title="SubMenu + Dropdown">
           <div className="dropdown-demo">
             <Tab3 />
+          </div>
+        </TabPane>
+        <TabPane tabKey="Controlled" title="Controlled">
+          <div className="dropdown-demo">
+            <Tab4 />
           </div>
         </TabPane>
       </Tabs>
