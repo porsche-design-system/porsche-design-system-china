@@ -1,5 +1,4 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
-// import { IconCheck, IconClose } from '@pui/icons'
 
 import { FormErrorText } from '../error-text/error-text'
 import { componentClassNames } from '../../shared/class-util'
@@ -112,7 +111,7 @@ Switch = FormItem(
       >
         <div
           className="pui-switch-bar"
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: switchValue ? color : undefined }}
           onClick={() => {
             if (disabled) {
               return
@@ -129,8 +128,6 @@ Switch = FormItem(
             onValueChange && onValueChange(newStateValue)
           }}
         >
-          {/* <IconClose className="pui-switch-disable-icon" />
-          <IconCheck className="pui-switch-enable-icon" /> */}
           <div className="pui-switch-button" />
         </div>
       </div>
