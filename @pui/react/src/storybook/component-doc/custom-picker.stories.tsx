@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CustomPicker, createCustomPicker, Form, CheckBox } from '../..'
+import { CustomPicker, createCustomPicker, Form } from '../..'
 
 import './col.stories.scss'
 
