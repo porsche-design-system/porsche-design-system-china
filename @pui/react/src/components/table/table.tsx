@@ -191,9 +191,11 @@ const Table = <T, K>({
         const scrollXPercentage = headRef.current.scrollLeft / scrollMaxX
         if (
           (bodyRef.current.scrollTop !== 0 &&
-            bodyRef.current.scrollTop !==
-              bodyRef.current.children[0].offsetHeight -
-                bodyRef.current.offsetHeight) ||
+            Math.abs(
+              bodyRef.current.scrollTop -
+                (bodyRef.current.children[0].offsetHeight -
+                  bodyRef.current.offsetHeight)
+            ) > 1) ||
           variationY === 0
         ) {
           evt.preventDefault()
