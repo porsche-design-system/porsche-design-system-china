@@ -37,7 +37,12 @@ export interface TableColumn<T = any> {
   sortIconPlace?: 'left' | 'right'
   headCellStyle?: CSSProperties
   rowCellStyle?: CSSProperties
-  customCell?: (rowData: T) => React.ReactNode
+  customCell?: (rowData: T, rowIndex: number) => React.ReactNode
+  colSpan?: number
+  cellMerge?: (
+    rowData: T,
+    rowIndex?: number
+  ) => Record<'rowSpan' | 'colSpan', number> | {}
 }
 
 export interface TableProps<T = any, K = any> {
@@ -248,9 +253,9 @@ const Table = <T, K>({
     if (col.width === undefined) {
       col.width = 0
       if (col.customCell) {
-        data.forEach(d => {
+        data.forEach((d, inx) => {
           const textLines = removeHtml(
-            renderToString(col.customCell!(d) as any)
+            renderToString(col.customCell!(d, inx) as any)
           ).split('\n')
           textLines.forEach(lineText => {
             const dataColWidth = getByteLength(lineText) * charWidth
@@ -307,6 +312,9 @@ const Table = <T, K>({
     fixed: 'left' | 'right' | null,
     style: CSSProperties
   ) => {
+    if (column.colSpan !== undefined && column.colSpan <= 0) {
+      return null
+    }
     const classNameArr = [
       fixed ? 'pui-table-fixed-' + fixed : '',
       column.sortable ? 'sortable' : ''
@@ -321,6 +329,7 @@ const Table = <T, K>({
         className={classNameArr.filter(item => !!item).join(' ')}
         style={style}
         onClick={() => sortCallback(column)}
+        colSpan={column.colSpan}
       >
         <div className="title-content" style={column.headCellStyle}>
           {column.sortable &&
@@ -338,10 +347,24 @@ const Table = <T, K>({
   const renderDataCell = (
     column: TableColumn,
     inx: number,
+    rowIndex: number,
     fixed: 'left' | 'right' | null,
     rowData: any,
     style: CSSProperties
   ) => {
+    if (column.cellMerge) {
+      const cellMerge = column.cellMerge(rowData, rowIndex) as Record<
+        'rowSpan' | 'colSpan',
+        number
+      >
+      if (
+        (cellMerge && cellMerge.rowSpan <= 0) ||
+        (cellMerge && cellMerge.colSpan <= 0)
+      ) {
+        return null
+      }
+    }
+
     return (
       <td
         key={'col' + inx}
@@ -351,10 +374,11 @@ const Table = <T, K>({
           (fixed ? 'pui-table-fixed-' + fixed : '')
         }
         style={style}
+        {...(column.cellMerge ? column.cellMerge(rowData, rowIndex) : {})}
       >
         <div className="cell-wrap" style={column.rowCellStyle}>
           {column.customCell
-            ? column.customCell(rowData)
+            ? column.customCell(rowData, rowIndex)
             : column.key && rowData[column.key]}
         </div>
       </td>
@@ -612,22 +636,22 @@ const Table = <T, K>({
                           )}
                         </td>
                       )}
-                      {leftColumns.map((column, inx) =>
-                        renderDataCell(column, inx, 'left', rowData, {
+                      {leftColumns.map((column, colInx) =>
+                        renderDataCell(column, colInx, inx, 'left', rowData, {
                           left:
                             fixColumnLeft[
-                              inx +
+                              colInx +
                                 (selectable ? 1 : 0) +
                                 (rowExpandable ? 1 : 0)
                             ] + 'px'
                         })
                       )}
-                      {middleColumns.map((column, inx) =>
-                        renderDataCell(column, inx, null, rowData, {})
+                      {middleColumns.map((column, colInx) =>
+                        renderDataCell(column, colInx, inx, null, rowData, {})
                       )}
-                      {rightColumns.map((column, inx) =>
-                        renderDataCell(column, inx, 'right', rowData, {
-                          right: fixColumnRight[inx] + 'px'
+                      {rightColumns.map((column, colInx) =>
+                        renderDataCell(column, colInx, inx, 'right', rowData, {
+                          right: fixColumnRight[colInx] + 'px'
                         })
                       )}
                     </tr>
