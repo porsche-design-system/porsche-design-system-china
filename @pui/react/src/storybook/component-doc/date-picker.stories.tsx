@@ -22,7 +22,7 @@ export const DatePickerStoryBook = () => {
           }}
         />
         <br />
-        <div>禁用状态</div>
+        <div>禁用状态（禁用状态不再校验日期选择访问等限制）</div>
         <DatePicker
           width="300px"
           label="来访日期"

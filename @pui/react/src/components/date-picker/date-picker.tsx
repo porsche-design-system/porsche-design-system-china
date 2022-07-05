@@ -155,8 +155,9 @@ const DatePicker = FormItem(
     useEffect(() => {
       if (pickedDate) {
         if (
-          !inDateRange(pickedDate, range as [Date, Date], true) ||
-          inDisableDates(pickedDate, disableDates)
+          (!inDateRange(pickedDate, range as [Date, Date], true) ||
+            inDisableDates(pickedDate, disableDates)) &&
+          !disabled
         ) {
           setPickedDate(null)
           setDisplayValue('')
