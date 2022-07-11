@@ -162,7 +162,8 @@ function Form<T = any>({
       elementName === 'Select' ||
       elementName === 'MultiSelect' ||
       elementName === 'Switch' ||
-      elementName === 'CustomPicker'
+      elementName === 'CustomPicker' ||
+      elementName === 'DateTimePicker'
     ) {
       let inputProps = props as {
         name?: string
@@ -307,7 +308,6 @@ function Form<T = any>({
 
         const formItemOnValueChange = inputProps.onValueChange
         if (['CheckBox'].includes(elementName)) {
-          console.log('inputProps.value', typeof inputProps.value)
           const formItemOnCheckedChange = inputProps.onCheckedChange
           inputProps.onCheckedChange = val => {
             const newFormData = {
@@ -338,7 +338,8 @@ function Form<T = any>({
             'InputNumber',
             'TextArea',
             'Search',
-            'CustomPicker'
+            'CustomPicker',
+            'DateTimePicker'
           ].includes(elementName)
         ) {
           inputProps.onValueChange = value => {
@@ -346,7 +347,7 @@ function Form<T = any>({
             if (inputProps.name) {
               newFormData = { ...fData, [inputProps.name]: value }
             }
-            if (elementName === 'DateRangePicker') {
+            if (elementName === 'DateRangePicker' || elementName === 'DateTimePicker') {
               if (inputProps.nameStartDate) {
                 newFormData = {
                   ...newFormData,
