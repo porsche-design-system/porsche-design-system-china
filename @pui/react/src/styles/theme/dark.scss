@@ -30,7 +30,7 @@
 
   // Background Opacity
   $mask-color: rgba(0, 0, 0, 0.7) !global;
-  $fullscreen-mask-color:rgba(0, 0, 0, 0.7) !global;
+  $fullscreen-mask-color: rgba(0, 0, 0, 0.7) !global;
 
   // Text Colors
   $text-color-1: #ffffff !global;
@@ -41,6 +41,7 @@
   $text-opacity-color-3: rgba(255, 255, 255, 0.25) !global;
 
   $text-white-color: white !global;
+  $text-black-color: black !global;
 
   $text-link-color: #2193ff !global;
   $text-link-color-hover: #5cb0ff !global;
