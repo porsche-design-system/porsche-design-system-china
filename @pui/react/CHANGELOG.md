@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 * 修正文字 ([94a6d5a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/94a6d5a6ccf7aac1c04fa071fdb674934729b39d))
 * 更新textarea内部样式 ([7ec3822](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ec382238bb8b436594ea75dc34827334437e358))
 * 禁用状态不校验 ([3c47820](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/3c4782099bc94ef5cf7a4d42a83ad297efa4f251))
+* fix: 修正 checkbox 或 radio-group 的值错误
 
 ### [0.1.25](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.24...v0.1.25) (2022-06-15)
 
