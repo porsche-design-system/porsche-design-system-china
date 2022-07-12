@@ -46,7 +46,7 @@ const CheckBoxGroup = FormItem(
     error,
     options
   }: CheckBoxGroupProps<T>) => {
-    const checkBoxValues = useRef<T[]>(value || defaultValue || [])
+    const checkBoxValues = useRef<T[]>(value ?? defaultValue ?? [])
 
     let checkBoxOptions: SelectOption<T>[] = []
     if (typeof options === 'string') {
@@ -75,7 +75,7 @@ const CheckBoxGroup = FormItem(
     ))
 
     const newChildren = useMemo(() => {
-      checkBoxValues.current = value || []
+      checkBoxValues.current = value ?? []
       const allValues: T[] = []
       const newChildren = overrideChildren(
         [...optionsNodes, ...React.Children.toArray(children)],
@@ -84,7 +84,7 @@ const CheckBoxGroup = FormItem(
             const checkboxProp: CheckBoxProps<T> = props
             const checkBoxOnChange = checkboxProp.onChange
             const checkBoxOnCheckedChange = checkboxProp.onCheckedChange
-            checkboxProp.value = (checkboxProp.value ||
+            checkboxProp.value = (checkboxProp.value ??
               checkboxProp.text) as any
             checkboxProp.value && allValues.push(checkboxProp.value)
             if (value !== undefined) {

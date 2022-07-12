@@ -50,7 +50,7 @@ export const RadioStoryBook2 = () => {
         options={[
           { text: '选择1', value: 1 },
           { text: '选择2', value: 2 },
-          { text: '选择3', value: 3 }
+          { text: '选择3', value: 0 }
         ]}
       />
       <br /> <br />
