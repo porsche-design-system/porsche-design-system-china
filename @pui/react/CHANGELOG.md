@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.26](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.25...v0.1.26) (2022-07-12)
+
+
+### Bug Fixes
+
+* DSCWCN-68 | 下拉选择的Button ([622a30b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/622a30b7f8bba071c790e751d015fdaf2e69a160))
+* UI走查Notification组件尺寸问题修复 ([182215d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/182215de71533dd66a1461c5dba61774f4b9caae))
+* 修正table滑动错误 ([48f1355](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/48f13557e5e0da742926e72c165a094ae2cb0008))
+* 修正文字 ([94a6d5a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/94a6d5a6ccf7aac1c04fa071fdb674934729b39d))
+* 更新textarea内部样式 ([7ec3822](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ec382238bb8b436594ea75dc34827334437e358))
+* 禁用状态不校验 ([3c47820](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/3c4782099bc94ef5cf7a4d42a83ad297efa4f251))
+
 ### [0.1.25](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.24...v0.1.25) (2022-06-15)
 
 
