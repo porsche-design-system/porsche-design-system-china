@@ -258,13 +258,12 @@ export const useElementPos = (
   }
 
   let popContentWidth = 0
-  if (popElemRef) {
-    popContentWidth = popElemRef.current?.offsetWidth || 0
-  }
-
   let popContentHeight = 0
   if (popElemRef) {
-    popContentHeight = popElemRef.current?.offsetHeight || 0
+    if (popElemRef.current) {
+      popContentWidth = popElemRef.current?.offsetWidth || 0
+      popContentHeight = popElemRef.current?.offsetHeight || 0
+    }
   }
 
   const docScroll = getWindowScroll()

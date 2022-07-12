@@ -157,7 +157,9 @@ Select = FormItem(
     separator = ':',
     isSameDisplay = true
   }: SelectProps<T>) => {
-    const selectState = useState(defaultValue || null)
+    const selectState = useState(
+      defaultValue !== undefined ? defaultValue : null
+    )
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
     const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
@@ -188,7 +190,7 @@ Select = FormItem(
     )
     const isComposing = useRef(false)
 
-    if (value) {
+    if (value !== undefined) {
       selectValue = value
       isControlledByValue.current = true
     }

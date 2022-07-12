@@ -53,7 +53,7 @@ const RadioGroup = FormItem(
     options
   }: RadioGroupProps<T>) => {
     const [radioValue, setRadioValue] = useState<T | ''>(
-      value || defaultValue || ''
+      value ?? defaultValue ?? ''
     )
 
     useEffect(() => {
@@ -97,9 +97,9 @@ const RadioGroup = FormItem(
             const radioProp: RadioProps<T> = props
             const radioOnChange = radioProp.onChange
             const radioOnCheckedChange = radioProp.onCheckedChange
-            radioProp.value = (radioProp.value || radioProp.text) as any
+            radioProp.value = (radioProp.value ?? radioProp.text) as any
             radioProp.value && allValues.push(radioProp.value as any)
-            radioProp.checked = radioProp.value === (value || radioValue)
+            radioProp.checked = radioProp.value === (value ?? radioValue)
             radioProp.onChange = evt => {
               radioOnChange && radioOnChange(evt)
               radioOnCheckedChange && radioOnCheckedChange(evt.target.checked)

@@ -41,7 +41,10 @@ export const TableStoryBook = () => {
       customCell() {
         return (
           <div>
-            <Select options="普通经销商,卓越经销商" defaultValue="普通经销商" />
+            <Select
+              options="普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商"
+              defaultValue="普通经销商"
+            />
           </div>
         )
       }

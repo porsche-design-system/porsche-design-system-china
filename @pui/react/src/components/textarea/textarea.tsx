@@ -77,7 +77,6 @@ export interface TextAreaProps {
  */
 const TextArea = FormItem(
   ({
-    className,
     size,
     placeholder,
     error,
