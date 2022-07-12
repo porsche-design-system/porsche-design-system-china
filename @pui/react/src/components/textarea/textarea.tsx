@@ -95,7 +95,9 @@ const TextArea = FormItem(
     if (value === null) {
       value = undefined
     }
-    const [valueLength, setValueLength] = useState(0)
+    const [valueLength, setValueLength] = useState(
+      (value || defaultValue || '').length
+    )
     const [defaultSize] = useDefaultSize()
     const isCompositionStarted = useRef(false)
     const [internalValue, setInternalValue] = useState('')
@@ -152,7 +154,7 @@ const TextArea = FormItem(
             onValueChange && onValueChange(evt.target.value)
           }}
           disabled={disabled}
-          onInput={event => {
+          onKeyUp={event => {
             if (maxLength) {
               const inputLength = (event.target as any).value.length
               setValueLength(inputLength < maxLength ? inputLength : maxLength)

@@ -39,7 +39,12 @@ InputsStoryBook.storyName = 'TextArea'
 export const InputsStoryBook1 = () => {
   return (
     <div>
-      <TextArea placeholder="最多输入200个字符" maxLength={200} width="400px" />
+      <TextArea
+        defaultValue="默认文字"
+        placeholder="最多输入200个字符"
+        maxLength={200}
+        width="400px"
+      />
     </div>
   )
 }
@@ -49,11 +54,7 @@ InputsStoryBook1.storyName = 'MAX LENGTH'
 export const DefaultHideMaxLengthTextarea = () => {
   return (
     <div>
-      <FashionTextArea
-        placeholder="最多输入20个字符"
-        maxLength={20}
-        width="400px"
-      />
+      <FashionTextArea placeholder="最多输入20个字符" maxLength={20} />
     </div>
   )
 }
