@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file. See [standa
 * 禁用状态不校验 ([3c47820](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/3c4782099bc94ef5cf7a4d42a83ad297efa4f251))
 * fix: 修正 checkbox 或 radio-group 的值错误
 
+### Features
+
+* 添加Table合并单元格和序号功能
+
 ### [0.1.25](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.24...v0.1.25) (2022-06-15)
 
 
