@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextArea, FashionTextArea } from '../..'
+import { TextArea } from '../..'
 
 import './textareas.stories.scss'
 
@@ -50,16 +50,6 @@ export const TextAreaStoryBook1 = () => {
 }
 
 TextAreaStoryBook1.storyName = 'MAX LENGTH'
-
-export const DefaultHideMaxLengthTextarea = () => {
-  return (
-    <div>
-      <FashionTextArea placeholder="最多输入20个字符" maxLength={20} />
-    </div>
-  )
-}
-
-DefaultHideMaxLengthTextarea.storyName = 'Default HIDE MAX LENGTH'
 
 export const TextAreaStoryBook2 = () => {
   return (
@@ -118,3 +108,44 @@ export const TextAreaStoryBook5 = () => {
 }
 
 TextAreaStoryBook5.storyName = 'Label Left / Text Align Right'
+
+export const TextAreaStoryBook6 = () => {
+  return (
+    <div>
+      <TextArea
+        label="自动调节高度"
+        placeholder="请输入"
+        width="400px"
+        autoAdjustHeight
+        defaultHeightOfRow={1}
+      />
+      <br /> <br /> <br />
+      <TextArea
+        label="自动调节高度(默认3行高度)"
+        placeholder="请输入"
+        width="400px"
+        autoAdjustHeight
+        defaultHeightOfRow={3}
+        maxLength={300}
+      />
+    </div>
+  )
+}
+
+TextAreaStoryBook6.storyName = 'Auto Adjust Height'
+
+export const TextAreaStoryBook7 = () => {
+  return (
+    <div>
+      <TextArea
+        label="只有获得焦点才显示计数器"
+        placeholder="请输入"
+        width="400px"
+        maxLength={100}
+        showCharCountOnFocus
+      />
+    </div>
+  )
+}
+
+TextAreaStoryBook7.storyName = 'Show Char Count On Focus'
