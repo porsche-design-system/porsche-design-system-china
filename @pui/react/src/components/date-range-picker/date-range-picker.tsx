@@ -456,6 +456,7 @@ const DateRangePicker = FormItem(
     }
 
     const startDateClick = (evt: any) => {
+      if (disabled) return
       evt.stopPropagation()
       setCurrentInputPlace(0)
       setCalendarOpen(true)
