@@ -35,28 +35,51 @@ interface FormData {
 
 export const ExampleStoryBook = () => {
   const [data, setData] = useState<FormData>({} as any)
+  const [disabled, setDisabled] = useState(false)
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          setData({
-            contact: 'Paul',
-            address: 'Shanghai DongFang Road 100',
-            mobile: '15000232222',
-            dealer: 'PC',
-            repairStartDate: '2021-01-12',
-            repairEndDate: '2021-05-33',
-            date: '2021-12-12',
-            services: ['Repair'],
-            invoice: 'yes',
-            invoiceType: 'E-Invoice'
-          })
-        }}
-        type="text"
-      >
-        Load Data
-      </Button>
+      <ButtonGroup>
+        <Button
+          onClick={() => {
+            setData({
+              contact: 'Paul',
+              address: 'Shanghai DongFang Road 100',
+              mobile: '15000232222',
+              dealer: 'PC',
+              repairStartDate: '2021-01-12',
+              repairEndDate: '2021-05-33',
+              date: '2021-12-12',
+              services: ['Repair'],
+              invoice: 'yes',
+              invoiceType: 'E-Invoice'
+            })
+          }}
+        >
+          Load Data
+        </Button>
+        <Button
+          onClick={() =>
+            setData({
+              contact: '',
+              address: '',
+              mobile: '',
+              dealer: '',
+              repairStartDate: '',
+              repairEndDate: '',
+              date: '',
+              services: [],
+              invoice: '',
+              invoiceType: ''
+            })
+          }
+        >
+          清空数据
+        </Button>
+        <Button onClick={() => setDisabled(!disabled)}>
+          {disabled ? '启用' : '禁用'}表单
+        </Button>
+      </ButtonGroup>
       <br />
       <br />
       <br />
@@ -84,24 +107,33 @@ export const ExampleStoryBook = () => {
           width="45%"
           rules={{ required: true, message: 'Required' }}
           marginRight="10%"
-          placeholder=""
+          placeholder="请输入姓名"
+          disabled={disabled}
         />
-        <Input label="Mobile" name="mobile" width="45%" placeholder="" />
+        <Input
+          label="Mobile"
+          name="mobile"
+          width="45%"
+          placeholder="请输入手机号"
+          disabled={disabled}
+        />
         <Select
           label="Dealer"
           name="dealer"
           width="45%"
           options="Shanghai PuDong:PD,Shanghai PuXi:PC"
           rules={{ required: true, message: 'Required' }}
-          placeholder=""
+          placeholder="请选择"
           marginRight="10%"
+          disabled={disabled}
         />
         <DatePicker
           label="Visit Date"
           name="date"
           width="45%"
           rules={{ required: true, message: 'Required' }}
-          placeholder=""
+          placeholder="请选择"
+          disabled={disabled}
         />
         <DateRangePicker
           label="Repair Date"
@@ -110,11 +142,13 @@ export const ExampleStoryBook = () => {
           rules={{ required: true, message: 'Required' }}
           placeholderStartDate="Start"
           placeholderEndDate="End"
+          disabled={disabled}
         />
         <CheckBoxGroup
           label="Service Type"
           name="services"
           options="Repair,Paint,Change Wheel,Lubrication"
+          disabled={disabled}
         />
         <Switch
           label="Send Invoice"
@@ -127,9 +161,10 @@ export const ExampleStoryBook = () => {
               setData({ ...data })
             }
           }}
+          disabled={disabled}
         />
         <RadioGroup
-          disabled={data.invoice === 'no'}
+          disabled={disabled || data.invoice === 'no'}
           label="Invoice Type"
           name="invoiceType"
           options="Paper-Invoice,E-Invoice"
@@ -138,13 +173,19 @@ export const ExampleStoryBook = () => {
           label="Address"
           rules={{ required: true, message: 'Required' }}
           name="address"
-          placeholder=""
+          placeholder="请输入地址"
+          disabled={disabled}
         />
         <ButtonGroup align="right">
-          <Button type="default" icon={IconArrowHeadLeft}>
+          <Button type="default" icon={IconArrowHeadLeft} disabled={disabled}>
             Prev
           </Button>
-          <Button type="primary" icon={IconArrowHeadRight} submit>
+          <Button
+            type="primary"
+            icon={IconArrowHeadRight}
+            submit
+            disabled={disabled}
+          >
             Submit
           </Button>
         </ButtonGroup>
@@ -154,6 +195,7 @@ export const ExampleStoryBook = () => {
         onClick={() => {
           Form.findByName('form1').submit()
         }}
+        disabled={disabled}
       >
         Submit
       </Button>
