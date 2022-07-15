@@ -372,7 +372,11 @@ const DatePicker = FormItem(
               labelText || ''
             )
           ) : (
-            displayValue || placeholder
+            displayValue || (
+              <span className="pui-select-input-placeholder">
+                {placeholder}
+              </span>
+            )
           )}
         </button>
         <IconCalendar className="pui-date-picker-icon" />
