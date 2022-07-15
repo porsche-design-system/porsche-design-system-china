@@ -70,6 +70,15 @@ export interface TextAreaProps {
 
   /** 中文打字结束 */
   onCompositionEnd?: CompositionEventHandler<HTMLTextAreaElement>
+
+  /** 自动调节高度 */
+  autoAdjustHeight?: boolean
+
+  /** 默认高度（行数） */
+  defaultHeightOfRow?: number
+
+  /** 只有获得焦点的时候显示输入字符数 */
+  showCharCountOnFocus?: boolean
 }
 
 /**
@@ -90,6 +99,9 @@ const TextArea = FormItem(
     onValueChange,
     onCompositionStart,
     onCompositionEnd,
+    autoAdjustHeight = false,
+    defaultHeightOfRow,
+    showCharCountOnFocus = false,
     onBlur
   }: TextAreaProps) => {
     if (value === null) {
@@ -102,12 +114,14 @@ const TextArea = FormItem(
     const isCompositionStarted = useRef(false)
     const [internalValue, setInternalValue] = useState('')
     const [, setUpdate] = useState(0)
+    const [isFocus, setIsFocus] = useState(false)
 
     size = size || defaultSize
 
     const updateHeight = (element: HTMLTextAreaElement) => {
       element.style.height = '5px'
-      element.style.height = element.scrollHeight + 20 + 'px'
+      element.style.height = element.scrollHeight + (maxLength ? 20 : 2) + 'px'
+      element.style.overflow = 'hidden'
     }
 
     if (isCompositionStarted.current && value !== undefined) {
@@ -138,13 +152,21 @@ const TextArea = FormItem(
             onCompositionEnd && onCompositionEnd(evt)
           }}
           ref={(element: HTMLTextAreaElement) => {
-            if (maxLength && element) {
+            if (autoAdjustHeight && element) {
               updateHeight(element)
             }
           }}
+          style={{
+            minHeight: defaultHeightOfRow
+              ? defaultHeightOfRow * (size === 'small' ? 22 : 24) + 'px'
+              : undefined
+          }}
           maxLength={maxLength}
           placeholder={placeholder}
-          onFocus={onFocus}
+          onFocus={evt => {
+            setIsFocus(true)
+            onFocus && onFocus(evt)
+          }}
           onChange={evt => {
             if (isCompositionStarted.current) {
               setInternalValue(evt.target.value)
@@ -158,39 +180,37 @@ const TextArea = FormItem(
             if (maxLength) {
               const inputLength = (event.target as any).value.length
               setValueLength(inputLength < maxLength ? inputLength : maxLength)
-              if (maxLength) {
-                const element = event.target as HTMLTextAreaElement
-                updateHeight(element)
-              }
+            }
+            if (autoAdjustHeight) {
+              const element = event.target as HTMLTextAreaElement
+              updateHeight(element)
             }
           }}
-          onBlur={onBlur}
+          onBlur={evt => {
+            setIsFocus(false)
+            onBlur && onBlur(evt)
+          }}
+          onInput={event => {
+            if (autoAdjustHeight) {
+              const element = event.target as HTMLTextAreaElement
+              updateHeight(element)
+            }
+          }}
         />
-        {maxLength && !hideMaxLength && (
-          <div className="pui-textarea-char-count">
-            {valueLength > 0 && valueLength}
-            <span>
-              {valueLength === 0 && valueLength}/{maxLength}
-            </span>
-          </div>
-        )}
+        {maxLength &&
+          !hideMaxLength &&
+          ((showCharCountOnFocus && isFocus) || !showCharCountOnFocus) && (
+            <div className="pui-textarea-char-count">
+              {valueLength > 0 && valueLength}
+              <span>
+                {valueLength === 0 && valueLength}/{maxLength}
+              </span>
+            </div>
+          )}
       </div>
     )
   }
 )
 
-const FashionTextArea = (txtAreaProps: TextAreaProps) => {
-  const [hide, setHide] = React.useState(true)
-  return (
-    <TextArea
-      {...txtAreaProps}
-      onFocus={() => setHide(false)}
-      onBlur={() => setHide(true)}
-      hideMaxLength={hide}
-    />
-  )
-}
-
 ;(TextArea as any).displayName = 'TextArea'
-;(FashionTextArea as any).displayName = 'FashionTextarea'
-export { TextArea, FashionTextArea }
+export { TextArea }

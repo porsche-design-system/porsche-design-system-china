@@ -101,7 +101,7 @@ function Form<T = any>({
 }: FormProps<T>) {
   const [formData, setFormData] = useState(data || defaultData || {})
   const [formErrors, setFormErrors] = useState([] as ErrorList)
-  const formDataValidators = useRef({} as any)
+  const formDataValidators = {}
   const shouldAutoValidForm = useRef(false)
   const [submitting, setSubmitting] = useState(false)
 
@@ -117,8 +117,7 @@ function Form<T = any>({
 
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
-      console.log(formDataValidators.current)
-      validate(formDataValidators.current, newFormData, errorList => {
+      validate(formDataValidators, newFormData, errorList => {
         setFormErrors(errorList)
       })
     }
@@ -131,7 +130,7 @@ function Form<T = any>({
       },
       submit() {
         let submitReturn: any
-        validate(formDataValidators.current, fData, errorList => {
+        validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
           setFormErrors(errorList)
           if (onSubmit) {
@@ -141,7 +140,7 @@ function Form<T = any>({
         return submitReturn
       },
       validate(callback?: (errorList: ErrorList) => void) {
-        validate(formDataValidators.current, fData, errorList => {
+        validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
           callback && callback(errorList)
         })
@@ -262,16 +261,14 @@ function Form<T = any>({
           }
 
           if (inputProps.name) {
-            formDataValidators.current[inputProps.name] = inputProps.rules
+            formDataValidators[inputProps.name] = inputProps.rules
           }
 
           if (inputProps.nameStartDate) {
-            formDataValidators.current[inputProps.nameStartDate] =
-              inputProps.rules
+            formDataValidators[inputProps.nameStartDate] = inputProps.rules
           }
           if (inputProps.nameEndDate) {
-            formDataValidators.current[inputProps.nameEndDate] =
-              inputProps.rules
+            formDataValidators[inputProps.nameEndDate] = inputProps.rules
           }
         }
 
@@ -404,7 +401,7 @@ function Form<T = any>({
         }
         buttonProps.onClick = evt => {
           buttonOnClick && buttonOnClick(evt)
-          validate(formDataValidators.current, fData, errorList => {
+          validate(formDataValidators, fData, errorList => {
             shouldAutoValidForm.current = true
             setFormErrors(errorList)
             if (onSubmit) {
