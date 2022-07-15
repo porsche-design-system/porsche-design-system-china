@@ -15,6 +15,7 @@ export const DatePickerStoryBook = () => {
           width="300px"
           label="来访日期"
           placeholder="请选择"
+          showClearButton
           value={val}
           onValueChange={v => {
             console.log(v)
