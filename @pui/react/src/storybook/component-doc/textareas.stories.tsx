@@ -27,7 +27,7 @@ export const InputsStoryBook = () => {
       <br />
       <div className="states">Disabled</div>
       <div>
-        <TextArea placeholder="请输入" width="400px" />
+        <TextArea placeholder="请输入" width="400px" disabled />
       </div>
       <br />
     </div>
