@@ -8,7 +8,7 @@ export default {
   component: TextArea
 }
 
-export const InputsStoryBook = () => {
+export const TextAreaStoryBook = () => {
   return (
     <div>
       <div className="states">Default</div>
@@ -34,9 +34,9 @@ export const InputsStoryBook = () => {
   )
 }
 
-InputsStoryBook.storyName = 'TextArea'
+TextAreaStoryBook.storyName = 'TextArea'
 
-export const InputsStoryBook1 = () => {
+export const TextAreaStoryBook1 = () => {
   return (
     <div>
       <TextArea
@@ -49,7 +49,7 @@ export const InputsStoryBook1 = () => {
   )
 }
 
-InputsStoryBook1.storyName = 'MAX LENGTH'
+TextAreaStoryBook1.storyName = 'MAX LENGTH'
 
 export const DefaultHideMaxLengthTextarea = () => {
   return (
@@ -61,7 +61,7 @@ export const DefaultHideMaxLengthTextarea = () => {
 
 DefaultHideMaxLengthTextarea.storyName = 'Default HIDE MAX LENGTH'
 
-export const InputsStoryBook2 = () => {
+export const TextAreaStoryBook2 = () => {
   return (
     <div>
       <TextArea
@@ -74,9 +74,9 @@ export const InputsStoryBook2 = () => {
   )
 }
 
-InputsStoryBook2.storyName = 'Error'
+TextAreaStoryBook2.storyName = 'Error'
 
-export const InputsStoryBook3 = () => {
+export const TextAreaStoryBook3 = () => {
   return (
     <div>
       <TextArea
@@ -89,9 +89,9 @@ export const InputsStoryBook3 = () => {
   )
 }
 
-InputsStoryBook3.storyName = 'LABEL TOP'
+TextAreaStoryBook3.storyName = 'LABEL TOP'
 
-export const InputsStoryBook4 = () => {
+export const TextAreaStoryBook4 = () => {
   return (
     <div>
       <TextArea
@@ -103,9 +103,9 @@ export const InputsStoryBook4 = () => {
   )
 }
 
-InputsStoryBook4.storyName = 'LABEL LEFT'
+TextAreaStoryBook4.storyName = 'LABEL LEFT'
 
-export const InputsStoryBook5 = () => {
+export const TextAreaStoryBook5 = () => {
   return (
     <div>
       <TextArea
@@ -117,4 +117,4 @@ export const InputsStoryBook5 = () => {
   )
 }
 
-InputsStoryBook5.storyName = 'Label Left / Text Align Right'
+TextAreaStoryBook5.storyName = 'Label Left / Text Align Right'
