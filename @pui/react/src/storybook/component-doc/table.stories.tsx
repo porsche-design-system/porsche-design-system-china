@@ -499,3 +499,69 @@ export const TableStoryBook6 = () => {
 }
 
 TableStoryBook6.storyName = 'Row Number and Cell Attributes'
+
+export const TableStoryBook7 = () => {
+  const rowData = {
+    id: 0,
+    dealerName: '上海浦东保时捷中心',
+    dealerCode: 1000000,
+    phoneNumber: '021-22211111',
+    address: '上海市东方路123号',
+    avgPrice: '￥1000000',
+    workingTime: '10:00AM - 10:30PM',
+    saleModel: '911 718 Taycan Panamera Macan Cayenne'
+  }
+
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
+  for (let i = 0; i < 5; i++) {
+    rowData.id = i + 1
+    rowData.dealerCode = Math.floor(Math.random() * 10000)
+    tableData.push({ ...rowData })
+  }
+
+  const columns: TableColumn<DataType>[] = [
+    {
+      title: '序号',
+      customCell(_, inx) {
+        return inx + 1
+      }
+    },
+    {
+      title: '经销商',
+      key: 'dealerName'
+    },
+    {
+      title: '操作',
+      customCell: (rowData, rowIndex, { isExpand, setExpand }) => {
+        return (
+          <Button
+            type="link"
+            onClick={() => {
+              setExpand(!isExpand)
+            }}
+          >
+            {isExpand ? '收起' : '展开'}
+          </Button>
+        )
+      }
+    }
+  ]
+
+  return (
+    <div>
+      <br />
+      <Table
+        rowExpandable
+        data={tableData}
+        columns={columns}
+        onRowClick={rowData => {
+          console.log(rowData)
+        }}
+      />
+    </div>
+  )
+}
+
+TableStoryBook7.storyName = 'Expand Action'
