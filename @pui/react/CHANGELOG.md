@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.27](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.26...v0.1.27) (2022-07-18)
+
+
+### Features
+
+* 加入展开收起功能 ([16f73ca](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/16f73caae24e7663735ae7ff5897163d770c39c4))
+* 加强TextArea ([4384b8e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4384b8efed520b01983b01e7b5991e9a1eda1fc7))
+
+
+### Bug Fixes
+
+* Dropdown 组件案例代码调整 ([eefecfb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/eefecfbf1e530c727e7dfbaa342a0aeeca9dc626))
+* DSCWCN-137|【调整】Datepicker的默认样式错误 ([0456da5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0456da5455ee2d4eb63c0eba958845216e59b171))
+* 修正 checkbox 或 radio-group 的值错误 ([0f3306a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0f3306ae7b00e3c7b4dee19fcc09629935c1c912))
+* 修正lint错误 ([1d5c9b6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1d5c9b601ad77a58c058b87154827c5fd5ab0810))
+* 修正textarea错误 ([88d641b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/88d641bf0a3f98d0a31978ee3d7066df9a65ddd8))
+* 修正命名 ([6f78d12](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6f78d12ee8f852a4a7e5fbcf086ca3de0dc67844))
+* 修正展示页面 ([36cd2f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/36cd2f9e230db7d4704f39dcc9b63b5b80c31bfb))
+* 修正表单验证错误 ([ed44f97](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ed44f97a83772b7fc26b59b01598581f67fdad05))
+* 更新changelog ([0aa7cc5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0aa7cc5949b3b200154b6c80ef2bf03c1bab24a8))
+
 ### [0.1.26](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.25...v0.1.26) (2022-07-12)
 
 
