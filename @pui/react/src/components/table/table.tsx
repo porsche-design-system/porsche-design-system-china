@@ -37,7 +37,11 @@ export interface TableColumn<T = any> {
   sortIconPlace?: 'left' | 'right'
   headCellStyle?: CSSProperties
   rowCellStyle?: CSSProperties
-  customCell?: (rowData: T, rowIndex: number) => React.ReactNode
+  customCell?: (
+    rowData: T,
+    rowIndex: number,
+    rowAction: { isExpand: boolean; setExpand: (b: boolean) => void }
+  ) => React.ReactNode
   colSpan?: number
   cellMerge?: (
     rowData: T,
@@ -257,7 +261,12 @@ const Table = <T, K>({
       if (col.customCell) {
         data.forEach((d, inx) => {
           const textLines = removeHtml(
-            renderToString(col.customCell!(d, inx) as any)
+            renderToString(
+              col.customCell!(d, inx, {
+                isExpand: false,
+                setExpand: (b: boolean) => {}
+              }) as any
+            )
           ).split('\n')
           textLines.forEach(lineText => {
             const dataColWidth = getByteLength(lineText) * charWidth
@@ -367,6 +376,8 @@ const Table = <T, K>({
       }
     }
 
+    const isExpandRow = expandRows.includes(rowIndex)
+
     return (
       <td
         key={'col' + inx}
@@ -380,7 +391,22 @@ const Table = <T, K>({
       >
         <div className="cell-wrap" style={column.rowCellStyle}>
           {column.customCell
-            ? column.customCell(rowData, rowIndex)
+            ? column.customCell(rowData, rowIndex, {
+                isExpand: isExpandRow,
+                setExpand: (expand: boolean) => {
+                  if (expand) {
+                    if (!expandRows.includes(rowIndex)) {
+                      setExpandRows([...expandRows, rowIndex])
+                      onExpand && onExpand(rowData, rowIndex)
+                    }
+                  } else {
+                    const rInx = expandRows.findIndex(elem => elem === rowIndex)
+                    expandRows.splice(rInx, 1)
+                    setExpandRows([...expandRows])
+                    onCollapse && onCollapse(rowData, rowIndex)
+                  }
+                }
+              })
             : column.key && rowData[column.key]}
         </div>
       </td>
