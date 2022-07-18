@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import { IconCheck, IconLink } from '@pui/icons'
+import React, { useState } from 'react'
+import { IconCheck } from '@pui/icons'
 import { InputNumber } from '../..'
 
 export default {
@@ -8,7 +8,7 @@ export default {
 }
 
 export const InputNumberStoryBook = () => {
-  const [value,setValue] = useState<number | string>(0)
+  const [value, setValue] = useState<number | string>(0)
   return (
     <div className="input-number-story">
       <div className="group">
@@ -22,8 +22,8 @@ export const InputNumberStoryBook = () => {
             width="150px"
             marginRight="30px"
             onValueChange={val => {
-              console.log(val);
-              setValue(val);
+              console.log(val)
+              setValue(val)
             }}
             step={3}
             value={value}
@@ -94,7 +94,7 @@ export const InputNumberStoryBook2 = () => {
             min={0}
             max={10}
             marginRight="30px"
-            hideStepBtn={true}
+            hideStepBtn
             onValueChange={val => console.log(val)}
           />
           <InputNumber
@@ -105,7 +105,7 @@ export const InputNumberStoryBook2 = () => {
             min={0}
             max={10}
             marginRight="30px"
-            hideStepBtn={true}
+            hideStepBtn
             style={{ marginLeft: 20 }}
           />
         </div>
@@ -140,7 +140,7 @@ export const InputNumberStoryBook3 = () => {
             min={0}
             max={10}
             marginRight="30px"
-            suffixIcon={<span style={{color: 'rgba(0, 0, 0, .4)'}}>天</span>}
+            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>天</span>}
             onValueChange={val => console.log(val)}
           />
           <InputNumber
@@ -151,8 +151,8 @@ export const InputNumberStoryBook3 = () => {
             min={0}
             max={10}
             disabled
-            hideStepBtn={true}
-            suffixIcon={<span style={{color: 'rgba(0, 0, 0, .4)'}}>元</span>}
+            hideStepBtn
+            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>元</span>}
             onValueChange={val => console.log(val)}
           />
         </div>
