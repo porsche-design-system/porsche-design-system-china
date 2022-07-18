@@ -1,6 +1,7 @@
-import React, { useState, CSSProperties, useEffect } from 'react'
+import React, { useState, CSSProperties, useEffect, ReactElement } from 'react'
 import classNames from 'classnames'
 import {
+  IconAdd,
   IconMinus,
   IconPlus,
   IconArrowHeadUp,
@@ -9,11 +10,12 @@ import {
 
 import { FormItem } from '../form/form-item'
 import { Input } from '../input/input'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, isReactElement } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
 
 import './input-number.scss'
 
+type PUIIcon = typeof IconAdd
 const prefixCls = 'pui-input-number'
 export interface InputNumberProps {
   /** 步骤条类名 */
@@ -46,6 +48,15 @@ export interface InputNumberProps {
   /** 当前值 */
   value?: string | number
 
+  /** 不显示递增按钮 */
+  hideStepBtn?: boolean
+
+  /** 后缀ICON */
+  suffixIcon?: PUIIcon | ReactElement
+
+  /** 后缀样式 */
+  suffixStyle?: CSSProperties
+
   /** 值改变回调 */
   onValueChange?: (val: number | string) => void
 }
@@ -62,12 +73,17 @@ const InputNumber = FormItem(
     style,
     type = 'default',
     value,
+    suffixIcon,
+    suffixStyle,
+    hideStepBtn = false,
     onValueChange
   }: InputNumberProps) => {
     let initialValue = value !== undefined ? value : defaultValue
     if(typeof initialValue === 'number') initialValue = String(initialValue)
     const [currentValue, setCurrentValue] = useState(initialValue)
     const [defaultSize] = useDefaultSize()
+    const SuffixComponent = suffixIcon as any
+
     size = size || defaultSize
     useEffect(() => {
       if (Number(value) !== Number(currentValue) && value !== undefined)
@@ -143,7 +159,7 @@ const InputNumber = FormItem(
         )}
         style={style}
       >
-        {type === 'default' ? (
+        {type === 'default' && !hideStepBtn ? (
           <>
             <div
               className={classNames('pui-minus-wrap', {
@@ -170,7 +186,7 @@ const InputNumber = FormItem(
               <IconPlus />
             </div>
           </>
-        ) : (
+        ) : (!hideStepBtn ? (
           <div
             className={classNames('pui-arrow-wrap', {
               'pui-disabled': disabled
@@ -195,7 +211,21 @@ const InputNumber = FormItem(
               })}
             />
           </div>
-        )}
+        ): null)}
+        {
+          suffixIcon && (
+            <span className={classNames('pui-input-number-suffix-icon', {
+              'pui-input-number-suffix-icon-position': !hideStepBtn
+            })} style={suffixStyle}>
+              {' '}
+              {isReactElement(SuffixComponent) ? (
+                SuffixComponent
+              ) : (
+                <SuffixComponent />
+              )}
+            </span>
+          )
+        }
         <Input
           className={classNames({
             [prefixCls]: type === 'default',
