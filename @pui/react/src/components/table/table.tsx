@@ -264,6 +264,7 @@ const Table = <T, K>({
             renderToString(
               col.customCell!(d, inx, {
                 isExpand: false,
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 setExpand: (b: boolean) => {}
               }) as any
             )
