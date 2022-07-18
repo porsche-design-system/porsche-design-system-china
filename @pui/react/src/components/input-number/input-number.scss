@@ -15,7 +15,19 @@
       position: relative;
       display: inline-block;
       height: 48px;
-
+      .pui-input-number-suffix-icon {
+        position: absolute;
+        right: 10px;
+        top: 12px;
+      }
+      .pui-input-number-suffix-icon-position {
+        right: 40px;
+        + .pui-input-number-arrow {
+          input {
+            padding-right: 66px;
+          }
+        }
+      }
       .pui-form-item {
         z-index: 1;
       }
@@ -37,6 +49,14 @@
       }
       .pui-plus-wrap {
         right: 0;
+        + .pui-input-number-suffix-icon-position {
+          right: 56px;
+          + .pui-input-number {
+            input {
+              padding-right:76px;
+            }
+          }
+        }
       }
       .pui-input-number-icon-transparent {
         background: transparent;
@@ -72,11 +92,18 @@
     .pui-input-number-icon-disabled {
       color: $border-color-2;
       cursor: not-allowed;
+      & + .pui-input-number-suffix-icon {
+        color: $text-opacity-color-2;
+      }
     }
     .pui-input-number-wrap-size-small {
       height: 36px;
       .porscheicon {
         font-size: 18px;
+      }
+      .pui-input-number-suffix-icon {
+        font-size: 16px;
+        top: 6px;
       }
     }
   }
