@@ -28,104 +28,16 @@ export const ButtonStoryBook = () => {
 
 ButtonStoryBook.storyName = 'Button'
 
-export interface SplitButtonProps {
-  size?: 'medium' | 'small' | 'tiny'
-  disabled?: boolean
-  loading?: boolean
-}
-
-const SplitButton = ({
-  size,
-  disabled = false,
-  loading = false
-}: SplitButtonProps) => {
-  const [index, setIndex] = React.useState('sign')
-  const [visible, setVisible] = React.useState(false)
-  const defaultMenu = (
-    <Menu activeIndex={index} onSelect={setIndex}>
-      <Menu.Item
-        selectAfter
-        index="sign"
-        onClick={() => {
-          console.log('电子签署')
-        }}
-      >
-        电子签署
-      </Menu.Item>
-      <Menu.Item
-        selectAfter
-        index="item2"
-        onClick={() => {
-          console.log(' 2nd Item')
-        }}
-      >
-        2nd Item
-      </Menu.Item>
-      <Menu.Item
-        selectAfter
-        index="item3"
-        onClick={() => {
-          console.log(' 3nd Item')
-        }}
-      >
-        3rd Item
-      </Menu.Item>
-      <Menu.Item
-        selectAfter
-        index="item4"
-        onClick={() => {
-          console.log(' 4nd Item')
-        }}
-      >
-        4th Item
-      </Menu.Item>
-    </Menu>
-  )
-
-  return (
-    <>
-      <div style={{ display: 'flex', marginRight: '40px' }}>
-        <Dropdown
-          overlay={defaultMenu}
-          disabled={disabled || loading}
-          trigger="click"
-          visible={visible}
-          onVisibleChange={setVisible}
-        >
-          <div style={{ display: 'flex'}}>
-            <Button
-              type="primary"
-              icon={IconEdit}
-              disabled={disabled}
-              size={size}
-              loading={loading}
-            >
-              电子签署
-            </Button>
-            <div className="afterAddon">
-              <Button
-                type="primary"
-                icon={IconArrowHeadDown}
-                disabled={disabled || loading}
-                size={size}
-                onClick={() => setVisible(!visible)}
-              />
-            </div>
-          </div>
-        </Dropdown>
-        </div>
-    </>
-  )
-}
-
 export interface DropdownButtonProps {
   size?: 'medium' | 'small' | 'tiny'
+  type?: 'default' | 'primary' | 'secondary' | 'text' | 'link'
   disabled?: boolean
   loading?: boolean
 }
 
 const DropdownButton = ({
   size,
+  type = 'primary',
   disabled = false,
   loading = false
 }: DropdownButtonProps) => {
@@ -176,7 +88,7 @@ const DropdownButton = ({
           disabled={disabled || loading}
         >
           <Button
-            type="primary"
+            type={type}
             suffixIcon={IconArrowHeadDown}
             disabled={disabled || loading}
             size={size}
@@ -275,6 +187,18 @@ export const ButtonStoryBook2 = () => {
     )
   }
 
+  const Tab4 = () => {
+    return (
+      <>
+        <div className="flex">
+          <DropdownButton /> <DropdownButton type="secondary" />{' '}
+          <DropdownButton type="default" /> <DropdownButton type="text" />{' '}
+          <DropdownButton type="link" />{' '}
+        </div>
+      </>
+    )
+  }
+
   return (
     <div>
       <Tabs size="small" hasLine>
@@ -287,11 +211,8 @@ export const ButtonStoryBook2 = () => {
         <TabPane tabKey="Text" title="Text">
           <Tab3 />
         </TabPane>
-        <TabPane tabKey="Split" title="the Split Button">
-          <SplitButton />
-        </TabPane>
         <TabPane tabKey="Dropdown" title="the Drop-down Button">
-          <DropdownButton />
+          <Tab4 />
         </TabPane>
       </Tabs>
     </div>
@@ -342,7 +263,6 @@ export const ButtonStoryBook3 = () => {
         <br />
         <br />
         <div className="flex">
-          <SplitButton disabled />
           <DropdownButton disabled />
         </div>
       </>
@@ -390,7 +310,6 @@ export const ButtonStoryBook3 = () => {
         <br />
         <br />
         <div className="flex">
-          <SplitButton loading />
           <DropdownButton loading />
         </div>
       </>
@@ -517,12 +436,7 @@ export const ButtonStoryBook4 = () => {
         />
       </div>
       <br />
-      <div className="flex">
-        <SplitButton size="tiny" />
-        <SplitButton size="tiny" disabled />
-        <SplitButton size="tiny" loading />
-      </div>
-      <br />
+
       <div className="flex">
         <DropdownButton size="tiny" />
         <DropdownButton size="tiny" disabled />
