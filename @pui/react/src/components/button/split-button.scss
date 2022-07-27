@@ -1,0 +1,50 @@
+@import "../../styles/theme/index";
+
+@each $theme in $themes {
+    .pui-theme-#{$theme} {
+      @include theme($theme);
+
+      .pui-split-button{
+        .afterAddon{
+          .pui-button{
+            &-type-link{
+              padding: 0 11px !important;
+            }
+  
+            &-size-small {
+              &.pui-button-type-link{
+                padding: 0 7px !important;
+              }
+  
+            }
+  
+            &-size-tiny{
+              &.pui-button-type-link{
+                padding: 0 7px !important;
+              }
+            }
+          }
+
+        }
+        .pui-button{
+          &-type-link{
+            padding: 0 16px !important;
+          }
+
+          &-size-small {
+            &.pui-button-type-link{
+              padding: 0 11px 0 7px !important;
+            }
+
+          }
+
+          &-size-tiny{
+            &.pui-button-type-link{
+              padding: 0 7px !important;
+            }
+          }
+        }
+        
+      }
+    }
+}
