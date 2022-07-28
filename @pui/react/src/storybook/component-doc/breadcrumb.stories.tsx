@@ -125,17 +125,19 @@ export const BreadcrumbStoryBook = () => {
         {
           path: '*',
           title: '未知',
-          element: null,
-        },
-      ],
-    },
-  ];
+          element: null
+        }
+      ]
+    }
+  ]
 
   const Tab4 = () => {
     const [clickedItem, setClickedItem] = useState('')
     return (
       <>
-        <small style={{ color: '#666' }}>通过传入路由嵌套结构与当前路由匹配：</small>
+        <small style={{ color: '#666' }}>
+          通过传入路由嵌套结构与当前路由匹配：
+        </small>
         <br />
         <br />
         <Breadcrumb
@@ -144,7 +146,7 @@ export const BreadcrumbStoryBook = () => {
             setClickedItem(JSON.stringify(item))
           }}
           routes={routeList}
-          currentPath='/stations/detail'
+          currentPath="/stations/detail"
         />
         <br />
         <Breadcrumb
@@ -153,8 +155,8 @@ export const BreadcrumbStoryBook = () => {
             setClickedItem(JSON.stringify(item))
           }}
           routes={routeList}
-          currentPath='/stations/detail'
-          current={true}
+          currentPath="/stations/detail"
+          current
         />
         <br />
         {clickedItem}

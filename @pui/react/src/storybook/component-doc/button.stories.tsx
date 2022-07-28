@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { IconArrowHeadDown, IconArrowHeadRight, IconEdit } from '@pui/icons'
+import { IconArrowHeadDown, IconArrowHeadRight } from '@pui/icons'
 
 import { Button, Tabs, TabPane, Menu, Dropdown } from '../..'
 import './button.stories.scss'
