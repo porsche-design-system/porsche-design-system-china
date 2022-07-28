@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.29](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.28...v0.1.29) (2022-07-28)
+
+
+### Features
+
+* 增加面包屑的路由匹配功能以及当前路由放大显示 ([4c2cf6a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4c2cf6a316d495964857ee2ea176a005ea8b0774))
+
+
+### Bug Fixes
+
+* 修正 ([cb0ca70](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/cb0ca708900f30cf40ef18d3b07e553ec03ee2ec))
+
 ### [0.1.28](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.27...v0.1.28) (2022-07-18)
 
 ### [0.1.27](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.26...v0.1.27) (2022-07-18)
