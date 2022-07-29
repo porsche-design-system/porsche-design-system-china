@@ -23,17 +23,20 @@ export interface CheckBoxGroupProps<T> {
   /* 表单绑定key，需要配合&lt;Form&gt;使用 */
   name?: string
 
-  /* 值改变事件 */
-  onValueChange?: (values: T[]) => void
+  /* 值改变事件 (如果是因为value传参错误或不在options里会触发自动修正，第二个传参会为true) */
+  onValueChange?: (values: T[], isDataCorrection?: boolean) => void
 
   /** 子组件 */
   children?: React.ReactNode
 
-  /* 选项 */
+  /** 选项 */
   options?: string | string[] | SelectOption<T>[]
 
-  /* 错误 */
+  /** 错误 */
   error?: FormErrorText
+
+  /** 选项间距 */
+  itemsDistance?: { x?: string; y?: string }
 }
 
 const CheckBoxGroup = FormItem(
@@ -44,7 +47,8 @@ const CheckBoxGroup = FormItem(
     value,
     defaultValue,
     error,
-    options
+    options,
+    itemsDistance
   }: CheckBoxGroupProps<T>) => {
     const checkBoxValues = useRef<T[]>(value ?? defaultValue ?? [])
 
@@ -71,7 +75,14 @@ const CheckBoxGroup = FormItem(
     }
 
     const optionsNodes = checkBoxOptions.map((option, inx) => (
-      <CheckBox key={'$CheckBox-' + inx} {...option} />
+      <CheckBox
+        key={'$CheckBox-' + inx}
+        {...option}
+        style={{
+          marginRight: itemsDistance?.x,
+          marginBottom: itemsDistance?.y
+        }}
+      />
     ))
 
     const newChildren = useMemo(() => {
@@ -106,7 +117,7 @@ const CheckBoxGroup = FormItem(
                   }
                 }
               }
-              onValueChange && onValueChange([...checkBoxValues.current])
+              onValueChange && onValueChange([...checkBoxValues.current], false)
             }
           }
           return props
@@ -124,11 +135,16 @@ const CheckBoxGroup = FormItem(
     }, [onValueChange, value, options])
 
     useEffect(() => {
+      if (value === undefined) {
+        return
+      }
       if (
-        value !== undefined &&
-        JSON.stringify(checkBoxValues.current.sort()) !== JSON.stringify(value)
+        !Array.isArray(value) ||
+        (Array.isArray(value) &&
+          JSON.stringify(checkBoxValues.current.sort()) !==
+            JSON.stringify(value.sort()))
       ) {
-        onValueChange && onValueChange(checkBoxValues.current)
+        onValueChange && onValueChange(checkBoxValues.current, true)
       }
     }, [])
 

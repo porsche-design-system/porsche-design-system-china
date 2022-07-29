@@ -28,8 +28,8 @@ export interface RadioGroupProps<T> {
   /** 错误 */
   error?: FormErrorText
 
-  /** 点击事件 */
-  onValueChange?: (val: T) => void
+  /** 值改变事件 (如果是因为value传参错误或不在options里会触发自动修正，第二个传参会为true) */
+  onValueChange?: (val: T, isDataCorrection?: boolean) => void
 
   /** 选项 */
   options?: string | string[] | Option<T>[]
@@ -39,6 +39,9 @@ export interface RadioGroupProps<T> {
 
   /** 子组件 */
   children?: React.ReactNode
+
+  /** 选项间距 */
+  itemsDistance?: { x?: string; y?: string }
 }
 
 const RadioGroup = FormItem(
@@ -50,7 +53,8 @@ const RadioGroup = FormItem(
     defaultValue,
     allowCancelSelection = false,
     error,
-    options
+    options,
+    itemsDistance
   }: RadioGroupProps<T>) => {
     const [radioValue, setRadioValue] = useState<T | ''>(
       value ?? defaultValue ?? ''
@@ -85,7 +89,14 @@ const RadioGroup = FormItem(
     }
 
     const optionRadios = radioOptions.map((option, inx) => (
-      <Radio key={'$Radio-' + inx} {...option} />
+      <Radio
+        key={'$Radio-' + inx}
+        {...option}
+        style={{
+          marginRight: itemsDistance?.x,
+          marginBottom: itemsDistance?.y
+        }}
+      />
     ))
 
     const newChildren = useMemo(() => {
@@ -108,13 +119,13 @@ const RadioGroup = FormItem(
                   setRadioValue(props.value)
                 }
               }
-              onValueChange && onValueChange(props.value)
+              onValueChange && onValueChange(props.value, false)
             }
             if (allowCancelSelection) {
               ;(radioProp as any).onClick = (evt: any) => {
                 if (allowCancelSelection && evt.target.value === radioValue) {
                   setRadioValue('')
-                  onValueChange && onValueChange('' as any)
+                  onValueChange && onValueChange('' as any, false)
                 }
               }
             }
@@ -132,7 +143,7 @@ const RadioGroup = FormItem(
 
     useEffect(() => {
       if (radioValue !== value) {
-        onValueChange && onValueChange(radioValue as any)
+        onValueChange && onValueChange(radioValue as any, true)
       }
     }, [])
 
