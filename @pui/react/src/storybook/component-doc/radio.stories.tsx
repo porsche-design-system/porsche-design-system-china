@@ -107,3 +107,15 @@ export const RadioStoryBook6 = () => {
   )
 }
 RadioStoryBook6.storyName = 'String Options'
+
+export const RadioStoryBook7 = () => {
+  return (
+    <div>
+      <RadioGroup
+        itemsDistance={{ x: '1px', y: '10px' }}
+        options="教师:Teacher,医生:Doctor,警察:Policeman,律师:Lawyer"
+      />
+    </div>
+  )
+}
+RadioStoryBook7.storyName = 'Items Distance'

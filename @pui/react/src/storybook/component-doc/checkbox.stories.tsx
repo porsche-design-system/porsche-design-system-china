@@ -103,3 +103,18 @@ export const CheckBoxStoryBook4 = () => {
 }
 
 CheckBoxStoryBook4.storyName = 'String Options'
+
+export const CheckBoxStoryBook5 = () => {
+  return (
+    <div>
+      <div>设置选项间距</div>
+      <CheckBoxGroup
+        itemsDistance={{ x: '5px' }}
+        label={{ text: '热门电影', position: 'left' }}
+        options="光年正传,肖申克的救赎,寻龙传说,复仇者联盟,瞬息全宇宙,美丽人生,尖峰时刻"
+      />
+    </div>
+  )
+}
+
+CheckBoxStoryBook5.storyName = 'Item Distance'
