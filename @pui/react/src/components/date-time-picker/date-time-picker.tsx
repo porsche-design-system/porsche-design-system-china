@@ -137,7 +137,7 @@ const DateTimePicker = FormItem(
       initComponent()
     }, [])
 
-    const [dateTimeDates, setDateTimeDates] = useState(null)
+    // const [dateTimeDates, setDateTimeDates] = useState(null)
     const yearicon = (
       <>
         <IconArrowDoubleLeft className="datefonticon" />
@@ -197,7 +197,7 @@ const DateTimePicker = FormItem(
                 newArr[1] = ''
               }
               onValueChange && onValueChange(newArr)
-              setDateTimeDates(newArr)
+              // setDateTimeDates(newArr)
             } else {
               document.getElementById(componentId).value = arr[0]
               document.getElementById(componentId + 'posend').value = arr[1]
@@ -205,12 +205,12 @@ const DateTimePicker = FormItem(
             }
           } else {
             onValueChange && onValueChange(obj.val)
-            setDateTimeDates(obj.val)
+            // setDateTimeDates(obj.val)
           }
         },
         clearfun: function (elem: any, val: any) {
           clearfun && clearfun(elem, val)
-          setDateTimeDates(null)
+          // setDateTimeDates(null)
         }
       }
 
