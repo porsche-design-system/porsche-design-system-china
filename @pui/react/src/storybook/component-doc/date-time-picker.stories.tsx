@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DateTimePicker, Form } from '../..'
 
 export default {
@@ -7,7 +7,6 @@ export default {
 }
 
 export const DateTimePickerStoryBook = () => {
-  const [val, setVal] = useState<string>('2020-01-01')
   return (
     <div>
       <Form>
@@ -16,7 +15,7 @@ export const DateTimePickerStoryBook = () => {
           width="300px"
           placeholder="请输入日期"
           showStyle="OnlyYear"
-          componentId="testafdsdatatime"
+          componentId="testTime001"
         />
         <br />
         <div>只显示年和月</div>
@@ -43,7 +42,7 @@ export const DateTimePickerStoryBook = () => {
           placeholder="请输入日期"
           showStyle="CommonHHMMSS"
           componentId="testTime4"
-        /> 
+        />
 
         <br />
         <div>时分秒</div>
@@ -86,12 +85,12 @@ export const DateTimePickerStoryBook = () => {
         <DateTimePicker
           label="到港日期"
           placeholder="请输入日期"
-          filterMode={true}
+          filterMode
           // width="300px"
           labelPosition="left"
           showStyle="Common"
           componentId="testTime5cb"
-        ></DateTimePicker>
+        />
       </Form>
     </div>
   )
@@ -100,59 +99,88 @@ export const DateTimePickerStoryBook = () => {
 DateTimePickerStoryBook.storyName = 'DateTimePicker'
 
 export const DateTimePickerStoryBook2 = () => {
-  const [val, setVal] = useState<string>('2020-01-01')
   return (
     <div>
-       <Form>
-       <div>只显示年</div>
-       <DateTimePicker isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="OnlyYear"
-        componentId="testTime2a" />
-       <br />
-      <div>只显示年和月</div>
-       <DateTimePicker isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="YearAndMonth"
-        componentId="testTime2b" />
-
-      <br />
-      <div>显示年月日</div>
-       <DateTimePicker isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="Common"
-        componentId="testTime3b" />
-
-      <br />
-      <div>显示年月日时分</div>
-       <DateTimePicker isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="CommonHHMMSS"
-          componentId="testTime4b" />
+      <Form>
+        <div>只显示年</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="OnlyYear"
+          componentId="testTime2a"
+        />
+        <br />
+        <div>只显示年和月</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="YearAndMonth"
+          componentId="testTime2b"
+        />
 
         <br />
-      <div>时分秒</div>
-       <DateTimePicker isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="HHMMSS"
-          componentId="testTime5b" />
-          <br />
+        <div>显示年月日</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="Common"
+          componentId="testTime3b"
+        />
+
+        <br />
+        <div>显示年月日时分</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="CommonHHMMSS"
+          componentId="testTime4b"
+        />
+
+        <br />
+        <div>时分秒</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="HHMMSS"
+          componentId="testTime5b"
+        />
+        <br />
         <div>disabled</div>
-       <DateTimePicker disabled isRange width="300px" placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-               showStyle="HHMMSS"
-          componentId="testTime5c" />
+        <DateTimePicker
+          disabled
+          isRange
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="HHMMSS"
+          componentId="testTime5c"
+        />
 
         <br />
         <div>filterMode / allowNullDate</div>
-        <DateTimePicker label="到港日期" placeholder="请输入日期"  placeholderStartDate="开始日期"
-              placeholderEndDate="结束日期"
-              isRange
-              filterMode={true}
-          allowNullDate={true}
-              labelPosition="left" showStyle="Common"
-              componentId="testTime6cb"></DateTimePicker>
-        </Form>
+        <DateTimePicker
+          label="到港日期"
+          placeholder="请输入日期"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          isRange
+          filterMode
+          allowNullDate
+          labelPosition="left"
+          showStyle="Common"
+          componentId="testTime6cb"
+        />
+      </Form>
     </div>
   )
 }
