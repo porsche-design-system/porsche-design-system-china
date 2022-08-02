@@ -1,5 +1,5 @@
 let jet = {}
-let regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz'
+const regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz'
 let puiDateObj = {}
 
 function $Q(selector, content) {
@@ -8,7 +8,7 @@ function $Q(selector, content) {
 }
 
 function jeDatePick(elem, options) {
-  var config = {
+  const config = {
     language: {
       name: 'cn',
       month: [
@@ -33,36 +33,36 @@ function jeDatePick(elem, options) {
       today: '现在',
       yes: '确定'
     },
-    format: 'YYYY-MM-DD hh:mm', //日期格式
-    minDate: '1900-01-01 00:00:00', //最小日期
-    maxDate: '2099-12-31 23:59:59', //最大日期
-    isShow: true, //是否显示为固定日历，为false的时候固定显示
-    multiPane: true, //是否为双面板，为false是展示双面板
-    onClose: true, //是否为选中日期后关闭弹层，为false时选中日期后关闭弹层
-    range: false, //如果不为空且不为false，则会进行区域选择，例如 " 至 "，" ~ "，" To "
-    trigger: 'click', //是否为内部触发事件，默认为内部触发事件
-    position: [], //自定义日期弹层的偏移位置，长度为0，弹层自动查找位置
-    valiDate: [], //有效日期与非有效日期，例如 ["0[4-7]$,1[1-5]$,2[58]$",true]
-    isinitVal: false, //是否初始化时间，默认不初始化时间
-    initDate: {}, //初始化时间，加减 天 时 分
-    isTime: true, //是否开启时间选择
-    isClear: true, //是否显示清空按钮
-    isToday: true, //是否显示今天或本月按钮
-    isYes: true, //是否显示确定按钮
-    festival: false, //是否显示农历节日
-    fixed: true, //是否静止定位，为true时定位在输入框，为false时居中定位
-    zIndex: 2099, //弹出层的层级高度
-    method: {}, //自定义方法
-    theme: {}, //自定义主题色
-    shortcut: [], //日期选择的快捷方式
-    donefun: null, //选中日期完成的回调
-    before: null, //在界面加载之前执行
-    succeed: null, //在界面加载之后执行
+    format: 'YYYY-MM-DD hh:mm', // 日期格式
+    minDate: '1900-01-01 00:00:00', // 最小日期
+    maxDate: '2099-12-31 23:59:59', // 最大日期
+    isShow: true, // 是否显示为固定日历，为false的时候固定显示
+    multiPane: true, // 是否为双面板，为false是展示双面板
+    onClose: true, // 是否为选中日期后关闭弹层，为false时选中日期后关闭弹层
+    range: false, // 如果不为空且不为false，则会进行区域选择，例如 " 至 "，" ~ "，" To "
+    trigger: 'click', // 是否为内部触发事件，默认为内部触发事件
+    position: [], // 自定义日期弹层的偏移位置，长度为0，弹层自动查找位置
+    valiDate: [], // 有效日期与非有效日期，例如 ["0[4-7]$,1[1-5]$,2[58]$",true]
+    isinitVal: false, // 是否初始化时间，默认不初始化时间
+    initDate: {}, // 初始化时间，加减 天 时 分
+    isTime: true, // 是否开启时间选择
+    isClear: true, // 是否显示清空按钮
+    isToday: true, // 是否显示今天或本月按钮
+    isYes: true, // 是否显示确定按钮
+    festival: false, // 是否显示农历节日
+    fixed: true, // 是否静止定位，为true时定位在输入框，为false时居中定位
+    zIndex: 2099, // 弹出层的层级高度
+    method: {}, // 自定义方法
+    theme: {}, // 自定义主题色
+    shortcut: [], // 日期选择的快捷方式
+    doneFun: null, // 选中日期完成的回调
+    before: null, // 在界面加载之前执行
+    succeed: null, // 在界面加载之后执行
     yearIcon: null,
     singleLeftIcon: null,
     singleRightIcon: null,
-    doubleRighticon: null,
-    allowNullDate: false //开始日期或结束日期可以为空
+    doubleRightIcon: null,
+    allowNullDate: false // 开始日期或结束日期可以为空
   }
   this.$opts = jet.extend(config, options || {})
   this.valCell = $Q(elem)
@@ -74,7 +74,7 @@ function jeDatePick(elem, options) {
   delete this.$opts.method
 }
 
-//返回日期
+// 返回日期
 function DateTime(arr, valObj) {
   var that = this,
     newdate = new Date(),
@@ -100,35 +100,35 @@ function DateTime(arr, valObj) {
         narr[i] == 'Month' ? parseInt(par) - 1 : parseInt(par)
       )
     })
-  //返回一个数值相同的新DateTime对象
+  // 返回一个数值相同的新DateTime对象
   that.reDate = function () {
     return new DateTime()
   }
-  //返回此实例的Date值
+  // 返回此实例的Date值
   that.GetValue = function () {
     return ND
   }
-  //获取此实例所表示日期的年份部分。
+  // 获取此实例所表示日期的年份部分。
   that.GetYear = function () {
     return ND.getFullYear()
   }
-  //获取此实例所表示日期的月份部分。
+  // 获取此实例所表示日期的月份部分。
   that.GetMonth = function () {
     return ND.getMonth() + 1
   }
-  //获取此实例所表示的日期为该月中的第几天。
+  // 获取此实例所表示的日期为该月中的第几天。
   that.GetDate = function () {
     return ND.getDate()
   }
-  //获取此实例所表示日期的小时部分。
+  // 获取此实例所表示日期的小时部分。
   that.GetHours = function () {
     return ND.getHours()
   }
-  //获取此实例所表示日期的分钟部分。
+  // 获取此实例所表示日期的分钟部分。
   that.GetMinutes = function () {
     return ND.getMinutes()
   }
-  //获取此实例所表示日期的秒部分。
+  // 获取此实例所表示日期的秒部分。
   that.GetSeconds = function () {
     return ND.getSeconds()
   }
@@ -1346,7 +1346,7 @@ jet.extend(jeDatePick.prototype, {
         '<em class="yearnext ynext" style="margin-right:12px" @on="yearBtn(rnext,' +
         aowArr[1] +
         ')">' +
-        opts.doubleRighticon +
+        opts.doubleRightIcon +
         '</em>',
       mPrev =
         '{% if(dlen>2){ %}<em class="monthprev mprev" style="margin-left:18px"  @on="monthBtn(mprev,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
@@ -1776,8 +1776,8 @@ jet.extend(jeDatePick.prototype, {
           } else {
             dateVal = that.setValue(newArr, that.format)
             that.closeDate()
-            opts.donefun &&
-              opts.donefun.call(that, {
+            opts.doneFun &&
+              opts.doneFun.call(that, {
                 elem: that.valCell,
                 val: dateVal,
                 date: newArr
@@ -1892,8 +1892,8 @@ jet.extend(jeDatePick.prototype, {
         } else {
           that.closeDate()
         }
-        opts.donefun &&
-          opts.donefun.call(that, {
+        opts.doneFun &&
+          opts.doneFun.call(that, {
             elem: that.valCell,
             val: dateVal,
             date: newArr
@@ -1960,8 +1960,8 @@ jet.extend(jeDatePick.prototype, {
         dateVal = that.setValue(newArr, that.format, opts.isShow ? true : false)
         opts.isShow && that.closeDate()
 
-        opts.donefun &&
-          opts.donefun.call(that, {
+        opts.doneFun &&
+          opts.doneFun.call(that, {
             elem: that.valCell,
             val: dateVal,
             date: newArr
