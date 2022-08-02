@@ -37,16 +37,16 @@ export const ExampleStoryBook = () => {
   const [buttonAlign, setButtonAlign] = useState('left')
   const [data, setData] = useState({ lastName: '李' })
 
-  const testChange2 = (val:any) => {
-    data.testTime4b = val;
+  const testChange2 = (val: any) => {
+    data.testTime4b = val
     setData(data)
     console.log('testChange2', val, data)
   }
 
   const testChange1 = (val: any) => {
-    data.testTime4 = val;
+    data.testTime4 = val
     setData(data)
-    console.log('testChange1',val,data)
+    console.log('testChange1', val, data)
   }
   return (
     <div>
@@ -119,9 +119,7 @@ export const ExampleStoryBook = () => {
               label="生日"
               width="44%"
               marginRight="2%"
-              rules={[
-                { required: true, message: '日期必须填写' }
-              ]}
+              rules={[{ required: true, message: '日期必须填写' }]}
             />
             <Select
               options="男:male,女:female"
@@ -139,9 +137,7 @@ export const ExampleStoryBook = () => {
               name="dateRange"
               showClearButton
               mustPickStartEnd
-              rules={[
-                { required: true, message: '日期必须填写' }
-              ]}
+              rules={[{ required: true, message: '日期必须填写' }]}
             />
             <DateRangePicker
               label="修理时间"
@@ -156,30 +152,28 @@ export const ExampleStoryBook = () => {
                 { type: 'number', message: '手机号必须是数字' }
               ]}
             />
-             <DateTimePicker
+            <DateTimePicker
               width="300px"
               label="DateTimePicker到港日期"
-          placeholder="请输入日期"
+              placeholder="请输入日期"
               showStyle="CommonHHMMSS"
               name="testTime4"
               componentId="testTime4"
-              rules={[
-                { required: true, message: '日期必须填写' }
-              ]}
+              rules={[{ required: true, message: '日期必须填写' }]}
               onValueChange={testChange1}
             />
-            
-            <DateTimePicker label="DateTimePicker到港日期2" isRange width="300px" placeholderStartDate="开始日期"
+            <DateTimePicker
+              label="DateTimePicker到港日期2"
+              isRange
+              width="300px"
+              placeholderStartDate="开始日期"
               placeholderEndDate="结束日期"
               showStyle="CommonHHMMSS"
               name="testTime4b"
               componentId="testTime4b"
-              rules={[
-                { required: true, message: '到港日期2必须填写' }
-              ]}
+              rules={[{ required: true, message: '到港日期2必须填写' }]}
               onValueChange={testChange2}
             />
-            
             <Search name="search" />
             <Switch label="保时捷车主" name="ownCar" />
             <RadioGroup name="job" label="职业">

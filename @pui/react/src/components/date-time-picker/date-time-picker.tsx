@@ -1,9 +1,4 @@
-import React, { useEffect, useState,ReactNode } from 'react'
-import ReactDOMServer from 'react-dom/server'
-import './date-picker.scss'
-import { FormItem } from '../form/form-item'
-import { FormItemLabelProps } from '../form/form'
-
+import React, { useEffect, ReactNode } from 'react'
 import {
   IconClock,
   IconArrowDoubleLeft,
@@ -11,6 +6,11 @@ import {
   IconArrowHeadRight,
   IconArrowDoubleRight
 } from '@pui/icons'
+import ReactDOMServer from 'react-dom/server'
+import './date-picker.scss'
+import { FormItem } from '../form/form-item'
+import { FormItemLabelProps } from '../form/form'
+
 import { useDefaultSize } from '../../shared/hooks'
 
 import puiDate from './puiDate.js'
@@ -47,7 +47,7 @@ export interface DatePickerProps {
   maxDate?: string
 
   /** 唯一id,必填，不能为空 */
-  componentId?: string
+  componentId: string
 
   /** 显示样式 */
   showStyle?:
@@ -56,7 +56,6 @@ export interface DatePickerProps {
     | 'Common'
     | 'CommonHHMMSS'
     | 'HHMMSS'
-    | 'HHMM'
 
   /** 是否是时间范围,不设置不是范围,false:双面板范围,true:单面板范围 */
   isRange?: boolean
@@ -77,7 +76,7 @@ export interface DatePickerProps {
   onValueChange?: (obj: any) => void
 
   /** 点击清除后的回调 */
-  clearfun?: (ele: any, val: any) => void
+  clearFun?: (ele: any, val: any) => void
 
   /** 默认值 */
   value?: string | [string, string]
@@ -117,14 +116,13 @@ const DateTimePicker = FormItem(
     minDate,
     maxDate,
     componentId,
-    showStyle = '',
+    showStyle = 'Common',
     isRange,
-    rangeFormat,
     rangeLabel = ' 至 ',
     onClose = true,
     isToday = true,
     onValueChange,
-    clearfun,
+    clearFun,
     placeholderStartDate,
     placeholderEndDate,
     value = '',
@@ -138,56 +136,44 @@ const DateTimePicker = FormItem(
     }, [])
 
     // const [dateTimeDates, setDateTimeDates] = useState(null)
-    const yearicon = (
-      <>
-        <IconArrowDoubleLeft className="datefonticon" />
-      </>
-    )
-    const singleLeftIcon = (
-      <>
-        <IconArrowHeadBack className="datefonticon" />
-      </>
-    )
-    const singleRightIcon = (
-      <>
-        <IconArrowHeadRight className="datefonticon" />
-      </>
-    )
-    const doubleRighticon = (
-      <>
-        <IconArrowDoubleRight className="datefonticon" />
-      </>
-    )
+    const yearIcon = <IconArrowDoubleLeft className="dateFontIcon" />
+    const singleLeftIcon = <IconArrowHeadBack className="dateFontIcon" />
+    const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
+    const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
 
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label
 
     const initComponent = () => {
-      //常规选择
-      let dataProps = {
+      // 常规选择
+      const dataProps = {
         multiPane: isRange,
         range: rangeLabel,
         format: DateFormat[showStyle],
-        onClose: onClose,
+        onClose,
         isTime: isShowTime,
-        isToday: isToday,
+        isToday,
         minDate: minDate || '1900-01-01 00:00:00',
         maxDate: maxDate || '2099-12-31 23:59:59',
-        yearIcon: ReactDOMServer.renderToString(yearicon),
+        yearIcon: ReactDOMServer.renderToString(yearIcon),
         singleLeftIcon: ReactDOMServer.renderToString(singleLeftIcon),
         singleRightIcon: ReactDOMServer.renderToString(singleRightIcon),
-        doubleRighticon: ReactDOMServer.renderToString(doubleRighticon),
-        showSecend: showStyle === 'HHMMSS' ? true : false,
+        doubleRightIcon: ReactDOMServer.renderToString(doubleRightIcon),
+        showSecend: showStyle === 'HHMMSS',
         allowNullDate,
-        donefun: function (obj: any) {
+        doneFun: (obj: any) => {
           if (isRange !== undefined) {
-            let arr = obj.val.split(rangeLabel)
-            let newArr = []
+            const arr = obj.val.split(rangeLabel)
+            const newArr = []
             if (arr && arr.length === 1) {
-              let targetId = obj.elem.id
+              const targetId = obj.elem.id
               if (targetId.indexOf('posend') !== -1) {
-                document.getElementById(componentId).value = ''
-                document.getElementById(componentId + 'posend').value = arr[0]
+                if (componentId && componentId.length > 0 && document.getElementById(componentId)) {
+                  document.getElementById(componentId).value = ''
+                }
+                if (document.getElementById(componentId + 'posend')) {
+                  document.getElementById(componentId + 'posend').value = arr[0]
+                }
                 newArr[0] = ''
                 newArr[1] = arr[0]
               } else {
@@ -208,36 +194,39 @@ const DateTimePicker = FormItem(
             // setDateTimeDates(obj.val)
           }
         },
-        clearfun: function (elem: any, val: any) {
-          clearfun && clearfun(elem, val)
+        clearFun:  (elem: any, val: any) => {
+          clearFun && clearFun(elem, val)
           // setDateTimeDates(null)
         }
       }
 
       if (isRange !== undefined) {
         dataProps.multiPane = false
-        new puiDate('#' + componentId, {
+         puiDate('#' + componentId, {
           ...dataProps
         })
-        new puiDate('#' + componentId + 'posend', {
+         puiDate('#' + componentId + 'posend', {
           ...dataProps
         })
       } else {
         Reflect.deleteProperty(dataProps, 'multiPane')
         Reflect.deleteProperty(dataProps, 'range')
-        new puiDate('#' + componentId, {
+         puiDate('#' + componentId, {
           ...dataProps
         })
       }
     }
-    let labelEle;
+    let labelEle
     if ((labelText && labelPosition === 'left') || filterMode) {
       labelEle = (
         <span className="pui-select-input-placeholder">{labelText || ''}</span>
       )
     } else if (labelText && labelPosition === 'top') {
       labelEle = (
-        <div className="pui-label pui-label-position-top"> {labelText || ''}</div>
+        <div className="pui-label pui-label-position-top">
+          {' '}
+          {labelText || ''}
+        </div>
       )
     }
     const [defaultSize] = useDefaultSize()
@@ -251,13 +240,13 @@ const DateTimePicker = FormItem(
             <div
               className={
                 disabled
-                  ? 'jeinpbox-disabled ' + className
-                  : 'jeinpbox ' + className
+                  ? 'je-input-box-disabled ' + className
+                  : 'je-input-box ' + className
               }
             >
               <input
                 type="text"
-                className={`jeinput jeinput-size-${size}`}
+                className={`je-input je-input-size-${size}`}
                 value={value}
                 disabled={disabled}
                 readOnly
@@ -280,7 +269,7 @@ const DateTimePicker = FormItem(
             >
               <input
                 type="text"
-                className={`jeinput-range jeinput-range-size-${size}`}
+                className={`je-input-range je-input-range-size-${size}`}
                 value={value[0]}
                 disabled={disabled}
                 readOnly
@@ -290,7 +279,7 @@ const DateTimePicker = FormItem(
               <span>{rangeLabel}</span>
               <input
                 type="text"
-                className={`jeinput-range jeinput-range-size-${size}`}
+                className={`je-input-range je-input-range-size-${size}`}
                 value={value[1]}
                 disabled={disabled}
                 readOnly
@@ -311,8 +300,8 @@ const DateTimePicker = FormItem(
             <div
               className={
                 disabled
-                  ? 'jeinpbox-disabled ' + className
-                  : 'jeinpbox ' + className
+                  ? 'je-input-box-disabled ' + className
+                  : 'je-input-box ' + className
               }
               style={{ paddingLeft: '12px' }}
             >
@@ -320,7 +309,7 @@ const DateTimePicker = FormItem(
                 {labelEle}
                 <input
                   type="text"
-                  className={`jeinput jeinput-size-${size}`}
+                  className={`je-input je-input-size-${size}`}
                   value={value}
                   disabled={disabled}
                   readOnly
@@ -348,7 +337,7 @@ const DateTimePicker = FormItem(
                 <input
                   type="text"
                   style={{ marginLeft: '12px' }}
-                  className={`jeinput-range jeinput-range-size-${size}`}
+                  className={`je-input-range je-input-range-size-${size}`}
                   value={value[0]}
                   disabled={disabled}
                   readOnly
@@ -358,7 +347,7 @@ const DateTimePicker = FormItem(
                 <span>{rangeLabel}</span>
                 <input
                   type="text"
-                  className={`jeinput-range jeinput-range-size-${size}`}
+                  className={`je-input-range je-input-range-size-${size}`}
                   value={value[1]}
                   disabled={disabled}
                   readOnly
