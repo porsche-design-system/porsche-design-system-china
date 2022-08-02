@@ -115,6 +115,34 @@
           top: 9px;
         }
       }
+      &-size-tiny {
+        position: relative;
+        input {
+          height: 28px;
+          font-size: 14px;
+          padding: 0 8px;
+        }
+        .pui-input-char-count {
+          font-size: 14px;
+          height: 26px;
+          line-height: 26px;
+          top: 45px;
+          right: 2px;
+        }
+        .pui-input-suffix-icon {
+          font-size: 16px;
+          top: 2px;
+        }
+        .pui-input-right-button {
+          font-size: 18px;
+          top: 5px;
+        }
+        &.pui-input-show-right-button-true {
+          input {
+            padding-right: 42px;
+          }
+        }
+      }
     }
   }
 }

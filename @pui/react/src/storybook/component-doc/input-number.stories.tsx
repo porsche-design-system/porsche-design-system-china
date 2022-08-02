@@ -162,3 +162,60 @@ export const InputNumberStoryBook3 = () => {
 }
 
 InputNumberStoryBook3.storyName = 'InputNumber Suffix'
+
+export const InputNumberStoryBook4 = () => {
+  return (
+    <div className="input-number-story">
+      <div className="group">
+        <div className="title">Tiny Size</div>
+        <div className="show-case">
+          <InputNumber
+            defaultValue="3"
+            label="购买数量"
+            width="170px"
+            min={0}
+            max={10}
+            marginRight="30px"
+            size="tiny"
+          />
+          <br />
+          <InputNumber
+            defaultValue="3"
+            label="购买数量"
+            width="170px"
+            min={0}
+            max={10}
+            marginRight="30px"
+            size="tiny"
+            type="arrow"
+          />
+          <br />
+          <InputNumber
+            defaultValue="3"
+            label="购买数量"
+            width="170px"
+            min={0}
+            max={10}
+            marginRight="30px"
+            suffixIcon={<IconCheck />}
+            size="tiny"
+          />
+          <br />
+          <InputNumber
+            type="arrow"
+            defaultValue="3"
+            label="购买数量"
+            width="170px"
+            min={0}
+            max={10}
+            marginRight="30px"
+            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>天</span>}
+            size="tiny"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+InputNumberStoryBook4.storyName = 'Tiny Size'

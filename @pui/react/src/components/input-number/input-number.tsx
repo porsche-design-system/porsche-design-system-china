@@ -34,7 +34,7 @@ export interface InputNumberProps {
   min?: number
 
   /** 大小 */
-  size?: 'small' | 'medium'
+  size?: 'small' | 'medium' | 'tiny'
 
   /** 每次改变步数，可以为小数 */
   step?: string | number
@@ -79,7 +79,7 @@ const InputNumber = FormItem(
     onValueChange
   }: InputNumberProps) => {
     let initialValue = value !== undefined ? value : defaultValue
-    if(typeof initialValue === 'number') initialValue = String(initialValue)
+    if (typeof initialValue === 'number') initialValue = String(initialValue)
     const [currentValue, setCurrentValue] = useState(initialValue)
     const [defaultSize] = useDefaultSize()
     const SuffixComponent = suffixIcon as any
@@ -186,7 +186,7 @@ const InputNumber = FormItem(
               <IconPlus />
             </div>
           </>
-        ) : (!hideStepBtn ? (
+        ) : !hideStepBtn ? (
           <div
             className={classNames('pui-arrow-wrap', {
               'pui-disabled': disabled
@@ -211,21 +211,22 @@ const InputNumber = FormItem(
               })}
             />
           </div>
-        ): null)}
-        {
-          suffixIcon && (
-            <span className={classNames('pui-input-number-suffix-icon', {
+        ) : null}
+        {suffixIcon && (
+          <span
+            className={classNames('pui-input-number-suffix-icon', {
               'pui-input-number-suffix-icon-position': !hideStepBtn
-            })} style={suffixStyle}>
-              {' '}
-              {isReactElement(SuffixComponent) ? (
-                SuffixComponent
-              ) : (
-                <SuffixComponent />
-              )}
-            </span>
-          )
-        }
+            })}
+            style={suffixStyle}
+          >
+            {' '}
+            {isReactElement(SuffixComponent) ? (
+              SuffixComponent
+            ) : (
+              <SuffixComponent />
+            )}
+          </span>
+        )}
         <Input
           className={classNames({
             [prefixCls]: type === 'default',
