@@ -50,12 +50,7 @@ export interface DatePickerProps {
   componentId: string
 
   /** 显示样式 */
-  showStyle?:
-    | 'OnlyYear'
-    | 'YearAndMonth'
-    | 'Common'
-    | 'CommonHHMMSS'
-    | 'HHMMSS'
+  showStyle?: 'OnlyYear' | 'YearAndMonth' | 'Common' | 'CommonHHMMSS' | 'HHMMSS'
 
   /** 是否是时间范围,不设置不是范围,false:双面板范围,true:单面板范围 */
   isRange?: boolean
@@ -168,25 +163,34 @@ const DateTimePicker = FormItem(
             if (arr && arr.length === 1) {
               const targetId = obj.elem.id
               if (targetId.indexOf('posend') !== -1) {
-                if (componentId && componentId.length > 0 && document.getElementById(componentId)) {
-                  document.getElementById(componentId).value = ''
+                if (
+                  componentId &&
+                  componentId.length > 0 &&
+                  document.getElementById(componentId)
+                ) {
+                  ;(document.getElementById(componentId) as any).value = ''
                 }
                 if (document.getElementById(componentId + 'posend')) {
-                  document.getElementById(componentId + 'posend').value = arr[0]
+                  ;(
+                    document.getElementById(componentId + 'posend') as any
+                  ).value = arr[0]
                 }
                 newArr[0] = ''
                 newArr[1] = arr[0]
               } else {
-                document.getElementById(componentId).value = arr[0]
-                document.getElementById(componentId + 'posend').value = ''
+                ;(document.getElementById(componentId) as any).value = arr[0]
+                ;(
+                  document.getElementById(componentId + 'posend') as any
+                ).value = ''
                 newArr[0] = arr[0]
                 newArr[1] = ''
               }
               onValueChange && onValueChange(newArr)
               // setDateTimeDates(newArr)
             } else {
-              document.getElementById(componentId).value = arr[0]
-              document.getElementById(componentId + 'posend').value = arr[1]
+              ;(document.getElementById(componentId) as any).value = arr[0]
+              ;(document.getElementById(componentId + 'posend') as any).value =
+                arr[1]
               onValueChange && onValueChange(arr)
             }
           } else {
@@ -194,7 +198,7 @@ const DateTimePicker = FormItem(
             // setDateTimeDates(obj.val)
           }
         },
-        clearFun:  (elem: any, val: any) => {
+        clearFun: (elem: any, val: any) => {
           clearFun && clearFun(elem, val)
           // setDateTimeDates(null)
         }
@@ -202,16 +206,16 @@ const DateTimePicker = FormItem(
 
       if (isRange !== undefined) {
         dataProps.multiPane = false
-         puiDate('#' + componentId, {
+        puiDate('#' + componentId, {
           ...dataProps
         })
-         puiDate('#' + componentId + 'posend', {
+        puiDate('#' + componentId + 'posend', {
           ...dataProps
         })
       } else {
         Reflect.deleteProperty(dataProps, 'multiPane')
         Reflect.deleteProperty(dataProps, 'range')
-         puiDate('#' + componentId, {
+        puiDate('#' + componentId, {
           ...dataProps
         })
       }
