@@ -384,14 +384,14 @@
 
     /************/
 
-    .jeinpbox-disabled,
-    .jeinpbox {
+    .je-input-box-disabled,
+    .je-input-box {
       position: relative;
       display: inline-block;
       border: 1px solid $border-color-3;
       width: 100%;
       white-space: nowrap;
-      .jeinput {
+      .je-input {
         color: $text-color-1;
         display: inline-block;
         padding-left: 10px;
@@ -406,10 +406,10 @@
         }
       }
     }
-    .jeinpbox:hover {
+    .je-input-box:hover {
       border-color: $border-color-5;
     }
-    .jeinpbox-disabled,
+    .je-input-box-disabled,
     .pui-pick-date-range-disabled {
       background: $container-bg-opacity-color-3;
       border: 1px solid $border-color-2;
@@ -430,7 +430,7 @@
       .activeBorder {
         border-bottom: 2px solid $brand-color !important;
       }
-      .jeinput-range {
+      .je-input-range {
         cursor: pointer;
         transition: all 0.1s;
         color: $text-color-1;
@@ -449,7 +449,7 @@
           height: 34px;
         }
       }
-      .jeinput-range:nth-child(1) {
+      .je-input-range:nth-child(1) {
         margin-left: 12px;
       }
     }
@@ -482,7 +482,7 @@
     .pui-pick-date-range:hover {
       border: 1px solid $border-color-5;
     }
-    .datefonticon {
+    .dateFontIcon {
       margin-top: 18px !important;
       color: $text-color-1 !important;
     }
