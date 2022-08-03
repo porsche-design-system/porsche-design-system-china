@@ -221,3 +221,64 @@ export const InputsStoryBook8 = () => {
 }
 
 InputsStoryBook8.storyName = 'Show View Suffix Icon'
+
+export const InputsStoryBook9 = () => {
+  return (
+    <Row>
+      <Col span={12}>
+        <div className="states">Tiny Size</div>
+        <div>
+          <Input placeholder="请输入" size="tiny" />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input
+            placeholder="请输入"
+            disabled
+            suffixIcon={IconCheck}
+            size="tiny"
+          />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input placeholder="最多输入150个字符" maxLength={150} size="tiny" />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input
+            placeholder="请输入"
+            rules={{ required: true, message: '必须填写' }}
+            error={{ show: true, message: '输入信息有误' }}
+            size="tiny"
+          />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input type="password" placeholder="请输入密码" size="tiny" />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input placeholder="点击右侧按钮清除" showClearButton size="tiny" />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input
+            type="password"
+            placeholder="点击右侧按钮显示密码"
+            showViewPasswordButton
+            size="tiny"
+          />
+        </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+
+InputsStoryBook9.storyName = 'Tiny Size'
