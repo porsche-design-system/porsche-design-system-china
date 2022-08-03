@@ -27,22 +27,21 @@ export const SliderStroyBook = () => {
 SliderStroyBook.storyName = 'Slider'
 
 export const SliderStoryBook1 = () => {
-  const Tab1 = () => {
-    return <Slider defaultValue={30} />
-  }
-  const Tab2 = () => {
-    return <Slider range defaultValue={[10, 60]} />
+  const [value, setValue] = useState([30, 50])
+  const handleValueChange = (value: number | number[]) => {
+    setValue(value as number[])
+    console.log(value)
   }
   return (
     <div>
       <Tabs size="small" hasLine>
         <TabPane tabKey="single" title="Single">
           <br />
-          <Tab1 />
+          <Slider defaultValue={30} />
         </TabPane>
         <TabPane tabKey="double" title="Double">
           <br />
-          <Tab2 />
+          <Slider range value={value} onValueChange={handleValueChange} />
         </TabPane>
       </Tabs>
     </div>
