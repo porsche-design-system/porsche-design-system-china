@@ -56,13 +56,13 @@ const Slider = ({
   const [isHover, setIsHover] = useState(range ? [false, false] : false)
   // 是否在拖动滑块中
   const [isDrag, setIsDrag] = useState(range ? [false, false] : false)
-  const [tooltipContent, setTooltipContent] = useState<ReactNode>(
-    initialTipContent
-  )
+  const [tooltipContent, setTooltipContent] =
+    useState<ReactNode>(initialTipContent)
   const railRef = useRef<HTMLDivElement>(null)
   const handleRef = range
     ? [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
     : useRef<HTMLDivElement>(null)
+  const isExchangeRef = useRef(false)
   // 根据value计算left
   const calcLeft = (value: number | Array<number>) => {
     if (railRef.current) {
@@ -98,55 +98,75 @@ const Slider = ({
   }, [])
   useEffect(() => {
     if (value !== undefined) {
-      calcLeft(limitValue(value))
+      if (range && isExchangeRef.current) {
+        const newValue = [...(value as number[])].reverse()
+        calcLeft(limitValue(newValue))
+      } else {
+        calcLeft(limitValue(value))
+      }
     }
     if (!isShowHandle) setIsShowHandle(true)
   }, [value])
 
-  const handleMouseMoveWrap = (
-    pageX: number,
-    stepPx: number,
-    originVal: number | Array<number>,
-    index?: number
-  ) => (evt: MouseEvent) => {
-    let nextCurrentValue = initialValue
-    if (step) {
-      const stepCount = Math.round((evt.pageX - pageX) / stepPx)
-      if (range) {
-        nextCurrentValue = [...(originVal as Array<number>)]
-        nextCurrentValue[index as number] =
-          originVal[index as number] + stepCount * step
-      } else {
-        nextCurrentValue = (originVal as number) + stepCount * step
-      }
-    } else if (marks) {
-      const closeCurrentValue =
-        ((evt.pageX - pageX) /
-          (railRef.current as HTMLDivElement).clientWidth) *
-          (max - min) +
-        (range ? originVal[index as number] : originVal)
-      marks.forEach((mark, index) => {
-        if (index === 0) {
-          nextCurrentValue = mark.value
-        } else if (
-          Math.abs(mark.value - closeCurrentValue) <
-          Math.abs((nextCurrentValue as number) - closeCurrentValue)
-        ) {
-          nextCurrentValue = mark.value
+  const handleMouseMoveWrap =
+    (
+      pageX: number,
+      stepPx: number,
+      originVal: number | Array<number>,
+      index?: number
+    ) =>
+    (evt: MouseEvent) => {
+      let nextCurrentValue = initialValue
+      if (step) {
+        const stepCount = Math.round((evt.pageX - pageX) / stepPx)
+        if (range) {
+          nextCurrentValue = [...(originVal as Array<number>)]
+          nextCurrentValue[index as number] =
+            originVal[index as number] + stepCount * step
+        } else {
+          nextCurrentValue = (originVal as number) + stepCount * step
         }
-      })
-      if (range) {
-        const temp = nextCurrentValue
-        nextCurrentValue = [...(originVal as Array<number>)]
-        nextCurrentValue[index as number] = temp as number
+      } else if (marks) {
+        const closeCurrentValue =
+          ((evt.pageX - pageX) /
+            (railRef.current as HTMLDivElement).clientWidth) *
+            (max - min) +
+          (range ? originVal[index as number] : originVal)
+        marks.forEach((mark, index) => {
+          if (index === 0) {
+            nextCurrentValue = mark.value
+          } else if (
+            Math.abs(mark.value - closeCurrentValue) <
+            Math.abs((nextCurrentValue as number) - closeCurrentValue)
+          ) {
+            nextCurrentValue = mark.value
+          }
+        })
+        if (range) {
+          const temp = nextCurrentValue
+          nextCurrentValue = [...(originVal as Array<number>)]
+          nextCurrentValue[index as number] = temp as number
+        }
+      }
+      const validValue = limitValue(nextCurrentValue)
+      if (value === undefined) {
+        calcLeft(validValue)
+      }
+      if (onValueChange) {
+        if (range) {
+          if (validValue[0] > validValue[1]) {
+            const newValidValue = [...(validValue as number[])].reverse()
+            onValueChange(newValidValue)
+            isExchangeRef.current = true
+          } else {
+            onValueChange(validValue)
+            isExchangeRef.current = false
+          }
+        } else {
+          onValueChange(validValue)
+        }
       }
     }
-    const validValue = limitValue(nextCurrentValue)
-    if (value === undefined) {
-      calcLeft(validValue)
-    }
-    onValueChange && onValueChange(validValue)
-  }
   const handleMouseDown: (
     currentValue: number | Array<number>,
     index?: number
@@ -237,27 +257,26 @@ const Slider = ({
     evt.stopPropagation()
   }
   // 点击刻度回调
-  const handleMarkClick: (
-    markValue: number
-  ) => React.MouseEventHandler = markValue => evt => {
-    if (disabled) return
-    evt.stopPropagation()
-    let nextCurrentValue: number | Array<number> = markValue
-    if (range) {
-      if (
-        Math.abs(currentValue[0] - nextCurrentValue) <
-        Math.abs(currentValue[1] - nextCurrentValue)
-      ) {
-        nextCurrentValue = [nextCurrentValue, currentValue[1]]
-      } else {
-        nextCurrentValue = [currentValue[0], nextCurrentValue]
+  const handleMarkClick: (markValue: number) => React.MouseEventHandler =
+    markValue => evt => {
+      if (disabled) return
+      evt.stopPropagation()
+      let nextCurrentValue: number | Array<number> = markValue
+      if (range) {
+        if (
+          Math.abs(currentValue[0] - nextCurrentValue) <
+          Math.abs(currentValue[1] - nextCurrentValue)
+        ) {
+          nextCurrentValue = [nextCurrentValue, currentValue[1]]
+        } else {
+          nextCurrentValue = [currentValue[0], nextCurrentValue]
+        }
       }
+      if (value === undefined) {
+        calcLeft(nextCurrentValue)
+      }
+      onValueChange && onValueChange(nextCurrentValue)
     }
-    if (value === undefined) {
-      calcLeft(nextCurrentValue)
-    }
-    onValueChange && onValueChange(nextCurrentValue)
-  }
   const trackWidth = range ? Math.abs(left[1] - left[0]) : (left as number)
   const trackLeft = range ? (left[1] < left[0] ? left[1] : left[0]) : 0
   return (
