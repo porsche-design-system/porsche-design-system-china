@@ -19,6 +19,7 @@
         position: absolute;
         right: 10px;
         top: 12px;
+        font-size: 16px;
       }
       .pui-input-number-suffix-icon-position {
         right: 40px;
@@ -53,7 +54,7 @@
           right: 56px;
           + .pui-input-number {
             input {
-              padding-right:76px;
+              padding-right: 76px;
             }
           }
         }
@@ -104,6 +105,24 @@
       .pui-input-number-suffix-icon {
         font-size: 16px;
         top: 6px;
+      }
+      .pui-minus-wrap,
+      .pui-plus-wrap {
+        width: 34px;
+      }
+    }
+    .pui-input-number-wrap-size-tiny {
+      height: 28px;
+      .porscheicon {
+        font-size: 14px;
+      }
+      .pui-input-number-suffix-icon {
+        font-size: 16px;
+        top: 1px;
+      }
+      .pui-minus-wrap,
+      .pui-plus-wrap {
+        width: 26px;
       }
     }
   }

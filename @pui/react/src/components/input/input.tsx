@@ -37,7 +37,7 @@ export interface InputProps {
   placeholder?: string
 
   /** 大小 */
-  size?: 'small' | 'medium'
+  size?: 'small' | 'medium' | 'tiny'
 
   /** 最多输入字符数 */
   maxLength?: number
