@@ -7,6 +7,14 @@ function $Q(selector, content) {
   return selector.nodeType ? selector : content.querySelector(selector)
 }
 
+function $I(id) {
+  return document.getElementById(id)
+}
+
+function $C(classStr) {
+  return document.getElementsByClassName(classStr)
+}
+
 function jeDatePick(elem, options) {
   const config = {
     language: {
@@ -661,9 +669,7 @@ jet.extend(jet, {
       : (window.event.cancelBubble = true)
   },
   template: function (str, data) {
-    var strCell = !/[^\w\-\.:]/.test(str)
-      ? document.getElementById(str).innerHTML
-      : str
+    var strCell = !/[^\w\-\.:]/.test(str) ? $I(str).innerHTML : str
     var keys = function (obj) {
         var arr = []
         for (arr[arr.length] in obj);
@@ -811,7 +817,6 @@ jet.extend(jeDatePick.prototype, {
           }
           that.selectValue = [jet.parse(jet.getDateTime(redate), parmat)]
         }
-        // that.selectValue = that.selectValue && that.selectValue.length > 0 ? that.selectValue :  [jet.parse(jet.getDateTime({}), parmat)];
 
         if (isEmpty && isShow) {
           var getVal = ''
@@ -819,13 +824,13 @@ jet.extend(jeDatePick.prototype, {
           if (!that.valCell.id.endsWith('posend')) {
             getVal = that.getValue().split(range)
             getValEnd =
-              document.getElementById(that.valCell.id + 'posend') &&
-              document.getElementById(that.valCell.id + 'posend').value //$Q(that.valCell.id + 'end').getValue();
+              $I(that.valCell.id + 'posend') &&
+              $I(that.valCell.id + 'posend').value //$Q(that.valCell.id + 'end').getValue();
           } else {
             getVal = document
               .getElementById(that.valCell.id.replace('posend', ''))
               .value.split(range)
-            getValEnd = document.getElementById(that.valCell.id).value
+            getValEnd = $I(that.valCell.id).value
           }
           jet.each(new Array(range ? 2 : 1), function (a) {
             curVal[a] = {}
@@ -963,33 +968,10 @@ jet.extend(jeDatePick.prototype, {
         ' ' +
         (opts.shortcut.length > 0 ? ' leftmenu' : '')
     }
-    if (
-      that.$opts.multiPane === false &&
-      that.valCell.className.indexOf('activeBorder') === -1
-    ) {
-      that.valCell.className = that.valCell.className + ' activeBorder'
-    }
-
-    if (
-      that.$opts.multiPane === false &&
-      that.valCell.id.indexOf('posend') !== -1
-    ) {
-      document.getElementById(that.valCell.id.replace('posend', '')).className =
-        document
-          .getElementById(that.valCell.id.replace('posend', ''))
-          .className.replace('activeBorder', '')
-    } else if (
-      that.$opts.multiPane === false &&
-      that.valCell.id.indexOf('posend') === -1
-    ) {
-      document.getElementById(that.valCell.id + 'posend').className = document
-        .getElementById(that.valCell.id + 'posend')
-        .className.replace('activeBorder', '')
-    }
 
     jet.html(that.dateCell, jet.template(that.dateTemplate(), that.$data))
     let eles =
-      document.getElementsByClassName('pui-pick-date-content').length > 0 &&
+      $C('pui-pick-date-content').length > 0 &&
       document
         .getElementsByClassName('pui-pick-date-content')[0]
         .getElementsByTagName('table')
@@ -999,19 +981,11 @@ jet.extend(jeDatePick.prototype, {
         displaysCount++
       }
     }
-    if (
-      displaysCount > 1 &&
-      document.getElementsByClassName('pui-pick-date-content').length > 0
-    ) {
-      document.getElementsByClassName('pui-pick-date-content')[0].style.height =
-        '214px'
+    if (displaysCount > 1 && $C('pui-pick-date-content').length > 0) {
+      $C('pui-pick-date-content')[0].style.height = '214px'
     }
-    if (
-      displaysCount > 1 &&
-      document.getElementsByClassName('pui-pick-date-content').length > 1
-    ) {
-      document.getElementsByClassName('pui-pick-date-content')[1].style.height =
-        '214px'
+    if (displaysCount > 1 && $C('pui-pick-date-content').length > 1) {
+      $C('pui-pick-date-content')[1].style.height = '214px'
     }
 
     function getPUITheme() {
@@ -1132,24 +1106,30 @@ jet.extend(jeDatePick.prototype, {
       .getElementsByClassName('pui-pick-date-pane')[0]
       .getBoundingClientRect()
     var display = ''
-    if (
-      document.getElementsByClassName('timeheader') &&
-      document.getElementsByClassName('timeheader').length > 0
-    ) {
-      display = document.getElementsByClassName('timeheader')[0].style.display
+    if ($C('timeheader') && $C('timeheader').length > 0) {
+      display = $C('timeheader')[0].style.display
     }
     var timeIdArr = ['00', '01', '02', '10', '11', '12']
     timeIdArr.forEach(i => {
-      if (document.getElementById('hmslist' + i)) {
+      if ($I('hmslist' + i)) {
         if (display === 'none') {
-          document.getElementById('hmslist' + i).style.height =
-            pane.height - 30 + 'px'
+          $I('hmslist' + i).style.height = pane.height - 30 + 'px'
         } else {
-          document.getElementById('hmslist' + i).style.height =
-            pane.height - 66 + 'px'
+          $I('hmslist' + i).style.height = pane.height - 66 + 'px'
         }
       }
     })
+
+    let timeULs = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
+      'ul'
+    )
+    if (timeULs && timeULs.length > 0) {
+      for (let i = 0; i < timeULs.length; i++) {
+        let ulCell = timeULs[i]
+        var hmsCls = ulCell.querySelector('.action')
+        ulCell.scrollTop = hmsCls ? hmsCls.offsetTop - 145 : 0
+      }
+    }
   },
   //设置日期值
   setValue: function (fnStr, matStr, bool) {
@@ -1884,33 +1864,26 @@ jet.extend(jeDatePick.prototype, {
           disNo = timeCell.style.display == 'none'
         jet.text(this, disNo ? opts.language.backtxt : opts.language.timetxt[0])
         jet.setCss(timeCell, { display: disNo ? 'block' : 'none' })
-        // if (
-        //   document.getElementsByClassName('daystable').length > 0 &&
-        //   document.getElementsByClassName('daystable')[0].style.display != 'none'
-        // ) {
-        //   document
-        //     .getElementsByClassName('hmsauto')[0]
-        //     .getElementsByTagName('ul')[0].style.height = '244px';
-        //   document
-        //     .getElementsByClassName('hmsauto')[1]
-        //     .getElementsByTagName('ul')[0].style.height = '244px';
-        //   document
-        //     .getElementsByClassName('hmsauto')[2]
-        //     .getElementsByTagName('ul')[0].style.height = '244px';
-        // }
+        let timeULs = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
+          'ul'
+        )
+        if (timeULs && timeULs.length > 0) {
+          for (let i = 0; i < timeULs.length; i++) {
+            let ulCell = timeULs[i]
+            var hmsCls = ulCell.querySelector('.action')
+            ulCell.scrollTop = hmsCls ? hmsCls.offsetTop - 145 : 0
+          }
+        }
       },
       //清空按钮函数
       clearBtn: function () {
         if (!that.valCell.id.endsWith('posend')) {
           jet.valText(that.valCell, '')
-          document.getElementById(that.valCell.id + 'posend') &&
-            jet.valText(document.getElementById(that.valCell.id + 'posend'), '')
+          $I(that.valCell.id + 'posend') &&
+            jet.valText($I(that.valCell.id + 'posend'), '')
         } else {
           jet.valText(that.valCell, '')
-          jet.valText(
-            document.getElementById(that.valCell.id.replace('posend', '')),
-            ''
-          )
+          jet.valText($I(that.valCell.id.replace('posend', '')), '')
         }
         that.selectDate = [jet.parse(jet.getDateTime({}), 'YYYY-MM-DD hh:mm')]
         that.closeDate()
@@ -2337,32 +2310,21 @@ jet.extend(jeDatePick.prototype, {
       this.valCell.className.indexOf('filterMode-single') !== -1 &&
       this.valCell.value === ''
     ) {
-      document.getElementById(this.valCell.id).style.display = 'none'
+      $I(this.valCell.id).style.display = 'none'
     }
 
     if (
       this.valCell.className.indexOf('filterMode-multi') !== -1 &&
       this.valCell.value === ''
     ) {
-      if (document.getElementById(this.valCell.id + 'filterMode-multi')) {
-        document.getElementById(
-          this.valCell.id + 'filterMode-multi'
-        ).style.display = 'none'
+      if ($I(this.valCell.id + 'filterMode-multi')) {
+        $I(this.valCell.id + 'filterMode-multi').style.display = 'none'
       } else {
         let id = this.valCell.id.replace('posend', '')
-        document.getElementById(id + 'filterMode-multi').style.display = 'none'
+        if ($I(id + 'filterMode-multi')) {
+          $I(id + 'filterMode-multi').style.display = 'none'
+        }
       }
-    }
-
-    if (this.$opts.multiPane === false) {
-      if (this.valCell.id.indexOf('posend') === -1) {
-        document.getElementById(this.valCell.id + 'posend').className = document
-          .getElementById(this.valCell.id + 'posend')
-          .className.replace('activeBorder', '')
-      }
-      document.getElementById(this.valCell.id).className = document
-        .getElementById(this.valCell.id)
-        .className.replace('activeBorder', '')
     }
     //再次初始化值
     this.setDatas()
@@ -2467,15 +2429,6 @@ jet.extend(jeDatePick.prototype, {
               : ''
           jet.html(tipDiv, tiphtml + tiptext)
           document.body.appendChild(tipDiv)
-          //获取并设置农历提示框出现的位置
-          // var tipPos = that.lunarOrien(tipDiv, this)
-          // jet.setCss(tipDiv, {
-          //   zIndex: opts.zIndex == undefined ? 10000 + 5 : opts.zIndex + 5,
-          //   top: tipPos.top,
-          //   left: tipPos.left,
-          //   position: 'absolute',
-          //   display: 'block'
-          // })
         })
         //鼠标移除提示框消失
         jet.on(node, 'mouseout', function () {
@@ -2513,10 +2466,9 @@ jet.extend(jeDatePick.prototype, {
   },
   //辨别控件的方位
   dateOrien: function (elbox, valCls, pos) {
-    document.getElementById(valCls.id).style.display = ''
-    if (document.getElementById(valCls.id + 'filterMode-multi')) {
-      document.getElementById(valCls.id + 'filterMode-multi').style.display =
-        'inline-block'
+    $I(valCls.id).style.display = ''
+    if ($I(valCls.id + 'filterMode-multi')) {
+      $I(valCls.id + 'filterMode-multi').style.display = 'inline-block'
     }
     var that = this,
       tops,
@@ -2535,6 +2487,7 @@ jet.extend(jeDatePick.prototype, {
       leris = rect.left - 12
       tops = rect.bottom
     }
+
     if (that.$opts.fixed) {
       var boxW = elbox.offsetWidth,
         boxH = elbox.offsetHeight
@@ -2601,7 +2554,7 @@ puiDateObj.renderDate = x => {
 
   jet.html(that.dateCell, jet.template(that.dateTemplate(), that.$data))
   let eles =
-    document.getElementsByClassName('pui-pick-date-content').length > 0 &&
+    $C('pui-pick-date-content').length > 0 &&
     document
       .getElementsByClassName('pui-pick-date-content')[0]
       .getElementsByTagName('table')
@@ -2611,19 +2564,11 @@ puiDateObj.renderDate = x => {
       displaysCount++
     }
   }
-  if (
-    displaysCount > 1 &&
-    document.getElementsByClassName('pui-pick-date-content').length > 0
-  ) {
-    document.getElementsByClassName('pui-pick-date-content')[0].style.height =
-      '214px'
+  if (displaysCount > 1 && $C('pui-pick-date-content').length > 0) {
+    $C('pui-pick-date-content')[0].style.height = '214px'
   }
-  if (
-    displaysCount > 1 &&
-    document.getElementsByClassName('pui-pick-date-content').length > 1
-  ) {
-    document.getElementsByClassName('pui-pick-date-content')[1].style.height =
-      '214px'
+  if (displaysCount > 1 && $C('pui-pick-date-content').length > 1) {
+    $C('pui-pick-date-content')[1].style.height = '214px'
   }
 
   //自定义主题色
