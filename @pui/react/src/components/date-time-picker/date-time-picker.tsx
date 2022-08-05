@@ -135,6 +135,8 @@ const DateTimePicker = FormItem(
     const singleLeftIcon = <IconArrowHeadBack className="dateFontIcon" />
     const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
     const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
+    const [defaultSize] = useDefaultSize()
+    size = defaultSize || size
 
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label
@@ -220,10 +222,20 @@ const DateTimePicker = FormItem(
         })
       }
     }
+
+    const onFilter = () => {
+      document.getElementById(componentId)?.click()
+    }
+
     let labelEle
     if ((labelText && labelPosition === 'left') || filterMode) {
       labelEle = (
-        <span className="pui-select-input-placeholder">{labelText || ''}</span>
+        <span
+          className={`pui-select-input-placeholder pui-select-input-placeholder-size-${size}`}
+          id={`${componentId}_holder`}
+        >
+          {labelText || ''}
+        </span>
       )
     } else if (labelText && labelPosition === 'top') {
       labelEle = (
@@ -233,8 +245,6 @@ const DateTimePicker = FormItem(
         </div>
       )
     }
-    const [defaultSize] = useDefaultSize()
-    size = defaultSize || size
 
     if (!filterMode) {
       return (
@@ -307,18 +317,24 @@ const DateTimePicker = FormItem(
                   ? 'je-input-box-disabled ' + className
                   : 'je-input-box ' + className
               }
-              style={{ paddingLeft: '12px' }}
+              style={{
+                paddingLeft: '12px',
+                paddingRight: '40px',
+                cursor: 'pointer'
+              }}
+              onClick={evt => onFilter(evt)}
             >
               <>
                 {labelEle}
                 <input
                   type="text"
-                  className={`je-input je-input-size-${size}`}
+                  className={`je-input je-input-size-${size} filterMode-single`}
                   value={value}
                   disabled={disabled}
                   readOnly
                   id={componentId}
                   placeholder={placeholder}
+                  style={{ display: 'none' }}
                 />
                 <IconClock
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
@@ -335,29 +351,35 @@ const DateTimePicker = FormItem(
                     className
               }
               style={{ paddingLeft: '12px' }}
+              onClick={evt => onFilter(evt)}
             >
               <>
                 {labelEle}
-                <input
-                  type="text"
-                  style={{ marginLeft: '12px' }}
-                  className={`je-input-range je-input-range-size-${size}`}
-                  value={value[0]}
-                  disabled={disabled}
-                  readOnly
-                  id={componentId}
-                  placeholder={placeholderStartDate}
-                />
-                <span>{rangeLabel}</span>
-                <input
-                  type="text"
-                  className={`je-input-range je-input-range-size-${size}`}
-                  value={value[1]}
-                  disabled={disabled}
-                  readOnly
-                  id={componentId + 'posend'}
-                  placeholder={placeholderEndDate}
-                />
+                <div
+                  style={{ display: 'none' }}
+                  id={`${componentId}filterMode-multi`}
+                >
+                  <input
+                    type="text"
+                    style={{ marginLeft: '12px' }}
+                    className={`je-input-range je-input-range-size-${size} filterMode-multi`}
+                    value={value[0]}
+                    disabled={disabled}
+                    readOnly
+                    id={componentId}
+                    placeholder={placeholderStartDate}
+                  />
+                  <span>{rangeLabel}</span>
+                  <input
+                    type="text"
+                    className={`je-input-range je-input-range-size-${size} filterMode-multi`}
+                    value={value[1]}
+                    disabled={disabled}
+                    readOnly
+                    id={componentId + 'posend'}
+                    placeholder={placeholderEndDate}
+                  />
+                </div>
                 <IconClock
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
                 />

@@ -863,7 +863,7 @@ jet.extend(jeDatePick.prototype, {
       that.storeData(ymarr[0], ymarr[1])
       that.renderDate(1)
       opts.succeed && opts.succeed(that.dateCell)
-      console.log('render...end', that)
+      // console.log('render...end', that)
     } else {
       if (trigges) {
         jet.on(that.valCell, trigges, function () {
@@ -954,7 +954,7 @@ jet.extend(jeDatePick.prototype, {
       isShow = jet.isBool(opts.isShow),
       elxID = !isShow ? elx + searandom() : elx,
       setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
-    console.log('renderDate', x)
+    // console.log('renderDate', x)
     if (that.dateCell == undefined) {
       that.dateCell = document.createElement('div')
       that.dateCell.id = elxID.replace(/\#/g, '')
@@ -1013,6 +1013,7 @@ jet.extend(jeDatePick.prototype, {
       document.getElementsByClassName('pui-pick-date-content')[1].style.height =
         '214px'
     }
+
     function getPUITheme() {
       if (window.PUI) {
         return PUI.getTheme()
@@ -1068,12 +1069,12 @@ jet.extend(jeDatePick.prototype, {
         ' .pui-pick-date-content .daystable td.action .lunar,' +
         stCell +
         ' .pui-pick-date-header,' +
-        stCell +
-        ' .pui-pick-date-time .timeheader,' +
+        // stCell +
+        // ' .pui-pick-date-time .timeheader,' +
         stCell +
         ' .pui-pick-date-time .hmslist ul li.action,' +
-        stCell +
-        ' .pui-pick-date-time .hmslist ul li.action:hover,' +
+        // stCell +
+        // ' .pui-pick-date-time .hmslist ul li.action:hover,' +
         stCell +
         ' .pui-pick-date-time .hmslist ul li.disabled.action,' +
         stCell +
@@ -1127,6 +1128,28 @@ jet.extend(jeDatePick.prototype, {
       that.dateOrien(that.dateCell, that.valCell)
       that.blankArea()
     }
+    var pane = document
+      .getElementsByClassName('pui-pick-date-pane')[0]
+      .getBoundingClientRect()
+    var display = ''
+    if (
+      document.getElementsByClassName('timeheader') &&
+      document.getElementsByClassName('timeheader').length > 0
+    ) {
+      display = document.getElementsByClassName('timeheader')[0].style.display
+    }
+    var timeIdArr = ['00', '01', '02', '10', '11', '12']
+    timeIdArr.forEach(i => {
+      if (document.getElementById('hmslist' + i)) {
+        if (display === 'none') {
+          document.getElementById('hmslist' + i).style.height =
+            pane.height - 30 + 'px'
+        } else {
+          document.getElementById('hmslist' + i).style.height =
+            pane.height - 66 + 'px'
+        }
+      }
+    })
   },
   //设置日期值
   setValue: function (fnStr, matStr, bool) {
@@ -1281,7 +1304,7 @@ jet.extend(jeDatePick.prototype, {
       RES.daylist.push(that.eachDays(dayNext.y, dayNext.m, nday, 1))
       RES.daytit.push({ YYYY: dayNext.y, MM: dayNext.m })
     }
-    console.log('RES.daylist', RES.daylist)
+    // console.log('RES.daylist', RES.daylist)
     //设置时间数据
     that.selectTime = [timeA, timeB]
     RES.timelist.push(that.eachTime(timeA, 1))
@@ -1361,32 +1384,49 @@ jet.extend(jeDatePick.prototype, {
       '<table class="yeartable year{%= i==0 ? "left":"right"%}" style="display:{%=year ? "block":"none"%};"><tbody><tr>' +
       '{% for(var y=0;y<=11;y++){ %}<td class="{%=yearlist[i][y].style%}" @on="yearClick({%=yearlist[i][y].y%})"><span>{%=yearlist[i][y].y%}' +
       ytxt +
-      '</span></td>{% if((y+1)%3==0){ %} </tr>{% } %} {% } %} </tbody></table>'
+      '</span></td>{% if((y+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     //循环月的模板
     var monthHtml =
       '<table class="monthtable month{%= i==0 ? "left":"right"%}" style="display:{%=month ? "block":"none"%};"><tbody><tr>' +
       '{% for(var m=0;m<=11;m++){ %}<td class="{%=monthlist[i][m].style%}" ym="{%=monthlist[i][m].y%}-{%=monthlist[i][m].m%}" @on="monthClick({%=monthlist[i][m].y%}-{%=monthlist[i][m].m%})"><span>{%=monthlist[i][m].m%}' +
       mtxt +
-      '</span></td>{% if((m+1)%3==0){ %} </tr>{% } %} {% } %} </tbody></table>'
+      '</span></td>{% if((m+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     //循环天的模板
     var daysHtml =
-      '<div class="dayscontainer"><table class="daystable days{%= i==0 ? "left":"right"%}" style="display:{%=day ? "inline-table":"none"%};"><thead><tr>' +
+      '<div class="dayscontainer"><div class="line"></div><table class="daystable days{%= i==0 ? "left":"right"%}" style="display:{%=day ? "inline-table":"none"%};"><thead><tr>' +
       '{% for(var w=0;w<lang.weeks.length;w++){ %} <th>{%=lang.weeks[w]%}</th> {% } %}</tr></thead><tbody>' +
       '<tr>{% for(var d=0;d<=41;d++){ %}<td class="{%=daylist[i][d].style%}" ymd="{%=daylist[i][d].ymd%}" @on="daysClick({%=daylist[i][d].ymd%})">{%=daylist[i][d].day%}</td>{% if((d+1)%7==0){ %} </tr>{% } %} {% } %} </tbody></table></div>'
     //循环时间模板
     var hmsHtml = ''
     if (opts.showSecend) {
-      hmsHtml =
-        '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-        '<div class="hmstitle"><p style="width:113px">{%=lang.times[0]%}</p><p style="width:113px">{%=lang.times[1]%}</p><p style="width:113px">{%=lang.times[2]%}</p></div>' +
-        '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto"><ul style="width:113px">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
-        '</div>{% } %}</div>'
+      // console.log('time...loop', opts.multiPane)
+      if (opts.multiPane === false) {
+        hmsHtml =
+          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:113px">{%=lang.times[0]%}</p><p style="width:113px">{%=lang.times[1]%}</p><p style="width:113px">{%=lang.times[2]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto"><ul style="width:113px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '</div>{% } %}</div>'
+      } else {
+        hmsHtml =
+          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:113px">{%=lang.times[0]%}</p><p style="width:113px">{%=lang.times[1]%}</p><p style="width:113px">{%=lang.times[2]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto"><ul style="width:113px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '</div>{% } %}</div>'
+      }
     } else {
-      hmsHtml =
-        '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-        '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
-        '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto"><ul style="width:169px">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
-        '</div>{% } %}</div>'
+      if (opts.multiPane === false) {
+        hmsHtml =
+          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto"><ul style="width:169px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '</div>{% } %}</div>'
+      } else {
+        hmsHtml =
+          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto"><ul style="width:169px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '</div>{% } %}</div>'
+      }
     }
     //左边选择模板
     var shortHtml =
@@ -1448,6 +1488,13 @@ jet.extend(jeDatePick.prototype, {
     } else if (that.dlen == 7) {
       hmsStr = hmsHtml
     }
+    function getDefaultSize() {
+      if (window.PUI) {
+        return PUI.getDefaultSize()
+      }
+      return 'small'
+    }
+    const size = getDefaultSize()
     var paneHtml =
       '{% for(var i=0;i<pane;i++){ %}<div class="pui-pick-date-pane">' +
       '<div class="pui-pick-date-header">{% if(i==0){ %}' +
@@ -1463,7 +1510,6 @@ jet.extend(jeDatePick.prototype, {
       '</div>{% } %}'
     var btnStr =
       '{% if(today){ %}<span class="today" @on="nowBtn">{%=lang.today%}</span>{% } %}    <div class="btnscon">{% if(clear){ %}<span class="clear" @on="clearBtn">{%=lang.clear%}</span>{% } %}  {% if(timebtn){%}<div class="timecon" style="cursor: pointer;" @on="timeBtn">{%=lang.timetxt[0]%}</div>{% } %}   {% if(yes){ %}<span class="setok" @on="sureBtn">{%=lang.yes%}</span>{% } %}</div>'
-
     return (
       '<div class="pui-pick-date-menu" style="display:{%=shortcut.length>0 ? "block":"none"%};">' +
       shortHtml +
@@ -1590,7 +1636,7 @@ jet.extend(jeDatePick.prototype, {
           evobj = eval('(' + reval + ')'),
           gval = jet.getDateTime(evobj),
           tmval = that.selectTime
-        console.log('shortClick', gval)
+
         that.selectValue = [jet.parse(gval, 'YYYY-MM-DD')]
         that.selectDate = [{ YYYY: gval.YYYY, MM: gval.MM, DD: gval.DD }]
         that.selectTime = [{ hh: gval.hh, mm: gval.mm, ss: gval.ss }]
@@ -1723,7 +1769,7 @@ jet.extend(jeDatePick.prototype, {
           sday,
           nYM,
           ymarr
-        console.log('daysClick', val)
+
         if (range) {
           if (slen == 1) {
             var svalarr = [that.selectValue[0], val]
@@ -1795,7 +1841,7 @@ jet.extend(jeDatePick.prototype, {
             'ul'
           )[pidx],
           tlen = that.$data.timelist[0].length
-        console.log('hmsClick', that)
+
         if (jet.hasClass(this, 'disabled')) return
         jet.each(ulCell.childNodes, function (i, node) {
           var reg = new RegExp('(^|\\s+)' + act + '(\\s+|$)', 'g')
@@ -1809,28 +1855,28 @@ jet.extend(jeDatePick.prototype, {
         var hmsCls = ulCell.querySelector('.' + act)
         ulCell.scrollTop = hmsCls ? hmsCls.offsetTop - 145 : 0
         if (that.dlen == 7 && idx == 0 && range && !multi) {
-          var nVal = that.getValue({}),
-            nYM = jet.nextMonth(nVal[0].YYYY, nVal[0].MM),
-            st = that.selectTime
-          that.storeData(
-            {
-              YYYY: nVal[0].YYYY,
-              MM: nVal[0].MM,
-              DD: null,
-              hh: st[0].hh,
-              mm: st[0].mm,
-              ss: st[0].ss
-            },
-            {
-              YYYY: nYM.y,
-              MM: nYM.m,
-              DD: null,
-              hh: st[1].hh,
-              mm: st[1].mm,
-              ss: st[1].ss
-            }
-          )
-          that.renderDate(12)
+          // var nVal = that.getValue({}),
+          //   nYM = jet.nextMonth(nVal[0].YYYY, nVal[0].MM),
+          //   st = that.selectTime
+          // that.storeData(
+          //   {
+          //     YYYY: nVal[0].YYYY,
+          //     MM: nVal[0].MM,
+          //     DD: null,
+          //     hh: st[0].hh,
+          //     mm: st[0].mm,
+          //     ss: st[0].ss
+          //   },
+          //   {
+          //     YYYY: nYM.y,
+          //     MM: nYM.m,
+          //     DD: null,
+          //     hh: st[1].hh,
+          //     mm: st[1].mm,
+          //     ss: st[1].ss
+          //   }
+          // )
+          // that.renderDate(12)
         }
       },
       timeBtn: function () {
@@ -2287,6 +2333,27 @@ jet.extend(jeDatePick.prototype, {
       tipelem = $Q('#jedatetipscon')
     elem && document.body.removeChild(elem)
     tipelem && document.body.removeChild(tipelem)
+    if (
+      this.valCell.className.indexOf('filterMode-single') !== -1 &&
+      this.valCell.value === ''
+    ) {
+      document.getElementById(this.valCell.id).style.display = 'none'
+    }
+
+    if (
+      this.valCell.className.indexOf('filterMode-multi') !== -1 &&
+      this.valCell.value === ''
+    ) {
+      if (document.getElementById(this.valCell.id + 'filterMode-multi')) {
+        document.getElementById(
+          this.valCell.id + 'filterMode-multi'
+        ).style.display = 'none'
+      } else {
+        let id = this.valCell.id.replace('posend', '')
+        document.getElementById(id + 'filterMode-multi').style.display = 'none'
+      }
+    }
+
     if (this.$opts.multiPane === false) {
       if (this.valCell.id.indexOf('posend') === -1) {
         document.getElementById(this.valCell.id + 'posend').className = document
@@ -2446,6 +2513,11 @@ jet.extend(jeDatePick.prototype, {
   },
   //辨别控件的方位
   dateOrien: function (elbox, valCls, pos) {
+    document.getElementById(valCls.id).style.display = ''
+    if (document.getElementById(valCls.id + 'filterMode-multi')) {
+      document.getElementById(valCls.id + 'filterMode-multi').style.display =
+        'inline-block'
+    }
     var that = this,
       tops,
       leris,
@@ -2475,7 +2547,8 @@ jet.extend(jeDatePick.prototype, {
         tops = rect.top > boxH ? rect.top - boxH - 2 : jet.docArea() - boxH - 1
       }
       //根据目标元素计算弹层位置
-      ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1, 1) + 'px'
+      const size = PUI.getDefaultSize() === 'small' ? 2 : 4
+      ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1 + size, 1) + 'px'
       orleri = leris + 'px'
     } else {
       //弹层位置位于页面上下左右居中
@@ -2552,6 +2625,7 @@ puiDateObj.renderDate = x => {
     document.getElementsByClassName('pui-pick-date-content')[1].style.height =
       '214px'
   }
+
   //自定义主题色
   if (jet.isObj(opts.theme)) {
     var styleDiv = document.createElement('style'),
@@ -2596,12 +2670,12 @@ puiDateObj.renderDate = x => {
       ' .pui-pick-date-content .daystable td.action .lunar,' +
       stCell +
       ' .pui-pick-date-header,' +
-      stCell +
-      ' .pui-pick-date-time .timeheader,' +
+      // stCell +
+      // ' .pui-pick-date-time .timeheader,' +
       stCell +
       ' .pui-pick-date-time .hmslist ul li.action,' +
-      stCell +
-      ' .pui-pick-date-time .hmslist ul li.action:hover,' +
+      // stCell +
+      // ' .pui-pick-date-time .hmslist ul li.action:hover,' +
       stCell +
       ' .pui-pick-date-time .hmslist ul li.disabled.action,' +
       stCell +
