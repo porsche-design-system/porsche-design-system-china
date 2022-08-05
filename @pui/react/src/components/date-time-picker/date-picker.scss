@@ -9,9 +9,12 @@
       input {
         width: auto !important;
       }
+      // .filterMode-start {
+      //   display: none;
+      // }
     }
     .pui-pick-date {
-      font-family: 'Porsche Next', 'Arial Narrow', 'Arial', 'Heiti SC', 'SimHei';
+      font-family: 'Porsche Next';
       font-size: 16px;
       cursor: default;
       margin: 0;
@@ -98,17 +101,27 @@
         float: left;
         overflow: hidden;
         .dayscontainer {
-          // padding: 0px 16px 0px 16px;
+          padding: 0px 18px 0px 18px;
+          position: relative;
+          .line {
+            position: absolute;
+            height: 1px;
+            border-bottom: solid 1px $border-color-1;
+            width: 100%;
+            left: 0px;
+            top: 35px;
+          }
         }
+        // border-top: solid 1px $border-color-1;
         .daystable {
           width: 100%;
           border-collapse: collapse;
           border-spacing: 0;
-          thead {
-            tr {
-              border-bottom: 1px solid $border-color-1;
-            }
-          }
+          // thead {
+          //   tr {
+          //     border-bottom: 1px solid $border-color-1;
+          //   }
+          // }
           th {
             width: 36px;
             height: 40px;
@@ -119,12 +132,12 @@
             padding-bottom: 10px;
             // font-weight: 400;
           }
-          th:nth-child(1) {
-            padding-left: 16px;
-          }
-          th:last-child {
-            padding-right: 16px;
-          }
+          // th:nth-child(1) {
+          //   padding-left: 16px;
+          // }
+          // th:last-child {
+          //   padding-right: 16px;
+          // }
           td {
             width: 36px;
             height: 36px;
@@ -147,12 +160,12 @@
               background-color: $container-bg-opacity-color-2;
             }
           }
-          td:nth-child(1) {
-            padding-left: 16px;
-          }
-          td:last-child {
-            padding-right: 16px;
-          }
+          // td:nth-child(1) {
+          //   padding-left: 16px;
+          // }
+          // td:last-child {
+          //   padding-right: 16px;
+          // }
           .action {
             background: transparent !important;
             p {
@@ -183,6 +196,17 @@
         .timepane {
           width: 340px;
           float: left;
+          height: 100%;
+        }
+        .timepane:nth-child(2) {
+          .hmslist {
+            border-left: 1px solid $border-color-2 !important;
+          }
+          .hmstitle {
+            p:nth-child(1) {
+              border-left: 1px solid $border-color-2 !important;
+            }
+          }
         }
         .timeheader {
           width: 100%;
@@ -192,17 +216,19 @@
           text-align: center;
           font-size: 16px;
           position: relative;
-          display: none;
+          // display: none;
+          border-bottom: 1px solid $border-color-1;
         }
         .timecontent {
           width: 100%;
           float: left;
+          height: 100%;
         }
         .hmstitle {
           width: 100%;
           margin: 0 auto;
           overflow: hidden;
-          padding-top: 4px;
+          // padding-top: 4px;
           text-align: left;
           p {
             // width: 33.33%;
@@ -210,8 +236,15 @@
             height: 30px;
             line-height: 30px;
             font-size: 14px;
-            opacity: 0.4;
+            // opacity: 0.4;
             padding-left: 12px;
+            color: $text-opacity-color-2;
+          }
+          p:nth-child(1) {
+            border-right: 1px solid $border-color-1;
+          }
+          p:nth-child(3) {
+            border-left: 1px solid $border-color-1;
           }
         }
         .hmslist {
@@ -232,10 +265,10 @@
           }
           ul {
             // width: 113px;
-            max-height: 242px;
-            height: 242px;
+            min-height: 205px;
+            // height: 242px;
             float: left;
-            border-right: 1px solid $border-color-1;
+            // border-right: 1px solid $border-color-1;
             overflow: hidden;
             li {
               text-align: left;
@@ -255,6 +288,16 @@
               background: $status-bg-error-color !important;
               color: $brand-color;
               font-weight: bold;
+            }
+          }
+          .hmsauto:nth-child(1) {
+            ul {
+              border-right: 1px solid $border-color-1;
+            }
+          }
+          .hmsauto:nth-child(3) {
+            ul {
+              border-left: 1px solid $border-color-1;
             }
           }
         }
@@ -310,12 +353,12 @@
             background: $brand-color;
             color: $text-white-color;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
           }
         }
         .today {
           display: inline-block;
-          margin-top: 5px;
+          margin-top: 7px;
           color: $text-link-color;
           cursor: pointer;
         }
@@ -352,10 +395,14 @@
       background: $container-bg-color-4;
       border-radius: 13px;
     }
-
+    .pui-pick-date .pui-pick-date-content .yeartable,
+    .monthtable {
+      border-top: solid 1px $border-color-1;
+      padding-top: 28px;
+    }
     .pui-pick-date .pui-pick-date-content .yeartable td,
     .pui-pick-date .pui-pick-date-content .monthtable td {
-      width: 110px;
+      width: 80px;
       height: 51px;
       line-height: 51px;
       text-align: center;
@@ -363,10 +410,20 @@
       overflow: hidden;
       font-size: 14px;
     }
+    .pui-pick-date .pui-pick-date-content .monthtable tbody {
+      display: block;
+      margin: 0px auto;
+      width: 300px;
+    }
+    .pui-pick-date .pui-pick-date-content .yeartable tbody {
+      display: block;
+      margin: 0px auto;
+      width: 300px;
+    }
     .pui-pick-date .pui-pick-date-content .yeartable td span,
     .pui-pick-date .pui-pick-date-content .monthtable td span {
-      padding: 8px 24px;
-      border: 1px solid $text-color-1;
+      padding: 6px 10px;
+      // border: 1px solid $text-color-1;
     }
     .pui-pick-date .pui-pick-date-content .yeartable td span:hover,
     .pui-pick-date .pui-pick-date-content .monthtable td span:hover {
@@ -404,6 +461,17 @@
         &-size-small {
           height: 36px;
         }
+      }
+    }
+    .pui-select-input-placeholder {
+      display: inline-block;
+      &-size-medium {
+        height: 44px;
+        line-height: 44px;
+      }
+      &-size-small {
+        height: 34px;
+        line-height: 34px;
       }
     }
     .je-input-box:hover {
