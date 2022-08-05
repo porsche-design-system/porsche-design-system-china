@@ -6,40 +6,14 @@ export default {
   component: DateTimePicker
 }
 
-export const DateTimePickerStoryBook = () => {
+export const DateTimePickerStoryBookTime = () => {
   return (
     <div>
       <Form>
-        <div>只显示年</div>
-        <DateTimePicker
-          width="300px"
-          placeholder="请输入日期"
-          showStyle="OnlyYear"
-          componentId="testTime001"
-        />
-        <br />
-        <div>只显示年和月</div>
-        <DateTimePicker
-          width="300px"
-          placeholder="请输入日期"
-          showStyle="YearAndMonth"
-          componentId="testTime2"
-        />
-
-        <br />
-        <div>显示年月日</div>
-        <DateTimePicker
-          width="300px"
-          placeholder="请输入日期"
-          showStyle="Common"
-          componentId="testTime3"
-        />
-
-        <br />
         <div>显示年月日时分</div>
         <DateTimePicker
           width="300px"
-          placeholder="请输入日期"
+          placeholder="显示年月日时分"
           showStyle="CommonHHMMSS"
           componentId="testTime4"
         />
@@ -48,17 +22,52 @@ export const DateTimePickerStoryBook = () => {
         <div>时分秒</div>
         <DateTimePicker
           width="300px"
-          placeholder="请输入日期"
+          placeholder="时分秒"
           showStyle="HHMMSS"
           componentId="testTime5"
         />
-
+        <br />
         <div>时分</div>
         <DateTimePicker
           width="300px"
-          placeholder="请输入日期"
+          placeholder="时分"
           showStyle="HHMM"
           componentId="testTime8"
+        />
+      </Form>
+    </div>
+  )
+}
+
+DateTimePickerStoryBookTime.storyName = 'DateTimePicker 时间'
+
+export const DateTimePickerStoryBook = () => {
+  return (
+    <div>
+      <Form>
+        <div>只显示年</div>
+        <DateTimePicker
+          width="300px"
+          placeholder="只显示年"
+          showStyle="OnlyYear"
+          componentId="testTime001"
+        />
+        <br />
+        <div>只显示年和月</div>
+        <DateTimePicker
+          width="300px"
+          placeholder="只显示年和月"
+          showStyle="YearAndMonth"
+          componentId="testTime2"
+        />
+
+        <br />
+        <div>显示年月日</div>
+        <DateTimePicker
+          width="300px"
+          placeholder="显示年月日"
+          showStyle="Common"
+          componentId="testTime3"
         />
 
         <div>disabled</div>
@@ -76,7 +85,7 @@ export const DateTimePickerStoryBook = () => {
           label="label在左边"
           labelPosition="left"
           width="300px"
-          placeholder="请输入日期"
+          placeholder="label在左边"
           showStyle="Common"
           componentId="testTime7"
         />
@@ -84,7 +93,7 @@ export const DateTimePickerStoryBook = () => {
         <div>filterMode</div>
         <DateTimePicker
           label="到港日期"
-          placeholder="请输入日期"
+          placeholder="到港日期"
           filterMode
           // width="300px"
           labelPosition="left"
