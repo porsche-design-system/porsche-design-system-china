@@ -495,9 +495,9 @@
       padding-right: 40px;
       white-space: nowrap;
       transition: all 0.1s;
-      .activeBorder {
-        border-bottom: 2px solid $brand-color !important;
-      }
+      // .activeBorder {
+      //   border-bottom: 2px solid $brand-color !important;
+      // }
       .je-input-range {
         cursor: pointer;
         transition: all 0.1s;
