@@ -75,7 +75,7 @@ export interface TableProps<T = any, K = any> {
   onSort?: (sorter: Sorter) => void
 
   /** 选定事件 */
-  onSelect?: (selectedRowData: T[]) => void
+  onSelect?: (selectedRowData: T[], allSelected?: boolean) => void
 
   /** 默认排序方式 */
   defaultSorter?: Sorter
@@ -148,6 +148,8 @@ const Table = <T, K>({
   useEffect(() => {
     setExpandRows([])
     setSelectedRows([])
+    setPartChecked(false)
+    setAllChecked(false)
   }, [data])
 
   const [sorter, setSorter] = useState<Sorter>(defaultSorter)
@@ -443,7 +445,7 @@ const Table = <T, K>({
       rowData.push(JSON.parse(JSON.stringify(data[rowInx])))
     })
     setSelectedRows([...sRows])
-    onSelect && onSelect(rowData)
+    onSelect && onSelect(rowData, rowData.length === data.length)
   }
 
   const sortCallback = (column: TableColumn) => {

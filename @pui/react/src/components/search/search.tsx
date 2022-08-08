@@ -1,9 +1,17 @@
-import React, { CSSProperties, FocusEventHandler, useState } from 'react'
+import React, {
+  CSSProperties,
+  FocusEventHandler,
+  useRef,
+  useState
+} from 'react'
+import { RuleItem, ValidateError } from 'async-validator'
 import { IconSearch } from '@pui/icons'
 
 import { Input } from '../input/input'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
+import { validate } from '../../shared/validation-rules'
+import { ErrorText } from '../error-text/error-text'
 
 import './search.scss'
 
@@ -13,6 +21,9 @@ export interface SearchProps {
 
   /** 样式 */
   style?: CSSProperties
+
+  /** 校验 */
+  rules?: RuleItem[] | RuleItem
 
   /** 占位符 */
   placeholder?: string
@@ -75,14 +86,35 @@ const Search = ({
   showSearchButtonBg = false,
   marginLeft,
   marginRight,
+  rules,
   onBlur,
   onSearch,
   name
 }: SearchProps) => {
   const [searchValue, setSearchValue] = useState(value || defaultValue || '')
   const [defaultSize] = useDefaultSize()
+  const [errList, setErrList] = useState<ValidateError[]>([])
+  const isValidated = useRef(false)
 
   size = size || defaultSize
+
+  const validateInput = (validateValue: any) => {
+    if (rules) {
+      let errList
+      validate(
+        { 'search value': rules },
+        { 'search value': validateValue },
+        errorList => {
+          setErrList(errorList || [])
+          errList = errorList
+        }
+      )
+      if (errList !== null) {
+        return true
+      }
+    }
+    return false
+  }
 
   return (
     <div
@@ -100,6 +132,10 @@ const Search = ({
       onKeyUp={(evt: any) => {
         if (evt.key === 'Enter' && !disabled) {
           evt.preventDefault()
+          isValidated.current = true
+          if (validateInput(evt.target.value)) {
+            return
+          }
           onSearch && onSearch(evt.target.value)
         }
       }}
@@ -114,6 +150,9 @@ const Search = ({
         name={name}
         style={{ marginBottom: 0 }}
         onValueChange={val => {
+          if (isValidated.current) {
+            validateInput(val)
+          }
           setSearchValue(val)
           onValueChange && onValueChange(val)
         }}
@@ -125,9 +164,14 @@ const Search = ({
         className="pui-search-button"
         onClick={evt => {
           evt.preventDefault()
+          isValidated.current = true
+          if (validateInput(searchValue)) {
+            return
+          }
           !disabled && onSearch && onSearch(searchValue)
         }}
       />
+      <ErrorText show={errList.length > 0} message={errList[0]?.message} />
     </div>
   )
 }
