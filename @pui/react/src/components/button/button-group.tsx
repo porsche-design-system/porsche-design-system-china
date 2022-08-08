@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItemLabelProps } from '../form/form'
 import { Label, getLabelProps } from '../label/label'
+import { useDefaultSize } from '../../shared/hooks'
 import './button-group.scss'
 
 export interface ButtonGroupProps {
@@ -25,11 +26,13 @@ const ButtonGroup = ({
   children,
   align = 'left'
 }: ButtonGroupProps) => {
+  const [defaultSize] = useDefaultSize()
   return (
     <div
       className={componentClassNames('pui-button-group', {
         disabled: disabled + '',
-        align
+        align,
+        size: defaultSize
       })}
       style={{ textAlign: align }}
     >

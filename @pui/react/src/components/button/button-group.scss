@@ -1,6 +1,8 @@
 @import '../../styles/theme/index';
 
-.pui-button-group {
+$prefix: '.pui-button-group';
+
+#{$prefix} {
   &-align-left,
   &-align-center {
     button {
@@ -20,5 +22,16 @@
     label {
       opacity: 0.5;
     }
+  }
+}
+#{$prefix}-size-small#{$prefix}-align-left,
+#{$prefix}-size-small#{$prefix}-align-center {
+  button {
+    margin-right: 16px;
+  }
+}
+#{$prefix}-size-small#{$prefix}-align-right {
+  button {
+    margin-left: 16px;
   }
 }
