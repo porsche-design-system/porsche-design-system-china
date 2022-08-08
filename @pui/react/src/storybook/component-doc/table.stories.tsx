@@ -94,8 +94,9 @@ export const TableStoryBook = () => {
         columns={columns}
         selectable
         height="300px"
-        onSelect={data => {
-          console.log(data)
+        onSelect={(data, allChecked) => {
+          console.log('选定数据', data)
+          console.log('是否全选（选传）', allChecked)
         }}
         onSort={sorter => console.log(sorter)}
       />
@@ -163,9 +164,6 @@ export const TableStoryBook2 = () => {
       <Table
         data={tableData}
         columns={columns}
-        onSelect={data => {
-          console.log(data)
-        }}
         onSort={sorter => console.log(sorter)}
         rowExpandable
         expandData={tableData}
