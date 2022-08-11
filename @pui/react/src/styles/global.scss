@@ -1,81 +1,11 @@
 * {
   -webkit-appearance: none;
-  font-family: 'Porsche Next', 'Arial Narrow', 'Arial', 'Heiti SC', 'SimHei',
-    sans-serif;
+  font-family: 'Porsche Next', 'Arial Narrow', 'Arial', 'Microsoft YaHei',
+    'Heiti SC', sans-serif;
   outline: none;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: 100%;
-  font-weight: normal;
-}
-article,
-aside,
-dialog,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section,
-blockquote {
-  display: block;
-}
-ul,
-ol {
-  list-style: none;
-}
-img {
-  border: 0 none;
-  vertical-align: top;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-strong,
-em,
-i {
-  font-style: normal;
-  font-weight: normal;
-}
-ins {
-  text-decoration: underline;
-}
-del {
-  text-decoration: line-through;
-}
-mark {
-  background: none;
-}
-input::-ms-clear {
-  display: none !important;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-a:hover {
-  text-decoration: underline;
 }
 
 .pui-theme-light {
