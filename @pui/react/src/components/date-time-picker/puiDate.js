@@ -1120,9 +1120,10 @@ jet.extend(jeDatePick.prototype, {
       }
     })
 
-    let timeULs = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
-      'ul'
-    )
+    let timeULs = null
+    if ($Q('.pui-pick-date-time', that.dateCell)) {
+      timeULs = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll('ul')
+    }
     if (timeULs && timeULs.length > 0) {
       for (let i = 0; i < timeULs.length; i++) {
         let ulCell = timeULs[i]
