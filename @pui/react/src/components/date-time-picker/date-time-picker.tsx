@@ -223,7 +223,8 @@ const DateTimePicker = FormItem(
       }
     }
 
-    const onFilter = () => {
+    const onFilter = (evt: any) => {
+      evt.stopPropagation();
       document.getElementById(componentId)?.click()
     }
 
