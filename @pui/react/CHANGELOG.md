@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.31](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.30...v0.1.31) (2022-08-12)
+
+
+### Features
+
+* 增加Input组件tiny尺寸;增加InputNumber组件small、tiny尺寸 ([6b522a1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6b522a1ac2837348b2a79ceb1c50a3dc0e0054cf))
+
+
+### Bug Fixes
+
+* ButtonGroup组件UI走查问题修复：1.demo展示的样式修复；2.small尺寸按钮时按钮的间距调整 ([f33b73b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f33b73bed169b437d315c1a7a935ab2c47d03c81))
+* ButtonGroup组件展示例子优化 ([b45bff1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b45bff1cff1d9f5aec167ec8961f29db24c4e202))
+* double类型Slider组件onValueChange属性函数数组参数值优化，保持始终是小的值在前，大的值在后 ([83e4ebb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/83e4ebbfaa3d36b5e054693e6eff6cf37ce64ca6))
+* DRSCN-20700|样式和交互 ([9fe305c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9fe305c21aef6c0d9d8a48f415fdc01c3d8be0e8))
+* DRSCN-20700|统一样式和交互 ([e3cf9c4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e3cf9c487fab5881395b58882b91880bb36e7bb7))
+* 修复参数报错的问题 ([24f4fa8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/24f4fa8a4109a823f0a15147423accd0aba2aab5))
+* 修正 table  选定 ([9d4667c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9d4667cec4e5c3d8fb429d297a80e5e66a482ae5))
+* 修正字体 ([56c6439](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/56c64393a2cffd0630978eeaee2923c497d20fb5))
+
 ### [0.1.30](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.29...v0.1.30) (2022-08-02)
 
 
