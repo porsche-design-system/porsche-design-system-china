@@ -129,11 +129,7 @@
               padding: 12px 24px;
               box-sizing: border-box;
               max-height: calc(100vh - 200px);
-              font-size: 16px;
-              line-height: 24px;
-              font-weight: 400;
               overflow: auto;
-              color: $text-opacity-color-1;
               -webkit-overflow-scrolling: touch;
             }
 
@@ -176,6 +172,10 @@
                 min-height: 96px;
                 max-height: 418px;
                 padding: 12px 24px;
+                font-size: 16px;
+                line-height: 24px;
+                font-weight: 400;
+                color: $text-opacity-color-1;
               }
             }
           }
@@ -286,10 +286,6 @@
                 .pui-modal-subtitle {
                   font-size: 14px;
                 }
-              }
-
-              .pui-modal-body {
-                font-size: 14px;
               }
 
               .pui-modal-footer {
