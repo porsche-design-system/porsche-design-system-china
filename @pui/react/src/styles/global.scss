@@ -11,11 +11,27 @@
 .pui-theme-light {
   background-color: white;
   color: black;
+  ::selection {
+    color: rgba(213, 0, 28, 1);
+    background-color:rgba(213, 0, 28, 0.05) ;
+  }
+  ::-moz-selection {
+    color: rgba(213, 0, 28, 1);
+    background-color: rgba(213, 0, 28, 0.05);
+  }
 }
 
 .pui-theme-dark {
   background-color: #1b2023;
   color: white;
+  ::selection {
+    color: rgba(33, 147, 255, 1);
+    background-color: rgba(33, 147, 255, 0.1);
+  }
+  ::-moz-selection {
+    color: rgba(33, 147, 255, 1);
+    background-color: rgba(33, 147, 255, 0.1);
+  }
 }
 
 .pui-default-size-medium {
