@@ -198,11 +198,10 @@ export const InputsStoryBook8 = () => {
   return (
     <Row>
       <Col span={12}>
-        <div className="states">自定义后缀ICON</div>
+        <div className="states">自定义后缀</div>
         <div>
           <Input placeholder="自定义ICON" suffixIcon={IconCheck} />
         </div>
-        <br />
         <br />
         <div>
           <Input
@@ -215,12 +214,16 @@ export const InputsStoryBook8 = () => {
           />
         </div>
         <br />
+        <div>
+          <Input placeholder="自定义后缀" suffixContent="km" />
+        </div>
+        <br />
       </Col>
     </Row>
   )
 }
 
-InputsStoryBook8.storyName = 'Show View Suffix Icon'
+InputsStoryBook8.storyName = 'Show View Suffix Content & Icon'
 
 export const InputsStoryBook9 = () => {
   return (
@@ -282,18 +285,3 @@ export const InputsStoryBook9 = () => {
 }
 
 InputsStoryBook9.storyName = 'Tiny Size'
-
-export const InputsStoryBook10 = () => {
-  return (
-    <Row>
-      <Col span={12}>
-        <div className="states">自定义后缀，可以放任何东西，不限于文字</div>
-        <div>
-          <Input placeholder="自定义ICON" suffixContent="km" />
-        </div>
-        <br />
-      </Col>
-    </Row>
-  )
-}
-InputsStoryBook10.storyName = 'Customized Suffix'
