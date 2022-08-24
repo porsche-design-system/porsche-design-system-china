@@ -282,3 +282,18 @@ export const InputsStoryBook9 = () => {
 }
 
 InputsStoryBook9.storyName = 'Tiny Size'
+
+export const InputsStoryBook10 = () => {
+  return (
+    <Row>
+      <Col span={12}>
+        <div className="states">自定义后缀，可以放任何东西，不限于文字</div>
+        <div>
+          <Input placeholder="自定义ICON" suffixContent="km" />
+        </div>
+        <br />
+      </Col>
+    </Row>
+  )
+}
+InputsStoryBook10.storyName = 'Customized Suffix'

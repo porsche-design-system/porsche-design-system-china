@@ -6,7 +6,8 @@ import React, {
   useRef,
   useState,
   CompositionEventHandler,
-  ReactElement
+  ReactElement,
+  ReactNode
 } from 'react'
 import { IconAdd, IconErrorFilled, IconView, IconViewOff } from '@pui/icons'
 import { componentClassNames, isReactElement } from '../../shared/class-util'
@@ -77,6 +78,9 @@ export interface InputProps {
   /** 后缀样式 */
   suffixStyle?: CSSProperties
 
+  /** 自定义后缀 */
+  suffixContent?: ReactNode
+
   /** 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
@@ -109,7 +113,8 @@ const Input = FormItem(
     onCompositionStart,
     onCompositionEnd,
     suffixIcon,
-    suffixStyle
+    suffixStyle,
+    suffixContent
   }: InputProps) => {
     if (value === null) {
       value = undefined
@@ -229,6 +234,9 @@ const Input = FormItem(
             )}
           </span>
         ) : null}
+        {type !== 'password' && !suffixIcon && suffixContent && (
+          <span className="pui-input-suffix-icon">{suffixContent}</span>
+        )}
         {showViewPasswordButton &&
           type === 'password' &&
           (inputType === 'password' ? (
