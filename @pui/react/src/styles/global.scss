@@ -12,12 +12,10 @@
   background-color: white;
   color: black;
   ::selection {
-    color: rgba(213, 0, 28, 1);
-    background-color:rgba(213, 0, 28, 0.05) ;
+    background-color:rgba(213,0,28,0.12) ;
   }
   ::-moz-selection {
-    color: rgba(213, 0, 28, 1);
-    background-color: rgba(213, 0, 28, 0.05);
+    background-color: rgba(213, 0, 28, 0.12);
   }
 }
 
@@ -25,12 +23,10 @@
   background-color: #1b2023;
   color: white;
   ::selection {
-    color: rgba(33, 147, 255, 1);
-    background-color: rgba(33, 147, 255, 0.1);
+    background-color: rgba(33, 147, 255, 0.3);
   }
   ::-moz-selection {
-    color: rgba(33, 147, 255, 1);
-    background-color: rgba(33, 147, 255, 0.1);
+    background-color: rgba(33, 147, 255, 0.3);
   }
 }
 
