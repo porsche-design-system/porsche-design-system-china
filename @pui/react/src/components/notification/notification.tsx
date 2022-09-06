@@ -108,25 +108,34 @@ let wrap: HTMLElement
 export const createNotification = () => {
   return (config: Partial<NotificationConfigProps> = {}) => {
     const fconfig = { ...defaultConfig, ...config }
+    const placementCss = {
+      topLeft: `top: 14px; left: 14px;`,
+      topRight: `top: 14px; right: 14px;`,
+      bottomLeft: `bottom: 14px; left: 14px;`,
+      bottomRight: `bottom: 14px;right: 14px;`
+    }
+    const placement = placementCss[config.placement!] || placementCss.topLeft
+    const warpCss = `line-height: 1.5;
+    text-align: center;
+    color: #333;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    z-index: 100000;
+    ${placement}`
+
     if (!wrap) {
       // 如果有的话，说明已经调用过这个函数了，这个空div就可以一直复用
       wrap = document.createElement('div')
 
-      wrap.style.cssText = `line-height: 1.5;
-        text-align: center;
-        color: #333;
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        position: fixed;
-        z-index: 100000;
-        width: 100%;
-        top: 16px;
-        left: 0;`
+      wrap.style.cssText = warpCss
       if (wrap) {
         fconfig.mount!.appendChild(wrap)
       }
+    } else {
+      wrap.style.cssText = warpCss
     }
 
     const div = document.createElement('div')
@@ -149,12 +158,6 @@ export function NotificationBox(props: NotificationProps) {
   const [defaultSize] = useDefaultSize()
   const size = fconfig.size || defaultSize
   const [close, setClose] = useState(false)
-  const placementCss = {
-    topLeft: { top: '16px', left: '16px' },
-    topRight: { top: '16px', right: '16px' },
-    bottomLeft: { bottom: '16px', left: '16px' },
-    bottomRight: { bottom: '16px', right: '16px' }
-  }
 
   const unmount = useMemo(() => {
     return () => {
@@ -212,7 +215,6 @@ export function NotificationBox(props: NotificationProps) {
         className={`notification-text ${fconfig.type}  ${
           close ? 'close' : 'open'
         }-animate-${fconfig.placement!.indexOf('Left') > 0 ? 'left' : 'right'}`}
-        style={placementCss[fconfig.placement!]}
       >
         <div className="notification-title">
           <div className="notification-title-icon">
