@@ -490,7 +490,7 @@ Select = FormItem(
                                 setMenuOpen(false)
                               }
                               setShowOptionList(false)
-                              setSelectValue(option.value)
+                              setSelectValue(option.value as any)
                               onValueChange &&
                                 onValueChange(option.value, option)
                             }}
