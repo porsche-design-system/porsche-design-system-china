@@ -27,6 +27,7 @@ import './multi-select.scss'
 interface MultiSelectOption<T> {
   text: string | ReactNode
   value: T
+  disabled?: boolean
 }
 
 export interface MultiSelectProps<T> {
@@ -425,13 +426,15 @@ MultiSelect = FormItem(
                   {filteredOptions.map((option, inx) => (
                     <div
                       key={option.value + ' ' + inx}
-                      className={
-                        'pui-multi-select-option ' +
-                        (selectValue.includes(option.value)
-                          ? 'pui-multi-select-option-selected'
-                          : '')
-                      }
+                      className={classNames('pui-multi-select-option', {
+                        'pui-multi-select-option-selected':
+                          selectValue.includes(option.value),
+                        'pui-multi-select-option-disabled': option.disabled
+                      })}
                       onClick={() => {
+                        if (option.disabled === true) {
+                          return
+                        }
                         if (selectValue.includes(option.value)) {
                           selectValue.splice(
                             selectValue.indexOf(option.value),
@@ -445,6 +448,7 @@ MultiSelect = FormItem(
                       }}
                     >
                       <CheckBox
+                        disabled={option.disabled}
                         className="pui-multi-select-pick"
                         size="small"
                         checked={selectValue.includes(option.value)}

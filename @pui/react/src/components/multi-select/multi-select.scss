@@ -125,6 +125,17 @@
         color: $text-color-1;
       }
 
+      &-option-disabled {
+        background-color: transparent;
+        cursor: not-allowed;
+        opacity: 0.3;
+      }
+
+      &-option-disabled:hover {
+        background-color: transparent;
+        font-weight: normal;
+      }
+
       &-error-true {
         .pui-multi-select-input {
           border: 1px solid $status-error-color;

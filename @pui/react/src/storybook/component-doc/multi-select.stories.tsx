@@ -185,3 +185,26 @@ export const SelectStoryBook7 = () => {
   )
 }
 SelectStoryBook7.storyName = 'Custom select content'
+
+export const SelectStoryBook8 = () => {
+  return (
+    <div style={{ width: '300px' }}>
+      <Form>
+        <div>自定义选项格式</div>
+        <MultiSelect
+          options={[
+            { text: '老虎', value: '老虎' },
+            { text: '兔子', value: '兔子', disabled: true },
+            { text: '老鹰', value: '老鹰' }
+          ]}
+          placeholder="动物"
+          filterInput
+          filterInputPlaceholder="查找动物"
+          showClearButton
+          showCheckAll={false}
+        />
+      </Form>
+    </div>
+  )
+}
+SelectStoryBook8.storyName = 'Disable Option'
