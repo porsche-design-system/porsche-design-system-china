@@ -125,14 +125,11 @@
         color: $text-color-1;
       }
 
-      &-option-disabled {
-        background-color: transparent;
-        cursor: not-allowed;
-        opacity: 0.3;
-      }
-
+      &-option-disabled,
       &-option-disabled:hover {
         background-color: transparent;
+        cursor: not-allowed;
+        color: $text-opacity-color-2;
         font-weight: normal;
       }
 

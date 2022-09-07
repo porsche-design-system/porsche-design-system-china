@@ -97,8 +97,9 @@
         font-weight: bold;
       }
 
-      &-option-disabled {
-        opacity: 0.3;
+      &-option-disabled,
+      &-option-disabled:hover {
+        color: $text-opacity-color-2 !important;
         cursor: not-allowed;
       }
 
