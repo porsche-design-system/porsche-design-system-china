@@ -41,8 +41,8 @@ export interface DatePickerProps {
   /** 占位符 */
   placeholder?: string
 
-  /** 值改变事件 */
-  onValueChange?: (value: string) => void
+  /** 值改变事件  (如果是因为value传参错误或不在设置范围内会触发自动修正，第二个传参会为true)  */
+  onValueChange?: (value: string, isDataCorrection?: boolean) => void
 
   /** 可选范围 "InNext{num}Days" "2021-03-12,2021-04-12" ['2021-03-12','2021-04-12'] */
   range?: string | [string | null, string | null] | [Date | null, Date | null]
@@ -161,7 +161,7 @@ const DatePicker = FormItem(
         ) {
           setPickedDate(null)
           setDisplayValue('')
-          onValueChange && onValueChange('')
+          onValueChange && onValueChange('', true)
         }
       }
     }, [disableDates, range])
