@@ -84,11 +84,11 @@
       }
     }
     .pui-input-number-icon-default {
-      color: $border-color-3;
+      color: $text-opacity-color-1;
       cursor: pointer;
     }
     .pui-input-number-icon-default:hover {
-      color: $border-color-5;
+      color: $text-color-1;
     }
     .pui-input-number-icon-disabled {
       color: $border-color-2;
@@ -109,6 +109,24 @@
       .pui-minus-wrap,
       .pui-plus-wrap {
         width: 34px;
+        .porscheicon {
+          font-size: 20px;
+        }
+      }
+      .pui-input input.pui-input-number {
+        padding-left: 42px;
+        padding-right: 42px;
+      }
+      .pui-plus-wrap {
+        right: 0;
+        + .pui-input-number-suffix-icon-position {
+          right: 37px;
+          + .pui-input-number {
+            input {
+              padding-right: 47px;
+            }
+          }
+        }
       }
     }
     .pui-input-number-wrap-size-tiny {
@@ -123,6 +141,21 @@
       .pui-minus-wrap,
       .pui-plus-wrap {
         width: 26px;
+      }
+      .pui-input input.pui-input-number {
+        padding-left: 36px;
+        padding-right: 36px;
+      }
+      .pui-plus-wrap {
+        right: 0;
+        + .pui-input-number-suffix-icon-position {
+          right: 28px;
+          + .pui-input-number {
+            input {
+              padding-right: 41px;
+            }
+          }
+        }
       }
     }
   }
