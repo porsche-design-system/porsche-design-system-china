@@ -229,7 +229,7 @@ export const InputsStoryBook9 = () => {
   return (
     <Row>
       <Col span={12}>
-        <div className="states">Tiny Size</div>
+        <div className="states">Status</div>
         <div>
           <Input placeholder="请输入" size="tiny" />
         </div>
@@ -246,17 +246,18 @@ export const InputsStoryBook9 = () => {
         <br />
         <br />
         <div>
-          <Input placeholder="最多输入150个字符" maxLength={150} size="tiny" />
-        </div>
-        <br />
-        <br />
-        <div>
           <Input
             placeholder="请输入"
             rules={{ required: true, message: '必须填写' }}
             error={{ show: true, message: '输入信息有误' }}
             size="tiny"
           />
+        </div>
+        <br />
+        <br />
+        <div className="states">Type</div>
+        <div>
+          <Input placeholder="最多输入150个字符" maxLength={150} size="tiny" />
         </div>
         <br />
         <br />
@@ -277,6 +278,11 @@ export const InputsStoryBook9 = () => {
             showViewPasswordButton
             size="tiny"
           />
+        </div>
+        <br />
+        <br />
+        <div>
+          <Input placeholder="请输入" suffixContent="元" size="tiny" />
         </div>
         <br />
       </Col>

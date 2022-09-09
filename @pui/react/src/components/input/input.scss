@@ -87,13 +87,7 @@
       }
       &-clear,
       &-view {
-        opacity: 0.2;
         user-select: none;
-      }
-
-      &-clear:hover,
-      &-view:hover {
-        opacity: 0.7;
       }
 
       &-size-small {
