@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.32](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.31...v0.1.32) (2022-09-09)
+
+
+### Features
+
+* **DSCWCN-135:** add customized suffix content to input ([d430cee](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d430cee6b858e5c982ea57c1bd6d050c8b4baafd))
+* **DSCWCN-135:** modify input story book ([0de4465](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0de446540da83252bcafda797083507c82148a3e))
+
+
+### Bug Fixes
+
+*  multi-select 加入不可选选项功能 ([c2ee2c4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c2ee2c461475719e5a78e9ebf4334600ad5584b2))
+* Input组件Tiny尺寸官网展示例子优化；Input组件的clear,eye图标透明度修改；InputNumber 组件官网展示例子优化；InputNumber组件small，tiny尺寸样式问题修复 ([a54a8bd](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a54a8bd5ae607d60640af612a31b9e5381750939))
+* 加入是否是修正传参 ([739ddf4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/739ddf4578086bee9e62254e9a9493bb75aca5d8))
+* 更正颜色 ([64f9e21](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/64f9e21408fc54971acb7f31bf0d5a208926253e))
+
 ### [0.1.31](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.30...v0.1.31) (2022-08-12)
 
 
