@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IconCheck } from '@pui/icons'
 import { InputNumber } from '../..'
+import './input-number.stories.scss'
 
 export default {
   title: 'Data Entry/InputNumber',
@@ -19,13 +20,13 @@ export const InputNumberStoryBook = () => {
             label="购买数量"
             min={0}
             max={10}
-            width="150px"
+            width="130px"
             marginRight="30px"
             onValueChange={val => {
               console.log(val)
               setValue(val)
             }}
-            step={3}
+            step={1}
             value={value}
           />
           <InputNumber
@@ -33,7 +34,7 @@ export const InputNumberStoryBook = () => {
             label="购买数量"
             min={0}
             max={10}
-            width="150px"
+            width="130px"
             disabled
             marginRight="30px"
             style={{ marginLeft: 20 }}
@@ -56,7 +57,7 @@ export const InputNumberStoryBook1 = () => {
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             marginRight="30px"
@@ -66,7 +67,7 @@ export const InputNumberStoryBook1 = () => {
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             disabled
@@ -90,7 +91,7 @@ export const InputNumberStoryBook2 = () => {
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             marginRight="30px"
@@ -101,7 +102,7 @@ export const InputNumberStoryBook2 = () => {
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             marginRight="30px"
@@ -125,7 +126,7 @@ export const InputNumberStoryBook3 = () => {
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="170px"
+            width="130px"
             min={0}
             max={10}
             marginRight="30px"
@@ -136,24 +137,26 @@ export const InputNumberStoryBook3 = () => {
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             marginRight="30px"
-            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>天</span>}
+            suffixIcon={<span className="custom-day">天</span>}
             onValueChange={val => console.log(val)}
+            style={{ marginLeft: 20 }}
           />
           <InputNumber
             type="arrow"
             defaultValue="3"
             label="购买单价"
-            width="150px"
+            width="130px"
             min={0}
             max={10}
             disabled
             hideStepBtn
-            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>元</span>}
+            suffixIcon={<span className="custom-money">元</span>}
             onValueChange={val => console.log(val)}
+            style={{ marginLeft: 20 }}
           />
         </div>
       </div>
@@ -172,44 +175,44 @@ export const InputNumberStoryBook4 = () => {
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="170px"
+            width="92px"
             min={0}
             max={10}
             marginRight="30px"
             size="tiny"
           />
-          <br />
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="170px"
+            width="92px"
             min={0}
             max={10}
             marginRight="30px"
             size="tiny"
             type="arrow"
           />
-          <br />
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="170px"
+            width="92px"
             min={0}
             max={10}
             marginRight="30px"
             suffixIcon={<IconCheck />}
             size="tiny"
           />
-          <br />
           <InputNumber
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="170px"
+            width="92px"
             min={0}
             max={10}
-            marginRight="30px"
-            suffixIcon={<span style={{ color: 'rgba(0, 0, 0, .4)' }}>天</span>}
+            suffixIcon={
+              <span className="custom-day" style={{ fontSize: 14 }}>
+                天
+              </span>
+            }
             size="tiny"
           />
         </div>
