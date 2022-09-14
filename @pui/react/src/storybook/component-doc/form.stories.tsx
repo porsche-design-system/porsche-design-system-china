@@ -634,3 +634,55 @@ export const ExampleStoryBook6 = () => {
 }
 
 ExampleStoryBook6.storyName = 'Modal Form Submit'
+
+export const ExampleStoryBook7 = () => {
+  return (
+    <div>
+      <Form
+        name="my-form"
+        width="200px"
+        onSubmit={(data, error) => {
+          console.log('submit', data)
+          console.log('error', error)
+        }}
+      >
+        <Input label="姓名" name="name" />
+        <Select
+          options={[
+            { text: '先生', value: 0 },
+            { text: '女士', value: 1 }
+          ]}
+          label="性别"
+          name="gender"
+        />
+      </Form>
+
+      <Button
+        onClick={() => {
+          Form.findByName('my-form').reset()
+        }}
+        marginRight="5px"
+      >
+        重置数据
+      </Button>
+      <Button
+        onClick={() => {
+          Form.findByName('my-form').setData({ name: '蕾蕾', gender: 1 })
+        }}
+        marginRight="5px"
+      >
+        设置数据
+      </Button>
+      <Button
+        type="primary"
+        onClick={() => {
+          Form.findByName('my-form').submit()
+        }}
+      >
+        提交
+      </Button>
+    </div>
+  )
+}
+
+ExampleStoryBook7.storyName = 'Change Data'

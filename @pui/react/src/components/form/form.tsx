@@ -125,7 +125,7 @@ function Form<T = any>({
 
   if (name) {
     Form[name] = {
-      get data() {
+      getData() {
         return fData
       },
       submit() {
@@ -144,6 +144,12 @@ function Form<T = any>({
           shouldAutoValidForm.current = true
           callback && callback(errorList)
         })
+      },
+      reset() {
+        setFormData({})
+      },
+      setData(data: any) {
+        setFormData(data)
       }
     }
   }
@@ -347,7 +353,10 @@ function Form<T = any>({
             if (inputProps.name) {
               newFormData = { ...fData, [inputProps.name]: value }
             }
-            if (elementName === 'DateRangePicker' || elementName === 'DateTimePicker') {
+            if (
+              elementName === 'DateRangePicker' ||
+              elementName === 'DateTimePicker'
+            ) {
               if (inputProps.nameStartDate) {
                 newFormData = {
                   ...newFormData,
@@ -437,6 +446,9 @@ function Form<T = any>({
 Form.findByName = (name: string) => {
   return Form[name] as {
     submit: () => void | Promise<any>
+    reset: () => void
+    setData: (data: any) => void
+    getData: () => any
     validate: (callback?: (errorList: ErrorList) => void) => void
   }
 }
