@@ -1,7 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react'
 import { IconAdd } from '@pui/icons'
 import classNames from 'classnames'
-import { trimEnd } from 'lodash'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
 
@@ -109,7 +108,7 @@ const Breadcrumb = ({
       currentPath.length === 1
         ? currentPath
         : currentPath.endsWith('/')
-        ? trimEnd(currentPath, '/')
+        ? currentPath.replace(/\/+$/, '')
         : currentPath
     breadcrumbItems = parseBreadcrumbFromRoutes(routes, currentPath)
   }
