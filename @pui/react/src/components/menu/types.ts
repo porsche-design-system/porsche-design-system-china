@@ -34,6 +34,8 @@ export interface MenuProps {
 
   /** 子元素 */
   children: ReactNode
+  /** 触发SubMenu下拉行为 */
+  trigger?: 'hover' | 'click'
 }
 
 export interface IMenuContext {
@@ -41,6 +43,7 @@ export interface IMenuContext {
   index: string
   onSelect?: (selectedIndex: string) => void
   mode?: MenuMode
+  trigger?: 'hover' | 'click'
   defaultOpenSubMenus?: string[]
   selectSubMenus?: string[]
 }
