@@ -14,7 +14,8 @@ const Menu: React.FC<MenuProps> = props => {
     children,
     activeIndex = '',
     onSelect,
-    onClick
+    onClick,
+    trigger = 'hover'
   } = props
   const [currentActive, setActive] = useState(activeIndex)
   const [defaultSize] = useDefaultSize()
@@ -40,6 +41,7 @@ const Menu: React.FC<MenuProps> = props => {
     index: currentActive,
     onSelect: handleClick,
     mode,
+    trigger,
     selectSubMenus: []
   }
 

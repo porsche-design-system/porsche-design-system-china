@@ -53,7 +53,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   } = props
   const [defaultSize] = useDefaultSize()
   const curSize = size || defaultSize
-  const isControlled =  visible !== undefined
+  const isControlled = visible !== undefined
   const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
   const rootElementRef = useRef<any>(null)
   const componentRef = useRef<HTMLDivElement>(null)
@@ -71,10 +71,16 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
       setShowDropdown(!!visible)
     }
   }, [visible])
+  const visibleChange = (value: boolean): void => {
+    if (onVisibleChange) {
+      onVisibleChange(value)
+    }
+  }
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     updatePos()
     setShowDropdown(!showDropdown)
+    visibleChange(!showDropdown)
   }
 
   let timer: any
@@ -91,10 +97,13 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     } else {
       setShowDropdown(toggle)
     }
+    visibleChange(toggle)
   }
 
   const clickEvents =
-    trigger === 'click' && !disabled && !isControlled ? { onClick: handleClick } : {}
+    trigger === 'click' && !disabled && !isControlled
+      ? { onClick: handleClick }
+      : {}
   const hoverEvents =
     trigger === 'hover' && !disabled && !isControlled
       ? {
@@ -122,7 +131,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
               childElement.props.onClick()
             }
             setShowDropdown(false)
-            onVisibleChange && onVisibleChange(false)
+            visibleChange(false)
           }
         })
       } else {
@@ -165,8 +174,8 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
   }
 
   useClickOutside(componentRef, () => {
-    setShowDropdown(false);
-    onVisibleChange && onVisibleChange(false)
+    setShowDropdown(false)
+    visibleChange(false)
   })
   const Children = renderChildren()
 

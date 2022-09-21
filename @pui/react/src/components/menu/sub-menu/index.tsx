@@ -11,7 +11,8 @@ import { MenuContext } from '../index'
 import {
   useElementPos,
   usePopShowState,
-  useDefaultSize
+  useDefaultSize,
+  useClickOutside
 } from '../../../shared/hooks'
 import { MenuItemProps, SubMenuProps } from '../types'
 import {
@@ -79,9 +80,10 @@ const SubMenu: React.FC<SubMenuProps> = ({
       setOpen(toggle)
     }, 100)
   }
-  const clickEvents = !disabled ? { onClick: handleClick } : {}
+  const clickEvents =
+    context.trigger === 'click' && !disabled ? { onClick: handleClick } : {}
   const hoverEvents =
-    context.mode !== 'vertical' && !disabled
+    context.trigger === 'hover' && context.mode !== 'vertical' && !disabled
       ? {
           onMouseEnter: (e: React.MouseEvent) => {
             updatePos()
@@ -145,6 +147,9 @@ const SubMenu: React.FC<SubMenuProps> = ({
     }
     return null
   }
+  useClickOutside(rootElementRef, () => {
+    setOpen(false)
+  })
   const Children = renderChildren()
   return (
     <>

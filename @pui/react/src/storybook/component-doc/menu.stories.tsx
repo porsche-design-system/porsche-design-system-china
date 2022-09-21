@@ -118,6 +118,53 @@ export const MenuStoryBook2 = () => {
         </Menu>
         <br />
         <br />
+        <h2>使用 Menu trigger: `click` 点击下拉菜单</h2>
+        <Menu activeIndex={index} onSelect={setIndex} trigger="click">
+          <Menu.SubMenu
+            title={
+              <>
+                Submit <IconArrowHeadDown />
+              </>
+            }
+            index="submit"
+            onClick={() => console.log('onClick事件', '点击了子标题')}
+          >
+            <Menu.Item index="submit-test" visible={hiddenItem}>
+              test visible1
+            </Menu.Item>
+            <Menu.Item index="submit-about">about2</Menu.Item>
+            <Menu.Item disabled index="submit-prod">
+              prod3
+            </Menu.Item>
+            <Menu.Item index="submit-test1">submit-test1</Menu.Item>
+            <Menu.Item index="submit-about2" visible={hiddenItem}>
+              submit-visible
+            </Menu.Item>
+            <Menu.Item disabled index="submit-prod3">
+              prod3
+            </Menu.Item>
+          </Menu.SubMenu>
+          <Menu.SubMenu
+            title={
+              <>
+                Submit <IconArrowHeadDown />
+              </>
+            }
+            index="submit-submit4"
+          >
+            <Menu.Item selectAfter index="submit-submit-test14">
+              test1
+            </Menu.Item>
+            <Menu.Item selectAfter index="submit-submit-about24">
+              about2
+            </Menu.Item>
+            <Menu.Item disabled index="submit-submit-prod34">
+              prod4
+            </Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
+        <br />
+        <br />
         <Button onClick={() => setIndex('submit-submit-test14')}>
           {' '}
           设置默认值{' '}
