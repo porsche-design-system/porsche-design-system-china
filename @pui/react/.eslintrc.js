@@ -49,6 +49,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/no-unstable-nested-components': 'off',
     'react/jsx-no-useless-fragment': 'off',
-    'react/no-unused-prop-types': 'off'
+    'react/no-unused-prop-types': 'off',
+    'no-empty': 'off'
   }
 }
