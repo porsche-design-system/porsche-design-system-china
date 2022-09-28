@@ -78,7 +78,7 @@ export interface SelectProps<T> {
   error?: FormErrorText
 
   /** 值改变事件 */
-  onValueChange?: (value: T, option: object | null) => void
+  onValueChange?: (value: T, option?: object | null) => void
 
   /** 控制菜单打开 */
   defaultOpen?: boolean
