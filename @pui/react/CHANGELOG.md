@@ -12,10 +12,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* 优化代码 ([3a0ffae](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/3a0ffaecf828cf160423c83a2d2a776162eeab8d))
 * 修正textarea 选定bug ([f8fd38c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f8fd38ce939434ee2633056250ba44ba5ad34d4a))
 * 加入表单重置功能 ([dab66f2](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dab66f2d9d2a1dce78112aeff9307dac28a16337))
-* 更新文档 ([86e15ec](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/86e15ec500c378ffba8845abb57d245b314e00fe))
+
 
 ### [0.1.32](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.31...v0.1.32) (2022-09-09)
 
