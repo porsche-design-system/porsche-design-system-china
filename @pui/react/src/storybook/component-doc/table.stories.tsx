@@ -42,6 +42,7 @@ export const TableStoryBook = () => {
         return (
           <div>
             <Select
+              size="tiny"
               options="普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商,普通经销商,卓越经销商"
               defaultValue="普通经销商"
             />
