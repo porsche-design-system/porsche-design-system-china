@@ -353,3 +353,23 @@ export const SelectStoryBook10 = () => {
 }
 
 SelectStoryBook10.storyName = 'Customize Option'
+
+export const SelectStoryBook14 = () => {
+  return (
+    <>
+      <div>小尺寸</div>
+      <br />
+      <div style={{ width: '200px' }} className="select-story">
+        <Select
+          size="tiny"
+          showClearButton
+          keepClearButton
+          options="狗:dog,猫:cat,狮子:lion,老虎:tiger"
+          placeholder="请选择"
+        />
+      </div>
+    </>
+  )
+}
+
+SelectStoryBook14.storyName = 'Tiny Size'

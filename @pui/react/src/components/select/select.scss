@@ -271,6 +271,60 @@
           right: 5px;
         }
       }
+
+      &-size-tiny {
+        .pui-select-input {
+          height: 28px;
+          font-size: 14px;
+          padding-left: 8px;
+          padding-right: 8px;
+          &-with-clear-button {
+            padding-right: 56px;
+          }
+        }
+
+        .pui-select-icon {
+          top: 4px;
+          right: 6px;
+          font-size: 20px;
+        }
+
+        .pui-select-list {
+          font-size: 14px;
+          top: 32px;
+        }
+
+        .pui-select-clear-icon {
+          top: 5px;
+          font-size: 18px;
+          right: 30px !important;
+        }
+
+        .pui-select-option {
+          padding: 8px 12px;
+          &-selected {
+            padding-right: 32px;
+          }
+        }
+
+        .pui-select-group-name {
+          font-size: 12px;
+        }
+
+        .pui-select-filter {
+          height: 36px;
+          font-size: 14px;
+        }
+
+        .pui-select-search-icon {
+          font-size: 18px;
+        }
+
+        .pui-select-loading {
+          top: 5px;
+          right: 5px;
+        }
+      }
     }
   }
 }

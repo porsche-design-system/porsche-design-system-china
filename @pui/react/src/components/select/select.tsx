@@ -54,7 +54,7 @@ export interface SelectProps<T> {
   disabled?: boolean
 
   /** 大小 */
-  size?: 'medium' | 'small'
+  size?: 'medium' | 'small' | 'tiny'
 
   /** 值 */
   value?: T
