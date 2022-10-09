@@ -169,6 +169,7 @@ function Form<T = any>({
       elementName === 'MultiSelect' ||
       elementName === 'Switch' ||
       elementName === 'CustomPicker' ||
+      elementName === 'Upload' ||
       elementName === 'DateTimePicker'
     ) {
       let inputProps = props as {
@@ -345,7 +346,8 @@ function Form<T = any>({
             'TextArea',
             'Search',
             'CustomPicker',
-            'DateTimePicker'
+            'DateTimePicker',
+            'Upload'
           ].includes(elementName)
         ) {
           inputProps.onValueChange = value => {

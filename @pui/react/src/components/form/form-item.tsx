@@ -141,7 +141,11 @@ export const FormItem =
             validateFormItem()
           }
         }}
-        onBlur={validateFormItem}
+        onBlur={() => {
+          if ((func as any).displayName !== '$Upload') {
+            validateFormItem()
+          }
+        }}
       >
         {label && !filterMode && (
           <Label

@@ -16,6 +16,7 @@ import {
   UploadListType,
   ShowUploadListInterface
 } from './interface'
+import { FormItem } from '../form/form-item'
 
 export interface UploadProps {
   /** 上传的地址 */
@@ -29,7 +30,7 @@ export interface UploadProps {
   /** 设置上传的请求头部 */
   headers?: { [key: string]: any }
   /** 发到后台的文件参数名 */
-  name?: string
+  uploadName?: string
   /** 设置上传的请求头部 */
   locale?: UploadLocale
   /** 上传所需额外参数 */
@@ -66,15 +67,19 @@ export interface UploadProps {
   onError?: (err: any, file: File) => void
   /** 上传文件改变时的回调 */
   onChange?: (file: UploadFile, list: UploadFile[]) => void
+  /** 上传文件数据对应转换 */
+  formDataMapping?: (list: UploadFile[]) => any
+  /** 上传文件数据回调 */
+  onValueChange?: (value: any) => void
   /** 点击移除文件时的回调 */
   onRemove?: (file: UploadFile) => void
   /** 上传文件之前的钩子 */
   onPreview?: (file: UploadFile) => void
   /** 子元素 */
-  children: ReactNode
+  children?: ReactNode
 }
 
-const Upload: FC<UploadProps> = props => {
+const $Upload = (props: UploadProps) => {
   const {
     action,
     count,
@@ -88,8 +93,10 @@ const Upload: FC<UploadProps> = props => {
     onChange,
     onRemove,
     onPreview,
+    onValueChange,
+    formDataMapping,
     disabled,
-    name,
+    uploadName,
     locale,
     headers,
     data,
@@ -139,8 +146,12 @@ const Upload: FC<UploadProps> = props => {
           return file // 否则是以前的的file，直接返回
         }
       })
-      if (updateObj !== 'uploading') {
+      if (updateObj.status !== 'uploading') {
         onChange && onChange({ ...updateFile, ...updateObj }, newFileList)
+        if (formDataMapping) {
+          const uploadValue = formDataMapping(newFileList)
+          onValueChange && onValueChange(uploadValue)
+        }
       }
       return newFileList
     })
@@ -172,14 +183,20 @@ const Upload: FC<UploadProps> = props => {
       }
     })
   }
+
   const handleRemove = (file: UploadFile) => {
     setMergedFileList(prevFile => {
       const newList = prevFile.filter(item => item.uid !== file.uid)
       onChange && onChange(file, newList)
+      if (formDataMapping) {
+        const uploadValue = formDataMapping(newList)
+        onValueChange && onValueChange(uploadValue)
+      }
       return newList
     })
     onRemove && onRemove(file)
   }
+
   const postFile = (file: File, result: any = true) => {
     let baseFile: UploadFile = {
       uid: Math.random().toString().replace(/0./, ''),
@@ -212,7 +229,7 @@ const Upload: FC<UploadProps> = props => {
     }
 
     const formData = new FormData()
-    formData.append(name || 'file', file)
+    formData.append(uploadName || 'file', file)
 
     data &&
       Object.keys(data).forEach(key => {
@@ -403,6 +420,9 @@ const Upload: FC<UploadProps> = props => {
   )
 }
 
+;($Upload as any).displayName = '$Upload'
+const Upload = FormItem($Upload)
+
 const defaultLocale = {
   uploading: 'Uploading...',
   removeFile: 'Remove file',
@@ -411,7 +431,7 @@ const defaultLocale = {
   downloadFile: 'Download file'
 }
 
-Upload.defaultProps = {
+;(Upload as any).defaultProps = {
   listType: 'text' as UploadListType,
   showUploadList: true,
   locale: defaultLocale,
@@ -419,4 +439,5 @@ Upload.defaultProps = {
   disabled: false,
   listIgnore: true
 }
+;(Upload as any).displayName = 'Upload'
 export { Upload }

@@ -22,7 +22,8 @@ import {
   DateRangePicker,
   Modal,
   Tooltip,
-  DateTimePicker
+  DateTimePicker,
+  Upload
 } from '../..'
 
 export default {
@@ -35,7 +36,7 @@ export const ExampleStoryBook = () => {
     position: 'top'
   })
   const [buttonAlign, setButtonAlign] = useState('left')
-  const [data, setData] = useState({ lastName: '李' })
+  const [data, setData] = useState<any>({ lastName: '李' })
 
   const testChange2 = (val: any) => {
     data.testTime4b = val
@@ -203,6 +204,27 @@ export const ExampleStoryBook = () => {
               label="家庭地址"
               rules={{ required: true, message: '必须填写' }}
               name="address"
+            />
+            <Upload
+              rules={{
+                message: '必须传2文件',
+                validator: (_, val) => {
+                  return val.length >= 2
+                }
+              }}
+              multiple
+              label="上传身份证正反面"
+              name="uploadFiles"
+              headers={{
+                Authorization: 'Bearer 1a5830xxx-12ee-4f69-a114-f0be5a40350a'
+              }}
+              action="https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload"
+              formDataMapping={files => {
+                if (files.length === 0) {
+                  return []
+                }
+                return files.map(f => f.response!.data.fileId)
+              }}
             />
             <CheckBox name="agree" text="同意条款" />
             <br /> <br />
