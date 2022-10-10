@@ -3,7 +3,7 @@ import axios from 'axios'
 import classnames from 'classnames'
 import { IconUpload, IconFile, IconPlus } from '@pui/icons'
 import { Modal } from '../modal/modal'
-import { Button } from '../index'
+import { Button, Message } from '../index'
 import { ButtonProps } from '../button/button'
 import UploadList from './uploadList/index'
 import Dragger from './dragger'
@@ -21,8 +21,12 @@ import {
 export interface UploadProps {
   /** 上传的地址 */
   action: string
-  /** image Upload（仅限）数量 */
+  /** image Upload（仅限）数量，默认值 1 */
   count?: number
+  /** 超出上传文件最大数（count）的提示，count为1时不提示 */
+  extraCountMsg?: string
+  /** 超出上传文件最大数（count）的回调 */
+  onExtraCount?: (limitCount: number, totalCount: number) => void
   /** 默认已经上传的文件列表 */
   defaultFileList?: UploadFile[]
   /** 已经上传的文件列表（受控） */
@@ -176,8 +180,39 @@ Upload = FormItem((props: UploadProps) => {
     uploadFiles(files)
     if (fileInput.current) fileInput.current.value = ''
   }
+  // 超出上传数量限制的提示
+  const handleExtraCount = (postLen: number) => {
+    const totalCount = postLen + mergedFileList.length
+    if (count && totalCount > count) {
+      if (props?.onExtraCount) {
+        props.onExtraCount(count, totalCount)
+      } else if (count > 1) {
+        Message.warning(
+          props?.extraCountMsg ||
+            `上传文件个数${totalCount}，超出最大值${count}`
+        )
+      }
+    }
+  }
   const uploadFiles = (files: FileList) => {
     const postFiles = Array.from(files)
+    // 如果限制上传个数为1个，那么覆盖之前的文件
+    // 如果限制上传数量大于1，超过限制部分拒绝继续上传，由用户移除部分文件再继续上传
+    const postFilesLen = postFiles.length
+    if (count === 1) {
+      if (mergedFileList?.length) {
+        mergedFileList.map(file => handleRemove(file))
+      }
+      postFiles.splice(1)
+    } else if (
+      count &&
+      count > 1 &&
+      mergedFileList.length + postFilesLen > count
+    ) {
+      const canUploadLen = count - mergedFileList.length
+      postFiles.splice(canUploadLen)
+    }
+    handleExtraCount(postFilesLen)
     postFiles.forEach(file => {
       if (!beforeUpload) {
         postFile(file)
