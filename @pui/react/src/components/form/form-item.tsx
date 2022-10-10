@@ -47,7 +47,7 @@ export interface FormItemProps {
 }
 
 export const FormItem =
-  <T,>(func: (...args: T[]) => React.ReactNode) =>
+  <T,>(func: (...args: T[]) => React.ReactNode, displayName?: string) =>
   (props: FormItemProps & T) => {
     const {
       label,
@@ -61,6 +61,10 @@ export const FormItem =
       className,
       name
     } = props
+
+    if (displayName) {
+      ;(func as any).displayName = displayName
+    }
 
     const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, ReactNode, useRef, useState } from 'react'
+import React, { ChangeEvent, ReactNode, useRef, useState } from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import { IconUpload, IconFile, IconPlus } from '@pui/icons'
@@ -7,6 +7,7 @@ import { Button } from '../index'
 import { ButtonProps } from '../button/button'
 import UploadList from './uploadList/index'
 import Dragger from './dragger'
+import { FormItem, FormItemProps } from '../form/form-item'
 
 import './upload.scss'
 
@@ -16,7 +17,6 @@ import {
   UploadListType,
   ShowUploadListInterface
 } from './interface'
-import { FormItem } from '../form/form-item'
 
 export interface UploadProps {
   /** 上传的地址 */
@@ -79,7 +79,13 @@ export interface UploadProps {
   children?: ReactNode
 }
 
-const $Upload = (props: UploadProps) => {
+// 必须骗下storybook，让它能显示属性列表
+// eslint-disable-next-line import/no-mutable-exports
+let Upload = (props: UploadProps & FormItemProps) => {
+  return <div>{JSON.stringify(props)}</div>
+}
+
+Upload = FormItem((props: UploadProps) => {
   const {
     action,
     count,
@@ -149,8 +155,12 @@ const $Upload = (props: UploadProps) => {
       if (updateObj.status !== 'uploading') {
         onChange && onChange({ ...updateFile, ...updateObj }, newFileList)
         if (formDataMapping) {
-          const uploadValue = formDataMapping(newFileList)
-          onValueChange && onValueChange(uploadValue)
+          try {
+            const uploadValue = formDataMapping(newFileList)
+            onValueChange && onValueChange(uploadValue)
+          } catch (e) {
+            console.error(e)
+          }
         }
       }
       return newFileList
@@ -418,10 +428,7 @@ const $Upload = (props: UploadProps) => {
       {renderUploadList()}
     </div>
   )
-}
-
-;($Upload as any).displayName = '$Upload'
-const Upload = FormItem($Upload)
+}, '$Upload')
 
 const defaultLocale = {
   uploading: 'Uploading...',
