@@ -21,12 +21,17 @@ import {
 export interface UploadProps {
   /** 上传的地址 */
   action: string
-  /** image Upload（仅限）数量，默认值 1 */
+  /**
+   * （已弃用）最大文件上传个数数量，默认值 1
+   * @deprecated
+   */
   count?: number
-  /** 超出上传文件最大数（count）的提示，count为1时不提示 */
-  extraCountMsg?: string
-  /** 超出上传文件最大数（count）的回调 */
-  onExtraCount?: (limitCount: number, totalCount: number) => void
+  /** 最大文件上传个数数量，默认不限制 */
+  maxCount?: number
+  /** 超出上传文件最大数（maxCount）的提示，传空字符串时隐藏Massage提示，maxCount为1时不提示直接上传覆盖 */
+  exceededMaxCountMsg?: string
+  /** 超出上传文件最大数（maxCount）的回调 */
+  onExceededMaxCount?: (maxCount: number, totalCount: number) => void
   /** 默认已经上传的文件列表 */
   defaultFileList?: UploadFile[]
   /** 已经上传的文件列表（受控） */
@@ -93,6 +98,7 @@ Upload = FormItem((props: UploadProps) => {
   const {
     action,
     count,
+    maxCount,
     tip,
     defaultFileList,
     fileList,
@@ -119,7 +125,9 @@ Upload = FormItem((props: UploadProps) => {
     className,
     listIgnore,
     isImageUrl,
-    showUploadList
+    showUploadList,
+    onExceededMaxCount,
+    exceededMaxCountMsg
   } = props
 
   const fileInput = useRef<HTMLInputElement>(null)
@@ -181,16 +189,18 @@ Upload = FormItem((props: UploadProps) => {
     if (fileInput.current) fileInput.current.value = ''
   }
   // 超出上传数量限制的提示
-  const handleExtraCount = (postLen: number) => {
+  const handleExceeded = (postLen: number) => {
     const totalCount = postLen + mergedFileList.length
-    if (count && totalCount > count) {
-      if (props?.onExtraCount) {
-        props.onExtraCount(count, totalCount)
-      } else if (count > 1) {
-        Message.warning(
-          props?.extraCountMsg ||
-            `上传文件个数${totalCount}，超出最大值${count}`
-        )
+    if (maxCount && totalCount > maxCount) {
+      if (onExceededMaxCount) {
+        onExceededMaxCount(maxCount, totalCount)
+      }
+      if (maxCount > 1) {
+        exceededMaxCountMsg !== '' &&
+          Message.warning(
+            exceededMaxCountMsg ||
+              `上传文件个数${totalCount}，超出最大值${maxCount}`
+          )
       }
     }
   }
@@ -199,20 +209,20 @@ Upload = FormItem((props: UploadProps) => {
     // 如果限制上传个数为1个，那么覆盖之前的文件
     // 如果限制上传数量大于1，超过限制部分拒绝继续上传，由用户移除部分文件再继续上传
     const postFilesLen = postFiles.length
-    if (count === 1) {
+    if (maxCount === 1) {
       if (mergedFileList?.length) {
         mergedFileList.map(file => handleRemove(file))
       }
       postFiles.splice(1)
     } else if (
-      count &&
-      count > 1 &&
-      mergedFileList.length + postFilesLen > count
+      maxCount &&
+      maxCount > 1 &&
+      mergedFileList.length + postFilesLen > maxCount
     ) {
-      const canUploadLen = count - mergedFileList.length
+      const canUploadLen = maxCount - mergedFileList.length
       postFiles.splice(canUploadLen)
     }
-    handleExtraCount(postFilesLen)
+    handleExceeded(postFilesLen)
     postFiles.forEach(file => {
       if (!beforeUpload) {
         postFile(file)
@@ -365,7 +375,8 @@ Upload = FormItem((props: UploadProps) => {
             )}
           </Dragger>
         ) : listType === 'picture-card' ? (
-          (count as number) > mergedFileList.length && (
+          ((count || maxCount || Number.MAX_VALUE) as number) >
+            mergedFileList.length && (
             <div className="pui-upload-btn-picture-card">
               {children || (
                 <span>
