@@ -7,7 +7,7 @@ const GettingStart = () => (
   <div className="custom-doc">
     <h1>Getting Start</h1>
     <div>使用Vite创建项目(推荐)</div>
-    <div className="cmd">yarn create @vitejs/app</div>
+    <div className="cmd">npm create vite@latest</div>
     <div>使用CRA创建</div>
     <div className="cmd">npx create-react-app my-app</div>
     <br />
@@ -33,7 +33,7 @@ const GettingStart = () => (
     <div className="cmd">52.81.186.255 s1.web.porsche-preview.cn</div>
     <br />
     <div>安装PUI依赖</div>
-    <div className="cmd">yarn add @pui/react</div>
+    <div className="cmd">npm install @pui/react</div>
     <br />
     <div>引用组件使用即可，引用任何组件即可设置好主题，字体</div>
     <div className="code">
