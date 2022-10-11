@@ -36,7 +36,19 @@ export const ExampleStoryBook = () => {
     position: 'top'
   })
   const [buttonAlign, setButtonAlign] = useState('left')
-  const [data, setData] = useState<any>({ lastName: '李' })
+  const [data, setData] = useState<any>({
+    lastName: '李',
+    // upload默认值必须字段：name,uid,status
+    // 默认值对象结构需要和formDataMapping的返回值保持一致，因为默认值需要经过formDataMapping处理
+    uploadFiles: [
+      {
+        name: '图片1.jpg',
+        uid: 'uid1234',
+        status: 'success',
+        fileId: 'fileId1234'
+      }
+    ]
+  })
 
   const testChange2 = (val: any) => {
     data.testTime4b = val
@@ -223,7 +235,14 @@ export const ExampleStoryBook = () => {
                 if (files.length === 0) {
                   return []
                 }
-                return files.map(f => f.response!.data.fileId)
+                return files.map(f => {
+                  return {
+                    name: f.name,
+                    uid: f.uid,
+                    status: f.status,
+                    fileId: (f as any).fileId || f.response?.data?.fileId
+                  }
+                })
               }}
             />
             <CheckBox name="agree" text="同意条款" />

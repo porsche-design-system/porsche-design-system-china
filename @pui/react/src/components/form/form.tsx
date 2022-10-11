@@ -283,6 +283,8 @@ function Form<T = any>({
         if (inputProps.name) {
           if (elementName === 'CheckBox') {
             inputProps.checked = fData[inputProps.name]
+          } else if (elementName === 'Upload') {
+            ;(inputProps as any).fileList = fData[inputProps.name]
           } else {
             inputProps.value = fData[inputProps.name]
           }
