@@ -35,7 +35,6 @@ export const UploadStoryBook1 = () => {
   const uploadProps = {
     // showUploadList: { showRemoveIcon: false },
     // showUploadList: false,
-    count: 3,
     onChange: (file: UploadFile, list: UploadFile[]) => {
       console.log(file)
       console.log(list)
@@ -325,7 +324,7 @@ export const UploadStoryBook4 = () => {
       return true
     },
     tip: '最多上传1个文件',
-    count: 1
+    maxCount: 1
   }
 
   return (
@@ -340,7 +339,7 @@ export const UploadStoryBook4 = () => {
             multiple
             {...uploadProps}
           >
-            <Button icon={IconUpload}>添加文件（count: 1）</Button>
+            <Button icon={IconUpload}>添加文件（maxCount: 1）</Button>
           </Upload>
         </Col>
         <Col span={10}>
@@ -352,13 +351,13 @@ export const UploadStoryBook4 = () => {
             }}
             multiple
             {...uploadProps}
-            count={2}
+            maxCount={2}
             tip="最多上传2个文件"
-            onExtraCount={(limit, now) => {
+            onExceededMaxCount={(limit, now) => {
               Message.warning(`上传文件个数${limit}，超出最大值${now}`)
             }}
           >
-            <Button icon={IconUpload}>添加文件（count: 2）</Button>
+            <Button icon={IconUpload}>添加文件（maxCount: 2）</Button>
           </Upload>
         </Col>
       </Row>
@@ -373,7 +372,7 @@ export const UploadStoryBook4 = () => {
             multiple
             {...uploadProps}
             listType="picture-card"
-            count={1}
+            maxCount={1}
           />
         </Col>
       </Row>
@@ -388,7 +387,7 @@ export const UploadStoryBook4 = () => {
             multiple
             {...uploadProps}
             listType="picture"
-            count={1}
+            maxCount={1}
             tip="最多上传1个文件"
           />
         </Col>
