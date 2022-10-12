@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.34](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.33...v0.1.34) (2022-10-12)
+
+
+### Features
+
+* upload 加入表单功能 ([c8f856c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c8f856c7301cb86f45cad93e5a4abf94eb45f848))
+* 加入Select小尺寸 ([2849859](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2849859701b06fecf623762bb666424f80d99a3d))
+
+
+### Bug Fixes
+
+* 修复upload的form表单默认值没有展示问题 ([e0cd84c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e0cd84cb0baaca316080ca65966d35e789805c45))
+* 修复上传组件的上传数量限制 ([e2e4ac9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e2e4ac9e877de4dd1bc47589c82a6d6cc5af5913))
+* 修改字段命名 ([8d4004b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8d4004b3521c24b4cc23278d946617225b25612c))
+* 修正文档 ([58c0d0a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/58c0d0a990a4c2600cc1c0a6e7a14042da7045e0))
+
 ### [0.1.33](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.32...v0.1.33) (2022-09-29)
 
 
