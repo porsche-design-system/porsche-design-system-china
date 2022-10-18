@@ -10,6 +10,10 @@
             &-type-link{
               padding: 0 11px !important;
             }
+            
+            &-type-default{
+              border-left:none;
+            }
   
             &-size-small {
               &.pui-button-type-link{
