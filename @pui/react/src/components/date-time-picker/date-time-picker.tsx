@@ -1,13 +1,13 @@
 import React, { useEffect, ReactNode } from 'react'
 import {
-  IconClock,
+  IconCalendar,
   IconArrowDoubleLeft,
   IconArrowHeadBack,
   IconArrowHeadRight,
   IconArrowDoubleRight
 } from '@pui/icons'
 import ReactDOMServer from 'react-dom/server'
-import './date-picker.scss'
+import './date-time-picker.scss'
 import { FormItem } from '../form/form-item'
 import { FormItemLabelProps } from '../form/form'
 
@@ -118,8 +118,8 @@ const DateTimePicker = FormItem(
     isToday = true,
     onValueChange,
     clearFun,
-    placeholderStartDate,
-    placeholderEndDate,
+    placeholderStartDate = '无限',
+    placeholderEndDate = '无限',
     value = '',
     labelPosition = 'left',
     size = 'medium',
@@ -158,6 +158,7 @@ const DateTimePicker = FormItem(
         doubleRightIcon: ReactDOMServer.renderToString(doubleRightIcon),
         showSecend: showStyle === 'HHMMSS',
         allowNullDate,
+        filterMode,
         doneFun: (obj: any) => {
           if (isRange !== undefined) {
             const arr = obj.val.split(rangeLabel)
@@ -268,7 +269,7 @@ const DateTimePicker = FormItem(
                 id={componentId}
                 placeholder={placeholder}
               />
-              <IconClock
+              <IconCalendar
                 className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
               />
             </div>
@@ -301,7 +302,7 @@ const DateTimePicker = FormItem(
                 id={componentId + 'posend'}
                 placeholder={placeholderEndDate}
               />
-              <IconClock
+              <IconCalendar
                 className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
               />
             </div>
@@ -337,7 +338,7 @@ const DateTimePicker = FormItem(
                   placeholder={placeholder}
                   style={{ display: 'none' }}
                 />
-                <IconClock
+                <IconCalendar
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
                 />
               </>
@@ -381,7 +382,7 @@ const DateTimePicker = FormItem(
                     placeholder={placeholderEndDate}
                   />
                 </div>
-                <IconClock
+                <IconCalendar
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
                 />
               </>
