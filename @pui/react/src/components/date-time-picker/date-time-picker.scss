@@ -5,9 +5,9 @@
     @include theme($theme);
     .filterMode {
       width: 100%;
-      input {
-        width: auto !important;
-      }
+      // input {
+      //   width: auto !important;
+      // }
       // .filterMode-start {
       //   display: none;
       // }
@@ -70,9 +70,11 @@
         overflow: hidden;
         &-size-medium {
           width: 340px;
+          font-size: 16px;
         }
         &-size-small {
           width: 332px;
+          font-size: 14px;
         }
       }
       .pui-pick-date-pane:nth-child(1) {
@@ -567,7 +569,7 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      font-size: 14px;
+      // font-size: 14px;
     }
     .pui-pick-date .pui-pick-date-content .monthtable tbody {
       display: block;
@@ -581,7 +583,7 @@
     }
     .pui-pick-date .pui-pick-date-content .yeartable td span,
     .pui-pick-date .pui-pick-date-content .monthtable td span {
-      padding: 6px 10px;
+      padding: 6px 8px;
       // border: 1px solid $text-color-1;
     }
     .pui-pick-date .pui-pick-date-content .yeartable td span:hover,
@@ -683,9 +685,11 @@
         position: relative;
         &-size-medium {
           height: 44px;
+          font-size: 16px;
         }
         &-size-small {
           height: 34px;
+          font-size: 14px;
         }
         &-size-medium::placeholder {
           font-size: 16px;

@@ -968,8 +968,8 @@ jet.extend(jeDatePick.prototype, {
         ' ' +
         (opts.shortcut.length > 0 ? ' leftmenu' : '')
     }
-
     jet.html(that.dateCell, jet.template(that.dateTemplate(), that.$data))
+
     let eles =
       $C('pui-pick-date-content').length > 0 &&
       document
@@ -1232,9 +1232,9 @@ jet.extend(jeDatePick.prototype, {
     }
     return reObj
   },
-  storeData: function (curr, next) {
+  storeData: function (curr, next, need = true) {
+    var today = new Date()
     if (JSON.stringify(curr) === '{}') {
-      var today = new Date()
       curr = {
         DD: today.getDate(),
         MM: today.getMonth() + 1,
@@ -1265,12 +1265,17 @@ jet.extend(jeDatePick.prototype, {
       timeB = that.$opts.showSecend
         ? { hh: next.hh || 0, mm: next.mm || 0, ss: next.ss || 0 }
         : { hh: next.hh || 0, mm: next.mm || 0 }
-    //设置年的数据
-    RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1))
+    if (!need && that.$data.yearlist.length > 0) {
+      //设置年的数据
+      RES.yearlist.push(that.eachYear(parseInt(that.$data.yearlist[0][0].y), 1))
+    } else {
+      RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1))
+    }
     if (multi == false) {
       var yearNext = isnext ? next.YYYY : curr.YYYY
       RES.yearlist.push(that.eachYear(parseInt(yearNext), 2))
     }
+
     //设置月的数据
     RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
     if (multi == false) {
@@ -1285,6 +1290,7 @@ jet.extend(jeDatePick.prototype, {
       RES.daylist.push(that.eachDays(dayNext.y, dayNext.m, nday, 1))
       RES.daytit.push({ YYYY: dayNext.y, MM: dayNext.m })
     }
+
     // console.log('RES.daylist', RES.daylist)
     //设置时间数据
     that.selectTime = [timeA, timeB]
@@ -1746,7 +1752,8 @@ jet.extend(jeDatePick.prototype, {
             { YYYY: electVal, MM: dateM, DD: dateD },
             that.selectTime[0]
           ),
-          {}
+          {},
+          false
         )
         that.renderDate(8)
       },
@@ -2540,6 +2547,24 @@ jet.extend(jeDatePick.prototype, {
   //辨别控件的方位
   dateOrien: function (elbox, valCls, pos) {
     $I(valCls.id).style.display = ''
+    if (this.$opts.filterMode) {
+      var format = this.$opts.format.replace(/ /g, '')
+      var objWidth = {
+        YYYY: 50,
+        'YYYY-MM': 70,
+        'YYYY-MM-DD': 100,
+        'YYYY-MM-DDhh:mm': 130,
+        'hh:mm:ss': 80,
+        'hh:mm': 60
+      }
+      // var pos = $I(valCls.id).getBoundingClientRect();
+      $I(valCls.id).style.width = objWidth[format] + 'px'
+      if (this.$opts.multiPane === false) {
+        var id = valCls.id
+        if (id.indexOf('posend') === -1) id += 'posend'
+        $I(id).style.width = objWidth[format] + 'px'
+      }
+    }
     if ($I(valCls.id + 'filterMode-multi')) {
       $I(valCls.id + 'filterMode-multi').style.display = 'inline-block'
     }
@@ -2577,7 +2602,7 @@ jet.extend(jeDatePick.prototype, {
       ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1 + size, 1) + 'px'
       if (that.$opts.filterMode) {
         var filterLabWidth = document
-          .getElementById(valCls.id + '_holder')
+          .getElementById(valCls.id.replace('posend', '') + '_holder')
           .getBoundingClientRect()
         leris = leris - filterLabWidth.width - 12
       }
