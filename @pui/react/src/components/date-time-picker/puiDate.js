@@ -1373,8 +1373,17 @@ jet.extend(jeDatePick.prototype, {
       mtxt +
       '</span></td>{% if((m+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     //循环天的模板
+    const newSize = getDefaultSize()
+    var colWidth = 110
+    var timeAndSecWidth = 165
+    if (newSize === 'medium') {
+      colWidth = 113
+      timeAndSecWidth = 169
+    }
     var daysHtml =
-      '<div class="dayscontainer"><div class="line"></div><table class="daystable days{%= i==0 ? "left":"right"%}" style="display:{%=day ? "inline-table":"none"%};"><thead><tr>' +
+      '<div class="dayscontainer dayscontainer-size-' +
+      newSize +
+      '"><div class="line"></div><table class="daystable days{%= i==0 ? "left":"right"%}" style="display:{%=day ? "inline-table":"none"%};"><thead><tr>' +
       '{% for(var w=0;w<lang.weeks.length;w++){ %} <th>{%=lang.weeks[w]%}</th> {% } %}</tr></thead><tbody>' +
       '<tr>{% for(var d=0;d<=41;d++){ %}<td class="{%=daylist[i][d].style%}" ymd="{%=daylist[i][d].ymd%}" @on="daysClick({%=daylist[i][d].ymd%})">{%=daylist[i][d].day%}</td>{% if((d+1)%7==0){ %} </tr>{% } %} {% } %} </tbody></table></div>'
     //循环时间模板
@@ -1383,29 +1392,73 @@ jet.extend(jeDatePick.prototype, {
       // console.log('time...loop', opts.multiPane)
       if (opts.multiPane === false) {
         hmsHtml =
-          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-          '<div class="hmstitle"><p style="width:113px">{%=lang.times[0]%}</p><p style="width:113px">{%=lang.times[1]%}</p><p style="width:113px">{%=lang.times[2]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto"><ul style="width:113px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+          newSize +
+          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+          newSize +
+          '"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[0]%}</p><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[1]%}</p><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[2]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto hmsauto-size-' +
+          newSize +
+          '"><ul style="width:' +
+          colWidth +
+          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
           '</div>{% } %}</div>'
       } else {
         hmsHtml =
-          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-          '<div class="hmstitle"><p style="width:113px">{%=lang.times[0]%}</p><p style="width:113px">{%=lang.times[1]%}</p><p style="width:113px">{%=lang.times[2]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto"><ul style="width:113px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+          newSize +
+          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+          newSize +
+          '"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="hmstitle"><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[0]%}</p><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[1]%}</p><p style="width:' +
+          colWidth +
+          'px">{%=lang.times[2]%}</p></div>' +
+          '<div class="hmslist">{% for(var t=0;t<3;t++){ %}<div class="hmsauto hmsauto-size-' +
+          newSize +
+          '"><ul style="width:' +
+          colWidth +
+          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" @on="hmsClick({%= h %},{%= h>0?3+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
           '</div>{% } %}</div>'
       }
     } else {
       if (opts.multiPane === false) {
         hmsHtml =
-          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+          newSize +
+          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+          newSize +
+          '"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
           '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto"><ul style="width:169px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
+          newSize +
+          '"><ul style="width:' +
+          timeAndSecWidth +
+          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
           '</div>{% } %}</div>'
       } else {
         hmsHtml =
-          '<div class="pui-pick-date-time">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+          newSize +
+          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+          newSize +
+          '"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
           '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto"><ul style="width:169px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
+          newSize +
+          '"><ul style="width:' +
+          timeAndSecWidth +
+          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
           '</div>{% } %}</div>'
       }
     }
@@ -1477,7 +1530,9 @@ jet.extend(jeDatePick.prototype, {
     }
     const size = getDefaultSize()
     var paneHtml =
-      '{% for(var i=0;i<pane;i++){ %}<div class="pui-pick-date-pane">' +
+      '{% for(var i=0;i<pane;i++){ %}<div class="pui-pick-date-pane pui-pick-date-pane-size-' +
+      size +
+      '">' +
       '<div class="pui-pick-date-header">{% if(i==0){ %}' +
       ymButton[0] +
       '{% }else{ %}' +
@@ -1494,11 +1549,15 @@ jet.extend(jeDatePick.prototype, {
     return (
       '<div class="pui-pick-date-menu" style="display:{%=shortcut.length>0 ? "block":"none"%};">' +
       shortHtml +
-      '</div><div class="pui-pick-date-wrap">' +
+      '</div><div class="pui-pick-date-wrap pui-pick-date-wrap-size-' +
+      size +
+      '">' +
       paneHtml +
       '</div>' +
       hmsStr +
-      '<div class="pui-pick-date-footbtn">' +
+      '<div class="pui-pick-date-footbtn pui-pick-date-footbtn-size-' +
+      size +
+      '">' +
       btnStr +
       '</div><div class="pui-pick-date-tips"></div>'
     )
@@ -1642,6 +1701,7 @@ jet.extend(jeDatePick.prototype, {
         if (jet.hasClass(this, 'disabled')) return
         var yearVal = '',
           lens = that.dlen
+        that.showCurrentDayBg = true
         if (range && lens == 1) {
           var ylen = that.selectValue.length
           that.selectDate =
@@ -1695,6 +1755,7 @@ jet.extend(jeDatePick.prototype, {
         var ymval = jet.reMatch(val),
           newArr = [{}, {}],
           mlen = that.selectValue.length
+        that.showCurrentDayBg = true
         if (range) {
           that.selectDate =
             mlen == 2
@@ -1750,7 +1811,7 @@ jet.extend(jeDatePick.prototype, {
           sday,
           nYM,
           ymarr
-
+        that.showCurrentDayBg = true
         if (range) {
           if (slen == 1) {
             var svalarr = [that.selectValue[0], val]
@@ -1887,6 +1948,7 @@ jet.extend(jeDatePick.prototype, {
           jet.valText($I(that.valCell.id.replace('posend', '')), '')
         }
         that.selectDate = [jet.parse(jet.getDateTime({}), 'YYYY-MM-DD hh:mm')]
+        that.showCurrentDayBg = false
         that.closeDate()
         opts.clearfun && opts.clearfun.call(that)
       },
@@ -2016,7 +2078,10 @@ jet.extend(jeDatePick.prototype, {
     that.yindex = type == 1 ? 12 + yNum : 12 + that.yindex
     var endDate = selYear[1] == undefined ? '' : selYear[1].YYYY
     for (; i < that.yindex; i++) {
-      if (i == selYear[0].YYYY || i == endDate) {
+      if (
+        (i == selYear[0].YYYY || i == endDate) &&
+        (this.valCell.value || this.showCurrentDayBg)
+      ) {
         seCls = 'action'
       } else if (i > selYear[0].YYYY && i < endDate) {
         seCls = 'contain'
@@ -2051,7 +2116,11 @@ jet.extend(jeDatePick.prototype, {
         : 0
     jet.each(monthArr, function (i, months) {
       var ival = parseInt(val + '' + jet.digit(months))
-      if (ival == currStart || ival == currEnd) {
+
+      if (
+        (ival == currStart || ival == currEnd) &&
+        (months || that.showCurrentDayBg)
+      ) {
         seCls = 'action'
       } else if (ival > currStart && ival < currEnd) {
         seCls = 'contain'
@@ -2218,7 +2287,10 @@ jet.extend(jeDatePick.prototype, {
         parsdate = dateval > startDate,
         rangdate = dateval < endDate
       if (dateLimit(yd, md, b, true)) {
-        if (dateval == startDate || dateval == endDate) {
+        if (
+          (dateval == startDate || dateval == endDate) &&
+          (this.valCell.value || this.showCurrentDayBg)
+        ) {
           bcls = ' action'
         } else if (parsdate && rangdate) {
           bcls = ' contain'
@@ -2503,6 +2575,12 @@ jet.extend(jeDatePick.prototype, {
       //根据目标元素计算弹层位置
       const size = PUI.getDefaultSize() === 'small' ? 2 : 4
       ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1 + size, 1) + 'px'
+      if (that.$opts.filterMode) {
+        var filterLabWidth = document
+          .getElementById(valCls.id + '_holder')
+          .getBoundingClientRect()
+        leris = leris - filterLabWidth.width - 12
+      }
       orleri = leris + 'px'
     } else {
       //弹层位置位于页面上下左右居中
