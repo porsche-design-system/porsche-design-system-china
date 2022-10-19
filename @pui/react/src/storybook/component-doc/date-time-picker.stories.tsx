@@ -93,11 +93,11 @@ export const DateTimePickerStoryBook = () => {
         <div>过滤器模式</div>
         <DateTimePicker
           label="到港日期"
-          placeholder="到港日期"
+          // placeholder="到港日期"
           filterMode
-          // width="300px"
+          // width="200px"
           labelPosition="left"
-          showStyle="Common"
+          showStyle="HHMM"
           componentId="testTime5cb"
         />
       </Form>
@@ -180,13 +180,14 @@ export const DateTimePickerStoryBook2 = () => {
         <DateTimePicker
           label="到港日期"
           placeholder="请输入日期"
+          width="200px"
           // placeholderStartDate="开始日期"
           // placeholderEndDate="结束日期"
           isRange
           filterMode
           allowNullDate
           labelPosition="left"
-          showStyle="Common"
+          showStyle="CommonHHMMSS"
           componentId="testTime6cb"
         />
       </Form>
