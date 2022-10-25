@@ -1,5 +1,6 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React, { useState } from 'react'
+
 import {
   Table,
   Button,
@@ -98,6 +99,9 @@ export const TableStoryBook = () => {
       )
     }
   ]
+
+  console.log(showScrollBar)
+
   return (
     <div>
       <Table
@@ -105,14 +109,15 @@ export const TableStoryBook = () => {
         columns={columns}
         selectable
         height="300px"
-        showHorizontalScrollBar={showScrollBar}
+        hoverShowScrollBar={showScrollBar}
         onSelect={(data, allChecked) => {
           console.log('选定数据', data)
           console.log('是否全选（选传）', allChecked)
         }}
         onSort={sorter => console.log(sorter)}
       />
-      显示横向滚动条
+      <br />
+      鼠标悬浮显示滚动条
       <Switch
         onValueChange={setShowScrollBar}
         value={showScrollBar}
