@@ -8,10 +8,14 @@ import React, {
 } from 'react'
 import classNames from 'classnames'
 import { renderToString } from 'react-dom/server'
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
+import 'overlayscrollbars/css/OverlayScrollbars.css'
 import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
-import { useDefaultSize } from '../../shared/hooks'
+import { useDefaultSize, useTheme } from '../../shared/hooks'
+import { PUI } from '../pui/pui'
+
 import './table.scss'
 
 export enum SortType {
@@ -110,8 +114,8 @@ export interface TableProps<T = any, K = any> {
   /** 行点击事件 */
   onRowClick?: (rowData: T, rowNumber?: number) => void
 
-  /** 显示横向滚动条 */
-  showHorizontalScrollBar?: boolean
+  /** 鼠标移动到表格上显示滚动条 */
+  hoverShowScrollBar?: boolean
 }
 
 const Table = <T, K>({
@@ -132,7 +136,7 @@ const Table = <T, K>({
   onExpand,
   onCollapse,
   expandCell,
-  showHorizontalScrollBar = false,
+  hoverShowScrollBar = false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowClassName = (rowDate: T, inx?: number) => '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -147,6 +151,8 @@ const Table = <T, K>({
   const [selectedRows, setSelectedRows] = useState<number[]>([])
   const [expandRows, setExpandRows] = useState<number[]>([])
   const [defaultSize] = useDefaultSize()
+  const [theme] = useTheme()
+
   size = size || defaultSize
 
   useEffect(() => {
@@ -177,7 +183,8 @@ const Table = <T, K>({
     if (tableRef.current) {
       const scrollXPercentage =
         bodyRef.current.scrollLeft /
-        (bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth)
+        (bodyRef.current.children[0].children[0].offsetWidth -
+          bodyRef.current.offsetWidth)
       const cname =
         (scrollXPercentage > 0.02 ? 'pui-table-scrollLeft-true ' : '') +
         (scrollXPercentage < 0.98 ? 'pui-table-scrollRight-true' : '')
@@ -231,9 +238,9 @@ const Table = <T, K>({
     }
   }
 
-  const tableBodyRefLoaded = (elem: HTMLDivElement) => {
+  const tableBodyRefLoaded = (elem: HTMLTableElement) => {
     if (elem) {
-      bodyRef.current = elem
+      bodyRef.current = elem.parentNode!.parentNode
       updateShadow()
     }
   }
@@ -549,27 +556,30 @@ const Table = <T, K>({
             </tbody>
           </table>
         </div>
-        <div
+        <OverlayScrollbarsComponent
           className="pui-table-body"
-          ref={tableBodyRefLoaded}
-          style={{
-            height,
-            overflowX: showHorizontalScrollBar ? 'scroll' : undefined
-          }}
-          onScroll={(evt: any) => {
-            if (isWheelMove.current) {
-              setTimeout(() => {
-                isWheelMove.current = false
-              }, 100)
-              return
+          style={{ height }}
+          options={{
+            className: theme === 'light' ? 'os-theme-dark' : 'os-theme-light',
+            scrollbars: { autoHide: hoverShowScrollBar ? 'move' : 'scroll' },
+            callbacks: {
+              onScroll: (evt: any) => {
+                if (isWheelMove.current) {
+                  setTimeout(() => {
+                    isWheelMove.current = false
+                  }, 100)
+                  return
+                }
+                if (headRef.current) {
+                  headRef.current.scrollLeft = evt.target.scrollLeft
+                }
+                updateShadow()
+              }
             }
-            if (headRef.current) {
-              headRef.current.scrollLeft = evt.target.scrollLeft
-            }
-            updateShadow()
           }}
         >
           <table
+            ref={tableBodyRefLoaded}
             style={{ width: tableWidth }}
             className={'pui-table-va-' + cellVerticalAlign}
           >
@@ -717,7 +727,7 @@ const Table = <T, K>({
               })}
             </tbody>
           </table>
-        </div>
+        </OverlayScrollbarsComponent>
       </div>
     </div>
   )
