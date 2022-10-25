@@ -21,6 +21,13 @@ export const useTheme = makeGlobalState((): 'light' | 'dark' => {
   return PUI['_themeName'] || 'light'
 }, 'THEME_NAME')
 
+export const useScrollBarHide = makeGlobalState(
+  (): 'move' | 'never' | 'leave' | 'scroll' => {
+    return PUI['_scrollBarAutoHide'] || 'scroll'
+  },
+  'SCROLLBAR_AUTO_HIDE'
+)
+
 const allSetPopStates: any[] = []
 export const usePopShowState = (
   documentClickCallback?: () => void

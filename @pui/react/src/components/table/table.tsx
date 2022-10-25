@@ -13,7 +13,7 @@ import 'overlayscrollbars/css/OverlayScrollbars.css'
 import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
-import { useDefaultSize, useTheme } from '../../shared/hooks'
+import { useDefaultSize, useScrollBarHide, useTheme } from '../../shared/hooks'
 
 import './table.scss'
 
@@ -113,8 +113,8 @@ export interface TableProps<T = any, K = any> {
   /** 行点击事件 */
   onRowClick?: (rowData: T, rowNumber?: number) => void
 
-  /** 隐藏滚动条行为 never不隐藏，scroll滑动的时候显示，move鼠标悬浮显示 */
-  hideScrollBar?: 'never' | 'scroll' | 'leave' | 'move'
+  /** 隐藏滚动条行为 never不隐藏，leave鼠标移出才隐藏，scroll滑动后隐藏，move鼠标移动后隐藏 */
+  scrollBarAutoHide?: 'never' | 'scroll' | 'leave' | 'move'
 }
 
 const Table = <T, K>({
@@ -135,7 +135,7 @@ const Table = <T, K>({
   onExpand,
   onCollapse,
   expandCell,
-  hideScrollBar = 'scroll',
+  scrollBarAutoHide,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowClassName = (rowDate: T, inx?: number) => '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -151,8 +151,10 @@ const Table = <T, K>({
   const [expandRows, setExpandRows] = useState<number[]>([])
   const [defaultSize] = useDefaultSize()
   const [theme] = useTheme()
+  const [defaultScrollBarHide] = useScrollBarHide()
 
   size = size || defaultSize
+  scrollBarAutoHide = scrollBarAutoHide || defaultScrollBarHide
 
   useEffect(() => {
     setExpandRows([])
@@ -562,7 +564,7 @@ const Table = <T, K>({
           style={{ height }}
           options={{
             className: theme === 'light' ? 'os-theme-dark' : 'os-theme-light',
-            scrollbars: { autoHide: hideScrollBar },
+            scrollbars: { autoHide: scrollBarAutoHide },
             callbacks: {
               onScroll: (evt: any) => {
                 if (isWheelMove.current) {

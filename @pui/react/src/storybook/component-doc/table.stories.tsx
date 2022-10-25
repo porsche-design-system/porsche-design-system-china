@@ -1,15 +1,7 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React, { useState } from 'react'
 
-import {
-  Table,
-  Button,
-  TableColumn,
-  Modal,
-  SortType,
-  Select,
-  Switch
-} from '../..'
+import { Table, Button, TableColumn, Modal, SortType, Select, PUI } from '../..'
 
 export default {
   title: 'Data Display/Table',
@@ -17,7 +9,7 @@ export default {
 }
 
 export const TableStoryBook = () => {
-  const [hideScrollBar, setHideScrollBar] = useState<
+  const [scrollBarAutoHide, setScrollBarAutoHide] = useState<
     'move' | 'never' | 'leave' | 'scroll'
   >('never')
 
@@ -109,7 +101,7 @@ export const TableStoryBook = () => {
         columns={columns}
         selectable
         height="300px"
-        hideScrollBar={hideScrollBar}
+        scrollBarAutoHide={scrollBarAutoHide}
         onSelect={(data, allChecked) => {
           console.log('选定数据', data)
           console.log('是否全选（选传）', allChecked)
@@ -120,8 +112,8 @@ export const TableStoryBook = () => {
 
       <Select
         label="隐藏滚动条方式"
-        onValueChange={setHideScrollBar}
-        value={hideScrollBar}
+        onValueChange={setScrollBarAutoHide}
+        value={scrollBarAutoHide}
         options={'never,move,leave,scroll' as any}
         width="200px"
         marginLeft="10px"
