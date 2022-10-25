@@ -507,26 +507,28 @@ const Table = <T, K>({
                       left: 0
                     }}
                   >
-                    <CheckBox
-                      size="small"
-                      checked={allChecked}
-                      partChecked={partChecked}
-                      onCheckedChange={checked => {
-                        if (checked) {
-                          const fullSelectedRows: number[] = []
-                          for (let i = 0; i < data.length; i++) {
-                            fullSelectedRows.push(i)
+                    <div>
+                      <CheckBox
+                        size="small"
+                        checked={allChecked}
+                        partChecked={partChecked}
+                        onCheckedChange={checked => {
+                          if (checked) {
+                            const fullSelectedRows: number[] = []
+                            for (let i = 0; i < data.length; i++) {
+                              fullSelectedRows.push(i)
+                            }
+                            setSelectedRows(fullSelectedRows)
+                            selectCallback(fullSelectedRows)
+                          } else {
+                            setSelectedRows([])
+                            selectCallback([])
                           }
-                          setSelectedRows(fullSelectedRows)
-                          selectCallback(fullSelectedRows)
-                        } else {
-                          setSelectedRows([])
-                          selectCallback([])
-                        }
-                        setAllChecked(checked)
-                        setPartChecked(false)
-                      }}
-                    />
+                          setAllChecked(checked)
+                          setPartChecked(false)
+                        }}
+                      />
+                    </div>
                   </td>
                 )}
                 {rowExpandable && (
