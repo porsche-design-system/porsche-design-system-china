@@ -28,6 +28,12 @@ export const PUI = {
   },
   getDefaultSize() {
     return this['_defaultSize'] || 'medium'
+  },
+  setScrollBarAutoHide(type: 'never' | 'scroll' | 'leave' | 'move') {
+    this['_scrollBarAutoHide'] = type
+    if (getGlobalStateSetter('SCROLLBAR_AUTO_HIDE')) {
+      getGlobalStateSetter('SCROLLBAR_AUTO_HIDE')(type)
+    }
   }
 }
 ;(window as any).PUI = PUI

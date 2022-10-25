@@ -27,6 +27,11 @@ export const PUIStoryBook = () => {
           PUI.setTheme('light') <br />
           PUI.setTheme('dark')
         </div>
+        <div>
+          // 全局设置滚动条隐藏行为 <br />
+          PUI.setScrollBarAutoHide('never') <br />
+          PUI.setScrollBarAutoHide('leave') <br />
+        </div>
       </div>
     </div>
   )
