@@ -4,52 +4,44 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.35](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.34...v0.1.35) (2022-10-25)
 
-
 ### Features
 
-* DRSCN-22913|修改TimePicker样式,增加S型号 ([75776e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/75776e73bcc74e11c490872fb1c1d5398a95fd6b))
-* DRSCN-22919|TimePicker S优化 ([cd81df6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/cd81df61db276e95ed965f48ec60452bd8624589))
-* 优化滚动条 ([4c1d051](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4c1d0510fe0e231f58bdff8f7f138b82fc92e33a))
-
+- DRSCN-22913|修改 TimePicker 样式,增加 S 型号 ([75776e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/75776e73bcc74e11c490872fb1c1d5398a95fd6b))
+- DRSCN-22919|TimePicker S 优化 ([cd81df6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/cd81df61db276e95ed965f48ec60452bd8624589))
+- 优化滚动条 ([4c1d051](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4c1d0510fe0e231f58bdff8f7f138b82fc92e33a))
 
 ### Bug Fixes
 
-* split-button default类型按钮的样式 ([6ca42d1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6ca42d1fa514227b87bd1dee7b2ecc7be2ef1723))
-* 优化代码 ([7124fc4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7124fc4d180ef6b76cdd0306723c91acfb9b8978))
-* 修正table在safari的显示，加入table横向滚动功能 ([109def1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/109def1005502a1f30a86dac47ae7454c9ef9c74))
-* 修正头部样式 ([a808a3c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a808a3c8851bca09383d4e706f50cb220c9112f3))
-* 修正滚动条 ([0d3c101](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0d3c101bcda2f1cad4d80dae385f01351be7d2e5))
-* 加入隐藏选项 ([4e29e61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4e29e615661bf96ea3ed205bc9934ebc4598b120))
+- split-button default 类型按钮的样式 ([6ca42d1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6ca42d1fa514227b87bd1dee7b2ecc7be2ef1723))
+- 修正 table 在 safari 的显示，加入 table 横向滚动功能 ([109def1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/109def1005502a1f30a86dac47ae7454c9ef9c74))
+- 修正头部样式 ([a808a3c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a808a3c8851bca09383d4e706f50cb220c9112f3))
+- 修正滚动条 ([0d3c101](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0d3c101bcda2f1cad4d80dae385f01351be7d2e5))
+- 加入隐藏选项 ([4e29e61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4e29e615661bf96ea3ed205bc9934ebc4598b120))
 
 ### [0.1.34](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.33...v0.1.34) (2022-10-12)
 
-
 ### Features
 
-* upload 加入表单功能 ([c8f856c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c8f856c7301cb86f45cad93e5a4abf94eb45f848))
-* 加入Select小尺寸 ([2849859](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2849859701b06fecf623762bb666424f80d99a3d))
-
+- upload 加入表单功能 ([c8f856c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c8f856c7301cb86f45cad93e5a4abf94eb45f848))
+- 加入 Select 小尺寸 ([2849859](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2849859701b06fecf623762bb666424f80d99a3d))
 
 ### Bug Fixes
 
-* 修复upload的form表单默认值没有展示问题 ([e0cd84c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e0cd84cb0baaca316080ca65966d35e789805c45))
-* 修复上传组件的上传数量限制 ([e2e4ac9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e2e4ac9e877de4dd1bc47589c82a6d6cc5af5913))
-* 修改字段命名 ([8d4004b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8d4004b3521c24b4cc23278d946617225b25612c))
-* 修正文档 ([58c0d0a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/58c0d0a990a4c2600cc1c0a6e7a14042da7045e0))
+- 修复 upload 的 form 表单默认值没有展示问题 ([e0cd84c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e0cd84cb0baaca316080ca65966d35e789805c45))
+- 修复上传组件的上传数量限制 ([e2e4ac9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e2e4ac9e877de4dd1bc47589c82a6d6cc5af5913))
+- 修改字段命名 ([8d4004b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8d4004b3521c24b4cc23278d946617225b25612c))
+- 修正文档 ([58c0d0a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/58c0d0a990a4c2600cc1c0a6e7a14042da7045e0))
 
 ### [0.1.33](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.32...v0.1.33) (2022-09-29)
 
-
 ### Features
 
-* DSCWCN-145 | 导航按钮/Tab：点击按钮触发菜单，点击空白处关闭菜单 ([6eff9fa](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6eff9fa39e539f7fb0c858e1a638b0747c5ae31a))
-
+- DSCWCN-145 | 导航按钮/Tab：点击按钮触发菜单，点击空白处关闭菜单 ([6eff9fa](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6eff9fa39e539f7fb0c858e1a638b0747c5ae31a))
 
 ### Bug Fixes
 
-* 修正textarea 选定bug ([f8fd38c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f8fd38ce939434ee2633056250ba44ba5ad34d4a))
-* 加入表单重置功能 ([dab66f2](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dab66f2d9d2a1dce78112aeff9307dac28a16337))
-
+- 修正 textarea 选定 bug ([f8fd38c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f8fd38ce939434ee2633056250ba44ba5ad34d4a))
+- 加入表单重置功能 ([dab66f2](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dab66f2d9d2a1dce78112aeff9307dac28a16337))
 
 ### [0.1.32](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.31...v0.1.32) (2022-09-09)
 
