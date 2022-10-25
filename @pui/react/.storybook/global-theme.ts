@@ -9,8 +9,6 @@ export default create({
   brandImage: logo,
   colorPrimary: themeColor,
   colorSecondary: themeColor,
-  fontBase:
-    "'Porsche Next', '黑体', '微软雅黑', 'SimHei', 'Helvetica', 'sans-serif'",
-  fontCode:
-    "'Porsche Next', '黑体', '微软雅黑', 'SimHei', 'Helvetica', 'sans-serif'"
+  fontBase: "'Porsche Next', '微软雅黑', 'Helvetica', 'sans-serif'",
+  fontCode: "'Porsche Next', '微软雅黑', 'Helvetica', 'sans-serif'"
 })

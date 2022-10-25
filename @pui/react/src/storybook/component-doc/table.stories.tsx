@@ -1,6 +1,14 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
-import React from 'react'
-import { Table, Button, TableColumn, Modal, SortType, Select } from '../..'
+import React, { useState } from 'react'
+import {
+  Table,
+  Button,
+  TableColumn,
+  Modal,
+  SortType,
+  Select,
+  Switch
+} from '../..'
 
 export default {
   title: 'Data Display/Table',
@@ -8,6 +16,8 @@ export default {
 }
 
 export const TableStoryBook = () => {
+  const [showScrollBar, setShowScrollBar] = useState(false)
+
   const rowData = {
     dealerName: '上海浦东保时捷中心',
     dealerCode: '1000000',
@@ -95,11 +105,19 @@ export const TableStoryBook = () => {
         columns={columns}
         selectable
         height="300px"
+        showHorizontalScrollBar={showScrollBar}
         onSelect={(data, allChecked) => {
           console.log('选定数据', data)
           console.log('是否全选（选传）', allChecked)
         }}
         onSort={sorter => console.log(sorter)}
+      />
+      显示横向滚动条
+      <Switch
+        onValueChange={setShowScrollBar}
+        value={showScrollBar}
+        width="500px"
+        marginLeft="10px"
       />
     </div>
   )
