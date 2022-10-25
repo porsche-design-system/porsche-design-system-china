@@ -1,6 +1,6 @@
 {
   "name": "@pui/react",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "module": "es/index.js",
   "main": "es/index.js",
   "typings": "es/index.d.ts",

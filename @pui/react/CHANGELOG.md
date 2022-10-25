@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.36](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.35...v0.1.36) (2022-10-25)
+
+
+### Bug Fixes
+
+* 优化文档 ([9d8499f](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9d8499f44cc617e530a858a7bad3bb7124bdf38a))
+* 修正css引用错误 ([6eeecdb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6eeecdb281c6a6dd5944482c111733858e3cb4d3))
+
 ### [0.1.35](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.34...v0.1.35) (2022-10-25)
 
 ### Features
