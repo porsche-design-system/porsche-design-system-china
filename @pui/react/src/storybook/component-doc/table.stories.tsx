@@ -1,7 +1,7 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React, { useState } from 'react'
 
-import { Table, Button, TableColumn, Modal, SortType, Select, PUI } from '../..'
+import { Table, Button, TableColumn, Modal, SortType, Select } from '../..'
 
 export default {
   title: 'Data Display/Table',
