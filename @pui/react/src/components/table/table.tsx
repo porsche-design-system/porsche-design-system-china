@@ -9,12 +9,12 @@ import React, {
 import classNames from 'classnames'
 import { renderToString } from 'react-dom/server'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
-import 'overlayscrollbars/css/OverlayScrollbars.css'
 import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize, useScrollBarHide, useTheme } from '../../shared/hooks'
 
+import './OverlayScrollbars.min.css'
 import './table.scss'
 
 export enum SortType {
