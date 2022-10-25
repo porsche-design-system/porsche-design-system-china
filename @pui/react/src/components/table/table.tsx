@@ -109,6 +109,9 @@ export interface TableProps<T = any, K = any> {
 
   /** 行点击事件 */
   onRowClick?: (rowData: T, rowNumber?: number) => void
+
+  /** 显示横向滚动条 */
+  showHorizontalScrollBar?: boolean
 }
 
 const Table = <T, K>({
@@ -129,6 +132,7 @@ const Table = <T, K>({
   onExpand,
   onCollapse,
   expandCell,
+  showHorizontalScrollBar = false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowClassName = (rowDate: T, inx?: number) => '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -548,7 +552,10 @@ const Table = <T, K>({
         <div
           className="pui-table-body"
           ref={tableBodyRefLoaded}
-          style={{ height }}
+          style={{
+            height,
+            overflowX: showHorizontalScrollBar ? 'scroll' : undefined
+          }}
           onScroll={(evt: any) => {
             if (isWheelMove.current) {
               setTimeout(() => {
@@ -611,29 +618,31 @@ const Table = <T, K>({
                           className="pui-table-fixed-left pui-table-selectable"
                           style={{ left: 0 }}
                         >
-                          <CheckBox
-                            size="small"
-                            onCheckedChange={checked => {
-                              if (checked) {
-                                selectedRows.push(inx)
-                              } else {
-                                selectedRows.splice(
-                                  selectedRows.indexOf(inx),
-                                  1
+                          <div>
+                            <CheckBox
+                              size="small"
+                              onCheckedChange={checked => {
+                                if (checked) {
+                                  selectedRows.push(inx)
+                                } else {
+                                  selectedRows.splice(
+                                    selectedRows.indexOf(inx),
+                                    1
+                                  )
+                                }
+                                selectCallback(selectedRows)
+                                setAllChecked(
+                                  selectedRows.length === data.length &&
+                                    selectedRows.length > 0
                                 )
-                              }
-                              selectCallback(selectedRows)
-                              setAllChecked(
-                                selectedRows.length === data.length &&
-                                  selectedRows.length > 0
-                              )
-                              setPartChecked(
-                                selectedRows.length < data.length &&
-                                  selectedRows.length > 0
-                              )
-                            }}
-                            checked={selectedRows.includes(inx)}
-                          />
+                                setPartChecked(
+                                  selectedRows.length < data.length &&
+                                    selectedRows.length > 0
+                                )
+                              }}
+                              checked={selectedRows.includes(inx)}
+                            />
+                          </div>
                         </td>
                       )}
                       {rowExpandable && (
@@ -641,30 +650,32 @@ const Table = <T, K>({
                           className="pui-table-selectable "
                           style={{ left: 0 }}
                         >
-                          {isExpandRow && (
-                            <IconArrowHeadDown
-                              className="pui-table-expand-button"
-                              style={expandArrowStyle}
-                              onClick={() => {
-                                const rInx = expandRows.findIndex(
-                                  elem => elem === inx
-                                )
-                                expandRows.splice(rInx, 1)
-                                setExpandRows([...expandRows])
-                                onCollapse && onCollapse(rowData, inx)
-                              }}
-                            />
-                          )}
-                          {!isExpandRow && (
-                            <IconArrowHeadRight
-                              className="pui-table-expand-button"
-                              style={expandArrowStyle}
-                              onClick={() => {
-                                setExpandRows([...expandRows, inx])
-                                onExpand && onExpand(rowData, inx)
-                              }}
-                            />
-                          )}
+                          <div>
+                            {isExpandRow && (
+                              <IconArrowHeadDown
+                                className="pui-table-expand-button"
+                                style={expandArrowStyle}
+                                onClick={() => {
+                                  const rInx = expandRows.findIndex(
+                                    elem => elem === inx
+                                  )
+                                  expandRows.splice(rInx, 1)
+                                  setExpandRows([...expandRows])
+                                  onCollapse && onCollapse(rowData, inx)
+                                }}
+                              />
+                            )}
+                            {!isExpandRow && (
+                              <IconArrowHeadRight
+                                className="pui-table-expand-button"
+                                style={expandArrowStyle}
+                                onClick={() => {
+                                  setExpandRows([...expandRows, inx])
+                                  onExpand && onExpand(rowData, inx)
+                                }}
+                              />
+                            )}
+                          </div>
                         </td>
                       )}
                       {leftColumns.map((column, colInx) =>
