@@ -17,7 +17,9 @@ export default {
 }
 
 export const TableStoryBook = () => {
-  const [showScrollBar, setShowScrollBar] = useState(false)
+  const [hideScrollBar, setHideScrollBar] = useState<
+    'move' | 'never' | 'leave' | 'scroll'
+  >('never')
 
   const rowData = {
     dealerName: '上海浦东保时捷中心',
@@ -100,8 +102,6 @@ export const TableStoryBook = () => {
     }
   ]
 
-  console.log(showScrollBar)
-
   return (
     <div>
       <Table
@@ -109,7 +109,7 @@ export const TableStoryBook = () => {
         columns={columns}
         selectable
         height="300px"
-        hoverShowScrollBar={showScrollBar}
+        hideScrollBar={hideScrollBar}
         onSelect={(data, allChecked) => {
           console.log('选定数据', data)
           console.log('是否全选（选传）', allChecked)
@@ -117,11 +117,13 @@ export const TableStoryBook = () => {
         onSort={sorter => console.log(sorter)}
       />
       <br />
-      鼠标悬浮显示滚动条
-      <Switch
-        onValueChange={setShowScrollBar}
-        value={showScrollBar}
-        width="500px"
+
+      <Select
+        label="隐藏滚动条方式"
+        onValueChange={setHideScrollBar}
+        value={hideScrollBar}
+        options={'never,move,leave,scroll' as any}
+        width="200px"
         marginLeft="10px"
       />
     </div>
