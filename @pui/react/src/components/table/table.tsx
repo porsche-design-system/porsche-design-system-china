@@ -14,7 +14,7 @@ import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize, useScrollBarHide, useTheme } from '../../shared/hooks'
 
-import './OverlayScrollbars.min.css'
+import './OverlayScrollbars.min.scss'
 import './table.scss'
 
 export enum SortType {
