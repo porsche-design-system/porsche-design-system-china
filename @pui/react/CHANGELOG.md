@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.35](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.34...v0.1.35) (2022-10-25)
+
+
+### Features
+
+* DRSCN-22913|修改TimePicker样式,增加S型号 ([75776e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/75776e73bcc74e11c490872fb1c1d5398a95fd6b))
+* DRSCN-22919|TimePicker S优化 ([cd81df6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/cd81df61db276e95ed965f48ec60452bd8624589))
+* 优化滚动条 ([4c1d051](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4c1d0510fe0e231f58bdff8f7f138b82fc92e33a))
+
+
+### Bug Fixes
+
+* split-button default类型按钮的样式 ([6ca42d1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6ca42d1fa514227b87bd1dee7b2ecc7be2ef1723))
+* 优化代码 ([7124fc4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7124fc4d180ef6b76cdd0306723c91acfb9b8978))
+* 修正table在safari的显示，加入table横向滚动功能 ([109def1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/109def1005502a1f30a86dac47ae7454c9ef9c74))
+* 修正头部样式 ([a808a3c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a808a3c8851bca09383d4e706f50cb220c9112f3))
+* 修正滚动条 ([0d3c101](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0d3c101bcda2f1cad4d80dae385f01351be7d2e5))
+* 加入隐藏选项 ([4e29e61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4e29e615661bf96ea3ed205bc9934ebc4598b120))
+
 ### [0.1.34](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.33...v0.1.34) (2022-10-12)
 
 
