@@ -14,7 +14,6 @@ import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize, useTheme } from '../../shared/hooks'
-import { PUI } from '../pui/pui'
 
 import './table.scss'
 
@@ -114,8 +113,8 @@ export interface TableProps<T = any, K = any> {
   /** 行点击事件 */
   onRowClick?: (rowData: T, rowNumber?: number) => void
 
-  /** 鼠标移动到表格上显示滚动条 */
-  hoverShowScrollBar?: boolean
+  /** 隐藏滚动条行为 never不隐藏，scroll滑动的时候显示，move鼠标悬浮显示 */
+  hideScrollBar?: 'never' | 'scroll' | 'leave' | 'move'
 }
 
 const Table = <T, K>({
@@ -136,7 +135,7 @@ const Table = <T, K>({
   onExpand,
   onCollapse,
   expandCell,
-  hoverShowScrollBar = false,
+  hideScrollBar = 'scroll',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowClassName = (rowDate: T, inx?: number) => '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -563,7 +562,7 @@ const Table = <T, K>({
           style={{ height }}
           options={{
             className: theme === 'light' ? 'os-theme-dark' : 'os-theme-light',
-            scrollbars: { autoHide: hoverShowScrollBar ? 'move' : 'scroll' },
+            scrollbars: { autoHide: hideScrollBar },
             callbacks: {
               onScroll: (evt: any) => {
                 if (isWheelMove.current) {
