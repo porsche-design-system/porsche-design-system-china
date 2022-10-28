@@ -1,4 +1,4 @@
-@import "../../styles/theme/index";
+@import '../../styles/theme/index';
 
 @each $theme in $themes {
   .pui-theme-#{$theme} {
@@ -21,11 +21,6 @@
         overflow: hidden;
         vertical-align: text-top;
         position: relative;
-        .porscheicon {
-          position: absolute;
-          left: 0;
-          top: 0;
-        }
       }
 
       &-icon-content {
@@ -172,7 +167,8 @@
       }
 
       &-loading-circle {
-        animation: pui-button-loading-rotate 1s linear infinite, pui-button-loading-length-change 3s linear infinite;
+        animation: pui-button-loading-rotate 1s linear infinite,
+          pui-button-loading-length-change 3s linear infinite;
       }
 
       &-loading-circle2 {
@@ -216,7 +212,6 @@
         .pui-button-suffix-icon {
           width: 20px;
           height: 20px;
-          margin-top: 1px;
         }
 
         .pui-button-icon-content {

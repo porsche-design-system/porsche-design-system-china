@@ -74,8 +74,11 @@ export interface TableProps<T = any, K = any> {
   /** 大小 */
   size?: 'medium' | 'small'
 
+  /** 排序模式 */
+  sortType?: 'single' | 'multiple'
+
   /** 排序事件 */
-  onSort?: (sorter: Sorter) => void
+  onSort?: (sorter: Sorter | Sorter[]) => void
 
   /** 选定事件 */
   onSelect?: (selectedRowData: T[], allSelected?: boolean) => void
@@ -132,6 +135,7 @@ const Table = <T, K>({
   cellVerticalAlign = 'middle',
   expandArrowStyle,
   expandData = [],
+  sortType = 'single',
   onExpand,
   onCollapse,
   expandCell,
