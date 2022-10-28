@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.38](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.37...v0.1.38) (2022-10-28)
+
+
+### Bug Fixes
+
+* DRSCN-22919|修改size和默认样式 ([576816d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/576816d0ddcef2a6adf4b8e89429f0e87eeb11b7))
+* DRSCN-22919|修改size和默认样式 ([79a724e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/79a724e074e9cf60ecb98acc3771498650cad903))
+* split-button样式 ([f99a69c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f99a69c58424d884e803fc615667546a8b4c2325))
+* 优化代码 ([8bf80bc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8bf80bcfb429a78155ce060797c4c10e686cb545))
+* 修正按钮图标 ([f1ea9ac](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f1ea9ac2d4f427e975255024e5db272ca8c942ce))
+* 修正按钮图标定位 ([8b0fa70](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8b0fa70a3b67d4ce45e0beebdc0b15054b5d0ee0))
+
 ### [0.1.37](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.36...v0.1.37) (2022-10-25)
 
 
