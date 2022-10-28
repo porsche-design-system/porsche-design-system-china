@@ -136,7 +136,7 @@ const DateTimePicker = FormItem(
     const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
     const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
     const [defaultSize] = useDefaultSize()
-    size = defaultSize || size
+    size =  size || defaultSize
 
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label

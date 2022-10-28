@@ -16,6 +16,7 @@ export const DateTimePickerStoryBookTime = () => {
           placeholder="年月日时分"
           showStyle="CommonHHMMSS"
           componentId="testTime4"
+          size='small'
         />
 
         <br />
