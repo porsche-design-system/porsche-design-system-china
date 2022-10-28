@@ -21,6 +21,9 @@
         overflow: hidden;
         vertical-align: text-top;
         position: relative;
+        .porscheicon {
+          vertical-align: baseline;
+        }
       }
 
       &-icon-content {
@@ -212,6 +215,7 @@
         .pui-button-suffix-icon {
           width: 20px;
           height: 20px;
+          margin-top: 1px;
         }
 
         .pui-button-icon-content {
