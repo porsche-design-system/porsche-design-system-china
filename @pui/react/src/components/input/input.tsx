@@ -150,7 +150,7 @@ const Input = FormItem(
         <input
           ref={(inputRef: HTMLInputElement) => {
             inputReference.current = inputRef
-            if (inputRef && maxLength) {
+            if (inputRef && maxLength && !hideMaxLengthText) {
               inputRef.style.paddingRight =
                 (maxLength + '').length * 23 + 12 + 'px'
             }

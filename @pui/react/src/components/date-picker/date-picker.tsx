@@ -417,6 +417,7 @@ const DatePicker = FormItem(
                   <div className="pui-date-picker-calendar-head-left">
                     <IconArrowDoubleLeft
                       onClick={() => {
+                        displayDate.current.setDate(1)
                         displayDate.current.setFullYear(
                           displayDate.current.getFullYear() - 1
                         )
@@ -425,6 +426,7 @@ const DatePicker = FormItem(
                     />
                     <IconArrowHeadLeft
                       onClick={() => {
+                        displayDate.current.setDate(1)
                         displayDate.current.setMonth(
                           displayDate.current.getMonth() - 1
                         )
@@ -437,6 +439,7 @@ const DatePicker = FormItem(
                   <div className="pui-date-picker-calendar-head-right">
                     <IconArrowHeadRight
                       onClick={() => {
+                        displayDate.current.setDate(1)
                         displayDate.current.setMonth(
                           displayDate.current.getMonth() + 1
                         )
@@ -445,6 +448,7 @@ const DatePicker = FormItem(
                     />
                     <IconArrowDoubleRight
                       onClick={() => {
+                        displayDate.current.setDate(1)
                         displayDate.current.setFullYear(
                           displayDate.current.getFullYear() + 1
                         )
