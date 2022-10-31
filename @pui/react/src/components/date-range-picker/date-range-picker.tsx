@@ -596,6 +596,7 @@ const DateRangePicker = FormItem(
                   onClick={evt => {
                     evt.preventDefault()
                     evt.stopPropagation()
+                    setPrePickedDates([null, prePickedDates[1]])
                     if (mustPickStartEnd) {
                       displayValues[0] = ''
                       displayValues[1] = ''
@@ -639,6 +640,7 @@ const DateRangePicker = FormItem(
                   onClick={evt => {
                     evt.preventDefault()
                     evt.stopPropagation()
+                    setPrePickedDates([prePickedDates[0], null])
                     if (mustPickStartEnd) {
                       displayValues[0] = ''
                       displayValues[1] = ''
