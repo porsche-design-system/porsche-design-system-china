@@ -294,13 +294,19 @@ function Form<T = any>({
           if (!inputProps.value) {
             inputProps.value = ['', '']
           }
-          inputProps.value[0] = fData[inputProps.nameStartDate]
+          inputProps.value = [
+            fData[inputProps.nameStartDate],
+            inputProps.value[1]
+          ]
         }
         if (inputProps.nameEndDate) {
           if (!inputProps.value) {
             inputProps.value = ['', '']
           }
-          inputProps.value[1] = fData[inputProps.nameEndDate]
+          inputProps.value = [
+            inputProps.value[0],
+            fData[inputProps.nameEndDate]
+          ]
         }
 
         // const clearError = () => {
