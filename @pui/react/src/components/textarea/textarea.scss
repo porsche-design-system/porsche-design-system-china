@@ -22,6 +22,7 @@
         width: calc(100% - 4px);
         box-sizing: border-box;
         color: $text-color-1;
+        pointer-events: none;
         span {
           color: $text-opacity-color-2;
         }
@@ -91,7 +92,6 @@
           padding: 7px 11px;
         }
         .pui-textarea-char-count {
-          pointer-events: none;
           font-size: 12px;
           line-height: 20px;
           margin-top: -25px;
