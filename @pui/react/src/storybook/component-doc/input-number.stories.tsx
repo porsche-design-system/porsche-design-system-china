@@ -126,7 +126,7 @@ export const InputNumberStoryBook3 = () => {
           <InputNumber
             defaultValue="3"
             label="购买数量"
-            width="130px"
+            width="150px"
             min={0}
             max={10}
             marginRight="30px"
@@ -137,7 +137,7 @@ export const InputNumberStoryBook3 = () => {
             type="arrow"
             defaultValue="3"
             label="购买数量"
-            width="130px"
+            width="150px"
             min={0}
             max={10}
             marginRight="30px"
@@ -149,7 +149,7 @@ export const InputNumberStoryBook3 = () => {
             type="arrow"
             defaultValue="3"
             label="购买单价"
-            width="130px"
+            width="150px"
             min={0}
             max={10}
             disabled
