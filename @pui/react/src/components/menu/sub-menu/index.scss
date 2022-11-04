@@ -104,6 +104,9 @@
           color: $brand-color;
           border-bottom-color: $brand-color;
         }
+        .porscheicon-icon_-arrow-head-down {
+          transform: scaleY(-1);
+        }
       }
       .submenu-title {
         display: flex;
@@ -121,10 +124,16 @@
         transition: transform 0.25s ease-in-out;
         margin-left: 3px;
       }
-      &:hover {
-        // .porscheicon-icon_-arrow-head-down {
-        //   transform: scaleY(-1);
-        // }
+    }
+    .pui-menu-size-small {
+      .submenu-item {
+        .submenu-title {
+          &-text {
+            .porscheicon {
+              font-size: 20px;
+            }
+          }
+        }
       }
     }
   }
