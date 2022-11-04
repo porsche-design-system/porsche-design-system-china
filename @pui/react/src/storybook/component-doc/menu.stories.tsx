@@ -1,6 +1,5 @@
-import { IconArrowHeadDown } from '@pui/icons'
 import React from 'react'
-
+import { IconArrowHeadDown } from '@pui/icons'
 import { Menu, Button } from '../..'
 import './menu.stories.scss'
 
@@ -17,7 +16,7 @@ export const MenuStoryBook1 = () => {
   const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
     <div className="menu-demo">
-      <h1>使用 Menu 与 MenuItem 构建基础菜单</h1>
+      <div>使用 Menu 与 MenuItem 构建基础菜单</div>
       <div className="test-one">
         <Menu activeIndex={index} onSelect={setIndex}>
           <Menu.Item
@@ -52,8 +51,8 @@ export const MenuStoryBook2 = () => {
   const [hiddenItem, setHiddenItem] = React.useState(true)
   return (
     <div className="menu-demo">
-      <h1>使用 Menu 、SubMenu、MenuItem 构建下拉菜单</h1>
-      <div className="test-one">
+      <div>使用 Menu 、SubMenu、MenuItem 构建下拉菜单</div>
+      <div className="test-one test-submenu">
         <Menu activeIndex={index} onSelect={setIndex}>
           <Menu.Item
             index="test"
@@ -65,7 +64,7 @@ export const MenuStoryBook2 = () => {
           <Menu.SubMenu
             title={
               <>
-                Submit <IconArrowHeadDown />
+                Submit 1<IconArrowHeadDown />
               </>
             }
             index="submit"
@@ -100,7 +99,7 @@ export const MenuStoryBook2 = () => {
           <Menu.SubMenu
             title={
               <>
-                Submit <IconArrowHeadDown />
+                SubMenu 2 <IconArrowHeadDown />
               </>
             }
             index="submit-submit4"
@@ -118,12 +117,12 @@ export const MenuStoryBook2 = () => {
         </Menu>
         <br />
         <br />
-        <h2>使用 Menu trigger: `click` 点击下拉菜单</h2>
+        <div>使用 Menu trigger: `click` 点击下拉菜单</div>
         <Menu activeIndex={index} onSelect={setIndex} trigger="click">
           <Menu.SubMenu
             title={
               <>
-                Submit <IconArrowHeadDown />
+                SubMenu 3 <IconArrowHeadDown />
               </>
             }
             index="submit"
@@ -147,7 +146,7 @@ export const MenuStoryBook2 = () => {
           <Menu.SubMenu
             title={
               <>
-                Submit <IconArrowHeadDown />
+                SubMenu 4 <IconArrowHeadDown />
               </>
             }
             index="submit-submit4"
@@ -178,36 +177,3 @@ export const MenuStoryBook2 = () => {
 }
 
 MenuStoryBook2.storyName = 'SubMenu '
-export const MenuStoryBook3 = () => {
-  const [index, setIndex] = React.useState('test')
-  return (
-    <div className="menu-demo">
-      <h1>small menu</h1>
-      <div className="test-one">
-        <Menu activeIndex={index} onSelect={setIndex} size="small">
-          <Menu.Item
-            index="test"
-            onClick={() => console.log('onClick事件', '点击了 test')}
-          >
-            test
-          </Menu.Item>
-          <Menu.Item index="test2">test2</Menu.Item>
-          <Menu.Item index="test3">test3</Menu.Item>
-          <Menu.SubMenu title="submit-submit4" index="submit-submit4">
-            <Menu.Item selectAfter index="submit-submit-test14">
-              test1
-            </Menu.Item>
-            <Menu.Item selectAfter index="submit-submit-about24">
-              about2
-            </Menu.Item>
-            <Menu.Item disabled index="submit-submit-prod34">
-              prod4
-            </Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
-      </div>
-    </div>
-  )
-}
-
-MenuStoryBook3.storyName = 'Small Menu '
