@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode } from 'react'
+import React, { useEffect, ReactNode,useState } from 'react'
 import {
   IconCalendar,
   IconArrowDoubleLeft,
@@ -10,7 +10,6 @@ import ReactDOMServer from 'react-dom/server'
 import './date-time-picker.scss'
 import { FormItem } from '../form/form-item'
 import { FormItemLabelProps } from '../form/form'
-
 import { useDefaultSize } from '../../shared/hooks'
 
 import puiDate from './puiDate.js'
@@ -50,7 +49,13 @@ export interface DatePickerProps {
   componentId: string
 
   /** 显示样式 */
-  showStyle?: 'OnlyYear' | 'YearAndMonth' | 'Common' | 'CommonHHMMSS' | 'HHMMSS'
+  showStyle?:
+    | 'OnlyYear'
+    | 'YearAndMonth'
+    | 'Common'
+    | 'CommonHHMMSS'
+    | 'HHMMSS'
+    | 'HHMM'
 
   /** 是否是时间范围,不设置不是范围,false:双面板范围,true:单面板范围 */
   isRange?: boolean
@@ -122,10 +127,12 @@ const DateTimePicker = FormItem(
     placeholderEndDate = '无限',
     value = '',
     labelPosition = 'left',
-    size = 'medium',
+    size ,
     filterMode = false,
     allowNullDate = false
   }: DatePickerProps) => {
+
+
     useEffect(() => {
       initComponent()
     }, [])
@@ -136,7 +143,7 @@ const DateTimePicker = FormItem(
     const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
     const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
     const [defaultSize] = useDefaultSize()
-    size =  size || defaultSize
+    size = size || defaultSize
 
     const labelText =
       (label as any).text !== undefined ? (label as any).text : label
@@ -225,7 +232,7 @@ const DateTimePicker = FormItem(
     }
 
     const onFilter = (evt: any) => {
-      evt.stopPropagation();
+      // evt.stopPropagation()
       document.getElementById(componentId)?.click()
     }
 
@@ -233,7 +240,7 @@ const DateTimePicker = FormItem(
     if ((labelText && labelPosition === 'left') || filterMode) {
       labelEle = (
         <span
-          className={`pui-select-input-placeholder pui-select-input-placeholder-size-${size}`}
+          className={`filter-label filter-label-size-${size}`+(value?' label-holder':'')}
           id={`${componentId}_holder`}
         >
           {labelText || ''}
@@ -257,7 +264,7 @@ const DateTimePicker = FormItem(
               className={
                 disabled
                   ? 'je-input-box-disabled ' + className
-                  : 'je-input-box ' + className
+                  : `je-input-box je-input-box-size-${size} ` + className
               }
             >
               <input
@@ -310,6 +317,18 @@ const DateTimePicker = FormItem(
         </div>
       )
     } else {
+      const objWidth = {
+        OnlyYear: 50,
+        'YearAndMonth': 70,
+        'Common': 100,
+        'CommonHHMMSS': 130,
+        'HHMMSS': 80,
+        'HHMM': 60
+      }
+      let highlight = '';
+      if ( value?.length > 0) {
+        highlight = ' highlightBg'
+      } 
       return (
         <div className="pui-pick pui-date-picker filterMode">
           {isRange === undefined ? (
@@ -317,7 +336,7 @@ const DateTimePicker = FormItem(
               className={
                 disabled
                   ? 'je-input-box-disabled ' + className
-                  : 'je-input-box ' + className
+                  : `je-input-box je-input-box-size-${size}` + className + highlight
               }
               style={{
                 paddingLeft: '12px',
@@ -336,7 +355,7 @@ const DateTimePicker = FormItem(
                   readOnly
                   id={componentId}
                   placeholder={placeholder}
-                  style={{ display: 'none' }}
+                  style={{ display: !value ? 'none' : 'inline-block',width: value ?objWidth[showStyle]+'px':''}}
                 />
                 <IconCalendar
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
@@ -350,7 +369,7 @@ const DateTimePicker = FormItem(
                   ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${size} ` +
                     className
                   : `pui-pick-date-range pui-pick-date-range-size-${size} ` +
-                    className
+                    className + highlight
               }
               style={{ paddingLeft: '12px' }}
               onClick={evt => onFilter(evt)}
@@ -358,12 +377,12 @@ const DateTimePicker = FormItem(
               <>
                 {labelEle}
                 <div
-                  style={{ display: 'none' }}
+                  style={{ display: !value ? 'none' : 'inline-block' }}
                   id={`${componentId}filterMode-multi`}
                 >
                   <input
                     type="text"
-                    style={{ marginLeft: '12px' }}
+                    style={{ marginLeft: '12px',width: value[0] ?objWidth[showStyle]+'px':'' }}
                     className={`je-input-range je-input-range-size-${size} filterMode-multi`}
                     value={value[0]}
                     disabled={disabled}
@@ -379,7 +398,8 @@ const DateTimePicker = FormItem(
                     disabled={disabled}
                     readOnly
                     id={componentId + 'posend'}
-                    placeholder={placeholderEndDate}
+                      placeholder={placeholderEndDate}
+                      style={{ width: value[1] ?objWidth[showStyle]+'px':'' }}
                   />
                 </div>
                 <IconCalendar

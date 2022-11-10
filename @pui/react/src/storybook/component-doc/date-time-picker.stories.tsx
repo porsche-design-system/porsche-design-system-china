@@ -16,7 +16,7 @@ export const DateTimePickerStoryBookTime = () => {
           placeholder="年月日时分"
           showStyle="CommonHHMMSS"
           componentId="testTime4"
-          size='small'
+          size="small"
         />
 
         <br />
@@ -100,6 +100,7 @@ export const DateTimePickerStoryBook = () => {
           labelPosition="left"
           showStyle="HHMM"
           componentId="testTime5cb"
+          value="15:48"
         />
       </Form>
     </div>
@@ -191,6 +192,22 @@ export const DateTimePickerStoryBook2 = () => {
           showStyle="CommonHHMMSS"
           componentId="testTime6cb"
         />
+        <br />
+        <DateTimePicker
+          label="到港日期"
+          placeholder="请输入日期"
+          width="200px"
+          // placeholderStartDate="开始日期"
+          // placeholderEndDate="结束日期"
+          isRange
+          filterMode
+          // allowNullDate
+          labelPosition="left"
+          showStyle="HHMM"
+          componentId="testTime6cbafda"
+          value={['13:29', '15:49']}
+        />
+
       </Form>
     </div>
   )
