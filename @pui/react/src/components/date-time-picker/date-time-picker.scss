@@ -3,6 +3,10 @@
 @each $theme in $themes {
   .pui-theme-#{$theme} {
     @include theme($theme);
+    .highlightBg {
+      border-color: $filter-highlight-border-color;
+      background-color: $filter-highlight-bg-color;
+    }
     .filterMode {
       width: 100%;
       // input {
@@ -11,6 +15,9 @@
       // .filterMode-start {
       //   display: none;
       // }
+      .label-holder {
+        color: $border-color-3;
+      }
     }
     .pui-pick-date {
       cursor: default;
@@ -18,9 +25,9 @@
       padding: 0;
       overflow: hidden;
       position: relative;
-      border-radius: 4px;
+      // border-radius: 4px;
       display: inline-block;
-      box-shadow: 0px 0px 5px $border-color-2;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
       background-color: $float-layer-bg-color;
       &-size-medium {
         font-size: 16px;
@@ -609,6 +616,12 @@
       border: 1px solid $border-color-3;
       width: 100%;
       white-space: nowrap;
+      &-size-medium {
+        height: 48px;
+      }
+      &-size-small {
+        height: 36px;
+      }
       .je-input {
         color: $text-color-1;
         display: inline-block;
@@ -617,11 +630,11 @@
         background-color: transparent;
         width: 100%;
         &-size-medium {
-          height: 48px;
+          height: 46px;
           font-size: 16px;
         }
         &-size-small {
-          height: 36px;
+          height: 34px;
           font-size: 14px;
         }
 
@@ -634,7 +647,7 @@
       }
     }
 
-    .pui-select-input-placeholder {
+    .filter-label {
       display: inline-block;
       &-size-medium {
         height: 46px;
@@ -680,7 +693,7 @@
         border: none;
         text-align: center;
         border-top-color: transparent;
-        min-width: 110px;
+        min-width: 50px;
         white-space: nowrap;
         position: relative;
         &-size-medium {
@@ -704,20 +717,20 @@
     }
     .pui-pick-date-range-disabled {
       &-size-medium {
-        height: 48px;
+        height: 46px;
       }
       &-size-small {
-        height: 36px;
+        height: 34px;
       }
     }
     .pui-pick-date-range {
       border: 1px solid $border-color-3;
       cursor: pointer;
       &-size-medium {
-        height: 48px;
+        height: 46px;
       }
       &-size-small {
-        height: 36px;
+        height: 34px;
       }
     }
     .pui-date-picker-icon {

@@ -84,9 +84,9 @@ function jeDatePick(elem, options) {
 
 // 返回日期
 function DateTime(arr, valObj) {
-  const that = this;
-    const newdate = new Date();
-    const narr = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds']
+  const that = this
+  const newdate = new Date()
+  const narr = ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds']
   const vb = jet.extend(
     {
       YYYY: null,
@@ -143,145 +143,145 @@ function DateTime(arr, valObj) {
 }
 
 function searandom() {
-  let str = '';
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  let str = ''
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
   for (let i = 0; i < 8; i++)
     str += arr[Math.round(Math.random() * (arr.length - 1))]
   return str
 }
 
 function jeLunar(ly, lm, ld) {
-  const lunarInfo = [];
-    const sTermInfo = []
-  const Gan = '';
-    const Zhi = '';
-    const Animals = ''
+  const lunarInfo = []
+  const sTermInfo = []
+  const Gan = ''
+  const Zhi = ''
+  const Animals = ''
   const solarTerm = []
-  const nStr1 = '';
-    const nStr2 = '初十廿卅';
-    const nStr3 = [];
-    const sFtv1 = {};
-    const sFtv2 = {}
+  const nStr1 = ''
+  const nStr2 = '初十廿卅'
+  const nStr3 = []
+  const sFtv1 = {}
+  const sFtv2 = {}
   function flunar(Y) {
     const sTerm = function (j, i) {
-        const h = new Date(
-          31556925974.7 * (j - 1900) +
-            sTermInfo[i] * 60000 +
-            Date.UTC(1900, 0, 6, 2, 5)
-        )
-        return h.getUTCDate()
-      };
-      const d = function (k) {
-        let h;
-          let j = 348
-        for (h = 32768; h > 8; h >>= 1) j += lunarInfo[k - 1900] & h ? 1 : 0
-        return j + b(k)
-      };
-      const ymdCyl = function (h) {
-        return Gan.charAt(h % 10) + Zhi.charAt(h % 12)
-      };
-      var b = function (h) {
-        const islp = g(h) ? (lunarInfo[h - 1900] & 65536 ? 30 : 29) : 0
-        return islp
-      };
-      var g = function (h) {
-        return lunarInfo[h - 1900] & 15
-      };
-      const e = function (i, h) {
-        return lunarInfo[i - 1900] & (65536 >> h) ? 30 : 29
-      };
-      const newymd = function (m) {
-        let k;
-          let j = 0;
-          let h = 0;
-          const l = new Date(1900, 0, 31);
-          let n = (m - l) / 86400000
-        this.dayCyl = n + 40
-        this.monCyl = 14
-        for (k = 1900; k < 2050 && n > 0; k++) {
-          h = d(k)
-          n -= h
-          this.monCyl += 12
+      const h = new Date(
+        31556925974.7 * (j - 1900) +
+          sTermInfo[i] * 60000 +
+          Date.UTC(1900, 0, 6, 2, 5)
+      )
+      return h.getUTCDate()
+    }
+    const d = function (k) {
+      let h
+      let j = 348
+      for (h = 32768; h > 8; h >>= 1) j += lunarInfo[k - 1900] & h ? 1 : 0
+      return j + b(k)
+    }
+    const ymdCyl = function (h) {
+      return Gan.charAt(h % 10) + Zhi.charAt(h % 12)
+    }
+    var b = function (h) {
+      const islp = g(h) ? (lunarInfo[h - 1900] & 65536 ? 30 : 29) : 0
+      return islp
+    }
+    var g = function (h) {
+      return lunarInfo[h - 1900] & 15
+    }
+    const e = function (i, h) {
+      return lunarInfo[i - 1900] & (65536 >> h) ? 30 : 29
+    }
+    const newymd = function (m) {
+      let k
+      let j = 0
+      let h = 0
+      const l = new Date(1900, 0, 31)
+      let n = (m - l) / 86400000
+      this.dayCyl = n + 40
+      this.monCyl = 14
+      for (k = 1900; k < 2050 && n > 0; k++) {
+        h = d(k)
+        n -= h
+        this.monCyl += 12
+      }
+      if (n < 0) {
+        n += h
+        k--
+        this.monCyl -= 12
+      }
+      this.year = k
+      this.yearCyl = k - 1864
+      j = g(k)
+      this.isLeap = false
+      for (k = 1; k < 13 && n > 0; k++) {
+        if (j > 0 && k == j + 1 && this.isLeap == false) {
+          --k
+          this.isLeap = true
+          h = b(this.year)
+        } else {
+          h = e(this.year, k)
         }
-        if (n < 0) {
-          n += h
-          k--
-          this.monCyl -= 12
+        if (this.isLeap == true && k == j + 1) {
+          this.isLeap = false
         }
-        this.year = k
-        this.yearCyl = k - 1864
-        j = g(k)
-        this.isLeap = false
-        for (k = 1; k < 13 && n > 0; k++) {
-          if (j > 0 && k == j + 1 && this.isLeap == false) {
-            --k
-            this.isLeap = true
-            h = b(this.year)
-          } else {
-            h = e(this.year, k)
-          }
-          if (this.isLeap == true && k == j + 1) {
-            this.isLeap = false
-          }
-          n -= h
-          if (this.isLeap == false) this.monCyl++
-        }
-        if (n == 0 && j > 0 && k == j + 1) {
-          if (this.isLeap) {
-            this.isLeap = false
-          } else {
-            this.isLeap = true
-            --k
-            --this.monCyl
-          }
-        }
-        if (n < 0) {
-          n += h
+        n -= h
+        if (this.isLeap == false) this.monCyl++
+      }
+      if (n == 0 && j > 0 && k == j + 1) {
+        if (this.isLeap) {
+          this.isLeap = false
+        } else {
+          this.isLeap = true
           --k
           --this.monCyl
         }
-        this.month = k
-        this.day = n + 1
-      };
-      const digit = function (num) {
-        return num < 10 ? '0' + (num | 0) : num
-      };
-      const reymd = function (i, j) {
-        const h = i
-        return j.replace(/dd?d?d?|MM?M?M?|yy?y?y?/g, (k) => {
-          switch (k) {
-            case 'yyyy':
-              var l = '000' + h.getFullYear()
-              return l.substring(l.length - 4)
-            case 'dd':
-              return digit(h.getDate())
-            case 'd':
-              return h.getDate().toString()
-            case 'MM':
-              return digit(h.getMonth() + 1)
-            case 'M':
-              return h.getMonth() + 1
-          }
-        })
-      };
-      const lunarMD = function (i, h) {
-        let j
-        switch ((i, h)) {
-          case 10:
-            j = '初十'
-            break
-          case 20:
-            j = '二十'
-            break
-          case 30:
-            j = '三十'
-            break
-          default:
-            j = nStr2.charAt(Math.floor(h / 10))
-            j += nStr1.charAt(h % 10)
-        }
-        return j
       }
+      if (n < 0) {
+        n += h
+        --k
+        --this.monCyl
+      }
+      this.month = k
+      this.day = n + 1
+    }
+    const digit = function (num) {
+      return num < 10 ? '0' + (num | 0) : num
+    }
+    const reymd = function (i, j) {
+      const h = i
+      return j.replace(/dd?d?d?|MM?M?M?|yy?y?y?/g, k => {
+        switch (k) {
+          case 'yyyy':
+            var l = '000' + h.getFullYear()
+            return l.substring(l.length - 4)
+          case 'dd':
+            return digit(h.getDate())
+          case 'd':
+            return h.getDate().toString()
+          case 'MM':
+            return digit(h.getMonth() + 1)
+          case 'M':
+            return h.getMonth() + 1
+        }
+      })
+    }
+    const lunarMD = function (i, h) {
+      let j
+      switch ((i, h)) {
+        case 10:
+          j = '初十'
+          break
+        case 20:
+          j = '二十'
+          break
+        case 30:
+          j = '三十'
+          break
+        default:
+          j = nStr2.charAt(Math.floor(h / 10))
+          j += nStr1.charAt(h % 10)
+      }
+      return j
+    }
     this.isToday = false
     this.isRestDay = false
     this.solarYear = reymd(Y, 'yyyy')
@@ -321,9 +321,9 @@ function jeLunar(ly, lm, ld) {
     if (typeof this.solarFestival === 'undefined') {
       this.solarFestival = ''
     } else if (/\*(\d)/.test(this.solarFestival)) {
-        this.restDays = parseInt(RegExp.$1)
-        this.solarFestival = this.solarFestival.replace(/\*\d/, '')
-      }
+      this.restDays = parseInt(RegExp.$1)
+      this.solarFestival = this.solarFestival.replace(/\*\d/, '')
+    }
     this.showInLunar =
       this.solarFestival == '' ? this.showInLunar : this.solarFestival
     this.lunarFestival =
@@ -335,12 +335,12 @@ function jeLunar(ly, lm, ld) {
     if (typeof this.lunarFestival === 'undefined') {
       this.lunarFestival = ''
     } else if (/\*(\d)/.test(this.lunarFestival)) {
-        this.restDays =
-          this.restDays > parseInt(RegExp.$1)
-            ? this.restDays
-            : parseInt(RegExp.$1)
-        this.lunarFestival = this.lunarFestival.replace(/\*\d/, '')
-      }
+      this.restDays =
+        this.restDays > parseInt(RegExp.$1)
+          ? this.restDays
+          : parseInt(RegExp.$1)
+      this.lunarFestival = this.lunarFestival.replace(/\*\d/, '')
+    }
     if (this.lunarMonth == 12 && this.lunarDate == e(this.lunarYear, 12)) {
       this.lunarFestival = sFtv2['0100']
       this.restDays = 1
@@ -352,15 +352,15 @@ function jeLunar(ly, lm, ld) {
 }
 
 function puiDate(elem, options) {
-  var doc = document;
-    const win = window
-  var doc = document;
-    // regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz',
-    const gr = /\-/g;
-    const regymd = 'YYYY|MM|DD|hh|mm|ss|zz'.replace('|zz', '');
-    const parseInt = function (n) {
-      return window.parseInt(n, 10)
-    }
+  var doc = document
+  const win = window
+  var doc = document
+  // regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz',
+  const gr = /\-/g
+  const regymd = 'YYYY|MM|DD|hh|mm|ss|zz'.replace('|zz', '')
+  const parseInt = function (n) {
+    return window.parseInt(n, 10)
+  }
 
   puiDateObj = (function (elem, options) {
     const opts = typeof options === 'function' ? options() : options
@@ -371,14 +371,14 @@ function puiDate(elem, options) {
 puiDateObj.dateVer = 'V6.5.0'
 // 用一个或多个其他对象来扩展一个对象，返回被扩展的对象
 puiDateObj.extend = jet.extend = function () {
-  let options;
-    let name;
-    let src;
-    let copy;
-    let deep = false;
-    let target = arguments[0];
-    let i = 1;
-    const length = arguments.length
+  let options
+  let name
+  let src
+  let copy
+  let deep = false
+  let target = arguments[0]
+  let i = 1
+  const length = arguments.length
   if (typeof target === 'boolean')
     (deep = target), (target = arguments[1] || {}), (i = 2)
   if (typeof target !== 'object' && typeof target !== 'function') target = {}
@@ -404,20 +404,20 @@ puiDateObj.nowDate = function (val, format) {
 puiDateObj.convert = function (obj) {
   obj.format = obj.format || 'YYYY-MM-DD hh:mm'
   obj.addval = obj.addval || []
-  const mats = jet.reMatch(obj.format);
-    const objVal = {}
+  const mats = jet.reMatch(obj.format)
+  const objVal = {}
   jet.each(jet.reMatch(obj.val), (i, cval) => {
     objVal[mats[i]] = parseInt(cval)
   })
-  const result = new DateTime(obj.addval, objVal);
-    const redate = {
-      YYYY: result.GetYear(),
-      MM: result.GetMonth(),
-      DD: result.GetDate(),
-      hh: result.GetHours(),
-      mm: result.GetMinutes(),
-      ss: result.GetSeconds()
-    }
+  const result = new DateTime(obj.addval, objVal)
+  const redate = {
+    YYYY: result.GetYear(),
+    MM: result.GetMonth(),
+    DD: result.GetDate(),
+    hh: result.GetHours(),
+    mm: result.GetMinutes(),
+    ss: result.GetSeconds()
+  }
   return redate
 }
 puiDateObj.valText = function (elem, value) {
@@ -453,16 +453,16 @@ puiDateObj.timeStampDate = function (date, format) {
     )
   } else {
     // 将日期转换成时间戳
-    const arrs = jet.reMatch(date);
-      const newdate = new Date(
-        arrs[0],
-        arrs[1] - 1,
-        arrs[2],
-        arrs[3] || 0,
-        arrs[4] || 0,
-        arrs[5] || 0
-      );
-      const timeStr = Math.round(newdate.getTime() / 1000)
+    const arrs = jet.reMatch(date)
+    const newdate = new Date(
+      arrs[0],
+      arrs[1] - 1,
+      arrs[2],
+      arrs[3] || 0,
+      arrs[4] || 0,
+      arrs[5] || 0
+    )
+    const timeStr = Math.round(newdate.getTime() / 1000)
     return timeStr
   }
 }
@@ -488,10 +488,10 @@ puiDateObj.parse = jet.parse = function (ymdhms, format) {
 }
 
 jet.extend(jet, {
-  isType (obj, type) {
+  isType(obj, type) {
     const firstUper = function (str) {
       str = str.toLowerCase()
-      return str.replace(/\b(\w)|\s(\w)/g, (m) => {
+      return str.replace(/\b(\w)|\s(\w)/g, m => {
         return m.toUpperCase()
       })
     }
@@ -499,11 +499,11 @@ jet.extend(jet, {
       Object.prototype.toString.call(obj) == '[object ' + firstUper(type) + ']'
     )
   },
-  each (obj, callback, args) {
-    let name;
-      let i = 0;
-      const length = obj.length;
-      const iselem = length === undefined || obj === 'function'
+  each(obj, callback, args) {
+    let name
+    let i = 0
+    const length = obj.length
+    const iselem = length === undefined || obj === 'function'
     if (iselem) {
       for (name in obj) {
         if (callback.call(obj[name], name, obj[name]) === false) {
@@ -519,7 +519,7 @@ jet.extend(jet, {
     }
     return obj
   },
-  on (elm, type, fn) {
+  on(elm, type, fn) {
     if (elm.addEventListener) {
       elm.addEventListener(type, fn, false) // DOM2.0
       return true
@@ -529,19 +529,19 @@ jet.extend(jet, {
       elm['on' + type] = fn // DOM 0
     }
   },
-  isObj (obj) {
+  isObj(obj) {
     for (const i in obj) {
       return true
     }
     return false
   },
-  trim (str) {
+  trim(str) {
     return str.replace(/(^\s*)|(\s*$)/g, '')
   },
-  reMatch (str) {
-    const smarr = [];
-      let maStr = '';
-      const parti = /(^\w{4}|\w{2}\B)/g
+  reMatch(str) {
+    const smarr = []
+    let maStr = ''
+    const parti = /(^\w{4}|\w{2}\B)/g
     if (jet.isNum(str)) {
       maStr = str.replace(parti, '$1-')
     } else {
@@ -552,7 +552,7 @@ jet.extend(jet, {
     })
     return smarr
   },
-  equals (arrA, arrB) {
+  equals(arrA, arrB) {
     if (!arrB) return false
     if (arrA.length != arrB.length) return false
     for (let i = 0, l = arrA.length; i < l; i++) {
@@ -564,25 +564,25 @@ jet.extend(jet, {
     }
     return true
   },
-  docScroll (type) {
+  docScroll(type) {
     type = type ? 'scrollLeft' : 'scrollTop'
     return document.body[type] | document.documentElement[type]
   },
-  docArea (type) {
+  docArea(type) {
     return document.documentElement[type ? 'clientWidth' : 'clientHeight']
   },
   // 补齐数位
-  digit (num) {
+  digit(num) {
     return num < 10 ? '0' + (num | 0) : num
   },
   // 判断是否为数字
-  isNum (value) {
+  isNum(value) {
     return !!/^[+-]?\d*\.?\d*$/.test(value)
   },
   // 获取本月的总天数
-  getDaysNum (y, m) {
-    let num = 31;
-      const isLeap = (y % 100 !== 0 && y % 4 === 0) || y % 400 === 0
+  getDaysNum(y, m) {
+    let num = 31
+    const isLeap = (y % 100 !== 0 && y % 4 === 0) || y % 400 === 0
     switch (parseInt(m)) {
       case 2:
         num = isLeap ? 29 : 28
@@ -597,7 +597,7 @@ jet.extend(jet, {
     return num
   },
   // 获取月与年
-  getYM (y, m, n) {
+  getYM(y, m, n) {
     if (!y) {
       y = new Date().getFullYear()
     }
@@ -612,17 +612,17 @@ jet.extend(jet, {
     }
   },
   // 获取上个月
-  prevMonth (y, m, n) {
+  prevMonth(y, m, n) {
     return jet.getYM(y, m, 0 - (n || 1))
   },
   // 获取下个月
-  nextMonth (y, m, n) {
+  nextMonth(y, m, n) {
     return jet.getYM(y, m, n || 1)
   },
-  setCss (elem, obj) {
+  setCss(elem, obj) {
     for (const x in obj) elem.style[x] = obj[x]
   },
-  html (elem, html) {
+  html(elem, html) {
     return typeof html === 'undefined'
       ? elem && elem.nodeType === 1
         ? elem.innerHTML
@@ -634,7 +634,7 @@ jet.extend(jet, {
       : (elem.innerHTML = html)
   },
   // 读取设置节点文本内容
-  text (elem, value) {
+  text(elem, value) {
     const innText = document.all ? 'innerText' : 'textContent'
     return typeof value === 'undefined'
       ? elem && elem.nodeType === 1
@@ -643,7 +643,7 @@ jet.extend(jet, {
       : (elem[innText] = value)
   },
   // 设置值
-  val (elem, value) {
+  val(elem, value) {
     if (typeof value === 'undefined') {
       return elem && elem.nodeType === 1 && typeof elem.value !== 'undefined'
         ? elem.value
@@ -653,80 +653,80 @@ jet.extend(jet, {
     value = value == null ? '' : value + ''
     elem.value = value
   },
-  attr (elem, value) {
+  attr(elem, value) {
     return elem.getAttribute(value)
   },
-  hasClass (obj, cls) {
+  hasClass(obj, cls) {
     return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
   },
-  stopPropagation (ev) {
+  stopPropagation(ev) {
     ev && ev.stopPropagation
       ? ev.stopPropagation()
       : (window.event.cancelBubble = true)
   },
-  template (str, data) {
+  template(str, data) {
     const strCell = !/[^\w\-\.:]/.test(str) ? $I(str).innerHTML : str
     const keys = function (obj) {
-        const arr = []
-        for (arr[arr.length] in obj);
-        return arr
-      };
-      const dataVar = function (obj) {
-        let vars = ''
-        for (const key in obj) {
-          vars += 'var ' + key + '= $D["' + key + '"];'
-        }
-        return vars
-      };
-      const compile = function (source, data) {
-        const code =
-          "var $out='" +
-          source
-            .replace(/[\r\n]/g, '')
-            .replace(/^(.+?)\{\%|\%\}(.+?)\{\%|\%\}(.+?)$/g, (val) => {
-              return val.replace(/(['"])/g, '\\$1')
-            })
-            .replace(/\{\%\s*=\s*(.+?)\%\}/g, "';$out+=$1;$out+='")
-            .replace(/\{\%(.+?)\%\}/g, "';$1;$out+='") +
-          "';return new String($out);"
-        const vars = dataVar(data);
-          const Render = new Function('$D', vars + code)
-        return new Render(data) + ''
+      const arr = []
+      for (arr[arr.length] in obj);
+      return arr
+    }
+    const dataVar = function (obj) {
+      let vars = ''
+      for (const key in obj) {
+        vars += 'var ' + key + '= $D["' + key + '"];'
       }
+      return vars
+    }
+    const compile = function (source, data) {
+      const code =
+        "var $out='" +
+        source
+          .replace(/[\r\n]/g, '')
+          .replace(/^(.+?)\{\%|\%\}(.+?)\{\%|\%\}(.+?)$/g, val => {
+            return val.replace(/(['"])/g, '\\$1')
+          })
+          .replace(/\{\%\s*=\s*(.+?)\%\}/g, "';$out+=$1;$out+='")
+          .replace(/\{\%(.+?)\%\}/g, "';$1;$out+='") +
+        "';return new String($out);"
+      const vars = dataVar(data)
+      const Render = new Function('$D', vars + code)
+      return new Render(data) + ''
+    }
     return compile(strCell, data)
   },
 
   // 判断元素类型
-  isValDiv (elem) {
+  isValDiv(elem) {
     return /textarea|input/.test(elem.tagName.toLocaleLowerCase())
   },
-  valText (elem, value) {
-    const cell = $Q(elem);
-      const type = jet.isValDiv(cell) ? 'val' : 'text'
+  valText(elem, value) {
+    const cell = $Q(elem)
+    const type = jet.isValDiv(cell) ? 'val' : 'text'
     if (value != undefined) {
       jet[type](cell, value)
     } else {
       return jet[type](cell)
     }
   },
-  isBool (obj) {
+  isBool(obj) {
     return !!(obj == undefined || obj == true)
   },
   // 获取返回的日期
-  getDateTime (obj) {
-    const result = new DateTime();
-      const objVal = jet.extend(
-        { YYYY: null, MM: null, DD: null, hh: 0, mm: 0, ss: 0 },
-        obj
-      );
-      const matArr = {
-        YYYY: 'FullYear',
-        MM: 'Month',
-        DD: 'Date',
-        hh: 'Hours',
-        mm: 'Minutes',
-        ss: 'Seconds'
-      }
+  getDateTime(obj) {
+    const result = new DateTime()
+    const objVal = jet.extend(
+      { YYYY: null, MM: null, DD: null, hh: 0, mm: 0, ss: 0 },
+      obj
+    )
+    const matArr = {
+      YYYY: 'FullYear',
+      MM: 'Month',
+      DD: 'Date',
+      hh: 'Hours',
+      mm: 'Minutes',
+      ss: 'Seconds'
+    }
     jet.each(['ss', 'mm', 'hh', 'DD', 'MM', 'YYYY'], (i, mat) => {
       if (!jet.isNum(parseInt(objVal[mat]))) return null
       const reVal = result.GetValue()
@@ -751,23 +751,22 @@ jet.extend(jet, {
   }
 })
 
-const jefix = 'jefixed';
-  const ymdzArr = jet.reMatch(regymdzz);
-  const elx = '#pui-pick-date'
+const jefix = 'jefixed'
+const ymdzArr = jet.reMatch(regymdzz)
+const elx = '#pui-pick-date'
 jet.extend(jeDatePick.prototype, {
-  init () {
-    const that = this;
-      const opts = that.$opts;
-      const newDate = new Date();
-      const shortArr = [];
-      const trigges = opts.trigger;
-      const ndate = opts.initDate || [];
-      let inVal;
-      const range = opts.range;
-      const zIndex = opts.zIndex == undefined ? 10000 : opts.zIndex;
-      const isShow = jet.isBool(opts.isShow);
-      const isinitVal =
-        !(opts.isinitVal == undefined || opts.isinitVal == false)
+  init() {
+    const that = this
+    const opts = that.$opts
+    const newDate = new Date()
+    const shortArr = []
+    const trigges = opts.trigger
+    const ndate = opts.initDate || []
+    let inVal
+    const range = opts.range
+    const zIndex = opts.zIndex == undefined ? 10000 : opts.zIndex
+    const isShow = jet.isBool(opts.isShow)
+    const isinitVal = !(opts.isinitVal == undefined || opts.isinitVal == false)
     that.setDatas()
     opts.before && opts.before(that.valCell)
     // 为开启初始化的时间设置值
@@ -791,66 +790,65 @@ jet.extend(jeDatePick.prototype, {
     }
 
     const getCurrValue = function () {
-        const mats = jet.reMatch(that.format);
-          const isEmpty = that.getValue() != '';
-          let curVal = [];
-          const parmat =
-            that.dlen == 7
-              ? 'hh:mm:ss'
-              : 'YYYY-MM' + (that.dlen <= 2 ? '' : '-DD')
-        let result = that.valCell.value
-        if (!result) {
-          that.selectValue = [jet.parse(jet.getDateTime({}), parmat)]
-        } else {
-          result = result.substr(0, 11)
-          let nowTime = [jet.parse(jet.getDateTime({}), parmat)]
-          nowTime = nowTime[0]
-          const time1 = new Date(result).setHours('0')
-          const time2 = new Date(nowTime).setHours('0')
-          const nDays = parseInt((time1 - time2) / 1000 / 3600 / 24)
-          const redate = {
-            DD: nDays
-          }
-          that.selectValue = [jet.parse(jet.getDateTime(redate), parmat)]
+      const mats = jet.reMatch(that.format)
+      const isEmpty = that.getValue() != ''
+      let curVal = []
+      const parmat =
+        that.dlen == 7 ? 'hh:mm:ss' : 'YYYY-MM' + (that.dlen <= 2 ? '' : '-DD')
+      let result = that.valCell.value
+      if (!result) {
+        that.selectValue = [jet.parse(jet.getDateTime({}), parmat)]
+      } else {
+        result = result.substr(0, 11)
+        let nowTime = [jet.parse(jet.getDateTime({}), parmat)]
+        nowTime = nowTime[0]
+        const time1 = new Date(result).setHours('0')
+        const time2 = new Date(nowTime).setHours('0')
+        const nDays = parseInt((time1 - time2) / 1000 / 3600 / 24)
+        const redate = {
+          DD: nDays
         }
+        that.selectValue = [jet.parse(jet.getDateTime(redate), parmat)]
+      }
 
-        if (isEmpty && isShow) {
-          let getVal = ''
-          let getValEnd = ''
-          if (!that.valCell.id.endsWith('posend')) {
-            getVal = that.getValue().split(range)
-            getValEnd =
-              $I(that.valCell.id + 'posend') &&
-              $I(that.valCell.id + 'posend').value // $Q(that.valCell.id + 'end').getValue();
-          } else {
-            getVal = document
-              .getElementById(that.valCell.id.replace('posend', ''))
-              .value.split(range)
-            getValEnd = $I(that.valCell.id).value
-          }
-          jet.each(new Array(range ? 2 : 1), (a) => {
-            curVal[a] = {}
-            if (a === 1) getVal[a] = getValEnd
-            if (getVal[a] != '') {
-              jet.each(jet.reMatch(getVal[a]), (i, val) => {
-                curVal[a][mats[i]] = parseInt(val)
-              })
-            }
-          })
-          if (range) that.selectValue = getVal
+      if (isEmpty && isShow) {
+        let getVal = ''
+        let getValEnd = ''
+        if (!that.valCell.id.endsWith('posend')) {
+          getVal = that.getValue().split(range)
+          getValEnd =
+            $I(that.valCell.id + 'posend') &&
+            $I(that.valCell.id + 'posend').value // $Q(that.valCell.id + 'end').getValue();
         } else {
-          const parr = that.getValue({})[0];
-            const nmVal = jet.nextMonth(parr.YYYY, parr.MM || jet.getDateTime({}).MM);
-            const narr =
-              that.dlen > 2 && that.dlen <= 6
-                ? { YYYY: nmVal.y, MM: nmVal.m }
-                : {}
-          curVal = [parr]
+          getVal = document
+            .getElementById(that.valCell.id.replace('posend', ''))
+            .value.split(range)
+          getValEnd = $I(that.valCell.id).value
         }
-        that.selectDate = curVal
-        return curVal
-      };
-      let ymarr = []
+        jet.each(new Array(range ? 2 : 1), a => {
+          curVal[a] = {}
+          if (a === 1) getVal[a] = getValEnd
+          if (getVal[a] != '') {
+            jet.each(jet.reMatch(getVal[a]), (i, val) => {
+              curVal[a][mats[i]] = parseInt(val)
+            })
+          }
+        })
+        if (range) that.selectValue = getVal
+      } else {
+        const parr = that.getValue({})[0]
+        const nmVal = jet.nextMonth(
+          parr.YYYY,
+          parr.MM || jet.getDateTime({}).MM
+        )
+        const narr =
+          that.dlen > 2 && that.dlen <= 6 ? { YYYY: nmVal.y, MM: nmVal.m } : {}
+        curVal = [parr]
+      }
+      that.selectDate = curVal
+      return curVal
+    }
+    let ymarr = []
     that.minDate = ''
     that.maxDate = ''
     if (!isShow || !trigges) ymarr = getCurrValue()
@@ -866,27 +864,27 @@ jet.extend(jeDatePick.prototype, {
       opts.succeed && opts.succeed(that.dateCell)
       // console.log('render...end', that)
     } else if (trigges) {
-        jet.on(that.valCell, trigges, () => {
-          if (document.querySelectorAll(elx).length > 0) return
-          const gvarr = getCurrValue()
-          that.minDate = jet.isType(opts.minDate, 'function')
-            ? opts.minDate(that)
-            : opts.minDate
-          that.maxDate = jet.isType(opts.maxDate, 'function')
-            ? opts.maxDate(that)
-            : opts.maxDate
-          that.storeData(gvarr[0], gvarr[1])
-          that.renderDate(2)
-        })
-      }
+      jet.on(that.valCell, trigges, () => {
+        if (document.querySelectorAll(elx).length > 0) return
+        const gvarr = getCurrValue()
+        that.minDate = jet.isType(opts.minDate, 'function')
+          ? opts.minDate(that)
+          : opts.minDate
+        that.maxDate = jet.isType(opts.maxDate, 'function')
+          ? opts.maxDate(that)
+          : opts.maxDate
+        that.storeData(gvarr[0], gvarr[1])
+        that.renderDate(2)
+      })
+    }
   },
-  setDatas () {
-    const that = this;
-      const opts = that.$opts;
-      const range = opts.range;
-      const shortArr = [];
-      const isShow = jet.isBool(opts.isShow);
-      const multi = opts.multiPane
+  setDatas() {
+    const that = this
+    const opts = that.$opts
+    const range = opts.range
+    const shortArr = []
+    const isShow = jet.isBool(opts.isShow)
+    const multi = opts.multiPane
     that.$data = jet.extend(
       { year: false, month: false, day: true, time: false, timebtn: false },
       {
@@ -904,8 +902,10 @@ jet.extend(jeDatePick.prototype, {
     )
     if (opts.shortcut.length > 0) {
       jet.each(opts.shortcut, (i, short) => {
-        const tarr = [];
-          const shval = jet.isType(short.val, 'function') ? short.val() : short.val
+        const tarr = []
+        const shval = jet.isType(short.val, 'function')
+          ? short.val()
+          : short.val
         if (jet.isType(shval, 'object')) {
           for (const s in shval) tarr.push(s + ':' + shval[s])
           shortArr.push(
@@ -919,15 +919,15 @@ jet.extend(jeDatePick.prototype, {
       that.$data.shortcut = shortArr
     }
     that.dlen = (function () {
-      const mats = jet.reMatch(that.format);
-        const marr = []
+      const mats = jet.reMatch(that.format)
+      const marr = []
       jet.each(ymdzArr, (i, val) => {
         jet.each(mats, (m, mval) => {
           if (val == mval) marr.push(mval)
         })
       })
-      const matlen = marr.length;
-        const lens = marr[0] == 'hh' && matlen <= 3 ? 7 : matlen
+      const matlen = marr.length
+      const lens = marr[0] == 'hh' && matlen <= 3 ? 7 : matlen
       return lens
     })()
     that.$data.dlen = that.dlen
@@ -947,12 +947,12 @@ jet.extend(jeDatePick.prototype, {
     }
   },
 
-  renderDate (x) {
-    const that = this;
-      const opts = that.$opts;
-      const isShow = jet.isBool(opts.isShow);
-      const elxID = !isShow ? elx + searandom() : elx;
-      const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
+  renderDate(x) {
+    const that = this
+    const opts = that.$opts
+    const isShow = jet.isBool(opts.isShow)
+    const elxID = !isShow ? elx + searandom() : elx
+    const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
     // console.log('renderDate', x)
     if (that.dateCell == undefined) {
       that.dateCell = document.createElement('div')
@@ -995,12 +995,12 @@ jet.extend(jeDatePick.prototype, {
     }
     // 自定义主题色
     if (jet.isObj(opts.theme)) {
-      const styleDiv = document.createElement('style');
-        const stCell = '.pui-pick-date' + searandom();
-        const t = opts.theme;
-        const BG = 'background-color:' + t.bgcolor;
-        const WC = 'color:' + (t.color == undefined ? '#FFFFFF' : t.color);
-        const OTH = t.pnColor == undefined ? '' : 'color:' + t.pnColor + ';'
+      const styleDiv = document.createElement('style')
+      const stCell = '.pui-pick-date' + searandom()
+      const t = opts.theme
+      const BG = 'background-color:' + t.bgcolor
+      const WC = 'color:' + (t.color == undefined ? '#FFFFFF' : t.color)
+      const OTH = t.pnColor == undefined ? '' : 'color:' + t.pnColor + ';'
       that.dateCell.className =
         that.dateCell.className + ' ' + stCell.replace(/^./g, '')
       styleDiv.setAttribute('type', 'text/css')
@@ -1127,17 +1127,17 @@ jet.extend(jeDatePick.prototype, {
     }
   },
   // 设置日期值
-  setValue (fnStr, matStr, bool) {
-    const that = this;
-      const valCell = that.valCell;
-      let strVal
+  setValue(fnStr, matStr, bool) {
+    const that = this
+    const valCell = that.valCell
+    let strVal
     matStr = matStr || that.format
     if (typeof fnStr === 'string' && fnStr != '') {
-      const sprange = fnStr.split(that.$opts.range);
-        const inArr = []
+      const sprange = fnStr.split(that.$opts.range)
+      const inArr = []
       jet.each(sprange, (i, sval) => {
-        const reVal = jet.reMatch(sval);
-          const inObj = {}
+        const reVal = jet.reMatch(sval)
+        const inObj = {}
         jet.each(jet.reMatch(matStr), (r, val) => {
           inObj[val] = reVal[r]
         })
@@ -1152,53 +1152,56 @@ jet.extend(jeDatePick.prototype, {
     return vals
   },
   // 获取日期值
-  getValue (valobj) {
-    const that = this;
-      const valCell = that.valCell;
-      const opts = that.$opts;
-      let reObj;
-      const result = new DateTime().reDate();
-      const dateY = result.GetYear();
-      const dateM = result.GetMonth();
-      const dateD = result.GetDate();
-      const timeh = result.GetHours();
-      const timem = result.GetMinutes();
-      const times = result.GetSeconds()
+  getValue(valobj) {
+    const that = this
+    const valCell = that.valCell
+    const opts = that.$opts
+    let reObj
+    const result = new DateTime().reDate()
+    const dateY = result.GetYear()
+    const dateM = result.GetMonth()
+    const dateD = result.GetDate()
+    const timeh = result.GetHours()
+    const timem = result.GetMinutes()
+    const times = result.GetSeconds()
     if (valobj == undefined && jet.isBool(opts.isShow)) {
       reObj = jet.valText(valCell)
     } else {
       const isValShow = jet.isBool(opts.isShow)
-          ? jet.valText(valCell) == ''
-          : !jet.isBool(opts.isShow);
-        const objarr = jet.extend({ YYYY: null, MM: null, DD: null }, valobj || {});
-        const ranMat = [];
-        const newArr = new Array(2);
-        const unObj = function (obj) {
-          return [objarr[obj] == undefined || objarr[obj] == null, objarr[obj]]
-        };
-        const defObj = [
-          {
-            YYYY: dateY,
-            MM: dateM,
-            DD: dateD,
-            hh: timeh,
-            mm: timem,
-            ss: times,
-            zz: '00'
-          },
-          {
-            YYYY: dateY,
-            MM: dateM,
-            DD: dateD,
-            hh: timeh,
-            mm: timem,
-            ss: times,
-            zz: '00'
-          }
-        ]
+        ? jet.valText(valCell) == ''
+        : !jet.isBool(opts.isShow)
+      const objarr = jet.extend(
+        { YYYY: null, MM: null, DD: null },
+        valobj || {}
+      )
+      const ranMat = []
+      const newArr = new Array(2)
+      const unObj = function (obj) {
+        return [objarr[obj] == undefined || objarr[obj] == null, objarr[obj]]
+      }
+      const defObj = [
+        {
+          YYYY: dateY,
+          MM: dateM,
+          DD: dateD,
+          hh: timeh,
+          mm: timem,
+          ss: times,
+          zz: '00'
+        },
+        {
+          YYYY: dateY,
+          MM: dateM,
+          DD: dateD,
+          hh: timeh,
+          mm: timem,
+          ss: times,
+          zz: '00'
+        }
+      ]
       if (isValShow) {
         // 目标为空值则获取当前日期时间
-        jet.each(newArr, (i) => {
+        jet.each(newArr, i => {
           const inObj = {}
           jet.each(ymdzArr, (r, val) => {
             inObj[val] = parseInt(
@@ -1208,13 +1211,13 @@ jet.extend(jeDatePick.prototype, {
           ranMat.push(jet.extend(defObj[i], inObj))
         })
       } else {
-        const isunRange = opts.range != false;
-          const initVal = that.getValue();
-          const spVal = initVal.split(opts.range);
-          const reMat = jet.reMatch(that.format)
-        jet.each(newArr, (i) => {
-          const inObj = {};
-            const reVal = isunRange ? jet.reMatch(spVal[i]) : jet.reMatch(initVal)
+        const isunRange = opts.range != false
+        const initVal = that.getValue()
+        const spVal = initVal.split(opts.range)
+        const reMat = jet.reMatch(that.format)
+        jet.each(newArr, i => {
+          const inObj = {}
+          const reVal = isunRange ? jet.reMatch(spVal[i]) : jet.reMatch(initVal)
           jet.each(reMat, (r, val) => {
             inObj[val] = reVal[r]
           })
@@ -1226,7 +1229,7 @@ jet.extend(jeDatePick.prototype, {
     }
     return reObj
   },
-  storeData (curr, next, need = true) {
+  storeData(curr, next, need = true) {
     const today = new Date()
     if (JSON.stringify(curr) === '{}') {
       curr = {
@@ -1236,29 +1239,29 @@ jet.extend(jeDatePick.prototype, {
       }
     }
     next = next || {}
-    const that = this;
-      const opts = that.$opts;
-      const multi = opts.multiPane;
-      const valCell = that.valCell;
-      const days = new Date().getDate();
-      const DTS = that.$data;
-      const isnext = jet.isObj(next);
-      const RES = {
-        yearlist: [],
-        monthlist: [[], []],
-        daylist: [],
-        daytit: [],
-        timelist: []
-      };
-      let seltime;
-      const cday = curr.DD == null ? days : curr.DD;
-      const nday = next.DD == null ? days : next.DD;
-      const timeA = that.$opts.showSecend
-        ? { hh: curr.hh, mm: curr.mm, ss: curr.ss }
-        : { hh: curr.hh, mm: curr.mm };
-      const timeB = that.$opts.showSecend
-        ? { hh: next.hh || 0, mm: next.mm || 0, ss: next.ss || 0 }
-        : { hh: next.hh || 0, mm: next.mm || 0 }
+    const that = this
+    const opts = that.$opts
+    const multi = opts.multiPane
+    const valCell = that.valCell
+    const days = new Date().getDate()
+    const DTS = that.$data
+    const isnext = jet.isObj(next)
+    const RES = {
+      yearlist: [],
+      monthlist: [[], []],
+      daylist: [],
+      daytit: [],
+      timelist: []
+    }
+    let seltime
+    const cday = curr.DD == null ? days : curr.DD
+    const nday = next.DD == null ? days : next.DD
+    const timeA = that.$opts.showSecend
+      ? { hh: curr.hh, mm: curr.mm, ss: curr.ss }
+      : { hh: curr.hh, mm: curr.mm }
+    const timeB = that.$opts.showSecend
+      ? { hh: next.hh || 0, mm: next.mm || 0, ss: next.ss || 0 }
+      : { hh: next.hh || 0, mm: next.mm || 0 }
     if (!need && that.$data.yearlist.length > 0) {
       // 设置年的数据
       RES.yearlist.push(that.eachYear(parseInt(that.$data.yearlist[0][0].y), 1))
@@ -1299,21 +1302,21 @@ jet.extend(jeDatePick.prototype, {
     // 最后将数据合并于总数据中
     jet.extend(that.$data, RES)
   },
-  dateTemplate () {
-    const that = this;
-      const opts = that.$opts;
-      const multi = opts.multiPane;
-      let YMDStr = '';
-      let hmsStr = '';
-      const lang = opts.language;
-      const ytxt = lang.name == 'cn' ? '年' : '';
-      const mtxt = lang.name == 'cn' ? '月' : ''
+  dateTemplate() {
+    const that = this
+    const opts = that.$opts
+    const multi = opts.multiPane
+    let YMDStr = ''
+    let hmsStr = ''
+    const lang = opts.language
+    const ytxt = lang.name == 'cn' ? '年' : ''
+    const mtxt = lang.name == 'cn' ? '月' : ''
     const ymvals = multi
       ? '{%=ymlist[0].YYYY%}-{%=ymlist[0].MM%}'
       : '{%=ymlist[0].YYYY%}-{%=ymlist[0].MM%}#{%=ymlist[ynidx].YYYY%}-{%=ymlist[ynidx].MM%}'
     const aowArr = (function () {
-      let butArr = [];
-        const ismu = multi ? '11' : '23'
+      let butArr = []
+      const ismu = multi ? '11' : '23'
       if (that.dlen == 1) {
         butArr = [
           '{%=yearlist[i][0].y-' + ismu + '%}',
@@ -1333,33 +1336,33 @@ jet.extend(jeDatePick.prototype, {
     })()
 
     const lyPrev =
-        '<em class="yearprev yprev " style="margin-left:12px" @on="yearBtn(lprev,' +
-        aowArr[0] +
-        ')">' +
-        opts.yearIcon +
-        '</em>';
-      const lyNext =
-        '<em class="yearnext ynext" on="yearBtn(lnext,' +
-        aowArr[2] +
-        ')">&#xed6c5;</em>';
-      const ryPrev =
-        '<em class="yearprev yprev" on="yearBtn(rprev,' +
-        aowArr[3] +
-        ')">&#xed6c2;</em>';
-      const ryNext =
-        '<em class="yearnext ynext" style="margin-right:12px" @on="yearBtn(rnext,' +
-        aowArr[1] +
-        ')">' +
-        opts.doubleRightIcon +
-        '</em>';
-      const mPrev =
-        '{% if(dlen>2){ %}<em class="monthprev mprev" style="margin-left:18px"  @on="monthBtn(mprev,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
-        opts.singleLeftIcon +
-        '</em>{% } %}';
-      const mNext =
-        '{% if(dlen>2){ %}<em class="monthnext mnext" style="margin-right:18px" @on="monthBtn(mnext,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
-        opts.singleRightIcon +
-        '</em>{% } %}'
+      '<em class="yearprev yprev " style="margin-left:12px" @on="yearBtn(lprev,' +
+      aowArr[0] +
+      ')">' +
+      opts.yearIcon +
+      '</em>'
+    const lyNext =
+      '<em class="yearnext ynext" on="yearBtn(lnext,' +
+      aowArr[2] +
+      ')">&#xed6c5;</em>'
+    const ryPrev =
+      '<em class="yearprev yprev" on="yearBtn(rprev,' +
+      aowArr[3] +
+      ')">&#xed6c2;</em>'
+    const ryNext =
+      '<em class="yearnext ynext" style="margin-right:12px" @on="yearBtn(rnext,' +
+      aowArr[1] +
+      ')">' +
+      opts.doubleRightIcon +
+      '</em>'
+    const mPrev =
+      '{% if(dlen>2){ %}<em class="monthprev mprev" style="margin-left:18px"  @on="monthBtn(mprev,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
+      opts.singleLeftIcon +
+      '</em>{% } %}'
+    const mNext =
+      '{% if(dlen>2){ %}<em class="monthnext mnext" style="margin-right:18px" @on="monthBtn(mnext,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
+      opts.singleRightIcon +
+      '</em>{% } %}'
     // 循环年的模板
     const yaerHtml =
       '<table class="yeartable year{%= i==0 ? "left":"right"%}" style="display:{%=year ? "block":"none"%};"><tbody><tr>' +
@@ -1432,34 +1435,34 @@ jet.extend(jeDatePick.prototype, {
           '</div>{% } %}</div>'
       }
     } else if (opts.multiPane === false) {
-        hmsHtml =
-          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
-          newSize +
-          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
-          newSize +
-          '"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-          '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
-          newSize +
-          '"><ul style="width:' +
-          timeAndSecWidth +
-          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
-          '</div>{% } %}</div>'
-      } else {
-        hmsHtml =
-          '<div class="pui-pick-date-time pui-pick-date-time-size-' +
-          newSize +
-          '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
-          newSize +
-          '"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
-          '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
-          '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
-          newSize +
-          '"><ul style="width:' +
-          timeAndSecWidth +
-          'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
-          '</div>{% } %}</div>'
-      }
+      hmsHtml =
+        '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+        newSize +
+        '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+        newSize +
+        '"><div class="timeheader" style="display:inline-block">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+        '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
+        '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
+        newSize +
+        '"><ul style="width:' +
+        timeAndSecWidth +
+        'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+        '</div>{% } %}</div>'
+    } else {
+      hmsHtml =
+        '<div class="pui-pick-date-time pui-pick-date-time-size-' +
+        newSize +
+        '">{% for(var h=0;h<timelist.length;h++){ %}<div class="timepane timepane-size-' +
+        newSize +
+        '"><div class="timeheader" style="display:none">{%= timelist.length == 1 ? lang.timetxt[0]:lang.timetxt[h+1]%}</div><div class="timecontent">' +
+        '<div class="hmstitle"><p style="width:50%">{%=lang.times[0]%}</p><p style="width:50%">{%=lang.times[1]%}</p></div>' +
+        '<div class="hmslist">{% for(var t=0;t<2;t++){ %}<div class="hmsauto hmsauto-size-' +
+        newSize +
+        '"><ul style="width:' +
+        timeAndSecWidth +
+        'px;" id="hmslist{%=h%}{%=t%}">{% for(var s=0;s<timelist[h][t].length;s++){ %}<li class="{%=timelist[h][t][s].style%}" h={%=h%} t={%=t%} s={%=s%} @on="hmsClick({%= h %},{%= h>0?2+t:t %})">{%= timelist[h][t][s].hms < 10 ? "0" + timelist[h][t][s].hms :timelist[h][t][s].hms %}</li>{% } %}</ul></div>{% } %}</div></div>' +
+        '</div>{% } %}</div>'
+    }
     // 左边选择模板
     const shortHtml =
       opts.shortcut.length > 0
@@ -1561,9 +1564,9 @@ jet.extend(jeDatePick.prototype, {
     )
   },
   // 递归绑定事件
-  compileBindNode (dom) {
-    const self = this;
-      const aton = '@on'
+  compileBindNode(dom) {
+    const self = this
+    const aton = '@on'
     const acquireAttr = function (atVal) {
       let args = /\(.*\)/.exec(atVal)
       if (args) {
@@ -1589,22 +1592,22 @@ jet.extend(jeDatePick.prototype, {
       }
     })
   },
-  methodEventBind () {
-    const that = this;
-      const opts = that.$opts;
-      const multi = opts.multiPane;
-      const DTS = that.$data;
-      const result = new DateTime().reDate();
-      const dateY = result.GetYear();
-      const dateM = result.GetMonth();
-      const dateD = result.GetDate();
-      const range = opts.range;
-      const elCell = that.dateCell
+  methodEventBind() {
+    const that = this
+    const opts = that.$opts
+    const multi = opts.multiPane
+    const DTS = that.$data
+    const result = new DateTime().reDate()
+    const dateY = result.GetYear()
+    const dateM = result.GetMonth()
+    const dateD = result.GetDate()
+    const range = opts.range
+    const elCell = that.dateCell
     jet.extend(that, {
-      yearBtn (type, val) {
-        const yarr = val.split('#');
-          const pval = jet.reMatch(yarr[0]);
-          const tmval = that.selectTime
+      yearBtn(type, val) {
+        const yarr = val.split('#')
+        const pval = jet.reMatch(yarr[0])
+        const tmval = that.selectTime
         const exarr = [
           jet.extend({ YYYY: parseInt(val), MM: dateM, DD: dateD }, tmval[0]),
           {}
@@ -1615,7 +1618,7 @@ jet.extend(jeDatePick.prototype, {
         opts.toggle &&
           opts.toggle({ elem: that.valCell, val: dateVal, date: exarr[0] })
       },
-      yearShow (val) {
+      yearShow(val) {
         DTS.year = !DTS.year
         DTS.month = that.dlen < 3
         if (that.dlen > 2 && that.dlen <= 6) {
@@ -1624,14 +1627,14 @@ jet.extend(jeDatePick.prototype, {
         }
         that.renderDate(4)
       },
-      monthBtn (type, val) {
-        const ymarr = jet.reMatch(val);
-          const tmval = that.selectTime;
-          let exarr = [];
-          let PrevYM;
-          let NextYM;
-          const year = parseInt(ymarr[0]);
-          const month = parseInt(ymarr[1])
+      monthBtn(type, val) {
+        const ymarr = jet.reMatch(val)
+        const tmval = that.selectTime
+        let exarr = []
+        let PrevYM
+        let NextYM
+        const year = parseInt(ymarr[0])
+        const month = parseInt(ymarr[1])
         if (range) {
           if (type == 'mprev') {
             PrevYM = jet.prevMonth(year, month)
@@ -1660,7 +1663,7 @@ jet.extend(jeDatePick.prototype, {
         opts.toggle &&
           opts.toggle({ elem: that.valCell, val: dateVal, date: exarr[0] })
       },
-      monthShow (val) {
+      monthShow(val) {
         DTS.year = false
         DTS.month = !DTS.month
         if (that.dlen > 2 && that.dlen <= 6) {
@@ -1669,22 +1672,22 @@ jet.extend(jeDatePick.prototype, {
         }
         that.renderDate(6)
       },
-      shortClick (val) {
-        const reval = val.replace(/\#/g, ',');
-          const evobj = eval('(' + reval + ')');
-          const gval = jet.getDateTime(evobj);
-          let tmval = that.selectTime
+      shortClick(val) {
+        const reval = val.replace(/\#/g, ',')
+        const evobj = eval('(' + reval + ')')
+        const gval = jet.getDateTime(evobj)
+        let tmval = that.selectTime
 
         that.selectValue = [jet.parse(gval, 'YYYY-MM-DD')]
         that.selectDate = [{ YYYY: gval.YYYY, MM: gval.MM, DD: gval.DD }]
         that.selectTime = [{ hh: gval.hh, mm: gval.mm, ss: gval.ss }]
         tmval = that.selectTime
         if (opts.onClose) {
-          const nYM = jet.nextMonth(gval.YYYY, gval.MM);
-            const ymarr = [
-              { YYYY: gval.YYYY, MM: gval.MM, DD: gval.DD },
-              { YYYY: nYM.y, MM: nYM.m, DD: null }
-            ]
+          const nYM = jet.nextMonth(gval.YYYY, gval.MM)
+          const ymarr = [
+            { YYYY: gval.YYYY, MM: gval.MM, DD: gval.DD },
+            { YYYY: nYM.y, MM: nYM.m, DD: null }
+          ]
           that.storeData(
             jet.extend(ymarr[0], tmval[0]),
             jet.extend(ymarr[1], tmval[1])
@@ -1695,10 +1698,10 @@ jet.extend(jeDatePick.prototype, {
           that.closeDate()
         }
       },
-      yearClick (val) {
+      yearClick(val) {
         if (jet.hasClass(this, 'disabled')) return
-        let yearVal = '';
-          const lens = that.dlen
+        let yearVal = ''
+        const lens = that.dlen
         that.showCurrentDayBg = true
         if (range && lens == 1) {
           const ylen = that.selectValue.length
@@ -1715,8 +1718,8 @@ jet.extend(jeDatePick.prototype, {
               : [that.selectValue[0], val + '-' + jet.digit(dateM)]
 
           if (that.selectValue.length == 2) {
-            const svalarr = [that.selectValue[0], that.selectValue[1]];
-              const newArr = [{}, {}]
+            const svalarr = [that.selectValue[0], that.selectValue[1]]
+            const newArr = [{}, {}]
             svalarr.sort((a, b) => {
               return a > b ? 1 : -1
             })
@@ -1749,11 +1752,11 @@ jet.extend(jeDatePick.prototype, {
         )
         that.renderDate(8)
       },
-      monthClick (val) {
+      monthClick(val) {
         if (jet.hasClass(this, 'disabled')) return
-        const ymval = jet.reMatch(val);
-          const newArr = [{}, {}];
-          const mlen = that.selectValue.length
+        const ymval = jet.reMatch(val)
+        const newArr = [{}, {}]
+        const mlen = that.selectValue.length
         that.showCurrentDayBg = true
         if (range) {
           that.selectDate =
@@ -1800,16 +1803,16 @@ jet.extend(jeDatePick.prototype, {
         )
         that.renderDate(9)
       },
-      daysClick (val) {
+      daysClick(val) {
         if (jet.hasClass(this, 'disabled')) return
-        const tmval = that.selectTime;
-          const matVal = jet.reMatch(val);
-          const slen = that.selectValue.length;
-          let dateVal = '';
-          let newArr = [{}, {}];
-          let sday;
-          let nYM;
-          let ymarr
+        const tmval = that.selectTime
+        const matVal = jet.reMatch(val)
+        const slen = that.selectValue.length
+        let dateVal = ''
+        let newArr = [{}, {}]
+        let sday
+        let nYM
+        let ymarr
         that.showCurrentDayBg = true
         if (range) {
           if (slen == 1) {
@@ -1848,7 +1851,7 @@ jet.extend(jeDatePick.prototype, {
             { YYYY: matVal[0], MM: matVal[1], DD: matVal[2] },
             { YYYY: matVal[0], MM: matVal[1], DD: matVal[2] }
           ]
-          jet.each(new Array(range == false ? 1 : 2), (a) => {
+          jet.each(new Array(range == false ? 1 : 2), a => {
             jet.each(matVal, (i, val) => {
               newArr[a][ymdzArr[i]] = val
             })
@@ -1872,16 +1875,17 @@ jet.extend(jeDatePick.prototype, {
           }
         }
       },
-      hmsClick (idx, num) {
-        const pidx = parseInt(num);
-          const vals = parseInt(jet.text(this));
-          const paridx = parseInt(idx);
-          const act = 'action';
-          const mhms = that.$opts.showSecend ? ['hh', 'mm', 'ss'] : ['hh', 'mm'];
-          const ulCell = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
-            'ul'
-          )[pidx];
-          const tlen = that.$data.timelist[0].length
+      hmsClick(idx, num) {
+        const pidx = parseInt(num)
+        const vals = parseInt(jet.text(this))
+        const paridx = parseInt(idx)
+        const act = 'action'
+        const mhms = that.$opts.showSecend ? ['hh', 'mm', 'ss'] : ['hh', 'mm']
+        const ulCell = $Q(
+          '.pui-pick-date-time',
+          that.dateCell
+        ).querySelectorAll('ul')[pidx]
+        const tlen = that.$data.timelist[0].length
 
         if (jet.hasClass(this, 'disabled')) return
         jet.each(ulCell.childNodes, (i, node) => {
@@ -1920,14 +1924,15 @@ jet.extend(jeDatePick.prototype, {
           // that.renderDate(12)
         }
       },
-      timeBtn () {
-        const timeCell = $Q('.pui-pick-date-time', elCell);
-          const disNo = timeCell.style.display == 'none'
+      timeBtn() {
+        const timeCell = $Q('.pui-pick-date-time', elCell)
+        const disNo = timeCell.style.display == 'none'
         jet.text(this, disNo ? opts.language.backtxt : opts.language.timetxt[0])
         jet.setCss(timeCell, { display: disNo ? 'block' : 'none' })
-        const timeULs = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
-          'ul'
-        )
+        const timeULs = $Q(
+          '.pui-pick-date-time',
+          that.dateCell
+        ).querySelectorAll('ul')
         if (timeULs && timeULs.length > 0) {
           for (let i = 0; i < timeULs.length; i++) {
             const ulCell = timeULs[i]
@@ -1937,7 +1942,7 @@ jet.extend(jeDatePick.prototype, {
         }
       },
       // 清空按钮函数
-      clearBtn () {
+      clearBtn() {
         if (!that.valCell.id.endsWith('posend')) {
           jet.valText(that.valCell, '')
           $I(that.valCell.id + 'posend') &&
@@ -1946,16 +1951,21 @@ jet.extend(jeDatePick.prototype, {
           jet.valText(that.valCell, '')
           jet.valText($I(that.valCell.id.replace('posend', '')), '')
         }
+        if (that.$opts.filterMode) {
+          document
+            .getElementById(that.valCell.id.replace('posend', '') + '_holder')
+            .classList.remove('label-holder')
+        }
         that.selectDate = [jet.parse(jet.getDateTime({}), 'YYYY-MM-DD hh:mm')]
         that.showCurrentDayBg = false
         that.closeDate()
         opts.clearfun && opts.clearfun.call(that)
       },
       // 现在按钮函数
-      nowBtn () {
-        const newArr = jet.getDateTime({});
-          const nYM = jet.nextMonth(newArr.YYYY, newArr.MM);
-          let dateVal
+      nowBtn() {
+        const newArr = jet.getDateTime({})
+        const nYM = jet.nextMonth(newArr.YYYY, newArr.MM)
+        let dateVal
         that.selectDate = [newArr]
         dateVal = opts.isShow
           ? that.setValue([newArr], that.format, true)
@@ -1981,14 +1991,14 @@ jet.extend(jeDatePick.prototype, {
           })
       },
       // 确认按钮函数
-      sureBtn () {
-        let newArr = that.selectValue.length > 1 ? [{}, {}] : [{}];
-          let dateVal = '';
-          const tmval = that.selectTime
+      sureBtn() {
+        let newArr = that.selectValue.length > 1 ? [{}, {}] : [{}]
+        let dateVal = ''
+        const tmval = that.selectTime
         const equal = function (o) {
-          const h = o.hh == undefined ? 0 : o.hh;
-            const m = o.mm == undefined ? 0 : o.mm;
-            const s = o.ss == undefined ? 0 : o.ss
+          const h = o.hh == undefined ? 0 : o.hh
+          const m = o.mm == undefined ? 0 : o.mm
+          const s = o.ss == undefined ? 0 : o.ss
           return parseInt(jet.digit(h) + '' + jet.digit(m) + '' + jet.digit(s))
         }
         if (range) {
@@ -2007,30 +2017,35 @@ jet.extend(jeDatePick.prototype, {
           } else if (that.dlen == 7 && tmval.length > 1) {
             newArr = tmval
           }
-          const sameTime = equal(tmval[0]) >= equal(tmval[1]);
-            const selVal = that.selectValue;
-            let sameDate = ''
+          let sameTime = equal(tmval[0]) >= equal(tmval[1])
+          const format = that.$opts.format.replace(/ /g, '')
+          if (format.indexOf('hh') === -1) {
+            sameTime = false
+          }
+
+          const selVal = that.selectValue
+          let sameDate = ''
 
           if (selVal[1] != undefined)
             sameDate =
               selVal[0].replace(/\-/g, '') == selVal[1].replace(/\-/g, '')
-          if (selVal.length == 1 && that.dlen < 7 && !opts.allowNullDate) {
+          if (selVal.length === 1 && that.dlen < 7 && !opts.allowNullDate) {
             that.tips(
-              opts.language.name == 'cn'
+              opts.language.name === 'cn'
                 ? '未选结束日期'
                 : 'Please select the end date'
             )
             return
-          } else if ((that.dlen == 7 && sameTime) || (sameDate && sameTime)) {
+          } else if ((that.dlen === 7 && sameTime) || (sameDate && sameTime)) {
             that.tips(
-              opts.language.name == 'cn'
+              opts.language.name === 'cn'
                 ? '结束时间必须大于开始时间'
                 : 'The end time must be greater than the start time'
             )
             return
           }
         } else {
-          jet.each(new Array(range == false ? 1 : 2), (i) => {
+          jet.each(new Array(range == false ? 1 : 2), i => {
             if (that.dlen != 7)
               jet.each(jet.reMatch(that.selectValue[0]), (a, val) => {
                 newArr[i][ymdzArr[a]] = val
@@ -2048,31 +2063,31 @@ jet.extend(jeDatePick.prototype, {
             date: newArr
           })
       },
-      blankArea () {
-        jet.on(document, 'mouseup', (ev) => {
+      blankArea() {
+        jet.on(document, 'mouseup', ev => {
           jet.stopPropagation(ev)
           that.closeDate()
         })
-        jet.on($Q(elx), 'mouseup', (ev) => {
+        jet.on($Q(elx), 'mouseup', ev => {
           jet.stopPropagation(ev)
         })
       }
     })
   },
   // 循环生成年数据
-  eachYear (val, type) {
+  eachYear(val, type) {
     if (!val) {
       val = new Date().getFullYear()
     }
-    const that = this;
-      const opts = that.$opts;
-      const yNum = parseInt(val);
-      const yarr = [];
-      let seCls = '';
-      const selYear = that.selectDate;
-      let i;
-      const mins = jet.reMatch(that.minDate);
-      const maxs = jet.reMatch(that.maxDate)
+    const that = this
+    const opts = that.$opts
+    const yNum = parseInt(val)
+    const yarr = []
+    let seCls = ''
+    const selYear = that.selectDate
+    let i
+    const mins = jet.reMatch(that.minDate)
+    const maxs = jet.reMatch(that.maxDate)
     i = type == 1 ? yNum : that.yindex
     that.yindex = type == 1 ? 12 + yNum : 12 + that.yindex
     const endDate = selYear[1] == undefined ? '' : selYear[1].YYYY
@@ -2094,25 +2109,27 @@ jet.extend(jeDatePick.prototype, {
     return yarr
   },
   // 循环生成月数据
-  eachMonth (val, type) {
+  eachMonth(val, type) {
     if (!val) {
       val = new Date().getFullYear()
     }
-    const that = this;
-      const opts = that.$opts;
-      const range = opts.range;
-      const marr = [];
-      const selMonth = that.selectDate;
-      let seCls = '';
-      const monthArr = opts.language.month;
-      const mins = jet.reMatch(that.minDate);
-      const maxs = jet.reMatch(that.maxDate);
-      const minym = parseInt(mins[0] + '' + jet.digit(mins[1]));
-      const maxym = parseInt(maxs[0] + '' + jet.digit(maxs[1]));
-      const currStart = parseInt(selMonth[0].YYYY + '' + jet.digit(selMonth[0].MM));
-      const currEnd = selMonth[1]
-        ? parseInt(selMonth[1].YYYY + '' + jet.digit(selMonth[1].MM))
-        : 0
+    const that = this
+    const opts = that.$opts
+    const range = opts.range
+    const marr = []
+    const selMonth = that.selectDate
+    let seCls = ''
+    const monthArr = opts.language.month
+    const mins = jet.reMatch(that.minDate)
+    const maxs = jet.reMatch(that.maxDate)
+    const minym = parseInt(mins[0] + '' + jet.digit(mins[1]))
+    const maxym = parseInt(maxs[0] + '' + jet.digit(maxs[1]))
+    const currStart = parseInt(
+      selMonth[0].YYYY + '' + jet.digit(selMonth[0].MM)
+    )
+    const currEnd = selMonth[1]
+      ? parseInt(selMonth[1].YYYY + '' + jet.digit(selMonth[1].MM))
+      : 0
     jet.each(monthArr, (i, months) => {
       const ival = parseInt(val + '' + jet.digit(months))
 
@@ -2133,38 +2150,38 @@ jet.extend(jeDatePick.prototype, {
     return marr
   },
   // 循环生成天数据
-  eachDays (yd, md, ds, idx) {
+  eachDays(yd, md, ds, idx) {
     if (!yd) {
       yd = new Date().getFullYear()
     }
     if (!md) {
       md = new Date().getMonth() + 1
     }
-    const that = this;
-      let count = 0;
-      const daysArr = [];
-      const opts = that.$opts;
-      const multiPane = jet.isBool(opts.multiPane);
-      const firstWeek = new Date(yd, md - 1, 1).getDay() || 7;
-      const valrange = opts.range != false;
-      const daysNum = jet.getDaysNum(yd, md);
-      const didx = 0;
-      const sDate = that.selectDate;
-      const prevM = jet.prevMonth(yd, md);
-      const isShow = jet.isBool(opts.isShow);
-      const prevDaysNum = jet.getDaysNum(yd, prevM.m);
-      const nextM = jet.nextMonth(yd, md);
-      const objCell = that.valCell;
-      const lang = opts.language;
-      const endval = opts.valiDate || [];
-      const minArr = jet.reMatch(that.minDate);
-      const minNum = parseInt(
-        minArr[0] + '' + jet.digit(minArr[1]) + '' + jet.digit(minArr[2])
-      );
-      const maxArr = jet.reMatch(that.maxDate);
-      const maxNum = parseInt(
-        maxArr[0] + '' + jet.digit(maxArr[1]) + '' + jet.digit(maxArr[2])
-      )
+    const that = this
+    let count = 0
+    const daysArr = []
+    const opts = that.$opts
+    const multiPane = jet.isBool(opts.multiPane)
+    const firstWeek = new Date(yd, md - 1, 1).getDay() || 7
+    const valrange = opts.range != false
+    const daysNum = jet.getDaysNum(yd, md)
+    const didx = 0
+    const sDate = that.selectDate
+    const prevM = jet.prevMonth(yd, md)
+    const isShow = jet.isBool(opts.isShow)
+    const prevDaysNum = jet.getDaysNum(yd, prevM.m)
+    const nextM = jet.nextMonth(yd, md)
+    const objCell = that.valCell
+    const lang = opts.language
+    const endval = opts.valiDate || []
+    const minArr = jet.reMatch(that.minDate)
+    const minNum = parseInt(
+      minArr[0] + '' + jet.digit(minArr[1]) + '' + jet.digit(minArr[2])
+    )
+    const maxArr = jet.reMatch(that.maxDate)
+    const maxNum = parseInt(
+      maxArr[0] + '' + jet.digit(maxArr[1]) + '' + jet.digit(maxArr[2])
+    )
     const startDate = sDate[0]
       ? parseInt(
           sDate[0].YYYY +
@@ -2185,15 +2202,15 @@ jet.extend(jeDatePick.prototype, {
       : ''
     // 设置时间标注
     const setMark = function (my, mm, md) {
-      const Marks = opts.marks;
-        const contains = function (arr, obj) {
-          let clen = arr.length
-          while (clen--) {
-            if (arr[clen] === obj) return true
-          }
-          return false
-        };
-        const isArr = jet.isType(Marks, 'array')
+      const Marks = opts.marks
+      const contains = function (arr, obj) {
+        let clen = arr.length
+        while (clen--) {
+          if (arr[clen] === obj) return true
+        }
+        return false
+      }
+      const isArr = jet.isType(Marks, 'array')
       return isArr &&
         Marks.length > 0 &&
         contains(Marks, my + '-' + jet.digit(mm) + '-' + jet.digit(md))
@@ -2204,12 +2221,12 @@ jet.extend(jeDatePick.prototype, {
     const isfestival = function (y, m, d) {
       let festivalStr = ''
       if (opts.festival == true && lang.name == 'cn') {
-        const lunar = jeLunar(y, m - 1, d);
-          const feslunar = lunar.solarFestival || lunar.lunarFestival;
-          const lunartext =
-            (feslunar && lunar.jieqi) != ''
-              ? feslunar
-              : lunar.jieqi || lunar.showInLunar
+        const lunar = jeLunar(y, m - 1, d)
+        const feslunar = lunar.solarFestival || lunar.lunarFestival
+        const lunartext =
+          (feslunar && lunar.jieqi) != ''
+            ? feslunar
+            : lunar.jieqi || lunar.showInLunar
         festivalStr =
           '<p><span class="solar">' +
           d +
@@ -2236,8 +2253,8 @@ jet.extend(jeDatePick.prototype, {
       }
       if (endval.length > 0 && endval[0] != '') {
         if (/\%/g.test(endval[0])) {
-          const reval = endval[0].replace(/\%/g, '').split(',');
-            const enArr = []
+          const reval = endval[0].replace(/\%/g, '').split(',')
+          const enArr = []
           jet.each(reval, (r, rel) => {
             enArr.push(jet.digit(parseInt(rel)))
           })
@@ -2250,8 +2267,8 @@ jet.extend(jeDatePick.prototype, {
             ? cls
             : ' disabled'
         } else {
-          const valreg = that.dateRegExp(endval[0]);
-            const regday = valreg.test(jet.digit(date))
+          const valreg = that.dateRegExp(endval[0])
+          const regday = valreg.test(jet.digit(date))
           cls = jet.isBool(endval[1])
             ? regday
               ? ' disabled'
@@ -2267,8 +2284,8 @@ jet.extend(jeDatePick.prototype, {
     // var ymds = ymdarr[1]
     // 上一月剩余天数
     for (let p = prevDaysNum - firstWeek + 1; p <= prevDaysNum; p++, count++) {
-      const pmark = setMark(prevM.y, prevM.m, p);
-        let pcls = dateLimit(prevM.y, prevM.m, p, false) ? 'disabled' : 'other'
+      const pmark = setMark(prevM.y, prevM.m, p)
+      let pcls = dateLimit(prevM.y, prevM.m, p, false) ? 'disabled' : 'other'
       pcls = regExpDate(p, pcls)
       daysArr.push({
         style: pcls,
@@ -2278,11 +2295,11 @@ jet.extend(jeDatePick.prototype, {
     }
     // 本月的天数
     for (let b = 1; b <= daysNum; b++, count++) {
-      const bmark = setMark(yd, md, b);
-        let bcls = ''
-      const dateval = parseInt(yd + '' + jet.digit(md) + '' + jet.digit(b));
-        const parsdate = dateval > startDate;
-        const rangdate = dateval < endDate
+      const bmark = setMark(yd, md, b)
+      let bcls = ''
+      const dateval = parseInt(yd + '' + jet.digit(md) + '' + jet.digit(b))
+      const parsdate = dateval > startDate
+      const rangdate = dateval < endDate
       if (dateLimit(yd, md, b, true)) {
         if (
           (dateval == startDate || dateval == endDate) &&
@@ -2318,21 +2335,21 @@ jet.extend(jeDatePick.prototype, {
     // 将星期与日期拼接起来
     return daysArr
   },
-  eachTime (hmsArr, type) {
-    const that = this;
-      const opts = that.$opts;
-      const range = opts.range;
-      const multi = opts.multiPane;
-      let minVal = [];
-      let maxVal = [];
-      const mhms = that.$opts.showSecend ? ['hh', 'mm', 'ss'] : ['hh', 'mm'];
-      const timeArr = [];
-      let hmsCls = '';
-      const format = that.format;
-      const ntVal = jet.trim(that.minDate).replace(/\s+/g, ' ');
-      const xtVal = jet.trim(that.maxDate).replace(/\s+/g, ' ');
-      const nVal = ntVal.split(' ');
-      const xVal = xtVal.split(' ')
+  eachTime(hmsArr, type) {
+    const that = this
+    const opts = that.$opts
+    const range = opts.range
+    const multi = opts.multiPane
+    let minVal = []
+    let maxVal = []
+    const mhms = that.$opts.showSecend ? ['hh', 'mm', 'ss'] : ['hh', 'mm']
+    const timeArr = []
+    let hmsCls = ''
+    const format = that.format
+    const ntVal = jet.trim(that.minDate).replace(/\s+/g, ' ')
+    const xtVal = jet.trim(that.maxDate).replace(/\s+/g, ' ')
+    const nVal = ntVal.split(' ')
+    const xVal = xtVal.split(' ')
     if (that.dlen > 3 && /\:/.test(nVal) && /\:/.test(xVal)) {
       minVal = jet.reMatch(/\s/.test(ntVal) && that.dlen > 3 ? nVal[1] : ntVal)
       maxVal = jet.reMatch(/\s/.test(xtVal) && that.dlen > 3 ? xVal[1] : xtVal)
@@ -2341,10 +2358,8 @@ jet.extend(jeDatePick.prototype, {
     jet.each(stepArr, (s, lens) => {
       timeArr[s] = []
       const unhmsVal =
-          minVal[s] == undefined || minVal[s] == 0
-            ? hmsArr[mhms[s]]
-            : minVal[s];
-        const currVal = that.getValue() == '' ? unhmsVal : hmsArr[mhms[s]]
+        minVal[s] == undefined || minVal[s] == 0 ? hmsArr[mhms[s]] : minVal[s]
+      const currVal = that.getValue() == '' ? unhmsVal : hmsArr[mhms[s]]
       if (that.dlen > 3 && /\:/.test(nVal) && type == 1) {
         that.selectTime[0][mhms[s]] = currVal
       }
@@ -2371,9 +2386,9 @@ jet.extend(jeDatePick.prototype, {
     return timeArr
   },
   // 关闭日期控件
-  closeDate () {
-    const elem = $Q(elx);
-      const tipelem = $Q('#jedatetipscon')
+  closeDate() {
+    const elem = $Q(elx)
+    const tipelem = $Q('#jedatetipscon')
     elem && document.body.removeChild(elem)
     tipelem && document.body.removeChild(tipelem)
     if (
@@ -2400,11 +2415,11 @@ jet.extend(jeDatePick.prototype, {
     this.setDatas()
   },
   // 转换日期值
-  parseValue (fnObj, matStr) {
-    const that = this;
-      const valArr = [];
-      const opts = that.$opts;
-      const range = opts.range
+  parseValue(fnObj, matStr) {
+    const that = this
+    const valArr = []
+    const opts = that.$opts
+    const range = opts.range
     jet.each(fnObj, (i, val) => {
       valArr.push(jet.parse(val, matStr))
     })
@@ -2412,13 +2427,13 @@ jet.extend(jeDatePick.prototype, {
   },
 
   // 初始验证正则
-  dateRegExp (valArr) {
-    const enval = valArr.split(',') || [];
-      let regs = ''
+  dateRegExp(valArr) {
+    const enval = valArr.split(',') || []
+    let regs = ''
     const doExp = function (val) {
-      let arr;
-        let tmpEval;
-        const regs = /#?\{(.*?)\}/
+      let arr
+      let tmpEval
+      const regs = /#?\{(.*?)\}/
       val += ''
       while ((arr = regs.exec(val)) != null) {
         arr.lastIndex =
@@ -2445,79 +2460,76 @@ jet.extend(jeDatePick.prototype, {
     return regs
   },
   // 显示农历节日
-  showFestival () {
-    const that = this;
-      const opts = that.$opts
-    jet.each(
-      that.dateCell.querySelectorAll('.daystable td'),
-      (i, node) => {
-        const tval = jet.reMatch(jet.attr(node, 'ymd'));
-          const tipDiv = document.createElement('div')
-        node.removeAttribute('ymd')
-        // 鼠标进入提示框出现
-        jet.on(node, 'mouseover', () => {
-          const lunar = new jeLunar(tval[0], tval[1] - 1, tval[2])
-          if ($Q('#jedatetipscon')) return
-          tipDiv.id = tipDiv.className = 'jedatetipscon'
-          const tiphtml =
-            '<p>' +
-            lunar.solarYear +
-            '\u5E74' +
-            lunar.solarMonth +
-            '\u6708' +
-            lunar.solarDate +
-            '\u65E5 ' +
-            lunar.inWeekDays +
-            '</p><p class="red">\u519C\u5386：' +
-            lunar.shengxiao +
-            '\u5E74 ' +
-            lunar.lnongMonth +
-            '\u6708' +
-            lunar.lnongDate +
-            '</p><p>' +
-            lunar.ganzhiYear +
-            '\u5E74 ' +
-            lunar.ganzhiMonth +
-            '\u6708 ' +
-            lunar.ganzhiDate +
-            '\u65E5</p>'
-          const Fesjieri =
-            (lunar.solarFestival || lunar.lunarFestival) != ''
-              ? '<p class="red">' +
-                ('\u8282\u65E5：' + lunar.solarFestival + lunar.lunarFestival) +
-                '</p>'
-              : ''
-          const Fesjieqi =
-            lunar.jieqi != ''
-              ? '<p class="red">' +
-                (lunar.jieqi != '' ? '\u8282\u6C14：' + lunar.jieqi : '') +
-                '</p>'
-              : ''
-          const tiptext =
-            (lunar.solarFestival || lunar.lunarFestival || lunar.jieqi) != ''
-              ? Fesjieri + Fesjieqi
-              : ''
-          jet.html(tipDiv, tiphtml + tiptext)
-          document.body.appendChild(tipDiv)
-        })
-        // 鼠标移除提示框消失
-        jet.on(node, 'mouseout', () => {
-          document.body.removeChild($Q('#jedatetipscon'))
-        })
-      }
-    )
+  showFestival() {
+    const that = this
+    const opts = that.$opts
+    jet.each(that.dateCell.querySelectorAll('.daystable td'), (i, node) => {
+      const tval = jet.reMatch(jet.attr(node, 'ymd'))
+      const tipDiv = document.createElement('div')
+      node.removeAttribute('ymd')
+      // 鼠标进入提示框出现
+      jet.on(node, 'mouseover', () => {
+        const lunar = new jeLunar(tval[0], tval[1] - 1, tval[2])
+        if ($Q('#jedatetipscon')) return
+        tipDiv.id = tipDiv.className = 'jedatetipscon'
+        const tiphtml =
+          '<p>' +
+          lunar.solarYear +
+          '\u5E74' +
+          lunar.solarMonth +
+          '\u6708' +
+          lunar.solarDate +
+          '\u65E5 ' +
+          lunar.inWeekDays +
+          '</p><p class="red">\u519C\u5386：' +
+          lunar.shengxiao +
+          '\u5E74 ' +
+          lunar.lnongMonth +
+          '\u6708' +
+          lunar.lnongDate +
+          '</p><p>' +
+          lunar.ganzhiYear +
+          '\u5E74 ' +
+          lunar.ganzhiMonth +
+          '\u6708 ' +
+          lunar.ganzhiDate +
+          '\u65E5</p>'
+        const Fesjieri =
+          (lunar.solarFestival || lunar.lunarFestival) != ''
+            ? '<p class="red">' +
+              ('\u8282\u65E5：' + lunar.solarFestival + lunar.lunarFestival) +
+              '</p>'
+            : ''
+        const Fesjieqi =
+          lunar.jieqi != ''
+            ? '<p class="red">' +
+              (lunar.jieqi != '' ? '\u8282\u6C14：' + lunar.jieqi : '') +
+              '</p>'
+            : ''
+        const tiptext =
+          (lunar.solarFestival || lunar.lunarFestival || lunar.jieqi) != ''
+            ? Fesjieri + Fesjieqi
+            : ''
+        jet.html(tipDiv, tiphtml + tiptext)
+        document.body.appendChild(tipDiv)
+      })
+      // 鼠标移除提示框消失
+      jet.on(node, 'mouseout', () => {
+        document.body.removeChild($Q('#jedatetipscon'))
+      })
+    })
     if (that.dateCell.nodeType === 1 && !jet.hasClass(that.dateCell, 'grid'))
       that.dateCell.className = that.dateCell.className + ' grid'
   },
   // 农历方位辨别
-  lunarOrien (obj, self, pos) {
-    let tops;
-      let leris;
-      let ortop;
-      let orleri;
-      const rect = self.getBoundingClientRect();
-      const boxW = obj.offsetWidth;
-      const boxH = obj.offsetHeight
+  lunarOrien(obj, self, pos) {
+    let tops
+    let leris
+    let ortop
+    let orleri
+    const rect = self.getBoundingClientRect()
+    const boxW = obj.offsetWidth
+    const boxH = obj.offsetHeight
     leris =
       rect.right + boxW / 1.5 >= jet.docArea(true)
         ? rect.right - boxW
@@ -2535,7 +2547,7 @@ jet.extend(jeDatePick.prototype, {
     return { top: ortop, left: orleri }
   },
   // 辨别控件的方位
-  dateOrien (elbox, valCls, pos) {
+  dateOrien(elbox, valCls, pos) {
     $I(valCls.id).style.display = ''
     if (this.$opts.filterMode) {
       const format = this.$opts.format.replace(/ /g, '')
@@ -2558,16 +2570,16 @@ jet.extend(jeDatePick.prototype, {
     if ($I(valCls.id + 'filterMode-multi')) {
       $I(valCls.id + 'filterMode-multi').style.display = 'inline-block'
     }
-    const that = this;
-      var tops;
-      var leris;
-      let ortop;
-      let orleri;
-      let rect = that.$opts.fixed
-        ? valCls.getBoundingClientRect()
-        : elbox.getBoundingClientRect();
-      var leris = rect.left;
-      var tops = rect.bottom
+    const that = this
+    var tops
+    var leris
+    let ortop
+    let orleri
+    let rect = that.$opts.fixed
+      ? valCls.getBoundingClientRect()
+      : elbox.getBoundingClientRect()
+    var leris = rect.left
+    var tops = rect.bottom
     if (that.$opts.multiPane === false && that.$opts.fixed) {
       rect = document
         .getElementById(valCls.id.replace('posend', ''))
@@ -2577,11 +2589,11 @@ jet.extend(jeDatePick.prototype, {
     }
 
     if (that.$opts.fixed) {
-      const boxW = elbox.offsetWidth;
-        const boxH = elbox.offsetHeight
+      const boxW = elbox.offsetWidth
+      const boxH = elbox.offsetHeight
       // 如果右侧超出边界
       if (leris + boxW > jet.docArea(true)) {
-        leris -= (boxW - rect.width)
+        leris -= boxW - rect.width
       }
       // 如果底部超出边界
       if (tops + boxH > jet.docArea()) {
@@ -2606,10 +2618,10 @@ jet.extend(jeDatePick.prototype, {
     }
     jet.setCss(elbox, { top: ortop, left: orleri })
   },
-  tips (text, time) {
-    const that = this;
-      const tipCls = $Q('.pui-pick-date-tips', that.dateCell);
-      let tipTime
+  tips(text, time) {
+    const that = this
+    const tipCls = $Q('.pui-pick-date-tips', that.dateCell)
+    let tipTime
     jet.html(tipCls, text || '')
     jet.setCss(tipCls, { display: 'block' })
     clearTimeout(tipTime)
@@ -2618,9 +2630,11 @@ jet.extend(jeDatePick.prototype, {
       jet.setCss(tipCls, { display: 'none' })
     }, (time || 2.5) * 1000)
   },
-  locateScroll () {
-    const that = this;
-      const ulCell = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll('ul')
+  locateScroll() {
+    const that = this
+    const ulCell = $Q('.pui-pick-date-time', that.dateCell).querySelectorAll(
+      'ul'
+    )
     jet.each(ulCell, (i, cell) => {
       const hmsCls = cell.querySelector('.action')
       cell.scrollTop = hmsCls ? hmsCls.offsetTop - 145 : 0
@@ -2631,11 +2645,11 @@ jet.extend(jeDatePick.prototype, {
 })
 
 puiDateObj.renderDate = x => {
-  const that = this;
-    const opts = that.$opts;
-    const isShow = jet.isBool(opts.isShow);
-    const elxID = !isShow ? elx + searandom() : elx;
-    const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
+  const that = this
+  const opts = that.$opts
+  const isShow = jet.isBool(opts.isShow)
+  const elxID = !isShow ? elx + searandom() : elx
+  const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
 
   if (that.dateCell == undefined) {
     that.dateCell = document.createElement('div')
@@ -2667,12 +2681,12 @@ puiDateObj.renderDate = x => {
 
   // 自定义主题色
   if (jet.isObj(opts.theme)) {
-    const styleDiv = document.createElement('style');
-      const stCell = '.pui-pick-date' + searandom();
-      const t = opts.theme;
-      const BG = 'background-color:' + t.bgcolor;
-      const WC = 'color:' + (t.color == undefined ? '#FFFFFF' : t.color);
-      const OTH = t.pnColor == undefined ? '' : 'color:' + t.pnColor + ';'
+    const styleDiv = document.createElement('style')
+    const stCell = '.pui-pick-date' + searandom()
+    const t = opts.theme
+    const BG = 'background-color:' + t.bgcolor
+    const WC = 'color:' + (t.color == undefined ? '#FFFFFF' : t.color)
+    const OTH = t.pnColor == undefined ? '' : 'color:' + t.pnColor + ';'
     that.dateCell.className =
       that.dateCell.className + ' ' + stCell.replace(/^./g, '')
     styleDiv.setAttribute('type', 'text/css')
