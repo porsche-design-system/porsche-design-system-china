@@ -28,10 +28,12 @@ build:
   script:
     - echo "building artifacts"
     # - echo "172.31.49.148 s1.web.porsche-preview.cn" >> /etc/hosts
-    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" .npmrc
-    - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
-    - cat .npmrc
-    - unset CI
+    # - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" .npmrc
+    # - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
+    # - cat .npmrc
+    # - unset CI
+    - npm install -g npm-cli-login
+    - npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD -e $NPM_REGISTRY_EMAIL --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
     - pwd && du -sh *
     - npm run install-all
     - npm -w @pui/icons run pipeline-generate
