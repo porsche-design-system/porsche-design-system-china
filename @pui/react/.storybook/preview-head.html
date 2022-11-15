@@ -280,7 +280,16 @@
     window.parent.document.body.className = className
   }
 
-  console.warn(
-    '[PUI] ReactDOM.render is no longer supported in React 18 / The pseudo class ":first-child" 需要等待Storybook后续版本支持, 请忽略错误。'
-  )
+  const consoleError = console.error
+  console.error = (...args) => {
+    if (typeof args[0] === 'string') {
+      if (
+        args[0].indexOf('ReactDOM.render is no longer supported in React 18') >=
+          0 ||
+        args[0].indexOf('The pseudo class ":first-child"') >= 0
+      )
+        return
+    }
+    consoleError(...args)
+  }
 </script>
