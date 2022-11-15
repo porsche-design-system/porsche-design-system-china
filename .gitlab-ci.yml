@@ -27,7 +27,7 @@ build:
       - ./@pui/react/es 
   script:
     - echo "building artifacts"
-    - echo "52.81.186.255 s1.web.porsche-preview.cn" >> /etc/hosts
+    - echo "172.31.49.148 s1.web.porsche-preview.cn" >> /etc/hosts
     # sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" .npmrc
     # sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
     # cat .npmrc
