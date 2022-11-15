@@ -3,6 +3,7 @@ import React, {
   Fragment,
   ReactNode,
   useEffect,
+  useMemo,
   useRef,
   useState
 } from 'react'
@@ -162,13 +163,7 @@ Select = FormItem(
     )
     let selectValue = selectState[0]
     const setSelectValue = selectState[1]
-    const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState(
-      () => {
-        if (open === undefined) {
-          setMenuOpen(undefined)
-        }
-      }
-    )
+    const [showOptionList, setShowOptionList, puiPopupWrap] = usePopShowState()
     const isControlledByValue = useRef(value !== undefined)
     const [filterValue, setFilterValue] = useState('')
     const [filterWord, setFilterWord] = useState('')
@@ -185,9 +180,7 @@ Select = FormItem(
       popMenuRef,
       minWidth
     )
-    const [menuOpen, setMenuOpen] = useState(
-      open !== undefined ? open : defaultOpen
-    )
+
     const isComposing = useRef(false)
 
     if (value !== undefined) {
@@ -275,25 +268,22 @@ Select = FormItem(
 
     useEffect(() => {
       if (defaultOpen !== undefined) {
-        setShowOptionList(defaultOpen)
+        setTimeout(() => {
+          setShowOptionList(defaultOpen)
+        }, 100)
       }
     }, [])
 
+    const menuOpen = useMemo(
+      () => (open !== undefined ? open : showOptionList),
+      [open, showOptionList]
+    )
     useEffect(() => {
-      if (menuOpen !== undefined) {
-        onMenuVisibleChange && onMenuVisibleChange(menuOpen && !disabled)
-      }
+      onMenuVisibleChange && onMenuVisibleChange(menuOpen)
     }, [menuOpen])
 
     useEffect(() => {
-      if (!showOptionList) {
-        onMenuVisibleChange && onMenuVisibleChange(showOptionList && !disabled)
-      }
-    }, [showOptionList])
-
-    useEffect(() => {
       if (open !== undefined) {
-        setMenuOpen(open)
         setTimeout(() => {
           setShowOptionList(open)
         }, 10)
@@ -360,9 +350,6 @@ Select = FormItem(
               setFilterWord('')
             }
             setShowOptionList(!showOptionList)
-            if (open !== undefined) {
-              setMenuOpen(!showOptionList)
-            }
           }}
           disabled={disabled}
           style={{
@@ -485,9 +472,6 @@ Select = FormItem(
                             onClick={() => {
                               if (option.disabled === true) {
                                 return
-                              }
-                              if (open !== undefined) {
-                                setMenuOpen(false)
                               }
                               setShowOptionList(false)
                               setSelectValue(option.value as any)
