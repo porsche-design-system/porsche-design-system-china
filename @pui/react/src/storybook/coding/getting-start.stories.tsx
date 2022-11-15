@@ -6,31 +6,28 @@ import './doc.scss'
 const GettingStart = () => (
   <div className="custom-doc">
     <h1>Getting Start</h1>
+
+    <div>请尽量使用 node 16+ 开发</div>
+    <br />
+
     <div>使用Vite创建项目(推荐)</div>
     <div className="cmd">npm create vite@latest</div>
     <div>使用CRA创建</div>
     <div className="cmd">npx create-react-app my-app</div>
     <br />
-    <div>在项目根目录添加文件.npmrc</div>
+    <div>在项目根目录添加文件 .npmrc 加入</div>
     <div className="code">
-      strict-ssl=false
+      registry=https://registry.npmmirror.com
       <br />
-      @pui:registry=http://s1.web.porsche-preview.cn/repository/npm-group/
+      @pui:registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
+      <br />
     </div>
     <br />
-    <div>安装依赖的时候需要连接到保时捷内网，或在保时捷公司Wifi环境</div>
-    <div>
-      连接内网工具请前往
-      <a
-        style={{ marginLeft: '5px', textDecoration: 'underline' }}
-        href="https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN"
-      >
-        https://porschedigital.atlassian.net/wiki/spaces/TECHCN/pages/1731462726/OpenVPN
-      </a>
+    <div>使用自己的LDAP (gitlab账号) 登录 nexus，只用登录一次</div>
+    <div className="cmd">
+      npm login --registry
+      https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
     </div>
-    <br />
-    <div>在 hosts 中添加</div>
-    <div className="cmd">52.81.186.255 s1.web.porsche-preview.cn</div>
     <br />
     <div>安装PUI依赖</div>
     <div className="cmd">npm install @pui/react</div>
@@ -41,17 +38,17 @@ const GettingStart = () => (
     </div>
     <br />
     <div>
-      使用保时捷Gitlab Runner部署编译项目，需要将.npmrc中的
-      s1.web.porsche-preview.cn 替换为 web.devops.porsche-internaldns.cn:4001
+      在Pipeline编译，请在 .gitlab-ci.yml 加人以下代码使gitlab
+      runner登录，这个步骤要放在npm install之前执行
+      <br />
+      其中的 $NPM_REGISTRY_ACCOUNT $NPM_REGISTRY_PWD $NPM_REGISTRY_EMAIL
+      已经做好了全局配置，可直接使用
     </div>
-    修改文件 .gitlab-ci.yml 在运行npm install前加入以下代码
     <div className="cmd">
-      - sed -i
-      "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
-      .npmrc
-      <br />- sed -i
-      "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
-      package-lock.json
+      - npm install -g npm-cli-login
+      <br />- npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD
+      -e $NPM_REGISTRY_EMAIL
+      --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
     </div>
     <br />
   </div>
