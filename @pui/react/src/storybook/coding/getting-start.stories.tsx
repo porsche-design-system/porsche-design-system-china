@@ -41,28 +41,18 @@ const GettingStart = () => (
     </div>
     <br />
     <div>
-      注意：在部署发布的时候也需要如上述将ip域名映射加入到gitlab runner机器的 hosts 文件中<br/>
-
-      这点没有更好的办法，一个域名的申请需要提交ticket给德国，办下来几个月，一年还只有一次机会办，<br/>
-      所以目前在域名无法实现指向的情况下只能是通过hosts文件实现域名ip映射。<br/><br/>
-      在CI文件中加入代码:<br/>
-      <div className="code">
-      echo "52.81.186.255 s1.web.porsche-preview.cn" >> /etc/hosts
-      </div>
-
-      {/*
-        使用保时捷Gitlab Runner部署编译项目，需要将.npmrc中的
-        s1.web.porsche-preview.cn 替换为 web.devops.porsche-internaldns.cn:4001
-      */}
+      使用保时捷Gitlab Runner部署编译项目，需要将.npmrc中的
+      s1.web.porsche-preview.cn 替换为 web.devops.porsche-internaldns.cn:4001
     </div>
-        {/*
     修改文件 .gitlab-ci.yml 在运行npm install前加入以下代码
     <div className="cmd">
       - sed -i
       "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
-      ./.npmrc
+      .npmrc
+      <br />- sed -i
+      "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g"
+      package-lock.json
     </div>
-    */}
     <br />
   </div>
 )
