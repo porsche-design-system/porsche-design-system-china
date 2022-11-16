@@ -45,7 +45,7 @@ const GettingStart = () => (
       已经做好了全局配置，可直接使用
     </div>
     <div className="cmd">
-      - npm install -g npm-cli-login
+      - npm install -g npm-cli-login --registry https://registry.npmmirror.com/
       <br />- npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD
       -e $NPM_REGISTRY_EMAIL
       --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
