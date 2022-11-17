@@ -47,8 +47,8 @@ const GettingStart = () => (
     <div className="cmd">
       - npm install -g npm-cli-login --registry https://registry.npmmirror.com/
       <br />- npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD
-      -e $NPM_REGISTRY_EMAIL
-      --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
+      -e $NPM_REGISTRY_EMAIL -r
+      https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
     </div>
     <br />
   </div>
