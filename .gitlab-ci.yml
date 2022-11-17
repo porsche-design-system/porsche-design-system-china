@@ -33,7 +33,7 @@ build:
     # - cat .npmrc
     # - unset CI
     - npm install -g npm-cli-login
-    - npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD -e $NPM_REGISTRY_EMAIL --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
+    - npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD -e $NPM_REGISTRY_EMAIL -r https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
     - pwd && du -sh *
     - npm run install-all
     - npm -w @pui/icons run pipeline-generate
