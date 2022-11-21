@@ -185,7 +185,11 @@ const Table = <T, K>({
   const isWheelMove = useRef(false)
 
   const updateShadow = () => {
-    if (tableRef.current) {
+    if (
+      tableRef.current &&
+      bodyRef.current.children[0] &&
+      bodyRef.current.children[0].children[0]
+    ) {
       const scrollXPercentage =
         bodyRef.current.scrollLeft /
         (bodyRef.current.children[0].children[0].offsetWidth -
