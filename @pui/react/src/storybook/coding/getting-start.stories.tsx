@@ -41,14 +41,11 @@ const GettingStart = () => (
       在Pipeline编译，请在 .gitlab-ci.yml 加人以下代码使gitlab
       runner登录，这个步骤要放在npm install之前执行
       <br />
-      其中的 $NPM_REGISTRY_ACCOUNT $NPM_REGISTRY_PWD $NPM_REGISTRY_EMAIL
-      已经做好了全局配置，可直接使用
+      其中的 $NPM_REGISTRY_AUTH 已经做好了全局配置，可直接使用
     </div>
     <div className="cmd">
-      - npm install -g npm-cli-login --registry https://registry.npmmirror.com/
-      <br />- npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD
-      -e $NPM_REGISTRY_EMAIL
-      --registry=https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
+      - npm config set
+      //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH
     </div>
     <br />
   </div>
