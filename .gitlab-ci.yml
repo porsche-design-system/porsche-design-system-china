@@ -1,7 +1,7 @@
 stages:
   - Build
-  - Package 
-  - Deployment 
+  - Package
+  - Deployment
 build:
   image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/nodejs-build:alpine16-current-alpine3.13
   stage: Build
@@ -24,7 +24,7 @@ build:
     when: on_success
     paths:
       - ./@pui/react/storybook-static
-      - ./@pui/react/es 
+      - ./@pui/react/es
   script:
     - echo "building artifacts"
     # - echo "172.31.49.148 s1.web.porsche-preview.cn" >> /etc/hosts
@@ -32,9 +32,7 @@ build:
     # - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
     # - cat .npmrc
     # - unset CI
-    - npm install -g npm-cli-login
-    - npm ls npm-cli-login -g
-    - npm-cli-login login -u $NPM_REGISTRY_ACCOUNT -p $NPM_REGISTRY_PWD -e $NPM_REGISTRY_EMAIL -r https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
+    - npm config set //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH
     - pwd && du -sh *
     - npm run install-all
     - npm -w @pui/icons run pipeline-generate
@@ -42,7 +40,7 @@ build:
     - npm -w @pui/react run build-storybook
     - ls -al ./@pui/react/storybook-static/
     - du -sh *
- 
+
 buid_image:
   image: 150520991865.dkr.ecr.cn-north-1.amazonaws.com.cn/devops/docker:19-with-awscli
   stage: Package
@@ -76,9 +74,9 @@ buid_image:
     - echo "-----------E:Build image and pushed------------"
   tags:
     - pdc-share-runner
- 
+
 deploy_react:
-  stage: Deployment 
+  stage: Deployment
   only:
     refs:
       - develop
@@ -110,4 +108,4 @@ deploy_react:
         /usr/local/bin/kubectl apply -f ./kubedir/frontend_deployment-dev.yaml --kubeconfig ~/kubeconfig/eks-dev/config 
       fi
   tags:
-    - pdcshell 
+    - pdcshell
