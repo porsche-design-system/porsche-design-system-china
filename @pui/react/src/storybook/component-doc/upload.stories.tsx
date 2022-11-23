@@ -7,7 +7,7 @@ import './upload.stories.scss'
 
 const action =
   'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload'
-const Authorization = 'Bearer e173a3e3-38cb-4d36-a442-aee2df63ee0c'
+const Authorization = 'Bearer 752aa8fa-97c6-48cf-ad1d-4567b3221687'
 export default {
   title: 'Data Entry/Upload',
   component: Upload
@@ -92,6 +92,59 @@ export const UploadStoryBook1 = () => {
   )
 }
 UploadStoryBook1.storyName = 'Upload Files'
+
+const initialFileList = [
+  {
+    uid: '-1',
+    name: 'image.png',
+    status: 'success'
+  },
+  {
+    uid: '-2',
+    name: 'image.png',
+    status: 'success'
+  }
+]
+export const UploadControlStory = () => {
+  const [fileList, setFileList] = useState<UploadFile[]>(initialFileList)
+  const uploadProps = {
+    fileList,
+    onChange: (file: UploadFile, list: UploadFile[]) => {
+      const newFileList = list.slice(-2);
+      newFileList.forEach(file => {
+        file.status = 'success'
+      })
+      setFileList(newFileList)
+    }
+  }
+  const clearList = () => {
+    setFileList([]);
+  }
+
+  return (
+    <>
+      <Row>
+        <Col span={12}>
+          <Upload
+            action={action}
+            headers={{
+              Authorization
+            }}
+            {...uploadProps}
+          />
+        </Col>
+        <Button onClick={clearList} type='primary'>全部清除</Button>
+      </Row>
+      <Row style={{ marginTop: '20px' }}>
+        <small>
+          {' '}
+          <big>*</big> 使用 fileList 对列表进行完全控制，以下演示二种情况：1.上传列表数量的限制。2.改变文件上传状态
+        </small>
+      </Row>
+    </>
+  )
+}
+UploadControlStory.storyName = 'Upload 受控';
 
 export const UploadStoryBook2 = () => {
   const handleBeforeUpload = (file: File) => {

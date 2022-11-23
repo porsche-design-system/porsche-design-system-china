@@ -139,14 +139,14 @@ Upload = FormItem((props: UploadProps) => {
   const [previewTitle, setPreviewTitle] = useState('')
   const [previewImage, setPreviewImage] = useState('')
 
-  React.useMemo(() => {
-    ;(fileList || []).forEach((file, index) => {
+  React.useEffect(() => {
+    ; (fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         const random = Math.random().toString().replace(/0./, '')
         file.uid = `${random}_${index}`
       }
     })
-    if (listIgnore !== true && fileList) {
+    if (fileList) {
       // fileList存在则数据以fileList为源
       setMergedFileList(fileList || [])
     }
@@ -199,7 +199,7 @@ Upload = FormItem((props: UploadProps) => {
         exceededMaxCountMsg !== '' &&
           Message.warning(
             exceededMaxCountMsg ||
-              `上传文件个数${totalCount}，超出最大值${maxCount}`
+            `上传文件个数${totalCount}，超出最大值${maxCount}`
           )
       }
     }
@@ -376,7 +376,7 @@ Upload = FormItem((props: UploadProps) => {
           </Dragger>
         ) : listType === 'picture-card' ? (
           ((count || maxCount || Number.MAX_VALUE) as number) >
-            mergedFileList.length && (
+          mergedFileList.length && (
             <div className="pui-upload-btn-picture-card">
               {children || (
                 <span>
@@ -411,6 +411,7 @@ Upload = FormItem((props: UploadProps) => {
   )
 
   const renderUploadList = (button?: React.ReactNode) => {
+    console.log('mergedFileList', mergedFileList)
     if (showUploadList) {
       const {
         showRemoveIcon,
@@ -484,13 +485,13 @@ const defaultLocale = {
   downloadFile: 'Download file'
 }
 
-;(Upload as any).defaultProps = {
-  listType: 'text' as UploadListType,
-  showUploadList: true,
-  locale: defaultLocale,
-  count: 1,
-  disabled: false,
-  listIgnore: true
-}
-;(Upload as any).displayName = 'Upload'
+  ; (Upload as any).defaultProps = {
+    listType: 'text' as UploadListType,
+    showUploadList: true,
+    locale: defaultLocale,
+    count: 1,
+    disabled: false,
+    listIgnore: true
+  }
+  ; (Upload as any).displayName = 'Upload'
 export { Upload }
