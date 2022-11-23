@@ -12,7 +12,8 @@ import {
   DatePicker,
   DateRangePicker,
   Select,
-  CheckBoxGroup
+  CheckBoxGroup,
+  Upload
 } from '../..'
 
 export default {
@@ -31,12 +32,18 @@ interface FormData {
   services: string[]
   invoice: string
   invoiceType: string
+  files: any[]
 }
 
 export const ExampleStoryBook = () => {
   const [data, setData] = useState<FormData>({} as any)
   const [disabled, setDisabled] = useState(false)
-
+  const uploadProps = {
+    action: 'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload',
+    headers: {
+      Authorization: 'Bearer 752aa8fa-97c6-48cf-ad1d-4567b3221687'
+    }
+  }
   return (
     <div>
       <ButtonGroup>
@@ -52,7 +59,16 @@ export const ExampleStoryBook = () => {
               date: '2021-12-12',
               services: ['Repair'],
               invoice: 'yes',
-              invoiceType: 'E-Invoice'
+              invoiceType: 'E-Invoice',
+              files: [{
+                uid: '-1',
+                name: 'image1.png',
+                status: 'success'
+              }, {
+                uid: '-2',
+                name: 'image2.png',
+                status: 'success'
+              }]
             })
           }}
         >
@@ -70,7 +86,8 @@ export const ExampleStoryBook = () => {
               date: '',
               services: [],
               invoice: '',
-              invoiceType: ''
+              invoiceType: '',
+              files: []
             })
           }
         >
@@ -176,6 +193,12 @@ export const ExampleStoryBook = () => {
           placeholder="请输入地址"
           disabled={disabled}
         />
+        <Upload
+          label="Upload"
+          name="files"
+          rules={{ required: true, message: 'Required' }}
+          disabled={disabled}
+          {...uploadProps} />
         <ButtonGroup align="right">
           <Button type="default" icon={IconArrowHeadLeft} disabled={disabled}>
             Prev
