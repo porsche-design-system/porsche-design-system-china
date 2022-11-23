@@ -138,9 +138,10 @@ Upload = FormItem((props: UploadProps) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewTitle, setPreviewTitle] = useState('')
   const [previewImage, setPreviewImage] = useState('')
+  const updateFileListRef = useRef<any>(null)
 
   React.useEffect(() => {
-    ; (fileList || []).forEach((file, index) => {
+    ;(fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         const random = Math.random().toString().replace(/0./, '')
         file.uid = `${random}_${index}`
@@ -179,6 +180,8 @@ Upload = FormItem((props: UploadProps) => {
     })
   }
 
+  updateFileListRef.current = updateFileList
+
   const handleClick = () => {
     if (fileInput.current) fileInput.current.click()
   }
@@ -199,7 +202,7 @@ Upload = FormItem((props: UploadProps) => {
         exceededMaxCountMsg !== '' &&
           Message.warning(
             exceededMaxCountMsg ||
-            `上传文件个数${totalCount}，超出最大值${maxCount}`
+              `上传文件个数${totalCount}，超出最大值${maxCount}`
           )
       }
     }
@@ -301,13 +304,19 @@ Upload = FormItem((props: UploadProps) => {
         onUploadProgress: e => {
           const percentage = Math.round((e.loaded * 100) / e.total) || 0
           baseFile = { ...baseFile, status: 'uploading', percent: percentage }
-          updateFileList(baseFile, { status: 'uploading', percent: percentage })
+          updateFileListRef.current(baseFile, {
+            status: 'uploading',
+            percent: percentage
+          })
           onProgress && onProgress(percentage, file)
         },
         cancelToken: ss.token
       })
       .then(res => {
-        updateFileList(baseFile, { status: 'success', response: res.data })
+        updateFileListRef.current(baseFile, {
+          status: 'success',
+          response: res.data
+        })
         onSuccess &&
           onSuccess(res.data, {
             ...baseFile,
@@ -317,7 +326,7 @@ Upload = FormItem((props: UploadProps) => {
           })
       })
       .catch(err => {
-        updateFileList(baseFile, { status: 'error', response: err })
+        updateFileListRef.current(baseFile, { status: 'error', response: err })
         onError && onError(err, file)
       })
   }
@@ -376,7 +385,7 @@ Upload = FormItem((props: UploadProps) => {
           </Dragger>
         ) : listType === 'picture-card' ? (
           ((count || maxCount || Number.MAX_VALUE) as number) >
-          mergedFileList.length && (
+            mergedFileList.length && (
             <div className="pui-upload-btn-picture-card">
               {children || (
                 <span>
@@ -485,13 +494,13 @@ const defaultLocale = {
   downloadFile: 'Download file'
 }
 
-  ; (Upload as any).defaultProps = {
-    listType: 'text' as UploadListType,
-    showUploadList: true,
-    locale: defaultLocale,
-    count: 1,
-    disabled: false,
-    listIgnore: true
-  }
-  ; (Upload as any).displayName = 'Upload'
+;(Upload as any).defaultProps = {
+  listType: 'text' as UploadListType,
+  showUploadList: true,
+  locale: defaultLocale,
+  count: 1,
+  disabled: false,
+  listIgnore: true
+}
+;(Upload as any).displayName = 'Upload'
 export { Upload }
