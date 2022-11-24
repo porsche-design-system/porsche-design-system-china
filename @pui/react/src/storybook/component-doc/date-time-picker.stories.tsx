@@ -110,6 +110,12 @@ export const DateTimePickerStoryBook = () => {
 DateTimePickerStoryBook.storyName = 'DateTimePicker'
 
 export const DateTimePickerStoryBook2 = () => {
+  const clearFun = () => {
+    console.log('clearFun')
+  }
+  const valueChange = (val: any) => {
+    console.log('valueChange', val)
+  }
   return (
     <div>
       <Form>
@@ -206,8 +212,9 @@ export const DateTimePickerStoryBook2 = () => {
           showStyle="HHMM"
           componentId="testTime6cbafda"
           value={['13:29', '15:49']}
+          clearFun={clearFun}
+          onValueChange={valueChange}
         />
-
       </Form>
     </div>
   )

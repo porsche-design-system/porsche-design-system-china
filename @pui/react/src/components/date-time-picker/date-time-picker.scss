@@ -4,7 +4,7 @@
   .pui-theme-#{$theme} {
     @include theme($theme);
     .highlightBg {
-      border-color: $filter-highlight-border-color;
+      border-color: $filter-highlight-border-color !important;
       background-color: $filter-highlight-bg-color;
     }
     .filterMode {

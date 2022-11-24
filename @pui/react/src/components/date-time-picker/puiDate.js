@@ -1959,7 +1959,7 @@ jet.extend(jeDatePick.prototype, {
         that.selectDate = [jet.parse(jet.getDateTime({}), 'YYYY-MM-DD hh:mm')]
         that.showCurrentDayBg = false
         that.closeDate()
-        opts.clearfun && opts.clearfun.call(that)
+        opts.clearFun && opts.clearFun.call(that)
       },
       // 现在按钮函数
       nowBtn() {
