@@ -210,6 +210,7 @@ const DateTimePicker = FormItem(
         },
         clearFun: (elem: any, val: any) => {
           clearFun && clearFun(elem, val)
+          onValueChange && onValueChange(val)
           // setDateTimeDates(null)
         }
       }
