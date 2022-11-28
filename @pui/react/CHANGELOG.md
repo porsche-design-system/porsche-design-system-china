@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.42](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.41...v0.1.42) (2022-11-28)
+
+
+### Bug Fixes
+
+* DSCWCN-150 | 调整menu文档结构 ([fcef2b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fcef2b39e5b8ed9066eb48bdc2f772b2ca233133))
+* DSCWCN-152|修复清除事件,选中样式 ([b921112](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b92111248125c016f03cbd0d3c374f7e3f2ae4f5))
+* 修正错误 ([784b92b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/784b92b286e885229dfdc4672a61a4d4262e4ac7))
+
 ### [0.1.41](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.40...v0.1.41) (2022-11-21)
 
 
