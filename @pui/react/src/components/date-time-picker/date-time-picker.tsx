@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode,useState } from 'react'
+import React, { useEffect, ReactNode } from 'react'
 import {
   IconCalendar,
   IconArrowDoubleLeft,
@@ -127,12 +127,10 @@ const DateTimePicker = FormItem(
     placeholderEndDate = '无限',
     value = '',
     labelPosition = 'left',
-    size ,
+    size,
     filterMode = false,
     allowNullDate = false
   }: DatePickerProps) => {
-
-
     useEffect(() => {
       initComponent()
     }, [])
@@ -241,7 +239,10 @@ const DateTimePicker = FormItem(
     if ((labelText && labelPosition === 'left') || filterMode) {
       labelEle = (
         <span
-          className={`filter-label filter-label-size-${size}`+(value?' label-holder':'')}
+          className={
+            `filter-label filter-label-size-${size}` +
+            (value ? ' label-holder' : '')
+          }
           id={`${componentId}_holder`}
         >
           {labelText || ''}
@@ -320,16 +321,16 @@ const DateTimePicker = FormItem(
     } else {
       const objWidth = {
         OnlyYear: 50,
-        'YearAndMonth': 70,
-        'Common': 100,
-        'CommonHHMMSS': 130,
-        'HHMMSS': 80,
-        'HHMM': 60
+        YearAndMonth: 70,
+        Common: 100,
+        CommonHHMMSS: 130,
+        HHMMSS: 80,
+        HHMM: 60
       }
-      let highlight = '';
-      if ( value?.length > 0) {
+      let highlight = ''
+      if (value?.length > 0) {
         highlight = ' highlightBg'
-      } 
+      }
       return (
         <div className="pui-pick pui-date-picker filterMode">
           {isRange === undefined ? (
@@ -337,7 +338,9 @@ const DateTimePicker = FormItem(
               className={
                 disabled
                   ? 'je-input-box-disabled ' + className
-                  : `je-input-box je-input-box-size-${size}` + className + highlight
+                  : `je-input-box je-input-box-size-${size}` +
+                    className +
+                    highlight
               }
               style={{
                 paddingLeft: '12px',
@@ -356,7 +359,10 @@ const DateTimePicker = FormItem(
                   readOnly
                   id={componentId}
                   placeholder={placeholder}
-                  style={{ display: !value ? 'none' : 'inline-block',width: value ?objWidth[showStyle]+'px':''}}
+                  style={{
+                    display: !value ? 'none' : 'inline-block',
+                    width: value ? objWidth[showStyle] + 'px' : ''
+                  }}
                 />
                 <IconCalendar
                   className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
@@ -370,7 +376,8 @@ const DateTimePicker = FormItem(
                   ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${size} ` +
                     className
                   : `pui-pick-date-range pui-pick-date-range-size-${size} ` +
-                    className + highlight
+                    className +
+                    highlight
               }
               style={{ paddingLeft: '12px' }}
               onClick={evt => onFilter(evt)}
@@ -383,7 +390,10 @@ const DateTimePicker = FormItem(
                 >
                   <input
                     type="text"
-                    style={{ marginLeft: '12px',width: value[0] ?objWidth[showStyle]+'px':'' }}
+                    style={{
+                      marginLeft: '12px',
+                      width: value[0] ? objWidth[showStyle] + 'px' : ''
+                    }}
                     className={`je-input-range je-input-range-size-${size} filterMode-multi`}
                     value={value[0]}
                     disabled={disabled}
@@ -399,8 +409,10 @@ const DateTimePicker = FormItem(
                     disabled={disabled}
                     readOnly
                     id={componentId + 'posend'}
-                      placeholder={placeholderEndDate}
-                      style={{ width: value[1] ?objWidth[showStyle]+'px':'' }}
+                    placeholder={placeholderEndDate}
+                    style={{
+                      width: value[1] ? objWidth[showStyle] + 'px' : ''
+                    }}
                   />
                 </div>
                 <IconCalendar
