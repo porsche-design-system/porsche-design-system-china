@@ -4,82 +4,74 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.42](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.41...v0.1.42) (2022-11-28)
 
-
 ### Bug Fixes
 
-* DSCWCN-150 | 调整menu文档结构 ([fcef2b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fcef2b39e5b8ed9066eb48bdc2f772b2ca233133))
-* DSCWCN-152|修复清除事件,选中样式 ([b921112](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b92111248125c016f03cbd0d3c374f7e3f2ae4f5))
-* 修正错误 ([784b92b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/784b92b286e885229dfdc4672a61a4d4262e4ac7))
+- DSCWCN-150 | 调整 menu 文档结构 ([fcef2b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fcef2b39e5b8ed9066eb48bdc2f772b2ca233133))
+- DSCWCN-152|修复清除事件,选中样式 ([b921112](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b92111248125c016f03cbd0d3c374f7e3f2ae4f5))
+- 修正 Upload 组件在上传时不能填写其他表单内容 bug ([784b92b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/784b92b286e885229dfdc4672a61a4d4262e4ac7))
 
 ### [0.1.41](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.40...v0.1.41) (2022-11-21)
 
-
 ### Bug Fixes
 
-* 加入老源发版 ([34fefe8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/34fefe861441e1aa6c4469909a9b6a07b732ca6c))
+- 加入老源发版 ([34fefe8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/34fefe861441e1aa6c4469909a9b6a07b732ca6c))
 
 ### [0.1.40](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.39...v0.1.40) (2022-11-21)
 
-
 ### Features
 
-* DSCWCN-150 |  Manu排版 ([06b1ec4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/06b1ec4257f1edd2f0ee707c8968469642b1ccad))
-
+- DSCWCN-150 | Manu 排版 ([06b1ec4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/06b1ec4257f1edd2f0ee707c8968469642b1ccad))
 
 ### Bug Fixes
 
-* DSCWCN-152|DateTimePick ([d6125c3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d6125c3f45ba031b2b335ec5b2d8393ac9f86661))
-* InputNumber组件示例样式优化 ([c63b8ac](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c63b8ac49271b664377381b35d69f46188ec3634))
-* 优化 form data-range-picker 赋值 ([13d9901](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/13d9901734ea3859ca94725d83c6fb22661dd72a))
-* 修正babel编译 ([227e876](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/227e876011d6f143c509c2258fec04f8b1a5f4e3))
-* 修正select菜单 事件错误 ([b388954](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b38895470ede58b1db8867ee39f25c9c8242fac7))
-* 修正命令 ([33728d0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/33728d0467fed3a47fdcca796eef33e12180506b))
-* 修正大尺寸字数统计 ([a3c9ac0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a3c9ac06a1238a6b2485fde5bd82dd6c01c7fd74))
-* 修正错误 ([ef1d3fa](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ef1d3fad99fb1681d7b48525424f2d39727619ce))
-* 去掉ping ([1238648](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1238648c605db127af76d74e239c116f7a8dc83c))
-* 尝试pipeline ([8ef0518](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8ef05186e8b38af265793290e6b2442cdfe848f0))
-* 尝试使用新写法 ([888ef72](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/888ef7282fe36ad9b0e08862b10978b815c924b8))
-* 尝试修改 ([db7b77a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/db7b77ac3927325f7e6fc1abaadac2cd8a5ee5f5))
-* 尝试修改成内网IP ([c2c1453](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c2c145394803afe7a0bf98d6dce301fc0cce0768))
-* 查看IP地址 ([0501070](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/05010708a64ec80f4b564ae5c074ba18a544d539))
-* 查看版本 ([5d61743](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/5d61743d1738f32caa076199ccf9af99f4c58ffa))
-* 测试 ([adc4a80](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/adc4a8039b2fd0a114ae4329cdae0bdef3d20423))
-* 添加阿里镜像 ([ef291e8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ef291e8d7e4ac0b25d974cb348a3eb996806ef09))
+- DSCWCN-152|DateTimePick ([d6125c3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d6125c3f45ba031b2b335ec5b2d8393ac9f86661))
+- InputNumber 组件示例样式优化 ([c63b8ac](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c63b8ac49271b664377381b35d69f46188ec3634))
+- 优化 form data-range-picker 赋值 ([13d9901](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/13d9901734ea3859ca94725d83c6fb22661dd72a))
+- 修正 babel 编译 ([227e876](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/227e876011d6f143c509c2258fec04f8b1a5f4e3))
+- 修正 select 菜单 事件错误 ([b388954](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b38895470ede58b1db8867ee39f25c9c8242fac7))
+- 修正命令 ([33728d0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/33728d0467fed3a47fdcca796eef33e12180506b))
+- 修正大尺寸字数统计 ([a3c9ac0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a3c9ac06a1238a6b2485fde5bd82dd6c01c7fd74))
+- 修正错误 ([ef1d3fa](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ef1d3fad99fb1681d7b48525424f2d39727619ce))
+- 去掉 ping ([1238648](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1238648c605db127af76d74e239c116f7a8dc83c))
+- 尝试 pipeline ([8ef0518](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8ef05186e8b38af265793290e6b2442cdfe848f0))
+- 尝试使用新写法 ([888ef72](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/888ef7282fe36ad9b0e08862b10978b815c924b8))
+- 尝试修改 ([db7b77a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/db7b77ac3927325f7e6fc1abaadac2cd8a5ee5f5))
+- 尝试修改成内网 IP ([c2c1453](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c2c145394803afe7a0bf98d6dce301fc0cce0768))
+- 查看 IP 地址 ([0501070](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/05010708a64ec80f4b564ae5c074ba18a544d539))
+- 查看版本 ([5d61743](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/5d61743d1738f32caa076199ccf9af99f4c58ffa))
+- 测试 ([adc4a80](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/adc4a8039b2fd0a114ae4329cdae0bdef3d20423))
+- 添加阿里镜像 ([ef291e8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ef291e8d7e4ac0b25d974cb348a3eb996806ef09))
 
 ### [0.1.39](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.38...v0.1.39) (2022-10-31)
 
-
 ### Bug Fixes
 
-* 修正日期 与搜索框 ([7ca6e17](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ca6e17fa2cd4349f9338594576c7466a93d3bb1))
-* 修正日期选择范围控件bug ([946635c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/946635c9d74b498de1bb90a12c3bcf55485c3869))
+- 修正日期 与搜索框 ([7ca6e17](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ca6e17fa2cd4349f9338594576c7466a93d3bb1))
+- 修正日期选择范围控件 bug ([946635c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/946635c9d74b498de1bb90a12c3bcf55485c3869))
 
 ### [0.1.38](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.37...v0.1.38) (2022-10-28)
 
-
 ### Bug Fixes
 
-* DRSCN-22919|修改size和默认样式 ([576816d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/576816d0ddcef2a6adf4b8e89429f0e87eeb11b7))
-* DRSCN-22919|修改size和默认样式 ([79a724e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/79a724e074e9cf60ecb98acc3771498650cad903))
-* split-button样式 ([f99a69c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f99a69c58424d884e803fc615667546a8b4c2325))
-* 优化代码 ([8bf80bc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8bf80bcfb429a78155ce060797c4c10e686cb545))
-* 修正按钮图标 ([f1ea9ac](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f1ea9ac2d4f427e975255024e5db272ca8c942ce))
-* 修正按钮图标定位 ([8b0fa70](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8b0fa70a3b67d4ce45e0beebdc0b15054b5d0ee0))
+- DRSCN-22919|修改 size 和默认样式 ([576816d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/576816d0ddcef2a6adf4b8e89429f0e87eeb11b7))
+- DRSCN-22919|修改 size 和默认样式 ([79a724e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/79a724e074e9cf60ecb98acc3771498650cad903))
+- split-button 样式 ([f99a69c](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f99a69c58424d884e803fc615667546a8b4c2325))
+- 优化代码 ([8bf80bc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8bf80bcfb429a78155ce060797c4c10e686cb545))
+- 修正按钮图标 ([f1ea9ac](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f1ea9ac2d4f427e975255024e5db272ca8c942ce))
+- 修正按钮图标定位 ([8b0fa70](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8b0fa70a3b67d4ce45e0beebdc0b15054b5d0ee0))
 
 ### [0.1.37](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.36...v0.1.37) (2022-10-25)
 
-
 ### Bug Fixes
 
-* 修正打包错误 ([0b86326](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0b86326b0688c1b93a835288882f8fcea387a824))
+- 修正打包错误 ([0b86326](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0b86326b0688c1b93a835288882f8fcea387a824))
 
 ### [0.1.36](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.35...v0.1.36) (2022-10-25)
 
-
 ### Bug Fixes
 
-* 优化文档 ([9d8499f](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9d8499f44cc617e530a858a7bad3bb7124bdf38a))
-* 修正css引用错误 ([6eeecdb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6eeecdb281c6a6dd5944482c111733858e3cb4d3))
+- 优化文档 ([9d8499f](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9d8499f44cc617e530a858a7bad3bb7124bdf38a))
+- 修正 css 引用错误 ([6eeecdb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6eeecdb281c6a6dd5944482c111733858e3cb4d3))
 
 ### [0.1.35](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.34...v0.1.35) (2022-10-25)
 
