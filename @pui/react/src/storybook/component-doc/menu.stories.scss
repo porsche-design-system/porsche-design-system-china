@@ -1,9 +1,30 @@
 .menu-demo {
-  min-height: 300px;
+  min-height: 436px;
   .test-one {
-    margin-bottom: 20px;
+    padding: 24px 28px 0;
+    border-bottom: 1px solid #e3e4e5;
+    margin-bottom: 24px;
   }
   .test-two {
     width: 240px;
+  }
+  .btn-group {
+    padding: 24px 24px 12px;
+  }
+  .test-submenu {
+    h3 {
+      padding: 32px 24px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+.base-menu {
+  min-height: 300px;
+}
+#anchor--feedback-menu--menu-story-book-1,
+#anchor--feedback-menu--menu-story-book-2 {
+  .docs-story > div:nth-child(1) {
+    padding: 0;
   }
 }
