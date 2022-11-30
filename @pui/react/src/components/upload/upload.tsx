@@ -214,7 +214,7 @@ Upload = FormItem((props: UploadProps) => {
     const postFilesLen = postFiles.length
     if (maxCount === 1) {
       if (mergedFileList?.length) {
-        mergedFileList.map(file => handleRemove(file))
+        mergedFileList.map(file => handleRemove(file, false))
       }
       postFiles.splice(1)
     } else if (
@@ -242,11 +242,16 @@ Upload = FormItem((props: UploadProps) => {
     })
   }
 
-  const handleRemove = (file: UploadFile) => {
+  /**
+   * 删除文件
+   * @param file 需要删除的文件
+   * @param formEffect 删除后是否同步到form表单
+   */
+  const handleRemove = (file: UploadFile, formEffect: boolean = true) => {
     setMergedFileList(prevFile => {
       const newList = prevFile.filter(item => item.uid !== file.uid)
       onChange && onChange(file, newList)
-      if (formDataMapping) {
+      if (formDataMapping && formEffect) {
         const uploadValue = formDataMapping(newList)
         onValueChange && onValueChange(uploadValue)
       }
