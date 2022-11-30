@@ -219,12 +219,13 @@ export const ExampleStoryBook = () => {
             />
             <Upload
               rules={{
-                message: '必须传2文件',
+                message: '必须传1文件',
                 validator: (_, val) => {
-                  return val.length >= 2
+                  return val.length >= 1
                 }
               }}
               multiple
+              maxCount={1}
               label="上传身份证正反面"
               name="uploadFiles"
               headers={{
