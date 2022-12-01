@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.43](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.42...v0.1.43) (2022-12-01)
+
+
+### Bug Fixes
+
+* 修复upload组件maxCount=1时再次上传文件，文件消失问题 ([badb30d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/badb30db088f1d2744f825bb9e9461f53870bf6e))
+
 ### [0.1.42](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.41...v0.1.42) (2022-11-28)
 
 ### Bug Fixes
