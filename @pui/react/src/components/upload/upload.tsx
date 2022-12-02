@@ -425,7 +425,6 @@ Upload = FormItem((props: UploadProps) => {
   )
 
   const renderUploadList = (button?: React.ReactNode) => {
-    console.log('mergedFileList', mergedFileList)
     if (showUploadList) {
       const {
         showRemoveIcon,
