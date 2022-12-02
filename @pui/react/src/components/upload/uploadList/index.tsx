@@ -23,7 +23,7 @@ interface UploadListProps {
   showPreviewIcon?: boolean
   downloadIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
   removeIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
-  onRemove: (file: UploadFile) => void
+  onRemove: (file: UploadFile, formEffect: boolean) => void
   onPreview: (file: UploadFile) => void
   isImageUrl?: (file: UploadFile) => boolean
   previewFile?: PreviewFileHandler
@@ -84,8 +84,8 @@ const UploadList: FC<UploadListProps> = props => {
     e && e.preventDefault()
     return onPreview(file)
   }
-  const onInternalClose = (file: UploadFile) => {
-    onRemove && onRemove(file)
+  const onInternalClose = (file: UploadFile, formEffect: boolean) => {
+    onRemove && onRemove(file, formEffect)
   }
 
   const internalIconRender = (file: UploadFile) => {

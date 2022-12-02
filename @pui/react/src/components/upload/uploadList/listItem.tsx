@@ -22,7 +22,7 @@ interface UploadListProps {
     title?: string | undefined
   ) => React.ReactNode
   removeIcon?: React.ReactNode | ((file: UploadFile) => React.ReactNode)
-  onRemove: (file: UploadFile) => void
+  onRemove: (file: UploadFile, formEffect: boolean) => void
   onPreview: (file: UploadFile, e: React.SyntheticEvent<HTMLElement>) => void
 }
 
@@ -93,8 +93,8 @@ const ListItem: FC<UploadListProps> = props => {
     }
   }
 
-  const handleStopUpload = () => {
-    onRemove(file) // 同时删除
+  const handleStopUpload = (formEffect: boolean = true) => {
+    onRemove(file, formEffect) // 同时删除
     file.source && file.source.cancel('取消成功')
   }
 
@@ -207,7 +207,7 @@ const ListItem: FC<UploadListProps> = props => {
           classNames="pui-upload-progress"
           timeout={1000}
         >
-          <Progress percent={file.percent || 0} onStop={handleStopUpload} />
+          <Progress percent={file.percent || 0} onStop={()=>handleStopUpload(false)} />
         </CSSTransition>
       </div>
     </div>
