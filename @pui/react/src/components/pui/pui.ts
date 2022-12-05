@@ -1,7 +1,19 @@
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+
 import { getGlobalStateSetter } from '../../shared/global-state'
 
-/* eslint-disable dot-notation */
+i18n.use(initReactI18next).init({
+  resources: {},
+  lng: 'zh-CN',
+  fallbackLng: 'zh-CN',
+  interpolation: {
+    escapeValue: false
+  }
+})
+
 type ThemeName = 'light' | 'dark'
+type LangCode = 'en' | 'zh-CN'
 export const PUI = {
   setTheme(themeName: ThemeName) {
     this['_themeName'] = themeName
@@ -34,6 +46,20 @@ export const PUI = {
     if (getGlobalStateSetter('SCROLLBAR_AUTO_HIDE')) {
       getGlobalStateSetter('SCROLLBAR_AUTO_HIDE')(type)
     }
+  },
+  addLangResources(
+    nameSpace: string,
+    resource: { en?: Record<string, string>; 'zh-CN'?: Record<string, string> }
+  ) {
+    Object.keys(resource).forEach(lang => {
+      i18n.addResources(lang, nameSpace, resource[lang])
+    })
+  },
+  changeLang(lang: LangCode) {
+    i18n.changeLanguage(lang)
+  },
+  getLang() {
+    return i18n.language as LangCode
   }
 }
 ;(window as any).PUI = PUI

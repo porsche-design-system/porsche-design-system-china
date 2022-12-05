@@ -75,6 +75,14 @@
     margin-top: 5px;
   }
 
+  .lang-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 320px;
+    margin-top: 5px;
+  }
+
+  .lang-button button,
   .size-button button,
   .theme-button button {
     font-size: 13px;
@@ -85,12 +93,13 @@
     cursor: pointer;
     float: left;
   }
-
+  .pui-theme-dark .lang-button button,
   .pui-theme-dark .size-button button,
   .pui-theme-dark .theme-button button {
     color: white;
   }
 
+  .lang-button .active,
   .size-button .active,
   .theme-button .active {
     font-size: 13px;
@@ -102,6 +111,7 @@
     font-weight: bold;
   }
 
+  .pui-theme-dark .lang-button .active,
   .pui-theme-dark .size-button .active,
   .pui-theme-dark .theme-button .active {
     border: 1px solid #666;
@@ -177,6 +187,18 @@
     color: white;
   }
 </style>
+
+<div class="lang-button">
+  <button
+    id="lang-zh-cn"
+    onclick="PUI.changeLang('zh-CN');updateButtonTheme();"
+  >
+    中文
+  </button>
+  <button id="lang-en" onclick="PUI.changeLang('en');updateButtonTheme();">
+    English
+  </button>
+</div>
 
 <div class="size-button">
   <button
@@ -258,6 +280,10 @@
         PUI.getTheme() == 'light' ? 'active' : ''
       document.getElementById('theme-dark').className =
         PUI.getTheme() == 'dark' ? 'active' : ''
+      document.getElementById('lang-zh-cn').className =
+        PUI.getLang() == 'zh-CN' ? 'active' : ''
+      document.getElementById('lang-en').className =
+        PUI.getLang() == 'en' ? 'active' : ''
     } else {
       setTimeout(updateButtonTheme, 100)
     }

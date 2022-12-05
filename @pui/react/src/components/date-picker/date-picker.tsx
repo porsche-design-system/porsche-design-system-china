@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
+import { useTranslation } from 'react-i18next'
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -21,6 +22,8 @@ import {
 import { componentClassNames } from '../../shared/class-util'
 import './date-picker.scss'
 import { FormItemLabelProps } from '../form/form'
+import { PUI } from '../pui/pui'
+import './lang'
 
 export interface DatePickerProps {
   /** 类名 */
@@ -118,6 +121,7 @@ const DatePicker = FormItem(
     }
 
     const newKeepClearButton = keepClearButton || supportTouch()
+    const { t } = useTranslation('DatePicker')
 
     const [defaultSize] = useDefaultSize()
     size = size || defaultSize
@@ -434,8 +438,15 @@ const DatePicker = FormItem(
                       }}
                     />
                   </div>
-                  {displayDate.current.getFullYear()}年
-                  {displayDate.current.getMonth() + 1}月
+                  {PUI.getLang() === 'en' &&
+                    t('Months').split(' ')[displayDate.current.getMonth()] +
+                      ' ' +
+                      displayDate.current.getFullYear()}
+                  {PUI.getLang() === 'zh-CN' &&
+                    displayDate.current.getFullYear() +
+                      '年' +
+                      (displayDate.current.getMonth() + 1) +
+                      '月'}
                   <div className="pui-date-picker-calendar-head-right">
                     <IconArrowHeadRight
                       onClick={() => {
@@ -458,14 +469,16 @@ const DatePicker = FormItem(
                   </div>
                 </div>
                 <div className="pui-date-picker-calendar-weekdays">
-                  {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
-                    <div
-                      key={weekday}
-                      className="pui-date-picker-calendar-weekday"
-                    >
-                      {weekday}
-                    </div>
-                  ))}
+                  {t('Weekdays')
+                    .split(' ')
+                    .map(weekday => (
+                      <div
+                        key={weekday}
+                        className="pui-date-picker-calendar-weekday"
+                      >
+                        {weekday}
+                      </div>
+                    ))}
                 </div>
                 <div className="pui-date-picker-calendar-dates">
                   {calendarDates.map(date => {
