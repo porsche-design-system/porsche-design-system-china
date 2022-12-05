@@ -11,7 +11,7 @@ export const parameters = {
         'Coding',
         ['Getting Start', 'Best Practice'],
         'Foundation',
-        'Theming',
+        'Theming & Language',
         'Navigation',
         'Data Entry',
         'Data Display',

@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
+import { useTranslation } from 'react-i18next'
 import {
   IconArrowDoubleLeft,
   IconArrowHeadLeft,
@@ -27,6 +28,7 @@ import {
 } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import { FormItemLabelProps } from '../form/form'
+import { PUI } from '../pui/pui'
 
 import './date-range-picker.scss'
 
@@ -113,6 +115,7 @@ const DateRangePicker = FormItem(
     filterMode = false,
     mustPickStartEnd = false
   }: DateRangePickerProps) => {
+    const { t } = useTranslation('DatePicker')
     const [currentInputPlace, setCurrentInputPlace] = useState(0)
     const initDates: [Date | null, Date | null] = [
       strToDate((value && value[0]) || (defaultValue && defaultValue[0]) || ''),
@@ -299,7 +302,15 @@ const DateRangePicker = FormItem(
                 </>
               )}
             </div>
-            {dDate.getFullYear()}年{dDate.getMonth() + 1}月
+            {PUI.getLang() === 'en' &&
+              t('Months').split(' ')[displayDate.current.getMonth()] +
+                ' ' +
+                displayDate.current.getFullYear()}
+            {PUI.getLang() === 'zh-CN' &&
+              displayDate.current.getFullYear() +
+                '年' +
+                (displayDate.current.getMonth() + 1) +
+                '月'}
             <div className="pui-date-range-picker-calendar-head-right">
               {calInx === 1 && (
                 <>
@@ -324,14 +335,16 @@ const DateRangePicker = FormItem(
             </div>
           </div>
           <div className="pui-date-range-picker-calendar-weekdays">
-            {'日 一 二 三 四 五 六'.split(' ').map(weekday => (
-              <div
-                key={weekday}
-                className="pui-date-range-picker-calendar-weekday"
-              >
-                {weekday}
-              </div>
-            ))}
+            {t('Weekdays')
+              .split(' ')
+              .map(weekday => (
+                <div
+                  key={weekday}
+                  className="pui-date-range-picker-calendar-weekday"
+                >
+                  {weekday}
+                </div>
+              ))}
           </div>
           <div className="pui-date-range-picker-calendar-dates">
             {calendarDates[calInx].map(date => {
@@ -611,7 +624,7 @@ const DateRangePicker = FormItem(
                 />
               )}
             </button>
-            <span className="pui-date-range-picker-to">至</span>
+            <span className="pui-date-range-picker-to">{t('To')}</span>
             <button
               className={classNames('pui-date-range-picker-box', {
                 'pui-date-range-picker-box-active':

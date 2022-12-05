@@ -82,7 +82,9 @@
     "overlayscrollbars-react": "0.3.0",
     "overlayscrollbars": "1.13.3",
     "axios": "0.27.2",
-    "sass": "1.52.2"
+    "sass": "1.52.2",
+    "react-i18next": "^12.0.0",
+    "react-intl": "^6.2.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
