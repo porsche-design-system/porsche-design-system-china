@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.44](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.43...v0.1.44) (2022-12-05)
+
+
+### Features
+
+* 加入多语言 ([70dde8b](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/70dde8b70f0b1eb886e1aaa86e0f5841dd160d51))
+
 ### [0.1.43](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.42...v0.1.43) (2022-12-01)
 
 
