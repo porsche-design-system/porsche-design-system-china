@@ -59,6 +59,10 @@ export const NotificationStoryBook2 = () => {
     cancelText: '三级按钮',
     okText: '一级按钮',
     message: '通知标题',
+    key: '1',
+    onOk: () => {
+      Notification.close(config.key)
+    },
     description:
       '通知内容，用于系统主动发起的提示、引导，而非操作反馈。上下内边距固定，自适应高度。'
   }
