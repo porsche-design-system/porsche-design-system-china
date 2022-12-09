@@ -303,14 +303,11 @@ const DateRangePicker = FormItem(
               )}
             </div>
             {PUI.getLang() === 'en' &&
-              t('Months').split(' ')[displayDate.current.getMonth()] +
+              t('Months').split(' ')[dDate.getMonth()] +
                 ' ' +
-                displayDate.current.getFullYear()}
+                dDate.getFullYear()}
             {PUI.getLang() === 'zh-CN' &&
-              displayDate.current.getFullYear() +
-                '年' +
-                (displayDate.current.getMonth() + 1) +
-                '月'}
+              dDate.getFullYear() + '年' + (dDate.getMonth() + 1) + '月'}
             <div className="pui-date-range-picker-calendar-head-right">
               {calInx === 1 && (
                 <>
