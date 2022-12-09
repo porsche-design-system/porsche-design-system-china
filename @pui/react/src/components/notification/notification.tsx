@@ -80,6 +80,9 @@ export interface NotificationConfigProps {
 
   /** 弹出位置，可选 topLeft topRight bottomLeft bottomRight */
   placement?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
+  
+  /** 唯一标识 */
+  key?: string
 }
 
 const defaultConfig: NotificationConfigProps = {
@@ -101,10 +104,12 @@ const defaultConfig: NotificationConfigProps = {
   cancelIcon: undefined,
   onOk: undefined,
   onCancel: undefined,
-  placement: 'topLeft'
+  placement: 'topLeft',
+  key: ''
 }
 
 let wrap: HTMLElement
+let count = 0
 export const createNotification = () => {
   return (config: Partial<NotificationConfigProps> = {}) => {
     const fconfig = { ...defaultConfig, ...config }
@@ -125,7 +130,7 @@ export const createNotification = () => {
     position: fixed;
     z-index: 100000;
     ${placement}`
-
+    count++
     if (!wrap) {
       // 如果有的话，说明已经调用过这个函数了，这个空div就可以一直复用
       wrap = document.createElement('div')
@@ -162,6 +167,7 @@ export function NotificationBox(props: NotificationProps) {
   const unmount = useMemo(() => {
     return () => {
       if (parentDom && rootDom) {
+        count--
         unmountNode(parentDom)
         rootDom.removeChild(parentDom)
       }
@@ -210,7 +216,10 @@ export function NotificationBox(props: NotificationProps) {
   }, [fconfig, unmount])
 
   return (
-    <div className={componentClassNames('pui-notification', { size })}>
+    <div
+      className={componentClassNames('pui-notification', { size })}
+      id={fconfig?.key ? '$notification-' + fconfig.key : ''}
+    >
       <div
         className={`notification-text ${fconfig.type}  ${
           close ? 'close' : 'open'
@@ -278,5 +287,14 @@ export function NotificationBox(props: NotificationProps) {
 export const Notification = {
   pop(config: NotificationConfigProps) {
     createNotification()(config)
+  },
+  close(key: string) {
+    const node = document.getElementById('$notification-' + key)
+    if (node) {
+      node.remove()
+      if (count === 0) {
+        node.parentElement?.remove()
+      }
+    }
   }
 }
