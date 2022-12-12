@@ -154,21 +154,21 @@ export const MenuStoryBook2 = () => {
                   SubMenu 3 <IconArrowHeadDown />
                 </>
               }
-              index="submit"
+              index="click-submit"
               onClick={() => console.log('onClick事件', '点击了子标题')}
             >
-              <Menu.Item index="submit-test" visible={hiddenItem}>
+              <Menu.Item index="click-submit-test" visible={hiddenItem}>
                 test visible1
               </Menu.Item>
-              <Menu.Item index="submit-about">about2</Menu.Item>
-              <Menu.Item disabled index="submit-prod">
+              <Menu.Item index="click-submit-about">about2</Menu.Item>
+              <Menu.Item disabled index="click-submit-prod">
                 prod3
               </Menu.Item>
-              <Menu.Item index="submit-test1">submit-test1</Menu.Item>
-              <Menu.Item index="submit-about2" visible={hiddenItem}>
+              <Menu.Item index="click-submit-test1">submit-test1</Menu.Item>
+              <Menu.Item index="click-submit-about2" visible={hiddenItem}>
                 submit-visible
               </Menu.Item>
-              <Menu.Item disabled index="submit-prod3">
+              <Menu.Item disabled index="click-submit-prod3">
                 prod3
               </Menu.Item>
             </Menu.SubMenu>
@@ -178,15 +178,15 @@ export const MenuStoryBook2 = () => {
                   SubMenu 4 <IconArrowHeadDown />
                 </>
               }
-              index="submit-submit4"
+              index="click-submit-submit4"
             >
-              <Menu.Item selectAfter index="submit-submit-test14">
+              <Menu.Item selectAfter index="click-submit-submit-test14">
                 test1
               </Menu.Item>
-              <Menu.Item selectAfter index="submit-submit-about24">
+              <Menu.Item selectAfter index="click-submit-submit-about24">
                 about2
               </Menu.Item>
-              <Menu.Item disabled index="submit-submit-prod34">
+              <Menu.Item disabled index="click-submit-submit-prod34">
                 prod4
               </Menu.Item>
             </Menu.SubMenu>

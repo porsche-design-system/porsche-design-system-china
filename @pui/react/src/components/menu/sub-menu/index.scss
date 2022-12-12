@@ -104,6 +104,8 @@
           color: $brand-color;
           border-bottom-color: $brand-color;
         }
+      }
+      &.is-opened {
         .porscheicon-icon_-arrow-head-down {
           transform: scaleY(-1);
         }
