@@ -131,6 +131,7 @@ export const getMonthCalDates = (date: Date) => {
 
 export const addMonth = (date: Date, count: number = 1) => {
   const d = new Date(date)
+  d.setDate(1)
   d.setMonth(d.getMonth() + count)
   return d
 }
