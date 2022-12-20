@@ -44,6 +44,9 @@ export interface FormItemProps {
 
   /** 过滤器选项模式 */
   filterMode?: boolean
+
+  /** 在输入的时候立即校验，而不是等到 onblur 后才开始校验 */
+  instantValidate?: boolean
 }
 
 export const FormItem =
@@ -59,7 +62,8 @@ export const FormItem =
       style,
       filterMode = false,
       className,
-      name
+      name,
+      instantValidate
     } = props
 
     if (displayName) {
@@ -141,7 +145,7 @@ export const FormItem =
           marginRight: marginRight || style?.marginRight
         }}
         onKeyUp={() => {
-          if (blurTriggered.current) {
+          if (blurTriggered.current || instantValidate) {
             validateFormItem()
           }
         }}
