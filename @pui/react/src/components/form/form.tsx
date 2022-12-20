@@ -27,6 +27,9 @@ export interface FormLabelStyle {
 
   /** 标签宽度 */
   width?: string
+
+  /** 是否显示必填标记（*） */
+  requiredMark?: boolean
 }
 
 export interface FormItemLabelProps extends FormLabelStyle {
