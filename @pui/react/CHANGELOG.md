@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.47](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.46...v0.1.47) (2022-12-20)
+
+
+### Features
+
+* 加入必填标记选项 ([13ebe8d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/13ebe8d1d2d81f03ba14c64cbbd4932949a283f8))
+* 加入立即校验功能 ([87f6990](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/87f6990ce0936b7c909b1fc712b9247b1026799b))
+
+
+### Bug Fixes
+
+* DSCWCN-158 | Menu组件文档-SubMenu箭头状态修复 ([09a04a1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/09a04a1e4f92d1b38b2d7e9e76480a8c975a02ac))
+* 修正日期选择错误 ([bdde291](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bdde291b1c3ee316f00f9649d7c0b506e091f167))
+* 修正时间 ([bead375](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bead3758181c80b03ae7f95e3a8fff89ab4cd2cd))
+
 ### [0.1.46](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.45...v0.1.46) (2022-12-09)
 
 ### [0.1.45](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.44...v0.1.45) (2022-12-08)
