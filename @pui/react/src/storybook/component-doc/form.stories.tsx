@@ -126,6 +126,7 @@ export const ExampleStoryBook = () => {
               name="firstName"
               width="54%"
               rules={{ required: true, message: '必须填写' }}
+              instantValidate
             />
             <DatePicker
               name="birthday"
