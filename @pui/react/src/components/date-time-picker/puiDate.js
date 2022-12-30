@@ -862,7 +862,6 @@ jet.extend(jeDatePick.prototype, {
       that.storeData(ymarr[0], ymarr[1])
       that.renderDate(1)
       opts.succeed && opts.succeed(that.dateCell)
-      // console.log('render...end', that)
     } else if (trigges) {
       jet.on(that.valCell, trigges, () => {
         if (document.querySelectorAll(elx).length > 0) return
@@ -953,7 +952,6 @@ jet.extend(jeDatePick.prototype, {
     const isShow = jet.isBool(opts.isShow)
     const elxID = !isShow ? elx + searandom() : elx
     const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
-    // console.log('renderDate', x)
     if (that.dateCell == undefined) {
       that.dateCell = document.createElement('div')
       that.dateCell.id = elxID.replace(/\#/g, '')
@@ -1287,8 +1285,6 @@ jet.extend(jeDatePick.prototype, {
       RES.daylist.push(that.eachDays(dayNext.y, dayNext.m, nday, 1))
       RES.daytit.push({ YYYY: dayNext.y, MM: dayNext.m })
     }
-
-    // console.log('RES.daylist', RES.daylist)
     // 设置时间数据
     that.selectTime = [timeA, timeB]
     RES.timelist.push(that.eachTime(timeA, 1))
@@ -1392,7 +1388,6 @@ jet.extend(jeDatePick.prototype, {
     // 循环时间模板
     let hmsHtml = ''
     if (opts.showSecend) {
-      // console.log('time...loop', opts.multiPane)
       if (opts.multiPane === false) {
         hmsHtml =
           '<div class="pui-pick-date-time pui-pick-date-time-size-' +
@@ -1886,7 +1881,145 @@ jet.extend(jeDatePick.prototype, {
           that.dateCell
         ).querySelectorAll('ul')[pidx]
         const tlen = that.$data.timelist[0].length
+        let minVal = []
+        let maxVal = []
+        const ntVal = jet.trim(that.minDate).replace(/\s+/g, ' ')
+        const xtVal = jet.trim(that.maxDate).replace(/\s+/g, ' ')
+        const nVal = ntVal.split(' ')
+        const xVal = xtVal.split(' ')
+        if (that.dlen > 3 && /\:/.test(nVal) && /\:/.test(xVal)) {
+          minVal = jet.reMatch(
+            /\s/.test(ntVal) && that.dlen > 3 ? nVal[1] : ntVal
+          )
+          maxVal = jet.reMatch(
+            /\s/.test(xtVal) && that.dlen > 3 ? xVal[1] : xtVal
+          )
+        }
+        var selectDataStr = that.selectValue
+        if (idx === '0' && num === '0') {
+          // 日期比较,如果不是范围，选中日期和最小值比较
+          const ulSecCell = $Q(
+            '.pui-pick-date-time',
+            that.dateCell
+          ).querySelectorAll('ul')[1]
+          if (selectDataStr.length === 1) {
+            if (
+              Date.parse(nVal[0]) === Date.parse(selectDataStr[0].substr(0, 10))
+            ) {
+              if (vals > minVal[0]) {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  node.classList.remove('action')
+                  node.classList.remove('disabled')
+                })
+              } else {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) < minVal[1]) {
+                    node.classList.remove('action')
+                  }
+                })
+                that.selectTime[paridx][mhms[1]] = minVal[1]
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) < minVal[1]) {
+                    node.classList.add('disabled')
+                  }
+                })
+              }
+            } else if (
+              Date.parse(xVal[0]) === Date.parse(selectDataStr[0].substr(0, 10))
+            ) {
+              if (vals < maxVal[0]) {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  node.classList.remove('action')
+                  node.classList.remove('disabled')
+                })
+              } else {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) > maxVal[1]) {
+                    node.classList.remove('action')
+                  }
+                })
+                that.selectTime[paridx][mhms[1]] = maxVal[1]
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) > maxVal[1]) {
+                    node.classList.add('disabled')
+                  }
+                })
+              }
+            }
+          } else {
+            if (
+              Date.parse(nVal[0]) === Date.parse(selectDataStr[0].substr(0, 10))
+            ) {
+              if (vals > minVal[0]) {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  node.classList.remove('action')
+                  node.classList.remove('disabled')
+                })
+              } else {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) < minVal[1]) {
+                    node.classList.remove('action')
+                  }
+                })
+                that.selectTime[paridx][mhms[1]] = minVal[1]
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) < minVal[1]) {
+                    node.classList.add('disabled')
+                  }
+                })
+              }
+            } else if (
+              Date.parse(xVal[0]) === Date.parse(selectDataStr[1].substr(0, 10))
+            ) {
+              if (vals < maxVal[0]) {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  node.classList.remove('action')
+                  node.classList.remove('disabled')
+                })
+              } else {
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) > maxVal[1]) {
+                    node.classList.remove('action')
+                  }
+                })
+                that.selectTime[paridx][mhms[1]] = maxVal[1]
+                jet.each(ulSecCell.childNodes, (i, node) => {
+                  if (parseInt(node.innerText) > maxVal[1]) {
+                    node.classList.add('disabled')
+                  }
+                })
+              }
+            }
+          }
+        } else if (idx === '1' && num === '2') {
+          const secCell = $Q(
+            '.pui-pick-date-time',
+            that.dateCell
+          ).querySelectorAll('ul')[3]
+          const parseDate =
+            selectDataStr.length > 1 ? selectDataStr[1] : selectDataStr[0]
+          if (Date.parse(xVal[0]) === Date.parse(parseDate.substr(0, 10))) {
+            if (vals < maxVal[0]) {
+              jet.each(secCell.childNodes, (i, node) => {
+                node.classList.remove('action')
+                node.classList.remove('disabled')
+              })
+            } else {
+              jet.each(secCell.childNodes, (i, node) => {
+                if (parseInt(node.innerText) > maxVal[1]) {
+                  node.classList.remove('action')
+                }
+              })
+              that.selectTime[paridx][mhms[1]] = maxVal[1]
 
+              jet.each(secCell.childNodes, (i, node) => {
+                if (parseInt(node.innerText) > maxVal[1]) {
+                  node.classList.add('disabled')
+                }
+              })
+            }
+          }
+        }
         if (jet.hasClass(this, 'disabled')) return
         jet.each(ulCell.childNodes, (i, node) => {
           const reg = new RegExp('(^|\\s+)' + act + '(\\s+|$)', 'g')
@@ -1899,30 +2032,6 @@ jet.extend(jeDatePick.prototype, {
         this.className += act
         const hmsCls = ulCell.querySelector('.' + act)
         ulCell.scrollTop = hmsCls ? hmsCls.offsetTop - 145 : 0
-        if (that.dlen == 7 && idx == 0 && range && !multi) {
-          // var nVal = that.getValue({}),
-          //   nYM = jet.nextMonth(nVal[0].YYYY, nVal[0].MM),
-          //   st = that.selectTime
-          // that.storeData(
-          //   {
-          //     YYYY: nVal[0].YYYY,
-          //     MM: nVal[0].MM,
-          //     DD: null,
-          //     hh: st[0].hh,
-          //     mm: st[0].mm,
-          //     ss: st[0].ss
-          //   },
-          //   {
-          //     YYYY: nYM.y,
-          //     MM: nYM.m,
-          //     DD: null,
-          //     hh: st[1].hh,
-          //     mm: st[1].mm,
-          //     ss: st[1].ss
-          //   }
-          // )
-          // that.renderDate(12)
-        }
       },
       timeBtn() {
         const timeCell = $Q('.pui-pick-date-time', elCell)
@@ -2354,15 +2463,33 @@ jet.extend(jeDatePick.prototype, {
       minVal = jet.reMatch(/\s/.test(ntVal) && that.dlen > 3 ? nVal[1] : ntVal)
       maxVal = jet.reMatch(/\s/.test(xtVal) && that.dlen > 3 ? xVal[1] : xtVal)
     }
+
     const stepArr = that.$opts.showSecend ? [24, 60, 60] : [24, 60]
     jet.each(stepArr, (s, lens) => {
       timeArr[s] = []
       const unhmsVal =
         minVal[s] == undefined || minVal[s] == 0 ? hmsArr[mhms[s]] : minVal[s]
-      const currVal = that.getValue() == '' ? unhmsVal : hmsArr[mhms[s]]
-      if (that.dlen > 3 && /\:/.test(nVal) && type == 1) {
+      let currVal = that.getValue() == '' ? unhmsVal : hmsArr[mhms[s]]
+      if (that.dlen > 3 && /\:/.test(nVal) && type === 1) {
+        if (
+          Date.parse(nVal[0]) ===
+            Date.parse(that.selectValue[0].substr(0, 10)) &&
+          currVal < minVal[s] // 最小日期
+        ) {
+          currVal = minVal[s]
+        }
         that.selectTime[0][mhms[s]] = currVal
+      } else if (type === 2 && that.selectValue.length > 1) {
+        if (
+          Date.parse(xVal[0]) ===
+            Date.parse(that.selectValue[1].substr(0, 10)) &&
+          currVal > maxVal[s] // 最大日期
+        ) {
+          currVal = maxVal[s]
+        }
+        that.selectTime[1][mhms[s]] = currVal
       }
+
       for (let h = 0; h < lens; h++) {
         const exists = new RegExp(mhms[s], 'g').test(format)
         if (h == currVal) {
@@ -2371,12 +2498,57 @@ jet.extend(jeDatePick.prototype, {
           !exists ||
           (!range && multi && (h < minVal[s] || h > maxVal[s]))
         ) {
-          hmsCls = 'disabled'
+          var dateStart =
+            that.selectDate[0].YYYY +
+            '-' +
+            (that.selectDate[0].MM < 10
+              ? '0' + that.selectDate[0].MM
+              : that.selectDate[0].MM) +
+            '-' +
+            that.selectDate[0].DD
+          if (nVal[0] === dateStart && h < minVal[s]) {
+            hmsCls = 'disabled'
+          } else if (xVal[0] === dateStart && h > maxVal[s]) {
+            hmsCls = 'disabled'
+          } else {
+            hmsCls = ''
+          }
         } else if (!multi) {
-          hmsCls =
-            (type == 1 && h < minVal[s]) || (type == 2 && h > maxVal[s])
-              ? 'disabled'
-              : ''
+          let selectDataStr = that.selectValue
+          if (selectDataStr.length < 2) {
+            hmsCls =
+              (type == 1 && h < minVal[s]) || (type == 2 && h > maxVal[s])
+                ? 'disabled'
+                : ''
+          } else {
+            if (type === 1) {
+              if (
+                Date.parse(nVal[0]) ===
+                Date.parse(selectDataStr[0].substr(0, 10))
+              ) {
+                if (h < minVal[s]) {
+                  hmsCls = 'disabled'
+                } else {
+                  hmsCls = ''
+                }
+              } else {
+                hmsCls = ''
+              }
+            } else {
+              if (
+                Date.parse(xVal[0]) ===
+                Date.parse(selectDataStr[1].substr(0, 10))
+              ) {
+                if (h > maxVal[s]) {
+                  hmsCls = 'disabled'
+                } else {
+                  hmsCls = ''
+                }
+              } else {
+                hmsCls = ''
+              }
+            }
+          }
         } else {
           hmsCls = ''
         }

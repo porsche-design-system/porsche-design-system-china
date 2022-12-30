@@ -10,19 +10,18 @@ export const DateTimePickerStoryBookTime = () => {
   return (
     <div>
       <Form>
-        <div>年月日时分</div>
         <DateTimePicker
           width="300px"
+          label="年月日时分"
           placeholder="年月日时分"
           showStyle="CommonHHMMSS"
           componentId="testTime4"
           size="small"
         />
-
         <br />
-        <div>时分秒</div>
         <DateTimePicker
           width="300px"
+          label="时分秒"
           placeholder="时分秒"
           showStyle="HHMMSS"
           componentId="testTime5"
@@ -160,6 +159,18 @@ export const DateTimePickerStoryBook2 = () => {
           showStyle="CommonHHMMSS"
           componentId="testTime4b"
         />
+        <br />
+        <div>年月日时分 最大/最小日期</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始时间"
+          placeholderEndDate="结束时间"
+          showStyle="CommonHHMMSS"
+          componentId="testTime4bTest"
+          minDate="2022-12-16 10:20:25"
+          maxDate="2023-01-10 18:30:35"
+        />
 
         <br />
         <div>时分秒</div>
@@ -189,8 +200,6 @@ export const DateTimePickerStoryBook2 = () => {
           label="到港日期"
           placeholder="请输入日期"
           width="200px"
-          // placeholderStartDate="开始日期"
-          // placeholderEndDate="结束日期"
           isRange
           filterMode
           allowNullDate
@@ -203,8 +212,6 @@ export const DateTimePickerStoryBook2 = () => {
           label="到港日期"
           placeholder="请输入日期"
           width="200px"
-          // placeholderStartDate="开始日期"
-          // placeholderEndDate="结束日期"
           isRange
           filterMode
           // allowNullDate
