@@ -606,7 +606,9 @@
       background-color: $container-bg-opacity-color-2;
       border: 1px solid $text-color-1;
     }
-
+    td.disabled {
+      color: $text-opacity-color-2;
+    }
     /************/
 
     .je-input-box-disabled,
