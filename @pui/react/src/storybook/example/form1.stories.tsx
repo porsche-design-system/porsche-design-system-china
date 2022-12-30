@@ -13,6 +13,7 @@ import {
   DateRangePicker,
   Select,
   CheckBoxGroup,
+  DateTimePicker,
   Upload
 } from '../..'
 
@@ -33,13 +34,15 @@ interface FormData {
   invoice: string
   invoiceType: string
   files: any[]
+  testTime3b: string[]
 }
 
 export const ExampleStoryBook = () => {
   const [data, setData] = useState<FormData>({} as any)
   const [disabled, setDisabled] = useState(false)
   const uploadProps = {
-    action: 'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload',
+    action:
+      'https://develop.porsche-preview.cn/pdc-api-gateway/smamo-rental-service/web/v1/vehicles/image/upload',
     headers: {
       Authorization: 'Bearer 752aa8fa-97c6-48cf-ad1d-4567b3221687'
     }
@@ -60,15 +63,19 @@ export const ExampleStoryBook = () => {
               services: ['Repair'],
               invoice: 'yes',
               invoiceType: 'E-Invoice',
-              files: [{
-                uid: '-1',
-                name: 'image1.png',
-                status: 'success'
-              }, {
-                uid: '-2',
-                name: 'image2.png',
-                status: 'success'
-              }]
+              testTime3b: [],
+              files: [
+                {
+                  uid: '-1',
+                  name: 'image1.png',
+                  status: 'success'
+                },
+                {
+                  uid: '-2',
+                  name: 'image2.png',
+                  status: 'success'
+                }
+              ]
             })
           }}
         >
@@ -87,7 +94,8 @@ export const ExampleStoryBook = () => {
               services: [],
               invoice: '',
               invoiceType: '',
-              files: []
+              files: [],
+              testTime3b: []
             })
           }
         >
@@ -161,6 +169,27 @@ export const ExampleStoryBook = () => {
           placeholderEndDate="End"
           disabled={disabled}
         />
+        <DateTimePicker
+          isRange
+          label="Repair Date"
+          width="300px"
+          placeholderStartDate="开始日期"
+          placeholderEndDate="结束日期"
+          showStyle="Common"
+          rules={{ required: true, message: '日期必填' }}
+          componentId="testTime3b"
+          name="testTime3b"
+        />
+        <br />
+        <DateTimePicker
+          label="Repair Date"
+          width="300px"
+          placeholder="Date"
+          showStyle="Common"
+          rules={{ required: true, message: '日期必填' }}
+          componentId="testTime3bTest"
+          name="DealDate"
+        />
         <CheckBoxGroup
           label="Service Type"
           name="services"
@@ -198,7 +227,8 @@ export const ExampleStoryBook = () => {
           name="files"
           rules={{ required: true, message: 'Required' }}
           disabled={disabled}
-          {...uploadProps} />
+          {...uploadProps}
+        />
         <ButtonGroup align="right">
           <Button type="default" icon={IconArrowHeadLeft} disabled={disabled}>
             Prev
