@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.48](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.47...v0.1.48) (2023-01-05)
+
+
+### Bug Fixes
+
+* 1.Tooltip组件提示框阴影样式优化以修复反馈显示不清的问题；2.修改Tooltip组件提示框hover触发时显示、隐藏的逻辑以修复不能将鼠标移入到提示框的问题（DRSWCN-157,DRSWCN-155） ([b9fde91](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b9fde91901ed129e3a9be55d32c36f8c5bc7d33e))
+* DRSCN-25844|TimePicker组件必填校验,时间有效范围选择 ([ee1c81d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ee1c81d15d38a0b056e70e7b68711383ce71e955))
+
 ### [0.1.47](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.46...v0.1.47) (2022-12-20)
 
 
