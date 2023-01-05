@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Tooltip, Button, Row, Col, Divider } from '../..'
 import './tooltip.stories.scss'
 
@@ -189,6 +189,7 @@ export const TooltipStoryBook1 = () => {
 TooltipStoryBook1.storyName = 'Tooltip Trigger Mode'
 
 export const TooltipStoryBook2 = () => {
+  const fatherRef = useRef(null)
   return (
     <div className="tooltip-story">
       <div className="group">
@@ -198,6 +199,26 @@ export const TooltipStoryBook2 = () => {
             <Col span={2} />
             <Col span={6}>
               <Tooltip content={cardContent} trigger="hover">
+                <Button size="small" className="demo-button">
+                  hover me
+                </Button>
+              </Tooltip>
+            </Col>
+          </Row>
+        </div>
+        <br />
+        <div className="title" ref={fatherRef}>
+          使用getPopupContainer指定浮层的渲染父节点
+        </div>
+        <div className="show-case">
+          <Row>
+            <Col span={2} />
+            <Col span={6}>
+              <Tooltip
+                content={cardContent}
+                trigger="hover"
+                getPopupContainer={() => fatherRef.current}
+              >
                 <Button size="small" className="demo-button">
                   hover me
                 </Button>
