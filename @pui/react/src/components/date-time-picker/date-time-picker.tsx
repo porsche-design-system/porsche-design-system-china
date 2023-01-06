@@ -424,8 +424,8 @@ const DateTimePicker = FormItem(
         </div>
       )
     }
-  }
+  },
+  'DateTimePicker'
 )
 
-;(DateTimePicker as any).displayName = 'DateTimePicker'
 export { DateTimePicker }

@@ -10,8 +10,9 @@ export default {
 export const RadioStoryBook = () => {
   return (
     <div>
-      <Form>
+      <Form onDataChange={val => console.log('val', val)}>
         <RadioGroup
+          name="group1"
           onValueChange={value => {
             console.log(value)
           }}

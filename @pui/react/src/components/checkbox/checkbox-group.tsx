@@ -158,8 +158,8 @@ const CheckBoxGroup = FormItem(
         {newChildren}
       </div>
     )
-  }
+  },
+  'CheckBoxGroup'
 )
 
-;(CheckBoxGroup as any).displayName = 'CheckBoxGroup'
 export { CheckBoxGroup }

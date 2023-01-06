@@ -505,7 +505,8 @@ Select = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'Select'
 )
-;(Select as any).displayName = 'Select'
+
 export { Select }

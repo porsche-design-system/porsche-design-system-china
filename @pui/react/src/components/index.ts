@@ -1,6 +1,6 @@
 export { Button } from './button/button'
 export { SplitButton } from './button/split-button'
-export { Input, FashionInput } from './input/input'
+export { Input } from './input/input'
 export { CheckBox } from './checkbox/checkbox'
 export { CheckBoxGroup } from './checkbox/checkbox-group'
 export { Col } from './col/col'

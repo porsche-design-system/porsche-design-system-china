@@ -1,7 +1,13 @@
-import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  useContext,
+  useMemo
+} from 'react'
 import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
 import './radio.scss'
+import { FormContext, overrideProps } from '../form/form'
 
 export interface RadioProps<T> {
   // 组件属性 //
@@ -50,6 +56,11 @@ const generateId = () => {
 }
 const Radio = <T,>(props: RadioProps<T>) => {
   const id = useMemo(() => generateId(), [])
+  const formContext = useContext(FormContext)
+  if (formContext) {
+    props = overrideProps('Radio', { ...props }, formContext)
+  }
+
   const {
     className,
     style,
@@ -96,5 +107,6 @@ const Radio = <T,>(props: RadioProps<T>) => {
   )
 }
 
-Radio.displayName = 'Radio'
+;(Radio as any).displayName = 'Radio'
+
 export { Radio }

@@ -696,8 +696,8 @@ const DateRangePicker = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'DateRangePicker'
 )
 
-;(DateRangePicker as any).displayName = 'DateRangePicker'
 export { DateRangePicker }

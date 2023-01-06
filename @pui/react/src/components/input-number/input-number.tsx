@@ -240,9 +240,8 @@ const InputNumber = FormItem(
         />
       </div>
     )
-  }
+  },
+  'InputNumber'
 )
-
-;(InputNumber as any).displayName = 'InputNumber'
 
 export { InputNumber }
