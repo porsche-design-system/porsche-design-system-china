@@ -488,7 +488,7 @@ Upload = FormItem((props: UploadProps) => {
       {renderUploadList()}
     </div>
   )
-}, '$Upload')
+}, 'Upload')
 
 const defaultLocale = {
   uploading: 'Uploading...',
@@ -506,5 +506,5 @@ const defaultLocale = {
   disabled: false,
   listIgnore: true
 }
-;(Upload as any).displayName = 'Upload'
+
 export { Upload }

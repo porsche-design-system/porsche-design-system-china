@@ -209,8 +209,8 @@ const TextArea = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'TextArea'
 )
 
-;(TextArea as any).displayName = 'TextArea'
 export { TextArea }
