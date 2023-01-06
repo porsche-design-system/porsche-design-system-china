@@ -98,9 +98,7 @@ export const FormItem =
     }
 
     const validateFormItem = () => {
-      const validateValue = Array.isArray((props as any).value)
-        ? (props as any).value[0]
-        : (props as any).value
+      const validateValue = (props as any).value
 
       if (rules && name) {
         validate({ [name]: rules }, { [name]: validateValue }, errorList => {
@@ -152,7 +150,13 @@ export const FormItem =
           }
         }}
         onBlur={() => {
-          if ((func as any).displayName !== 'Upload') {
+          if (
+            displayName !== 'Upload' &&
+            displayName !== 'CheckBoxGroup' &&
+            displayName !== 'CheckBox' &&
+            displayName !== 'RadioGroup' &&
+            displayName !== 'Radio'
+          ) {
             validateFormItem()
           }
         }}
