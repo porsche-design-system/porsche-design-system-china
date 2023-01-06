@@ -730,12 +730,37 @@ export const ExampleStoryBook7 = () => {
 
 ExampleStoryBook7.storyName = 'Change Data'
 
+const FormWrap2 = () => {
+  return <CheckBox name="checked" />
+}
+
 const FormWrap = () => {
-  return <TextArea name="address" />
+  return (
+    <div>
+      <TextArea name="address" />
+      <FormWrap2 />
+    </div>
+  )
 }
 
 export const ExampleStoryBook8 = () => {
   const [data, setData] = useState({})
+
+  /*
+  这个代码应该写在 该组件外 写在这里是为了StoryBook展示
+  const FormWrap2 = () => {
+    return <CheckBox name="checked" />
+  }
+
+  const FormWrap = () => {
+    return (
+      <div>
+        <TextArea name="address" />
+        <FormWrap2 />
+      </div>
+    )
+  }
+  */
 
   return (
     <div>
