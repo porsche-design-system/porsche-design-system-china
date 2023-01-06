@@ -150,13 +150,7 @@ export const FormItem =
           }
         }}
         onBlur={() => {
-          if (
-            displayName !== 'Upload' &&
-            displayName !== 'CheckBoxGroup' &&
-            displayName !== 'CheckBox' &&
-            displayName !== 'RadioGroup' &&
-            displayName !== 'Radio'
-          ) {
+          if (displayName !== 'Upload') {
             validateFormItem()
           }
         }}
