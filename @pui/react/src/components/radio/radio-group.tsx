@@ -134,9 +134,9 @@ const RadioGroup = FormItem(
         }
       )
 
-      if (allValues.indexOf(radioValue as any) < 0) {
-        setRadioValue('')
-      }
+      // if (allValues.indexOf(radioValue as any) < 0) {
+      //   setRadioValue('')
+      // }
 
       return newChildren
     }, [onValueChange, value, radioValue, options])
@@ -157,8 +157,8 @@ const RadioGroup = FormItem(
         {newChildren}
       </div>
     )
-  }
+  },
+  'RadioGroup'
 )
 
-;(RadioGroup as any).displayName = 'RadioGroup'
 export { RadioGroup }

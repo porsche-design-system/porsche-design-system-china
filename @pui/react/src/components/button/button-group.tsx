@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import { componentClassNames } from '../../shared/class-util'
-import { FormItemLabelProps } from '../form/form'
+import { FormContext, FormItemLabelProps, overrideProps } from '../form/form'
 import { Label, getLabelProps } from '../label/label'
 import { useDefaultSize } from '../../shared/hooks'
 import './button-group.scss'
@@ -20,12 +20,16 @@ export interface ButtonGroupProps {
   children?: React.ReactNode
 }
 
-const ButtonGroup = ({
-  label,
-  disabled = false,
-  children,
-  align = 'left'
-}: ButtonGroupProps) => {
+const ButtonGroup = (buttonGroupProps: ButtonGroupProps) => {
+  const formContext = useContext(FormContext)
+  if (formContext) {
+    buttonGroupProps = overrideProps(
+      'ButtonGroup',
+      { ...buttonGroupProps },
+      formContext
+    )
+  }
+  const { label, disabled = false, children, align = 'left' } = buttonGroupProps
   const [defaultSize] = useDefaultSize()
   return (
     <div
@@ -42,5 +46,4 @@ const ButtonGroup = ({
   )
 }
 
-ButtonGroup.displayName = 'ButtonGroup'
 export { ButtonGroup }

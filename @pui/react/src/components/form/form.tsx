@@ -1,5 +1,6 @@
 import React, {
   ChangeEventHandler,
+  createContext,
   CSSProperties,
   ReactNode,
   useEffect,
@@ -8,7 +9,7 @@ import React, {
 } from 'react'
 import { ErrorList } from 'async-validator'
 import { validate, RuleItem } from '../../shared/validation-rules'
-import { componentClassNames, overrideChildren } from '../../shared/class-util'
+import { componentClassNames } from '../../shared/class-util'
 import { ButtonProps } from '../button/button'
 import { FormErrorText } from '../error-text/error-text'
 
@@ -86,6 +87,332 @@ export interface FormRef {
   submit: () => void
 }
 
+interface FormContextProps {
+  fData: any
+  itemStyle?: CSSProperties
+  itemClassName?: string
+  filterMode?: boolean
+  setFormData: (data: any) => void
+  formErrors: ErrorList
+  formDataValidators: any
+  data: any
+  onDataChange?: (data: any) => void
+  validForm: (newFormData: any) => void
+  labelLayout?: FormLabelStyle
+  submitting: boolean
+  setSubmitting: (b: boolean) => void
+  shouldAutoValidForm: any
+  setFormErrors: (errorList: ErrorList) => void
+  onSubmit?: (data: any, errors: ErrorList | null) => void | Promise<any>
+}
+export const FormContext = createContext<FormContextProps>(null as any)
+
+export const overrideProps = (
+  elementName: string,
+  props: any,
+  formContext: FormContextProps
+) => {
+  const {
+    fData,
+    itemStyle,
+    itemClassName,
+    filterMode,
+    setFormData,
+    formErrors,
+    formDataValidators,
+    data,
+    onDataChange,
+    validForm,
+    labelLayout,
+    submitting,
+    setSubmitting,
+    shouldAutoValidForm,
+    setFormErrors,
+    onSubmit
+  } = formContext
+
+  if (
+    elementName === 'Search' ||
+    elementName === 'Input' ||
+    elementName === 'InputNumber' ||
+    elementName === 'TextArea' ||
+    elementName === 'CheckBox' ||
+    elementName === 'RadioGroup' ||
+    elementName === 'CheckBoxGroup' ||
+    elementName === 'DatePicker' ||
+    elementName === 'DateRangePicker' ||
+    elementName === 'Select' ||
+    elementName === 'MultiSelect' ||
+    elementName === 'Switch' ||
+    elementName === 'CustomPicker' ||
+    elementName === 'Upload' ||
+    elementName === 'DateTimePicker'
+  ) {
+    let inputProps = props as {
+      name?: string
+      nameStartDate?: string
+      nameEndDate?: string
+      filterMode?: boolean
+      className?: string
+      onChange?: ChangeEventHandler<HTMLInputElement>
+      onValueChange?: (val: string) => void
+      checked: boolean
+      onCheckedChange?: (val: boolean) => void
+      label?: FormItemLabelProps | string
+      value?: any
+      rules?: RuleItem[] | RuleItem
+      error?: FormErrorText
+      style?: CSSProperties
+    }
+
+    if (itemStyle) {
+      inputProps.style = { ...itemStyle, ...inputProps.style }
+    }
+
+    if (itemClassName) {
+      inputProps.className = itemClassName + ' ' + inputProps.className
+    }
+
+    if (inputProps.filterMode === undefined) {
+      inputProps.filterMode = filterMode
+    }
+
+    if (inputProps.name || inputProps.nameStartDate || inputProps.nameEndDate) {
+      if (inputProps.name) {
+        if (fData[inputProps.name] === undefined) {
+          if (elementName === 'CheckBoxGroup') {
+            fData[inputProps.name] = []
+          } else if (elementName === 'DateRangePicker') {
+            fData[inputProps.name] = ['', '']
+          } else {
+            fData[inputProps.name] = ''
+          }
+        }
+      }
+
+      if (inputProps.nameStartDate) {
+        if (fData[inputProps.nameStartDate] === undefined) {
+          fData[inputProps.nameStartDate] = ''
+        }
+      }
+
+      if (inputProps.nameEndDate) {
+        if (fData[inputProps.nameEndDate] === undefined) {
+          fData[inputProps.nameEndDate] = ''
+        }
+      }
+
+      inputProps.error = undefined
+      if (formErrors) {
+        formErrors.forEach(error => {
+          if (error.field === inputProps.name) {
+            inputProps.error = { show: true, message: error.message }
+          }
+          if (
+            error.field === inputProps.nameStartDate ||
+            error.field === inputProps.nameEndDate
+          ) {
+            inputProps.error = { show: true, message: error.message }
+          }
+        })
+      }
+
+      if (inputProps.rules) {
+        const updateRule = (rule: RuleItem) => {
+          if (
+            rule.type === 'number' ||
+            rule.type === 'integer' ||
+            rule.type === 'float'
+          ) {
+            rule.transform = value => {
+              if (!rule.required && !value) {
+                return ''
+              }
+              return Number(value)
+            }
+          }
+        }
+        if (Array.isArray(inputProps.rules)) {
+          inputProps.rules.forEach(rule => {
+            updateRule(rule)
+          })
+        } else {
+          updateRule(inputProps.rules)
+        }
+
+        if (inputProps.name) {
+          formDataValidators[inputProps.name] = inputProps.rules
+        }
+
+        if (inputProps.nameStartDate) {
+          formDataValidators[inputProps.nameStartDate] = inputProps.rules
+        }
+        if (inputProps.nameEndDate) {
+          formDataValidators[inputProps.nameEndDate] = inputProps.rules
+        }
+      }
+
+      if (inputProps.name) {
+        if (elementName === 'CheckBox') {
+          inputProps.checked = fData[inputProps.name]
+        } else if (elementName === 'Upload') {
+          ;(inputProps as any).fileList = fData[inputProps.name]
+        } else {
+          inputProps.value = fData[inputProps.name]
+        }
+      }
+
+      if (inputProps.nameStartDate) {
+        if (!inputProps.value) {
+          inputProps.value = ['', '']
+        }
+        inputProps.value = [
+          fData[inputProps.nameStartDate],
+          inputProps.value[1]
+        ]
+      }
+      if (inputProps.nameEndDate) {
+        if (!inputProps.value) {
+          inputProps.value = ['', '']
+        }
+        inputProps.value = [inputProps.value[0], fData[inputProps.nameEndDate]]
+      }
+
+      // const clearError = () => {
+      //   if (formErrors) {
+      //     for (let i = 0; i < formErrors.length; i++) {
+      //       if (formErrors[i].field === inputProps.name) {
+      //         formErrors.splice(i, 1);
+      //         setFormErrors(formErrors);
+      //         break;
+      //       }
+      //     }
+      //   }
+      // };
+
+      const formItemOnValueChange = inputProps.onValueChange
+      if (['CheckBox'].includes(elementName)) {
+        const formItemOnCheckedChange = inputProps.onCheckedChange
+        inputProps.onCheckedChange = val => {
+          const newFormData = {
+            ...fData,
+            [inputProps.name!]: val
+              ? inputProps.value || val
+              : inputProps.value !== undefined
+              ? ''
+              : false
+          }
+          if (data === undefined) {
+            setFormData(newFormData)
+          }
+          onDataChange && onDataChange(newFormData)
+          formItemOnCheckedChange && formItemOnCheckedChange(val)
+          validForm(newFormData)
+        }
+      } else if (
+        [
+          'RadioGroup',
+          'CheckBoxGroup',
+          'DatePicker',
+          'DateRangePicker',
+          'Select',
+          'MultiSelect',
+          'Switch',
+          'Input',
+          'InputNumber',
+          'TextArea',
+          'Search',
+          'CustomPicker',
+          'DateTimePicker',
+          'Upload'
+        ].includes(elementName)
+      ) {
+        inputProps.onValueChange = value => {
+          let newFormData = fData
+          if (inputProps.name) {
+            newFormData = { ...fData, [inputProps.name]: value }
+          }
+          if (
+            elementName === 'DateRangePicker' ||
+            elementName === 'DateTimePicker'
+          ) {
+            if (inputProps.nameStartDate) {
+              newFormData = {
+                ...newFormData,
+                [inputProps.nameStartDate]: value[0]
+              }
+            }
+            if (inputProps.nameEndDate) {
+              newFormData = {
+                ...newFormData,
+                [inputProps.nameEndDate]: value[1]
+              }
+            }
+          }
+
+          if (data === undefined) {
+            setFormData(newFormData)
+          }
+
+          onDataChange && onDataChange(newFormData)
+          formItemOnValueChange && formItemOnValueChange(value as string)
+          validForm(newFormData)
+        }
+      }
+    }
+
+    const combinedLabelStyle: FormItemLabelProps =
+      typeof inputProps.label === 'object'
+        ? { ...labelLayout, ...inputProps.label }
+        : { ...labelLayout, text: inputProps.label || '' }
+    inputProps = {
+      ...inputProps,
+      label: combinedLabelStyle
+    }
+
+    return inputProps
+  } else if (elementName === 'ButtonGroup') {
+    let inputProps = props
+    const combinedLabelStyle: FormItemLabelProps =
+      typeof inputProps.label === 'object'
+        ? { ...labelLayout, ...inputProps.label }
+        : { ...labelLayout, text: inputProps.label || '' }
+    inputProps = {
+      ...inputProps,
+      label: combinedLabelStyle
+    }
+    return inputProps
+  } else if (elementName === 'Button') {
+    const buttonProps = props as ButtonProps
+    if (buttonProps.submit) {
+      const buttonOnClick = buttonProps.onClick
+      if (buttonProps.loading === undefined) {
+        buttonProps.loading = submitting
+      }
+      buttonProps.onClick = evt => {
+        buttonOnClick && buttonOnClick(evt)
+        validate(formDataValidators, fData, errorList => {
+          shouldAutoValidForm.current = true
+          setFormErrors(errorList)
+          if (onSubmit) {
+            const loadingPromise = onSubmit(fData, errorList)
+            if (loadingPromise && typeof loadingPromise === 'object') {
+              setSubmitting(true)
+              ;(loadingPromise as unknown as Promise<unknown>).then(() => {
+                buttonProps.loading = false
+                setSubmitting(false)
+              })
+            }
+          }
+        })
+      }
+    }
+    return buttonProps
+  }
+
+  return props
+}
+
 function Form<T = any>({
   className,
   style,
@@ -157,302 +484,35 @@ function Form<T = any>({
     }
   }
 
-  const newChildren = overrideChildren(children, (elementName, props) => {
-    if (
-      elementName === 'Search' ||
-      elementName === 'Input' ||
-      elementName === 'InputNumber' ||
-      elementName === 'TextArea' ||
-      elementName === 'CheckBox' ||
-      elementName === 'RadioGroup' ||
-      elementName === 'CheckBoxGroup' ||
-      elementName === 'DatePicker' ||
-      elementName === 'DateRangePicker' ||
-      elementName === 'Select' ||
-      elementName === 'MultiSelect' ||
-      elementName === 'Switch' ||
-      elementName === 'CustomPicker' ||
-      elementName === 'Upload' ||
-      elementName === 'DateTimePicker'
-    ) {
-      let inputProps = props as {
-        name?: string
-        nameStartDate?: string
-        nameEndDate?: string
-        filterMode?: boolean
-        className?: string
-        onChange?: ChangeEventHandler<HTMLInputElement>
-        onValueChange?: (val: string) => void
-        checked: boolean
-        onCheckedChange?: (val: boolean) => void
-        label?: FormItemLabelProps | string
-        value?: any
-        rules?: RuleItem[] | RuleItem
-        error?: FormErrorText
-        style?: CSSProperties
-      }
-
-      if (itemStyle) {
-        inputProps.style = { ...itemStyle, ...inputProps.style }
-      }
-
-      if (itemClassName) {
-        inputProps.className = itemClassName + ' ' + inputProps.className
-      }
-
-      if (inputProps.filterMode === undefined) {
-        inputProps.filterMode = filterMode
-      }
-
-      if (
-        inputProps.name ||
-        inputProps.nameStartDate ||
-        inputProps.nameEndDate
-      ) {
-        if (inputProps.name) {
-          if (fData[inputProps.name] === undefined) {
-            if (elementName === 'CheckBoxGroup') {
-              fData[inputProps.name] = []
-            } else if (elementName === 'DateRangePicker') {
-              fData[inputProps.name] = ['', '']
-            } else {
-              fData[inputProps.name] = ''
-            }
-          }
-        }
-
-        if (inputProps.nameStartDate) {
-          if (fData[inputProps.nameStartDate] === undefined) {
-            fData[inputProps.nameStartDate] = ''
-          }
-        }
-
-        if (inputProps.nameEndDate) {
-          if (fData[inputProps.nameEndDate] === undefined) {
-            fData[inputProps.nameEndDate] = ''
-          }
-        }
-
-        inputProps.error = undefined
-        if (formErrors) {
-          formErrors.forEach(error => {
-            if (error.field === inputProps.name) {
-              inputProps.error = { show: true, message: error.message }
-            }
-            if (
-              error.field === inputProps.nameStartDate ||
-              error.field === inputProps.nameEndDate
-            ) {
-              inputProps.error = { show: true, message: error.message }
-            }
-          })
-        }
-
-        if (inputProps.rules) {
-          const updateRule = (rule: RuleItem) => {
-            if (
-              rule.type === 'number' ||
-              rule.type === 'integer' ||
-              rule.type === 'float'
-            ) {
-              rule.transform = value => {
-                if (!rule.required && !value) {
-                  return ''
-                }
-                return Number(value)
-              }
-            }
-          }
-          if (Array.isArray(inputProps.rules)) {
-            inputProps.rules.forEach(rule => {
-              updateRule(rule)
-            })
-          } else {
-            updateRule(inputProps.rules)
-          }
-
-          if (inputProps.name) {
-            formDataValidators[inputProps.name] = inputProps.rules
-          }
-
-          if (inputProps.nameStartDate) {
-            formDataValidators[inputProps.nameStartDate] = inputProps.rules
-          }
-          if (inputProps.nameEndDate) {
-            formDataValidators[inputProps.nameEndDate] = inputProps.rules
-          }
-        }
-
-        if (inputProps.name) {
-          if (elementName === 'CheckBox') {
-            inputProps.checked = fData[inputProps.name]
-          } else if (elementName === 'Upload') {
-            ;(inputProps as any).fileList = fData[inputProps.name]
-          } else {
-            inputProps.value = fData[inputProps.name]
-          }
-        }
-
-        if (inputProps.nameStartDate) {
-          if (!inputProps.value) {
-            inputProps.value = ['', '']
-          }
-          inputProps.value = [
-            fData[inputProps.nameStartDate],
-            inputProps.value[1]
-          ]
-        }
-        if (inputProps.nameEndDate) {
-          if (!inputProps.value) {
-            inputProps.value = ['', '']
-          }
-          inputProps.value = [
-            inputProps.value[0],
-            fData[inputProps.nameEndDate]
-          ]
-        }
-
-        // const clearError = () => {
-        //   if (formErrors) {
-        //     for (let i = 0; i < formErrors.length; i++) {
-        //       if (formErrors[i].field === inputProps.name) {
-        //         formErrors.splice(i, 1);
-        //         setFormErrors(formErrors);
-        //         break;
-        //       }
-        //     }
-        //   }
-        // };
-
-        const formItemOnValueChange = inputProps.onValueChange
-        if (['CheckBox'].includes(elementName)) {
-          const formItemOnCheckedChange = inputProps.onCheckedChange
-          inputProps.onCheckedChange = val => {
-            const newFormData = {
-              ...fData,
-              [inputProps.name!]: val
-                ? inputProps.value || val
-                : inputProps.value !== undefined
-                ? ''
-                : false
-            }
-            if (data === undefined) {
-              setFormData(newFormData)
-            }
-            onDataChange && onDataChange(newFormData as T)
-            formItemOnCheckedChange && formItemOnCheckedChange(val)
-            validForm(newFormData)
-          }
-        } else if (
-          [
-            'RadioGroup',
-            'CheckBoxGroup',
-            'DatePicker',
-            'DateRangePicker',
-            'Select',
-            'MultiSelect',
-            'Switch',
-            'Input',
-            'InputNumber',
-            'TextArea',
-            'Search',
-            'CustomPicker',
-            'DateTimePicker',
-            'Upload'
-          ].includes(elementName)
-        ) {
-          inputProps.onValueChange = value => {
-            let newFormData = fData
-            if (inputProps.name) {
-              newFormData = { ...fData, [inputProps.name]: value }
-            }
-            if (
-              elementName === 'DateRangePicker' ||
-              elementName === 'DateTimePicker'
-            ) {
-              if (inputProps.nameStartDate) {
-                newFormData = {
-                  ...newFormData,
-                  [inputProps.nameStartDate]: value[0]
-                }
-              }
-              if (inputProps.nameEndDate) {
-                newFormData = {
-                  ...newFormData,
-                  [inputProps.nameEndDate]: value[1]
-                }
-              }
-            }
-            if (data === undefined) {
-              setFormData(newFormData)
-            }
-
-            onDataChange && onDataChange(newFormData as T)
-            formItemOnValueChange && formItemOnValueChange(value as string)
-            validForm(newFormData)
-          }
-        }
-      }
-
-      const combinedLabelStyle: FormItemLabelProps =
-        typeof inputProps.label === 'object'
-          ? { ...labelLayout, ...inputProps.label }
-          : { ...labelLayout, text: inputProps.label || '' }
-      inputProps = {
-        ...inputProps,
-        label: combinedLabelStyle
-      }
-
-      return inputProps
-    } else if (elementName === 'ButtonGroup') {
-      let inputProps = props
-      const combinedLabelStyle: FormItemLabelProps =
-        typeof inputProps.label === 'object'
-          ? { ...labelLayout, ...inputProps.label }
-          : { ...labelLayout, text: inputProps.label || '' }
-      inputProps = {
-        ...inputProps,
-        label: combinedLabelStyle
-      }
-      return inputProps
-    } else if (elementName === 'Button') {
-      const buttonProps = props as ButtonProps
-      if (buttonProps.submit) {
-        const buttonOnClick = buttonProps.onClick
-        if (buttonProps.loading === undefined) {
-          buttonProps.loading = submitting
-        }
-        buttonProps.onClick = evt => {
-          buttonOnClick && buttonOnClick(evt)
-          validate(formDataValidators, fData, errorList => {
-            shouldAutoValidForm.current = true
-            setFormErrors(errorList)
-            if (onSubmit) {
-              const loadingPromise = onSubmit(fData as T, errorList)
-              if (loadingPromise && typeof loadingPromise === 'object') {
-                setSubmitting(true)
-                ;(loadingPromise as unknown as Promise<unknown>).then(() => {
-                  buttonProps.loading = false
-                  setSubmitting(false)
-                })
-              }
-            }
-          })
-        }
-      }
-      return buttonProps
-    }
-
-    return props
-  })
-
   return (
-    <div
-      className={componentClassNames('pui-form', {}, className)}
-      style={{ width, height, ...style }}
+    <FormContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        fData,
+        itemStyle,
+        itemClassName,
+        filterMode,
+        setFormData,
+        formErrors,
+        formDataValidators,
+        data,
+        onDataChange,
+        validForm,
+        labelLayout,
+        submitting,
+        setSubmitting,
+        shouldAutoValidForm,
+        setFormErrors,
+        onSubmit
+      }}
     >
-      {newChildren}
-    </div>
+      <div
+        className={componentClassNames('pui-form', {}, className)}
+        style={{ width, height, ...style }}
+      >
+        {children}
+      </div>
+    </FormContext.Provider>
   )
 }
 

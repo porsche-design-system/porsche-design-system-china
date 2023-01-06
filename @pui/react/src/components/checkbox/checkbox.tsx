@@ -1,7 +1,13 @@
 import { IconCheck, IconMinus } from '@pui/icons'
-import React, { ChangeEventHandler, CSSProperties, useMemo } from 'react'
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  useContext,
+  useMemo
+} from 'react'
 import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames } from '../../shared/class-util'
+import { FormContext, overrideProps } from '../form/form'
 import './checkbox.scss'
 
 export interface CheckBoxProps<T> {
@@ -54,29 +60,36 @@ const generateId = () => {
   idCounter++
   return 'checkbox-' + idCounter
 }
-const CheckBox = <T,>({
-  className,
-  text = '',
-  value,
-  disabled = false,
-  size,
-  style,
-  checked,
-  defaultChecked,
-  partChecked,
-  onChange,
-  onCheckedChange
-}: CheckBoxProps<T>) => {
+const CheckBox = <T,>(checkBoxProps: CheckBoxProps<T>) => {
   const id = useMemo(() => generateId(), [])
+
+  const formContext = useContext(FormContext)
+  if (formContext) {
+    checkBoxProps = overrideProps('CheckBox', { ...checkBoxProps }, formContext)
+  }
+  const {
+    className,
+    text = '',
+    value,
+    disabled = false,
+    size,
+    style,
+    checked,
+    defaultChecked,
+    partChecked,
+    onChange,
+    onCheckedChange
+  } = checkBoxProps
+
   const [defaultSize] = useDefaultSize()
-  size = size || defaultSize
+  const newSize = size || defaultSize
 
   return (
     <label
       htmlFor={id}
       className={componentClassNames(
         'pui-checkbox',
-        { disabled: disabled + '', size },
+        { disabled: disabled + '', size: newSize },
         className
       )}
       style={style}
@@ -108,5 +121,6 @@ const CheckBox = <T,>({
     </label>
   )
 }
+
 ;(CheckBox as any).displayName = 'CheckBox'
 export { CheckBox }

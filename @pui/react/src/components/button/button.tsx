@@ -1,10 +1,11 @@
-import React, { CSSProperties, ReactElement } from 'react'
+import React, { CSSProperties, ReactElement, useContext } from 'react'
 import { IconAdd } from '@pui/icons'
 import classNames from 'classnames'
 import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames, isReactElement } from '../../shared/class-util'
 
 import './button.scss'
+import { FormContext, overrideProps } from '../form/form'
 
 type PUIIcon = typeof IconAdd
 
@@ -59,30 +60,37 @@ export interface ButtonProps {
   onMouseLeave?: React.MouseEventHandler
 }
 
-const Button = ({
-  className,
-  children,
-  style,
-  type = 'default',
-  size,
-  icon,
-  suffixIcon,
-  loading = false,
-  disabled = false,
-  marginRight,
-  marginLeft,
-  onClick,
-  onMouseEnter,
-  onMouseLeave
-}: ButtonProps) => {
+const Button = (buttonProps: ButtonProps) => {
+  const formContext = useContext(FormContext)
+  if (formContext) {
+    buttonProps = overrideProps('Button', { ...buttonProps }, formContext)
+  }
+
+  const {
+    className,
+    children,
+    style,
+    type = 'default',
+    size,
+    icon,
+    suffixIcon,
+    loading = false,
+    disabled = false,
+    marginRight,
+    marginLeft,
+    onClick,
+    onMouseEnter,
+    onMouseLeave
+  } = buttonProps
+
   const [defaultSize] = useDefaultSize()
-  size = size || defaultSize
+  const newSize = size || defaultSize
 
   let paddingStyle = {}
   let padding = '11px'
-  if (size === 'small') {
+  if (newSize === 'small') {
     padding = '7px'
-  } else if (size === 'tiny') {
+  } else if (newSize === 'tiny') {
     padding = '5px'
   }
   if (!children || (icon && suffixIcon)) {
@@ -94,9 +102,9 @@ const Button = ({
   }
 
   let loadingSize = 24
-  if (size === 'small') {
+  if (newSize === 'small') {
     loadingSize = 20
-  } else if (size === 'tiny') {
+  } else if (newSize === 'tiny') {
     loadingSize = 16
   }
 
@@ -105,7 +113,11 @@ const Button = ({
   return (
     <button
       type="button"
-      className={componentClassNames('pui-button', { type, size }, className)}
+      className={componentClassNames(
+        'pui-button',
+        { type, size: newSize },
+        className
+      )}
       style={{ ...paddingStyle, marginLeft, marginRight, ...style }}
       onClick={evt => {
         if (!loading) {
@@ -173,5 +185,4 @@ const Button = ({
   )
 }
 
-Button.displayName = 'Button'
 export { Button }

@@ -1,13 +1,14 @@
 import React, {
   CSSProperties,
   ReactNode,
+  useContext,
   useEffect,
   useRef,
   useState
 } from 'react'
 import classNames from 'classnames'
 import { getLabelWidth, Label, getLabelProps } from '../label/label'
-import { FormItemLabelProps } from './form'
+import { FormContext, FormItemLabelProps, overrideProps } from './form'
 import { ErrorText, FormErrorText } from '../error-text/error-text'
 import { RuleItem, validate } from '../../shared/validation-rules'
 import { useDefaultSize } from '../../shared/hooks'
@@ -50,8 +51,13 @@ export interface FormItemProps {
 }
 
 export const FormItem =
-  <T,>(func: (...args: T[]) => React.ReactNode, displayName?: string) =>
+  <T,>(func: (...args: T[]) => React.ReactNode, displayName: string) =>
   (props: FormItemProps & T) => {
+    const formContext = useContext(FormContext)
+    if (formContext) {
+      props = overrideProps(displayName, { ...props }, formContext)
+    }
+
     const {
       label,
       error,
@@ -65,10 +71,6 @@ export const FormItem =
       name,
       instantValidate
     } = props
-
-    if (displayName) {
-      ;(func as any).displayName = displayName
-    }
 
     const [internalError, setInternalError] = useState('')
     const [defaultSize] = useDefaultSize()
@@ -96,9 +98,7 @@ export const FormItem =
     }
 
     const validateFormItem = () => {
-      const validateValue = Array.isArray((props as any).value)
-        ? (props as any).value[0]
-        : (props as any).value
+      const validateValue = (props as any).value
 
       if (rules && name) {
         validate({ [name]: rules }, { [name]: validateValue }, errorList => {
@@ -150,7 +150,7 @@ export const FormItem =
           }
         }}
         onBlur={() => {
-          if ((func as any).displayName !== '$Upload') {
+          if (displayName !== 'Upload') {
             validateFormItem()
           }
         }}

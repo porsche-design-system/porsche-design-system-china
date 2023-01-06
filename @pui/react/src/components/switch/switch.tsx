@@ -132,7 +132,8 @@ Switch = FormItem(
         </div>
       </div>
     )
-  }
+  },
+  'Switch'
 )
-;(Switch as any).displayName = 'Switch'
+
 export { Switch }

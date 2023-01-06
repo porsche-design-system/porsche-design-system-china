@@ -463,7 +463,7 @@ MultiSelect = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'MultiSelect'
 )
-;(MultiSelect as any).displayName = 'MultiSelect'
 export { MultiSelect }
