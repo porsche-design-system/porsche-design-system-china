@@ -533,8 +533,8 @@ const DatePicker = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'DatePicker'
 )
 
-;(DatePicker as any).displayName = 'DatePicker'
 export { DatePicker }

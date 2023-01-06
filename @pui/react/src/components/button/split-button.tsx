@@ -31,12 +31,11 @@ export interface SplitButtonProps {
   /** 是否禁用 */
   disabled?: boolean
 
-   /* 左边距 */
-   marginLeft?: string
+  /* 左边距 */
+  marginLeft?: string
 
-   /* 右边距 */
-   marginRight?: string
- 
+  /* 右边距 */
+  marginRight?: string
 
   // 组件事件 //
 
@@ -75,7 +74,14 @@ const SplitButton = ({
         visible={visible}
         onVisibleChange={setVisible}
       >
-        <div  className={componentClassNames('pui-split-button', { type }, className)} style={{ display: 'flex',marginLeft, marginRight }}>
+        <div
+          className={componentClassNames(
+            'pui-split-button',
+            { type },
+            className
+          )}
+          style={{ display: 'flex', marginLeft, marginRight }}
+        >
           <Button
             type={type}
             icon={IconEdit}
@@ -107,5 +113,4 @@ const SplitButton = ({
   )
 }
 
-SplitButton.displayName = 'SplitButton'
 export { SplitButton }

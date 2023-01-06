@@ -212,9 +212,9 @@ CustomPicker = FormItem(
           )}
       </div>
     )
-  }
+  },
+  'CustomPicker'
 )
-;(CustomPicker as any).displayName = 'CustomPicker'
 
 const createCustomPicker = <T,>(
   props: CustomPickerProps<T> & FormItemProps
@@ -222,7 +222,6 @@ const createCustomPicker = <T,>(
   const customPicker = (
     cpProps: Partial<CustomPickerProps<T>> & FormItemProps
   ) => <CustomPicker {...props} {...cpProps} />
-  ;(customPicker as any).displayName = 'CustomPicker'
   return customPicker
 }
 

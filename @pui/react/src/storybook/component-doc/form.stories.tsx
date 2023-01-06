@@ -729,3 +729,24 @@ export const ExampleStoryBook7 = () => {
 }
 
 ExampleStoryBook7.storyName = 'Change Data'
+
+const FormWrap = () => {
+  return <TextArea name="address" />
+}
+
+export const ExampleStoryBook8 = () => {
+  const [data, setData] = useState({})
+
+  return (
+    <div>
+      <Form data={data} onDataChange={setData} style={{ width: '600px' }}>
+        子组件也可以使用 name 属性
+        <Input label="Field A" name="name" />
+        <FormWrap />
+      </Form>
+      {JSON.stringify(data)}
+    </div>
+  )
+}
+
+ExampleStoryBook8.storyName = '嵌套组件'

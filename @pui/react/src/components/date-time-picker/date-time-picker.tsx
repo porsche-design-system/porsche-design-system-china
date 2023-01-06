@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode } from 'react'
+import React, { useEffect, ReactNode, useRef } from 'react'
 import {
   IconCalendar,
   IconArrowDoubleLeft,
@@ -106,8 +106,8 @@ export interface DatePickerProps {
   nameEndDate?: string
 }
 
-const DateTimePicker = FormItem(
-  ({
+const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
+  const {
     className = '',
     disabled = false,
     placeholder,
@@ -130,302 +130,303 @@ const DateTimePicker = FormItem(
     size,
     filterMode = false,
     allowNullDate = false
-  }: DatePickerProps) => {
-    useEffect(() => {
-      initComponent()
-    }, [])
+  } = datePickerProps
 
-    // const [dateTimeDates, setDateTimeDates] = useState(null)
-    const yearIcon = <IconArrowDoubleLeft className="dateFontIcon" />
-    const singleLeftIcon = <IconArrowHeadBack className="dateFontIcon" />
-    const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
-    const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
-    const [defaultSize] = useDefaultSize()
-    size = size || defaultSize
+  const onValueChangeRef = useRef(onValueChange)
 
-    const labelText =
-      (label as any).text !== undefined ? (label as any).text : label
+  useEffect(() => {
+    onValueChangeRef.current = onValueChange
+  }, [onValueChange])
 
-    const initComponent = () => {
-      // 常规选择
-      const dataProps = {
-        multiPane: isRange,
-        range: rangeLabel,
-        format: DateFormat[showStyle],
-        onClose,
-        isTime: isShowTime,
-        isToday,
-        minDate: minDate || '1900-01-01 00:00:00',
-        maxDate: maxDate || '2099-12-31 23:59:59',
-        yearIcon: ReactDOMServer.renderToString(yearIcon),
-        singleLeftIcon: ReactDOMServer.renderToString(singleLeftIcon),
-        singleRightIcon: ReactDOMServer.renderToString(singleRightIcon),
-        doubleRightIcon: ReactDOMServer.renderToString(doubleRightIcon),
-        showSecend: showStyle === 'HHMMSS',
-        allowNullDate,
-        filterMode,
-        doneFun: (obj: any) => {
-          if (isRange !== undefined) {
-            const arr = obj.val.split(rangeLabel)
-            const newArr = []
-            if (arr && arr.length === 1) {
-              const targetId = obj.elem.id
-              if (targetId.indexOf('posend') !== -1) {
-                if (
-                  componentId &&
-                  componentId.length > 0 &&
-                  document.getElementById(componentId)
-                ) {
-                  ;(document.getElementById(componentId) as any).value = ''
-                }
-                if (document.getElementById(componentId + 'posend')) {
-                  ;(
-                    document.getElementById(componentId + 'posend') as any
-                  ).value = arr[0]
-                }
-                newArr[0] = ''
-                newArr[1] = arr[0]
-              } else {
-                ;(document.getElementById(componentId) as any).value = arr[0]
+  useEffect(() => {
+    initComponent()
+  }, [])
+
+  // const [dateTimeDates, setDateTimeDates] = useState(null)
+  const yearIcon = <IconArrowDoubleLeft className="dateFontIcon" />
+  const singleLeftIcon = <IconArrowHeadBack className="dateFontIcon" />
+  const singleRightIcon = <IconArrowHeadRight className="dateFontIcon" />
+  const doubleRightIcon = <IconArrowDoubleRight className="dateFontIcon" />
+  const [defaultSize] = useDefaultSize()
+  const newSize = size || defaultSize
+
+  const labelText =
+    (label as any).text !== undefined ? (label as any).text : label
+
+  const initComponent = () => {
+    // 常规选择
+    const dataProps = {
+      multiPane: isRange,
+      range: rangeLabel,
+      format: DateFormat[showStyle],
+      onClose,
+      isTime: isShowTime,
+      isToday,
+      minDate: minDate || '1900-01-01 00:00:00',
+      maxDate: maxDate || '2099-12-31 23:59:59',
+      yearIcon: ReactDOMServer.renderToString(yearIcon),
+      singleLeftIcon: ReactDOMServer.renderToString(singleLeftIcon),
+      singleRightIcon: ReactDOMServer.renderToString(singleRightIcon),
+      doubleRightIcon: ReactDOMServer.renderToString(doubleRightIcon),
+      showSecend: showStyle === 'HHMMSS',
+      allowNullDate,
+      filterMode,
+      doneFun: (obj: any) => {
+        if (isRange !== undefined) {
+          const arr = obj.val.split(rangeLabel)
+          const newArr = []
+          if (arr && arr.length === 1) {
+            const targetId = obj.elem.id
+            if (targetId.indexOf('posend') !== -1) {
+              if (
+                componentId &&
+                componentId.length > 0 &&
+                document.getElementById(componentId)
+              ) {
+                ;(document.getElementById(componentId) as any).value = ''
+              }
+              if (document.getElementById(componentId + 'posend')) {
                 ;(
                   document.getElementById(componentId + 'posend') as any
-                ).value = ''
-                newArr[0] = arr[0]
-                newArr[1] = ''
+                ).value = arr[0]
               }
-              onValueChange && onValueChange(newArr)
-              // setDateTimeDates(newArr)
+              newArr[0] = ''
+              newArr[1] = arr[0]
             } else {
               ;(document.getElementById(componentId) as any).value = arr[0]
               ;(document.getElementById(componentId + 'posend') as any).value =
-                arr[1]
-              onValueChange && onValueChange(arr)
+                ''
+              newArr[0] = arr[0]
+              newArr[1] = ''
             }
+            onValueChangeRef.current && onValueChangeRef.current(newArr)
+            // setDateTimeDates(newArr)
           } else {
-            onValueChange && onValueChange(obj.val)
-            // setDateTimeDates(obj.val)
+            ;(document.getElementById(componentId) as any).value = arr[0]
+            ;(document.getElementById(componentId + 'posend') as any).value =
+              arr[1]
+            onValueChangeRef.current && onValueChangeRef.current(arr)
           }
-        },
-        clearFun: (elem: any, val: any) => {
-          clearFun && clearFun(elem, val)
-          onValueChange && onValueChange(val)
-          // setDateTimeDates(null)
+        } else {
+          onValueChangeRef.current && onValueChangeRef.current(obj.val)
+          // setDateTimeDates(obj.val)
         }
-      }
-
-      if (isRange !== undefined) {
-        dataProps.multiPane = false
-        puiDate('#' + componentId, {
-          ...dataProps
-        })
-        puiDate('#' + componentId + 'posend', {
-          ...dataProps
-        })
-      } else {
-        Reflect.deleteProperty(dataProps, 'multiPane')
-        Reflect.deleteProperty(dataProps, 'range')
-        puiDate('#' + componentId, {
-          ...dataProps
-        })
+      },
+      clearFun: (elem: any, val: any) => {
+        clearFun && clearFun(elem, val)
+        onValueChangeRef.current && onValueChangeRef.current(val)
+        // setDateTimeDates(null)
       }
     }
 
-    const onFilter = (evt: any) => {
-      // evt.stopPropagation()
-      document.getElementById(componentId)?.click()
+    if (isRange !== undefined) {
+      dataProps.multiPane = false
+      puiDate('#' + componentId, {
+        ...dataProps
+      })
+      puiDate('#' + componentId + 'posend', {
+        ...dataProps
+      })
+    } else {
+      Reflect.deleteProperty(dataProps, 'multiPane')
+      Reflect.deleteProperty(dataProps, 'range')
+      puiDate('#' + componentId, {
+        ...dataProps
+      })
     }
+  }
 
-    let labelEle
-    if ((labelText && labelPosition === 'left') || filterMode) {
-      labelEle = (
-        <span
-          className={
-            `filter-label filter-label-size-${size}` +
-            (value ? ' label-holder' : '')
-          }
-          id={`${componentId}_holder`}
-        >
-          {labelText || ''}
-        </span>
-      )
-    } else if (labelText && labelPosition === 'top') {
-      labelEle = (
-        <div className="pui-label pui-label-position-top">
-          {' '}
-          {labelText || ''}
-        </div>
-      )
+  const onFilter = (evt: any) => {
+    // evt.stopPropagation()
+    document.getElementById(componentId)?.click()
+  }
+
+  let labelEle
+  if ((labelText && labelPosition === 'left') || filterMode) {
+    labelEle = (
+      <span
+        className={
+          `filter-label filter-label-size-${newSize}` +
+          (value ? ' label-holder' : '')
+        }
+        id={`${componentId}_holder`}
+      >
+        {labelText || ''}
+      </span>
+    )
+  } else if (labelText && labelPosition === 'top') {
+    labelEle = (
+      <div className="pui-label pui-label-position-top"> {labelText || ''}</div>
+    )
+  }
+
+  if (!filterMode) {
+    return (
+      <div className="pui-pick pui-date-picker">
+        {/* {labelEle} */}
+        {isRange === undefined ? (
+          <div
+            className={
+              disabled
+                ? 'je-input-box-disabled ' + className
+                : `je-input-box je-input-box-size-${newSize} ` + className
+            }
+          >
+            <input
+              type="text"
+              className={`je-input je-input-size-${newSize}`}
+              value={value}
+              disabled={disabled}
+              readOnly
+              id={componentId}
+              placeholder={placeholder}
+            />
+            <IconCalendar
+              className={`pui-date-picker-icon pui-date-picker-icon-size-${newSize}`}
+            />
+          </div>
+        ) : (
+          <div
+            className={
+              disabled
+                ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${newSize} ` +
+                  className
+                : `pui-pick-date-range pui-pick-date-range-size-${newSize} ` +
+                  className
+            }
+          >
+            <input
+              type="text"
+              className={`je-input-range je-input-range-size-${newSize}`}
+              value={value[0]}
+              disabled={disabled}
+              readOnly
+              id={componentId}
+              placeholder={placeholderStartDate}
+            />
+            <span>{rangeLabel}</span>
+            <input
+              type="text"
+              className={`je-input-range je-input-range-size-${newSize}`}
+              value={value[1]}
+              disabled={disabled}
+              readOnly
+              id={componentId + 'posend'}
+              placeholder={placeholderEndDate}
+            />
+            <IconCalendar
+              className={`pui-date-picker-icon pui-date-picker-icon-size-${newSize}`}
+            />
+          </div>
+        )}
+      </div>
+    )
+  } else {
+    const objWidth = {
+      OnlyYear: 50,
+      YearAndMonth: 70,
+      Common: 100,
+      CommonHHMMSS: 130,
+      HHMMSS: 80,
+      HHMM: 60
     }
-
-    if (!filterMode) {
-      return (
-        <div className="pui-pick pui-date-picker">
-          {/* {labelEle} */}
-          {isRange === undefined ? (
-            <div
-              className={
-                disabled
-                  ? 'je-input-box-disabled ' + className
-                  : `je-input-box je-input-box-size-${size} ` + className
-              }
-            >
+    let highlight = ''
+    if (value?.length > 0) {
+      highlight = ' highlightBg'
+    }
+    return (
+      <div className="pui-pick pui-date-picker filterMode">
+        {isRange === undefined ? (
+          <div
+            className={
+              disabled
+                ? 'je-input-box-disabled ' + className
+                : `je-input-box je-input-box-size-${newSize}` +
+                  className +
+                  highlight
+            }
+            style={{
+              paddingLeft: '12px',
+              paddingRight: '40px',
+              cursor: 'pointer'
+            }}
+            onClick={evt => onFilter(evt)}
+          >
+            <>
+              {labelEle}
               <input
                 type="text"
-                className={`je-input je-input-size-${size}`}
+                className={`je-input je-input-size-${newSize} filterMode-single`}
                 value={value}
                 disabled={disabled}
                 readOnly
                 id={componentId}
                 placeholder={placeholder}
+                style={{
+                  display: !value ? 'none' : 'inline-block',
+                  width: value ? objWidth[showStyle] + 'px' : ''
+                }}
               />
               <IconCalendar
-                className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
+                className={`pui-date-picker-icon pui-date-picker-icon-size-${newSize}`}
               />
-            </div>
-          ) : (
-            <div
-              className={
-                disabled
-                  ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${size} ` +
-                    className
-                  : `pui-pick-date-range pui-pick-date-range-size-${size} ` +
-                    className
-              }
-            >
-              <input
-                type="text"
-                className={`je-input-range je-input-range-size-${size}`}
-                value={value[0]}
-                disabled={disabled}
-                readOnly
-                id={componentId}
-                placeholder={placeholderStartDate}
-              />
-              <span>{rangeLabel}</span>
-              <input
-                type="text"
-                className={`je-input-range je-input-range-size-${size}`}
-                value={value[1]}
-                disabled={disabled}
-                readOnly
-                id={componentId + 'posend'}
-                placeholder={placeholderEndDate}
-              />
-              <IconCalendar
-                className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
-              />
-            </div>
-          )}
-        </div>
-      )
-    } else {
-      const objWidth = {
-        OnlyYear: 50,
-        YearAndMonth: 70,
-        Common: 100,
-        CommonHHMMSS: 130,
-        HHMMSS: 80,
-        HHMM: 60
-      }
-      let highlight = ''
-      if (value?.length > 0) {
-        highlight = ' highlightBg'
-      }
-      return (
-        <div className="pui-pick pui-date-picker filterMode">
-          {isRange === undefined ? (
-            <div
-              className={
-                disabled
-                  ? 'je-input-box-disabled ' + className
-                  : `je-input-box je-input-box-size-${size}` +
-                    className +
-                    highlight
-              }
-              style={{
-                paddingLeft: '12px',
-                paddingRight: '40px',
-                cursor: 'pointer'
-              }}
-              onClick={evt => onFilter(evt)}
-            >
-              <>
-                {labelEle}
+            </>
+          </div>
+        ) : (
+          <div
+            className={
+              disabled
+                ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${newSize} ` +
+                  className
+                : `pui-pick-date-range pui-pick-date-range-size-${newSize} ` +
+                  className +
+                  highlight
+            }
+            style={{ paddingLeft: '12px' }}
+            onClick={evt => onFilter(evt)}
+          >
+            <>
+              {labelEle}
+              <div
+                style={{ display: !value ? 'none' : 'inline-block' }}
+                id={`${componentId}filterMode-multi`}
+              >
                 <input
                   type="text"
-                  className={`je-input je-input-size-${size} filterMode-single`}
-                  value={value}
+                  style={{
+                    marginLeft: '12px',
+                    width: value[0] ? objWidth[showStyle] + 'px' : ''
+                  }}
+                  className={`je-input-range je-input-range-size-${newSize} filterMode-multi`}
+                  value={value[0]}
                   disabled={disabled}
                   readOnly
                   id={componentId}
-                  placeholder={placeholder}
+                  placeholder={placeholderStartDate}
+                />
+                <span>{rangeLabel}</span>
+                <input
+                  type="text"
+                  className={`je-input-range je-input-range-size-${newSize} filterMode-multi`}
+                  value={value[1]}
+                  disabled={disabled}
+                  readOnly
+                  id={componentId + 'posend'}
+                  placeholder={placeholderEndDate}
                   style={{
-                    display: !value ? 'none' : 'inline-block',
-                    width: value ? objWidth[showStyle] + 'px' : ''
+                    width: value[1] ? objWidth[showStyle] + 'px' : ''
                   }}
                 />
-                <IconCalendar
-                  className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
-                />
-              </>
-            </div>
-          ) : (
-            <div
-              className={
-                disabled
-                  ? `pui-pick-date-range-disabled  pui-pick-date-range-disabled-size-${size} ` +
-                    className
-                  : `pui-pick-date-range pui-pick-date-range-size-${size} ` +
-                    className +
-                    highlight
-              }
-              style={{ paddingLeft: '12px' }}
-              onClick={evt => onFilter(evt)}
-            >
-              <>
-                {labelEle}
-                <div
-                  style={{ display: !value ? 'none' : 'inline-block' }}
-                  id={`${componentId}filterMode-multi`}
-                >
-                  <input
-                    type="text"
-                    style={{
-                      marginLeft: '12px',
-                      width: value[0] ? objWidth[showStyle] + 'px' : ''
-                    }}
-                    className={`je-input-range je-input-range-size-${size} filterMode-multi`}
-                    value={value[0]}
-                    disabled={disabled}
-                    readOnly
-                    id={componentId}
-                    placeholder={placeholderStartDate}
-                  />
-                  <span>{rangeLabel}</span>
-                  <input
-                    type="text"
-                    className={`je-input-range je-input-range-size-${size} filterMode-multi`}
-                    value={value[1]}
-                    disabled={disabled}
-                    readOnly
-                    id={componentId + 'posend'}
-                    placeholder={placeholderEndDate}
-                    style={{
-                      width: value[1] ? objWidth[showStyle] + 'px' : ''
-                    }}
-                  />
-                </div>
-                <IconCalendar
-                  className={`pui-date-picker-icon pui-date-picker-icon-size-${size}`}
-                />
-              </>
-            </div>
-          )}
-        </div>
-      )
-    }
+              </div>
+              <IconCalendar
+                className={`pui-date-picker-icon pui-date-picker-icon-size-${newSize}`}
+              />
+            </>
+          </div>
+        )}
+      </div>
+    )
   }
-)
+}, 'DateTimePicker')
 
-;(DateTimePicker as any).displayName = 'DateTimePicker'
 export { DateTimePicker }

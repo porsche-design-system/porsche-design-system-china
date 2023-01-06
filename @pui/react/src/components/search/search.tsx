@@ -1,6 +1,7 @@
 import React, {
   CSSProperties,
   FocusEventHandler,
+  useContext,
   useRef,
   useState
 } from 'react'
@@ -14,6 +15,7 @@ import { validate } from '../../shared/validation-rules'
 import { ErrorText } from '../error-text/error-text'
 
 import './search.scss'
+import { FormContext, overrideProps } from '../form/form'
 
 export interface SearchProps {
   /** 类名 */
@@ -71,32 +73,38 @@ export interface SearchProps {
   name?: string
 }
 
-const Search = ({
-  className,
-  style,
-  placeholder,
-  maxLength,
-  disabled = false,
-  value,
-  defaultValue,
-  width,
-  size,
-  onValueChange,
-  showClearButton,
-  showSearchButtonBg = false,
-  marginLeft,
-  marginRight,
-  rules,
-  onBlur,
-  onSearch,
-  name
-}: SearchProps) => {
+const Search = (searchProps: SearchProps) => {
+  const formContext = useContext(FormContext)
+  if (formContext) {
+    searchProps = overrideProps('Search', { ...searchProps }, formContext)
+  }
+  const {
+    className,
+    style,
+    placeholder,
+    maxLength,
+    disabled = false,
+    value,
+    defaultValue,
+    width,
+    size,
+    onValueChange,
+    showClearButton,
+    showSearchButtonBg = false,
+    marginLeft,
+    marginRight,
+    rules,
+    onBlur,
+    onSearch,
+    name
+  } = searchProps
+
   const [searchValue, setSearchValue] = useState(value || defaultValue || '')
   const [defaultSize] = useDefaultSize()
   const [errList, setErrList] = useState<ValidateError[]>([])
   const isValidated = useRef(false)
 
-  size = size || defaultSize
+  const newSize = size || defaultSize
 
   const validateInput = (validateValue: any) => {
     if (rules) {
@@ -124,7 +132,7 @@ const Search = ({
           'show-clear-button': (showClearButton && !!searchValue) + '',
           'show-search-button-bg': showSearchButtonBg + '',
           disabled: disabled + '',
-          size
+          size: newSize
         },
         className
       )}
@@ -176,5 +184,4 @@ const Search = ({
   )
 }
 
-;(Search as any).displayName = 'Search'
 export { Search }
