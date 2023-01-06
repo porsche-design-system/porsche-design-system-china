@@ -749,4 +749,4 @@ export const ExampleStoryBook8 = () => {
   )
 }
 
-ExampleStoryBook8.storyName = '嵌套组件测试'
+ExampleStoryBook8.storyName = '嵌套组件'
