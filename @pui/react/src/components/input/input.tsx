@@ -120,7 +120,9 @@ const Input = FormItem(
       value = undefined
     }
 
-    const [valueLength, setValueLength] = useState(0)
+    const [valueLength, setValueLength] = useState(
+      (value || defaultValue || '').length
+    )
     const [inputType, setInputType] = useState(type)
     const inputReference = useRef<HTMLInputElement>()
     const [defaultSize] = useDefaultSize()
@@ -134,7 +136,6 @@ const Input = FormItem(
       setInputType(type)
     }, [type])
 
-    const displayValueLength = value !== undefined ? value.length : valueLength
     if (isCompositionStarted.current && value !== undefined) {
       value = internalValue
     }
@@ -207,13 +208,13 @@ const Input = FormItem(
           !showViewPasswordButton &&
           !hideMaxLengthText && (
             <div className="pui-input-char-count">
-              {displayValueLength > 0 && displayValueLength}
+              {valueLength > 0 && valueLength}
               <span>
-                {displayValueLength === 0 && displayValueLength}/{maxLength}
+                {valueLength === 0 && valueLength}/{maxLength}
               </span>
             </div>
           )}
-        {showClearButton && displayValueLength > 0 && (
+        {showClearButton && valueLength > 0 && (
           <IconErrorFilled
             className="pui-input-right-button pui-input-clear"
             onClick={() => {
