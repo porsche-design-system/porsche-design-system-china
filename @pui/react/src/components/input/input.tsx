@@ -136,6 +136,10 @@ const Input = FormItem(
       setInputType(type)
     }, [type])
 
+    useEffect(() => {
+      setValueLength((value || '').length)
+    }, [value])
+
     if (isCompositionStarted.current && value !== undefined) {
       value = internalValue
     }

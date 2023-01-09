@@ -737,14 +737,14 @@ const FormWrap2 = () => {
 const FormWrap = () => {
   return (
     <div>
-      <TextArea name="address" />
+      <TextArea name="address" maxLength={20} />
       <FormWrap2 />
     </div>
   )
 }
 
 export const ExampleStoryBook8 = () => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({ address: '东方路12号', name: '' })
 
   /*
   这个代码应该写在 该组件外 写在这里是为了StoryBook展示
@@ -766,8 +766,12 @@ export const ExampleStoryBook8 = () => {
     <div>
       <Form data={data} onDataChange={setData} style={{ width: '600px' }}>
         子组件也可以使用 name 属性
-        <Input label="Field A" name="name" />
+        <Input label="Field A" name="name" maxLength={10} />
         <FormWrap />
+        <br />
+        <Button onClick={() => setData({ address: '长城路', name: '名字' })}>
+          修改数据
+        </Button>
       </Form>
       {JSON.stringify(data)}
     </div>
