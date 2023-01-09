@@ -4,6 +4,7 @@ import React, {
   CSSProperties,
   FocusEventHandler,
   ReactNode,
+  useEffect,
   useRef,
   useState
 } from 'react'
@@ -127,6 +128,10 @@ const TextArea = FormItem(
     if (isCompositionStarted.current && value !== undefined) {
       value = internalValue
     }
+
+    useEffect(() => {
+      setValueLength((value || '').length)
+    }, [value])
 
     return (
       <div
