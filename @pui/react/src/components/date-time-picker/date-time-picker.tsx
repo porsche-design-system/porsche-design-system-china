@@ -236,6 +236,7 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onFilter = (evt: any) => {
     // evt.stopPropagation()
     document.getElementById(componentId)?.click()
