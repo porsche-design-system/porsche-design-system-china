@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.50](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.49...v0.1.50) (2023-01-10)
+
+
+### Features
+
+* 重构表单 ([90c7ac8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/90c7ac881668b41e5cb7d1822419a12127394d00))
+
+
+### Bug Fixes
+
+* input maxLength devaultValue 不生效 ([73fe560](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/73fe56032469d1d6003cf041138107f1c4261f0a))
+* 优化代码展示 ([8db4040](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8db40404dc9e5873ba07289304d158abd4f54257))
+* 修改文字 ([fc9c14f](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fc9c14fcc6fa34b99f9f8eceab426ce0f6e0218c))
+* 修正datepicker ([8fef671](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8fef671b12ec99627bd76301e6f5f6855a7dbdeb))
+* 修正文字长度 ([6bf76e5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6bf76e522f7e9823cadbee2f34cff253ef7167a3))
+* 修正表单验证 ([9734245](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9734245e258e1d04664d8f0c4de14b7ac57fb28a))
+
 ### [0.1.49](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.48...v0.1.49) (2023-01-05)
 
 
