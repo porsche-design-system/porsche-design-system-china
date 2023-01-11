@@ -50,6 +50,26 @@ export const dateToStr = (date: Date) => {
   )
 }
 
+export const isDateEquals = (date1: Date | null, date2: Date | null) => {
+  if (date1 === date2 && date1 === null) {
+    return true
+  }
+  if (date1 === null && date2 !== null) {
+    return false
+  }
+  if (date2 === null && date1 !== null) {
+    return false
+  }
+  if (
+    date1!.getFullYear() === date2!.getFullYear() &&
+    date1!.getMonth() === date2!.getMonth() &&
+    date1!.getDate() === date2!.getDate()
+  ) {
+    return true
+  }
+  return false
+}
+
 export const inDisableDates = (
   date: Date,
   disableDates: string[] | Date[] | ((data: Date) => boolean) | undefined | null

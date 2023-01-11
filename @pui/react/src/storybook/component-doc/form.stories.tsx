@@ -1,5 +1,5 @@
 import { IconArrowHeadRight, IconClose, IconInformation } from '@pui/icons'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { FormLabelStyle } from '../../components/form/form'
 import './form.stories.scss'
 
@@ -730,46 +730,48 @@ export const ExampleStoryBook7 = () => {
 
 ExampleStoryBook7.storyName = 'Change Data'
 
-const FormWrap2 = () => {
-  return <CheckBox name="checked" />
-}
-
-const FormWrap = () => {
-  return (
-    <div>
-      <TextArea name="address" maxLength={20} />
-      <FormWrap2 />
-    </div>
-  )
-}
-
 export const ExampleStoryBook8 = () => {
-  const [data, setData] = useState({ address: '东方路12号', name: '' })
+  const [data, setData] = useState({
+    address: '东方路12号',
+    name: '',
+    startDate: '2022-12-12'
+  })
 
-  /*
-  这个代码应该写在 该组件外 写在这里是为了StoryBook展示
   const FormWrap2 = () => {
     return <CheckBox name="checked" />
   }
 
-  const FormWrap = () => {
-    return (
+  const FormWrap = useCallback(
+    () => (
       <div>
-        <TextArea name="address" />
+        <TextArea name="address" maxLength={20} />
         <FormWrap2 />
       </div>
-    )
+    ),
+    []
+  )
+
+  const FormWrap3 = () => {
+    return <DateRangePicker nameStartDate="startDate" nameEndDate="endDate" />
   }
-  */
 
   return (
     <div>
       <Form data={data} onDataChange={setData} style={{ width: '600px' }}>
         子组件也可以使用 name 属性
-        <Input label="Field A" name="name" maxLength={10} />
+        <Input name="name" maxLength={10} />
         <FormWrap />
+        <FormWrap3 />
         <br />
-        <Button onClick={() => setData({ address: '长城路', name: '名字' })}>
+        <Button
+          onClick={() =>
+            setData({
+              address: '长城路',
+              name: '名字',
+              startDate: '2012-12-12'
+            })
+          }
+        >
           修改数据
         </Button>
       </Form>
