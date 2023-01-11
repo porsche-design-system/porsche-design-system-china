@@ -16,6 +16,7 @@ import {
   dateToStr,
   getMonthCalDates,
   inDateRange,
+  isDateEquals,
   sameDate,
   strToDate
 } from '../../shared/date-utils'
@@ -227,11 +228,16 @@ const DateRangePicker = FormItem(
           strToDate((value && value[0]) || ''),
           strToDate((value && value[1]) || '')
         ]
-        setPickedDates(dates)
-        setDisplayValues([
-          dates[0] ? dateToStr(dates[0]) : '',
-          dates[1] ? dateToStr(dates[1]) : ''
-        ])
+        if (
+          !isDateEquals(dates[0], pickedDates[0]) ||
+          !isDateEquals(dates[1], pickedDates[1])
+        ) {
+          setPickedDates(dates)
+          setDisplayValues([
+            dates[0] ? dateToStr(dates[0]) : '',
+            dates[1] ? dateToStr(dates[1]) : ''
+          ])
+        }
       }
     }, [value])
 
