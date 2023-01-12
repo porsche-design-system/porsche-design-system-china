@@ -275,3 +275,12 @@ export const InputsStoryBook9 = () => {
 }
 
 InputsStoryBook9.storyName = 'Tiny Size'
+export const InputsStoryBook10 = () => {
+  return (
+    <div>
+      <Input defaultValue="test readOnly " readOnly />
+    </div>
+  )
+}
+
+InputsStoryBook10.storyName = 'Readonly'

@@ -45,6 +45,9 @@ export interface TextAreaProps {
   /** 是否禁用 */
   disabled?: boolean
 
+  /** 只读 */
+  readOnly?: boolean
+
   /** 表单绑定key，需要配合&lt;Form&gt;使用 */
   name?: string
 
@@ -103,7 +106,8 @@ const TextArea = FormItem(
     autoAdjustHeight = false,
     defaultHeightOfRow,
     showCharCountOnFocus = false,
-    onBlur
+    onBlur,
+    readOnly
   }: TextAreaProps) => {
     if (value === null) {
       value = undefined
@@ -141,6 +145,7 @@ const TextArea = FormItem(
         })}
       >
         <textarea
+          readOnly={readOnly}
           value={value}
           defaultValue={defaultValue}
           onCompositionStart={(evt: any) => {
