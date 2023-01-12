@@ -140,7 +140,11 @@ export const FormItem =
         className={classNames('pui-form-item', className)}
         style={{
           ...style,
-          width: width || (filterMode ? 'auto' : ''),
+          width:
+            width ||
+            (filterMode && !['Search', 'Input'].includes(displayName)
+              ? 'auto'
+              : ''),
           marginLeft: marginLeft || style?.marginLeft,
           marginRight: marginRight || style?.marginRight
         }}
