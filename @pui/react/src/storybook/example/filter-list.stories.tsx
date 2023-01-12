@@ -6,7 +6,8 @@ import {
   MultiSelect,
   DateRangePicker,
   Form,
-  Search
+  Search,
+  Input
 } from '../..'
 import './filter-list.stories.scss'
 
@@ -21,14 +22,14 @@ export const FilterStoryBook = () => {
     }
 
     return (
-      <div>
+      <>
         <Search
-          showSearchButtonBg
           width="200px"
           placeholder="搜索"
           className="pui-form-item"
           {...props}
         />
+        <Input width="300px" placeholder="请输入" {...props} />
         <Select
           filterMode
           options="911,718"
@@ -134,7 +135,7 @@ export const FilterStoryBook = () => {
           placeholderEndDate="不限"
           {...props}
         />
-      </div>
+      </>
     )
   }
 

@@ -149,3 +149,13 @@ export const TextAreaStoryBook7 = () => {
 }
 
 TextAreaStoryBook7.storyName = 'Show Char Count On Focus'
+
+export const TextAreaStoryBook8 = () => {
+  return (
+    <div>
+      <TextArea defaultValue="test readOnly " readOnly />
+    </div>
+  )
+}
+
+TextAreaStoryBook8.storyName = 'Readonly'

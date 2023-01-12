@@ -73,6 +73,9 @@ export interface InputProps {
   /** 不显示最大长度文字提示 */
   hideMaxLengthText?: boolean
 
+  /** 只读 */
+  readOnly?: boolean
+
   /** 后缀ICON */
   suffixIcon?: PUIIcon | ReactElement
   /** 后缀样式 */
@@ -114,7 +117,8 @@ const Input = FormItem(
     onCompositionEnd,
     suffixIcon,
     suffixStyle,
-    suffixContent
+    suffixContent,
+    readOnly
   }: InputProps) => {
     if (value === null) {
       value = undefined
@@ -153,6 +157,7 @@ const Input = FormItem(
         })}
       >
         <input
+          readOnly={readOnly}
           ref={(inputRef: HTMLInputElement) => {
             inputReference.current = inputRef
             if (inputRef && maxLength && !hideMaxLengthText) {
