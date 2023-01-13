@@ -22,13 +22,6 @@ import { useDefaultSize } from '../../shared/hooks'
 import { ButtonProps } from '../button/button'
 import './modal.scss'
 
-// 禁止回车和空格键
-const forbiddenKeydown = (e: KeyboardEvent) => {
-  if (e.code === 'Space' || e.code === 'Enter') {
-    e.preventDefault()
-  }
-}
-
 export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
@@ -163,12 +156,7 @@ const Modal = ({
         >
           {showCancel && (
             <Button
-              onClick={() => {
-                if (onCancel) {
-                  window.removeEventListener('keydown', forbiddenKeydown)
-                  onCancel()
-                }
-              }}
+              onClick={() => onCancel && onCancel()}
               icon={
                 cancelIcon === null ? undefined : cancelIcon === undefined ? (
                   <IconClose />
@@ -200,10 +188,7 @@ const Modal = ({
                     setIsLoading(true)
                     ;(loadingPromise as Promise<unknown>).finally(() => {
                       setIsLoading(false)
-                      window.removeEventListener('keydown', forbiddenKeydown)
                     })
-                  } else {
-                    window.removeEventListener('keydown', forbiddenKeydown)
                   }
                 }
               }}
@@ -221,11 +206,8 @@ const Modal = ({
 
   useEffect(() => {
     setShow(visible)
-
-    if (visible) {
-      window.addEventListener('keydown', forbiddenKeydown)
-    } else {
-      window.removeEventListener('keydown', forbiddenKeydown)
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
     }
   }, [visible])
 
@@ -262,10 +244,7 @@ const Modal = ({
                   <div
                     className="pui-modal-close"
                     onClick={() => {
-                      if (onCancel) {
-                        window.removeEventListener('keydown', forbiddenKeydown)
-                        onCancel()
-                      }
+                      onCancel && onCancel()
                     }}
                   >
                     <IconClose />
@@ -511,8 +490,6 @@ Modal.close = () => {
     document.body.removeChild(modalNode)
     modalNode = null
   }
-
-  window.removeEventListener('keydown', forbiddenKeydown)
 }
 
 Modal.show = ({
