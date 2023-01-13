@@ -97,11 +97,11 @@ export const FormItem =
       }
     }
 
-    const validateFormItem = () => {
-      const validateValue = (props as any).value
-
-      if (rules && name) {
-        validate({ [name]: rules }, { [name]: validateValue }, errorList => {
+    const validateFormItem = (val?: any) => {
+      const validateValue = val ?? (props as any).value
+      if (rules) {
+        const n = name || 'field'
+        validate({ [n]: rules }, { [n]: validateValue }, errorList => {
           blurTriggered.current = true
           if (errorList && errorList.length > 0) {
             setInternalError(errorList[0].message)
@@ -121,7 +121,11 @@ export const FormItem =
     const labelWidth = getLabelWidth(label)
     const labelProps = getLabelProps(label)
 
-    const comp = func({ ...props, error: displayError }) as any
+    const comp = func({
+      ...props,
+      error: displayError,
+      validateFormItem
+    }) as any
     const labelStyle =
       labelProps.position === 'left' &&
       comp.props.className &&
