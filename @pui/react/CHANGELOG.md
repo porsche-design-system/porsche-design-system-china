@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.52](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.51...v0.1.52) (2023-01-14)
+
+
+### Bug Fixes
+
+* **DSCWCN-154:** 防止按回车键重复弹出造成页面变黑 ([f89b95a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f89b95a10dc240248836a5d1c9caf291963e5ecb))
+* filterMode search width 显示错误, Input | TextArea x新增 readOnly 属性 ([c9bede0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c9bede03b8939adee33f988419c2379a77c321d8))
+* 修正DatePicker清除验证功能 ([a6fb297](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6fb2976b7a10bd56a9cc9bda5e9ae2fc09693cf))
+
 ### [0.1.51](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.50...v0.1.51) (2023-01-11)
 
 
