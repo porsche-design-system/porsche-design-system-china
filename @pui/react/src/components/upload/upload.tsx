@@ -141,7 +141,7 @@ Upload = FormItem((props: UploadProps) => {
   const updateFileListRef = useRef<any>(null)
 
   React.useEffect(() => {
-    ;(fileList || []).forEach((file, index) => {
+    ; (fileList || []).forEach((file, index) => {
       if (!file.uid && !Object.isFrozen(file)) {
         const random = Math.random().toString().replace(/0./, '')
         file.uid = `${random}_${index}`
@@ -202,7 +202,7 @@ Upload = FormItem((props: UploadProps) => {
         exceededMaxCountMsg !== '' &&
           Message.warning(
             exceededMaxCountMsg ||
-              `上传文件个数${totalCount}，超出最大值${maxCount}`
+            `上传文件个数${totalCount}，超出最大值${maxCount}`
           )
       }
     }
@@ -390,7 +390,7 @@ Upload = FormItem((props: UploadProps) => {
           </Dragger>
         ) : listType === 'picture-card' ? (
           ((count || maxCount || Number.MAX_VALUE) as number) >
-            mergedFileList.length && (
+          mergedFileList.length && (
             <div className="pui-upload-btn-picture-card">
               {children || (
                 <span>
@@ -456,6 +456,7 @@ Upload = FormItem((props: UploadProps) => {
             visible={previewVisible}
             title={previewTitle}
             onCancel={handleCancel}
+            footer={null}
           >
             <img alt="example" style={{ width: '100%' }} src={previewImage} />
           </Modal>
@@ -498,13 +499,13 @@ const defaultLocale = {
   downloadFile: 'Download file'
 }
 
-;(Upload as any).defaultProps = {
-  listType: 'text' as UploadListType,
-  showUploadList: true,
-  locale: defaultLocale,
-  count: 1,
-  disabled: false,
-  listIgnore: true
-}
+  ; (Upload as any).defaultProps = {
+    listType: 'text' as UploadListType,
+    showUploadList: true,
+    locale: defaultLocale,
+    count: 1,
+    disabled: false,
+    listIgnore: true
+  }
 
 export { Upload }
