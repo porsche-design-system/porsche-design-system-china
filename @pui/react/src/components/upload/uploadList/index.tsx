@@ -118,7 +118,6 @@ const UploadList: FC<UploadListProps> = props => {
           customIcon.props.onClick(e)
         }
       },
-      style: { padding: 0, height: 'auto' },
       className: `${prefixCls}-item-card-actions-btn`
     }
     if (isValidElement(customIcon)) {
