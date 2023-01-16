@@ -344,6 +344,8 @@ $picture-card-size: 160px;
           }
 
           .pui-upload-list-item-card-actions-btn {
+            height: 24px;
+            padding: 0 !important;
 
             &:hover {
               background-color: transparent;
@@ -354,6 +356,7 @@ $picture-card-size: 160px;
             }
 
             .pui-button-icon {
+              vertical-align: baseline;
               pointer-events: inherit;
             }
           }
