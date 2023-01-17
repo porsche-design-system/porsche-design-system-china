@@ -4,21 +4,22 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.53](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.52...v0.1.53) (2023-01-17)
 
-### [0.1.52](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.51...v0.1.52) (2023-01-14)
+### Bug Fixes
 
+- **DSCWCN-154:** 防止按回车键重复弹出造成页面变黑 ([f89b95a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f89b95a10dc240248836a5d1c9caf291963e5ecb))
+
+### [0.1.52](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.51...v0.1.52) (2023-01-14)
 
 ### Bug Fixes
 
-* **DSCWCN-154:** 防止按回车键重复弹出造成页面变黑 ([f89b95a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f89b95a10dc240248836a5d1c9caf291963e5ecb))
-* filterMode search width 显示错误, Input | TextArea x新增 readOnly 属性 ([c9bede0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c9bede03b8939adee33f988419c2379a77c321d8))
-* 修正DatePicker清除验证功能 ([a6fb297](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6fb2976b7a10bd56a9cc9bda5e9ae2fc09693cf))
+- filterMode search width 显示错误, Input | TextArea x 新增 readOnly 属性 ([c9bede0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c9bede03b8939adee33f988419c2379a77c321d8))
+- 修正 DatePicker 清除验证功能 ([a6fb297](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6fb2976b7a10bd56a9cc9bda5e9ae2fc09693cf))
 
 ### [0.1.51](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.50...v0.1.51) (2023-01-11)
 
-
 ### Bug Fixes
 
-* 修正表单 startDate endDate 数据 ([67b3cc8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67b3cc87f19e9cae5fea1bd73220369e48e7a4c9))
+- 修正表单 startDate endDate 数据 ([67b3cc8](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67b3cc87f19e9cae5fea1bd73220369e48e7a4c9))
 
 ### [0.1.50](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.49...v0.1.50) (2023-01-10)
 
