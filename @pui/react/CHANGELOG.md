@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.53](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.52...v0.1.53) (2023-01-17)
+
 ### [0.1.52](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.51...v0.1.52) (2023-01-14)
 
 
