@@ -3,8 +3,7 @@ import React, {
   useMemo,
   useState,
   useEffect,
-  useCallback,
-  ReactElement
+  useCallback
 } from 'react'
 import {
   IconInformationFilled,
@@ -61,10 +60,10 @@ export interface NotificationConfigProps {
   okText?: string
 
   /** 确认按钮Icon */
-  okIcon?: ReactElement | undefined | null
+  okIcon?: ReactNode | undefined | null
 
   /** 取消按钮Icon */
-  cancelIcon?: ReactElement | undefined | null
+  cancelIcon?: ReactNode | undefined | null
 
   /** 通知提醒内容，必选 */
   description: ReactNode
@@ -80,9 +79,12 @@ export interface NotificationConfigProps {
 
   /** 弹出位置，可选 topLeft topRight bottomLeft bottomRight */
   placement?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
-  
+
   /** 唯一标识 */
   key?: string
+
+  /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
+  footer?: ReactNode | null
 }
 
 const defaultConfig: NotificationConfigProps = {
@@ -105,7 +107,8 @@ const defaultConfig: NotificationConfigProps = {
   onOk: undefined,
   onCancel: undefined,
   placement: 'topLeft',
-  key: ''
+  key: '',
+  footer: null
 }
 
 let wrap: HTMLElement
@@ -241,44 +244,47 @@ export function NotificationBox(props: NotificationProps) {
           )}
         </div>
         <div className="notification-content">{fconfig.description}</div>
-        {fconfig.showButton && (
-          <div className="notification-footer">
-            {fconfig.showCancel && (
-              <Button
-                onClick={() => fconfig.onCancel && fconfig.onCancel()}
-                icon={
-                  fconfig.cancelIcon ===
-                  null ? undefined : fconfig.cancelIcon === undefined ? (
-                    <IconClose />
-                  ) : (
-                    fconfig.cancelIcon
-                  )
-                }
-                marginRight="12px"
-                size={size}
-              >
-                {fconfig.cancelText}
-              </Button>
-            )}
-            {fconfig.showOk && (
-              <Button
-                type="primary"
-                icon={
-                  fconfig.okIcon === null ? undefined : fconfig.okIcon ===
-                    undefined ? (
-                    <IconArrowHeadRight />
-                  ) : (
-                    fconfig.okIcon
-                  )
-                }
-                onClick={() => fconfig.onOk && fconfig.onOk()}
-                size={size}
-              >
-                {fconfig.okText}
-              </Button>
-            )}
-          </div>
-        )}
+        {fconfig.showButton &&
+          (!fconfig.footer ? (
+            <div className="notification-footer">
+              {fconfig.showCancel && (
+                <Button
+                  onClick={() => fconfig.onCancel && fconfig.onCancel()}
+                  icon={
+                    fconfig.cancelIcon ===
+                    null ? undefined : fconfig.cancelIcon === undefined ? (
+                      <IconClose />
+                    ) : (
+                      fconfig.cancelIcon
+                    )
+                  }
+                  marginRight="12px"
+                  size={size}
+                >
+                  {fconfig.cancelText}
+                </Button>
+              )}
+              {fconfig.showOk && (
+                <Button
+                  type="primary"
+                  icon={
+                    fconfig.okIcon === null ? undefined : fconfig.okIcon ===
+                      undefined ? (
+                      <IconArrowHeadRight />
+                    ) : (
+                      fconfig.okIcon
+                    )
+                  }
+                  onClick={() => fconfig.onOk && fconfig.onOk()}
+                  size={size}
+                >
+                  {fconfig.okText}
+                </Button>
+              )}
+            </div>
+          ) : (
+            fconfig.footer
+          ))}
       </div>
     </div>
   )
