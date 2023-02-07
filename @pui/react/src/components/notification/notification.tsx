@@ -3,7 +3,8 @@ import React, {
   useMemo,
   useState,
   useEffect,
-  useCallback
+  useCallback,
+  ReactElement
 } from 'react'
 import {
   IconInformationFilled,
@@ -255,7 +256,7 @@ export function NotificationBox(props: NotificationProps) {
                     null ? undefined : fconfig.cancelIcon === undefined ? (
                       <IconClose />
                     ) : (
-                      fconfig.cancelIcon
+                      (fconfig.cancelIcon as unknown as ReactElement)
                     )
                   }
                   marginRight="12px"
@@ -272,7 +273,7 @@ export function NotificationBox(props: NotificationProps) {
                       undefined ? (
                       <IconArrowHeadRight />
                     ) : (
-                      fconfig.okIcon
+                      (fconfig.okIcon as unknown as ReactElement)
                     )
                   }
                   onClick={() => fconfig.onOk && fconfig.onOk()}
