@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.54](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.53...v0.1.54) (2023-02-07)
+
+
+### Features
+
+* DRSCN-26474|自定义footer ([ce0a92a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ce0a92ab6ed5a22d3a242930768b6d4433379864))
+
+
+### Bug Fixes
+
+* 修复notification组件build报错 ([17dd000](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/17dd000ab77869cd7275064dc7a578cac829edb1))
+
 ### [0.1.53](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.52...v0.1.53) (2023-01-17)
 
 ### Bug Fixes
