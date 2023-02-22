@@ -58,5 +58,5 @@ export const overrideChildren = (
  * @returns
  */
 export const isReactElement = (component: any) => {
-  return component.$$typeof.toString() === 'Symbol(react.element)'
+  return component?.$$typeof?.toString() === 'Symbol(react.element)'
 }
