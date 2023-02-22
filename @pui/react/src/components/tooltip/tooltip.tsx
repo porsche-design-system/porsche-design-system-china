@@ -100,6 +100,9 @@ const Tooltip = ({
   const hideTimerRef = useRef<ReturnType<typeof setTimeout>>()
   // eslint-disable-next-line prefer-const
   let [firstChild, ...restChildren] = React.Children.toArray(children)
+  if (!isReactElement(firstChild)) {
+    firstChild = <span>{firstChild}</span>
+  }
   // 计算提示框位置
   const calcTooltipPosition = (boxDom: any, targetDom: any, originDom: any) => {
     const boxPosition = boxDom.getBoundingClientRect()
@@ -403,10 +406,8 @@ const Tooltip = ({
     )
   }
   const onMouseEnter = (evt: MouseEvent) => {
-    if (isReactElement(firstChild)) {
-      ;(firstChild as ReactElement).props.onMouseEnter &&
-        (firstChild as ReactElement).props.onMouseEnter(evt)
-    }
+    ;(firstChild as ReactElement).props.onMouseEnter &&
+      (firstChild as ReactElement).props.onMouseEnter(evt)
     if (hideTimerRef.current) {
       clearTimeout(hideTimerRef.current)
     } else {
@@ -435,10 +436,8 @@ const Tooltip = ({
     }
   }
   const onMouseLeave = (evt: MouseEvent) => {
-    if (isReactElement(firstChild)) {
-      ;(firstChild as ReactElement).props.onMouseLeave &&
-        (firstChild as ReactElement).props.onMouseLeave(evt)
-    }
+    ;(firstChild as ReactElement).props.onMouseLeave &&
+      (firstChild as ReactElement).props.onMouseLeave(evt)
     if (showTimerRef.current) {
       clearTimeout(showTimerRef.current)
       showTimerRef.current = undefined
@@ -452,10 +451,8 @@ const Tooltip = ({
   }
   const onClick = (evt: MouseEvent) => {
     evt.stopPropagation()
-    if (isReactElement(firstChild)) {
-      ;(firstChild as ReactElement).props.onClick &&
-        (firstChild as ReactElement).props.onClick(evt)
-    }
+    ;(firstChild as ReactElement).props.onClick &&
+      (firstChild as ReactElement).props.onClick(evt)
     if (isMountedContent) {
       if (isResized) {
         calcTooltipPosition(
@@ -474,9 +471,6 @@ const Tooltip = ({
   }
 
   const newFirstChild = () => {
-    if (!isReactElement(firstChild)) {
-      firstChild = <span>{firstChild}</span>
-    }
     const props =
       trigger === 'click'
         ? { onClick }
