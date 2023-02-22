@@ -1,5 +1,6 @@
 import React, {
   CSSProperties,
+  ReactElement,
   ReactNode,
   useEffect,
   useRef,
@@ -8,7 +9,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 import { usePopShowState } from '../../shared/hooks'
-import { componentClassNames } from '../../shared/class-util'
+import { componentClassNames, isReactElement } from '../../shared/class-util'
 import './tooltip.scss'
 
 const TOP_CENTER = 'topCenter'
@@ -91,7 +92,7 @@ const Tooltip = ({
     right?: number
   }>()
   const [isResized, setIsResized] = useState(false)
-  const [targetDom, setTargetDom] = useState(null)
+  const [targetDom, setTargetDom] = useState<EventTarget | null>(null)
   const [arrowPlacementCls, setArrowPlacementCls] = useState('')
   const originRef = useRef(null)
   const boxRef = useRef(null)
@@ -401,10 +402,10 @@ const Tooltip = ({
       getPopupContainer() || document.body
     )
   }
-  const onMouseEnter = (evt: any) => {
-    if (typeof firstChild !== 'string') {
-      ;(firstChild as any).props.onMouseEnter &&
-        (firstChild as any).props.onMouseEnter(evt)
+  const onMouseEnter = (evt: MouseEvent) => {
+    if (isReactElement(firstChild)) {
+      ;(firstChild as ReactElement).props.onMouseEnter &&
+        (firstChild as ReactElement).props.onMouseEnter(evt)
     }
     if (hideTimerRef.current) {
       clearTimeout(hideTimerRef.current)
@@ -433,10 +434,10 @@ const Tooltip = ({
       )
     }
   }
-  const onMouseLeave = (evt: any) => {
-    if (typeof firstChild !== 'string') {
-      ;(firstChild as any).props.onMouseLeave &&
-        (firstChild as any).props.onMouseLeave(evt)
+  const onMouseLeave = (evt: MouseEvent) => {
+    if (isReactElement(firstChild)) {
+      ;(firstChild as ReactElement).props.onMouseLeave &&
+        (firstChild as ReactElement).props.onMouseLeave(evt)
     }
     if (showTimerRef.current) {
       clearTimeout(showTimerRef.current)
@@ -449,11 +450,11 @@ const Tooltip = ({
       }, 100)
     }
   }
-  const onClick = (evt: any) => {
+  const onClick = (evt: MouseEvent) => {
     evt.stopPropagation()
-    if (typeof firstChild !== 'string') {
-      ;(firstChild as any).props.onClick &&
-        (firstChild as any).props.onClick(evt)
+    if (isReactElement(firstChild)) {
+      ;(firstChild as ReactElement).props.onClick &&
+        (firstChild as ReactElement).props.onClick(evt)
     }
     if (isMountedContent) {
       if (isResized) {
@@ -473,7 +474,7 @@ const Tooltip = ({
   }
 
   const newFirstChild = () => {
-    if (typeof firstChild === 'string') {
+    if (!isReactElement(firstChild)) {
       firstChild = <span>{firstChild}</span>
     }
     const props =
@@ -482,7 +483,7 @@ const Tooltip = ({
         : trigger === 'hover'
         ? { onMouseEnter, onMouseLeave }
         : {}
-    return React.cloneElement(firstChild as any, props)
+    return React.cloneElement(firstChild as ReactElement, props)
   }
 
   return (
