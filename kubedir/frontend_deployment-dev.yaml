@@ -52,7 +52,7 @@ spec:
   type: NodePort
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -74,7 +74,9 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: puifrontendservice
-          servicePort: 80
+          name: puifrontendservice
+          port: 
+            number: 80
         path: /
+        pathType: ImplementationSpecific
 
