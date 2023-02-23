@@ -114,7 +114,11 @@ export interface TableProps<T = any, K = any> {
   rowStyle?: (rowData: T, rowNumber?: number) => CSSProperties
 
   /** 行点击事件 */
-  onRowClick?: (rowData: T, rowNumber?: number) => void
+  onRowClick?: (
+    rowData: T,
+    rowNumber?: number,
+    event?: React.MouseEvent
+  ) => void
 
   /** 隐藏滚动条行为 never不隐藏，leave鼠标移出才隐藏，scroll滑动后隐藏，move鼠标移动后隐藏 */
   scrollBarAutoHide?: 'never' | 'scroll' | 'leave' | 'move'
@@ -630,8 +634,8 @@ const Table = <T, K>({
                         rowClassName(rowData, inx)
                       )}
                       style={rowStyle(rowData, inx)}
-                      onClick={() => {
-                        onRowClick && onRowClick(rowData, inx)
+                      onClick={event => {
+                        onRowClick && onRowClick(rowData, inx, event)
                       }}
                     >
                       {selectable && (
