@@ -432,8 +432,8 @@ export const TableStoryBook5 = () => {
         data={tableData}
         columns={columns}
         rowClassName={(rowData, row) => 'table-row' + row}
-        onRowClick={rowData => {
-          console.log(rowData)
+        onRowClick={(rowData, index, event) => {
+          console.log(rowData, index, event?.target)
         }}
         rowStyle={(rowData, row) => {
           if (row === 1) {
