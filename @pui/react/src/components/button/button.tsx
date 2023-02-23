@@ -9,7 +9,12 @@ import { FormContext, overrideProps } from '../form/form'
 
 type PUIIcon = typeof IconAdd
 
-export interface ButtonProps {
+type Compute<T extends {}> = {
+  [K in keyof T]: T[K]
+}
+
+interface DefaultButtonProps
+  extends React.ForwardRefRenderFunction<HTMLButtonElement> {
   // 组件属性 //
 
   /** 类名 */
@@ -60,6 +65,8 @@ export interface ButtonProps {
   onMouseLeave?: React.MouseEventHandler
 }
 
+export type ButtonProps = Compute<DefaultButtonProps>
+
 const Button = (buttonProps: ButtonProps) => {
   const formContext = useContext(FormContext)
   if (formContext) {
@@ -80,7 +87,8 @@ const Button = (buttonProps: ButtonProps) => {
     marginLeft,
     onClick,
     onMouseEnter,
-    onMouseLeave
+    onMouseLeave,
+    ...rest
   } = buttonProps
 
   const [defaultSize] = useDefaultSize()
@@ -127,6 +135,7 @@ const Button = (buttonProps: ButtonProps) => {
       disabled={disabled || loading}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      {...rest}
     >
       {loading && (
         <span
