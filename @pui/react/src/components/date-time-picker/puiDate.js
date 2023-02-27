@@ -70,7 +70,10 @@ function jeDatePick(elem, options) {
     singleLeftIcon: null,
     singleRightIcon: null,
     doubleRightIcon: null,
-    allowNullDate: false // 开始日期或结束日期可以为空
+    allowNullDate: false, // 开始日期或结束日期可以为空
+    monthItemClickFun: null,
+    yearItemClickFun: null,
+    dayItemClickFun: null
   }
   this.$opts = jet.extend(config, options || {})
   this.valCell = $Q(elem)
@@ -1746,6 +1749,9 @@ jet.extend(jeDatePick.prototype, {
           false
         )
         that.renderDate(8)
+        if (that.$opts.yearItemClickFun) {
+          that.$opts.yearItemClickFun(val)
+        }
       },
       monthClick(val) {
         if (jet.hasClass(this, 'disabled')) return
@@ -1776,9 +1782,15 @@ jet.extend(jeDatePick.prototype, {
             })
             that.selectDate = newArr
           }
+          if (that.$opts.monthItemClickFun) {
+            that.$opts.monthItemClickFun(that.selectDate)
+          }
         } else {
           that.selectValue = [val]
           that.selectDate = [{ YYYY: ymval[0], MM: ymval[1] }]
+          if (that.$opts.monthItemClickFun) {
+            that.$opts.monthItemClickFun(that.selectDate)
+          }
         }
         if (that.dlen > 2) {
           DTS.year = false
@@ -1868,6 +1880,9 @@ jet.extend(jeDatePick.prototype, {
                 date: newArr
               })
           }
+        }
+        if (that.$opts.dayItemClickFun) {
+          that.$opts.dayItemClickFun(val)
         }
       },
       hmsClick(idx, num) {
