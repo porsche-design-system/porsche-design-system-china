@@ -75,6 +75,15 @@ export interface DatePickerProps {
   /** 点击确定后的回调 */
   onValueChange?: (obj: any) => void
 
+  /** 月点击确定后的回调 */
+  monthItemClickFun?: (val: any) => void
+
+  /** 年点击确定后的回调 */
+  yearItemClickFun?: (val: any) => void
+
+  /** 日期点击确定后的回调 */
+  dayItemClickFun?: (val: any) => void
+
   /** 点击清除后的回调 */
   clearFun?: (ele: any, val: any) => void
 
@@ -123,6 +132,9 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
     isToday = true,
     onValueChange,
     clearFun,
+    monthItemClickFun,
+    yearItemClickFun,
+    dayItemClickFun,
     placeholderStartDate = '无限',
     placeholderEndDate = '无限',
     value = '',
@@ -216,6 +228,15 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
         clearFun && clearFun(elem, val)
         onValueChangeRef.current && onValueChangeRef.current(val)
         // setDateTimeDates(null)
+      },
+      monthItemClickFun: (data: any) => {
+        monthItemClickFun && monthItemClickFun(data)
+      },
+      yearItemClickFun: (data: any) => {
+        yearItemClickFun && yearItemClickFun(data)
+      },
+      dayItemClickFun: (data: any) => {
+        dayItemClickFun && dayItemClickFun(data)
       }
     }
 
