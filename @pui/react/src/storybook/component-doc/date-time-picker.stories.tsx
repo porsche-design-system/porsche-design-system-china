@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DateTimePicker, Form } from '../..'
 
 export default {
@@ -109,11 +109,17 @@ export const DateTimePickerStoryBook = () => {
 DateTimePickerStoryBook.storyName = 'DateTimePicker'
 
 export const DateTimePickerStoryBook2 = () => {
+  const [minDate, setMinDate] = useState('2023-02')
+  const [maxDate, setMaxDate] = useState('2023-07')
+
   const clearFun = () => {
     console.log('clearFun')
   }
   const valueChange = (val: any) => {
     console.log('valueChange', val)
+  }
+  const monthItemClickFun = (data: any) => {
+    console.log('monthItemClickFun', data)
   }
   return (
     <div>
@@ -136,6 +142,9 @@ export const DateTimePickerStoryBook2 = () => {
           placeholderEndDate="结束年月"
           showStyle="YearAndMonth"
           componentId="testTime2b"
+          monthItemClickFun={monthItemClickFun}
+          minDate={minDate}
+          maxDate={maxDate}
         />
 
         <br />
