@@ -113,6 +113,15 @@ export interface DatePickerProps {
 
   /** 开始日期表单捆绑值 */
   nameEndDate?: string
+
+  /** 动态大小日期 */
+  dynamicRangeDate?: boolean
+
+  /** 最小值key */
+  minSession?: string
+
+  /** 最大值key */
+  maxSession?: string
 }
 
 const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
@@ -141,7 +150,10 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
     labelPosition = 'left',
     size,
     filterMode = false,
-    allowNullDate = false
+    allowNullDate = false,
+    dynamicRangeDate = false,
+    minSession,
+    maxSession
   } = datePickerProps
 
   const onValueChangeRef = useRef(onValueChange)
@@ -151,8 +163,10 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
   }, [onValueChange])
 
   useEffect(() => {
-    initComponent()
-  }, [])
+    if (minSession) sessionStorage.removeItem(minSession)
+    if (maxSession) sessionStorage.removeItem(maxSession)
+    initComponent(minDate, maxDate)
+  }, [minDate, maxDate])
 
   // const [dateTimeDates, setDateTimeDates] = useState(null)
   const yearIcon = <IconArrowDoubleLeft className="dateFontIcon" />
@@ -165,7 +179,7 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
   const labelText =
     (label as any).text !== undefined ? (label as any).text : label
 
-  const initComponent = () => {
+  const initComponent = (minDate: any, maxDate: any) => {
     // 常规选择
     const dataProps = {
       multiPane: isRange,
@@ -183,6 +197,9 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
       showSecend: showStyle === 'HHMMSS',
       allowNullDate,
       filterMode,
+      dynamicRangeDate,
+      minSession,
+      maxSession,
       doneFun: (obj: any) => {
         if (isRange !== undefined) {
           const arr = obj.val.split(rangeLabel)
@@ -239,7 +256,6 @@ const DateTimePicker = FormItem((datePickerProps: DatePickerProps) => {
         dayItemClickFun && dayItemClickFun(data)
       }
     }
-
     if (isRange !== undefined) {
       dataProps.multiPane = false
       puiDate('#' + componentId, {

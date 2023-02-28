@@ -109,8 +109,29 @@ export const DateTimePickerStoryBook = () => {
 DateTimePickerStoryBook.storyName = 'DateTimePicker'
 
 export const DateTimePickerStoryBook2 = () => {
-  const [minDate, setMinDate] = useState('2023-02')
-  const [maxDate, setMaxDate] = useState('2023-07')
+  const [minDate, setMinDate] = useState()
+  const [maxDate, setMaxDate] = useState()
+
+  const addMonths = (yearMonthDay, monthNum) => {
+    var arr = yearMonthDay.split('-') //2020-08-19或2020-08
+    var year = parseInt(arr[0])
+    var month = parseInt(arr[1])
+    month = month + monthNum
+    if (month > 12) {
+      //月份加
+      var yearNum = parseInt((month - 1) / 12)
+      month = month % 12 == 0 ? 12 : month % 12
+      year += yearNum
+    } else if (month <= 0) {
+      //月份减
+      month = Math.abs(month)
+      var yearNum = parseInt((month + 12) / 12)
+      year -= yearNum
+    }
+    month = month == 0 ? 1 : month
+    month = month < 10 ? '0' + month : month
+    return year + '-' + month
+  }
 
   const clearFun = () => {
     console.log('clearFun')
@@ -119,7 +140,18 @@ export const DateTimePickerStoryBook2 = () => {
     console.log('valueChange', val)
   }
   const monthItemClickFun = (data: any) => {
-    console.log('monthItemClickFun', data)
+    let eDate = addMonths(data[0].YYYY + '-' + data[0].MM, 5)
+    let min =
+      data[0].YYYY + '-' + (data[0].MM < 10 ? '0' + data[0].MM : data[0].MM)
+    if (data.length > 1) {
+      min = addMonths(data[1].YYYY + '-' + data[1].MM, -5)
+      eDate =
+        data[1].YYYY + '-' + (data[1].MM < 10 ? '0' + data[1].MM : data[1].MM)
+    }
+
+    sessionStorage.setItem('pui-month-min', min)
+    sessionStorage.setItem('pui-month-max', eDate)
+    console.log('monthItemClickFun', data, min, eDate)
   }
   return (
     <div>
@@ -141,10 +173,24 @@ export const DateTimePickerStoryBook2 = () => {
           placeholderStartDate="开始年月"
           placeholderEndDate="结束年月"
           showStyle="YearAndMonth"
+          componentId="testTime2testId"
+        />
+
+        <br />
+        <div>动态范围年月</div>
+        <DateTimePicker
+          isRange
+          width="300px"
+          placeholderStartDate="开始年月"
+          placeholderEndDate="结束年月"
+          showStyle="YearAndMonth"
           componentId="testTime2b"
           monthItemClickFun={monthItemClickFun}
           minDate={minDate}
           maxDate={maxDate}
+          dynamicRangeDate
+          minSession="pui-month-min"
+          maxSession="pui-month-max"
         />
 
         <br />
