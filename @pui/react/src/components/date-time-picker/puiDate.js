@@ -73,7 +73,10 @@ function jeDatePick(elem, options) {
     allowNullDate: false, // 开始日期或结束日期可以为空
     monthItemClickFun: null,
     yearItemClickFun: null,
-    dayItemClickFun: null
+    dayItemClickFun: null,
+    dynamicRangeDate: false, // 动态大小日期
+    minSession: '',
+    maxSession: ''
   }
   this.$opts = jet.extend(config, options || {})
   this.valCell = $Q(elem)
@@ -851,9 +854,11 @@ jet.extend(jeDatePick.prototype, {
       that.selectDate = curVal
       return curVal
     }
+
     let ymarr = []
     that.minDate = ''
     that.maxDate = ''
+
     if (!isShow || !trigges) ymarr = getCurrValue()
     if (!isShow || !trigges) {
       that.minDate = jet.isType(opts.minDate, 'function')
@@ -878,6 +883,8 @@ jet.extend(jeDatePick.prototype, {
         that.storeData(gvarr[0], gvarr[1])
         that.renderDate(2)
       })
+      that.minDate = opts.minDate
+      that.maxDate = opts.maxDate
     }
   },
   setDatas() {
@@ -899,7 +906,8 @@ jet.extend(jeDatePick.prototype, {
         clear: opts.isClear,
         today: range ? false : opts.isToday,
         yes: opts.isYes,
-        pane: multi ? 1 : 2
+        pane: multi ? 1 : 2,
+        minDate: ''
       }
     )
     if (opts.shortcut.length > 0) {
@@ -1298,6 +1306,7 @@ jet.extend(jeDatePick.prototype, {
       }
       RES.timelist.push(that.eachTime(seltime, 2))
     }
+    RES.minDate = that.$opts.minDate
     // 最后将数据合并于总数据中
     jet.extend(that.$data, RES)
   },
@@ -1370,7 +1379,7 @@ jet.extend(jeDatePick.prototype, {
       '</span></td>{% if((y+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     // 循环月的模板
     const monthHtml =
-      '<table class="monthtable month{%= i==0 ? "left":"right"%}" style="display:{%=month ? "block":"none"%};"><tbody><tr>' +
+      '<table class="monthtable month{%= i==0 ? "left":"right"%}" minDate={%=minDate%} style="display:{%=month ? "block":"none"%};"><tbody><tr>' +
       '{% for(var m=0;m<=11;m++){ %}<td class="{%=monthlist[i][m].style%}" ym="{%=monthlist[i][m].y%}-{%=monthlist[i][m].m%}" @on="monthClick({%=monthlist[i][m].y%}-{%=monthlist[i][m].m%})"><span>{%=monthlist[i][m].m%}' +
       mtxt +
       '</span></td>{% if((m+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
@@ -1797,6 +1806,7 @@ jet.extend(jeDatePick.prototype, {
           DTS.month = false
         }
         DTS.day = !!(that.dlen > 2 && that.dlen <= 6)
+
         that.storeData(
           jet.extend(
             {
@@ -2254,21 +2264,56 @@ jet.extend(jeDatePick.prototype, {
     const currEnd = selMonth[1]
       ? parseInt(selMonth[1].YYYY + '' + jet.digit(selMonth[1].MM))
       : 0
+    let min = sessionStorage.getItem(opts.minSession)
+    let max = sessionStorage.getItem(opts.maxSession)
+
     jet.each(monthArr, (i, months) => {
       const ival = parseInt(val + '' + jet.digit(months))
-
+      if (typeof min == 'string') {
+        min = parseInt(min.replace('-', ''))
+      }
+      if (typeof max == 'string') {
+        max = parseInt(max.replace('-', ''))
+      }
       if (
         (ival == currStart || ival == currEnd) &&
         (months || that.showCurrentDayBg)
       ) {
-        seCls = 'action'
+        if (min && max && opts.dynamicRangeDate) {
+          if (ival >= min && ival <= max) {
+            seCls = 'action'
+          } else {
+            seCls = 'disabled'
+          }
+        } else seCls = 'action'
+        // seCls = 'action'
       } else if (ival > currStart && ival < currEnd) {
-        seCls = 'contain'
+        if (min && max && opts.dynamicRangeDate) {
+          if (ival >= min && ival <= max) {
+            seCls = 'contain'
+          } else {
+            seCls = 'disabled'
+          }
+        } else seCls = 'contain'
       } else if (ival < minym || ival > maxym) {
-        seCls = 'disabled'
-      } else {
-        seCls = ''
-      }
+        if (min && max && opts.dynamicRangeDate) {
+          if (ival >= min && ival <= max) {
+            seCls = ''
+          } else {
+            seCls = 'disabled'
+          }
+        } else seCls = 'disabled'
+        // seCls = 'disabled'
+      } else if (min && max && opts.dynamicRangeDate) {
+        // if (min && max && opts.dynamicRangeDate) {
+        if (ival >= min && ival <= max) {
+          seCls = ''
+        } else {
+          seCls = 'disabled'
+        }
+        // }
+        // seCls = ''
+      } else seCls = ''
       marr.push({ style: seCls, y: val, m: months })
     })
     return marr
@@ -2846,7 +2891,6 @@ puiDateObj.renderDate = x => {
       ' ' +
       (opts.shortcut.length > 0 ? ' leftmenu' : '')
   }
-
   jet.html(that.dateCell, jet.template(that.dateTemplate(), that.$data))
   const eles =
     $C('pui-pick-date-content').length > 0 &&
