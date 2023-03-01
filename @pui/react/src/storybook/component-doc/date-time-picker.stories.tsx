@@ -109,28 +109,28 @@ export const DateTimePickerStoryBook = () => {
 DateTimePickerStoryBook.storyName = 'DateTimePicker'
 
 export const DateTimePickerStoryBook2 = () => {
-  const [minDate, setMinDate] = useState()
-  const [maxDate, setMaxDate] = useState()
+  const [minDate] = useState()
+  const [maxDate] = useState()
 
-  const addMonths = (yearMonthDay, monthNum) => {
-    var arr = yearMonthDay.split('-') //2020-08-19或2020-08
-    var year = parseInt(arr[0])
-    var month = parseInt(arr[1])
-    month = month + monthNum
+  const addMonths = (yearMonthDay: string, monthNum: number) => {
+    const arr = yearMonthDay.split('-') // 2020-08-19或2020-08
+    let year = parseInt(arr[0])
+    let month: number = parseInt(arr[1])
+    month += monthNum
     if (month > 12) {
-      //月份加
-      var yearNum = parseInt((month - 1) / 12)
-      month = month % 12 == 0 ? 12 : month % 12
+      // 月份加
+      const yearNum = parseInt((month - 1) / 12)
+      month = month % 12 === 0 ? 12 : month % 12
       year += yearNum
     } else if (month <= 0) {
-      //月份减
+      // 份减月
       month = Math.abs(month)
-      var yearNum = parseInt((month + 12) / 12)
+      const yearNum = parseInt((month + 12) / 12)
       year -= yearNum
     }
-    month = month == 0 ? 1 : month
-    month = month < 10 ? '0' + month : month
-    return year + '-' + month
+    month = month === 0 ? 1 : month
+    const month2: string = month < 10 ? '0' + month : month + ''
+    return year + '-' + month2
   }
 
   const clearFun = () => {
