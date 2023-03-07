@@ -32,7 +32,7 @@ build:
     # - sed -i "s/s1.web.porsche-preview.cn/web.devops.porsche-internaldns.cn:4001/g" package-lock.json
     # - cat .npmrc
     # - unset CI
-    # - npm config set //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH
+    - npm config set //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH
     - pwd && du -sh *
     - npm run install-all
     - npm -w @pui/icons run pipeline-generate
