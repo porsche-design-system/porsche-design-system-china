@@ -223,14 +223,15 @@
               border-bottom: 1px solid $brand-color;
             }
           }
-          .contain {
-            background: transparent !important;
-            p {
-              background: $date-picker-range-color !important;
-              border-top: 1px dashed $brand-color;
-              border-bottom: 1px dashed $brand-color;
-            }
-          }
+        }
+      }
+      .contain {
+        background: transparent !important;
+        p,
+        span {
+          background: $date-picker-range-color !important;
+          border-top: 1px dashed $brand-color;
+          border-bottom: 1px dashed $brand-color;
         }
       }
       .pui-pick-date-time {
@@ -520,7 +521,7 @@
               background: $brand-color;
               color: $text-white-color;
               border: none;
-              font-size: 14px;
+              font-size: 12px;
             }
           }
           .today {
@@ -528,6 +529,7 @@
             margin-top: 3px;
             color: $text-link-color;
             cursor: pointer;
+            font-size: 14px;
           }
         }
       }
@@ -570,9 +572,9 @@
     }
     .pui-pick-date .pui-pick-date-content .yeartable td,
     .pui-pick-date .pui-pick-date-content .monthtable td {
-      width: 80px;
+      width: 70px;
       height: 51px;
-      line-height: 51px;
+      // line-height: 51px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -581,17 +583,21 @@
     .pui-pick-date .pui-pick-date-content .monthtable tbody {
       display: block;
       margin: 0px auto;
-      width: 300px;
+      width: 280px;
     }
     .pui-pick-date .pui-pick-date-content .yeartable tbody {
       display: block;
       margin: 0px auto;
-      width: 300px;
+      width: 280px;
     }
     .pui-pick-date .pui-pick-date-content .yeartable td span,
     .pui-pick-date .pui-pick-date-content .monthtable td span {
-      padding: 6px 8px;
+      // padding: 6px 8px;
       // border: 1px solid $text-color-1;
+      width: 100%;
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
     }
     .pui-pick-date .pui-pick-date-content .yeartable td span:hover,
     .pui-pick-date .pui-pick-date-content .monthtable td span:hover {
@@ -599,12 +605,14 @@
       cursor: pointer;
     }
     .pui-pick-date .pui-pick-date-content .yeartable td.disabled span,
-    .pui-pick-date .pui-pick-date-content .monthtable td.disabled span,
+    .pui-pick-date .pui-pick-date-content .monthtable td.disabled span {
+      color: $text-opacity-color-2;
+      // background-color: $container-bg-opacity-color-2;
+      // border: 1px solid $text-color-1;
+    }
     .pui-pick-date .pui-pick-date-content .yeartable td.disabled span:hover,
     .pui-pick-date .pui-pick-date-content .monthtable td.disabled span:hover {
-      color: $text-opacity-color-2;
-      background-color: $container-bg-opacity-color-2;
-      border: 1px solid $text-color-1;
+      cursor: no-drop;
     }
     td.disabled {
       color: $text-opacity-color-2;
@@ -646,6 +654,11 @@
         &-size-small::placeholder {
           font-size: 14px;
         }
+      }
+    }
+    .je-input-box-disabled {
+      .je-input {
+        color: $border-color-3;
       }
     }
 
@@ -718,6 +731,10 @@
       }
     }
     .pui-pick-date-range-disabled {
+      color: $border-color-3;
+      .je-input-range {
+        color: $border-color-3;
+      }
       &-size-medium {
         height: 46px;
       }
