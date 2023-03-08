@@ -164,6 +164,9 @@ const Input = FormItem(
               inputRef.style.paddingRight =
                 (maxLength + '').length * 23 + 12 + 'px'
             }
+            if (inputRef && suffixIcon) {
+              inputRef.style.paddingRight = '40px'
+            }
           }}
           placeholder={placeholder}
           maxLength={maxLength}
