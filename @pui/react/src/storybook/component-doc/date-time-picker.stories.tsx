@@ -77,6 +77,7 @@ export const DateTimePickerStoryBook = () => {
           placeholder="请输入日期"
           showStyle="Common"
           componentId="testTime6"
+          value={'2023-01-23'}
         />
 
         <br />
@@ -151,7 +152,6 @@ export const DateTimePickerStoryBook2 = () => {
 
     sessionStorage.setItem('pui-month-min', min)
     sessionStorage.setItem('pui-month-max', eDate)
-    console.log('monthItemClickFun', data, min, eDate)
   }
   return (
     <div>
@@ -247,6 +247,7 @@ export const DateTimePickerStoryBook2 = () => {
           placeholderEndDate="结束日期"
           showStyle="HHMMSS"
           componentId="testTime5c"
+          value={['13:29', '15:49']}
         />
 
         <br />

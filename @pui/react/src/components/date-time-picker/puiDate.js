@@ -70,7 +70,12 @@ function jeDatePick(elem, options) {
     singleLeftIcon: null,
     singleRightIcon: null,
     doubleRightIcon: null,
+    isClickYearNow: false, // 是否正在点击 年
+    clickYearVal: null, // 选中的年，和上面一起使用
     allowNullDate: false, // 开始日期或结束日期可以为空
+    currentClickIndex: 0,
+    isClickYearBtn: false,
+    isClickMonthBtn: false,
     monthItemClickFun: null,
     yearItemClickFun: null,
     dayItemClickFun: null,
@@ -489,7 +494,11 @@ puiDateObj.getLunar = function (obj) {
 // 转换日期格式
 puiDateObj.parse = jet.parse = function (ymdhms, format) {
   return format.replace(new RegExp(regymdzz, 'g'), (str, index) => {
-    return str == 'zz' ? '00' : jet.digit(ymdhms[str])
+    let date = jet.digit(ymdhms[str])
+    if (!date && str == 'DD') {
+      date = new Date().getDate()
+    }
+    return str == 'zz' ? '00' : date
   })
 }
 
@@ -684,6 +693,7 @@ jet.extend(jet, {
       }
       return vars
     }
+
     const compile = function (source, data) {
       const code =
         "var $out='" +
@@ -961,6 +971,7 @@ jet.extend(jeDatePick.prototype, {
     const that = this
     const opts = that.$opts
     const isShow = jet.isBool(opts.isShow)
+
     const elxID = !isShow ? elx + searandom() : elx
     const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
     if (that.dateCell == undefined) {
@@ -1238,7 +1249,14 @@ jet.extend(jeDatePick.prototype, {
     }
     return reObj
   },
-  storeData(curr, next, need = true) {
+  storeData(
+    curr,
+    next,
+    need = true,
+    i = null,
+    calculate = false,
+    direction = 'rnext'
+  ) {
     const today = new Date()
     if (JSON.stringify(curr) === '{}') {
       curr = {
@@ -1271,30 +1289,85 @@ jet.extend(jeDatePick.prototype, {
     const timeB = that.$opts.showSecend
       ? { hh: next.hh || 0, mm: next.mm || 0, ss: next.ss || 0 }
       : { hh: next.hh || 0, mm: next.mm || 0 }
+    // if (!that.$data.yearlist) {
     if (!need && that.$data.yearlist.length > 0) {
       // 设置年的数据
-      RES.yearlist.push(that.eachYear(parseInt(that.$data.yearlist[0][0].y), 1))
+      RES.yearlist.push(
+        that.eachYear(parseInt(that.$data.yearlist[0][0].y), 1, 0)
+      )
     } else {
-      RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1))
+      RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1, 0))
     }
+    // }
+    // if (!that.$data.yearlist) {
     if (multi == false) {
-      const yearNext = isnext ? next.YYYY : curr.YYYY
-      RES.yearlist.push(that.eachYear(parseInt(yearNext), 2))
+      // const yearNext = isnext ? next.YYYY : curr.YYYY
+      // RES.yearlist.push(that.eachYear(parseInt(yearNext), 2))
+      if (i == '1' || !that.$data.yearlist || RES.yearlist.length < 2) {
+        RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1, 1))
+      }
+    }
+
+    if (that.selectDate.length > 1) {
+      RES.yearlist[0] = that.eachYear(parseInt(that.selectDate[0].YYYY), 1, 0)
+      RES.yearlist[1] = that.eachYear(parseInt(that.selectDate[1].YYYY), 1, 1)
+    }
+    if (multi == false && calculate) {
+      const step = opts.isClickYearNow ? 11 : 1
+      if (direction == 'rnext') {
+        RES.yearlist[i] = that.eachYear(
+          parseInt(that.$data.yearlist[i][step].y),
+          1,
+          i
+        )
+      } else {
+        const yearNext = isnext ? next.YYYY : curr.YYYY
+        RES.yearlist[i] = that.eachYear(
+          parseInt(that.$data.yearlist[i][0].y) - step,
+          1,
+          i
+        )
+      }
     }
 
     // 设置月的数据
-    RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
+    // RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
+    if (!opts.isClickMonthBtn) {
+      RES.monthlist[0] = that.eachMonth(that.selectDate[0].YYYY, 0)
+    } else {
+      RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
+    }
     if (multi == false) {
       const monthNext = isnext ? next.YYYY : curr.YYYY + 1
-      RES.monthlist[1] = that.eachMonth(curr.YYYY + 1, 1)
+      RES.monthlist[1] = that.eachMonth(curr.YYYY, 1)
     }
     // 设置天的数据
     RES.daylist.push(that.eachDays(curr.YYYY, curr.MM, cday, 0))
-    RES.daytit.push({ YYYY: curr.YYYY, MM: curr.MM })
+    // RES.daytit.push({ YYYY: curr.YYYY, MM: curr.MM })
+    if (opts.isClickYearBtn || opts.isClickMonthBtn) {
+      RES.daytit.push({
+        YYYY: curr.YYYY,
+        MM: curr.MM
+      })
+    } else {
+      RES.daytit.push({
+        YYYY: that.selectDate[0].YYYY,
+        MM: that.selectDate[0].MM
+      })
+    }
     if (multi == false) {
-      const dayNext = jet.nextMonth(curr.YYYY, curr.MM)
-      RES.daylist.push(that.eachDays(dayNext.y, dayNext.m, nday, 1))
-      RES.daytit.push({ YYYY: dayNext.y, MM: dayNext.m })
+      // const dayNext = jet.nextMonth(curr.YYYY, curr.MM)
+      const initCurrent =
+        that.selectDate.length > 1 &&
+        Object.prototype.hasOwnProperty.call(that.selectDate[1], 'YYYY')
+          ? that.selectDate[1]
+          : curr
+      RES.daylist.push(that.eachDays(initCurrent.YYYY, initCurrent.MM, nday, 1))
+      // RES.daytit.push({ YYYY: dayNext.y, MM: dayNext.m })
+      RES.daytit.push({
+        YYYY: initCurrent.YYYY,
+        MM: initCurrent.MM
+      })
     }
     // 设置时间数据
     that.selectTime = [timeA, timeB]
@@ -1309,6 +1382,8 @@ jet.extend(jeDatePick.prototype, {
     RES.minDate = that.$opts.minDate
     // 最后将数据合并于总数据中
     jet.extend(that.$data, RES)
+    opts.isClickYearBtn = false
+    opts.isClickMonthBtn = false
   },
   dateTemplate() {
     const that = this
@@ -1346,41 +1421,33 @@ jet.extend(jeDatePick.prototype, {
     const lyPrev =
       '<em class="yearprev yprev " style="margin-left:12px" @on="yearBtn(lprev,' +
       aowArr[0] +
-      ')">' +
+      ',{%=i%})">' +
       opts.yearIcon +
       '</em>'
-    const lyNext =
-      '<em class="yearnext ynext" on="yearBtn(lnext,' +
-      aowArr[2] +
-      ')">&#xed6c5;</em>'
-    const ryPrev =
-      '<em class="yearprev yprev" on="yearBtn(rprev,' +
-      aowArr[3] +
-      ')">&#xed6c2;</em>'
     const ryNext =
       '<em class="yearnext ynext" style="margin-right:12px" @on="yearBtn(rnext,' +
       aowArr[1] +
-      ')">' +
+      ',{%=i%})">' +
       opts.doubleRightIcon +
       '</em>'
     const mPrev =
-      '{% if(dlen>2){ %}<em class="monthprev mprev" style="margin-left:18px"  @on="monthBtn(mprev,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
+      '{% if(dlen>2){ %}<em class="monthprev mprev" style="margin-left:18px"  @on="monthBtn(mprev,{%=daytit[i].YYYY%}-{%=daytit[i].MM%},{%=i%})">' +
       opts.singleLeftIcon +
       '</em>{% } %}'
     const mNext =
-      '{% if(dlen>2){ %}<em class="monthnext mnext" style="margin-right:18px" @on="monthBtn(mnext,{%=daytit[i].YYYY%}-{%=daytit[i].MM%})">' +
+      '{% if(dlen>2){ %}<em class="monthnext mnext" style="margin-right:18px" @on="monthBtn(mnext,{%=daytit[i].YYYY%}-{%=daytit[i].MM%},{%=i%})">' +
       opts.singleRightIcon +
       '</em>{% } %}'
     // 循环年的模板
     const yaerHtml =
-      '<table class="yeartable year{%= i==0 ? "left":"right"%}" style="display:{%=year ? "block":"none"%};"><tbody><tr>' +
-      '{% for(var y=0;y<=11;y++){ %}<td class="{%=yearlist[i][y].style%}" @on="yearClick({%=yearlist[i][y].y%})"><span>{%=yearlist[i][y].y%}' +
+      '<table class="yeartable year{%= i==0 ? "left":"right"%}" style="display:{%=year ? "block":"none"%};" cellspacing="0"><tbody><tr>' +
+      '{% for(var y=0;y<=11;y++){ %}<td class="{%=yearlist[i][y].style%}" @on="yearClick({%=yearlist[i][y].y%},{%=i%},{%=y%})"><span>{%=yearlist[i][y].y%}' +
       ytxt +
       '</span></td>{% if((y+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     // 循环月的模板
     const monthHtml =
-      '<table class="monthtable month{%= i==0 ? "left":"right"%}" minDate={%=minDate%} style="display:{%=month ? "block":"none"%};"><tbody><tr>' +
-      '{% for(var m=0;m<=11;m++){ %}<td class="{%=monthlist[i][m].style%}" ym="{%=monthlist[i][m].y%}-{%=monthlist[i][m].m%}" @on="monthClick({%=monthlist[i][m].y%}-{%=monthlist[i][m].m%})"><span>{%=monthlist[i][m].m%}' +
+      '<table class="monthtable month{%= i==0 ? "left":"right"%}" style="display:{%=month ? "block":"none"%};" cellspacing="0"><tbody><tr>' +
+      '{% for(var m=0;m<=11;m++){ %}<td class="{%=monthlist[i][m].style%}" ym="{%=monthlist[i][m].y%}-{%=monthlist[i][m].m%}" @on="monthClick({%=monthlist[i][m].y%}-{%=monthlist[i][m].m%},{%=i%})"><span>{%=monthlist[i][m].m%}' +
       mtxt +
       '</span></td>{% if((m+1)%4==0){ %} </tr>{% } %} {% } %} </tbody></table>'
     // 循环天的模板
@@ -1396,7 +1463,7 @@ jet.extend(jeDatePick.prototype, {
       newSize +
       '"><div class="line"></div><table class="daystable days{%= i==0 ? "left":"right"%}" style="display:{%=day ? "inline-table":"none"%};"><thead><tr>' +
       '{% for(var w=0;w<lang.weeks.length;w++){ %} <th>{%=lang.weeks[w]%}</th> {% } %}</tr></thead><tbody>' +
-      '<tr>{% for(var d=0;d<=41;d++){ %}<td class="{%=daylist[i][d].style%}" ymd="{%=daylist[i][d].ymd%}" @on="daysClick({%=daylist[i][d].ymd%})">{%=daylist[i][d].day%}</td>{% if((d+1)%7==0){ %} </tr>{% } %} {% } %} </tbody></table></div>'
+      '<tr>{% for(var d=0;d<=41;d++){ %}<td class="{%=daylist[i][d].style%}" ymd="{%=daylist[i][d].ymd%}" @on="daysClick({%=daylist[i][d].ymd%},{%=i%})">{%=daylist[i][d].day%}</td>{% if((d+1)%7==0){ %} </tr>{% } %} {% } %} </tbody></table></div>'
     // 循环时间模板
     let hmsHtml = ''
     if (opts.showSecend) {
@@ -1480,22 +1547,22 @@ jet.extend(jeDatePick.prototype, {
       let ymtitStr = ''
       if (that.dlen == 1) {
         ymtitStr =
-          '<span class="ymbtn">{%=yearlist[i][0].y%}' +
+          '<span class="ymbtn onlyyear">{%=yearlist[i][0].y%}' +
           ytxt +
           ' ~ {%=yearlist[i][yearlist[i].length-1].y%}' +
           ytxt +
           '</span>'
       } else if (that.dlen == 2) {
         ymtitStr =
-          '<span class="ymbtn" @on="yearShow({%=yearlist[0][i].y%})">{%=yearlist[0][i].y%}' +
+          '<span class="ymbtn aa" @on="yearShow({%=yearlist[0][i].y%},{%=i%})">{%=yearlist[i][i==0?0:i-1].y%}' +
           ytxt +
           '</span>'
       } else if (that.dlen > 2 && that.dlen <= 6) {
         ymtitStr =
-          '<span class="ymbtn" @on="monthShow({%=daytit[i].MM%})">{%=daytit[i].MM%}' +
+          '<span class="ymbtn bb" @on="monthShow({%=daytit[i].MM%},{%=i%})">{%=daytit[i].MM%}' +
           mtxt +
           '</span>' +
-          '<span class="ymbtn" @on="yearShow({%=daytit[i].YYYY%})">{%=daytit[i].YYYY%}' +
+          '<span class="ymbtn cc" @on="yearShow({%=daytit[i].YYYY%},{%=i%})">{%=daytit[i].YYYY%}' +
           ytxt +
           '</span>'
       }
@@ -1505,13 +1572,17 @@ jet.extend(jeDatePick.prototype, {
     const ymButton = (function () {
       let titStrBut = ''
       if (that.dlen == 1) {
-        titStrBut = multi ? [lyPrev + ryNext] : [lyPrev, ryNext]
+        titStrBut = multi
+          ? [lyPrev + ryNext]
+          : [lyPrev + ryNext, lyPrev + ryNext]
       } else if (that.dlen == 2) {
-        titStrBut = multi ? [lyPrev + ryNext] : [lyPrev, ryNext]
+        titStrBut = multi
+          ? [lyPrev + ryNext]
+          : [lyPrev + ryNext, lyPrev + ryNext]
       } else if (that.dlen > 2 && that.dlen <= 6) {
         titStrBut = multi
           ? [lyPrev + mPrev + mNext + ryNext]
-          : [lyPrev + mPrev, mNext + ryNext]
+          : [lyPrev + mPrev + mNext + ryNext, lyPrev + mPrev + mNext + ryNext]
       } else if (that.dlen == 7) {
         titStrBut = ''
       }
@@ -1610,9 +1681,22 @@ jet.extend(jeDatePick.prototype, {
     const dateD = result.GetDate()
     const range = opts.range
     const elCell = that.dateCell
+
     jet.extend(that, {
-      yearBtn(type, val) {
-        const yarr = val.split('#')
+      yearBtn(type, val, i) {
+        opts.isClickYearBtn = true
+        if (!range) {
+          if (type == 'rnext' && opts.isClickYearNow && opts.clickYearVal > 0) {
+            val = parseInt(val) + 10
+          } else if (
+            type == 'lprev' &&
+            opts.isClickYearNow &&
+            opts.clickYearVal > 0
+          ) {
+            val = parseInt(val) - 10
+          }
+        }
+        const yarr = (val + '').split('#') // val.split('#')
         const pval = jet.reMatch(yarr[0])
         const tmval = that.selectTime
         const exarr = [
@@ -1620,21 +1704,29 @@ jet.extend(jeDatePick.prototype, {
           {}
         ]
         const dateVal = that.parseValue([exarr[0]], that.format)
-        that.storeData(exarr[0], exarr[1])
+        that.storeData(exarr[0], exarr[1], true, i, true, type)
         that.renderDate(3)
         opts.toggle &&
           opts.toggle({ elem: that.valCell, val: dateVal, date: exarr[0] })
       },
-      yearShow(val) {
+      yearShow(val, i) {
+        const opts = that.$opts
         DTS.year = !DTS.year
         DTS.month = that.dlen < 3
+        if (DTS.year === true) {
+          opts.isClickYearNow = true
+          opts.clickYearVal = val
+        } else {
+          opts.isClickYearNow = false
+          opts.clickYearVal = null
+        }
         if (that.dlen > 2 && that.dlen <= 6) {
           const dayCell = $Q('.daystable', elCell)
           DTS.day = dayCell.style.display == 'none'
         }
         that.renderDate(4)
       },
-      monthBtn(type, val) {
+      monthBtn(type, val, index) {
         const ymarr = jet.reMatch(val)
         const tmval = that.selectTime
         let exarr = []
@@ -1642,18 +1734,26 @@ jet.extend(jeDatePick.prototype, {
         let NextYM
         const year = parseInt(ymarr[0])
         const month = parseInt(ymarr[1])
+        that.$opts.isClickMonthBtn = true
         if (range) {
           if (type == 'mprev') {
             PrevYM = jet.prevMonth(year, month)
             NextYM = jet.nextMonth(PrevYM.y, PrevYM.m)
           } else {
             NextYM = jet.nextMonth(year, month)
-            PrevYM = jet.prevMonth(NextYM.y, NextYM.m)
+            PrevYM = jet.prevMonth(year.y, month)
           }
-          exarr = [
-            jet.extend({ YYYY: PrevYM.y, MM: PrevYM.m, DD: dateD }, tmval[0]),
-            { YYYY: NextYM.y, MM: NextYM.m, DD: dateD }
-          ]
+          if (type == 'mprev') {
+            exarr = [
+              jet.extend({ YYYY: PrevYM.y, MM: PrevYM.m, DD: dateD }, tmval[0]),
+              { YYYY: NextYM.y, MM: NextYM.m, DD: dateD }
+            ]
+          } else {
+            exarr = [
+              { YYYY: NextYM.y, MM: NextYM.m, DD: dateD },
+              jet.extend({ YYYY: PrevYM.y, MM: PrevYM.m, DD: dateD }, tmval[0])
+            ]
+          }
         } else {
           const PNYM =
             type == 'mprev'
@@ -1670,9 +1770,12 @@ jet.extend(jeDatePick.prototype, {
         opts.toggle &&
           opts.toggle({ elem: that.valCell, val: dateVal, date: exarr[0] })
       },
-      monthShow(val) {
+      monthShow(val, index) {
         DTS.year = false
         DTS.month = !DTS.month
+        that.$opts.isClickYearNow = false
+        that.$opts.clickYearVal = null
+        // that.$opts.isClickMonthBtn = true
         if (that.dlen > 2 && that.dlen <= 6) {
           const dayCell = $Q('.daystable', elCell)
           DTS.day = dayCell.style.display == 'none'
@@ -1705,11 +1808,13 @@ jet.extend(jeDatePick.prototype, {
           that.closeDate()
         }
       },
-      yearClick(val) {
+      yearClick(val, i, y) {
         if (jet.hasClass(this, 'disabled')) return
         let yearVal = ''
         const lens = that.dlen
         that.showCurrentDayBg = true
+        that.$opts.isClickYearNow = false
+        that.$opts.clickYearVal = null
         if (range && lens == 1) {
           const ylen = that.selectValue.length
           that.selectDate =
@@ -1740,6 +1845,45 @@ jet.extend(jeDatePick.prototype, {
           }
         } else if (lens > 1 && lens <= 6) {
           yearVal = parseInt(val)
+          if (range) {
+            if (i == '0') {
+              that.selectDate = [
+                { YYYY: parseInt(val), MM: dateM },
+                { YYYY: parseInt(val), MM: dateM }
+              ]
+              that.selectValue = [
+                val + '-' + jet.digit(dateM),
+                val + '-' + jet.digit(dateM)
+              ]
+            } else {
+              that.selectDate = [
+                that.selectValue[0],
+                { YYYY: parseInt(val), MM: dateM }
+              ]
+              that.selectValue = [
+                that.selectValue[0],
+                val + '-' + jet.digit(dateM)
+              ]
+            }
+
+            if (that.selectValue.length == 2) {
+              const svalarr = [that.selectValue[0], that.selectValue[1]]
+              const newArr = [{}, {}]
+              svalarr.sort((a, b) => {
+                return a > b ? 1 : -1
+              })
+              that.selectValue = svalarr
+              jet.each(svalarr, (i, strval) => {
+                jet.each(jet.reMatch(strval), (s, dval) => {
+                  newArr[i][ymdzArr[s]] = dval
+                })
+              })
+              that.selectDate = newArr
+            }
+          } else {
+            that.selectValue = [val + '-' + jet.digit(dateM)]
+            that.selectDate = [{ YYYY: parseInt(val), MM: dateM }]
+          }
         } else {
           that.selectValue = [val + '-' + jet.digit(dateM)]
           that.selectDate = [{ YYYY: parseInt(val), MM: dateM }]
@@ -1755,28 +1899,53 @@ jet.extend(jeDatePick.prototype, {
             that.selectTime[0]
           ),
           {},
-          false
+          true,
+          i
         )
         that.renderDate(8)
         if (that.$opts.yearItemClickFun) {
           that.$opts.yearItemClickFun(val)
         }
       },
-      monthClick(val) {
+      getSelectDateDefault() {
+        if (
+          that.selectDate[1] &&
+          Object.prototype.hasOwnProperty.call(that.selectDate[1], 'YYYY')
+        ) {
+          return that.selectDate[1]
+        }
+        const today = new Date()
+
+        const curr = {
+          DD: today.getDate(),
+          MM: today.getMonth() + 1,
+          YYYY: today.getFullYear()
+        }
+        return curr
+      },
+      monthClick(val, i) {
         if (jet.hasClass(this, 'disabled')) return
         const ymval = jet.reMatch(val)
         const newArr = [{}, {}]
         const mlen = that.selectValue.length
         that.showCurrentDayBg = true
+        that.$opts.isClickYearNow = false
+        that.$opts.clickYearVal = null
+        that.$opts.currentClickIndex = i
         if (range) {
           that.selectDate =
-            mlen == 2
+            mlen == 2 && (!i || i == '0')
               ? [{ YYYY: ymval[0], MM: ymval[1] }]
               : [
                   { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
-                  { YYYY: parseInt(val), MM: ymval[1] }
+                  // { YYYY: parseInt(val), MM: ymval[1] }
+                  {
+                    YYYY: that.getSelectDateDefault().YYYY,
+                    MM: ymval[1]
+                  }
                 ]
-          that.selectValue = mlen == 2 ? [val] : [that.selectValue[0], val]
+          that.selectValue =
+            mlen == 2 && (!i || i == '0') ? [val] : [that.selectValue[0], val]
 
           if (that.selectValue.length == 2) {
             const svalarr = [that.selectValue[0], that.selectValue[1]]
@@ -1820,7 +1989,7 @@ jet.extend(jeDatePick.prototype, {
         )
         that.renderDate(9)
       },
-      daysClick(val) {
+      daysClick(val, index) {
         if (jet.hasClass(this, 'disabled')) return
         const tmval = that.selectTime
         const matVal = jet.reMatch(val)
@@ -1832,7 +2001,7 @@ jet.extend(jeDatePick.prototype, {
         let ymarr
         that.showCurrentDayBg = true
         if (range) {
-          if (slen == 1) {
+          if (index == '1') {
             const svalarr = [that.selectValue[0], val]
             svalarr.sort((a, b) => {
               return a > b ? 1 : -1
@@ -2135,7 +2304,18 @@ jet.extend(jeDatePick.prototype, {
           const s = o.ss == undefined ? 0 : o.ss
           return parseInt(jet.digit(h) + '' + jet.digit(m) + '' + jet.digit(s))
         }
+        opts.currentClickIndex = 0
         if (range) {
+          if (
+            that.selectValue.length > 1 &&
+            that.selectValue[0].length !== that.selectValue[1].length
+          ) {
+            if (that.selectValue[0].length < that.selectValue[1].length) {
+              that.selectValue[0] += '-' + jet.digit(that.selectDate[0].DD)
+            } else {
+              that.selectValue[1] += '-' + jet.digit(that.selectDate[1].DD)
+            }
+          }
           const dateLen = opts.allowNullDate ? 0 : 1
           if (that.selectValue.length > dateLen) {
             const sortarr = that.selectValue
@@ -2209,10 +2389,11 @@ jet.extend(jeDatePick.prototype, {
     })
   },
   // 循环生成年数据
-  eachYear(val, type) {
+  eachYear(val, type, index, op = 'add') {
     if (!val) {
       val = new Date().getFullYear()
     }
+
     const that = this
     const opts = that.$opts
     const yNum = parseInt(val)
@@ -2223,15 +2404,21 @@ jet.extend(jeDatePick.prototype, {
     const mins = jet.reMatch(that.minDate)
     const maxs = jet.reMatch(that.maxDate)
     i = type == 1 ? yNum : that.yindex
-    that.yindex = type == 1 ? 12 + yNum : 12 + that.yindex
+    if (op == 'add') {
+      that.yindex = type == 1 ? 12 + yNum : 12 + that.yindex
+    } else {
+      that.yindex = val
+      i = val - 12
+    }
     const endDate = selYear[1] == undefined ? '' : selYear[1].YYYY
     for (; i < that.yindex; i++) {
-      if (
-        (i == selYear[0].YYYY || i == endDate) &&
-        (this.valCell.value || this.showCurrentDayBg)
-      ) {
+      let sYear = selYear[0].YYYY
+      if (selYear.length > 1) {
+        sYear = selYear[index].YYYY
+      }
+      if (i == sYear && (this.valCell.value || this.showCurrentDayBg)) {
         seCls = 'action'
-      } else if (i > selYear[0].YYYY && i < endDate) {
+      } else if (i > sYear && i < endDate) {
         seCls = 'contain'
       } else if (i < mins[0] || i > maxs[0]) {
         seCls = 'disabled'
@@ -2243,7 +2430,7 @@ jet.extend(jeDatePick.prototype, {
     return yarr
   },
   // 循环生成月数据
-  eachMonth(val, type) {
+  eachMonth(val, index) {
     if (!val) {
       val = new Date().getFullYear()
     }
@@ -2266,9 +2453,13 @@ jet.extend(jeDatePick.prototype, {
       : 0
     let min = sessionStorage.getItem(opts.minSession)
     let max = sessionStorage.getItem(opts.maxSession)
-
     jet.each(monthArr, (i, months) => {
-      const ival = parseInt(val + '' + jet.digit(months))
+      // const ival = parseInt(val + '' + jet.digit(months))
+      let sMonth = val
+      if (selMonth.length > 1) {
+        sMonth = selMonth[index].YYYY
+      }
+      const ival = parseInt(sMonth + '' + jet.digit(months))
       if (typeof min == 'string') {
         min = parseInt(min.replace('-', ''))
       }
@@ -2279,22 +2470,44 @@ jet.extend(jeDatePick.prototype, {
         (ival == currStart || ival == currEnd) &&
         (months || that.showCurrentDayBg)
       ) {
-        if (min && max && opts.dynamicRangeDate) {
-          if (ival >= min && ival <= max) {
-            seCls = 'action'
-          } else {
-            seCls = 'disabled'
-          }
-        } else seCls = 'action'
-        // seCls = 'action'
+        if (
+          that.selectDate.length > 1 &&
+          that.selectDate[0].YYYY == that.selectDate[1].YYYY &&
+          opts.currentClickIndex == index
+        ) {
+          if (min && max && opts.dynamicRangeDate) {
+            if (ival >= min && ival <= max) {
+              seCls = 'action'
+            } else {
+              seCls = 'disabled'
+            }
+          } else seCls = 'action'
+          // seCls = 'action'
+        } else if (
+          that.selectDate.length > 1 &&
+          that.selectDate[0].YYYY == that.selectDate[1].YYYY &&
+          opts.currentClickIndex != index
+        ) {
+          // seCls = 'contain aa'
+          seCls = 'action'
+        } else {
+          if (min && max && opts.dynamicRangeDate) {
+            if (ival >= min && ival <= max) {
+              seCls = 'action'
+            } else {
+              seCls = 'disabled'
+            }
+          } else seCls = 'action'
+          // seCls = 'action'
+        }
       } else if (ival > currStart && ival < currEnd) {
         if (min && max && opts.dynamicRangeDate) {
           if (ival >= min && ival <= max) {
-            seCls = 'contain'
+            seCls = 'contain bb'
           } else {
             seCls = 'disabled'
           }
-        } else seCls = 'contain'
+        } else seCls = 'contain cc'
       } else if (ival < minym || ival > maxym) {
         if (min && max && opts.dynamicRangeDate) {
           if (ival >= min && ival <= max) {
@@ -2351,6 +2564,15 @@ jet.extend(jeDatePick.prototype, {
     const maxNum = parseInt(
       maxArr[0] + '' + jet.digit(maxArr[1]) + '' + jet.digit(maxArr[2])
     )
+    const today = new Date()
+    if (sDate[0] && !sDate[0].DD) {
+      sDate[0].DD = today.getDate()
+    }
+
+    if (sDate[1] && !sDate[1].DD) {
+      sDate[1].DD = today.getDate()
+    }
+
     const startDate = sDate[0]
       ? parseInt(
           sDate[0].YYYY +
@@ -2880,6 +3102,7 @@ puiDateObj.renderDate = x => {
   const that = this
   const opts = that.$opts
   const isShow = jet.isBool(opts.isShow)
+
   const elxID = !isShow ? elx + searandom() : elx
   const setzin = { zIndex: opts.zIndex == undefined ? 10000 : opts.zIndex }
 
