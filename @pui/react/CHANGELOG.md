@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.57](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.53...v0.1.57) (2023-03-10)
+
+
+### Features
+
+* 1、Table组件onRowClick返回event；2、Button组件增加HTMLButtonElement属性 ([90888aa](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/90888aad03aad572bf442f23eb6b09e4eb3aa9c5))
+* DRSCN-26474|自定义footer ([ce0a92a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ce0a92ab6ed5a22d3a242930768b6d4433379864))
+* DSCWCN-172|设置点击年份点击,切换问题 ([c913588](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c913588dc493e014fd47e9c4a8d46c214387e3a6))
+* 动态范围年月 ([65fc254](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/65fc2549ddf9c8702a0c7bb3436b1117ea545dfb))
+* 消除eslint报错 ([9ee5889](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/9ee58897bda3c8e426eafacfb8fea125d98a4205))
+* 添加日期,月份,年点击事件 ([086a08e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/086a08e2afeda262c9ab9ed71f5feaa4aeafb8a0))
+
+
+### Bug Fixes
+
+* 1.DRSWCN-173,修复Tooltip组件的children如果传null、boolean、number或者undefined等类型值会导致页面报错并且白屏的问题;2.优化判断是否是ReactElement类型值的公共方法 ([4e315e9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4e315e9c556fca308773f5d3c1345321f90f8026))
+* Tooltip组件子组件类型判断逻辑优化 ([3cdebe4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/3cdebe4508b509d23e64ac35cedade608f499ee6))
+* 修复notification组件build报错 ([17dd000](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/17dd000ab77869cd7275064dc7a578cac829edb1))
+* 修正右侧Icon占位 ([97d4ef1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/97d4ef130919f41eee0e6951d41f7ca5668a53bf))
+
 ### [0.1.56](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.55...v0.1.56) (2023-03-01)
 
 
