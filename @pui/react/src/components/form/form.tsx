@@ -141,6 +141,7 @@ export const overrideProps = (
     elementName === 'CheckBoxGroup' ||
     elementName === 'DatePicker' ||
     elementName === 'DateRangePicker' ||
+    elementName === 'MonthRangePicker' ||
     elementName === 'Select' ||
     elementName === 'MultiSelect' ||
     elementName === 'Switch' ||
@@ -182,7 +183,10 @@ export const overrideProps = (
         if (fData[inputProps.name] === undefined) {
           if (elementName === 'CheckBoxGroup') {
             fData[inputProps.name] = []
-          } else if (elementName === 'DateRangePicker') {
+          } else if (
+            elementName === 'DateRangePicker' ||
+            elementName === 'MonthRangePicker'
+          ) {
             fData[inputProps.name] = ['', '']
           } else {
             fData[inputProps.name] = ''
@@ -315,6 +319,7 @@ export const overrideProps = (
           'CheckBoxGroup',
           'DatePicker',
           'DateRangePicker',
+          'MonthRangePicker',
           'Select',
           'MultiSelect',
           'Switch',
@@ -334,6 +339,7 @@ export const overrideProps = (
           }
           if (
             elementName === 'DateRangePicker' ||
+            elementName === 'MonthRangePicker' ||
             elementName === 'DateTimePicker'
           ) {
             if (inputProps.nameStartDate) {

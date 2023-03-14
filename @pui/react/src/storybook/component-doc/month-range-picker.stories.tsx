@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { addMonth } from '../../shared/date-utils'
-import { DateRangePicker, Form, MonthRangePicker } from '../..'
+import { MonthRangePicker, Form } from '../..'
 
 export default {
-  title: 'Data Entry/DateRangePicker',
-  component: DateRangePicker
+  title: 'Data Entry/MonthRangePicker',
+  component: MonthRangePicker
 }
 
-export const DateRangePickerStoryBook = () => {
-  const [val, setVal] = useState<string[]>(['2020-01-01', '2020-01-02'])
+export const MonthRangePickerStoryBook = () => {
+  const [val, setVal] = useState<string[]>(['2020-01', '2020-01'])
   return (
     <div>
       <Form>
-        <DateRangePicker
+        <MonthRangePicker
           value={val}
           width="330px"
           label="来访日期"
@@ -26,7 +26,7 @@ export const DateRangePickerStoryBook = () => {
         />
         <br />
         <div>禁用状态</div>
-        <DateRangePicker
+        <MonthRangePicker
           width="330px"
           label="来访日期"
           value={val}
@@ -43,9 +43,9 @@ export const DateRangePickerStoryBook = () => {
     </div>
   )
 }
-DateRangePickerStoryBook.storyName = 'DateRangePicker'
+MonthRangePickerStoryBook.storyName = 'MonthRangePicker'
 
-export const DateRangePickerStoryBook1 = () => {
+export const MonthRangePickerStoryBook1 = () => {
   const [dates, setDates] = useState(['', ''])
   const [range, setRange] = useState<any>([null, null])
   useEffect(() => {
@@ -73,54 +73,54 @@ export const DateRangePickerStoryBook1 = () => {
     </div>
   )
 }
-DateRangePickerStoryBook1.storyName = 'Data Binding'
+MonthRangePickerStoryBook1.storyName = 'Data Binding'
 
-export const DateRangePickerStoryBook2 = () => {
+export const MonthRangePickerStoryBook2 = () => {
   return (
     <div>
-      <DateRangePicker
+      <MonthRangePicker
         width="330px"
-        label="限定日期 2022-05-01 ~ 2022-05-31"
+        label="限定日期 2022-05 ~ 2022-09"
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
-        range={['2022-05-01', '2022-05-31']}
+        range={['2022-05', '2022-09']}
       />
 
       <br />
       <br />
 
-      <DateRangePicker
+      <MonthRangePicker
         width="330px"
-        label="限定结束日期 2022-10-12"
+        label="限定结束日期 2022-10"
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
-        range={[null, '2022-10-12']}
+        range={[null, '2022-10']}
       />
 
       <br />
       <br />
 
-      <DateRangePicker
+      <MonthRangePicker
         width="330px"
-        label="限定开始日期 2022-03-12"
+        label="限定开始日期 2022-03"
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
-        range={['2022-03-12', null]}
+        range={['2022-03', null]}
       />
     </div>
   )
 }
-DateRangePickerStoryBook2.storyName = 'Limited Date'
+MonthRangePickerStoryBook2.storyName = 'Limited Date'
 
-export const DateRangePickerStoryBook3 = () => {
-  const [val, setVal] = useState<string[]>(['2020-01-01', '2020-01-02'])
+export const MonthRangePickerStoryBook3 = () => {
+  const [val, setVal] = useState<string[]>(['2020-01', '2020-01'])
   return (
     <div>
       <Form>
-        <DateRangePicker
+        <MonthRangePicker
           value={val}
           label="保修时间"
           showClearButton
@@ -131,7 +131,7 @@ export const DateRangePickerStoryBook3 = () => {
         />
         <br />
         <div>禁用状态</div>
-        <DateRangePicker
+        <MonthRangePicker
           value={val}
           label="保修时间"
           showClearButton
@@ -145,12 +145,12 @@ export const DateRangePickerStoryBook3 = () => {
     </div>
   )
 }
-DateRangePickerStoryBook3.storyName = 'Filter Mode'
+MonthRangePickerStoryBook3.storyName = 'Filter Mode'
 
-export const DateRangePickerStoryBook4 = () => {
+export const MonthRangePickerStoryBook4 = () => {
   return (
     <div>
-      <DateRangePicker
+      <MonthRangePicker
         label="保修时间"
         showClearButton
         placeholderStartDate="开始日期"
@@ -159,7 +159,7 @@ export const DateRangePickerStoryBook4 = () => {
         mustPickStartEnd
       />
       <br /> <br />
-      <DateRangePicker
+      <MonthRangePicker
         label="保修时间"
         showClearButton
         placeholderStartDate="开始日期"
@@ -170,4 +170,4 @@ export const DateRangePickerStoryBook4 = () => {
     </div>
   )
 }
-DateRangePickerStoryBook4.storyName = 'Force to pick start and end'
+MonthRangePickerStoryBook4.storyName = 'Force to pick start and end'

@@ -1,29 +1,29 @@
-export const sameDate = (d1: Date | null, d2: Date | null) => {
+export const sameDate = (d1: Date | null, d2: Date | null, isMonth = false) => {
   if (d1 === null || d2 === null) {
     return false
   }
   return (
     d1.getFullYear() === d2.getFullYear() &&
     d1.getMonth() === d2.getMonth() &&
-    d1.getDate() === d2.getDate()
+    (isMonth ? true : d1.getDate() === d2.getDate())
   )
 }
 
-export const strToDate = (dateStr: string) => {
+export const strToDate = (dateStr: string, isMonth = false) => {
   if (dateStr === null) {
     return null
   }
   const datePart = dateStr.split('-')
-  if (datePart.length === 3) {
+  if (datePart.length === 3 || (isMonth && datePart.length === 2)) {
     if (
       /^\d{4}$/.test(datePart[0]) &&
       /^\d{2}$/.test(datePart[1]) &&
-      /^\d{2}$/.test(datePart[2])
+      (isMonth ? true : /^\d{2}$/.test(datePart[2]))
     ) {
       const date = new Date(
         parseInt(datePart[0]),
         parseInt(datePart[1]) - 1,
-        parseInt(datePart[2])
+        isMonth ? 1 : parseInt(datePart[2])
       )
       return date
     }
@@ -34,7 +34,7 @@ export const strToDate = (dateStr: string) => {
   return null
 }
 
-export const dateToStr = (date: Date) => {
+export const dateToStr = (date: Date, isMonth = false) => {
   const addZero = (n: number) => {
     if (n < 10) {
       return '0' + n
@@ -45,12 +45,15 @@ export const dateToStr = (date: Date) => {
     date.getFullYear() +
     '-' +
     addZero(date.getMonth() + 1) +
-    '-' +
-    addZero(date.getDate())
+    (isMonth ? '' : '-' + addZero(date.getDate()))
   )
 }
 
-export const isDateEquals = (date1: Date | null, date2: Date | null) => {
+export const isDateEquals = (
+  date1: Date | null,
+  date2: Date | null,
+  isMonth = false
+) => {
   if (date1 === date2 && date1 === null) {
     return true
   }
@@ -63,7 +66,7 @@ export const isDateEquals = (date1: Date | null, date2: Date | null) => {
   if (
     date1!.getFullYear() === date2!.getFullYear() &&
     date1!.getMonth() === date2!.getMonth() &&
-    date1!.getDate() === date2!.getDate()
+    (isMonth ? true : date1!.getDate() === date2!.getDate())
   ) {
     return true
   }
@@ -94,7 +97,8 @@ export const inDisableDates = (
 export const inDateRange = (
   date: Date,
   range: [Date, Date] | null,
-  nullIsUnlimited = false
+  nullIsUnlimited = false,
+  isMonth = false
 ) => {
   if (range) {
     range = range as [Date, Date]
@@ -102,6 +106,9 @@ export const inDateRange = (
     if (range[0] === null) {
       matchRangeStart = nullIsUnlimited
     } else {
+      if (isMonth) {
+        range[0].setDate(1)
+      }
       range[0].setHours(0)
       range[0].setMinutes(0)
       range[0].setSeconds(0)
@@ -115,6 +122,9 @@ export const inDateRange = (
     if (range[1] === null) {
       matchRangeEnd = nullIsUnlimited
     } else {
+      if (isMonth) {
+        range[1].setDate(1)
+      }
       range[1].setHours(23)
       range[1].setMinutes(59)
       range[1].setSeconds(59)
@@ -146,6 +156,17 @@ export const getMonthCalDates = (date: Date) => {
       break
     }
   }
+  return calDates
+}
+
+export const getYearCalMonths = (date: Date) => {
+  const calDates: Date[] = []
+  const calDate = new Date(date).getFullYear()
+
+  for (let i = 0; i < 12; i++) {
+    calDates.push(new Date(calDate, i))
+  }
+
   return calDates
 }
 
