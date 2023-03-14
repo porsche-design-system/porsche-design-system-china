@@ -7,7 +7,8 @@ import {
   DateRangePicker,
   Form,
   Search,
-  Input
+  Input,
+  MonthRangePicker
 } from '../..'
 import './filter-list.stories.scss'
 
@@ -131,6 +132,13 @@ export const FilterStoryBook = () => {
         <DateRangePicker
           filterMode
           label={renderLabel('活动时间')}
+          placeholderStartDate="不限"
+          placeholderEndDate="不限"
+          {...props}
+        />
+        <MonthRangePicker
+          filterMode
+          label={renderLabel('起止年月')}
           placeholderStartDate="不限"
           placeholderEndDate="不限"
           {...props}
