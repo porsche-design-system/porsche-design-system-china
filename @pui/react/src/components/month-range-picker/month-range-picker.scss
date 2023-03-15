@@ -1,0 +1,352 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    $width: 96px;
+
+    .pui-month-range-picker:hover {
+      border-color: $border-color-5;
+      .pui-drpci-start,
+      .pui-drpci-end {
+        display: block;
+      }
+    }
+
+    .pui-month-range-picker {
+      display: inline-block;
+      position: relative;
+      border: 1px solid $border-color-3;
+      height: 48px;
+      padding-right: 40px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.1s;
+
+      &-highlight-true {
+        border-color: $filter-highlight-border-color;
+        background-color: $filter-highlight-bg-color;
+      }
+
+      button {
+        height: 46px;
+        cursor: pointer;
+        transition: all 0.1s;
+        font-size: 16px;
+        color: $text-color-1;
+        background-color: transparent;
+        display: inline-block;
+        border: none;
+        text-align: center;
+        padding: 0 8px;
+        margin: 0 8px;
+        border-top-color: transparent;
+        min-width: 110px;
+        white-space: nowrap;
+        position: relative;
+      }
+
+      .pui-month-range-picker-filter-label {
+        margin-left: 12px;
+        display: inline-block;
+        line-height: 46px;
+      }
+
+      .pui-month-range-picker-placeholder {
+        color: $border-color-3;
+      }
+
+      .pui-month-range-picker-box {
+        &-active {
+          border-bottom: 2px solid $brand-color;
+        }
+        &-with-clear-button {
+          padding-right: 16px;
+        }
+        &:last-of-type {
+          margin-right: 4px;
+        }
+      }
+      .pui-month-range-picker-to {
+        display: inline-block;
+        width: 18px;
+        text-align: center;
+      }
+
+      &-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        pointer-events: none;
+      }
+
+      .pui-drpci-start,
+      .pui-drpci-end {
+        display: none;
+        position: absolute;
+        right: -8px;
+        top: 10px;
+        cursor: pointer;
+        opacity: 0.2;
+      }
+
+      .pui-drpci-start:hover,
+      .pui-drpci-end:hover {
+        opacity: 0.7;
+      }
+
+      &-disabled-true,
+      &-disabled-true:hover {
+        background: $container-bg-opacity-color-3;
+        border: 1px solid $border-color-2;
+        cursor: not-allowed;
+        opacity: 1;
+        .porscheicon {
+          opacity: 0.5;
+          &.pui-drpci-start,
+          &.pui-drpci-end {
+            display: none;
+          }
+        }
+        &:not(.pui-month-range-picker-filter-mode-true) {
+          .pui-month-range-picker-box:disabled {
+            color: $text-opacity-color-2;
+          }
+        }
+      }
+
+      button:disabled {
+        background: transparent;
+        border: none;
+        pointer-events: none;
+        opacity: 1;
+      }
+
+      &-error-true {
+        border: 1px solid $status-error-color !important;
+      }
+
+      &-calendars {
+        width: 680px;
+        height: 390px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        position: absolute;
+        top: 52px;
+      }
+
+      &-calendar {
+        font-size: 16px;
+        position: absolute;
+        width: 340px;
+        left: 0;
+        z-index: 10;
+        background-color: $float-layer-bg-color;
+        padding-bottom: 10px;
+        animation: pui-fade-in 0.1s;
+        user-select: none;
+        height: 100%;
+
+        &-head {
+          text-align: center;
+          padding: 18px 0 14px 0;
+          font-weight: bold;
+          user-select: none;
+          &-left {
+            float: left;
+            margin-left: 15px;
+            width: 50px;
+            height: 25px;
+          }
+          &-right {
+            float: right;
+            margin-right: 15px;
+            width: 50px;
+            height: 25px;
+          }
+          .porscheicon {
+            cursor: pointer;
+          }
+        }
+        &-weekdays {
+          padding: 0 16px;
+          overflow: hidden;
+          margin: auto;
+          border-bottom: 1px solid $border-color-1;
+          padding-bottom: 4px;
+        }
+        &-dates {
+          width: 308px;
+          overflow: hidden;
+          margin: auto;
+          padding-top: 10px;
+          cursor: pointer;
+          text-align: center;
+        }
+
+        &-block {
+          width: $width - 4;
+          height: 36px;
+          display: inline-block;
+          vertical-align: top;
+          text-align: center;
+          line-height: 36px;
+          // margin-bottom: 32px;
+          box-sizing: content-box;
+          border: 4px solid $float-layer-bg-color;
+          position: relative;
+          &:nth-child(3n) {
+            &::after {
+              display: none !important;
+            }
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 36px;
+            // width: 4px;
+            display: block;
+            pointer-events: none;
+            background-color: $float-layer-bg-color;
+          }
+        }
+        &-block {
+          cursor: pointer;
+        }
+        &-block:hover {
+          background-color: $container-bg-opacity-color-2;
+        }
+
+        &-today {
+          font-weight: bold;
+          color: $brand-color;
+        }
+
+        &-in-pick-range,
+        &-in-pick-range:hover {
+          background-color: $date-picker-range-color;
+          width: $width + 4;
+          border-left: none;
+          border-right: none;
+        }
+
+        &-in-pre-pick-range,
+        &-in-pre-pick-range:hover {
+          width: $width + 4;
+          border-left: none;
+          border-right: none;
+          position: relative;
+        }
+
+        &-in-pre-pick-range::before {
+          content: ' ';
+          position: absolute;
+          width: $width + 2;
+          height: 34px;
+          border-top: 1px dashed $brand-color;
+          border-bottom: 1px dashed $brand-color;
+          left: 0;
+          top: 0;
+        }
+
+        &-in-pre-pick-range-start::before {
+          content: ' ';
+          position: absolute;
+          width: $width + 2;
+          height: 34px;
+          border-left: 1px dashed $brand-color;
+          border-top: 1px dashed $brand-color;
+          border-bottom: 1px dashed $brand-color;
+          left: 0;
+          top: 0;
+        }
+
+        &-in-pre-pick-range-end::before {
+          content: ' ';
+          position: absolute;
+          width: $width + 2;
+          height: 34px;
+          border-right: 1px dashed $brand-color;
+          border-top: 1px dashed $brand-color;
+          border-bottom: 1px dashed $brand-color;
+          left: 0;
+          top: 0;
+        }
+
+        &-picked,
+        &-picked:hover {
+          color: white;
+          background-color: $brand-color;
+          font-weight: bold;
+        }
+
+        &-not-same-month {
+          color: $text-opacity-color-3;
+          background-color: transparent;
+          width: $width - 4;
+          height: 36px;
+          border: 4px solid $float-layer-bg-color;
+        }
+
+        &-not-same-month:hover {
+          background-color: $container-bg-opacity-color-2;
+        }
+
+        &-unavailable {
+          color: $text-opacity-color-3;
+          cursor: not-allowed;
+          // background-color: $container-bg-opacity-color-2;
+          width: $width + 4;
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      &-calendar-1 {
+        left: 340px;
+        border-left: 1px solid $border-color-1;
+        width: 341px;
+      }
+
+      &-size-small {
+        height: 36px;
+        font-size: 14px;
+
+        button {
+          height: 34px;
+          font-size: 14px;
+        }
+
+        .pui-month-range-picker-calendars {
+          top: 40px;
+        }
+
+        .pui-month-range-picker-icon {
+          top: 7px;
+          font-size: 20px;
+        }
+
+        .pui-month-range-picker-filter-label {
+          line-height: 34px;
+        }
+
+        .pui-drpci-start,
+        .pui-drpci-end {
+          top: 8px;
+          font-size: 18px;
+        }
+
+        .pui-month-range-picker-calendar {
+          font-size: 14px;
+          height: auto;
+        }
+      }
+    }
+    .pui-month-range-picker-calendars {
+      height: 250px;
+    }
+  }
+}

@@ -14,7 +14,8 @@ import {
   Select,
   CheckBoxGroup,
   DateTimePicker,
-  Upload
+  Upload,
+  MonthRangePicker
 } from '../..'
 
 export default {
@@ -29,6 +30,8 @@ interface FormData {
   dealer: string
   repairStartDate: string
   repairEndDate: string
+  repairStartMonth: string
+  repairEndMonth: string
   date: string
   services: string[]
   invoice: string
@@ -59,6 +62,8 @@ export const ExampleStoryBook = () => {
               dealer: 'PC',
               repairStartDate: '2021-01-12',
               repairEndDate: '2021-05-33',
+              repairStartMonth: '2021-01',
+              repairEndMonth: '2021-05',
               date: '2021-12-12',
               services: ['Repair'],
               invoice: 'yes',
@@ -90,6 +95,8 @@ export const ExampleStoryBook = () => {
               dealer: '',
               repairStartDate: '',
               repairEndDate: '',
+              repairStartMonth: '',
+              repairEndMonth: '',
               date: '',
               services: [],
               invoice: '',
@@ -168,6 +175,14 @@ export const ExampleStoryBook = () => {
           placeholderStartDate="Start"
           placeholderEndDate="End"
           disabled={disabled}
+        />
+        <MonthRangePicker
+          label="Repair Month1"
+          nameStartDate="repairStartMonth"
+          nameEndDate="repairEndMonth"
+          rules={{ required: true, message: 'Required' }}
+          placeholderStartDate="Start Month"
+          placeholderEndDate="End Month"
         />
         <DateTimePicker
           isRange
