@@ -77,7 +77,7 @@ export const DateTimePickerStoryBook = () => {
           placeholder="请输入日期"
           showStyle="Common"
           componentId="testTime6"
-          value={'2023-01-23'}
+          value="2023-01-23"
         />
 
         <br />
