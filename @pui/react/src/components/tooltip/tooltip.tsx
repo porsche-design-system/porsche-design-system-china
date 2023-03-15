@@ -417,12 +417,12 @@ const Tooltip = ({
             setVisibleContent(true)
           }
           if (isMountedContent) {
+            calcTooltipPosition(
+              boxRef.current,
+              currentTarget,
+              originRef.current
+            )
             if (isResized) {
-              calcTooltipPosition(
-                boxRef.current,
-                currentTarget,
-                originRef.current
-              )
               setIsResized(false)
             }
           } else {
@@ -454,12 +454,12 @@ const Tooltip = ({
     ;(firstChild as ReactElement).props.onClick &&
       (firstChild as ReactElement).props.onClick(evt)
     if (isMountedContent) {
+      calcTooltipPosition(
+        boxRef.current,
+        evt.currentTarget,
+        originRef.current
+      )
       if (isResized) {
-        calcTooltipPosition(
-          boxRef.current,
-          evt.currentTarget,
-          originRef.current
-        )
         setIsResized(false)
       }
       if (typeof visible === 'boolean') return
