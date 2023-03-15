@@ -445,7 +445,7 @@ const MonthRangePicker = FormItem(
                     setPreDisplayValues([...preDisplayValues])
                   }}
                 >
-                  {date.getMonth() + 1}
+                  {date.getMonth() + 1}月
                 </div>
               )
             })}
