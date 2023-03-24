@@ -37,6 +37,8 @@ export interface DropdownConfig {
   children: ReactNode
   /** 菜单点击回调 */
   onVisibleChange?: (visible: boolean) => void
+  /** 关闭时销毁子元素 默认为 true */
+  destroyOnClose?: boolean
 }
 
 export const Dropdown: React.FC<DropdownConfig> = props => {
@@ -49,7 +51,8 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
     visible,
     onVisibleChange,
     disabled,
-    size
+    size,
+    destroyOnClose = true
   } = props
   const [defaultSize] = useDefaultSize()
   const curSize = size || defaultSize
@@ -166,7 +169,7 @@ export const Dropdown: React.FC<DropdownConfig> = props => {
           ...overlayStyle
         }}
       >
-        {showDropdown && childrenComponent}
+        {(showDropdown || destroyOnClose === false) && childrenComponent}
       </div>
     )
 

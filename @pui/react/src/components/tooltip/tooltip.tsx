@@ -64,6 +64,9 @@ export interface TooltipProps {
 
   /** 用于手动控制浮层显隐 */
   visible?: boolean
+
+  /** 显示隐藏的回调 */
+  onVisibleChange?: (open: boolean) => void
 }
 const prefixCls = 'pui-tooltip'
 const Tooltip = ({
@@ -75,7 +78,8 @@ const Tooltip = ({
   placement = TOP_CENTER,
   style,
   trigger = 'hover',
-  visible
+  visible,
+  onVisibleChange
 }: TooltipProps) => {
   const [isMountedContent, setIsMountedContent] = useState(false)
   // mouseEnter、mouseLeave 显示/隐藏content
@@ -309,6 +313,7 @@ const Tooltip = ({
     if (trigger === 'click') {
       if (showContent) {
         setShowContent(false)
+        onVisibleChange?.(false)
       }
       if (!isResized) {
         setIsResized(true)
@@ -336,6 +341,7 @@ const Tooltip = ({
       if (typeof visible !== 'boolean') {
         if (trigger === 'click') {
           setShowContent(true)
+          onVisibleChange?.(true)
         }
       }
     }
@@ -346,6 +352,7 @@ const Tooltip = ({
       calcArrowPosition(boxRef.current)
     }
   }, [content])
+
   // 鼠标移入提示框触发执行
   const handleMouseEnterContent = () => {
     if (hideTimerRef.current) {
@@ -356,6 +363,7 @@ const Tooltip = ({
   const handleMouseLeaveContent = () => {
     hideTimerRef.current = setTimeout(() => {
       setVisibleContent(false)
+      onVisibleChange?.(false)
       hideTimerRef.current = undefined
     }, 100)
   }
@@ -415,6 +423,7 @@ const Tooltip = ({
         (currentTarget => () => {
           if (typeof visible !== 'boolean') {
             setVisibleContent(true)
+            onVisibleChange?.(true)
           }
           if (isMountedContent) {
             calcTooltipPosition(
@@ -445,6 +454,7 @@ const Tooltip = ({
       if (typeof visible === 'boolean') return
       hideTimerRef.current = setTimeout(() => {
         setVisibleContent(false)
+        onVisibleChange?.(false)
         hideTimerRef.current = undefined
       }, 100)
     }
@@ -454,16 +464,13 @@ const Tooltip = ({
     ;(firstChild as ReactElement).props.onClick &&
       (firstChild as ReactElement).props.onClick(evt)
     if (isMountedContent) {
-      calcTooltipPosition(
-        boxRef.current,
-        evt.currentTarget,
-        originRef.current
-      )
+      calcTooltipPosition(boxRef.current, evt.currentTarget, originRef.current)
       if (isResized) {
         setIsResized(false)
       }
       if (typeof visible === 'boolean') return
       setShowContent(!showContent)
+      onVisibleChange?.(!showContent)
     } else {
       setTargetDom(evt.currentTarget)
       setIsMountedContent(true)
