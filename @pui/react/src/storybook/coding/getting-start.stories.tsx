@@ -24,7 +24,10 @@ const GettingStart = () => (
       <br />
     </div>
     <br />
-    <div>使用自己的LDAP (gitlab账号) 登录 nexus，只用登录一次</div>
+    <div>
+      使用自己的LDAP (gitlab账号) 登录
+      nexus，只用登录一次，若无法登录，需要找IT部门协助开通权限
+    </div>
     <div className="cmd">
       npm login --registry
       https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/
