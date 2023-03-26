@@ -36,6 +36,6 @@
     "sourceMap": true,
     "types": ["react", "jest", "node"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src", "./setupTests.ts"],
+  "exclude": ["node_modules"]
 }
