@@ -215,3 +215,11 @@ const [menuPos, updatePos] = useElementPos(rootElementRef, popMenuRef)
 #### 多重载属性
 
 pui 的组件属性支持多重载写法，例如 DatePicker 组件 value 可以传入 Date 型，亦可以传入 string 型的 "2022-10-01"，多重载给开发者提供了多样便利，但是也会加大组件库的开发难度，开发组件时可以视情况酌情开发
+
+#### 提交代码
+
+提交代码，应该建立新分支，完成代码之后找 立超 或 莫哥 检查合并
+
+#### 发版
+
+由立超与莫哥定期发版
