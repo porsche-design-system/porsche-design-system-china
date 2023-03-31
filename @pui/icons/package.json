@@ -1,6 +1,6 @@
 {
   "name": "@pui/icons",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "@pui/icons",
   "main": "./lib/index.js",
   "module": "./es/index.js",
