@@ -1,6 +1,6 @@
 {
   "name": "@pui/icons",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "@pui/icons",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -22,7 +22,8 @@
     "start": "npm run entry && pui-tools build --watch",
     "build": "pui-tools build",
     "vinstall": "npm install --registry http://s1.web.porsche-preview.cn/repository/npm-group/",
-    "vrelease": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
+    "vrelease": "npm publish --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
+    "vrelease-old": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
