@@ -114,5 +114,50 @@ describe('Tooltip', () => {
     });
   });
 
+  describe('getPopupContainer', () => {
+    it('should mount the tooltip component in father element', async () => {
 
+      const { getByText } = render(
+        <>
+          <div data-testid='father' className='father'>father</div>
+
+          <div>
+            <Tooltip content='test' trigger='click' getPopupContainer={() => document.querySelector('.father')}>
+              <button>Target</button>
+            </Tooltip>
+          </div>
+
+        </>);
+
+      const target = getByText('Target');
+
+      await waitFor(() => {
+        userEvent.click(target);
+        const father = getByText('father');
+        expect(father.childElementCount).toBe(1);
+      });
+    });
+  });
+
+  describe('placement', () => {
+    it('should render the tooltip on desired position', () => {
+      const { getByText } = render(
+        <div id="container" style={{width:"1000px", height:"1000px" }}>
+          <Tooltip content='test' trigger='click' placement='bottomCenter'>
+            <button>Target</button>
+          </Tooltip>
+        </div>
+      );
+
+      const target = getByText('Target');
+      waitFor(()=>{
+        userEvent.click(target)
+        const result = getByText('test')
+
+        expect(result.offsetTop).toBeGreaterThan(target.offsetTop);
+        userEvent.click(target)
+      })
+
+    });
+  });
 });
