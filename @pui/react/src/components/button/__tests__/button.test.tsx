@@ -1,7 +1,8 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
-import { Button } from '../button'
 import { act } from 'react-dom/test-utils'
+import { render, screen } from '@testing-library/react'
+
+import { Button } from '../button'
 
 test('button context', async () => {
   render(<Button>Button</Button>)
