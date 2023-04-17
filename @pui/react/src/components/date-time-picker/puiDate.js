@@ -1559,12 +1559,13 @@ jet.extend(jeDatePick.prototype, {
           '</span>'
       } else if (that.dlen > 2 && that.dlen <= 6) {
         ymtitStr =
-          '<span class="ymbtn bb" @on="monthShow({%=daytit[i].MM%},{%=i%})">{%=daytit[i].MM%}' +
-          mtxt +
-          '</span>' +
           '<span class="ymbtn cc" @on="yearShow({%=daytit[i].YYYY%},{%=i%})">{%=daytit[i].YYYY%}' +
           ytxt +
+          '</span>' +
+          '<span class="ymbtn bb" @on="monthShow({%=daytit[i].MM%},{%=i%})">{%=daytit[i].MM%}' +
+          mtxt +
           '</span>'
+
       }
       return ymtitStr
     })()
@@ -1903,6 +1904,7 @@ jet.extend(jeDatePick.prototype, {
           i
         )
         that.renderDate(8)
+        that.monthShow(1, i)
         if (that.$opts.yearItemClickFun) {
           that.$opts.yearItemClickFun(val)
         }
