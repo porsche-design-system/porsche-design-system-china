@@ -14,8 +14,6 @@
       "*": ["./node_modules/@types/*", "*"]
     },
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
