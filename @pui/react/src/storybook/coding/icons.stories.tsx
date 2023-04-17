@@ -17,7 +17,7 @@ const IconLibrary = () => (
     <br />
     4）执行 npm run build 进行打包
     <br />
-    5）执行 npm publish 进行发布
+    5）执行 npm run vrelease 进行发布
     <br />
     <br />
     <br />
@@ -31,7 +31,7 @@ const IconLibrary = () => (
     <br />
     4）执行 npm run build 进行打包
     <br />
-    5）执行 npm publish 进行发布
+    5）执行 npm run vrelease 进行发布
     <br />
   </div>
 )
