@@ -1337,6 +1337,11 @@ jet.extend(jeDatePick.prototype, {
     } else {
       RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
     }
+
+    if (opts.isClickYearBtn) {
+      RES.monthlist[0] = that.eachMonth(curr.YYYY, 0)
+    }
+
     if (multi == false) {
       const monthNext = isnext ? next.YYYY : curr.YYYY + 1
       RES.monthlist[1] = that.eachMonth(curr.YYYY, 1)
@@ -1701,7 +1706,7 @@ jet.extend(jeDatePick.prototype, {
         const pval = jet.reMatch(yarr[0])
         const tmval = that.selectTime
         const exarr = [
-          jet.extend({ YYYY: parseInt(val), MM: dateM, DD: dateD }, tmval[0]),
+          jet.extend({ YYYY: parseInt(val), MM: that.selectDate[i].MM, DD: that.selectDate[i].DD }, tmval[0]),
           {}
         ]
         const dateVal = that.parseValue([exarr[0]], that.format)
