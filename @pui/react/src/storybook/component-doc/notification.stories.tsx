@@ -60,6 +60,7 @@ export const NotificationStoryBook2 = () => {
     okText: '一级按钮',
     message: '通知标题',
     key: '1',
+    closeAnimate: true,
     onOk: () => {
       Notification.close(config.key)
     },
@@ -68,6 +69,9 @@ export const NotificationStoryBook2 = () => {
   }
   const onClick = (config?: any) => {
     Notification.pop(config)
+  }
+  const onUpdate = (config?: any) => {
+    Notification.update(config)
   }
 
   return (
@@ -92,6 +96,12 @@ export const NotificationStoryBook2 = () => {
         type="primary"
       >
         Error
+      </Button>
+      <Button
+        onClick={() => onUpdate({ ...config, type: 'error' })}
+        type="primary"
+      >
+        更新
       </Button>
     </div>
   )
