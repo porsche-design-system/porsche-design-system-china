@@ -60,7 +60,6 @@ export const NotificationStoryBook2 = () => {
     okText: '一级按钮',
     message: '通知标题',
     key: '1',
-    closeAnimate: true,
     onOk: () => {
       Notification.close(config.key)
     },
@@ -98,11 +97,16 @@ export const NotificationStoryBook2 = () => {
         Error
       </Button>
       <Button
-        onClick={() => onUpdate({ ...config, type: 'error' })}
+        onClick={() =>
+          onUpdate({ ...config, closeAnimate: true, type: 'error' })
+        }
         type="primary"
       >
         更新
       </Button>
+      <span>
+        (更新的key要相同，并且closeAnimate要设置成true关闭动画防止闪动)
+      </span>
     </div>
   )
 }
