@@ -86,6 +86,8 @@ export interface NotificationConfigProps {
 
   /** 底部内容，当不需要默认底部按钮时，可以设为 footer={null} */
   footer?: ReactNode | null
+  closeAnimate?: boolean // 是否关闭动画
+  title?: ReactNode | null
 }
 
 const defaultConfig: NotificationConfigProps = {
@@ -109,7 +111,9 @@ const defaultConfig: NotificationConfigProps = {
   onCancel: undefined,
   placement: 'topLeft',
   key: '',
-  footer: null
+  footer: null,
+  closeAnimate: false,
+  title: null
 }
 
 let wrap: HTMLElement
@@ -226,16 +230,22 @@ export function NotificationBox(props: NotificationProps) {
     >
       <div
         className={`notification-text ${fconfig.type}  ${
-          close ? 'close' : 'open'
+          fconfig.closeAnimate ? null : close ? 'close' : 'open'
         }-animate-${fconfig.placement!.indexOf('Left') > 0 ? 'left' : 'right'}`}
       >
         <div className="notification-title">
           <div className="notification-title-icon">
-            {fconfig.type === 'info' && <IconInformationFilled />}
-            {fconfig.type === 'success' && <IconCorrectFilled />}
-            {fconfig.type === 'warning' && <IconWarningFilled />}
-            {fconfig.type === 'error' && <IconErrorFilled />}
-            <span className="text-content">{fconfig.message}</span>
+            {fconfig.title ? (
+              fconfig.title
+            ) : (
+              <>
+                {fconfig.type === 'info' && <IconInformationFilled />}
+                {fconfig.type === 'success' && <IconCorrectFilled />}
+                {fconfig.type === 'warning' && <IconWarningFilled />}
+                {fconfig.type === 'error' && <IconErrorFilled />}
+                <span className="text-content">{fconfig.message}</span>
+              </>
+            )}
           </div>
           {fconfig.closable && (
             <IconClose
@@ -302,6 +312,23 @@ export const Notification = {
       if (count === 0) {
         node.parentElement?.remove()
       }
+    }
+  },
+  update(config: NotificationConfigProps) {
+    const fconfig = { ...defaultConfig, ...config }
+    const div = document.getElementById(
+      `$notification-${config.key}`
+    )?.parentNode
+    if (div) {
+      renderNode(
+        <NotificationBox
+          key={fconfig.key}
+          rootDom={wrap}
+          parentDom={div}
+          fconfig={fconfig}
+        />,
+        div
+      )
     }
   }
 }
