@@ -69,6 +69,9 @@ export const NotificationStoryBook2 = () => {
   const onClick = (config?: any) => {
     Notification.pop(config)
   }
+  const onUpdate = (config?: any) => {
+    Notification.update(config)
+  }
 
   return (
     <div>
@@ -93,6 +96,17 @@ export const NotificationStoryBook2 = () => {
       >
         Error
       </Button>
+      <Button
+        onClick={() =>
+          onUpdate({ ...config, closeAnimate: true, type: 'error' })
+        }
+        type="primary"
+      >
+        更新
+      </Button>
+      <span>
+        (更新的key要相同，并且closeAnimate要设置成true关闭动画防止闪动)
+      </span>
     </div>
   )
 }
