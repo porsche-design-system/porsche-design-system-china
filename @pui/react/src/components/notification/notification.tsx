@@ -118,6 +118,7 @@ const defaultConfig: NotificationConfigProps = {
 
 let wrap: HTMLElement
 let count = 0
+const defaultParentNode = '$notification-parentNode-'
 export const createNotification = () => {
   return (config: Partial<NotificationConfigProps> = {}) => {
     const fconfig = { ...defaultConfig, ...config }
@@ -152,6 +153,7 @@ export const createNotification = () => {
     }
 
     const div = document.createElement('div')
+    div.id = `${defaultParentNode}${fconfig.key}`
     wrap.appendChild(div)
     renderNode(
       <NotificationBox rootDom={wrap} parentDom={div} fconfig={fconfig} />,
@@ -316,9 +318,7 @@ export const Notification = {
   },
   update(config: NotificationConfigProps) {
     const fconfig = { ...defaultConfig, ...config }
-    const div = document.getElementById(
-      `$notification-${config.key}`
-    )?.parentNode
+    const div = document.getElementById(`${defaultParentNode}${fconfig.key}`)
     if (div) {
       renderNode(
         <NotificationBox
