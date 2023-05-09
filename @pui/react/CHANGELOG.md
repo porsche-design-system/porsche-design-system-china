@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.60](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.59...v0.1.60) (2023-05-09)
+
+
+### Features
+
+* **DSCWCN-187:** Notification组件新增更新能力，自定义title属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
+* **POSACN-187:** notification文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
+* **POSACN-187:** notification新增唯一id值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
+
+
+### Bug Fixes
+
+* 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
+* DateTimePicker设置maxDate后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
+
 ### [0.1.59](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.53...v0.1.59) (2023-04-17)
 
 ### Features
