@@ -206,21 +206,21 @@ Select = FormItem(
       if (options.length > 0 && typeof options[0] === 'object') {
         if ((options[0] as GroupSelectOption<T>).group !== undefined) {
           let pos = 0
-          ;(options as GroupSelectOption<T>[]).forEach(o => {
-            if (o.options.length) {
-              groupNames.push({
-                index: pos,
-                name: (o as GroupSelectOption<T>).group
-              })
-              selectOptions.push(...(o as GroupSelectOption<T>).options)
-              pos += o.options.length
-            }
-          })
+            ; (options as GroupSelectOption<T>[]).forEach(o => {
+              if (o.options.length) {
+                groupNames.push({
+                  index: pos,
+                  name: (o as GroupSelectOption<T>).group
+                })
+                selectOptions.push(...(o as GroupSelectOption<T>).options)
+                pos += o.options.length
+              }
+            })
         } else {
           selectOptions = options as SelectOption<T>[]
         }
       } else {
-        ;(options as unknown as string[]).forEach(option => {
+        ; (options as unknown as string[]).forEach(option => {
           selectOptions.push({ text: option + '', value: option as any })
         })
       }
@@ -232,7 +232,7 @@ Select = FormItem(
     const resolveDisplay = (
       displayText: ReactNode,
       display: Array<string> | string,
-      option: object
+      option: Record<string, any>
     ) => {
       if (Array.isArray(display)) {
         display.forEach((item, index) => {
@@ -495,8 +495,8 @@ Select = FormItem(
                     }
                     return true
                   }).length === 0 && (
-                    <div className="pui-select-no-data">暂无数据</div>
-                  )}
+                      <div className="pui-select-no-data">暂无数据</div>
+                    )}
                 </div>
                 {bottomElement}
               </div>
