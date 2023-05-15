@@ -460,7 +460,7 @@ function Form<T = any>({
   }
 
   if (name) {
-    Form[name] = {
+    ;(Form as any)[name] = {
       getData() {
         return fData
       },
@@ -523,7 +523,7 @@ function Form<T = any>({
 }
 
 Form.findByName = (name: string) => {
-  return Form[name] as {
+  return (Form as any)[name] as {
     submit: () => void | Promise<any>
     reset: () => void
     setData: (data: any) => void
