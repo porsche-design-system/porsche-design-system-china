@@ -1778,7 +1778,7 @@ jet.extend(jeDatePick.prototype, {
       },
       monthShow(val, index) {
         DTS.year = false
-        DTS.month = !DTS.month
+        DTS.month = that.dlen === 2 ? true : !DTS.month
         that.$opts.isClickYearNow = false
         that.$opts.clickYearVal = null
         // that.$opts.isClickMonthBtn = true
@@ -1909,7 +1909,9 @@ jet.extend(jeDatePick.prototype, {
           i
         )
         that.renderDate(8)
-        that.monthShow(1, i)
+        if (that.format !== 'YYYY') {
+          that.monthShow(1, i)
+        }
         if (that.$opts.yearItemClickFun) {
           that.$opts.yearItemClickFun(val)
         }
