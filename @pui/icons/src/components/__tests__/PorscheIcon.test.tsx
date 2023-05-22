@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import Icon, { IconDefinition } from "../PorscheIcon";
-// import IconBase from '../IconBase';
 jest.mock("../IconBase", () => () => <div>mockIconBase</div>);
 
 describe("PorscheIcon", () => {
