@@ -3,6 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "esModuleInterop": true,
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
