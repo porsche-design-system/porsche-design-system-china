@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { addMonth } from '../../shared/date-utils'
-import { DateRangePicker, Form, MonthRangePicker } from '../..'
+import { DateRangePicker, Form } from '../..'
 
 export default {
   title: 'Data Entry/DateRangePicker',
@@ -55,10 +55,10 @@ export const DateRangePickerStoryBook1 = () => {
   }, [dates])
   return (
     <div>
-      <MonthRangePicker
+      <DateRangePicker
         filterMode
         width="330px"
-        label="来访日期(年月)"
+        label="来访日期(年月日)"
         showClearButton
         placeholderStartDate="开始日期"
         placeholderEndDate="结束日期"
