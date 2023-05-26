@@ -214,8 +214,8 @@ const DateRangePicker = FormItem(
 
     const updateCalendar = () => {
       setCalendarDates([
-        getMonthCalDates(displayDate.current),
-        getMonthCalDates(addMonth(displayDate.current))
+        getMonthCalDates(displayDate.current, true),
+        getMonthCalDates(addMonth(displayDate.current), true)
       ])
     }
 
