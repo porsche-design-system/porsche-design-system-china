@@ -146,6 +146,8 @@ const MonthRangePicker = FormItem(
 
     const [, setForceUpdate] = useState(0)
 
+    const monthDisplayText = t('Months').split(' ')
+
     // 当前年月
     const [currentDate, setCurrentDate] = useState(new Date())
     // 选中的Date
@@ -445,7 +447,7 @@ const MonthRangePicker = FormItem(
                     setPreDisplayValues([...preDisplayValues])
                   }}
                 >
-                  {date.getMonth() + 1}月
+                  {monthDisplayText[date.getMonth()]}
                 </div>
               )
             })}
