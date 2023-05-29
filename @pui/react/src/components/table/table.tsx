@@ -68,6 +68,15 @@ export interface TableProps<T = any, K = any> {
   /** 可选定行 */
   selectable?: boolean
 
+  /** 行的key，如果开启了勾选（selectable）内容必须设置，一般来说是"id" */
+  rowKey?: string
+
+  /** 默认选定行的 id 数组 */
+  selectedRowKeyValues?: string[] | number[]
+
+  /** 选定行 id 发生改变，返回所有 id，包含翻页 */
+  onSelectedRowKeyValuesChange?: (keys: any[]) => void
+
   /** 表格高度 */
   height?: string
 
@@ -128,6 +137,8 @@ const Table = <T, K>({
   className,
   style,
   columns,
+  rowKey,
+  selectedRowKeyValues = [],
   data = [],
   onSort,
   onSelect,
@@ -139,6 +150,7 @@ const Table = <T, K>({
   cellVerticalAlign = 'middle',
   expandArrowStyle,
   expandData = [],
+  onSelectedRowKeyValuesChange,
   // sortType = 'single',
   onExpand,
   onCollapse,
@@ -166,9 +178,24 @@ const Table = <T, K>({
 
   useEffect(() => {
     setExpandRows([])
-    setSelectedRows([])
-    setPartChecked(false)
-    setAllChecked(false)
+    if (rowKey) {
+      const sRows: number[] = []
+      data.forEach((d: any, inx: number) => {
+        if ((selectedRowKeyValues as any[]).includes(d[rowKey])) {
+          sRows.push(inx)
+        }
+      })
+      setSelectedRows(sRows)
+      setPartChecked(sRows.length < data.length && sRows.length > 0)
+      setAllChecked(sRows.length === data.length)
+    } else {
+      if (selectable) {
+        console.warn('设置了 selectable 应该加上 rowKey')
+      }
+      setSelectedRows([])
+      setPartChecked(false)
+      setAllChecked(false)
+    }
   }, [data])
 
   const [sorter, setSorter] = useState<Sorter>(defaultSorter)
@@ -304,7 +331,7 @@ const Table = <T, K>({
       } else if (!col.key) {
         col.width = defaultWidth
       } else {
-        data.forEach(d => {
+        data.forEach((d: any) => {
           if (d[col.key!]) {
             const dataColWidth =
               getByteLength(d[col.key! as string]) * charWidth
@@ -470,6 +497,22 @@ const Table = <T, K>({
     })
     setSelectedRows([...sRows])
     onSelect && onSelect(rowData, rowData.length === data.length)
+    if (rowKey) {
+      data.forEach((d: any) => {
+        const v = d[rowKey]
+        const inx = selectedRowKeyValues.findIndex((sv: any) => sv === v)
+        if (inx >= 0) {
+          selectedRowKeyValues.splice(inx, 1)
+        }
+      })
+
+      onSelectedRowKeyValuesChange &&
+        onSelectedRowKeyValuesChange(
+          Array.from(
+            new Set([...selectedRowKeyValues, ...rowData.map(rd => rd[rowKey])])
+          )
+        )
+    }
   }
 
   const sortCallback = (column: TableColumn) => {
