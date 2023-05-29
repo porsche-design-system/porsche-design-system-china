@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.60...v0.1.61) (2023-05-29)
+
+
+### Features
+
+* 添加DatePicker的picker属性(date|month,默认date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
+
+
+### Bug Fixes
+
+* 修复data time picker的format为yyyy和yyyy-mm时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
+* 修正form表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
+
 ### [0.1.60](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.59...v0.1.60) (2023-05-09)
 
 
