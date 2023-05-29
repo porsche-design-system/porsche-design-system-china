@@ -1,7 +1,15 @@
 import { IconMenuDotsHorizontal } from '@pui/icons'
 import React, { useState } from 'react'
 
-import { Table, Button, TableColumn, Modal, SortType, Select } from '../..'
+import {
+  Table,
+  Button,
+  TableColumn,
+  Modal,
+  SortType,
+  Select,
+  Pagination
+} from '../..'
 
 export default {
   title: 'Data Display/Table',
@@ -100,6 +108,7 @@ export const TableStoryBook = () => {
         data={tableData}
         columns={columns}
         selectable
+        rowKey="id"
         height="300px"
         scrollBarAutoHide={scrollBarAutoHide}
         onSelect={(data, allChecked) => {
@@ -581,3 +590,58 @@ export const TableStoryBook7 = () => {
 }
 
 TableStoryBook7.storyName = 'Expand Action'
+
+export const TableStoryBook8 = () => {
+  const [current, setCurrent] = useState(1)
+  const [selectedRowKeyValues, setSelectedRowKeyValues] = useState([1, 3])
+  const rowData = {
+    id: 0,
+    dealerName: '上海浦东保时捷中心'
+  }
+
+  type DataType = typeof rowData
+
+  const tableData: DataType[] = []
+  for (let i = 0; i < 30; i++) {
+    rowData.id = i + 1
+    tableData.push({ ...rowData })
+  }
+
+  const columns: TableColumn<DataType>[] = [
+    {
+      title: 'ID',
+      width: 50,
+      key: 'id'
+    },
+    {
+      title: '经销商',
+      key: 'dealerName'
+    }
+  ]
+
+  return (
+    <div>
+      <div>分页，并且保留勾选状态，默认勾选状态</div>
+      <br />
+      <Table
+        selectable
+        rowKey="id"
+        selectedRowKeyValues={selectedRowKeyValues}
+        onSelectedRowKeyValuesChange={setSelectedRowKeyValues}
+        data={tableData.splice((current - 1) * 5, 5)}
+        columns={columns}
+        onRowClick={rowData => {
+          console.log(rowData)
+        }}
+      />
+      <Pagination
+        current={current}
+        onCurrentChange={setCurrent}
+        total={tableData.length}
+        pageSize={5}
+      />
+    </div>
+  )
+}
+
+TableStoryBook8.storyName = 'Paging'
