@@ -10,7 +10,16 @@ import {
   IconErrorFilled
 } from '@pui/icons'
 import classNames from 'classnames'
-import { inDateRange, inDisableDates } from '../../shared/date-utils'
+import {
+  addDays,
+  dateToStr,
+  getMonthCalDates,
+  getYearCalMonths,
+  inDateRange,
+  inDisableDates,
+  sameDate,
+  strToDate
+} from '../../shared/date-utils'
 import { supportTouch } from '../../shared/device'
 import { FormItem } from '../form/form-item'
 import { FormErrorText } from '../error-text/error-text'
@@ -26,6 +35,9 @@ import { PUI } from '../pui/pui'
 import './lang'
 
 export interface DatePickerProps {
+  /** 设置选择器类型 默认 date */
+  pickerType?: 'date' | 'month'
+
   /** 类名 */
   className?: string
 
@@ -94,32 +106,12 @@ const DatePicker = FormItem((props: DatePickerProps) => {
     onMenuVisibleChange,
     filterMode = false,
     disableDates,
-    label = ''
+    label = '',
+    pickerType = 'year'
   } = props
   let size = props.size
   let range = props.range
   const validateFormItem = (props as any).validateFormItem
-  const strToDate = (dateStr: string) => {
-    const datePart = dateStr.split('-')
-    if (datePart.length === 3) {
-      if (
-        /^\d{4}$/.test(datePart[0]) &&
-        /^\d{2}$/.test(datePart[1]) &&
-        /^\d{2}$/.test(datePart[2])
-      ) {
-        const date = new Date(
-          parseInt(datePart[0]),
-          parseInt(datePart[1]) - 1,
-          parseInt(datePart[2])
-        )
-        return date
-      }
-    }
-    if (dateStr !== '') {
-      console.error('"' + dateStr + '" 不是正确的日期')
-    }
-    return null
-  }
 
   const newKeepClearButton = keepClearButton || supportTouch()
   const { t } = useTranslation('DatePicker')
@@ -127,7 +119,9 @@ const DatePicker = FormItem((props: DatePickerProps) => {
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
 
-  const initDate = strToDate(value || defaultValue || '')
+  const isDatePicker = pickerType === 'year'
+  const isMonthPicker = pickerType === 'month'
+  const initDate = strToDate(value || defaultValue || '', isMonthPicker)
   const [calenderOpen, setCalendarOpen, puiPopupWrap] = usePopShowState(() => {
     if (open === undefined) {
       setMenuOpen(undefined)
@@ -154,12 +148,14 @@ const DatePicker = FormItem((props: DatePickerProps) => {
 
   const [, setForceUpdate] = useState(0)
 
+  const monthDisplayText = t('Months').split(' ')
+
   // 改变了范围，并且选定的日期不在范围内
   useEffect(() => {
     if (pickedDate) {
       if (
-        (!inDateRange(pickedDate, range as [Date, Date], true) ||
-          inDisableDates(pickedDate, disableDates)) &&
+        (!inDateRange(pickedDate, range as [Date, Date], true, isMonthPicker) ||
+          inDisableDates(pickedDate, disableDates, isMonthPicker)) &&
         !disabled
       ) {
         setPickedDate(null)
@@ -167,7 +163,7 @@ const DatePicker = FormItem((props: DatePickerProps) => {
         onValueChange && onValueChange('', true)
       }
     }
-  }, [disableDates, range])
+  }, [disableDates, range, isMonthPicker])
 
   if (typeof range === 'object') {
     if (typeof range[0] === 'object' && range[0] !== null) {
@@ -180,11 +176,15 @@ const DatePicker = FormItem((props: DatePickerProps) => {
   }
 
   if (typeof range === 'string') {
-    if (/In(\d)Days/.test(range)) {
-      const days = RegExp.$1
-      const endDate = new Date()
-      endDate.setDate(endDate.getDate() + parseInt(days) - 1)
-      range = [new Date(), endDate]
+    const [, countStr] = range.match(/^In(\d+)Days$/) || []
+    const count = parseInt(countStr)
+    if (count > 0) {
+      const date = new Date()
+      const endDate = addDays(date, count - 1)
+      range = [
+        dateToStr(date, isMonthPicker),
+        dateToStr(endDate, isMonthPicker)
+      ]
     } else {
       range = range.split(',') as [string, string]
     }
@@ -192,7 +192,7 @@ const DatePicker = FormItem((props: DatePickerProps) => {
 
   if (Array.isArray(range) && range.length === 2) {
     if (typeof range[0] === 'string') {
-      const startDate = strToDate(range[0])
+      const startDate = strToDate(range[0], isMonthPicker)
       if (!startDate) {
         console.error('Format Incorrect', range[0])
       }
@@ -200,7 +200,7 @@ const DatePicker = FormItem((props: DatePickerProps) => {
     }
 
     if (typeof range[1] === 'string') {
-      const endDate = strToDate(range[1])
+      const endDate = strToDate(range[1], isMonthPicker)
       if (!endDate) {
         console.error('Format Incorrect', range[1])
       }
@@ -211,62 +211,23 @@ const DatePicker = FormItem((props: DatePickerProps) => {
   }
 
   const updateCalendar = () => {
-    const calenderFirstDate = new Date(displayDate.current)
-    calenderFirstDate.setDate(1)
-    while (calenderFirstDate.getDay() !== 0) {
-      calenderFirstDate.setDate(calenderFirstDate.getDate() - 1)
+    let calDates: Date[] = []
+    if (isDatePicker) {
+      calDates = getMonthCalDates(displayDate.current)
     }
-
-    const calDates: Date[] = []
-    const calDate = calenderFirstDate
-
-    while (true) {
-      calDates.push(new Date(calDate))
-      calDate.setDate(calDate.getDate() + 1)
-      const nextDay = new Date(calDate)
-      nextDay.setDate(nextDay.getDate() + 1)
-      if (
-        calDate.getDay() === 6 &&
-        nextDay.getMonth() !== displayDate.current.getMonth()
-      ) {
-        calDates.push(new Date(calDate))
-        break
-      }
+    if (isMonthPicker) {
+      calDates = getYearCalMonths(displayDate.current)
     }
     setCalendarDates(calDates)
   }
 
   useEffect(() => {
     if (defaultValue === undefined) {
-      const date = strToDate(value || '')
+      const date = strToDate(value || '', isMonthPicker)
       setPickedDate(date)
-      setDisplayValue(date ? dateToStr(date) : '')
+      setDisplayValue(date ? dateToStr(date, isMonthPicker) : '')
     }
   }, [value])
-
-  const dateToStr = (date: Date) => {
-    const addZero = (n: number) => {
-      if (n < 10) {
-        return '0' + n
-      }
-      return n
-    }
-    return (
-      date.getFullYear() +
-      '-' +
-      addZero(date.getMonth() + 1) +
-      '-' +
-      addZero(date.getDate())
-    )
-  }
-
-  const sameDate = (d1: Date, d2: Date) => {
-    return (
-      d1.getFullYear() === d2.getFullYear() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getDate() === d2.getDate()
-    )
-  }
 
   const labelText =
     (label as any).text !== undefined ? (label as any).text : label
@@ -397,7 +358,9 @@ const DatePicker = FormItem((props: DatePickerProps) => {
         ReactDOM.createPortal(
           <div
             style={{ position: 'absolute', ...menuPos }}
-            className={`pui-date-picker-size-${size}`}
+            className={classNames(`pui-date-picker-size-${size}`, {
+              'pui-month-picker': isMonthPicker
+            })}
           >
             <div
               ref={popMenuElem => {
@@ -426,35 +389,40 @@ const DatePicker = FormItem((props: DatePickerProps) => {
                       updateCalendar()
                     }}
                   />
-                  <IconArrowHeadLeft
-                    onClick={() => {
-                      displayDate.current.setDate(1)
-                      displayDate.current.setMonth(
-                        displayDate.current.getMonth() - 1
-                      )
-                      updateCalendar()
-                    }}
-                  />
+                  {isDatePicker && (
+                    <IconArrowHeadLeft
+                      onClick={() => {
+                        displayDate.current.setDate(1)
+                        displayDate.current.setMonth(
+                          displayDate.current.getMonth() - 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
+                  )}
                 </div>
                 {PUI.getLang() === 'en' &&
-                  t('Months').split(' ')[displayDate.current.getMonth()] +
-                    ' ' +
-                    displayDate.current.getFullYear()}
+                  (isDatePicker
+                    ? monthDisplayText[displayDate.current.getMonth()]
+                    : '') + displayDate.current.getFullYear()}
                 {PUI.getLang() === 'zh-CN' &&
                   displayDate.current.getFullYear() +
                     '年' +
-                    (displayDate.current.getMonth() + 1) +
-                    '月'}
+                    (isDatePicker
+                      ? monthDisplayText[displayDate.current.getMonth()]
+                      : '')}
                 <div className="pui-date-picker-calendar-head-right">
-                  <IconArrowHeadRight
-                    onClick={() => {
-                      displayDate.current.setDate(1)
-                      displayDate.current.setMonth(
-                        displayDate.current.getMonth() + 1
-                      )
-                      updateCalendar()
-                    }}
-                  />
+                  {isDatePicker && (
+                    <IconArrowHeadRight
+                      onClick={() => {
+                        displayDate.current.setDate(1)
+                        displayDate.current.setMonth(
+                          displayDate.current.getMonth() + 1
+                        )
+                        updateCalendar()
+                      }}
+                    />
+                  )}
                   <IconArrowDoubleRight
                     onClick={() => {
                       displayDate.current.setDate(1)
@@ -466,18 +434,20 @@ const DatePicker = FormItem((props: DatePickerProps) => {
                   />
                 </div>
               </div>
-              <div className="pui-date-picker-calendar-weekdays">
-                {t('Weekdays')
-                  .split(' ')
-                  .map(weekday => (
-                    <div
-                      key={weekday}
-                      className="pui-date-picker-calendar-weekday"
-                    >
-                      {weekday}
-                    </div>
-                  ))}
-              </div>
+              {isDatePicker && (
+                <div className="pui-date-picker-calendar-weekdays">
+                  {t('Weekdays')
+                    .split(' ')
+                    .map(weekday => (
+                      <div
+                        key={weekday}
+                        className="pui-date-picker-calendar-weekday"
+                      >
+                        {weekday}
+                      </div>
+                    ))}
+                </div>
+              )}
               <div className="pui-date-picker-calendar-dates">
                 {calendarDates.map(date => {
                   return (
@@ -485,42 +455,55 @@ const DatePicker = FormItem((props: DatePickerProps) => {
                       key={date.getTime() + ''}
                       className={
                         'pui-date-picker-calendar-block ' +
-                        (sameDate(date, currentDate)
+                        (sameDate(date, currentDate, isMonthPicker)
                           ? 'pui-date-picker-calendar-today'
                           : '') +
                         ' ' +
-                        (!inDateRange(date, range as [Date, Date], true) ||
-                        inDisableDates(date, disableDates)
+                        (!inDateRange(
+                          date,
+                          range as [Date, Date],
+                          true,
+                          isMonthPicker
+                        ) || inDisableDates(date, disableDates, isMonthPicker)
                           ? 'pui-date-picker-calendar-unavailable'
                           : '') +
                         ' ' +
-                        (date.getMonth() !== displayDate.current.getMonth()
+                        (isDatePicker &&
+                        date.getMonth() !== displayDate.current.getMonth()
                           ? 'pui-date-picker-calendar-not-same-month'
                           : '') +
                         ' ' +
-                        (pickedDate && sameDate(date, pickedDate)
+                        (pickedDate && sameDate(date, pickedDate, isMonthPicker)
                           ? 'pui-date-picker-calendar-picked'
                           : '')
                       }
                       onClick={() => {
                         if (
-                          !inDateRange(date, range as [Date, Date], true) ||
-                          inDisableDates(date, disableDates)
+                          !inDateRange(
+                            date,
+                            range as [Date, Date],
+                            true,
+                            isMonthPicker
+                          ) ||
+                          inDisableDates(date, disableDates, isMonthPicker)
                         ) {
                           return
                         }
                         if (value === undefined) {
                           setPickedDate(new Date(date))
-                          setDisplayValue(dateToStr(date))
+                          setDisplayValue(dateToStr(date, isMonthPicker))
                         }
                         setCalendarOpen(false)
                         if (open === undefined) {
                           setMenuOpen(undefined)
                         }
-                        onValueChange && onValueChange(dateToStr(date))
+                        onValueChange &&
+                          onValueChange(dateToStr(date, isMonthPicker))
                       }}
                     >
-                      {date.getDate()}
+                      {isMonthPicker
+                        ? monthDisplayText[date.getMonth()]
+                        : date.getDate()}
                     </div>
                   )
                 })}

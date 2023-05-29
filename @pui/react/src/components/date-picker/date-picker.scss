@@ -212,5 +212,17 @@
         }
       }
     }
+    .pui-month-picker {
+      .pui-date-picker {
+        &-calendar {
+          &-block {
+            width: calc(100% / 3 - 8px);
+          }
+          &-unavailable {
+            width: calc(100% / 3);
+          }
+        }
+      }
+    }
   }
 }
