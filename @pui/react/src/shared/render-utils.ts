@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM, { unmountComponentAtNode } from 'react-dom'
+import { Root } from 'react-dom/client';
 
 const IsReact18 = React.version.split('.')[0] === '18'
 
-const renderRootMap = {}
+const renderRootMap: Record<string, Root> = {}
 export const renderNode = (node: any, container: any) => {
   if (IsReact18) {
     // eslint-disable-next-line no-inner-declarations
