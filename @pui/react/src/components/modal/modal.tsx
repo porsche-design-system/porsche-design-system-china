@@ -16,10 +16,9 @@ import React, {
 import ReactDOM from 'react-dom'
 import { renderNode } from '../../shared/render-utils'
 
-import { Button } from '..'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
-import { ButtonProps } from '../button/button'
+import { ButtonProps , Button } from '../button/button'
 import './modal.scss'
 
 export interface ModalProps {
@@ -229,6 +228,7 @@ const Modal = ({
           />
           <div className="pui-modal-wrap">
             <div
+              data-testid='pui-modal-wrap-child'
               style={style}
               className={componentClassNames(
                 'pui-modal',
@@ -559,7 +559,6 @@ Modal.show = ({
       onOk={() => {
         if (onOk) {
           const loadingPromise = onOk()
-
           if (loadingPromise) {
             modalSetIsLoading(true)
             ;(loadingPromise as Promise<unknown>)
