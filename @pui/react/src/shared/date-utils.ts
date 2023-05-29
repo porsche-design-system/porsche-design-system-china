@@ -75,16 +75,22 @@ export const isDateEquals = (
 
 export const inDisableDates = (
   date: Date,
-  disableDates: string[] | Date[] | ((data: Date) => boolean) | undefined | null
+  disableDates:
+    | string[]
+    | Date[]
+    | ((data: Date) => boolean)
+    | undefined
+    | null,
+  isMonth = false
 ) => {
   let isDisableDate = false
   if (Array.isArray(disableDates)) {
     disableDates.forEach(disableDate => {
       if (typeof disableDate === 'string') {
-        if (sameDate(strToDate(disableDate), date)) {
+        if (sameDate(strToDate(disableDate, isMonth), date, isMonth)) {
           isDisableDate = true
         }
-      } else if (sameDate(disableDate, date)) {
+      } else if (sameDate(disableDate, date, isMonth)) {
         isDisableDate = true
       }
     })
@@ -136,7 +142,7 @@ export const inDateRange = (
   return true
 }
 
-export const getMonthCalDates = (date: Date) => {
+export const getMonthCalDates = (date: Date, isRange = false) => {
   const calenderFirstDate = new Date(date)
   calenderFirstDate.setDate(1)
   while (calenderFirstDate.getDay() !== 0) {
@@ -151,7 +157,15 @@ export const getMonthCalDates = (date: Date) => {
     calDate.setDate(calDate.getDate() + 1)
     const nextDay = new Date(calDate)
     nextDay.setDate(nextDay.getDate() + 1)
-    if (calDates.length >= 41) {
+    if (isRange) {
+      if (calDates.length >= 41) {
+        calDates.push(new Date(calDate))
+        break
+      }
+    } else if (
+      calDate.getDay() === 6 &&
+      nextDay.getMonth() !== date.getMonth()
+    ) {
       calDates.push(new Date(calDate))
       break
     }
@@ -168,6 +182,11 @@ export const getYearCalMonths = (date: Date) => {
   }
 
   return calDates
+}
+
+export const addDays = (date: Date, count: number = 1) => {
+  const d = new Date(date).getTime() + 86400000 * count
+  return new Date(d)
 }
 
 export const addMonth = (date: Date, count: number = 1) => {

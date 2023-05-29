@@ -4,7 +4,7 @@ import { Root } from 'react-dom/client';
 
 const IsReact18 = React.version.split('.')[0] === '18'
 
-const renderRootMap: Record<string, Root> = {}
+const renderRootMap: Record<string, any> = {}
 export const renderNode = (node: any, container: any) => {
   if (IsReact18) {
     // eslint-disable-next-line no-inner-declarations
@@ -22,7 +22,7 @@ export const renderNode = (node: any, container: any) => {
     }
 
     if (!(container as any).id) {
-      ;(container as any).id =
+      ; (container as any).id =
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
 

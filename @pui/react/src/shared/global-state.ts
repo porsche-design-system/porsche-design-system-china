@@ -5,7 +5,7 @@ declare const process: any
 export const GLOBAL_STATE = {
   DEBUG: false
 }
-const stateSetters = {}
+const stateSetters: Record<string, any> = {}
 export const getGlobalStateSetter = (name: string) => {
   return stateSetters[name]
 }

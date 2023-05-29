@@ -14,7 +14,7 @@ i18n.use(initReactI18next).init({
 
 type ThemeName = 'light' | 'dark'
 type LangCode = 'en' | 'zh-CN'
-export const PUI = {
+export const PUI: Record<string, any> = {
   setTheme(themeName: ThemeName) {
     this['_themeName'] = themeName
     if (getGlobalStateSetter('THEME_NAME')) {
@@ -52,7 +52,7 @@ export const PUI = {
     resource: { en?: Record<string, string>; 'zh-CN'?: Record<string, string> }
   ) {
     Object.keys(resource).forEach(lang => {
-      i18n.addResources(lang, nameSpace, resource[lang])
+      i18n.addResources(lang, nameSpace, resource[lang as keyof typeof resource])
     })
   },
   changeLang(lang: LangCode) {
@@ -62,7 +62,7 @@ export const PUI = {
     return i18n.language as LangCode
   }
 }
-;(window as any).PUI = PUI
+  ; (window as any).PUI = PUI
 
 if (document.body.className.indexOf('pui-theme-') < 0) {
   PUI.setTheme('light')
