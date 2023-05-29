@@ -54,6 +54,7 @@ const Steps = ({
         onCurrentChange(index)
       }
     }
+    return null
   }
   const childrenArray = React.Children.toArray(children)
   const newChildrenArray = childrenArray.map((child, index) => {
