@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM, { unmountComponentAtNode } from 'react-dom'
-import { Root } from 'react-dom/client';
 
 const IsReact18 = React.version.split('.')[0] === '18'
 
