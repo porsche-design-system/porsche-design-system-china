@@ -15,7 +15,7 @@ import {
   IconArrowHeadRight
 } from '@pui/icons'
 import { renderNode, unmountNode } from '../../shared/render-utils'
-import { Button } from '..'
+import { Button } from '../button/button'
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
 import './notification.scss'
