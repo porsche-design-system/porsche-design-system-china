@@ -69,9 +69,6 @@ export const NotificationStoryBook2 = () => {
   const onClick = (config?: any) => {
     Notification.pop(config)
   }
-  const onUpdate = (config?: any) => {
-    Notification.update(config)
-  }
 
   return (
     <div>
@@ -96,17 +93,6 @@ export const NotificationStoryBook2 = () => {
       >
         Error
       </Button>
-      <Button
-        onClick={() =>
-          onUpdate({ ...config, closeAnimate: true, type: 'error' })
-        }
-        type="primary"
-      >
-        更新
-      </Button>
-      <span>
-        (更新的key要相同，并且closeAnimate要设置成true关闭动画防止闪动)
-      </span>
     </div>
   )
 }
@@ -241,3 +227,54 @@ export const NotificationStoryBook5 = () => {
   )
 }
 NotificationStoryBook5.storyName = '自定义footer'
+
+export const NotificationStoryBook6 = () => {
+  const config = {
+    type: 'info',
+    cancelText: '三级按钮',
+    okText: '一级按钮',
+    message: '通知标题',
+    key: 'update-6',
+    closeAnimate: true,
+    onOk: () => {
+      Notification.close(config.key)
+    },
+    description: '点击更新按钮更新状态'
+  }
+  const onClick = (config?: any) => {
+    Notification.pop(config)
+  }
+  const onUpdate = (config?: any) => {
+    Notification.update(config)
+  }
+
+  return (
+    <div>
+      <Button onClick={() => onClick({ ...config })} type="default">
+        Info
+      </Button>
+      <Button
+        onClick={() => onUpdate({ ...config, type: 'warning' })}
+        type="primary"
+      >
+        Warning
+      </Button>
+      <Button
+        onClick={() => onUpdate({ ...config, type: 'success' })}
+        type="secondary"
+      >
+        Success
+      </Button>
+      <Button
+        onClick={() => onUpdate({ ...config, type: 'error' })}
+        type="primary"
+      >
+        Error
+      </Button>
+      <Button onClick={() => onUpdate({ ...config })} type="default">
+        状态更新
+      </Button>
+    </div>
+  )
+}
+NotificationStoryBook6.storyName = '状态更新'
