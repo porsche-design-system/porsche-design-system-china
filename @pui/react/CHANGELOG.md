@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.62](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.59...v0.1.62) (2023-06-01)
+
+
+### Features
+
+* **DSCWCN-187:** Notification组件新增更新能力，自定义title属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
+* **POSACN-187:** notification文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
+* **POSACN-187:** notification新增唯一id值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
+* **POSACN-187:** 更新notification文档 ([2bb61e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2bb61e7eb6dce75df1157937203fed03755928ef))
+* 加入Table翻页选择功能 ([0993b67](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0993b672ef6272cbcfbd9cace2c98cfe12459434))
+* 添加DatePicker的picker属性(date|month,默认date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
+
+
+### Bug Fixes
+
+* DateTimePicker设置maxDate后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
+* **DSCWCN-185:** 更改 Input 组件后缀字体大小 ([dc99459](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dc99459637ec7d6da0d86db4491481aacb52383f))
+* remove unused import ([ec303b1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ec303b117a7febfd98bd1a5daacbb30845d1fd75))
+* 修复data time picker的format为yyyy和yyyy-mm时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
+* 修正form表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
+* 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
+
 ### [0.1.61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.60...v0.1.61) (2023-05-29)
 
 
