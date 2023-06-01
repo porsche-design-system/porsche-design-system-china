@@ -16,6 +16,7 @@
         line-height: 42px;
         padding: 0 6px;
         color: $text-color-1;
+
         span {
           color: $text-opacity-color-2;
         }
@@ -36,7 +37,8 @@
 
         &::placeholder {
           color: $text-opacity-color-2;
-          opacity: 1; /* Firefox */
+          opacity: 1;
+          /* Firefox */
         }
 
         &:-ms-input-placeholder {
@@ -59,7 +61,8 @@
         cursor: not-allowed;
         opacity: 1;
         color: $text-opacity-color-2;
-        & + .pui-input-suffix-icon {
+
+        &+.pui-input-suffix-icon {
           color: $text-opacity-color-2;
         }
       }
@@ -68,6 +71,7 @@
         input {
           border: 1px solid $status-error-color;
         }
+
         input:hover,
         input:focus {
           border: 1px solid $status-error-color-hover;
@@ -79,12 +83,14 @@
           padding-right: 42px;
         }
       }
+
       &-suffix-icon,
       &-right-button {
         position: absolute;
         right: 10px;
         top: 12px;
       }
+
       &-clear,
       &-view {
         user-select: none;
@@ -100,22 +106,27 @@
           font-size: 12px;
           margin-top: -39px;
         }
+
         .pui-input-suffix-icon {
-          font-size: 16px;
+          font-size: 14px;
           top: 6px;
         }
+
         .pui-input-right-button {
           font-size: 18px;
           top: 9px;
         }
       }
+
       &-size-tiny {
         position: relative;
+
         input {
           height: 28px;
           font-size: 14px;
           padding: 0 8px;
         }
+
         .pui-input-char-count {
           font-size: 14px;
           height: 26px;
@@ -123,14 +134,17 @@
           top: 45px;
           right: 2px;
         }
+
         .pui-input-suffix-icon {
-          font-size: 16px;
+          font-size: 14px;
           top: 2px;
         }
+
         .pui-input-right-button {
           font-size: 18px;
           top: 5px;
         }
+
         &.pui-input-show-right-button-true {
           input {
             padding-right: 42px;
