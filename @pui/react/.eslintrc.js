@@ -51,6 +51,8 @@ module.exports = {
     'react/no-unstable-nested-components': 'off',
     'react/jsx-no-useless-fragment': 'off',
     'react/no-unused-prop-types': 'off',
-    'no-empty': 'off'
+    'no-empty': 'off',
+    'no-return-assign': 'off',
+    'react/button-has-type': 'off'
   }
 }
