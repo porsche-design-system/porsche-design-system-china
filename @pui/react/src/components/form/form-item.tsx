@@ -48,6 +48,9 @@ export interface FormItemProps {
 
   /** 在输入的时候立即校验，而不是等到 onblur 后才开始校验 */
   instantValidate?: boolean
+
+  /** 是否显示必填标记（*） */
+  requiredMark?: boolean
 }
 
 export const FormItem =
@@ -69,7 +72,8 @@ export const FormItem =
         filterMode = false,
         className,
         name,
-        instantValidate
+        instantValidate,
+        requiredMark
       } = props
 
       const [internalError, setInternalError] = useState('')
@@ -95,6 +99,10 @@ export const FormItem =
           show: true,
           message: internalError
         }
+      }
+
+      if (typeof requiredMark === 'boolean') {
+        required = requiredMark
       }
 
       const validateFormItem = (val?: any) => {

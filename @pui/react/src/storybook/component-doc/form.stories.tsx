@@ -781,3 +781,56 @@ export const ExampleStoryBook8 = () => {
 }
 
 ExampleStoryBook8.storyName = '嵌套组件'
+
+export const ExampleStoryBook9 = () => {
+  const [show, setShow] = useState<boolean>(true)
+
+  return (
+    <div>
+      <Form style={{ width: '600px' }} name="form9">
+        <Input
+          label="姓名"
+          name="name"
+          maxLength={10}
+          rules={{ required: true, message: '必填' }}
+          error={{ show: false }}
+          requiredMark={show}
+        />
+        <Input
+          label="年龄"
+          name="age"
+          maxLength={10}
+          rules={[{ required: true, message: '必填' }]}
+        />
+        <ButtonGroup>
+          <Button
+            type="default"
+            onClick={() => {
+              Form.findByName('form9').submit()
+            }}
+          >
+            提交
+          </Button>
+          <Button
+            type="default"
+            onClick={() => {
+              Form.findByName('form9').reset()
+            }}
+          >
+            重置
+          </Button>
+          <Button
+            type="secondary"
+            onClick={() => {
+              setShow(!show)
+            }}
+          >
+            {show ? '隐藏' : '显示'}必填标记
+          </Button>
+        </ButtonGroup>
+      </Form>
+    </div>
+  )
+}
+
+ExampleStoryBook9.storyName = '是否显示必填标记'
