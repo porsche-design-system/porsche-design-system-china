@@ -91,7 +91,15 @@
         top: 12px;
       }
 
-      &-clear,
+      &-clear {
+        user-select: none;
+        color: $icon-clear-color;
+
+        &:hover {
+          color: $icon-clear-color-hover;
+        }
+      }
+
       &-view {
         user-select: none;
       }
