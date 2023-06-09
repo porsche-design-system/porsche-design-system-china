@@ -36,6 +36,8 @@ export interface FormLabelStyle {
 export interface FormItemLabelProps extends FormLabelStyle {
   /** Label显示文字 */
   text: ReactNode
+  /** 是否显示必填标记（*） */
+  requiredMark?: boolean
 }
 
 export interface FormProps<T> {
@@ -164,6 +166,7 @@ export const overrideProps = (
       rules?: RuleItem[] | RuleItem
       error?: FormErrorText
       style?: CSSProperties
+      requiredMark?: boolean
     }
 
     if (itemStyle) {
