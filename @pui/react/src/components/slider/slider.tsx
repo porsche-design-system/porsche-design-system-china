@@ -89,7 +89,8 @@ const Slider = ({
         val < min ? min : val > max ? max : val
       )
     } else {
-      newValue = value < min ? min : value > max ? max : value
+      newValue =
+        (value as number) < min ? min : (value as number) > max ? max : value
     }
     return newValue
   }
@@ -122,7 +123,7 @@ const Slider = ({
         if (range) {
           nextCurrentValue = [...(originVal as Array<number>)]
           nextCurrentValue[index as number] =
-            originVal[index as number] + stepCount * step
+            (originVal as Array<number>)[index as number] + stepCount * step
         } else {
           nextCurrentValue = (originVal as number) + stepCount * step
         }
@@ -131,7 +132,9 @@ const Slider = ({
           ((evt.pageX - pageX) /
             (railRef.current as HTMLDivElement).clientWidth) *
             (max - min) +
-          (range ? originVal[index as number] : originVal)
+          (range
+            ? (originVal as Array<number>)[index as number]
+            : (originVal as number))
         marks.forEach((mark, index) => {
           if (index === 0) {
             nextCurrentValue = mark.value
@@ -154,7 +157,9 @@ const Slider = ({
       }
       if (onValueChange) {
         if (range) {
-          if (validValue[0] > validValue[1]) {
+          if (
+            (validValue as Array<number>)[0] > (validValue as Array<number>)[1]
+          ) {
             const newValidValue = [...(validValue as number[])].reverse()
             onValueChange(newValidValue)
             isExchangeRef.current = true
@@ -238,12 +243,18 @@ const Slider = ({
       }
       if (range) {
         if (
-          Math.abs(currentValue[0] - nextCurrentValue) <
-          Math.abs(currentValue[1] - nextCurrentValue)
+          Math.abs((currentValue as Array<number>)[0] - nextCurrentValue) <
+          Math.abs((currentValue as Array<number>)[1] - nextCurrentValue)
         ) {
-          nextCurrentValue = [nextCurrentValue, currentValue[1]]
+          nextCurrentValue = [
+            nextCurrentValue,
+            (currentValue as Array<number>)[1]
+          ]
         } else {
-          nextCurrentValue = [currentValue[0], nextCurrentValue]
+          nextCurrentValue = [
+            (currentValue as Array<number>)[0],
+            nextCurrentValue
+          ]
         }
       }
       if (value === undefined) {
@@ -264,12 +275,18 @@ const Slider = ({
       let nextCurrentValue: number | Array<number> = markValue
       if (range) {
         if (
-          Math.abs(currentValue[0] - nextCurrentValue) <
-          Math.abs(currentValue[1] - nextCurrentValue)
+          Math.abs((currentValue as Array<number>)[0] - nextCurrentValue) <
+          Math.abs((currentValue as Array<number>)[1] - nextCurrentValue)
         ) {
-          nextCurrentValue = [nextCurrentValue, currentValue[1]]
+          nextCurrentValue = [
+            nextCurrentValue,
+            (currentValue as Array<number>)[1]
+          ]
         } else {
-          nextCurrentValue = [currentValue[0], nextCurrentValue]
+          nextCurrentValue = [
+            (currentValue as Array<number>)[0],
+            nextCurrentValue
+          ]
         }
       }
       if (value === undefined) {
@@ -277,8 +294,14 @@ const Slider = ({
       }
       onValueChange && onValueChange(nextCurrentValue)
     }
-  const trackWidth = range ? Math.abs(left[1] - left[0]) : (left as number)
-  const trackLeft = range ? (left[1] < left[0] ? left[1] : left[0]) : 0
+  const trackWidth = range
+    ? Math.abs((left as Array<number>)[1] - (left as Array<number>)[0])
+    : (left as number)
+  const trackLeft = range
+    ? (left as Array<number>)[1] < (left as Array<number>)[0]
+      ? (left as Array<number>)[1]
+      : (left as Array<number>)[0]
+    : 0
   return (
     <div
       className={classNames(
@@ -287,22 +310,31 @@ const Slider = ({
         className
       )}
       onClick={handleSliderClick}
+      aria-valuenow={value as unknown as number}
+      aria-valuemin={min}
+      aria-valuemax={max}
     >
       <div className={`${prefixCls}-rail`} ref={railRef} />
       {range ? (
-        (currentValue as Array<number>).map((item, index) => (
+        (currentValue as Array<number>).map((_, index) => (
           <Tooltip
             content={(tooltipContent as Array<ReactNode>)[index]}
-            getPopupContainer={() => handleRef[index].current}
-            visible={isHover[index] || isDrag[index]}
+            getPopupContainer={() =>
+              (handleRef as Array<React.RefObject<HTMLDivElement>>)[index]
+                .current
+            }
+            visible={
+              (isHover as Array<boolean>)[index] ||
+              (isDrag as Array<boolean>)[index]
+            }
             key={index}
           >
             <div
-              ref={handleRef[index]}
+              ref={(handleRef as Array<React.RefObject<HTMLDivElement>>)[index]}
               className={`${prefixCls}-handle`}
               onMouseDown={handleMouseDown(currentValue, index)}
               style={{
-                left: left[index],
+                left: (left as Array<number>)[index],
                 display: isShowHandle ? 'flex' : 'none'
               }}
               onMouseEnter={handleMouseEnter(index)}
