@@ -11,7 +11,7 @@ const IconLibrary = () => (
     <br />
     1）更新 icons/iconfont/porsche.js 文件为新的 iconfont 文件
     <br />
-    2）执行 npm run gegerate 命令生成 新的 svg 图片和 图标文件
+    2）执行 npm run generate 命令生成 新的 svg 图片和 图标文件
     <br />
     3）更改 package.json 文件的 version
     <br />
@@ -25,7 +25,7 @@ const IconLibrary = () => (
     <br />
     1）将新图标文件添加到 icons/svg 目录下，命名以 icon 开头
     <br />
-    2）执行 npm run gegerate 命令生成 新的图标文件
+    2）执行 npm run generate 命令生成 新的图标文件
     <br />
     3）更改 package.json 文件的 version
     <br />
