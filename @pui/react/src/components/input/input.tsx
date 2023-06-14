@@ -158,16 +158,6 @@ const Input = FormItem(
       >
         <input
           readOnly={readOnly}
-          ref={(inputRef: HTMLInputElement) => {
-            inputReference.current = inputRef
-            if (inputRef && maxLength && !hideMaxLengthText) {
-              // inputRef.style.paddingRight =
-              //   (maxLength + '').length * 23 + 12 + 'px'
-            }
-            if (inputRef && suffixIcon) {
-              // inputRef.style.paddingRight = '40px'
-            }
-          }}
           placeholder={placeholder}
           maxLength={maxLength}
           type={inputType}
