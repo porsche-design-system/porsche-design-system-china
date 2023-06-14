@@ -82,7 +82,7 @@
     "eslint-plugin-jest": "^27.2.1"
   },
   "dependencies": {
-    "@pui/icons": "^0.0.13",
+    "@pui/icons": "^0.0.15",
     "async-validator": "3.5.2",
     "axios": "0.27.2",
     "classnames": "2.3.1",
