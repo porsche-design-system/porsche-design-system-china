@@ -100,7 +100,7 @@ export const DateTimePickerStoryBook = () => {
           labelPosition="left"
           showStyle="HHMM"
           componentId="testTime5cb"
-          value="15:48"
+          // value="15:48"
         />
       </Form>
     </div>
