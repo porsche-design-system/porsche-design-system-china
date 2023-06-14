@@ -5,31 +5,23 @@
     @include theme($theme);
 
     .pui-input {
-      position: relative;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      height: 48px;
+      padding: 12px;
+      border: 1px solid $border-color-3;
 
-      &-char-count {
-        position: absolute;
-        right: 2px;
-        margin-top: -44px;
-        height: 40px;
-        line-height: 42px;
-        padding: 0 6px;
-        color: $text-color-1;
-
-        span {
-          color: $text-opacity-color-2;
-        }
+      &:hover,
+      &:focus-within {
+        border-color: $border-color-5;
       }
 
       input {
-        font-size: 16px;
         color: $text-color-1;
         background-color: transparent;
-        border: 1px solid $border-color-3;
-        padding: 12px;
-        height: 48px;
-        line-height: 20px;
+        border: none;
+        outline: none;
+        font-size: 16px;
         transition: color 0.2s, background-color 0.2s;
         width: 100%;
         caret-color: $brand-color;
@@ -50,17 +42,17 @@
         }
       }
 
-      input:hover,
-      input:focus {
-        border-color: $border-color-5;
-      }
-
-      input:disabled {
+      &-disabled-true {
         background: $container-bg-opacity-color-3;
         border: 1px solid $border-color-2;
         cursor: not-allowed;
         opacity: 1;
         color: $text-opacity-color-2;
+
+        &:hover,
+        &:focus-within {
+          border-color: $border-color-2;
+        }
 
         &+.pui-input-suffix-icon {
           color: $text-opacity-color-2;
@@ -68,95 +60,77 @@
       }
 
       &-error-true {
-        input {
-          border: 1px solid $status-error-color;
-        }
+        border: 1px solid $status-error-color;
 
-        input:hover,
-        input:focus {
+        &:hover,
+        &:focus-within {
           border: 1px solid $status-error-color-hover;
         }
       }
 
-      &-show-right-button-true {
-        input {
-          padding-right: 42px;
-        }
-      }
+      &-char-count {
+        font-size: 16px;
+        margin-left: 12px;
+        color: $text-color-1;
 
-      &-suffix-icon,
-      &-right-button {
-        position: absolute;
-        right: 10px;
-        top: 12px;
+        span {
+          color: $text-opacity-color-2;
+        }
       }
 
       &-clear {
         user-select: none;
         color: $icon-clear-color;
+        font-size: 18px;
+        margin-left: 12px;
 
         &:hover {
           color: $icon-clear-color-hover;
         }
       }
 
-      &-view {
+      &-suffix-icon {
+        font-size: 18px;
+        margin-left: 12px;
         user-select: none;
       }
 
       &-size-small {
-        input {
-          height: 36px;
-          font-size: 14px;
-        }
+        height: 36px;
+        padding: 12px;
+        font-size: 14px;
 
         .pui-input-char-count {
           font-size: 12px;
-          margin-top: -39px;
+        }
+
+        .pui-input-char-clear {
+          font-size: 18px;
         }
 
         .pui-input-suffix-icon {
           font-size: 14px;
-          top: 6px;
-        }
-
-        .pui-input-right-button {
-          font-size: 18px;
-          top: 9px;
         }
       }
 
       &-size-tiny {
-        position: relative;
-
-        input {
-          height: 28px;
-          font-size: 14px;
-          padding: 0 8px;
-        }
+        height: 28px;
+        font-size: 14px;
+        padding: 0 8px;
 
         .pui-input-char-count {
           font-size: 14px;
-          height: 26px;
-          line-height: 26px;
-          top: 45px;
-          right: 2px;
+          margin-left: 8px;
+        }
+
+        .pui-input-char-clear {
+          font-size: 18px;
+          margin-left: 8px;
         }
 
         .pui-input-suffix-icon {
           font-size: 14px;
-          top: 2px;
-        }
-
-        .pui-input-right-button {
-          font-size: 18px;
-          top: 5px;
-        }
-
-        &.pui-input-show-right-button-true {
-          input {
-            padding-right: 42px;
-          }
+          margin-left: 8px;
         }
       }
     }

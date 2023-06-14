@@ -151,8 +151,8 @@ const Input = FormItem(
     return (
       <div
         className={componentClassNames('pui-input', {
+          disabled,
           error: error ? error.show + '' : 'false',
-          'show-right-button': (showClearButton || showViewPasswordButton) + '',
           size
         })}
       >
@@ -161,11 +161,11 @@ const Input = FormItem(
           ref={(inputRef: HTMLInputElement) => {
             inputReference.current = inputRef
             if (inputRef && maxLength && !hideMaxLengthText) {
-              inputRef.style.paddingRight =
-                (maxLength + '').length * 23 + 12 + 'px'
+              // inputRef.style.paddingRight =
+              //   (maxLength + '').length * 23 + 12 + 'px'
             }
             if (inputRef && suffixIcon) {
-              inputRef.style.paddingRight = '40px'
+              // inputRef.style.paddingRight = '40px'
             }
           }}
           placeholder={placeholder}
@@ -218,7 +218,8 @@ const Input = FormItem(
         {maxLength &&
           !showClearButton &&
           !showViewPasswordButton &&
-          !hideMaxLengthText && (
+          !hideMaxLengthText &&
+          (
             <div className="pui-input-char-count">
               {valueLength > 0 && valueLength}
               <span>
@@ -228,7 +229,7 @@ const Input = FormItem(
           )}
         {showClearButton && valueLength > 0 && (
           <IconErrorFilled
-            className="pui-input-right-button pui-input-clear"
+            className="pui-input-clear"
             onClick={() => {
               inputReference.current!.value = ''
               onChange && onChange({ target: inputReference.current } as any)
@@ -257,14 +258,14 @@ const Input = FormItem(
               onClick={() => {
                 setInputType('text')
               }}
-              className="pui-input-right-button pui-input-view"
+              className="pui-input-suffix-icon"
             />
           ) : (
             <IconViewOff
               onClick={() => {
                 setInputType('password')
               }}
-              className="pui-input-right-button pui-input-view"
+              className="pui-input-suffix-icon"
             />
           ))}
       </div>
