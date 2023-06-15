@@ -19,14 +19,20 @@ import './input.scss'
 
 type PUIIcon = typeof IconAdd
 export interface InputProps {
+  /** 类型 */
+  type?: 'text' | 'password'
+
+  /** 大小 */
+  size?: 'small' | 'medium' | 'tiny'
+
   /** 类名 */
   className?: string
 
   /** 样式 */
   style?: CSSProperties
 
-  /** 类型 */
-  type?: 'text' | 'password'
+  /** 占位符 */
+  placeholder?: string
 
   /** 默认输入值 */
   defaultValue?: string
@@ -34,20 +40,36 @@ export interface InputProps {
   /** 输入值 */
   value?: string
 
-  /** 占位符 */
-  placeholder?: string
+  /** 是否禁用 */
+  disabled?: boolean
 
-  /** 大小 */
-  size?: 'small' | 'medium' | 'tiny'
-
-  /** 最多输入字符数 */
-  maxLength?: number
+  /** 只读 */
+  readOnly?: boolean
 
   /** 错误 */
   error?: FormErrorText
 
-  /** 是否禁用 */
-  disabled?: boolean
+
+  /** 显示清除按钮 */
+  showClearButton?: boolean
+
+  /** 最多输入字符数 */
+  maxLength?: number
+
+  /** 不显示最大长度文字提示 */
+  hideMaxLengthText?: boolean
+
+  /** 显示密码按钮 */
+  showViewPasswordButton?: boolean
+
+  /** 后缀ICON */
+  suffixIcon?: PUIIcon | ReactElement
+
+  /** 后缀样式 */
+  suffixStyle?: CSSProperties
+
+  /** 自定义后缀 */
+  suffixContent?: ReactNode
 
   /** 控件值改变事件 */
   onChange?: ChangeEventHandler<HTMLInputElement>
@@ -64,26 +86,6 @@ export interface InputProps {
   /** 值改变事件 */
   onValueChange?: (value: string) => void
 
-  /** 显示清除按钮 */
-  showClearButton?: boolean
-
-  /** 显示密码按钮 */
-  showViewPasswordButton?: boolean
-
-  /** 不显示最大长度文字提示 */
-  hideMaxLengthText?: boolean
-
-  /** 只读 */
-  readOnly?: boolean
-
-  /** 后缀ICON */
-  suffixIcon?: PUIIcon | ReactElement
-  /** 后缀样式 */
-  suffixStyle?: CSSProperties
-
-  /** 自定义后缀 */
-  suffixContent?: ReactNode
-
   /** 中文打字开始 */
   onCompositionStart?: CompositionEventHandler<HTMLInputElement>
 
@@ -96,8 +98,8 @@ export interface InputProps {
  */
 const Input = FormItem(
   ({
-    className,
     type = 'text',
+    className,
     placeholder,
     maxLength,
     disabled = false,
@@ -161,6 +163,9 @@ const Input = FormItem(
           placeholder={placeholder}
           maxLength={maxLength}
           type={inputType}
+          ref={(inputRef: HTMLInputElement) => {
+            inputReference.current = inputRef
+          }}
           onCompositionStart={(evt: any) => {
             isCompositionStarted.current = true
             onCompositionStart && onCompositionStart(evt)
@@ -205,18 +210,6 @@ const Input = FormItem(
             }
           }}
         />
-        {maxLength &&
-          !showClearButton &&
-          !showViewPasswordButton &&
-          !hideMaxLengthText &&
-          (
-            <div className="pui-input-char-count">
-              {valueLength > 0 && valueLength}
-              <span>
-                {valueLength === 0 && valueLength}/{maxLength}
-              </span>
-            </div>
-          )}
         {showClearButton && valueLength > 0 && (
           <IconErrorFilled
             className="pui-input-clear"
@@ -228,7 +221,19 @@ const Input = FormItem(
             }}
           />
         )}
-        {type !== 'password' && suffixIcon ? (
+        {maxLength &&
+          // !showClearButton &&
+          // !showViewPasswordButton &&
+          !hideMaxLengthText &&
+          (
+            <div className="pui-input-char-count">
+              {valueLength > 0 && valueLength}
+              <span>
+                {valueLength === 0 && valueLength}/{maxLength}
+              </span>
+            </div>
+          )}
+        {suffixIcon ? (
           <span className="pui-input-suffix-icon" style={suffixStyle}>
             {' '}
             {isReactElement(SuffixComponent) ? (
@@ -238,7 +243,7 @@ const Input = FormItem(
             )}
           </span>
         ) : null}
-        {type !== 'password' && !suffixIcon && suffixContent && (
+        {suffixContent && (
           <span className="pui-input-suffix-icon">{suffixContent}</span>
         )}
         {showViewPasswordButton &&
