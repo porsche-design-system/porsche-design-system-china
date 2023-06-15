@@ -30,6 +30,11 @@ export const TextAreaStoryBook = () => {
         <TextArea placeholder="请输入" width="400px" disabled />
       </div>
       <br />
+      <div className="states">readOnly</div>
+      <div>
+        <TextArea defaultValue="test readOnly" width="400px" readOnly />
+      </div>
+      <br />
     </div>
   )
 }
@@ -37,6 +42,21 @@ export const TextAreaStoryBook = () => {
 TextAreaStoryBook.storyName = 'TextArea'
 
 export const TextAreaStoryBook1 = () => {
+  return (
+    <div>
+      <TextArea
+        label="备注"
+        placeholder="请输入"
+        error={{ show: true, message: '输入信息有误' }}
+        width="400px"
+      />
+    </div>
+  )
+}
+
+TextAreaStoryBook1.storyName = 'Error'
+
+export const TextAreaStoryBook2 = () => {
   return (
     <div>
       <TextArea
@@ -49,67 +69,9 @@ export const TextAreaStoryBook1 = () => {
   )
 }
 
-TextAreaStoryBook1.storyName = 'MAX LENGTH'
-
-export const TextAreaStoryBook2 = () => {
-  return (
-    <div>
-      <TextArea
-        label="备注"
-        placeholder="请输入"
-        error={{ show: true, message: '输入信息有误' }}
-        width="400px"
-      />
-    </div>
-  )
-}
-
-TextAreaStoryBook2.storyName = 'Error'
+TextAreaStoryBook2.storyName = 'MAX LENGTH'
 
 export const TextAreaStoryBook3 = () => {
-  return (
-    <div>
-      <TextArea
-        label="备注"
-        placeholder="请输入"
-        error={{ show: true, message: '输入信息有误' }}
-        width="400px"
-      />
-    </div>
-  )
-}
-
-TextAreaStoryBook3.storyName = 'LABEL TOP'
-
-export const TextAreaStoryBook4 = () => {
-  return (
-    <div>
-      <TextArea
-        label={{ text: '备注', position: 'left' }}
-        placeholder="请输入"
-        width="400px"
-      />
-    </div>
-  )
-}
-
-TextAreaStoryBook4.storyName = 'LABEL LEFT'
-
-export const TextAreaStoryBook5 = () => {
-  return (
-    <div>
-      <TextArea
-        label={{ text: '备注', textAlign: 'right', position: 'left' }}
-        placeholder="请输入"
-        width="400px"
-      />
-    </div>
-  )
-}
-
-TextAreaStoryBook5.storyName = 'Label Left / Text Align Right'
-
-export const TextAreaStoryBook6 = () => {
   return (
     <div>
       <TextArea
@@ -132,9 +94,9 @@ export const TextAreaStoryBook6 = () => {
   )
 }
 
-TextAreaStoryBook6.storyName = 'Auto Adjust Height'
+TextAreaStoryBook3.storyName = 'Auto Adjust Height'
 
-export const TextAreaStoryBook7 = () => {
+export const TextAreaStoryBook4 = () => {
   return (
     <div>
       <TextArea
@@ -148,14 +110,47 @@ export const TextAreaStoryBook7 = () => {
   )
 }
 
-TextAreaStoryBook7.storyName = 'Show Char Count On Focus'
+TextAreaStoryBook4.storyName = 'Show Char Count On Focus'
 
-export const TextAreaStoryBook8 = () => {
+export const TextAreaStoryBook5 = () => {
   return (
     <div>
-      <TextArea defaultValue="test readOnly " readOnly />
+      <TextArea
+        label="备注"
+        placeholder="请输入"
+        error={{ show: true, message: '输入信息有误' }}
+        width="400px"
+      />
     </div>
   )
 }
 
-TextAreaStoryBook8.storyName = 'Readonly'
+TextAreaStoryBook5.storyName = 'LABEL TOP'
+
+export const TextAreaStoryBook6 = () => {
+  return (
+    <div>
+      <TextArea
+        label={{ text: '备注', position: 'left' }}
+        placeholder="请输入"
+        width="400px"
+      />
+    </div>
+  )
+}
+
+TextAreaStoryBook6.storyName = 'LABEL LEFT'
+
+export const TextAreaStoryBook7 = () => {
+  return (
+    <div>
+      <TextArea
+        label={{ text: '备注', textAlign: 'right', position: 'left' }}
+        placeholder="请输入"
+        width="400px"
+      />
+    </div>
+  )
+}
+
+TextAreaStoryBook7.storyName = 'Label Left / Text Align Right'

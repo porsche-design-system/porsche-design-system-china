@@ -49,6 +49,10 @@
         opacity: 1;
         color: $text-opacity-color-2;
 
+        >input {
+          cursor: not-allowed;
+        }
+
         &:hover,
         &:focus-within {
           border-color: $border-color-2;
@@ -92,6 +96,7 @@
       &-suffix-icon {
         font-size: 18px;
         margin-left: 12px;
+        white-space: nowrap;
         user-select: none;
       }
 
