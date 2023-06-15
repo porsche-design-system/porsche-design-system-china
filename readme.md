@@ -23,17 +23,16 @@ A Porsche styled enterprise React UI library.
 - Porsche styled components, fonts, icons, themes
 - Powerful form handling
 
-
-
-
+<br/>
+<br/>
 
 ## Contribution
 
-See [Contributing Guide](./CONTRIBUTING.md)
+See [Contributing Guide](http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book)
 
+<br/>
 
-
-
+<br/>
 
 ## License
 
