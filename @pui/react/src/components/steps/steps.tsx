@@ -27,7 +27,7 @@ export interface StepsProps {
   style?: CSSProperties
 
   /** 指定大小，目前仅基础横向步骤条支持普通（default）和迷你（small） */
-  size?: 'default' | 'small'
+  size?: 'default' | 'small' | 'tiny'
 
   /** 步骤条类型，有 default 和 navigation 两种 */
   type?: 'default' | 'navigation'

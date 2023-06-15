@@ -7,132 +7,181 @@ $steps-prefix: pui-steps;
   .pui-theme-#{$theme} {
     @include theme($theme);
 
-    .#{$step-item-prefix}{
-      &-circle{
+    .#{$step-item-prefix} {
+      &-circle {
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
       }
-      &-text{
+
+      &-text {
         display: flex;
         white-space: nowrap;
       }
     }
-    .#{$steps-prefix}-size-default{
-      .#{$step-item-prefix}-circle{
+
+    .#{$steps-prefix}-size-default {
+      .#{$step-item-prefix}-circle {
         width: 24px;
         height: 24px;
-        .#{$step-item-prefix}-icon{
+
+        .#{$step-item-prefix}-icon {
           font-size: 16px;
         }
       }
-      .#{$step-item-prefix}-text{
+
+      .#{$step-item-prefix}-text {
         font-size: 16px;
         width: 24px;
         line-height: 24px;
         padding-top: 8px;
       }
     }
-    .#{$steps-prefix}-size-small{
-      .#{$step-item-prefix}-circle{
+
+    .#{$steps-prefix}-size-tiny {
+      .#{$step-item-prefix}-circle {
         width: 16px;
         height: 16px;
         font-size: 10px;
-        .#{$step-item-prefix}-icon{
+
+        .#{$step-item-prefix}-icon {
           font-size: 12px;
         }
       }
-      .#{$step-item-prefix}-text{
+
+      .#{$step-item-prefix}-text {
         font-size: 12px;
         width: 16px;
         line-height: 20px;
         padding-top: 4px;
       }
     }
-    .#{$steps-prefix}-type-default{
-      .#{$step-item-prefix}-top{
-        display: flex;
-        align-items: center;
-        .#{$step-item-prefix}-line{
-          flex:1;
+
+    .#{$steps-prefix}-size-small {
+      .#{$step-item-prefix}-circle {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+
+        .#{$step-item-prefix}-icon {
+          font-size: 14px;
         }
       }
-      .#{$step-item-prefix}:not(:last-child){
-        flex:1;
+
+      .#{$step-item-prefix}-text {
+        font-size: 14px;
+        width: 20px;
+        line-height: 22px;
+        padding-top: 6px;
       }
     }
-    .#{$step-item-prefix}-navigation{
-      flex:1;
+
+    .#{$steps-prefix}-type-default {
+      .#{$step-item-prefix}-top {
+        display: flex;
+        align-items: center;
+
+        .#{$step-item-prefix}-line {
+          flex: 1;
+        }
+      }
+
+      .#{$step-item-prefix}:not(:last-child) {
+        flex: 1;
+      }
+    }
+
+    .#{$step-item-prefix}-navigation {
+      flex: 1;
       height: 57px;
-      border-bottom:1px solid $border-color-1;
+      border-bottom: 1px solid $border-color-1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding:0 8px 1px 20px;
-      &-left{
+      padding: 0 8px 1px 20px;
+
+      &-left {
         display: flex;
-        &-text{
+
+        &-text {
           padding-left: 8px;
         }
       }
     }
-    .#{$step-item-prefix}-navigation:hover{
+
+    .#{$step-item-prefix}-navigation:hover {
       background: $container-bg-opacity-color-1;
     }
-    .#{$step-item-prefix}-wait{
-      .#{$step-item-prefix}-circle{
+
+    .#{$step-item-prefix}-wait {
+      .#{$step-item-prefix}-circle {
         border: 1px solid $border-color-3;
         background: transparent;
         color: $text-opacity-color-2;
       }
-      .#{$step-item-prefix}-line{
-        border-top:1px solid $border-color-2;
+
+      .#{$step-item-prefix}-line {
+        border-top: 1px solid $border-color-2;
       }
-      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
+
+      .#{$step-item-prefix}-text,
+      .#{$step-item-prefix}-navigation-left-text {
         color: $text-opacity-color-1;
       }
     }
-    .#{$step-item-prefix}-process{
-      .#{$step-item-prefix}-circle{
+
+    .#{$step-item-prefix}-process {
+      .#{$step-item-prefix}-circle {
         background: $brand-color;
         color: $text-white-color;
       }
-      .#{$step-item-prefix}-line{
-        border-top:1px solid $border-color-2;
+
+      .#{$step-item-prefix}-line {
+        border-top: 1px solid $border-color-2;
       }
-      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
+
+      .#{$step-item-prefix}-text,
+      .#{$step-item-prefix}-navigation-left-text {
         font-weight: 600;
         color: $text-color-1;
       }
     }
-    .#{$step-item-prefix}-finish{
-      .#{$step-item-prefix}-circle{
+
+    .#{$step-item-prefix}-finish {
+      .#{$step-item-prefix}-circle {
         border: 1px solid $brand-color;
         background: transparent;
         color: $brand-color;
       }
-      .#{$step-item-prefix}-line{
-        border-top:1px solid $brand-color;
+
+      .#{$step-item-prefix}-line {
+        border-top: 1px solid $brand-color;
       }
-      .#{$step-item-prefix}-text,.#{$step-item-prefix}-navigation-left-text{
+
+      .#{$step-item-prefix}-text,
+      .#{$step-item-prefix}-navigation-left-text {
         color: $text-color-1;
       }
     }
-    .#{$step-item-prefix}-selected{
+
+    .#{$step-item-prefix}-selected {
       border-bottom: 2px solid $brand-color;
-      padding:0 8px 0 20px;
+      padding: 0 8px 0 20px;
     }
-    .#{$step-item-prefix}-select{
+
+    .#{$step-item-prefix}-select {
       cursor: pointer;
     }
-    .#{$steps-prefix}-label-placement-left{
-      .#{$step-item-prefix}-text{
+
+    .#{$steps-prefix}-label-placement-left {
+      .#{$step-item-prefix}-text {
         justify-content: left;
       }
     }
-    .#{$steps-prefix}-label-placement-center{
-      .#{$step-item-prefix}-text{
+
+    .#{$steps-prefix}-label-placement-center {
+      .#{$step-item-prefix}-text {
         justify-content: center;
       }
     }
