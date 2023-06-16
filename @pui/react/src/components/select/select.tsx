@@ -458,33 +458,35 @@ Select = FormItem(
                     }
                     return (
                       <Fragment key={option.value + ' ' + inx + filterWord}>
-                        {gn && (
-                          <div className="pui-select-group-name">{gn.name}</div>
-                        )}
                         {containText(getNodeText(option.text), filterWord) && (
-                          <div
-                            className={classNames('pui-select-option', {
-                              'pui-select-option-selected':
-                                option.value === selectValue &&
-                                valueMatchCounter === 1,
-                              'pui-select-option-disabled': option.disabled
-                            })}
-                            onClick={() => {
-                              if (option.disabled === true) {
-                                return
-                              }
-                              setShowOptionList(false)
-                              setSelectValue(option.value as any)
-                              onValueChange &&
-                                onValueChange(option.value, option)
-                            }}
-                          >
-                            {isSameDisplay
-                              ? resolveDisplay('', display, option)
-                              : option.text}
-                            {option.value === selectValue &&
-                              valueMatchCounter === 1 && <IconCheck />}
-                          </div>
+                          <>
+                            {gn && (
+                              <div className="pui-select-group-name">{gn.name}</div>
+                            )}
+                            <div
+                              className={classNames('pui-select-option', {
+                                'pui-select-option-selected':
+                                  option.value === selectValue &&
+                                  valueMatchCounter === 1,
+                                'pui-select-option-disabled': option.disabled
+                              })}
+                              onClick={() => {
+                                if (option.disabled === true) {
+                                  return
+                                }
+                                setShowOptionList(false)
+                                setSelectValue(option.value as any)
+                                onValueChange &&
+                                  onValueChange(option.value, option)
+                              }}
+                            >
+                              {isSameDisplay
+                                ? resolveDisplay('', display, option)
+                                : option.text}
+                              {option.value === selectValue &&
+                                valueMatchCounter === 1 && <IconCheck />}
+                            </div>
+                          </>
                         )}
                       </Fragment>
                     )
