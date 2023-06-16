@@ -52,11 +52,13 @@
             white-space: initial;
           }
         }
+
         overflow: hidden;
       }
 
       &-head {
         table {
+
           .pui-table-fixed-left,
           .pui-table-fixed-right,
           td {
@@ -73,15 +75,12 @@
             }
 
             .title-content {
-              // display: flex;
-              // justify-content: space-between;
-
               .sort-btn {
                 margin-left: 5px;
                 margin-right: 15px;
                 height: 25px;
                 position: relative;
-                color: $container-bg-color-4;
+                color: $text-opacity-color-2;
                 overflow: hidden;
 
                 .asc-btn {
@@ -113,13 +112,16 @@
       &-body {
         overflow-x: auto;
         overflow-y: hidden;
+
         table {
           background-color: $table-bg-color;
+
           .pui-table-fixed-left,
           .pui-table-fixed-right {
             background-color: $table-bg-color;
             z-index: 1;
           }
+
           .pui-table-selected-row td,
           .pui-table-expand-row td {
             background-color: $table-selected-bg-color;
@@ -196,10 +198,7 @@
         pointer-events: none;
       }
 
-      &-scrollRight-true
-        .pui-table-body
-        tr:hover
-        .pui-table-fixed-right::after {
+      &-scrollRight-true .pui-table-body tr:hover .pui-table-fixed-right::after {
         content: '';
         background-color: $container-bg-opacity-color-1;
         position: absolute;
@@ -224,14 +223,18 @@
         .title-text {
           line-height: 26px;
         }
+
         font-size: 14px;
+
         table {
           td {
             height: 48px;
           }
+
           td::before {
             height: 48px;
           }
+
           td::after {
             height: 48px;
           }
@@ -261,6 +264,7 @@
           td {
             padding-left: 12px;
           }
+
           .pui-table-expand-cell-row {
             padding-left: 0;
           }
@@ -270,6 +274,7 @@
       &-expand-cell::before {
         background-color: transparent !important;
       }
+
       &-expand-cell::after {
         background-color: transparent !important;
       }

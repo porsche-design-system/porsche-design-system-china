@@ -153,7 +153,7 @@ const Input = FormItem(
     return (
       <div
         className={componentClassNames('pui-input', {
-          disabled,
+          disabled: String(!!disabled),
           error: error ? error.show + '' : 'false',
           size
         })}
@@ -222,8 +222,6 @@ const Input = FormItem(
           />
         )}
         {maxLength &&
-          // !showClearButton &&
-          // !showViewPasswordButton &&
           !hideMaxLengthText &&
           (
             <div className="pui-input-char-count">
