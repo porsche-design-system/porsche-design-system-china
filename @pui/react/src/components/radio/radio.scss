@@ -30,7 +30,7 @@
       }
 
       input:checked {
-        border-color: $border-color-5;
+        border-color: $container-bg-active-color;
       }
 
       &-checkmark {
@@ -39,7 +39,7 @@
         opacity: 0;
       }
 
-      input:checked ~ .pui-radio-checkmark {
+      input:checked~.pui-radio-checkmark {
         background-color: $container-bg-active-color;
         position: absolute;
         opacity: 1;
@@ -47,6 +47,7 @@
 
       &-size-small {
         font-size: 14px;
+
         input {
           width: 16px;
           height: 16px;
@@ -54,7 +55,7 @@
           margin-right: 4px;
         }
 
-        input:checked ~ .pui-radio-checkmark {
+        input:checked~.pui-radio-checkmark {
           width: 8px;
           height: 8px;
           left: 4px;
@@ -69,7 +70,7 @@
           margin-top: 2px;
         }
 
-        input:checked ~ .pui-radio-checkmark {
+        input:checked~.pui-radio-checkmark {
           width: 10px;
           height: 10px;
           left: 5px;
@@ -85,10 +86,12 @@
       &-disabled-true {
         opacity: 0.5;
         color: $text-color-1;
+
         input {
           border: 1px solid $border-color-3;
         }
       }
+
       &-disabled-true:hover {
         background-color: transparent;
         font-weight: normal;
