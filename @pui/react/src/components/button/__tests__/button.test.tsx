@@ -33,6 +33,17 @@ test('button clickable', async () => {
   })
 })
 
+test('renders button with icon', () => {
+  const { getByTestId } = render(
+    <Button icon={<span data-testid="icon">Icon</span>}>
+      Button with Icon
+    </Button>
+  )
+
+  const icon = getByTestId('icon')
+  expect(icon).toBeInTheDocument()
+})
+
 test('loading button', async () => {
   let clicked = false
   render(
