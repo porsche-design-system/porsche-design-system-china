@@ -23,7 +23,7 @@ describe('Dropdown component', () => {
     waitFor(() => {
       userEvent.hover(getByRole('button'))
       items.forEach(item => {
-        const menuItem = queryByText(item)
+        const menuItem = queryByText(item) as HTMLElement
         expect(menuItem).toBeInTheDocument()
       })
       userEvent.unhover(getByRole('button'))
@@ -38,7 +38,7 @@ describe('Dropdown component', () => {
     waitFor(() => {
       userEvent.click(getByRole('button'))
       items.forEach(item => {
-        const menuItem = queryByText(item)
+        const menuItem = queryByText(item) as HTMLElement
         expect(menuItem).toBeInTheDocument()
       })
       userEvent.click(getByRole('button'))
@@ -59,7 +59,7 @@ describe('Dropdown component', () => {
     waitFor(() => {
       userEvent.click(getByRole('button'))
       items.forEach(item => {
-        const menuItem = queryByText(item)
+        const menuItem = queryByText(item) as HTMLElement
         expect(menuItem).toBeInTheDocument()
       })
       userEvent.click(getByRole('button'))
