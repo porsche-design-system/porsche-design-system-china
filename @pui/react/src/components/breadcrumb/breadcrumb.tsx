@@ -53,12 +53,12 @@ export interface BreadcrumbProps {
   onClick?: (item: BreadcrumbItem) => void
 }
 
-const realPath = (path: string) => {
+export const realPath = (path: string) => {
   return path.startsWith('/') ? path : '/' + path
 }
 
 // 将嵌套的路由关系转为顺序关系：
-const parseBreadcrumbFromRoutes = (
+export const parseBreadcrumbFromRoutes = (
   breadcrumbResource: RoutesProps[],
   pathname: string
 ) => {
