@@ -49,7 +49,6 @@ export interface InputProps {
   /** 错误 */
   error?: FormErrorText
 
-
   /** 显示清除按钮 */
   showClearButton?: boolean
 
@@ -153,7 +152,7 @@ const Input = FormItem(
     return (
       <div
         className={componentClassNames('pui-input', {
-          disabled,
+          disabled: disabled + '',
           error: error ? error.show + '' : 'false',
           size
         })}
@@ -224,8 +223,7 @@ const Input = FormItem(
         {maxLength &&
           // !showClearButton &&
           // !showViewPasswordButton &&
-          !hideMaxLengthText &&
-          (
+          !hideMaxLengthText && (
             <div className="pui-input-char-count">
               {valueLength > 0 && valueLength}
               <span>
