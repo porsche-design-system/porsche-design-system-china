@@ -3,9 +3,9 @@ import { findIndexes } from '../libs'
 import { useDefaultSize } from '../../../shared/hooks'
 import { componentClassNames } from '../../../shared/class-util'
 import { IMenuContext, MenuProps, MenuItemProps } from '../types'
-import { MenuContext } from '../index'
+import { MenuContext } from '..'
 
-const Menu: React.FC<MenuProps> = props => {
+const MenuWrap: React.FC<MenuProps> = props => {
   const {
     className,
     mode = 'horizontal',
@@ -96,6 +96,6 @@ const Menu: React.FC<MenuProps> = props => {
   )
 }
 
-Menu.displayName = 'Menu'
+MenuWrap.displayName = 'Menu'
 
-export default Menu
+export default MenuWrap
