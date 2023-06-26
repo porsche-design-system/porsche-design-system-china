@@ -33,7 +33,7 @@ export { LoadingIcon } from './loading/loading-icon'
 export { Pagination } from './pagination/pagination'
 export { Tooltip } from './tooltip/tooltip'
 export {
-  TransMenu as Menu,
+  Menu,
   MenuItem,
   ItemGroup as MenuItemGroup,
   SubMenu
