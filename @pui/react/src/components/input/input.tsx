@@ -221,8 +221,6 @@ const Input = FormItem(
           />
         )}
         {maxLength &&
-          // !showClearButton &&
-          // !showViewPasswordButton &&
           !hideMaxLengthText && (
             <div className="pui-input-char-count">
               {valueLength > 0 && valueLength}
