@@ -10,6 +10,12 @@
 在组建属性中传入一个或多个，查看渲染结果
 
 ```ts
+import React from 'react'
+import { act } from 'react-dom/test-utils'
+import { render, screen } from '@testing-library/react'
+
+import { Button } from '../button'
+
 describe('Test Button', () => {
   test('test render button', async () => {
     render(
@@ -24,7 +30,7 @@ describe('Test Button', () => {
     button.getByText('中文按钮')
 
     // 测试页面上没这个内容
-    expect(button.getByText('无按钮')).toBeNull()
+    expect(button.queryByText('无按钮')).toBeNull()
   })
 })
 ```
@@ -36,7 +42,11 @@ describe('Test Button', () => {
 推荐使用 Testing Library 的 fireEvent
 
 ```ts
+import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { render, screen, fireEvent, act } from '@testing-library/react'
+
+import { Button } from '../button'
 
 describe('Test Button', () => {
   test('button clickable', async () => {
