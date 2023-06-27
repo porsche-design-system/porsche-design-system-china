@@ -12,7 +12,7 @@
 ```ts
 describe('Test Button', () => {
   test('test render button', async () => {
-    render(<Button>Button</Button>)
+    const button = render(<Button>Button</Button>)
     expect(screen.getByText('Button')).toHaveTextContent('Button')
 
     render(
@@ -20,7 +20,14 @@ describe('Test Button', () => {
         <div>中文按钮</div>
       </Button>
     )
-    expect(screen.getByText('中文按钮')).toHaveTextContent('中文按钮')
+    // 测试页面上有这个内容
+    screen.getByText('中文按钮')
+
+    // 测试按钮上有这个内容
+    button.getByText('中文按钮')
+
+    // 测试页面上没这个内容
+    expect(button.getByText('无按钮')).toBeNull()
   })
 })
 ```
