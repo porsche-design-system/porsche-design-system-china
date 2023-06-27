@@ -7,14 +7,14 @@ import { Button } from '../button'
 describe('Test Button', () => {
   test('test render button', async () => {
     render(<Button>Button</Button>)
-    expect(screen.getByText('Button')).toHaveTextContent('Button')
+    screen.getByText('Button')
 
     render(
       <Button>
         <div>中文按钮</div>
       </Button>
     )
-    expect(screen.getByText('中文按钮')).toHaveTextContent('中文按钮')
+    screen.getByText('中文按钮')
   })
 
   test('button clickable', async () => {
