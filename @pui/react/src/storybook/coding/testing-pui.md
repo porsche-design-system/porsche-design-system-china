@@ -18,7 +18,7 @@ import { Button } from '../button'
 
 describe('Test Button', () => {
   test('test render button', async () => {
-    render(
+    const button = render(
       <Button>
         <div>中文按钮</div>
       </Button>
