@@ -30,7 +30,7 @@ describe('Test Button', () => {
     button.getByText('中文按钮')
 
     // 测试页面上没这个内容
-    expect(button.queryByText('无按钮')).toBeNull()
+    expect(button.queryByText('无这段文字')).toBeNull()
   })
 })
 ```
