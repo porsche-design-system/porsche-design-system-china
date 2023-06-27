@@ -37,7 +37,7 @@ const IconLibrary = () => (
 )
 
 export default {
-  title: 'Coding/Icon',
+  title: 'Coding/Update Icons',
   parameters: {
     docs: {
       page: IconLibrary
@@ -49,4 +49,4 @@ export const GettingStartStoryBook = () => {
   return <div>-</div>
 }
 
-GettingStartStoryBook.storyName = 'Icon'
+GettingStartStoryBook.storyName = 'Update Icons'
