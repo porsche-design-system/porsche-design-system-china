@@ -11,6 +11,7 @@
       &-disabled-true {
         pointer-events: none;
         cursor: not-allowed;
+
         label {
           opacity: 0.5;
         }
@@ -21,8 +22,13 @@
           input {
             border: 1px solid $status-error-color;
           }
+
           input:hover {
             border: 1px solid $status-error-color-hover;
+          }
+
+          input:checked~.pui-radio-checkmark {
+            background-color: $status-error-color;
           }
         }
       }
