@@ -12,9 +12,6 @@
 ```ts
 describe('Test Button', () => {
   test('test render button', async () => {
-    const button = render(<Button>Button</Button>)
-    expect(screen.getByText('Button')).toHaveTextContent('Button')
-
     render(
       <Button>
         <div>中文按钮</div>
