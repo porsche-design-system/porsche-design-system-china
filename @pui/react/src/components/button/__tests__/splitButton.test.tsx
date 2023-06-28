@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { SplitButton } from '../split-button'
@@ -18,7 +17,9 @@ describe('test SplitButton component', () => {
     const innerElement = wrapper.container.querySelector('.pui-split-button')
     expect(innerElement).toBeInTheDocument()
     expect(innerElement).toHaveClass('pui-split-button-type-primary')
-    const afterAddonBtn = wrapper.container.querySelector('.afterAddon .pui-button')
+    const afterAddonBtn = wrapper.container.querySelector(
+      '.afterAddon .pui-button'
+    )
     fireEvent.click(afterAddonBtn as HTMLElement)
     const popWrap = document.querySelector('#pui-pop-wrap') as Element
     expect(popWrap.querySelector('.pui-dropdown-open')).toBeTruthy()

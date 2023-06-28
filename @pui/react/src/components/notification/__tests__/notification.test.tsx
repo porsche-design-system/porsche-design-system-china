@@ -97,8 +97,6 @@ describe('notification', () => {
     expect(document.querySelectorAll('.pui-notification')).toHaveLength(0)
   })
 
-  // 该条test会报如下警告，该警告是代码层面的警告:
-  // Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
   it('should be update', async () => {
     const defaultConfig: NotificationConfigProps = {
       key: 'update-1',
@@ -108,7 +106,7 @@ describe('notification', () => {
         'Notification Description, This is the notification description.'
     }
 
-    act(() => {
+    await act(() => {
       Notification.pop(defaultConfig)
     })
 

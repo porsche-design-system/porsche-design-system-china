@@ -1,20 +1,20 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { Modal } from '../modal';
+import React from 'react'
+import { fireEvent, render, screen, act } from '@testing-library/react'
+import { Modal } from '../modal'
 
-jest.mock("../../../shared/render-utils", () => ({
+jest.mock('../../../shared/render-utils', () => ({
   renderNode: (node: any, container: any) => render(node, container)
-}));
+}))
 
-jest.mock("../../../shared/hooks", () => ({
+jest.mock('../../../shared/hooks', () => ({
   useDefaultSize: () => ['medium']
-}));
+}))
 
 describe('test modal component', () => {
   describe('test modal.show', () => {
     it('should show correct modal when called modal.show with custom footer', () => {
       Modal.show({
-        style: {color: 'red'},
+        style: { color: 'red' },
         className: 'test-show-modal',
         size: 'small',
         modalSize: 'medium',
@@ -26,22 +26,28 @@ describe('test modal component', () => {
         footer: <div>footer</div>,
         content: <div>modal content</div>
       })
-      const puiModalChild = screen.getByTestId('pui-modal-wrap-child');
+      const puiModalChild = screen.getByTestId('pui-modal-wrap-child')
       expect(puiModalChild).toHaveAttribute('style', 'color: red;')
-      expect(puiModalChild).toHaveClass('pui-modal-modalsize-medium pui-modal-size-small test-show-modal')
+      expect(puiModalChild).toHaveClass(
+        'pui-modal-modalsize-medium pui-modal-size-small test-show-modal'
+      )
       expect(screen.getByText('ShowModal')).toBeInTheDocument()
       expect(screen.getByText('titleIcon')).toBeInTheDocument()
       expect(screen.getByText('ShowModalSubtitle')).toBeInTheDocument()
-      expect(screen.getByText('footer')?.parentElement).toHaveClass('pui-modal-footer-divider-true')
-      expect(screen.getByText('ShowModal').parentElement).toHaveClass('pui-modal-header-divider-true')
+      expect(screen.getByText('footer')?.parentElement).toHaveClass(
+        'pui-modal-footer-divider-true'
+      )
+      expect(screen.getByText('ShowModal').parentElement).toHaveClass(
+        'pui-modal-header-divider-true'
+      )
       expect(screen.getByText('modal content')).toBeInTheDocument()
-    });
+    })
 
     it('should show correct modal when called modal.show with default footer and modal close', () => {
-      const okFn = jest.fn();
-      const cancelFn = jest.fn();
+      const okFn = jest.fn()
+      const cancelFn = jest.fn()
       Modal.show({
-        style: {color: 'red'},
+        style: { color: 'red' },
         className: 'test-show-modal',
         size: 'small',
         modalSize: 'medium',
@@ -53,12 +59,12 @@ describe('test modal component', () => {
         showOk: true,
         showClose: true,
         okText: '提交',
-        okButtonProps: {type: 'secondary'},
+        okButtonProps: { type: 'secondary' },
         okIcon: <span>okIcon</span>,
         onOk: okFn,
         showCancel: true,
         cancelText: '取消',
-        cancelButtonProps: {type: 'primary'},
+        cancelButtonProps: { type: 'primary' },
         cancelIcon: <span>cancelIcon</span>,
         onCancel: cancelFn,
         content: <div onClick={() => Modal.close()}>modal content</div>
@@ -78,8 +84,7 @@ describe('test modal component', () => {
       jest.spyOn(Modal, 'close').mockImplementation(() => jest.fn())
       fireEvent.click(screen.getByText('modal content'))
       expect(Modal.close).toHaveBeenCalled()
-    });
-
+    })
 
     it('should call remove child twice when ok function is undefined', () => {
       Modal.show({
@@ -94,11 +99,11 @@ describe('test modal component', () => {
         cancelIcon: <span>cancelIcon</span>,
         content: <div onClick={() => Modal.close()}>modal content</div>
       })
-      const mockFn = jest.fn();
+      const mockFn = jest.fn()
       jest.spyOn(document.body, 'removeChild').mockImplementation(mockFn)
       fireEvent.click(screen.getByText('提交'))
       expect(mockFn).toBeCalledTimes(2)
-    });
+    })
 
     it('should call remove child twice when loading promise return value is undefined', () => {
       const okFn = jest.fn()
@@ -115,15 +120,15 @@ describe('test modal component', () => {
         cancelIcon: <span>cancelIcon</span>,
         content: <div onClick={() => Modal.close()}>modal content</div>
       })
-      const mockFn = jest.fn();
+      const mockFn = jest.fn()
       jest.spyOn(document.body, 'removeChild').mockImplementation(mockFn)
       fireEvent.click(screen.getByText('提交Promise'))
       expect(mockFn).toBeCalledTimes(2)
-    });
+    })
 
     it('should call remove child twice when loading promise return value is not undefined', async () => {
       const okFn = jest.fn().mockResolvedValue('test')
-      const mockFn = jest.fn();
+      const mockFn = jest.fn()
       jest.spyOn(document.body, 'removeChild').mockImplementation(mockFn)
       Modal.show({
         size: 'small',
@@ -138,9 +143,11 @@ describe('test modal component', () => {
         cancelIcon: <span>cancelIcon</span>,
         content: <div onClick={() => Modal.close()}>modal content</div>
       })
-      await fireEvent.click(screen.getByText('提交Promise02'))
+      await act(async () => {
+        await fireEvent.click(screen.getByText('提交Promise02'))
+      })
       expect(mockFn).toBeCalledTimes(2)
-    });
+    })
 
     it('should call remove child twice when call cancel function', () => {
       const cancelFn = jest.fn()
@@ -155,11 +162,11 @@ describe('test modal component', () => {
         onCancel: cancelFn,
         content: <div onClick={() => Modal.close()}>modal content</div>
       })
-      const mockFn = jest.fn();
+      const mockFn = jest.fn()
       jest.spyOn(document.body, 'removeChild').mockImplementation(mockFn)
       fireEvent.click(screen.getByText('取消方法'))
       expect(mockFn).toBeCalledTimes(2)
       expect(cancelFn).toBeCalled()
-    });
+    })
   })
 })
