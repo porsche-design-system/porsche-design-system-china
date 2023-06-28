@@ -32,7 +32,7 @@ describe('test slider component', () => {
     expect(sliderElement).toHaveClass('pui-slider-disabled')
   })
 
-  test('should move slider to right', () => {
+  test('should move slider to right', async () => {
     const handleValueChange = jest.fn()
 
     const { container } = render(<Slider onValueChange={handleValueChange} />)
@@ -44,6 +44,7 @@ describe('test slider component', () => {
     fireEvent.mouseDown(handleElement, { clientX: 0 })
     fireEvent.mouseMove(handleElement, { clientX: 50 })
     fireEvent.mouseUp(handleElement)
+
     expect(handleValueChange).toHaveBeenCalled()
   })
 })

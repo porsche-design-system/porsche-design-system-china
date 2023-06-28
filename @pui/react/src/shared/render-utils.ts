@@ -4,6 +4,7 @@ import ReactDOM, { unmountComponentAtNode } from 'react-dom'
 const IsReact18 = React.version.split('.')[0] === '18'
 
 const renderRootMap: Record<string, any> = {}
+const rootMap = new WeakMap()
 export const renderNode = (node: any, container: any) => {
   if (IsReact18) {
     // eslint-disable-next-line no-inner-declarations
@@ -21,13 +22,17 @@ export const renderNode = (node: any, container: any) => {
     }
 
     if (!(container as any).id) {
-      ; (container as any).id =
+      ;(container as any).id =
         '$Root-' + Date.now() + Math.floor(Math.random() * 1000)
     }
 
     const { createRoot } = ReactDOM as any
     toggleWarning(true)
-    const root = createRoot(container)
+    let root = rootMap.get(container)
+    if (!root) {
+      root = createRoot(container)
+    }
+    rootMap.set(container, root)
     root.render(node)
     renderRootMap[(container as any).id] = root
     toggleWarning(false)

@@ -73,8 +73,9 @@ const Slider = ({
           item => ((item - min) / (max - min)) * railWidth
         )
       } else {
-        left = (((value as number) - min) / (max - min)) * railWidth
+        left = ((((value as number) || 0) - min) / (max - min)) * railWidth
       }
+
       const currentTooltipContent = tipFormatter ? tipFormatter(value) : value
       setTooltipContent(currentTooltipContent)
       setLeft(left)

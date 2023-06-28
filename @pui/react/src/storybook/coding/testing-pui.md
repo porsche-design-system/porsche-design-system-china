@@ -5,6 +5,8 @@
 1. 在组建的的文件夹里加入 \_\_tests\_\_/[组件名字].test.tsx
 2. 编写测试代码
 
+在 VS Code 安装 Jest Runner 可以实现点击代码单个测试
+
 ## 测试渲染
 
 在组建属性中传入一个或多个，查看渲染结果
@@ -71,4 +73,11 @@ describe('Test Button', () => {
     expect(clicked).toBe(true)
   })
 })
+```
+
+## Debug 测试
+
+```ts
+// 打印当前屏幕
+screen.debug()
 ```
