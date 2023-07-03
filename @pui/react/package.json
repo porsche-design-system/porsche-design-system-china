@@ -17,6 +17,7 @@
     "vrelease": "npm publish --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "vrelease-old": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "jest",
+    "test-cov": "jest --coverage",
     "vfixed": "standard-version",
     "audit": "npm audit"
   },
