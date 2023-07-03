@@ -177,8 +177,8 @@ function jeLunar(ly, lm, ld) {
     const sTerm = function (j, i) {
       const h = new Date(
         31556925974.7 * (j - 1900) +
-          sTermInfo[i] * 60000 +
-          Date.UTC(1900, 0, 6, 2, 5)
+        sTermInfo[i] * 60000 +
+        Date.UTC(1900, 0, 6, 2, 5)
       )
       return h.getUTCDate()
     }
@@ -339,9 +339,9 @@ function jeLunar(ly, lm, ld) {
       this.solarFestival == '' ? this.showInLunar : this.solarFestival
     this.lunarFestival =
       sFtv2[
-        this.lunarIsLeapMonth
-          ? '00'
-          : digit(this.lunarMonth) + digit(this.lunarDate)
+      this.lunarIsLeapMonth
+        ? '00'
+        : digit(this.lunarMonth) + digit(this.lunarDate)
       ]
     if (typeof this.lunarFestival === 'undefined') {
       this.lunarFestival = ''
@@ -397,7 +397,7 @@ puiDateObj.extend = jet.extend = function () {
   for (; i < length; i++) {
     if ((options = arguments[i]) != null) {
       for (name in options) {
-        ;(src = target[name]), (copy = options[name])
+        ; (src = target[name]), (copy = options[name])
         if (target === copy) continue
         if (copy !== undefined) target[name] = copy
       }
@@ -496,7 +496,7 @@ puiDateObj.parse = jet.parse = function (ymdhms, format) {
   return format.replace(new RegExp(regymdzz, 'g'), (str, index) => {
     let date = jet.digit(ymdhms[str])
     if (!date && str == 'DD') {
-      date = new Date().getDate()
+      date = jet.digit(new Date().getDate())
     }
     return str == 'zz' ? '00' : date
   })
@@ -526,7 +526,7 @@ jet.extend(jet, {
         }
       }
     } else {
-      for (; i < length; ) {
+      for (; i < length;) {
         if (callback.call(obj[i], i, obj[i++]) === false) {
           break
         }
@@ -643,10 +643,10 @@ jet.extend(jet, {
         ? elem.innerHTML
         : undefined
       : typeof html !== 'undefined' && html == true
-      ? elem && elem.nodeType === 1
-        ? elem.outerHTML
-        : undefined
-      : (elem.innerHTML = html)
+        ? elem && elem.nodeType === 1
+          ? elem.outerHTML
+          : undefined
+        : (elem.innerHTML = html)
   },
   // 读取设置节点文本内容
   text(elem, value) {
@@ -749,8 +749,8 @@ jet.extend(jet, {
       if (parseInt(objVal[mat]) || parseInt(objVal[mat]) == 0) {
         reVal['set' + matArr[mat]](
           result['Get' + matArr[mat]]() +
-            (mat == 'MM' ? -1 : 0) +
-            parseInt(objVal[mat])
+          (mat == 'MM' ? -1 : 0) +
+          parseInt(objVal[mat])
         )
       }
     })
@@ -1103,8 +1103,8 @@ jet.extend(jeDatePick.prototype, {
           position: !isShow
             ? 'relative'
             : opts.fixed == true
-            ? 'absolute'
-            : 'fixed'
+              ? 'absolute'
+              : 'fixed'
         },
         isShow ? setzin : {}
       )
@@ -1364,7 +1364,7 @@ jet.extend(jeDatePick.prototype, {
       // const dayNext = jet.nextMonth(curr.YYYY, curr.MM)
       const initCurrent =
         that.selectDate.length > 1 &&
-        Object.prototype.hasOwnProperty.call(that.selectDate[1], 'YYYY')
+          Object.prototype.hasOwnProperty.call(that.selectDate[1], 'YYYY')
           ? that.selectDate[1]
           : curr
       RES.daylist.push(that.eachDays(initCurrent.YYYY, initCurrent.MM, nday, 1))
@@ -1414,9 +1414,9 @@ jet.extend(jeDatePick.prototype, {
         butArr = multi
           ? ['{%=yearlist[0][0].y-1%}', '{%=yearlist[0][0].y+1%}']
           : [
-              '{%=yearlist[i][0].y-' + ismu + '%}',
-              '{%=yearlist[i][yearlist[i].length-1].y%}'
-            ]
+            '{%=yearlist[i][0].y-' + ismu + '%}',
+            '{%=yearlist[i][yearlist[i].length-1].y%}'
+          ]
       } else if (that.dlen > 2 && that.dlen <= 6) {
         butArr = ['{%=yearlist[0][0].y-1%}', '{%=yearlist[0][0].y+1%}']
       }
@@ -1827,9 +1827,9 @@ jet.extend(jeDatePick.prototype, {
             ylen == 2
               ? [{ YYYY: parseInt(val), MM: dateM }]
               : [
-                  { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
-                  { YYYY: parseInt(val), MM: dateM }
-                ]
+                { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
+                { YYYY: parseInt(val), MM: dateM }
+              ]
           that.selectValue =
             ylen == 2
               ? [val + '-' + jet.digit(dateM)]
@@ -1946,13 +1946,13 @@ jet.extend(jeDatePick.prototype, {
             mlen == 2 && (!i || i == '0')
               ? [{ YYYY: ymval[0], MM: ymval[1] }]
               : [
-                  { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
-                  // { YYYY: parseInt(val), MM: ymval[1] }
-                  {
-                    YYYY: that.getSelectDateDefault().YYYY,
-                    MM: ymval[1]
-                  }
-                ]
+                { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
+                // { YYYY: parseInt(val), MM: ymval[1] }
+                {
+                  YYYY: that.getSelectDateDefault().YYYY,
+                  MM: ymval[1]
+                }
+              ]
           that.selectValue =
             mlen == 2 && (!i || i == '0') ? [val] : [that.selectValue[0], val]
 
@@ -2584,21 +2584,21 @@ jet.extend(jeDatePick.prototype, {
 
     const startDate = sDate[0]
       ? parseInt(
-          sDate[0].YYYY +
-            '' +
-            jet.digit(sDate[0].MM) +
-            '' +
-            jet.digit(sDate[0].DD)
-        )
+        sDate[0].YYYY +
+        '' +
+        jet.digit(sDate[0].MM) +
+        '' +
+        jet.digit(sDate[0].DD)
+      )
       : ''
     const endDate = sDate[1]
       ? parseInt(
-          sDate[1].YYYY +
-            '' +
-            jet.digit(sDate[1].MM) +
-            '' +
-            jet.digit(sDate[1].DD)
-        )
+        sDate[1].YYYY +
+        '' +
+        jet.digit(sDate[1].MM) +
+        '' +
+        jet.digit(sDate[1].DD)
+      )
       : ''
     // 设置时间标注
     const setMark = function (my, mm, md) {
@@ -2664,8 +2664,8 @@ jet.extend(jeDatePick.prototype, {
               ? ' disabled'
               : cls
             : isfind
-            ? cls
-            : ' disabled'
+              ? cls
+              : ' disabled'
         } else {
           const valreg = that.dateRegExp(endval[0])
           const regday = valreg.test(jet.digit(date))
@@ -2674,8 +2674,8 @@ jet.extend(jeDatePick.prototype, {
               ? ' disabled'
               : cls
             : regday
-            ? cls
-            : ' disabled'
+              ? cls
+              : ' disabled'
         }
       }
       return cls
@@ -2764,7 +2764,7 @@ jet.extend(jeDatePick.prototype, {
       if (that.dlen > 3 && /\:/.test(nVal) && type === 1) {
         if (
           Date.parse(nVal[0]) ===
-            Date.parse(that.selectValue[0].substr(0, 10)) &&
+          Date.parse(that.selectValue[0].substr(0, 10)) &&
           currVal < minVal[s] // 最小日期
         ) {
           currVal = minVal[s]
@@ -2773,7 +2773,7 @@ jet.extend(jeDatePick.prototype, {
       } else if (type === 2 && that.selectValue.length > 1) {
         if (
           Date.parse(xVal[0]) ===
-            Date.parse(that.selectValue[1].substr(0, 10)) &&
+          Date.parse(that.selectValue[1].substr(0, 10)) &&
           currVal > maxVal[s] // 最大日期
         ) {
           currVal = maxVal[s]
@@ -2960,14 +2960,14 @@ jet.extend(jeDatePick.prototype, {
         const Fesjieri =
           (lunar.solarFestival || lunar.lunarFestival) != ''
             ? '<p class="red">' +
-              ('\u8282\u65E5：' + lunar.solarFestival + lunar.lunarFestival) +
-              '</p>'
+            ('\u8282\u65E5：' + lunar.solarFestival + lunar.lunarFestival) +
+            '</p>'
             : ''
         const Fesjieqi =
           lunar.jieqi != ''
             ? '<p class="red">' +
-              (lunar.jieqi != '' ? '\u8282\u6C14：' + lunar.jieqi : '') +
-              '</p>'
+            (lunar.jieqi != '' ? '\u8282\u6C14：' + lunar.jieqi : '') +
+            '</p>'
             : ''
         const tiptext =
           (lunar.solarFestival || lunar.lunarFestival || lunar.jieqi) != ''
@@ -3001,12 +3001,12 @@ jet.extend(jeDatePick.prototype, {
       rect.bottom + boxH / 1 <= jet.docArea()
         ? rect.bottom - 1
         : rect.top > boxH / 1.5
-        ? rect.top - boxH - 1
-        : jet.docArea() - boxH
+          ? rect.top - boxH - 1
+          : jet.docArea() - boxH
     if (leris + boxW > jet.docArea(true))
       leris = rect.left - (boxW - rect.width)
-    ;(ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1, 1) + 'px'),
-      (orleri = leris + 'px')
+        ; (ortop = Math.max(tops + (pos ? 0 : jet.docScroll()) + 1, 1) + 'px'),
+          (orleri = leris + 'px')
     return { top: ortop, left: orleri }
   },
   // 辨别控件的方位
@@ -3232,8 +3232,8 @@ puiDateObj.renderDate = x => {
         position: !isShow
           ? 'relative'
           : opts.fixed == true
-          ? 'absolute'
-          : 'fixed'
+            ? 'absolute'
+            : 'fixed'
       },
       isShow ? setzin : {}
     )
