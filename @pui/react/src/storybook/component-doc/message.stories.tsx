@@ -7,27 +7,24 @@ export default {
 }
 
 export const knobsMessage = () => {
-  const tx = 'Hello, this is a message from PUI'
-  const onClick = (type: any, config?: any) => {
-    Message[type](tx, config)
-  }
+  const msg = 'Hello, this is a message from PUI'
 
   return (
     <div>
-      <Button onClick={() => onClick('info')} type="default">
+      <Button onClick={() => Message.info(msg)} type="default">
         Info
       </Button>
-      <Button onClick={() => onClick('warning')} type="primary">
+      <Button onClick={() => Message.warning(msg)} type="primary">
         Warning
       </Button>
-      <Button onClick={() => onClick('success')} type="secondary">
+      <Button onClick={() => Message.success(msg)} type="secondary">
         Success
       </Button>
-      <Button onClick={() => onClick('error')} type="primary">
+      <Button onClick={() => Message.error(msg)} type="primary">
         Error
       </Button>
       <Button
-        onClick={() => onClick('error', { closable: true })}
+        onClick={() => Message.error(msg, { closable: true })}
         type="default"
       >
         Closeable
