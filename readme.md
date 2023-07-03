@@ -1,17 +1,17 @@
-<p align="center">
+<p style="text-align:center">
 <img src="logo.svg" height="150">
 </p>
-<h1 align="center">
+<p style="text-align:center">
 PUI
 </h1>
-<p align="center">
+<p style="text-align:center">
 A Porsche styled enterprise React UI library.
 <p>
-<p align="center">
+<p style="text-align:center">
   <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/react?color=d5001c&label="></a>
 <p>
 
-<p align="center">
+<p style="text-align:center">
  <a href="http://react-dev.qa4.porsche-preview.cn/">Documentation</a> | <a href="http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book">Develop PUI</a> | <a href="http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-change-logs--getting-start-story-book">Change Logs</a>
 </p>
 
