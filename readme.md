@@ -14,11 +14,9 @@ A Porsche styled enterprise React UI library.
 <div align="center">
  <a href="http://react-dev.qa4.porsche-preview.cn/">Documentation</a> | <a href="http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book">Develop PUI</a> | <a href="http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-change-logs--getting-start-story-book">Change Logs</a>
 </div>
+<img src="pui.png" >
 
-<br>
-<br>
-
-## Features
+## ✨ Features
 
 - Porsche styled components, fonts, icons, themes
 - Powerful form handling
@@ -26,7 +24,29 @@ A Porsche styled enterprise React UI library.
 <br/>
 <br/>
 
-## Contribution
+## 📦 Install
+
+```sh
+npm install @pui/react
+```
+
+<br/>
+<br/>
+
+## 🔨 Usage
+
+```ts
+import { Button } from '@pui/react'
+
+export const Page = () => {
+  return <Button>按钮</Button>
+}
+```
+
+<br/>
+<br/>
+
+## 🤝 Contribution
 
 See [Contributing Guide](http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book)
 
