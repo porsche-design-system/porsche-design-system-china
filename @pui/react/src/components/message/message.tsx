@@ -187,7 +187,10 @@ export function MessageBox(props: MessageProps) {
         <span className="text-content">{content}</span>
         {fconfig.closable && (
           <IconClose
-            style={{ fontSize: fconfig.size === 'medium' ? '24px' : '20px' }}
+            style={{
+              fontSize: fconfig.size === 'medium' ? '24px' : '20px',
+              pointerEvents: 'auto'
+            }}
             onClick={handleClose}
           />
         )}
