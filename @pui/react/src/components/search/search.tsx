@@ -129,7 +129,6 @@ const Search = (searchProps: SearchProps) => {
       className={componentClassNames(
         'pui-search',
         {
-          'show-clear-button': (showClearButton && !!searchValue) + '',
           'show-search-button-bg': showSearchButtonBg + '',
           disabled: disabled + '',
           size: newSize
@@ -166,18 +165,21 @@ const Search = (searchProps: SearchProps) => {
         }}
         disabled={disabled}
         placeholder={placeholder}
-      />
-
-      <IconSearch
-        className="pui-search-button"
-        onClick={evt => {
-          evt.preventDefault()
-          isValidated.current = true
-          if (validateInput(searchValue)) {
-            return
-          }
-          !disabled && onSearch && onSearch(searchValue)
-        }}
+        suffixIcon={
+          <>
+            <IconSearch
+              className="pui-search-button"
+              onClick={evt => {
+                evt.preventDefault()
+                isValidated.current = true
+                if (validateInput(searchValue)) {
+                  return
+                }
+                !disabled && onSearch && onSearch(searchValue)
+              }}
+            />
+          </>
+        }
       />
       <ErrorText show={errList.length > 0} message={errList[0]?.message} />
     </div>
