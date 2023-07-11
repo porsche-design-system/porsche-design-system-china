@@ -18,9 +18,10 @@ import { renderNode } from '../../shared/render-utils'
 
 import { componentClassNames } from '../../shared/class-util'
 import { useDefaultSize } from '../../shared/hooks'
-import { ButtonProps , Button } from '../button/button'
+import { ButtonProps, Button } from '../button/button'
 import './modal.scss'
 
+export type CancelReason = 'Close' | 'Cancel'
 export interface ModalProps {
   /** 子组件 */
   children?: React.ReactNode
@@ -80,7 +81,7 @@ export interface ModalProps {
   onOk?: () => void | Promise<unknown>
 
   /** 点击遮罩层或右上角叉或取消按钮的回调 */
-  onCancel?: () => void
+  onCancel?: (cancelReason?: CancelReason) => void
 
   /** 显示取消按钮 */
   showCancel?: boolean
@@ -155,7 +156,7 @@ const Modal = ({
         >
           {showCancel && (
             <Button
-              onClick={() => onCancel && onCancel()}
+              onClick={() => onCancel && onCancel('Cancel')}
               icon={
                 cancelIcon === null ? undefined : cancelIcon === undefined ? (
                   <IconClose />
@@ -228,7 +229,7 @@ const Modal = ({
           />
           <div className="pui-modal-wrap">
             <div
-              data-testid='pui-modal-wrap-child'
+              data-testid="pui-modal-wrap-child"
               style={style}
               className={componentClassNames(
                 'pui-modal',
@@ -244,7 +245,7 @@ const Modal = ({
                   <div
                     className="pui-modal-close"
                     onClick={() => {
-                      onCancel && onCancel()
+                      onCancel && onCancel('Close')
                     }}
                   >
                     <IconClose />
@@ -350,7 +351,7 @@ Modal.confirm = (
   title: string,
   content: ReactNode,
   onOk: (() => void | Promise<unknown>) | undefined = undefined,
-  onCancel: (() => void) | undefined = undefined,
+  onCancel: ((cancelReason?: CancelReason) => void) | undefined = undefined,
   okText: string = '确认',
   cancelText: string = '取消'
 ) => {
@@ -370,10 +371,10 @@ Modal.confirm = (
       okText={okText}
       modalSize="small"
       showClose={false}
-      onCancel={() => {
+      onCancel={cancelReason => {
         document.body.removeChild(modalContainer!)
         document.body.removeChild(currentPop)
-        onCancel && onCancel()
+        onCancel && onCancel(cancelReason)
       }}
       cancelText={cancelText}
       modalRef={(r: any) => {
@@ -466,7 +467,7 @@ export interface ModalShowProps {
   onOk?: () => void | Promise<unknown>
 
   /** 点击遮罩层或右上角叉或取消按钮的回调 */
-  onCancel?: () => void
+  onCancel?: (cancelReason?: CancelReason) => void
 
   /** 显示取消按钮 */
   showCancel?: boolean
@@ -544,10 +545,10 @@ Modal.show = ({
       showOk={showOk}
       showClose={showClose}
       showCancel={showCancel}
-      onCancel={() => {
+      onCancel={cancelReason => {
         document.body.removeChild(modalContainer!)
         document.body.removeChild(currentPop)
-        onCancel && onCancel()
+        onCancel && onCancel(cancelReason)
       }}
       cancelText={cancelText}
       cancelButtonProps={cancelButtonProps}
