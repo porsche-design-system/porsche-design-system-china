@@ -12,29 +12,10 @@
 
       .pui-input {
         width: 100%;
-        .pui-input-right-button {
-          right: 45px;
-        }
-        input {
-          padding-right: 40px;
-        }
-      }
-
-      &-show-clear-button-true {
-        .pui-input {
-          input {
-            padding-right: 80px;
-          }
-        }
       }
 
       .pui-search-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 48px;
-        height: 48px;
-        padding: 12px;
+        font-size: 24px;
         color: $text-opacity-color-2;
         user-select: none;
       }
@@ -45,37 +26,33 @@
 
       &-disabled-true {
         cursor: not-allowed;
+
         .pui-search-button {
           pointer-events: none;
         }
       }
 
       &.pui-search-show-search-button-bg-true {
+        .pui-input-suffix-icon {
+          margin-left: 0;
+        }
+
         .pui-search-button {
           background-color: $container-bg-color-8;
           color: $text-color-2;
+          position: relative;
+          left: 12px;
+          padding: 12px;
+
           &:hover {
             background-color: $container-bg-color-7;
           }
+
           :hover {
             color: $text-color-2;
           }
         }
-        .pui-input {
-          input {
-            padding-right: 56px;
-          }
-          &-right-button {
-            right: 56px;
-          }
-        }
-        &.pui-search-show-clear-button-true {
-          .pui-input {
-            input {
-              padding-right: 86px;
-            }
-          }
-        }
+
         &.pui-search-disabled-true {
           .pui-search-button {
             background-color: $brand-color-disable;
@@ -84,34 +61,20 @@
       }
 
       &-size-small {
-        .pui-input {
-          .pui-input-right-button {
-            right: 36px;
-          }
-        }
         .pui-search-button {
-          width: 36px;
-          height: 36px;
-          padding: 8px;
           font-size: 20px;
         }
 
         &.pui-search {
           &.pui-search-show-search-button-bg-true {
-            .pui-input {
-              input {
-                padding-right: 40px;
-              }
-              .pui-input-right-button {
-                right: 40px;
-              }
+            .pui-input-suffix-icon {
+              margin-left: 0;
             }
-            &.pui-search-show-clear-button-true {
-              .pui-input {
-                input {
-                  padding-right: 60px;
-                }
-              }
+
+            .pui-search-button {
+              position: relative;
+              left: 12px;
+              padding: 8px;
             }
           }
         }
