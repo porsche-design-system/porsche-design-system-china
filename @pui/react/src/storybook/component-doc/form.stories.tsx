@@ -102,6 +102,8 @@ export const ExampleStoryBook = () => {
       <br />
       <Row>
         <Col span={15}>
+          表单数据捆绑现已支持多层级
+          <br /> <br />
           <Form
             labelLayout={labelLayout}
             data={data}

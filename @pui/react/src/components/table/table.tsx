@@ -13,6 +13,7 @@ import { IconDown, IconArrowHeadRight, IconArrowHeadDown } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import { CheckBox } from '../checkbox/checkbox'
 import { useDefaultSize, useScrollBarHide, useTheme } from '../../shared/hooks'
+import { valueOfKeys } from '../../shared/string-util'
 
 import './OverlayScrollbars.min.scss'
 import './table.scss'
@@ -31,7 +32,8 @@ export interface Sorter {
 
 export interface TableColumn<T = any> {
   title?: ReactNode
-  key?: keyof T
+  // @ts-ignore
+  key?: keyof T | `${keyof T}.${string}`
   width?: number
   fixed?: 'none' | 'left' | 'right'
   multiline?: boolean
@@ -332,9 +334,9 @@ const Table = <T, K>({
         col.width = defaultWidth
       } else {
         data.forEach((d: any) => {
-          if (d[col.key!]) {
-            const dataColWidth =
-              getByteLength(d[col.key! as string]) * charWidth
+          const cellValue = valueOfKeys(d, col.key as string)
+          if (cellValue) {
+            const dataColWidth = getByteLength(cellValue + '') * charWidth
             col.width =
               (col.width || 0) < dataColWidth ? dataColWidth : col.width
           }
@@ -461,7 +463,7 @@ const Table = <T, K>({
                   }
                 }
               })
-            : column.key && rowData[column.key]}
+            : column.key && valueOfKeys(rowData, column.key as string)}
         </div>
       </td>
     )

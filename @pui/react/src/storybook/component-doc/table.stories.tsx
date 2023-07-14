@@ -27,7 +27,9 @@ export const TableStoryBook = () => {
     phoneNumber: '021-22211111',
     address: '上海市东方路123号',
     avgPrice: '￥1000000',
-    workingTime: '10:00AM - 10:30PM',
+    info: {
+      workingTime: '10:00AM - 10:30PM'
+    },
     saleModel: '911 718 Taycan Panamera Macan Cayenne'
   }
 
@@ -46,7 +48,7 @@ export const TableStoryBook = () => {
     },
     { title: '联系号码', key: 'phoneNumber' },
     { title: '地址', key: 'address' },
-    { title: '工作时间', key: 'workingTime', sortable: true },
+    { title: '工作时间', key: 'info.workingTime', sortable: true },
     { title: '在售车型', key: 'saleModel' },
     {
       title: '经销商等级',
@@ -118,7 +120,6 @@ export const TableStoryBook = () => {
         onSort={sorter => console.log(sorter)}
       />
       <br />
-
       <Select
         label="隐藏滚动条方式"
         onValueChange={setScrollBarAutoHide}
@@ -127,6 +128,9 @@ export const TableStoryBook = () => {
         width="200px"
         marginLeft="10px"
       />
+      <br />
+      <br />
+      Table 现在已支持多层结构数据 使用方法：key: &apos;info.workingTime&apos;
     </div>
   )
 }
