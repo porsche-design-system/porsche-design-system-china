@@ -26,7 +26,7 @@ export const containText = (text: string, searchText: string) => {
 }
 
 export const valueOfKeys = (object: any, keys: string) => {
-  const nameParts = keys.split('.')
+  const nameParts = keys.trim().split('.')
   let val = object
   nameParts.forEach(key => {
     if (val) {
@@ -37,7 +37,7 @@ export const valueOfKeys = (object: any, keys: string) => {
 }
 
 export const assignValue = (object: any, keys: string, value: any) => {
-  const nameParts = keys.split('.')
+  const nameParts = keys.trim().split('.')
   let val = object
   nameParts.forEach((key, inx) => {
     if (inx === nameParts.length - 1) {
