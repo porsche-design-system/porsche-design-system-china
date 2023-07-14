@@ -129,7 +129,7 @@ export const ExampleStoryBook = () => {
               instantValidate
             />
             <DatePicker
-              name="birthday"
+              name="info.birthday"
               label="生日"
               width="44%"
               marginRight="2%"
@@ -143,7 +143,7 @@ export const ExampleStoryBook = () => {
             />
             <Input
               label="电子邮件"
-              name="email"
+              name="info.email"
               rules={{ type: 'email', message: '邮件格式不正确' }}
             />
             <DateRangePicker
@@ -247,7 +247,7 @@ export const ExampleStoryBook = () => {
                 })
               }}
             />
-            <CheckBox name="agree" text="同意条款" />
+            <CheckBox name="xxx.agree" text="同意条款" />
             <br /> <br />
             <ButtonGroup align={buttonAlign as any}>
               <Button type="primary" icon={IconArrowHeadRight} submit>

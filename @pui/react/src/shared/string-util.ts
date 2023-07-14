@@ -24,3 +24,29 @@ export const containText = (text: string, searchText: string) => {
     text.toLocaleLowerCase().indexOf(searchText.trim().toLocaleLowerCase()) >= 0
   )
 }
+
+export const valueOfKeys = (object: any, keys: string) => {
+  const nameParts = keys.split('.')
+  let val = object
+  nameParts.forEach(key => {
+    if (val) {
+      val = val[key]
+    }
+  })
+  return val
+}
+
+export const assignValue = (object: any, keys: string, value: any) => {
+  const nameParts = keys.split('.')
+  let val = object
+  nameParts.forEach((key, inx) => {
+    if (inx === nameParts.length - 1) {
+      val[key] = value
+    } else {
+      if (!val[key]) {
+        val[key] = {}
+      }
+      val = val[key]
+    }
+  })
+}

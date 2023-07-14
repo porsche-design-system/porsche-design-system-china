@@ -12,6 +12,7 @@ import { validate, RuleItem } from '../../shared/validation-rules'
 import { componentClassNames } from '../../shared/class-util'
 import { ButtonProps } from '../button/button'
 import { FormErrorText } from '../error-text/error-text'
+import { valueOfKeys, assignValue } from '../../shared/string-util'
 
 export interface FormLabelStyle {
   /** 标签位置 */
@@ -183,16 +184,18 @@ export const overrideProps = (
 
     if (inputProps.name || inputProps.nameStartDate || inputProps.nameEndDate) {
       if (inputProps.name) {
-        if (fData[inputProps.name] === undefined) {
+        if (valueOfKeys(fData, inputProps.name) === undefined) {
           if (elementName === 'CheckBoxGroup') {
-            fData[inputProps.name] = []
+            assignValue(fData, inputProps.name, [])
           } else if (
             elementName === 'DateRangePicker' ||
             elementName === 'MonthRangePicker'
           ) {
-            fData[inputProps.name] = ['', '']
+            assignValue(fData, inputProps.name, ['', ''])
+          } else if (elementName === 'CheckBox') {
+            assignValue(fData, inputProps.name, false)
           } else {
-            fData[inputProps.name] = ''
+            assignValue(fData, inputProps.name, '')
           }
         }
       }
@@ -248,24 +251,32 @@ export const overrideProps = (
         }
 
         if (inputProps.name) {
-          formDataValidators[inputProps.name] = inputProps.rules
+          assignValue(formDataValidators, inputProps.name, inputProps.rules)
         }
 
         if (inputProps.nameStartDate) {
-          formDataValidators[inputProps.nameStartDate] = inputProps.rules
+          assignValue(
+            formDataValidators,
+            inputProps.nameStartDate,
+            inputProps.rules
+          )
         }
         if (inputProps.nameEndDate) {
-          formDataValidators[inputProps.nameEndDate] = inputProps.rules
+          assignValue(
+            formDataValidators,
+            inputProps.nameEndDate,
+            inputProps.rules
+          )
         }
       }
 
       if (inputProps.name) {
         if (elementName === 'CheckBox') {
-          inputProps.checked = fData[inputProps.name]
+          inputProps.checked = valueOfKeys(fData, inputProps.name)
         } else if (elementName === 'Upload') {
           ;(inputProps as any).fileList = fData[inputProps.name]
         } else {
-          inputProps.value = fData[inputProps.name]
+          inputProps.value = valueOfKeys(fData, inputProps.name)
         }
       }
 
@@ -274,7 +285,7 @@ export const overrideProps = (
           inputProps.value = ['', '']
         }
         inputProps.value = [
-          fData[inputProps.nameStartDate],
+          valueOfKeys(fData, inputProps.nameStartDate),
           inputProps.value[1]
         ]
       }
@@ -282,7 +293,10 @@ export const overrideProps = (
         if (!inputProps.value) {
           inputProps.value = ['', '']
         }
-        inputProps.value = [inputProps.value[0], fData[inputProps.nameEndDate]]
+        inputProps.value = [
+          inputProps.value[0],
+          valueOfKeys(fData, inputProps.nameEndDate)
+        ]
       }
 
       // const clearError = () => {
@@ -301,14 +315,16 @@ export const overrideProps = (
       if (['CheckBox'].includes(elementName)) {
         const formItemOnCheckedChange = inputProps.onCheckedChange
         inputProps.onCheckedChange = val => {
-          const newFormData = {
-            ...fData,
-            [inputProps.name!]: val
+          const newFormData = { ...fData }
+          assignValue(
+            newFormData,
+            inputProps.name!,
+            val
               ? inputProps.value || val
               : inputProps.value !== undefined
               ? ''
               : false
-          }
+          )
           if (data === undefined) {
             setFormData(newFormData)
           }
@@ -336,9 +352,9 @@ export const overrideProps = (
         ].includes(elementName)
       ) {
         inputProps.onValueChange = value => {
-          let newFormData = fData
+          const newFormData = { ...fData }
           if (inputProps.name) {
-            newFormData = { ...fData, [inputProps.name]: value }
+            assignValue(newFormData, inputProps.name, value)
           }
           if (
             elementName === 'DateRangePicker' ||
@@ -346,16 +362,10 @@ export const overrideProps = (
             elementName === 'DateTimePicker'
           ) {
             if (inputProps.nameStartDate) {
-              newFormData = {
-                ...newFormData,
-                [inputProps.nameStartDate]: value[0]
-              }
+              assignValue(newFormData, inputProps.nameStartDate, value[0])
             }
             if (inputProps.nameEndDate) {
-              newFormData = {
-                ...newFormData,
-                [inputProps.nameEndDate]: value[1]
-              }
+              assignValue(newFormData, inputProps.nameEndDate, value[1])
             }
           }
 
