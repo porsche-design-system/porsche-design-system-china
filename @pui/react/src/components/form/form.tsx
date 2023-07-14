@@ -499,6 +499,12 @@ function Form<T = any>({
       },
       setData(data: any) {
         setFormData(data)
+      },
+      setFormErrors(errorList: ErrorList) {
+        setFormErrors(errorList)
+      },
+      getFormErrors() {
+        return formErrors
       }
     }
   }
@@ -542,6 +548,8 @@ Form.findByName = (name: string) => {
     setData: (data: any) => void
     getData: () => any
     validate: (callback?: (errorList: ErrorList) => void) => void
+    setFormErrors: (errorList: ErrorList) => void
+    getFormErrors: () => ErrorList
   }
 }
 
