@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.64](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.63...v0.1.64) (2023-07-17)
+
+
+### Features
+
+* **CARCN-0000:** add input validation-rule whitespace ([7c681dd](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7c681dd902a74b94386dd3be7d22551767d22dad))
+* **CARCN-5709:** 添加form测试 ([4dedc8e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4dedc8ecaf851f0d2069027810bba4bd0080a9a8))
+* 加入form设置错误功能 ([7bac284](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7bac284526fcefd5dde9c9fcf66dc665cbcb7cdc))
+* 多层结构支持Table ([7e226f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7e226f933f656d0c62155ec6564906ec9c381b26))
+* 添加 Form 表单多层级 ([7dcb5b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7dcb5b3da05b678e53ff019ab3c1ebbda63d410f))
+
+
+### Bug Fixes
+
+* **DSCWCN-194:** search 组件清除按钮位置问题 ([a8ed9cf](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a8ed9cf9de70dd02a1d3edb299b1053dac6dcef3))
+
 ### [0.1.63](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.62...v0.1.63) (2023-07-12)
 
 
