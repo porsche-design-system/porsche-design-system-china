@@ -8,7 +8,6 @@ export const validate = (
   callback: (errorList: ErrorList) => void
 ) => {
   const field = Object.keys(descriptor)[0]
-
   if (Array.isArray(descriptor[field])) {
     const newDescriptor = (descriptor[field] as RuleItem[]).map(
       (item: RuleItem) => {

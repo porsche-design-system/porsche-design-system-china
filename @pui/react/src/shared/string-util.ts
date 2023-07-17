@@ -36,6 +36,35 @@ export const valueOfKeys = (object: any, keys: string) => {
   return val
 }
 
+export const assignValidatorValue = (object: any, keys: string, value: any) => {
+  if (keys.trim() === '') {
+    return
+  }
+  const nameParts = keys.trim().split('.')
+  let val = object
+  nameParts.forEach((key, inx) => {
+    if (inx === nameParts.length - 1) {
+      if (nameParts.length === 1) {
+        val[key] = value
+      } else {
+        val.fields[key] = value
+      }
+    } else {
+      if (inx !== 0) {
+        val = val.fields
+      }
+      if (!val[key]) {
+        val[key] = {}
+      }
+      val = val[key]
+      val.type = 'object'
+      if (!val.fields) {
+        val.fields = {}
+      }
+    }
+  })
+}
+
 export const assignValue = (object: any, keys: string, value: any) => {
   const nameParts = keys.trim().split('.')
   let val = object

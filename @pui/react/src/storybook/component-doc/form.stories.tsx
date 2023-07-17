@@ -145,8 +145,11 @@ export const ExampleStoryBook = () => {
             />
             <Input
               label="电子邮件"
-              name="info.email"
-              rules={{ type: 'email', message: '邮件格式不正确' }}
+              name="info.yyy.email"
+              rules={[
+                { type: 'email', message: '邮件格式不正确' },
+                { required: true, message: '电子邮件必须填写' }
+              ]}
             />
             <DateRangePicker
               label="上牌日期"
