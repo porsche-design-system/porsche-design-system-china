@@ -12,7 +12,11 @@ import { validate, RuleItem } from '../../shared/validation-rules'
 import { componentClassNames } from '../../shared/class-util'
 import { ButtonProps } from '../button/button'
 import { FormErrorText } from '../error-text/error-text'
-import { valueOfKeys, assignValue } from '../../shared/string-util'
+import {
+  valueOfKeys,
+  assignValidatorValue,
+  assignValue
+} from '../../shared/string-util'
 
 export interface FormLabelStyle {
   /** 标签位置 */
@@ -251,18 +255,22 @@ export const overrideProps = (
         }
 
         if (inputProps.name) {
-          assignValue(formDataValidators, inputProps.name, inputProps.rules)
+          assignValidatorValue(
+            formDataValidators,
+            inputProps.name,
+            inputProps.rules
+          )
         }
 
         if (inputProps.nameStartDate) {
-          assignValue(
+          assignValidatorValue(
             formDataValidators,
             inputProps.nameStartDate,
             inputProps.rules
           )
         }
         if (inputProps.nameEndDate) {
-          assignValue(
+          assignValidatorValue(
             formDataValidators,
             inputProps.nameEndDate,
             inputProps.rules
