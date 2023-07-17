@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.65](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.64...v0.1.65) (2023-07-17)
+
+
+### Features
+
+* **CARCN-0000:** modify form component validator ([30491f1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/30491f1da21739468f5c729f2ec4c4c19eb28098))
+* **CARCN-5709:** 添加form测试 ([ff29d82](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ff29d821f3911ec936ae5c6afb5bc99af01ad869))
+
 ### [0.1.64](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.63...v0.1.64) (2023-07-17)
 
 
