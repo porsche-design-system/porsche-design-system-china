@@ -7,21 +7,23 @@ export const validate = (
   data: any,
   callback: (errorList: ErrorList) => void
 ) => {
-  const field = Object.keys(descriptor)[0]
-  if (Array.isArray(descriptor[field])) {
-    const newDescriptor = (descriptor[field] as RuleItem[]).map(
-      (item: RuleItem) => {
-        if (item.required && item.whitespace === undefined) {
-          item.whitespace = true
+  if (Object.keys(descriptor).length > 0) {
+    const field = Object.keys(descriptor)[0]
+    if (Array.isArray(descriptor[field])) {
+      const newDescriptor = (descriptor[field] as RuleItem[]).map(
+        (item: RuleItem) => {
+          if (item.required && item.whitespace === undefined) {
+            item.whitespace = true
+          }
+          return item
         }
-        return item
-      }
-    )
-    descriptor[field] = newDescriptor
-  } else {
-    ;(descriptor[field] as RuleItem).whitespace =
-      (descriptor[field] as RuleItem).required &&
-      (descriptor[field] as RuleItem).whitespace === undefined
+      )
+      descriptor[field] = newDescriptor
+    } else {
+      ;(descriptor[field] as RuleItem).whitespace =
+        (descriptor[field] as RuleItem).required &&
+        (descriptor[field] as RuleItem).whitespace === undefined
+    }
   }
   const validator = new Schema(descriptor)
   validator.validate(data, {}, errors => {
