@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.67](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.66...v0.1.67) (2023-07-20)
+
+
+### Bug Fixes
+
+* **CARCN-000:** fix form errorList issue ([b449413](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b449413efddb26c214b9b85eda4353768093c01d))
+
 ### [0.1.66](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.65...v0.1.66) (2023-07-20)
 
 ### Bug Fixes
