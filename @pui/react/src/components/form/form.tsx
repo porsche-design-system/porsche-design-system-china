@@ -420,7 +420,7 @@ export const overrideProps = (
         buttonOnClick && buttonOnClick(evt)
         validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
-          setFormErrors(errorList)
+          setFormErrors([...errorList])
           if (onSubmit) {
             const loadingPromise = onSubmit(fData, errorList)
             if (loadingPromise && typeof loadingPromise === 'object') {
@@ -475,7 +475,7 @@ function Form<T = any>({
   const validForm = (newFormData: any) => {
     if (shouldAutoValidForm.current) {
       validate(formDataValidators, newFormData, errorList => {
-        setFormErrors(errorList)
+        setFormErrors([...errorList])
       })
     }
   }
@@ -489,7 +489,8 @@ function Form<T = any>({
         let submitReturn: any
         validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
-          setFormErrors(errorList)
+          setFormErrors([...errorList])
+          console.log('error',formDataValidators)
           if (onSubmit) {
             submitReturn = onSubmit(fData as T, errorList)
           }
