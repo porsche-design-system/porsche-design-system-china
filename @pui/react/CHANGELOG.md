@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.66](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.65...v0.1.66) (2023-07-20)
+
+
+### Bug Fixes
+
+* **CARCN-0000:** fix potentail validate issue ([46bd5ea](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/46bd5ea5f2476ea09489bcbb316a1594c1d34f75))
+* **CARCN-000:** fix potentail validate issue ([e182cb1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e182cb16cf58d5c601dd196dee789dd59f7f8691))
+* **CARCN-000:** fix potentail validate issue ([1ce9d58](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9d58c315d78277a8b7fc552fb9abb75f33d11))
+* 修正Button Submit 错误 ([4640b37](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4640b372a21a2c9a75a62d8cb42a3924d63d80bd))
+
 ### [0.1.65](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.64...v0.1.65) (2023-07-17)
 
 
