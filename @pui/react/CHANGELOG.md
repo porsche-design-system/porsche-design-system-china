@@ -4,125 +4,111 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.1.66](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.65...v0.1.66) (2023-07-20)
 
-
 ### Bug Fixes
 
-* **CARCN-0000:** fix potentail validate issue ([46bd5ea](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/46bd5ea5f2476ea09489bcbb316a1594c1d34f75))
-* **CARCN-000:** fix potentail validate issue ([e182cb1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e182cb16cf58d5c601dd196dee789dd59f7f8691))
-* **CARCN-000:** fix potentail validate issue ([1ce9d58](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9d58c315d78277a8b7fc552fb9abb75f33d11))
-* 修正Button Submit 错误 ([4640b37](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4640b372a21a2c9a75a62d8cb42a3924d63d80bd))
+- **CARCN-000:** fix potentail validate issue ([1ce9d58](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9d58c315d78277a8b7fc552fb9abb75f33d11))
+- 修正 Button Submit 错误 ([4640b37](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4640b372a21a2c9a75a62d8cb42a3924d63d80bd))
 
 ### [0.1.65](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.64...v0.1.65) (2023-07-17)
 
-
 ### Features
 
-* **CARCN-0000:** modify form component validator ([30491f1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/30491f1da21739468f5c729f2ec4c4c19eb28098))
-* **CARCN-5709:** 添加form测试 ([ff29d82](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ff29d821f3911ec936ae5c6afb5bc99af01ad869))
+- **CARCN-0000:** modify form component validator ([30491f1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/30491f1da21739468f5c729f2ec4c4c19eb28098))
+- **CARCN-5709:** 添加 form 测试 ([ff29d82](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ff29d821f3911ec936ae5c6afb5bc99af01ad869))
 
 ### [0.1.64](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.63...v0.1.64) (2023-07-17)
 
-
 ### Features
 
-* **CARCN-0000:** add input validation-rule whitespace ([7c681dd](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7c681dd902a74b94386dd3be7d22551767d22dad))
-* **CARCN-5709:** 添加form测试 ([4dedc8e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4dedc8ecaf851f0d2069027810bba4bd0080a9a8))
-* 加入form设置错误功能 ([7bac284](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7bac284526fcefd5dde9c9fcf66dc665cbcb7cdc))
-* 多层结构支持Table ([7e226f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7e226f933f656d0c62155ec6564906ec9c381b26))
-* 添加 Form 表单多层级 ([7dcb5b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7dcb5b3da05b678e53ff019ab3c1ebbda63d410f))
-
+- **CARCN-0000:** add input validation-rule whitespace ([7c681dd](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7c681dd902a74b94386dd3be7d22551767d22dad))
+- **CARCN-5709:** 添加 form 测试 ([4dedc8e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4dedc8ecaf851f0d2069027810bba4bd0080a9a8))
+- 加入 form 设置错误功能 ([7bac284](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7bac284526fcefd5dde9c9fcf66dc665cbcb7cdc))
+- 多层结构支持 Table ([7e226f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7e226f933f656d0c62155ec6564906ec9c381b26))
+- 添加 Form 表单多层级 ([7dcb5b3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7dcb5b3da05b678e53ff019ab3c1ebbda63d410f))
 
 ### Bug Fixes
 
-* **DSCWCN-194:** search 组件清除按钮位置问题 ([a8ed9cf](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a8ed9cf9de70dd02a1d3edb299b1053dac6dcef3))
+- **DSCWCN-194:** search 组件清除按钮位置问题 ([a8ed9cf](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a8ed9cf9de70dd02a1d3edb299b1053dac6dcef3))
 
 ### [0.1.63](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.62...v0.1.63) (2023-07-12)
 
-
 ### Features
 
-* **CARCN-5370:** 增加Timeline组件单元测试 ([0f2c575](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0f2c57593649c9648e2963fc27ae3851452ab6ff))
-* **CARCN-5371:** add PUI component Search test ([14e9f04](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/14e9f042c882cd1cbdc3520d189442eba8a8db2f))
-* **CARCN-5500:** 添加message测试用例 & 修复测试发现的问题 ([c8628c5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c8628c554188d753415fb28b70dce8fa7a2d3f38))
-* **DRSCN-28041:** DateTimePicker组件加UT ([afac4c1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/afac4c194e19ea2e3265f84214897624721115d0))
-* **DRSCN-28049:** Slider UT | fix type error ([7f36346](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7f36346e359238988f3d9ce5c6f9067ea5f58184))
-* **feat_DSCWCN_88:** 添加 Steps small ([d87ebd6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d87ebd634b3b809b65891a5c2dd0798b54a4eabb))
-* FormItem添加requiredMark属性 ([bc1da14](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bc1da1457ac4bee1941727814b12ec0b8a650a94))
-* **Icon:** add icon circle ([7ebcb4d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ebcb4d862c412990b359c266d7ee999fd639e05))
-* **Icon:** add icon circle ([c097ed9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c097ed93e210a63ff18011c69cda8fb6435a605a))
-* **Icon:** add icon circle ([a6fc5f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6fc5f964c02195c5dad7d5166f9fab4aa97a06c))
-* **Icon:** add icon circle ([44dc3df](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/44dc3dfb709dfb86569f324bcf6e4c14614ebdd5))
-* **POSACN-17432:** PUI｜UT｜Dropdown ([c58cdab](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c58cdab2f712a3e7d0fb385eb60d5924fc0e3465))
-* **POSACN-17436:** PUI｜UT｜Menu ([de9baf3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/de9baf3afc5b1c83a054a77298d900bfce701998))
-* **POSPCN-13944:** PUI components UT｜MonthRangePicker ([50e0473](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/50e04734427fb01da905dcf0261983eaf30182f6))
-
+- **CARCN-5370:** 增加 Timeline 组件单元测试 ([0f2c575](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0f2c57593649c9648e2963fc27ae3851452ab6ff))
+- **CARCN-5371:** add PUI component Search test ([14e9f04](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/14e9f042c882cd1cbdc3520d189442eba8a8db2f))
+- **CARCN-5500:** 添加 message 测试用例 & 修复测试发现的问题 ([c8628c5](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c8628c554188d753415fb28b70dce8fa7a2d3f38))
+- **DRSCN-28041:** DateTimePicker 组件加 UT ([afac4c1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/afac4c194e19ea2e3265f84214897624721115d0))
+- **DRSCN-28049:** Slider UT | fix type error ([7f36346](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7f36346e359238988f3d9ce5c6f9067ea5f58184))
+- **feat_DSCWCN_88:** 添加 Steps small ([d87ebd6](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d87ebd634b3b809b65891a5c2dd0798b54a4eabb))
+- FormItem 添加 requiredMark 属性 ([bc1da14](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bc1da1457ac4bee1941727814b12ec0b8a650a94))
+- **Icon:** add icon circle ([7ebcb4d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/7ebcb4d862c412990b359c266d7ee999fd639e05))
+- **Icon:** add icon circle ([c097ed9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c097ed93e210a63ff18011c69cda8fb6435a605a))
+- **Icon:** add icon circle ([a6fc5f9](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a6fc5f964c02195c5dad7d5166f9fab4aa97a06c))
+- **Icon:** add icon circle ([44dc3df](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/44dc3dfb709dfb86569f324bcf6e4c14614ebdd5))
+- **POSACN-17432:** PUI ｜ UT ｜ Dropdown ([c58cdab](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/c58cdab2f712a3e7d0fb385eb60d5924fc0e3465))
+- **POSACN-17436:** PUI ｜ UT ｜ Menu ([de9baf3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/de9baf3afc5b1c83a054a77298d900bfce701998))
+- **POSPCN-13944:** PUI components UT ｜ MonthRangePicker ([50e0473](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/50e04734427fb01da905dcf0261983eaf30182f6))
 
 ### Bug Fixes
 
-* **CMREFCN-720:** 删除 date-range-picker组件测试的硬编码 ([0dc4a69](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0dc4a69cb5837714c40069b3077059fffa591a05))
-* **DRSCN-28045:** Input 的 TS修复 ([b5d0581](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b5d0581514ca749885e6f48987fab0941e8ed052))
-* **DRSCN-28053:** LoadingWrap测试ut ([1890df4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1890df4bad7a62a8194cfc560b4e9856883ab679))
-* **DSCWCN-180:** 更改 Input 组件 清除按钮颜色 ([2933697](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/29336974d68b2ea8f1f6939255186a293bdd799f))
-* **DSCWCN-190:** date timer 组件选择月份时日期显示格式问题 ([efbea90](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/efbea90a34152b09dce300c6c3f392197d88cdda))
-* **fix_DSCWCN_177:** 更改 input 组件的后缀遮盖的 bug ([afbc65e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/afbc65e0ffb0712d89eba5002b8d54f2e9f47fba))
-* **fix_DSCWCN_177:** 更改 input 组件的后缀遮盖的 bug ([e707f4a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e707f4a6b1f6da3caece341d6fa06362bcf3adc4))
-* **fix_DSCWCN_188:** Select中，支持分组与搜索组件样式，在搜索后，无结果的需要隐藏组名 ([bbf3f64](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bbf3f6414032e579540c4fadcf83b91839660856))
-* **SCWCN-181:** error模式下选中颜色修复；dark模式下border颜色修复 ([6b61817](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6b6181795eff077dea8afb9501162e28b8230781))
-* 优化eslint ([023dce7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/023dce7ae9cef868439e38e6939f2d41257c6957))
-* 优化文档 ([fa9e8e4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fa9e8e454f29803fb9a9d880462579a9ba46a1cb))
-* 优化模态框 ([a0a86f1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a0a86f17d2970cf0cdefdff6d245783060bede5e))
-* 修正文档对齐方式 ([9111678](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/91116783d35506d55d2926fea162a29bb3d082d6))
-* 修正测试的各种错误 和 warning ([10d78b4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/10d78b4d7d8a7410f5143be4a582a499b6c7afaa))
+- **CMREFCN-720:** 删除 date-range-picker 组件测试的硬编码 ([0dc4a69](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0dc4a69cb5837714c40069b3077059fffa591a05))
+- **DRSCN-28045:** Input 的 TS 修复 ([b5d0581](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/b5d0581514ca749885e6f48987fab0941e8ed052))
+- **DRSCN-28053:** LoadingWrap 测试 ut ([1890df4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1890df4bad7a62a8194cfc560b4e9856883ab679))
+- **DSCWCN-180:** 更改 Input 组件 清除按钮颜色 ([2933697](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/29336974d68b2ea8f1f6939255186a293bdd799f))
+- **DSCWCN-190:** date timer 组件选择月份时日期显示格式问题 ([efbea90](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/efbea90a34152b09dce300c6c3f392197d88cdda))
+- **fix_DSCWCN_177:** 更改 input 组件的后缀遮盖的 bug ([afbc65e](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/afbc65e0ffb0712d89eba5002b8d54f2e9f47fba))
+- **fix_DSCWCN_177:** 更改 input 组件的后缀遮盖的 bug ([e707f4a](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e707f4a6b1f6da3caece341d6fa06362bcf3adc4))
+- **fix_DSCWCN_188:** Select 中，支持分组与搜索组件样式，在搜索后，无结果的需要隐藏组名 ([bbf3f64](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/bbf3f6414032e579540c4fadcf83b91839660856))
+- **SCWCN-181:** error 模式下选中颜色修复；dark 模式下 border 颜色修复 ([6b61817](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6b6181795eff077dea8afb9501162e28b8230781))
+- 优化 eslint ([023dce7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/023dce7ae9cef868439e38e6939f2d41257c6957))
+- 优化文档 ([fa9e8e4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/fa9e8e454f29803fb9a9d880462579a9ba46a1cb))
+- 优化模态框 ([a0a86f1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/a0a86f17d2970cf0cdefdff6d245783060bede5e))
+- 修正文档对齐方式 ([9111678](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/91116783d35506d55d2926fea162a29bb3d082d6))
+- 修正测试的各种错误 和 warning ([10d78b4](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/10d78b4d7d8a7410f5143be4a582a499b6c7afaa))
 
 ### [0.1.62](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.59...v0.1.62) (2023-06-01)
 
-
 ### Features
 
-* **DSCWCN-187:** Notification组件新增更新能力，自定义title属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
-* **POSACN-187:** notification文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
-* **POSACN-187:** notification新增唯一id值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
-* **POSACN-187:** 更新notification文档 ([2bb61e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2bb61e7eb6dce75df1157937203fed03755928ef))
-* 加入Table翻页选择功能 ([0993b67](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0993b672ef6272cbcfbd9cace2c98cfe12459434))
-* 添加DatePicker的picker属性(date|month,默认date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
-
+- **DSCWCN-187:** Notification 组件新增更新能力，自定义 title 属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
+- **POSACN-187:** notification 文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
+- **POSACN-187:** notification 新增唯一 id 值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
+- **POSACN-187:** 更新 notification 文档 ([2bb61e7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2bb61e7eb6dce75df1157937203fed03755928ef))
+- 加入 Table 翻页选择功能 ([0993b67](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/0993b672ef6272cbcfbd9cace2c98cfe12459434))
+- 添加 DatePicker 的 picker 属性(date|month,默认 date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
 
 ### Bug Fixes
 
-* DateTimePicker设置maxDate后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
-* **DSCWCN-185:** 更改 Input 组件后缀字体大小 ([dc99459](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dc99459637ec7d6da0d86db4491481aacb52383f))
-* remove unused import ([ec303b1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ec303b117a7febfd98bd1a5daacbb30845d1fd75))
-* 修复data time picker的format为yyyy和yyyy-mm时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
-* 修正form表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
-* 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
+- DateTimePicker 设置 maxDate 后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
+- **DSCWCN-185:** 更改 Input 组件后缀字体大小 ([dc99459](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/dc99459637ec7d6da0d86db4491481aacb52383f))
+- remove unused import ([ec303b1](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/ec303b117a7febfd98bd1a5daacbb30845d1fd75))
+- 修复 data time picker 的 format 为 yyyy 和 yyyy-mm 时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
+- 修正 form 表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
+- 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
 
 ### [0.1.61](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.60...v0.1.61) (2023-05-29)
 
-
 ### Features
 
-* 添加DatePicker的picker属性(date|month,默认date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
-
+- 添加 DatePicker 的 picker 属性(date|month,默认 date)，支持按年月展示 ([8f6581d](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/8f6581d862e3021ca3c626a7090b99fc5c4b33d4))
 
 ### Bug Fixes
 
-* 修复data time picker的format为yyyy和yyyy-mm时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
-* 修正form表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
+- 修复 data time picker 的 format 为 yyyy 和 yyyy-mm 时，月面板显示错误 ([2f675dc](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/2f675dc709e96f058403d0d9898ac4e11dcbbbb7))
+- 修正 form 表单类型错误 ([1ce9693](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/1ce9693491c3c90a594af632793d586519331aa1))
 
 ### [0.1.60](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.59...v0.1.60) (2023-05-09)
 
-
 ### Features
 
-* **DSCWCN-187:** Notification组件新增更新能力，自定义title属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
-* **POSACN-187:** notification文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
-* **POSACN-187:** notification新增唯一id值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
-
+- **DSCWCN-187:** Notification 组件新增更新能力，自定义 title 属性 ([1252793](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/12527930d4089b38712847ccb17add87572afbbb))
+- **POSACN-187:** notification 文档更新 ([38f21cb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/38f21cbb1b1e411dae524af43e21820ce0148a5a))
+- **POSACN-187:** notification 新增唯一 id 值 ([4be00f7](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/4be00f7491c5f84e8f789d3e5db54da214a24f7a))
 
 ### Bug Fixes
 
-* 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
-* DateTimePicker设置maxDate后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
+- 升级版本 ([45f4781](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/45f478199c2726cc51dfd67882963e150fc44d98))
+- DateTimePicker 设置 maxDate 后，逻辑选择问题 ([67251d3](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/67251d3748f68c025d5a06e719fba3bf13a23d19))
 
 ### [0.1.59](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.53...v0.1.59) (2023-04-17)
 
