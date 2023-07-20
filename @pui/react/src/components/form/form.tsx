@@ -490,7 +490,6 @@ function Form<T = any>({
         validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
           setFormErrors([...errorList])
-          console.log('error',formDataValidators)
           if (onSubmit) {
             submitReturn = onSubmit(fData as T, errorList)
           }
