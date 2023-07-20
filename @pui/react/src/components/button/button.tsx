@@ -101,6 +101,9 @@ const Button = (buttonProps: ButtonProps) => {
   } else if (newSize === 'tiny') {
     padding = '5px'
   }
+
+  delete rest.submit
+
   if (!children || (icon && suffixIcon)) {
     paddingStyle = { padding: '0 ' + padding }
   } else if (icon || loading) {
