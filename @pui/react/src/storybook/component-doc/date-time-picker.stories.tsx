@@ -115,18 +115,18 @@ export const DateTimePickerStoryBook2 = () => {
 
   const addMonths = (yearMonthDay: string, monthNum: number) => {
     const arr = yearMonthDay.split('-') // 2020-08-19或2020-08
-    let year = parseInt(arr[0])
-    let month: number = parseInt(arr[1])
+    let year = parseInt(arr[0], 10)
+    let month: number = parseInt(arr[1], 10)
     month += monthNum
     if (month > 12) {
       // 月份加
-      const yearNum = parseInt((month - 1) / 12)
+      const yearNum = parseInt((month - 1) / 12, 10)
       month = month % 12 === 0 ? 12 : month % 12
       year += yearNum
     } else if (month <= 0) {
       // 份减月
       month = Math.abs(month)
-      const yearNum = parseInt((month + 12) / 12)
+      const yearNum = parseInt((month + 12) / 12, 10)
       year -= yearNum
     }
     month = month === 0 ? 1 : month
