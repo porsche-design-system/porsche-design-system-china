@@ -26,8 +26,8 @@ export const PorscheLogo = ({
   onClick
 }: PorscheLogoProps) => {
   const [logoData, setLogoData] = useState<any>({})
+  const [theme] = useTheme()
   if (!mode) {
-    const [theme] = useTheme()
     mode = theme
   }
   const logo = mode === 'light' ? logoData.light : logoData.dark
