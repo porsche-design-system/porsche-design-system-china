@@ -8,9 +8,13 @@ export const componentClassNames = (
 ) => {
   const args: string[] = [prefix]
   for (const k in classNames) {
-    const value = classNames[k] ? `-${classNames[k]}` : ''
-    const itemName = `${prefix}-${k}${value}`
-    args.push(itemName)
+    // eslint-disable-next-line no-prototype-builtins
+    if (classNames.hasOwnProperty(k)) {
+      const value = classNames[k] ? `-${classNames[k]}` : ''
+      const itemName = `${prefix}-${k}${value}`
+      args.push(itemName)
+    }
+    
   }
   if (overrideClassName) {
     args.push(overrideClassName)

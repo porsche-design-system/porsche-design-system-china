@@ -21,9 +21,9 @@ export const strToDate = (dateStr: string, isMonth = false) => {
       (isMonth ? true : /^\d{2}$/.test(datePart[2]))
     ) {
       const date = new Date(
-        parseInt(datePart[0]),
-        parseInt(datePart[1]) - 1,
-        isMonth ? 1 : parseInt(datePart[2])
+        parseInt(datePart[0], 10),
+        parseInt(datePart[1], 10) - 1,
+        isMonth ? 1 : parseInt(datePart[2], 10)
       )
       return date
     }
