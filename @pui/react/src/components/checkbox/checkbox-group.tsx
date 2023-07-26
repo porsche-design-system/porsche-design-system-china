@@ -39,6 +39,14 @@ export interface CheckBoxGroupProps<T> {
   itemsDistance?: { x?: string; y?: string }
 }
 
+const sortFun = (a: unknown, b: unknown): number => {
+  if (typeof(a) === 'string') {
+    return a.localeCompare(b as string)
+  } else {
+    return (a as number) - (b as number)
+  }
+}
+
 const CheckBoxGroup = FormItem(
   <T,>({
     disabled = false,
@@ -141,8 +149,8 @@ const CheckBoxGroup = FormItem(
       if (
         !Array.isArray(value) ||
         (Array.isArray(value) &&
-          JSON.stringify(checkBoxValues.current.sort()) !==
-            JSON.stringify(value.sort()))
+          JSON.stringify(checkBoxValues.current.sort(sortFun)) !==
+            JSON.stringify(value.sort(sortFun)))
       ) {
         onValueChange && onValueChange(checkBoxValues.current, true)
       }

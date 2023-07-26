@@ -242,8 +242,8 @@ const Table = <T, K>({
       tableContainer.onwheel = (evt: any) => {
         isWheelMove.current = true
 
-        const variationX = parseInt(evt.deltaX)
-        const variationY = parseInt(evt.deltaY)
+        const variationX = parseInt(evt.deltaX, 10)
+        const variationY = parseInt(evt.deltaY, 10)
 
         const scrollMaxX =
           bodyRef.current.children[0].offsetWidth - bodyRef.current.offsetWidth

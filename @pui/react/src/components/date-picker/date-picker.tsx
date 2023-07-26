@@ -177,7 +177,7 @@ const DatePicker = FormItem((props: DatePickerProps) => {
 
   if (typeof range === 'string') {
     const [, countStr] = range.match(/^In(\d+)Days$/) || []
-    const count = parseInt(countStr)
+    const count = parseInt(countStr, 10)
     if (count > 0) {
       const date = new Date()
       const endDate = addDays(date, count - 1)

@@ -191,7 +191,7 @@ const MonthRangePicker = FormItem(
       if (/In(\d)Days/.test(range)) {
         const days = RegExp.$1
         const endDate = new Date()
-        endDate.setDate(endDate.getDate() + parseInt(days) - 1)
+        endDate.setDate(endDate.getDate() + parseInt(days, 10) - 1)
         range = [new Date(), endDate]
       } else {
         range = range.split(',') as [string, string]

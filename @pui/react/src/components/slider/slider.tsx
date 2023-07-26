@@ -59,9 +59,11 @@ const Slider = ({
   const [tooltipContent, setTooltipContent] =
     useState<ReactNode>(initialTipContent)
   const railRef = useRef<HTMLDivElement>(null)
+  const sRangeRef = useRef<HTMLDivElement>(null)
+  const eRangeRef = useRef<HTMLDivElement>(null)
   const handleRef = range
-    ? [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
-    : useRef<HTMLDivElement>(null)
+    ? [sRangeRef, eRangeRef]
+    : sRangeRef
   const isExchangeRef = useRef(false)
   // 根据value计算left
   const calcLeft = (value: number | Array<number>) => {
