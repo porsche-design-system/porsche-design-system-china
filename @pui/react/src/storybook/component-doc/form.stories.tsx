@@ -51,14 +51,12 @@ export const ExampleStoryBook = () => {
   })
 
   const testChange2 = (val: any) => {
-    data.testTime4b = val
-    setData(data)
+    setData({...data, testTime4b: val})
     console.log('testChange2', val, data)
   }
 
   const testChange1 = (val: any) => {
-    data.testTime4 = val
-    setData(data)
+    setData({...data, testTime4: val})
     console.log('testChange1', val, data)
   }
   return (

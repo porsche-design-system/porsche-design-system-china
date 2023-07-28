@@ -214,7 +214,7 @@ Upload = FormItem((props: UploadProps) => {
     const postFilesLen = postFiles.length
     if (maxCount === 1) {
       if (mergedFileList?.length) {
-        mergedFileList.map(file => handleRemove(file, false))
+        mergedFileList.forEach(file => handleRemove(file, false))
       }
       postFiles.splice(1)
     } else if (

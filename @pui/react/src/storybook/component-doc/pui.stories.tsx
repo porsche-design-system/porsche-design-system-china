@@ -17,34 +17,39 @@ export const PUIStoryBook = () => {
         </div>
         <br />
         <div>
-          // 全局设置组件大小 <br />
+          {`// 全局设置组件大小 `}
+          <br />
           PUI.setDefaultSize('small') <br />
           PUI.setDefaultSize('medium')
         </div>
         <br />
         <div>
-          // 全局亮色暗色 <br />
+          {`// 全局亮色暗色 `}
+          <br />
           PUI.setTheme('light') <br />
           PUI.setTheme('dark')
         </div>
         <br />
         <div>
-          // 全局设置滚动条隐藏行为 <br />
+          {`// 全局设置滚动条隐藏行为 `}
+          <br />
           PUI.setScrollBarAutoHide('never') <br />
           PUI.setScrollBarAutoHide('leave') <br />
         </div>
         <br />
         <div>
-          // 全局设置语言 <br />
+          {`// 全局设置语言 `}
+          <br />
           PUI.changeLang('en') <br />
           PUI.changeLang('zh-CN') <br />
           <br />
-          // 获取当前语言 <br />
+          {`// 获取当前语言 `}
+          <br />
           PUI.getLang() <br />
         </div>
         <br />
         <div>
-          // 在项目中使用多语言
+          {`// 在项目中使用多语言 `}
           <br />
           1. 定义一份语言Key Value
           <br />

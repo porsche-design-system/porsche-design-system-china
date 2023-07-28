@@ -37,9 +37,6 @@ const SubMenu: React.FC<SubMenuProps> = ({
   size,
   visible = true
 }) => {
-  if (!visible) {
-    return null
-  }
   const [defaultSize] = useDefaultSize()
   const curSize = size || defaultSize
   const MENU_WIDTH = curSize === 'small' ? SUB_MENU_SMALL_WIDTH : SUB_MENU_WIDTH
@@ -57,6 +54,14 @@ const SubMenu: React.FC<SubMenuProps> = ({
       setOpen(false)
     }
   })
+  useClickOutside(rootElementRef, () => {
+    setOpen(false)
+  })
+
+  if (!visible) {
+    return null
+  }
+
   const classes = classNames('submenu-item', className, {
     'is-active': context.selectSubMenus?.includes(index || ''),
     'is-opened': menuOpen,
@@ -147,9 +152,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     }
     return null
   }
-  useClickOutside(rootElementRef, () => {
-    setOpen(false)
-  })
+  
   const Children = renderChildren()
   return (
     <>

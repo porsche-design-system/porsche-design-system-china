@@ -48,8 +48,7 @@ const GettingStart = () => (
       其中的 $NPM_REGISTRY_AUTH 已经做好了全局配置，可直接使用
     </div>
     <div className="cmd">
-      - npm config set
-      //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH
+      {` - npm config set //devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/:_auth=$NPM_REGISTRY_AUTH `}
     </div>
     <br />
   </div>
