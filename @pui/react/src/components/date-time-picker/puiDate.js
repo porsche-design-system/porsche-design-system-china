@@ -1,5 +1,6 @@
 const jet = {}
 const regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz'
+const PUI = window.PUI
 let puiDateObj = {}
 
 function $Q(selector, content) {
@@ -13,6 +14,10 @@ function $I(id) {
 
 function $C(classStr) {
   return document.getElementsByClassName(classStr)
+}
+
+function parseIntFun(str) {
+  return parseInt(str, 10)
 }
 
 function jeDatePick(elem, options) {
@@ -116,7 +121,7 @@ function DateTime(arr, valObj) {
   if ((arr || []).length > 0)
     jet.each(arr, (i, par) => {
       ND['set' + narr[i]](
-        narr[i] == 'Month' ? parseInt(par) - 1 : parseInt(par)
+        narr[i] == 'Month' ? parseIntFun(par) - 1 : parseIntFun(par)
       )
     })
   // 返回一个数值相同的新DateTime对象
@@ -332,7 +337,7 @@ function jeLunar(ly, lm, ld) {
     if (typeof this.solarFestival === 'undefined') {
       this.solarFestival = ''
     } else if (/\*(\d)/.test(this.solarFestival)) {
-      this.restDays = parseInt(RegExp.$1)
+      this.restDays = parseIntFun(RegExp.$1)
       this.solarFestival = this.solarFestival.replace(/\*\d/, '')
     }
     this.showInLunar =
@@ -347,9 +352,9 @@ function jeLunar(ly, lm, ld) {
       this.lunarFestival = ''
     } else if (/\*(\d)/.test(this.lunarFestival)) {
       this.restDays =
-        this.restDays > parseInt(RegExp.$1)
+        this.restDays > parseIntFun(RegExp.$1)
           ? this.restDays
-          : parseInt(RegExp.$1)
+          : parseIntFun(RegExp.$1)
       this.lunarFestival = this.lunarFestival.replace(/\*\d/, '')
     }
     if (this.lunarMonth == 12 && this.lunarDate == e(this.lunarYear, 12)) {
@@ -369,8 +374,8 @@ function puiDate(elem, options) {
   // regymdzz = 'YYYY|MM|DD|hh|mm|ss|zz',
   const gr = /\-/g
   const regymd = 'YYYY|MM|DD|hh|mm|ss|zz'.replace('|zz', '')
-  const parseInt = function (n) {
-    return window.parseInt(n, 10)
+  const parseIntFun = function (n) {
+    return window.parseIntFun(n, 10)
   }
 
   puiDateObj = (function (elem, options) {
@@ -392,14 +397,26 @@ puiDateObj.extend = jet.extend = function () {
   const length = arguments.length
   if (typeof target === 'boolean')
     (deep = target), (target = arguments[1] || {}), (i = 2)
-  if (typeof target !== 'object' && typeof target !== 'function') target = {}
-  if (length === i) (target = this), --i
+  if (typeof target !== 'object' && typeof target !== 'function') {
+    target = {}
+  }
+  if (length === i) {
+    target = this
+    --i
+  }
   for (; i < length; i++) {
     if ((options = arguments[i]) != null) {
       for (name in options) {
-        ; (src = target[name]), (copy = options[name])
-        if (target === copy) continue
-        if (copy !== undefined) target[name] = copy
+        if (options.hasOwnProperty(name)) {
+          src = target[name]
+          copy = options[name]
+          if (target === copy) {
+            continue
+          }
+          if (copy !== undefined) {
+            target[name] = copy
+          }
+        }
       }
     }
   }
@@ -418,7 +435,7 @@ puiDateObj.convert = function (obj) {
   const mats = jet.reMatch(obj.format)
   const objVal = {}
   jet.each(jet.reMatch(obj.val), (i, cval) => {
-    objVal[mats[i]] = parseInt(cval)
+    objVal[mats[i]] = parseIntFun(cval)
   })
   const result = new DateTime(obj.addval, objVal)
   const redate = {
@@ -439,7 +456,7 @@ puiDateObj.timeStampDate = function (date, format) {
   format = format || 'YYYY-MM-DD hh:mm'
   const dateTest = /^(-)?\d{1,10}$/.test(date) || /^(-)?\d{1,13}$/.test(date)
   if (/^[1-9]*[1-9][0-9]*$/.test(date) && dateTest) {
-    let vdate = parseInt(date)
+    let vdate = parseIntFun(date)
     if (/^(-)?\d{1,10}$/.test(vdate)) {
       vdate *= 1000
     } else if (/^(-)?\d{1,13}$/.test(vdate)) {
@@ -480,13 +497,13 @@ puiDateObj.timeStampDate = function (date, format) {
 // 获取年月日星期
 puiDateObj.getLunar = function (obj) {
   // 如果为数字类型的日期对获取到日期的进行替换
-  const lunars = jeLunar(obj.YYYY, parseInt(obj.MM) - 1, obj.DD)
+  const lunars = jeLunar(obj.YYYY, parseIntFun(obj.MM) - 1, obj.DD)
   return {
     nM: lunars.lnongMonth, // 农历月
     nD: lunars.lnongDate, // 农历日
-    cY: parseInt(lunars.solarYear), // 阳历年
-    cM: parseInt(lunars.solarMonth), // 阳历月
-    cD: parseInt(lunars.solarDate), // 阳历日
+    cY: parseIntFun(lunars.solarYear), // 阳历年
+    cM: parseIntFun(lunars.solarMonth), // 阳历月
+    cD: parseIntFun(lunars.solarDate), // 阳历日
     cW: lunars.inWeekDays, // 汉字星期几
     nW: lunars.solarWeekDay // 数字星期几
   }
@@ -521,8 +538,10 @@ jet.extend(jet, {
     const iselem = length === undefined || obj === 'function'
     if (iselem) {
       for (name in obj) {
-        if (callback.call(obj[name], name, obj[name]) === false) {
-          break
+        if (obj.hasOwnProperty(name)) {
+          if (callback.call(obj[name], name, obj[name]) === false) {
+            break
+          }
         }
       }
     } else {
@@ -546,7 +565,9 @@ jet.extend(jet, {
   },
   isObj(obj) {
     for (const i in obj) {
-      return true
+      if (obj.hasOwnProperty(i)) {
+        return true
+      }
     }
     return false
   },
@@ -563,7 +584,7 @@ jet.extend(jet, {
       maStr = /^[A-Za-z]+$/.test(str) ? str.replace(parti, '$1-') : str
     }
     jet.each(maStr.match(/\w+|d+/g), (i, val) => {
-      smarr.push(jet.isNum(val) ? parseInt(val) : val)
+      smarr.push(jet.isNum(val) ? parseIntFun(val) : val)
     })
     return smarr
   },
@@ -598,7 +619,7 @@ jet.extend(jet, {
   getDaysNum(y, m) {
     let num = 31
     const isLeap = (y % 100 !== 0 && y % 4 === 0) || y % 400 === 0
-    switch (parseInt(m)) {
+    switch (parseIntFun(m)) {
       case 2:
         num = isLeap ? 29 : 28
         break
@@ -635,7 +656,11 @@ jet.extend(jet, {
     return jet.getYM(y, m, n || 1)
   },
   setCss(elem, obj) {
-    for (const x in obj) elem.style[x] = obj[x]
+    for (const x in obj) {
+      if (obj.hasOwnProperty(x)) {
+        elem.style[x] = obj[x]
+      }
+    }
   },
   html(elem, html) {
     return typeof html === 'undefined'
@@ -689,7 +714,9 @@ jet.extend(jet, {
     const dataVar = function (obj) {
       let vars = ''
       for (const key in obj) {
-        vars += 'var ' + key + '= $D["' + key + '"];'
+        if (obj.hasOwnProperty(key)) {
+          vars += 'var ' + key + '= $D["' + key + '"];'
+        }
       }
       return vars
     }
@@ -699,7 +726,7 @@ jet.extend(jet, {
         "var $out='" +
         source
           .replace(/[\r\n]/g, '')
-          .replace(/^(.+?)\{\%|\%\}(.+?)\{\%|\%\}(.+?)$/g, val => {
+          .replace(/^(?:((.+?)\{\%)|(\%\}(.+?)\{\%)|(\%\}(.+?)))$/g, val => {
             return val.replace(/(['"])/g, '\\$1')
           })
           .replace(/\{\%\s*=\s*(.+?)\%\}/g, "';$out+=$1;$out+='")
@@ -744,13 +771,13 @@ jet.extend(jet, {
       ss: 'Seconds'
     }
     jet.each(['ss', 'mm', 'hh', 'DD', 'MM', 'YYYY'], (i, mat) => {
-      if (!jet.isNum(parseInt(objVal[mat]))) return null
+      if (!jet.isNum(parseIntFun(objVal[mat]))) return null
       const reVal = result.GetValue()
-      if (parseInt(objVal[mat]) || parseInt(objVal[mat]) == 0) {
+      if (parseIntFun(objVal[mat]) || parseIntFun(objVal[mat]) == 0) {
         reVal['set' + matArr[mat]](
           result['Get' + matArr[mat]]() +
           (mat == 'MM' ? -1 : 0) +
-          parseInt(objVal[mat])
+          parseIntFun(objVal[mat])
         )
       }
     })
@@ -820,7 +847,7 @@ jet.extend(jeDatePick.prototype, {
         nowTime = nowTime[0]
         const time1 = new Date(result).setHours('0')
         const time2 = new Date(nowTime).setHours('0')
-        const nDays = parseInt((time1 - time2) / 1000 / 3600 / 24)
+        const nDays = parseIntFun((time1 - time2) / 1000 / 3600 / 24)
         const redate = {
           DD: nDays
         }
@@ -846,7 +873,7 @@ jet.extend(jeDatePick.prototype, {
           if (a === 1) getVal[a] = getValEnd
           if (getVal[a] != '') {
             jet.each(jet.reMatch(getVal[a]), (i, val) => {
-              curVal[a][mats[i]] = parseInt(val)
+              curVal[a][mats[i]] = parseIntFun(val)
             })
           }
         })
@@ -927,7 +954,11 @@ jet.extend(jeDatePick.prototype, {
           ? short.val()
           : short.val
         if (jet.isType(shval, 'object')) {
-          for (const s in shval) tarr.push(s + ':' + shval[s])
+          for (const s in shval) {
+            if (shval.hasOwnProperty(s)) {
+              tarr.push(s + ':' + shval[s])
+            }
+          }
           shortArr.push(
             jet.extend(
               {},
@@ -1224,7 +1255,7 @@ jet.extend(jeDatePick.prototype, {
         jet.each(newArr, i => {
           const inObj = {}
           jet.each(ymdzArr, (r, val) => {
-            inObj[val] = parseInt(
+            inObj[val] = parseIntFun(
               unObj(val)[0] ? defObj[i][val] : unObj(val)[1]
             )
           })
@@ -1293,37 +1324,37 @@ jet.extend(jeDatePick.prototype, {
     if (!need && that.$data.yearlist.length > 0) {
       // 设置年的数据
       RES.yearlist.push(
-        that.eachYear(parseInt(that.$data.yearlist[0][0].y), 1, 0)
+        that.eachYear(parseIntFun(that.$data.yearlist[0][0].y), 1, 0)
       )
     } else {
-      RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1, 0))
+      RES.yearlist.push(that.eachYear(parseIntFun(curr.YYYY), 1, 0))
     }
     // }
     // if (!that.$data.yearlist) {
     if (multi == false) {
       // const yearNext = isnext ? next.YYYY : curr.YYYY
-      // RES.yearlist.push(that.eachYear(parseInt(yearNext), 2))
+      // RES.yearlist.push(that.eachYear(parseIntFun(yearNext), 2))
       if (i == '1' || !that.$data.yearlist || RES.yearlist.length < 2) {
-        RES.yearlist.push(that.eachYear(parseInt(curr.YYYY), 1, 1))
+        RES.yearlist.push(that.eachYear(parseIntFun(curr.YYYY), 1, 1))
       }
     }
 
     if (that.selectDate.length > 1) {
-      RES.yearlist[0] = that.eachYear(parseInt(that.selectDate[0].YYYY), 1, 0)
-      RES.yearlist[1] = that.eachYear(parseInt(that.selectDate[1].YYYY), 1, 1)
+      RES.yearlist[0] = that.eachYear(parseIntFun(that.selectDate[0].YYYY), 1, 0)
+      RES.yearlist[1] = that.eachYear(parseIntFun(that.selectDate[1].YYYY), 1, 1)
     }
     if (multi == false && calculate) {
       const step = opts.isClickYearNow ? 11 : 1
       if (direction == 'rnext') {
         RES.yearlist[i] = that.eachYear(
-          parseInt(that.$data.yearlist[i][step].y),
+          parseIntFun(that.$data.yearlist[i][step].y),
           1,
           i
         )
       } else {
         const yearNext = isnext ? next.YYYY : curr.YYYY
         RES.yearlist[i] = that.eachYear(
-          parseInt(that.$data.yearlist[i][0].y) - step,
+          parseIntFun(that.$data.yearlist[i][0].y) - step,
           1,
           i
         )
@@ -1693,20 +1724,20 @@ jet.extend(jeDatePick.prototype, {
         opts.isClickYearBtn = true
         if (!range) {
           if (type == 'rnext' && opts.isClickYearNow && opts.clickYearVal > 0) {
-            val = parseInt(val) + 10
+            val = parseIntFun(val) + 10
           } else if (
             type == 'lprev' &&
             opts.isClickYearNow &&
             opts.clickYearVal > 0
           ) {
-            val = parseInt(val) - 10
+            val = parseIntFun(val) - 10
           }
         }
         const yarr = (val + '').split('#') // val.split('#')
         const pval = jet.reMatch(yarr[0])
         const tmval = that.selectTime
         const exarr = [
-          jet.extend({ YYYY: parseInt(val), MM: that.selectDate[i].MM, DD: that.selectDate[i].DD }, tmval[0]),
+          jet.extend({ YYYY: parseIntFun(val), MM: that.selectDate[i].MM, DD: that.selectDate[i].DD }, tmval[0]),
           {}
         ]
         const dateVal = that.parseValue([exarr[0]], that.format)
@@ -1738,8 +1769,8 @@ jet.extend(jeDatePick.prototype, {
         let exarr = []
         let PrevYM
         let NextYM
-        const year = parseInt(ymarr[0])
-        const month = parseInt(ymarr[1])
+        const year = parseIntFun(ymarr[0])
+        const month = parseIntFun(ymarr[1])
         that.$opts.isClickMonthBtn = true
         if (range) {
           if (type == 'mprev') {
@@ -1825,10 +1856,10 @@ jet.extend(jeDatePick.prototype, {
           const ylen = that.selectValue.length
           that.selectDate =
             ylen == 2
-              ? [{ YYYY: parseInt(val), MM: dateM }]
+              ? [{ YYYY: parseIntFun(val), MM: dateM }]
               : [
                 { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
-                { YYYY: parseInt(val), MM: dateM }
+                { YYYY: parseIntFun(val), MM: dateM }
               ]
           that.selectValue =
             ylen == 2
@@ -1850,12 +1881,12 @@ jet.extend(jeDatePick.prototype, {
             that.selectDate = newArr
           }
         } else if (lens > 1 && lens <= 6) {
-          yearVal = parseInt(val)
+          yearVal = parseIntFun(val)
           if (range) {
             if (i == '0') {
               that.selectDate = [
-                { YYYY: parseInt(val), MM: dateM },
-                { YYYY: parseInt(val), MM: dateM }
+                { YYYY: parseIntFun(val), MM: dateM },
+                { YYYY: parseIntFun(val), MM: dateM }
               ]
               that.selectValue = [
                 val + '-' + jet.digit(dateM),
@@ -1864,7 +1895,7 @@ jet.extend(jeDatePick.prototype, {
             } else {
               that.selectDate = [
                 that.selectValue[0],
-                { YYYY: parseInt(val), MM: dateM }
+                { YYYY: parseIntFun(val), MM: dateM }
               ]
               that.selectValue = [
                 that.selectValue[0],
@@ -1888,17 +1919,17 @@ jet.extend(jeDatePick.prototype, {
             }
           } else {
             that.selectValue = [val + '-' + jet.digit(dateM)]
-            that.selectDate = [{ YYYY: parseInt(val), MM: dateM }]
+            that.selectDate = [{ YYYY: parseIntFun(val), MM: dateM }]
           }
         } else {
           that.selectValue = [val + '-' + jet.digit(dateM)]
-          that.selectDate = [{ YYYY: parseInt(val), MM: dateM }]
+          that.selectDate = [{ YYYY: parseIntFun(val), MM: dateM }]
         }
         DTS.year = lens == 1
         DTS.month = lens < 3
         DTS.day = !!(lens > 2 && lens <= 6)
         const electVal =
-          lens > 1 && lens <= 6 ? yearVal : parseInt(that.selectDate[0].YYYY)
+          lens > 1 && lens <= 6 ? yearVal : parseIntFun(that.selectDate[0].YYYY)
         that.storeData(
           jet.extend(
             { YYYY: electVal, MM: dateM, DD: dateD },
@@ -1947,7 +1978,7 @@ jet.extend(jeDatePick.prototype, {
               ? [{ YYYY: ymval[0], MM: ymval[1] }]
               : [
                 { YYYY: that.selectDate[0].YYYY, MM: that.selectDate[0].MM },
-                // { YYYY: parseInt(val), MM: ymval[1] }
+                // { YYYY: parseIntFun(val), MM: ymval[1] }
                 {
                   YYYY: that.getSelectDateDefault().YYYY,
                   MM: ymval[1]
@@ -1988,8 +2019,8 @@ jet.extend(jeDatePick.prototype, {
         that.storeData(
           jet.extend(
             {
-              YYYY: parseInt(that.selectDate[0].YYYY),
-              MM: parseInt(that.selectDate[0].MM),
+              YYYY: parseIntFun(that.selectDate[0].YYYY),
+              MM: parseIntFun(that.selectDate[0].MM),
               DD: dateD
             },
             that.selectTime[0]
@@ -2074,9 +2105,9 @@ jet.extend(jeDatePick.prototype, {
         }
       },
       hmsClick(idx, num) {
-        const pidx = parseInt(num)
-        const vals = parseInt(jet.text(this))
-        const paridx = parseInt(idx)
+        const pidx = parseIntFun(num)
+        const vals = parseIntFun(jet.text(this))
+        const paridx = parseIntFun(idx)
         const act = 'action'
         const mhms = that.$opts.showSecend ? ['hh', 'mm', 'ss'] : ['hh', 'mm']
         const ulCell = $Q(
@@ -2116,13 +2147,13 @@ jet.extend(jeDatePick.prototype, {
                 })
               } else {
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) < minVal[1]) {
+                  if (parseIntFun(node.innerText) < minVal[1]) {
                     node.classList.remove('action')
                   }
                 })
                 that.selectTime[paridx][mhms[1]] = minVal[1]
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) < minVal[1]) {
+                  if (parseIntFun(node.innerText) < minVal[1]) {
                     node.classList.add('disabled')
                   }
                 })
@@ -2137,13 +2168,13 @@ jet.extend(jeDatePick.prototype, {
                 })
               } else {
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) > maxVal[1]) {
+                  if (parseIntFun(node.innerText) > maxVal[1]) {
                     node.classList.remove('action')
                   }
                 })
                 that.selectTime[paridx][mhms[1]] = maxVal[1]
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) > maxVal[1]) {
+                  if (parseIntFun(node.innerText) > maxVal[1]) {
                     node.classList.add('disabled')
                   }
                 })
@@ -2160,13 +2191,13 @@ jet.extend(jeDatePick.prototype, {
                 })
               } else {
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) < minVal[1]) {
+                  if (parseIntFun(node.innerText) < minVal[1]) {
                     node.classList.remove('action')
                   }
                 })
                 that.selectTime[paridx][mhms[1]] = minVal[1]
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) < minVal[1]) {
+                  if (parseIntFun(node.innerText) < minVal[1]) {
                     node.classList.add('disabled')
                   }
                 })
@@ -2181,13 +2212,13 @@ jet.extend(jeDatePick.prototype, {
                 })
               } else {
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) > maxVal[1]) {
+                  if (parseIntFun(node.innerText) > maxVal[1]) {
                     node.classList.remove('action')
                   }
                 })
                 that.selectTime[paridx][mhms[1]] = maxVal[1]
                 jet.each(ulSecCell.childNodes, (i, node) => {
-                  if (parseInt(node.innerText) > maxVal[1]) {
+                  if (parseIntFun(node.innerText) > maxVal[1]) {
                     node.classList.add('disabled')
                   }
                 })
@@ -2209,14 +2240,14 @@ jet.extend(jeDatePick.prototype, {
               })
             } else {
               jet.each(secCell.childNodes, (i, node) => {
-                if (parseInt(node.innerText) > maxVal[1]) {
+                if (parseIntFun(node.innerText) > maxVal[1]) {
                   node.classList.remove('action')
                 }
               })
               that.selectTime[paridx][mhms[1]] = maxVal[1]
 
               jet.each(secCell.childNodes, (i, node) => {
-                if (parseInt(node.innerText) > maxVal[1]) {
+                if (parseIntFun(node.innerText) > maxVal[1]) {
                   node.classList.add('disabled')
                 }
               })
@@ -2311,7 +2342,7 @@ jet.extend(jeDatePick.prototype, {
           const h = o.hh == undefined ? 0 : o.hh
           const m = o.mm == undefined ? 0 : o.mm
           const s = o.ss == undefined ? 0 : o.ss
-          return parseInt(jet.digit(h) + '' + jet.digit(m) + '' + jet.digit(s))
+          return parseIntFun(jet.digit(h) + '' + jet.digit(m) + '' + jet.digit(s))
         }
         opts.currentClickIndex = 0
         if (range) {
@@ -2405,7 +2436,7 @@ jet.extend(jeDatePick.prototype, {
 
     const that = this
     const opts = that.$opts
-    const yNum = parseInt(val)
+    const yNum = parseIntFun(val)
     const yarr = []
     let seCls = ''
     const selYear = that.selectDate
@@ -2452,28 +2483,28 @@ jet.extend(jeDatePick.prototype, {
     const monthArr = opts.language.month
     const mins = jet.reMatch(that.minDate)
     const maxs = jet.reMatch(that.maxDate)
-    const minym = parseInt(mins[0] + '' + jet.digit(mins[1]))
-    const maxym = parseInt(maxs[0] + '' + jet.digit(maxs[1]))
-    const currStart = parseInt(
+    const minym = parseIntFun(mins[0] + '' + jet.digit(mins[1]))
+    const maxym = parseIntFun(maxs[0] + '' + jet.digit(maxs[1]))
+    const currStart = parseIntFun(
       selMonth[0].YYYY + '' + jet.digit(selMonth[0].MM)
     )
     const currEnd = selMonth[1]
-      ? parseInt(selMonth[1].YYYY + '' + jet.digit(selMonth[1].MM))
+      ? parseIntFun(selMonth[1].YYYY + '' + jet.digit(selMonth[1].MM))
       : 0
     let min = sessionStorage.getItem(opts.minSession)
     let max = sessionStorage.getItem(opts.maxSession)
     jet.each(monthArr, (i, months) => {
-      // const ival = parseInt(val + '' + jet.digit(months))
+      // const ival = parseIntFun(val + '' + jet.digit(months))
       let sMonth = val
       if (selMonth.length > 1) {
         sMonth = selMonth[index].YYYY
       }
-      const ival = parseInt(sMonth + '' + jet.digit(months))
+      const ival = parseIntFun(sMonth + '' + jet.digit(months))
       if (typeof min == 'string') {
-        min = parseInt(min.replace('-', ''))
+        min = parseIntFun(min.replace('-', ''))
       }
       if (typeof max == 'string') {
-        max = parseInt(max.replace('-', ''))
+        max = parseIntFun(max.replace('-', ''))
       }
       if (
         (ival == currStart || ival == currEnd) &&
@@ -2566,11 +2597,11 @@ jet.extend(jeDatePick.prototype, {
     const lang = opts.language
     const endval = opts.valiDate || []
     const minArr = jet.reMatch(that.minDate)
-    const minNum = parseInt(
+    const minNum = parseIntFun(
       minArr[0] + '' + jet.digit(minArr[1]) + '' + jet.digit(minArr[2])
     )
     const maxArr = jet.reMatch(that.maxDate)
-    const maxNum = parseInt(
+    const maxNum = parseIntFun(
       maxArr[0] + '' + jet.digit(maxArr[1]) + '' + jet.digit(maxArr[2])
     )
     const today = new Date()
@@ -2583,7 +2614,7 @@ jet.extend(jeDatePick.prototype, {
     }
 
     const startDate = sDate[0]
-      ? parseInt(
+      ? parseIntFun(
         sDate[0].YYYY +
         '' +
         jet.digit(sDate[0].MM) +
@@ -2592,7 +2623,7 @@ jet.extend(jeDatePick.prototype, {
       )
       : ''
     const endDate = sDate[1]
-      ? parseInt(
+      ? parseIntFun(
         sDate[1].YYYY +
         '' +
         jet.digit(sDate[1].MM) +
@@ -2640,7 +2671,7 @@ jet.extend(jeDatePick.prototype, {
     }
     // 判断是否在限制的日期之中
     const dateLimit = function (Y, M, D, isMonth) {
-      const thatNum = parseInt(Y + '' + jet.digit(M) + '' + jet.digit(D))
+      const thatNum = parseIntFun(Y + '' + jet.digit(M) + '' + jet.digit(D))
       if (isMonth) {
         if (thatNum >= minNum && thatNum <= maxNum) return true
       } else if (minNum > thatNum || maxNum < thatNum) return true
@@ -2648,7 +2679,13 @@ jet.extend(jeDatePick.prototype, {
 
     const regExpDate = function (date, cls) {
       const inArray = function (search, array) {
-        for (const i in array) if (array[i] == search) return true
+        for (const i in array) {
+          if (array.hasOwnProperty(i)) {
+            if (array[i] == search) {
+              return true
+            }
+          }
+        }
         return false
       }
       if (endval.length > 0 && endval[0] != '') {
@@ -2656,7 +2693,7 @@ jet.extend(jeDatePick.prototype, {
           const reval = endval[0].replace(/\%/g, '').split(',')
           const enArr = []
           jet.each(reval, (r, rel) => {
-            enArr.push(jet.digit(parseInt(rel)))
+            enArr.push(jet.digit(parseIntFun(rel)))
           })
           const isfind = inArray(jet.digit(date), enArr) == false
           cls = jet.isBool(endval[1])
@@ -2697,7 +2734,7 @@ jet.extend(jeDatePick.prototype, {
     for (let b = 1; b <= daysNum; b++, count++) {
       const bmark = setMark(yd, md, b)
       let bcls = ''
-      const dateval = parseInt(yd + '' + jet.digit(md) + '' + jet.digit(b))
+      const dateval = parseIntFun(yd + '' + jet.digit(md) + '' + jet.digit(b))
       const parsdate = dateval > startDate
       const rangdate = dateval < endDate
       if (dateLimit(yd, md, b, true)) {
@@ -2901,7 +2938,7 @@ jet.extend(jeDatePick.prototype, {
       while ((arr = regs.exec(val)) != null) {
         arr.lastIndex =
           arr.index + arr[1].length + arr[0].length - arr[1].length - 1
-        tmpEval = parseInt(eval(arr[1]))
+        tmpEval = parseIntFun(eval(arr[1]))
         if (tmpEval < 0) tmpEval = '9700' + -tmpEval
         val =
           val.substring(0, arr.index) +
@@ -3108,7 +3145,7 @@ jet.extend(jeDatePick.prototype, {
 })
 
 puiDateObj.renderDate = x => {
-  const that = this
+  const that = this || {}
   const opts = that.$opts
   const isShow = jet.isBool(opts.isShow)
 
