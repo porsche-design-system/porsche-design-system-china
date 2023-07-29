@@ -1,0 +1,5 @@
+/Users/calidan/Downloads/sonar-scanner-4.8.0.2856-macosx/bin/sonar-scanner \
+  -Dsonar.projectKey=pui \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=squ_e64684bcbf3d9f50c22af4c4a606ca16b6c51ded

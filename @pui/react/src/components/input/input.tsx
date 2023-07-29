@@ -220,15 +220,14 @@ const Input = FormItem(
             }}
           />
         )}
-        {maxLength &&
-          !hideMaxLengthText && (
-            <div className="pui-input-char-count">
-              {valueLength > 0 && valueLength}
-              <span>
-                {valueLength === 0 && valueLength}/{maxLength}
-              </span>
-            </div>
-          )}
+        {maxLength && !hideMaxLengthText && (
+          <div className="pui-input-char-count">
+            {valueLength > 0 && valueLength}
+            <span>
+              {valueLength === 0 && valueLength}/{maxLength}
+            </span>
+          </div>
+        )}
         {suffixIcon ? (
           <span className="pui-input-suffix-icon" style={suffixStyle}>
             {' '}

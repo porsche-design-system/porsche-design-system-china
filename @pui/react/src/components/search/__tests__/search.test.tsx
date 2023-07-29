@@ -46,8 +46,8 @@ describe('search', () => {
 
   it('should show clear button when input value', () => {
     render(<Search value="123" showClearButton />)
-    const search = document.getElementsByClassName('pui-search')[0]
-    expect(search).toHaveClass('pui-search-show-clear-button-true')
+    const search = document.getElementsByClassName('pui-input-clear')
+    expect(search.length > 0).toBe(true)
   })
 
   it('should show search button background', () => {
