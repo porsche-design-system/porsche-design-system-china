@@ -1,9 +1,7 @@
 <div align="center">
 <img src="logo.svg" height="150">
 </div>
-<div style="text-align:center;font-weight:bold;font-size:20px;">
-PUI
-</div>
+ 
 <div align="center">
 A Porsche styled enterprise React UI library.
 <div>
@@ -36,11 +34,11 @@ npm install @pui/react
 ## 🔨 Usage
 
 ```ts
-import { Button } from '@pui/react'
+import { Button } from '@pui/react';
 
 export const Page = () => {
-  return <Button>按钮</Button>
-}
+  return <Button>按钮</Button>;
+};
 ```
 
 <br/>
