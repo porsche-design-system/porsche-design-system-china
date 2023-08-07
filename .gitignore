@@ -16,6 +16,7 @@ node_modules
 /@pui/**/dist
 /@pui/**/storybook-static
 
+/@pui/react/coverage
 /@pui/react/es
 /@pui/react/es/**/*
 /@pui/react/lib
