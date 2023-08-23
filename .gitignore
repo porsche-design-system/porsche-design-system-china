@@ -8,9 +8,6 @@ node_modules
 .pnp.js
 # package-lock.json
 
-# testing
-/coverage
-
 # production
 /dist
 /@pui/**/dist
@@ -22,6 +19,7 @@ node_modules
 /@pui/react/lib
 /@pui/react/lib/**/*
 /@pui/react/override.scss
+/@pui/react/coverage
 
 # misc
 .DS_Store
