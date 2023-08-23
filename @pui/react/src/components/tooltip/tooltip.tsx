@@ -38,6 +38,12 @@ export interface TooltipProps {
   /** 浮层渲染父节点，默认渲染到 body 上 */
   getPopupContainer?: () => HTMLElement | null
 
+  /** tooltip 卡片类名 */
+  overlayClassName?: string
+
+  /** 是否显示箭头 */
+  showArrow?: boolean
+
   /** 提示框最大宽度 */
   maxWidth?: string | number
 
@@ -79,6 +85,8 @@ const Tooltip = ({
   style,
   trigger = 'hover',
   visible,
+  overlayClassName,
+  showArrow = true,
   onVisibleChange
 }: TooltipProps) => {
   const [isMountedContent, setIsMountedContent] = useState(false)
@@ -107,6 +115,7 @@ const Tooltip = ({
   if (!isReactElement(firstChild)) {
     firstChild = <span>{firstChild}</span>
   }
+  const arrowHeight = showArrow ? 0 : 6
   // 计算提示框位置
   const calcTooltipPosition = (boxDom: any, targetDom: any, originDom: any) => {
     const boxPosition = boxDom.getBoundingClientRect()
@@ -118,7 +127,11 @@ const Tooltip = ({
       case TOP_CENTER:
         contentPositionVal = {
           top:
-            targetPosition.top - originPosition.top - gap - boxPosition.height,
+            targetPosition.top -
+            originPosition.top -
+            gap -
+            boxPosition.height +
+            arrowHeight,
           left:
             targetPosition.left -
             originPosition.left -
@@ -132,7 +145,11 @@ const Tooltip = ({
             originPosition.top -
             (boxPosition.height - targetPosition.height) / 2,
           left:
-            targetPosition.left - originPosition.left - gap - boxPosition.width
+            targetPosition.left -
+            originPosition.left -
+            gap -
+            boxPosition.width +
+            arrowHeight
         }
         break
       case RIGHT_CENTER:
@@ -141,12 +158,12 @@ const Tooltip = ({
             targetPosition.top -
             originPosition.top -
             (boxPosition.height - targetPosition.height) / 2,
-          left: targetPosition.right - originPosition.left + gap
+          left: targetPosition.right - originPosition.left + gap - arrowHeight
         }
         break
       case BOTTOM_CENTER:
         contentPositionVal = {
-          top: targetPosition.bottom - originPosition.top + gap,
+          top: targetPosition.bottom - originPosition.top + gap - arrowHeight,
           left:
             targetPosition.left -
             originPosition.left -
@@ -156,26 +173,34 @@ const Tooltip = ({
       case TOP_LEFT:
         contentPositionVal = {
           top:
-            targetPosition.top - originPosition.top - gap - boxPosition.height,
+            targetPosition.top -
+            originPosition.top -
+            gap -
+            boxPosition.height +
+            arrowHeight,
           left: targetPosition.left - originPosition.left
         }
         break
       case TOP_RIGHT:
         contentPositionVal = {
           top:
-            targetPosition.top - originPosition.top - gap - boxPosition.height,
+            targetPosition.top -
+            originPosition.top -
+            gap -
+            boxPosition.height +
+            arrowHeight,
           left: targetPosition.right - boxPosition.width - originPosition.left
         }
         break
       case BOTTOM_LEFT:
         contentPositionVal = {
-          top: targetPosition.bottom - originPosition.top + gap,
+          top: targetPosition.bottom - originPosition.top + gap - arrowHeight,
           left: targetPosition.left - originPosition.left
         }
         break
       case BOTTOM_RIGHT:
         contentPositionVal = {
-          top: targetPosition.bottom - originPosition.top + gap,
+          top: targetPosition.bottom - originPosition.top + gap - arrowHeight,
           left: targetPosition.right - originPosition.left - boxPosition.width
         }
         break
@@ -183,26 +208,34 @@ const Tooltip = ({
         contentPositionVal = {
           top: targetPosition.top - originPosition.top,
           left:
-            targetPosition.left - originPosition.left - gap - boxPosition.width
+            targetPosition.left -
+            originPosition.left -
+            gap -
+            boxPosition.width +
+            arrowHeight
         }
         break
       case LEFT_BOTTOM:
         contentPositionVal = {
           top: targetPosition.bottom - originPosition.top - boxPosition.height,
           left:
-            targetPosition.left - originPosition.left - gap - boxPosition.width
+            targetPosition.left -
+            originPosition.left -
+            gap -
+            boxPosition.width +
+            arrowHeight
         }
         break
       case RIGHT_TOP:
         contentPositionVal = {
           top: targetPosition.top - originPosition.top,
-          left: targetPosition.right - originPosition.left + gap
+          left: targetPosition.right - originPosition.left + gap - arrowHeight
         }
         break
       case RIGHT_BOTTOM:
         contentPositionVal = {
           top: targetPosition.bottom - originPosition.top - boxPosition.height,
-          left: targetPosition.right - originPosition.left + gap
+          left: targetPosition.right - originPosition.left + gap - arrowHeight
         }
         break
       default:
@@ -369,7 +402,10 @@ const Tooltip = ({
   }
   const mountContent = () => {
     const contentEle = (
-      <div className={prefixCls} ref={originRef}>
+      <div
+        className={componentClassNames(prefixCls, {}, overlayClassName)}
+        ref={originRef}
+      >
         <div
           className={`${prefixCls}-box`}
           ref={boxRef}
@@ -401,10 +437,12 @@ const Tooltip = ({
           >
             {content}
           </div>
-          <div
-            className={classNames(`${prefixCls}-arrow`, arrowPlacementCls)}
-            style={arrowPosition}
-          />
+          {showArrow && (
+            <div
+              className={classNames(`${prefixCls}-arrow`, arrowPlacementCls)}
+              style={arrowPosition}
+            />
+          )}
         </div>
       </div>
     )
