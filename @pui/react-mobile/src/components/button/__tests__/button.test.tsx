@@ -45,11 +45,11 @@ describe('Test Button', () => {
     expect(icon).toBeInTheDocument()
   })
 
-  test('loading button', async () => {
+  test('disabled button', async () => {
     let clicked = false
     render(
       <Button
-        loading
+        disabled
         onClick={() => {
           clicked = true
         }}
@@ -58,7 +58,6 @@ describe('Test Button', () => {
       </Button>
     )
     const button = screen.getByText('Button').parentElement!
-    expect(button.firstChild).toHaveClass('pui-button-icon')
     await act(async () => {
       await button.click()
     })

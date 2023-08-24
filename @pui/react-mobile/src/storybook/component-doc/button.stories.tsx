@@ -56,6 +56,16 @@ export const ButtonStoryBook2 = () => {
       >
         Primary
       </Button>
+
+      <Button
+        size="tiny"
+        type="primary"
+        marginRight="40px"
+        disabled
+        icon={IconArrowHeadRight}
+      >
+        disabled
+      </Button>
     </div>
   )
 }
