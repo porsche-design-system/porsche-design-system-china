@@ -34,11 +34,11 @@ const GettingStart = () => (
     </div>
     <br />
     <div>安装PUI依赖</div>
-    <div className="cmd">npm install @pui/react</div>
+    <div className="cmd">npm install @pui/react-mobile</div>
     <br />
     <div>引用组件使用即可，引用任何组件即可设置好主题，字体</div>
     <div className="code">
-      import {'{'}Form, Input, Button{'}'} from '@pui/react';
+      import {'{'}Form, Input, Button{'}'} from '@pui/react-mobile';
     </div>
     <br />
     <div>

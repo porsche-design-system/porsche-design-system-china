@@ -13,7 +13,7 @@
     "storybook": "start-storybook -p 6007 --docs",
     "build-storybook": "build-storybook --docs",
     "build": "git pull && rm -rf ./es && tsc -p tsconfig-build-es6.json && copyfiles -u 1 \"./src/**/*.scss\" \"./src/**/*.js\" \"./src/assets/**/*\" \"./src/styles/**/*\" \"./src/assets/**/*\" es && rm ./es/**/**/*.stories.scss",
-    "vremove": "npm unpublish @pui/react@0.1.40 --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
+    "vremove": "npm unpublish @pui/react-mobile@0.1.40 --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "vrelease": "npm publish --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "vrelease-old": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
     "test": "jest",
