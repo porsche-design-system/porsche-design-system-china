@@ -35,20 +35,20 @@
       /* type */
       &-type-default {
         color: $text-color-1;
-        border: 1px solid $border-color-5;
+        border: 1px solid $text-color-1;
         background-color: transparent;
 
         &:hover,
         &-hover {
-          background-color: $container-bg-color-6;
-          color: $text-color-2;
-          border-color: $container-bg-color-6;
+          background-color: transparent;
+          color:  $text-color-1;
+          border-color: $text-color-1;
         }
         &:active,
         &-active {
-          background-color: $container-bg-color-8;
-          color: $text-color-2;
-          border-color: $container-bg-color-8;
+          background-color: transparent;
+          color: $text-color-1;
+          border-color: $text-color-1;
         }
 
         &:disabled,
@@ -65,35 +65,13 @@
       }
 
       &-type-primary {
-        background-color: $brand-color;
-        border: 1px solid $brand-color;
+        background-color: $container-bg-color-8;
+        border: 1px solid $container-bg-color-8;
         color: $text-white-color;
         &:hover,
         &-hover {
-          background-color: $brand-color-hover;
-          border-color: $brand-color-hover;
-        }
-        &:active,
-        &-active {
-          background-color: $brand-color-active;
-          border-color: $brand-color-active;
-        }
-        &:disabled,
-        &-disabled {
-          border-color: $brand-color-disable;
-          background-color: $brand-color-disable;
-          cursor: not-allowed;
-        }
-      }
-
-      &-type-secondary {
-        background-color: $container-bg-color-7;
-        border: 1px solid $container-bg-color-7;
-        color: $text-color-2;
-        &:hover,
-        &-hover {
-          background-color: $container-bg-color-6;
-          border-color: $container-bg-color-6;
+          background-color: $container-bg-color-8;
+          border-color: $container-bg-color-8;
         }
         &:active,
         &-active {
@@ -102,12 +80,13 @@
         }
         &:disabled,
         &-disabled {
-          background-color: $brand-color-disable;
           border-color: $brand-color-disable;
+          background-color: $brand-color-disable;
           cursor: not-allowed;
         }
       }
 
+     
       &-type-text {
         color: $text-color-1;
         background-color: transparent;
@@ -125,32 +104,6 @@
         &-disabled {
           color: $brand-color-disable;
           background-color: transparent;
-          cursor: not-allowed;
-          .pui-button-icon,
-          .pui-button-suffix-icon {
-            opacity: 0.5;
-          }
-        }
-      }
-
-      &-type-link {
-        color: $text-link-color;
-        background-color: transparent;
-        border: 1px solid transparent;
-        border: none;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        &:hover,
-        &-hover {
-          color: $text-link-color-hover;
-        }
-        &:active,
-        &-active {
-          color: $text-link-color-active;
-        }
-        &:disabled,
-        &-disabled {
-          color: $brand-color-disable;
           cursor: not-allowed;
           .pui-button-icon,
           .pui-button-suffix-icon {
@@ -184,13 +137,7 @@
         }
       }
 
-      &-type-secondary {
-        .pui-button-loading-circle,
-        .pui-button-loading-circle2 {
-          stroke: $text-color-2;
-        }
-      }
-
+    
       /* size */
 
       &-size-medium {
