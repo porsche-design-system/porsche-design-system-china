@@ -2,5 +2,5 @@ projectKey=pui
 serverUrl=http://localhost:9000
 serverVersion=10.1.0.73491
 dashboardUrl=http://localhost:9000/dashboard?id=pui
-ceTaskId=AYnN98d-Fm7NzB7z3Efu
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYnN98d-Fm7NzB7z3Efu
+ceTaskId=AYogWeyH609K9Bo8UNLU
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYogWeyH609K9Bo8UNLU

@@ -1,3 +1,7 @@
+http://localhost:9000
+
+进入 @pui/react 目录
+
 /Users/calidan/Desktop/sonar-scanner/bin/sonar-scanner \
   -Dsonar.projectKey=pui \
   -Dsonar.sources=. \
