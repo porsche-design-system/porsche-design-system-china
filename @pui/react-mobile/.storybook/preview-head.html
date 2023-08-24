@@ -1,0 +1,321 @@
+<style>
+  * {
+    font-family: 'Porsche Next', 'Arial Narrow', 'Arial', 'Microsoft YaHei',
+      sans-serif !important;
+  }
+
+  .sbdocs .sbdocs-h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .sbdocs.sbdocs-preview {
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+  }
+
+  #panel-tab-content {
+    background: none;
+  }
+
+  .pui-theme-dark .sbdocs.sbdocs-preview {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .docblock-argstable-body {
+    font-size: 16px !important;
+  }
+  .docblock-argstable,
+  .docblock-argstable thead {
+    border-bottom: 1px #e3e4e5 solid;
+  }
+
+  .pui-theme-dark .docblock-argstable,
+  .pui-theme-dark .docblock-argstable thead,
+  .pui-theme-dark .docblock-argstable tbody td {
+    border-bottom: 1px solid #666 !important;
+  }
+
+  .docblock-argstable tbody {
+    box-shadow: none !important;
+  }
+  .docblock-argstable div span,
+  .docblock-argstable div div span {
+    color: #d5001c !important;
+    background-color: #fbe6e8;
+    border-radius: 4px;
+    padding: 3px;
+  }
+  .docblock-argstable thead th {
+    font-weight: 700;
+    font-size: 16px;
+    color: #000 !important;
+  }
+  .docblock-argstable-body td span:first-of-type {
+    font-weight: 400;
+    color: #000;
+  }
+  .docblock-argstable-body td:nth-last-of-type(2) span {
+    font-size: 12px;
+  }
+  /*E: Prop content style change*/
+
+  .theme-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+  }
+
+  .size-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 170px;
+    margin-top: 5px;
+  }
+
+  .lang-button {
+    padding: 10px 20px;
+    position: absolute;
+    right: 320px;
+    margin-top: 5px;
+  }
+
+  .lang-button button,
+  .size-button button,
+  .theme-button button {
+    font-size: 13px;
+    color: black;
+    border: 1px solid transparent;
+    background-color: transparent;
+    padding: 5px 12px;
+    cursor: pointer;
+    float: left;
+  }
+  .pui-theme-dark .lang-button button,
+  .pui-theme-dark .size-button button,
+  .pui-theme-dark .theme-button button {
+    color: white;
+  }
+
+  .lang-button .active,
+  .size-button .active,
+  .theme-button .active {
+    font-size: 13px;
+    color: black;
+    border: 1px solid #666;
+    background-color: transparent;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .pui-theme-dark .lang-button .active,
+  .pui-theme-dark .size-button .active,
+  .pui-theme-dark .theme-button .active {
+    border: 1px solid #666;
+    color: white;
+  }
+
+  .pui-theme-dark .docs-story {
+    background-color: #1b2023;
+    color: white;
+  }
+  .pui-theme-light .docs-story {
+    background-color: white;
+    color: black;
+  }
+
+  .pui-theme-dark .sbdocs-wrapper,
+  .pui-theme-dark .sbdocs-title,
+  .pui-theme-dark .os-content,
+  .pui-theme-dark .sbdocs-p,
+  .pui-theme-dark .docblock-argstable * {
+    background-color: #1b2023 !important;
+    color: white !important;
+  }
+
+  .pui-theme-dark .docblock-argstable div div span,
+  .pui-theme-dark .docblock-argstable div span {
+    background-color: #111d2c !important;
+    color: #2193ff !important;
+    border: none !important;
+  }
+
+  .docblock-emptyblock {
+    display: none !important;
+  }
+
+  #stories {
+    display: none;
+  }
+
+  .sbdocs.sbdocs-preview {
+    padding-top: 0;
+    margin-bottom: 48px !important;
+  }
+
+  .sbdocs-preview .os-host:nth-child(1) {
+    display: none;
+  }
+  .sbdocs-preview div .os-host:nth-child(1) {
+    display: block;
+  }
+  .docs-story > div:nth-child(1) {
+    padding: 30px 20px;
+  }
+  .docs-story .pui-tabs {
+    margin-top: -30px;
+  }
+  .docs-story .pui-tabs .pui-tabs-header-line-true::after {
+    left: -20px !important;
+    right: -20px !important;
+  }
+  .pui-theme-dark .docblock-code-toggle:focus,
+  .pui-theme-dark .docblock-code-toggle--expanded:focus {
+    box-shadow: #2193ff 0 -3px 0 0 inset !important;
+  }
+
+  .pui-theme-dark .tabbutton-active,
+  .pui-theme-dark .tabbutton-active:focus {
+    border-bottom-color: #2193ff;
+    color: #2193ff;
+  }
+
+  .pui-theme-dark .sbdocs-h3 {
+    color: white;
+  }
+</style>
+
+<div class="lang-button">
+  <button
+    id="lang-zh-cn"
+    onclick="PUI.changeLang('zh-CN');updateButtonTheme();"
+  >
+    中文
+  </button>
+  <button id="lang-en" onclick="PUI.changeLang('en');updateButtonTheme();">
+    English
+  </button>
+</div>
+
+<div class="size-button">
+  <button
+    id="default-size-medium"
+    onclick="PUI.setDefaultSize('medium');updateButtonTheme();"
+  >
+    Medium
+  </button>
+  <button
+    id="default-size-small"
+    onclick="PUI.setDefaultSize('small');updateButtonTheme();"
+  >
+    Small
+  </button>
+</div>
+<div class="theme-button">
+  <button
+    id="theme-light"
+    onclick="PUI.setTheme('light');updateButtonTheme();updateParentTheme('pui-theme-light');"
+  >
+    ☀️ Light
+  </button>
+  <button
+    id="theme-dark"
+    onclick="PUI.setTheme('dark');updateButtonTheme();updateParentTheme('pui-theme-dark');"
+  >
+    🌛 Dark
+  </button>
+</div>
+
+<script>
+  let time = 0
+  setTimeout(() => {
+    document.getElementById('docs-root').addEventListener(
+      'DOMSubtreeModified',
+      () => {
+        if (new Date().getTime() - time > 300) {
+          time = new Date().getTime()
+          setTimeout(() => {
+            if (document.getElementsByClassName('sbdocs-title').length == 0) {
+              return
+            }
+
+            if (
+              document.getElementsByClassName('docblock-argstable').length == 0
+            ) {
+              return
+            }
+
+            let argTable =
+              document.getElementsByClassName('docblock-argstable')[0]
+                .parentNode
+            if (argTable.parentNode.id === 'panel-tab-content') {
+              argTable = argTable.parentNode.parentNode
+            }
+            const argTableParentNode = argTable.parentNode
+            if (
+              argTableParentNode.children[
+                argTableParentNode.children.length - 1
+              ] != argTable
+            ) {
+              argTableParentNode.removeChild(argTable)
+              argTableParentNode.append(argTable)
+            }
+          }, 300)
+        }
+      },
+      false
+    )
+  }, 100)
+
+  function updateButtonTheme() {
+    if (window.PUI) {
+      document.getElementById('default-size-small').className =
+        PUI.getDefaultSize() == 'small' ? 'active' : ''
+      document.getElementById('default-size-medium').className =
+        PUI.getDefaultSize() == 'medium' ? 'active' : ''
+      document.getElementById('theme-light').className =
+        PUI.getTheme() == 'light' ? 'active' : ''
+      document.getElementById('theme-dark').className =
+        PUI.getTheme() == 'dark' ? 'active' : ''
+      document.getElementById('lang-zh-cn').className =
+        PUI.getLang() == 'zh-CN' ? 'active' : ''
+      document.getElementById('lang-en').className =
+        PUI.getLang() == 'en' ? 'active' : ''
+    } else {
+      setTimeout(updateButtonTheme, 100)
+    }
+  }
+
+  function init() {
+    setTimeout(() => {
+      if (window.PUI) {
+        PUI.setDefaultSize('small')
+        updateButtonTheme()
+      } else {
+        init()
+      }
+    }, 500)
+  }
+
+  init()
+
+  function updateParentTheme(className) {
+    window.parent.document.body.className = className
+  }
+
+  const consoleError = console.error
+  console.error = (...args) => {
+    if (typeof args[0] === 'string') {
+      if (
+        args[0].indexOf('ReactDOM.render is no longer supported in React 18') >=
+          0 ||
+        args[0].indexOf('The pseudo class ":first-child"') >= 0
+      )
+        return
+    }
+    consoleError(...args)
+  }
+</script>

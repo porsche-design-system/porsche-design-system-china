@@ -17,6 +17,7 @@
   "dependencies": {},
   "workspaces": [
     "@pui/react",
+    "@pui/react-mobile",
     "@pui/icons",
     "@pui/tools"
   ]

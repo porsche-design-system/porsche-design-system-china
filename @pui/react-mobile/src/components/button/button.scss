@@ -1,0 +1,292 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-button {
+      border: none;
+      cursor: pointer;
+      padding: 0 16px;
+      transition: color 0.2s, background-color 0.2s, border 0.2s;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &-icon,
+      &-suffix-icon {
+        pointer-events: none;
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: text-top;
+        .porscheicon {
+          vertical-align: baseline;
+        }
+      }
+
+      &-icon-content {
+        margin-right: 4px;
+      }
+      &-suffix-icon-content {
+        margin-left: 4px;
+      }
+
+      /* type */
+      &-type-default {
+        color: $text-color-1;
+        border: 1px solid $border-color-5;
+        background-color: transparent;
+
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-6;
+          color: $text-color-2;
+          border-color: $container-bg-color-6;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-8;
+          color: $text-color-2;
+          border-color: $container-bg-color-8;
+        }
+
+        &:disabled,
+        &-disabled {
+          color: $brand-color-disable;
+          border: 1px solid $brand-color-disable;
+          background-color: transparent;
+          cursor: not-allowed;
+          .pui-button-icon,
+          .pui-button-suffix-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &-type-primary {
+        background-color: $brand-color;
+        border: 1px solid $brand-color;
+        color: $text-white-color;
+        &:hover,
+        &-hover {
+          background-color: $brand-color-hover;
+          border-color: $brand-color-hover;
+        }
+        &:active,
+        &-active {
+          background-color: $brand-color-active;
+          border-color: $brand-color-active;
+        }
+        &:disabled,
+        &-disabled {
+          border-color: $brand-color-disable;
+          background-color: $brand-color-disable;
+          cursor: not-allowed;
+        }
+      }
+
+      &-type-secondary {
+        background-color: $container-bg-color-7;
+        border: 1px solid $container-bg-color-7;
+        color: $text-color-2;
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-6;
+          border-color: $container-bg-color-6;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-8;
+          border-color: $container-bg-color-8;
+        }
+        &:disabled,
+        &-disabled {
+          background-color: $brand-color-disable;
+          border-color: $brand-color-disable;
+          cursor: not-allowed;
+        }
+      }
+
+      &-type-text {
+        color: $text-color-1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border: none;
+        &:hover,
+        &-hover {
+          background-color: $container-bg-color-2;
+        }
+        &:active,
+        &-active {
+          background-color: $container-bg-color-1;
+        }
+        &:disabled,
+        &-disabled {
+          color: $brand-color-disable;
+          background-color: transparent;
+          cursor: not-allowed;
+          .pui-button-icon,
+          .pui-button-suffix-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &-type-link {
+        color: $text-link-color;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border: none;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        &:hover,
+        &-hover {
+          color: $text-link-color-hover;
+        }
+        &:active,
+        &-active {
+          color: $text-link-color-active;
+        }
+        &:disabled,
+        &-disabled {
+          color: $brand-color-disable;
+          cursor: not-allowed;
+          .pui-button-icon,
+          .pui-button-suffix-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &-loading-circle,
+      &-loading-circle2 {
+        fill: transparent;
+        stroke: $text-color-1;
+        stroke-width: 2;
+        stroke-dasharray: 38;
+        transform-origin: center;
+      }
+
+      &-loading-circle {
+        animation: pui-button-loading-rotate 1s linear infinite,
+          pui-button-loading-length-change 3s linear infinite;
+      }
+
+      &-loading-circle2 {
+        opacity: 0.3;
+      }
+
+      &-type-primary {
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke: $text-white-color;
+        }
+      }
+
+      &-type-secondary {
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke: $text-color-2;
+        }
+      }
+
+      /* size */
+
+      &-size-medium {
+        font-size: 16px;
+        height: 48px;
+        .pui-button-content {
+          line-height: 24px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+
+      &-size-small {
+        font-size: 14px;
+        height: 36px;
+        padding: 0 11px;
+        .porscheicon {
+          font-size: 20px;
+        }
+        .pui-button-icon,
+        .pui-button-suffix-icon {
+          width: 20px;
+          height: 20px;
+          margin-top: 1px;
+        }
+
+        .pui-button-icon-content {
+          margin-right: 2px;
+        }
+        .pui-button-suffix-icon-content {
+          margin-left: 2px;
+        }
+
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke-dasharray: 32;
+        }
+        .pui-button-content {
+          line-height: 22px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+
+      &-size-tiny {
+        font-size: 12px;
+        height: 28px;
+        padding: 0 7px;
+        .porscheicon {
+          font-size: 16px;
+        }
+        .pui-button-icon,
+        .pui-button-suffix-icon {
+          width: 16px;
+          height: 16px;
+          margin-top: 1px;
+        }
+
+        .pui-button-icon-content {
+          margin-right: 2px;
+        }
+
+        .pui-button-suffix-icon-content {
+          margin-left: 2px;
+        }
+
+        .pui-button-loading-circle,
+        .pui-button-loading-circle2 {
+          stroke-dasharray: 20;
+        }
+        .pui-button-content {
+          line-height: 19px;
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+
+      @keyframes pui-button-loading-rotate {
+        0% {
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pui-button-loading-length-change {
+        0% {
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 20;
+        }
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+    }
+  }
+}

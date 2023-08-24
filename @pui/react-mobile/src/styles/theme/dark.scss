@@ -1,0 +1,104 @@
+@mixin dark {
+  // Brand Colors
+  $brand-color: #2193ff !global;
+  $brand-color-hover: #52abff !global;
+  $brand-color-active: #0064c2 !global;
+  $brand-color-disable: #7c7f81 !global;
+
+  // Background Colors
+  $background-color-1: #0e1418 !global;
+  $background-color-2: #1b2023 !global;
+  $background-color-3: #282b2e !global;
+
+  // Container Colors
+  $container-bg-color-1: #323639 !global;
+  $container-bg-color-2: #4a4e51 !global;
+  $container-bg-color-3: #626669 !global;
+  $container-bg-color-4: #b0b1b2 !global;
+  $container-bg-color-5: #c9cacb !global;
+  $container-bg-color-6: #e6e6e6 !global;
+  $container-bg-color-7: #f2f2f2 !global;
+  $container-bg-color-8: #ffffff !global;
+  $container-bg-active-color: #2193ff !global;
+
+  $container-bg-opacity-color-1: rgba(255, 255, 255, 0.04) !global;
+  $container-bg-opacity-color-2: rgba(255, 255, 255, 0.08) !global;
+  $container-bg-opacity-color-3: rgba(255, 255, 255, 0.12) !global;
+  $container-bg-opacity-color-4: rgba(255, 255, 255, 0.2) !global;
+
+  $float-layer-bg-color: #282b2e !global;
+
+  // Background Opacity
+  $mask-color: rgba(0, 0, 0, 0.7) !global;
+  $fullscreen-mask-color: rgba(0, 0, 0, 0.7) !global;
+
+  // Text Colors
+  $text-color-1: #ffffff !global;
+  $text-color-2: #000000 !global;
+
+  $text-opacity-color-1: rgba(255, 255, 255, 0.7) !global;
+  $text-opacity-color-2: rgba(255, 255, 255, 0.5) !global;
+  $text-opacity-color-3: rgba(255, 255, 255, 0.25) !global;
+
+  $text-white-color: white !global;
+  $text-black-color: black !global;
+
+  $text-link-color: #2193ff !global;
+  $text-link-color-hover: #5cb0ff !global;
+  $text-link-color-active: #0064c2 !global;
+
+  // Border Colors
+  $border-color-1: rgba(255, 255, 255, 0.15) !global;
+  $border-color-2: rgba(255, 255, 255, 0.25) !global;
+  $border-color-3: rgba(255, 255, 255, 0.5) !global;
+  $border-color-4: rgba(255, 255, 255, 0.7) !global;
+  $border-color-5: rgba(255, 255, 255, 0.85) !global;
+
+  // Table
+  $table-head-bg-color: #4a4e51 !global;
+  $table-bg-color: #1b2023 !global;
+  $table-cell-border-color: rgba(255, 255, 255, 0.15) !global;
+  $table-selected-bg-color: #323639 !global;
+  $table-sort-active-color: #2193ff !global;
+  $table-sort-active-hover-color: #5cb0ff !global;
+  $table-fix-column-shadow-left: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3) !global;
+  $table-fix-column-shadow-right: inset -10px 0 8px -8px rgba(0, 0, 0, 0.3) !global;
+
+  // DatePicker
+  $date-picker-range-color: rgba(33, 147, 255, 0.3) !global;
+
+  // Status Colors
+  $status-error-color: #fc1717 !global;
+  $status-error-color-hover: #fd4040 !global;
+  $status-success-color: #01ba1d !global;
+  $status-warning-color: #ff9b00 !global;
+  $status-neutral-color: #2193ff !global;
+
+  $status-bg-error-color: #2a1215 !global;
+  $status-bg-success-color: #162312 !global;
+  $status-bg-warning-color: #2b2111 !global;
+  $status-bg-neutral-color: #111d2c !global;
+
+  // shadow
+  $shadow-l1-default: 0 2px 8px rgba(0, 0, 0, 0.3) !global;
+  $shadow-l2-default: 0 4px 12px rgba(0, 0, 0, 0.6) !global;
+  $shadow-l3-default: 0 2px 8px rgba(0, 0, 0, 0.3) !global;
+  $shadow-l1-left: -2px 0 8px rgba(0, 0, 0, 0.3) !global;
+  $shadow-l1-right: 2px 0 8px rgba(0, 0, 0, 0.3) !global;
+
+  // loading
+  $loading-bg-color: rgba(0, 0, 0, 0.6) !global;
+
+  // switch
+  $switch-button-color: #0080fa !global;
+
+  $filter: rgba(33, 147, 255, 0.65) !global;
+
+  // filter highlight
+  $filter-highlight-border-color: rgba(33, 147, 255, 1) !global;
+  $filter-highlight-bg-color: rgba(33, 147, 255, 0.1) !global;
+
+  //icon
+  $icon-clear-color: rgba(255, 255, 255, 0.25) !global;
+  $icon-clear-color-hover: rgba(255, 255, 255, 0.7) !global;
+}
