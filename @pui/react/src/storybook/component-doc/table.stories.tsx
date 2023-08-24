@@ -644,6 +644,16 @@ export const TableStoryBook8 = () => {
         total={tableData.length}
         pageSize={5}
       />
+      <br />
+      控制选定：
+      <Button
+        size="tiny"
+        onClick={() => {
+          setSelectedRowKeyValues([1, 11])
+        }}
+      >
+        选定1,11
+      </Button>
     </div>
   )
 }
