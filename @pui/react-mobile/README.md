@@ -23,8 +23,8 @@ npm run build
 再启动 storybook
 
 ```
-npm -w @pui/react run storybook
-或进入到 @pui/react 目录
+npm -w @pui/react-mobile run storybook
+或进入到 @pui/react-mobile 目录
 npm run storybook
 ```
 
