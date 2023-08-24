@@ -26,7 +26,7 @@ interface DefaultButtonProps
   style?: CSSProperties
 
   /** 类型 */
-  type?: 'default' | 'primary' | 'secondary' | 'text' | 'link'
+  type?: 'default' | 'primary' | 'text'
 
   /** 大小 */
   size?: 'medium' | 'small' | 'tiny'
@@ -37,14 +37,8 @@ interface DefaultButtonProps
   /** 后置图标 */
   suffixIcon?: PUIIcon | ReactElement
 
-  /** 是否加载中 */
-  loading?: boolean
-
   /** 是否禁用 */
   disabled?: boolean
-
-  /* 是否是表单提交按钮 */
-  submit?: boolean
 
   /* 左边距 */
   marginLeft?: string
@@ -75,7 +69,6 @@ const Button = (buttonProps: ButtonProps) => {
     size,
     icon,
     suffixIcon,
-    loading = false,
     disabled = false,
     marginRight,
     marginLeft,
@@ -90,27 +83,13 @@ const Button = (buttonProps: ButtonProps) => {
 
   let paddingStyle = {}
   let padding = '11px'
-  if (newSize === 'small') {
-    padding = '7px'
-  } else if (newSize === 'tiny') {
-    padding = '5px'
-  }
-
-  delete rest.submit
 
   if (!children || (icon && suffixIcon)) {
     paddingStyle = { padding: '0 ' + padding }
-  } else if (icon || loading) {
+  } else if (icon) {
     paddingStyle = { paddingLeft: padding }
   } else if (suffixIcon) {
     paddingStyle = { paddingRight: padding }
-  }
-
-  let loadingSize = 24
-  if (newSize === 'small') {
-    loadingSize = 20
-  } else if (newSize === 'tiny') {
-    loadingSize = 16
   }
 
   const IconComponent = icon as any
@@ -125,44 +104,16 @@ const Button = (buttonProps: ButtonProps) => {
       )}
       style={{ ...paddingStyle, marginLeft, marginRight, ...style }}
       onClick={evt => {
-        if (!loading) {
+        if (!disabled) {
           onClick && onClick(evt)
         }
       }}
-      disabled={disabled || loading}
+      disabled={disabled}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       {...rest}
     >
-      {loading && (
-        <span
-          className={classNames(
-            'pui-button-icon',
-            children ? 'pui-button-icon-content' : ''
-          )}
-        >
-          <svg
-            height={loadingSize}
-            width={loadingSize}
-            className="pui-button-loading-svg"
-          >
-            <circle
-              className="pui-button-loading-circle2"
-              cx={loadingSize / 2}
-              cy={loadingSize / 2}
-              r={loadingSize / 4}
-            />
-            <circle
-              className="pui-button-loading-circle"
-              cx={loadingSize / 2}
-              cy={loadingSize / 2}
-              r={loadingSize / 4}
-            />
-          </svg>
-        </span>
-      )}
-
-      {icon && !loading && (
+      {icon && (
         <span
           className={classNames(
             'pui-button-icon',

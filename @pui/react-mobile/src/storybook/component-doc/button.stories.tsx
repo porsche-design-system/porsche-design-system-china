@@ -61,3 +61,20 @@ export const ButtonStoryBook2 = () => {
 }
 
 ButtonStoryBook2.storyName = 'Primary'
+
+export const ButtonStoryBook3 = () => {
+  return (
+    <div>
+      <Button
+        size="tiny"
+        type="text"
+        marginRight="40px"
+        icon={IconArrowHeadRight}
+      >
+        Primary
+      </Button>
+    </div>
+  )
+}
+
+ButtonStoryBook3.storyName = 'Text'
