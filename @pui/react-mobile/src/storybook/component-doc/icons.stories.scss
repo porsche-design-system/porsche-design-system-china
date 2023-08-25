@@ -1,0 +1,34 @@
+.icon-block {
+  float: left;
+  padding: 10px;
+  padding-left: 0;
+  width: 230px;
+  cursor: pointer;
+
+  .porscheicon {
+    border: 1px solid #eee;
+    margin-right: 10px;
+    transition: all 0.1s;
+    background-color: white;
+  }
+  .porscheicon:hover {
+    transform: scale(1.5);
+  }
+}
+
+.pui-theme-dark {
+  .icon-block {
+    .porscheicon {
+      border: 1px solid #666;
+      margin-right: 10px;
+      transition: all 0.1s;
+      background-color: #333;
+    }
+  }
+}
+
+.icon-text {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 3px;
+}

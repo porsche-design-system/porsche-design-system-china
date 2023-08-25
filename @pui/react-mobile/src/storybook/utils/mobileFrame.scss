@@ -1,0 +1,28 @@
+
+
+.mobileFrame{
+    width:375px;
+    height:812px;
+    overflow: auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding:80px 20px 0 20px;
+}
+
+.mobileFrame-wrapper{
+    height:798px;
+}
+
+
+
+.pui-theme-light{
+    .mobileFrame{
+       background-image: url(phone-light.png);
+    }
+ }
+ 
+ .pui-theme-dark{
+     .mobileFrame{
+         background-image: url(phone-dark.png);
+      }
+ }

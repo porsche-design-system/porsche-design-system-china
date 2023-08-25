@@ -80,6 +80,7 @@
         }
         &:disabled,
         &-disabled {
+          color: $text-color-3;
           border-color: $brand-color-disable;
           background-color: $brand-color-disable;
           cursor: not-allowed;
@@ -141,8 +142,8 @@
       /* size */
 
       &-size-medium {
-        font-size: 16px;
-        height: 48px;
+        font-size: 14px;
+        height: 44px;
         .pui-button-content {
           line-height: 24px;
           display: inline-block;
