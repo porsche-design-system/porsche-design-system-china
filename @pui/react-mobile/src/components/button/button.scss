@@ -67,7 +67,7 @@
       &-type-primary {
         background-color: $container-bg-color-8;
         border: 1px solid $container-bg-color-8;
-        color: $text-white-color;
+        color: $text-color-2;
         &:hover,
         &-hover {
           background-color: $container-bg-color-8;
@@ -95,11 +95,11 @@
         border: none;
         &:hover,
         &-hover {
-          background-color: $container-bg-color-2;
+          background-color: transparent;
         }
         &:active,
         &-active {
-          background-color: $container-bg-color-1;
+          background-color:  transparent;
         }
         &:disabled,
         &-disabled {
@@ -152,9 +152,9 @@
       }
 
       &-size-small {
-        font-size: 14px;
+        font-size: 12px;
         height: 36px;
-        padding: 0 11px;
+        padding: 0 12px;
         .porscheicon {
           font-size: 20px;
         }
@@ -185,8 +185,8 @@
 
       &-size-tiny {
         font-size: 12px;
-        height: 28px;
-        padding: 0 7px;
+        height: 20px;
+        padding: 0 8px;
         .porscheicon {
           font-size: 16px;
         }
