@@ -40,12 +40,6 @@ interface DefaultButtonProps
   /** 是否禁用 */
   disabled?: boolean
 
-  /* 左边距 */
-  marginLeft?: string
-
-  /* 右边距 */
-  marginRight?: string
-
   // 组件事件 //
 
   /* 点击事件 */
@@ -70,8 +64,6 @@ const Button = (buttonProps: ButtonProps) => {
     icon,
     suffixIcon,
     disabled = false,
-    marginRight,
-    marginLeft,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -102,7 +94,7 @@ const Button = (buttonProps: ButtonProps) => {
         { type, size: newSize },
         className
       )}
-      style={{ ...paddingStyle, marginLeft, marginRight, ...style }}
+      style={{ ...paddingStyle, ...style }}
       onClick={evt => {
         if (!disabled) {
           onClick && onClick(evt)
