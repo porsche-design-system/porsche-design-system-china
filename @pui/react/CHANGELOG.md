@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.68](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.67...v0.1.68) (2023-08-25)
+
+
+### Features
+
+* 修复validate强制不输入空格导致的form错误展示问题 ([6bd65d0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/6bd65d0d7b9e20e3d9e8fbf01042c947f51844ee))
+* **DSCWCN-196:** Tooltip｜扩展属性：showArrow、overlayClassName ([cb8c7fe](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/cb8c7fe1903841b9e3cc9097bba8f40681a8bb67))
+
+
+### Bug Fixes
+
+* 加入开源框架 PULL 选项 ([d0addeb](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/d0addeb1c5eec9e4822d7a9b5180df080057599f))
+* 修正 domain 跳转 ([e5eb6d0](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/e5eb6d0a4889c26a2408de02ce30d52be05da62c))
+* **CARCN-0000:** 修正所有错误 ([5c1dc22](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/5c1dc22a50d5a24077e2862c2672014f34e999ec))
+* SonarCube coverage ([f332390](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/commit/f332390890936cab6ec96387ede385e04c4b4afc))
+
 ### [0.1.67](https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/compare/v0.1.66...v0.1.67) (2023-07-20)
 
 
