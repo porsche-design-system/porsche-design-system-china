@@ -1,0 +1,44 @@
+@import '../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+
+    .pui-tag {
+      display: inline-block;
+      height: 16px;
+      padding:0 6px;
+
+      font-family: PingFang SC;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+      background-color:  $container-bg-color-1;
+      color: $text-color-1;
+      
+
+      &-type-blackGold{
+        background-color:$container-bg-color-8;
+        color: #E7C684;
+      }
+
+      &-type-blackWhite{
+        background-color:$container-bg-color-8;
+        color: $text-color-2;
+      }
+
+      &-type-gold{
+        background-color:#E7C684;
+        color: $text-color-1;
+      }
+
+      &-type-red{
+        background-color:#FAE6E6;
+        color: #D5001C;
+      }
+    
+
+    }
+  }
+}
