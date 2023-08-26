@@ -30,4 +30,5 @@ jobs:
       - run: npm run install-all
       - run: npm -w @pui/icons run generate
       - run: npm -w @pui/icons run build
+      - run: npm -w @pui/react run lint
       - run: npm -w @pui/react run test
