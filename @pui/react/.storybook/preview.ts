@@ -9,7 +9,15 @@ export const parameters = {
     storySort: {
       order: [
         'Coding',
-        ['Getting Start', 'Best Practice', 'Develop PUI'],
+        [
+          'Getting Start',
+          'Change Logs',
+          'Best Practice',
+          'Develop PUI',
+          'Testing PUI',
+          'Update Icons',
+          'Open Source Software Notice'
+        ],
         'Foundation',
         'Theming & Language',
         'Navigation',
