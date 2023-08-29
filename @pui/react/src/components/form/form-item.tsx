@@ -108,15 +108,48 @@ export const FormItem =
     const validateFormItem = (val?: any) => {
       const validateValue = val ?? (props as any).value
       if (rules) {
-        const n = name || 'field'
-        validate({ [n]: rules }, { [n]: validateValue }, errorList => {
-          blurTriggered.current = true
-          if (errorList && errorList.length > 0) {
-            setInternalError(errorList[0].message)
-          } else {
-            setInternalError('')
+        const nameStartDate = (props as any)['nameStartDate']
+        const nameEndDate = (props as any)['nameStartDate']
+        if (nameStartDate || nameEndDate) {
+          if (nameStartDate) {
+            validate(
+              { [nameStartDate]: rules },
+              { [nameStartDate]: validateValue[0] },
+              errorList => {
+                blurTriggered.current = true
+                if (errorList && errorList.length > 0) {
+                  setInternalError(errorList[0].message)
+                } else {
+                  setInternalError('')
+                }
+              }
+            )
           }
-        })
+          if (nameEndDate) {
+            validate(
+              { [nameEndDate]: rules },
+              { [nameEndDate]: validateValue[1] },
+              errorList => {
+                blurTriggered.current = true
+                if (errorList && errorList.length > 0) {
+                  setInternalError(errorList[0].message)
+                } else {
+                  setInternalError('')
+                }
+              }
+            )
+          }
+        } else {
+          const n = name || 'field'
+          validate({ [n]: rules }, { [n]: validateValue }, errorList => {
+            blurTriggered.current = true
+            if (errorList && errorList.length > 0) {
+              setInternalError(errorList[0].message)
+            } else {
+              setInternalError('')
+            }
+          })
+        }
       }
     }
 

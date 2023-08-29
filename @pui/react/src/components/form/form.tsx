@@ -219,7 +219,7 @@ export const overrideProps = (
       inputProps.error = undefined
       if (formErrors) {
         formErrors.forEach(error => {
-          if (error.field === inputProps.name) {
+          if ((error.field || '').split('.')[0] === inputProps.name) {
             inputProps.error = { show: true, message: error.message }
           }
           if (
@@ -490,7 +490,7 @@ function Form<T = any>({
 
         validate(formDataValidators, fData, errorList => {
           shouldAutoValidForm.current = true
-          setFormErrors(errorList ? [...errorList] :[])
+          setFormErrors(errorList ? [...errorList] : [])
           if (onSubmit) {
             submitReturn = onSubmit(fData as T, errorList)
           }
