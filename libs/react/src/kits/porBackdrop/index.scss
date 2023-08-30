@@ -1,0 +1,34 @@
+@import '../styles/variables';
+.page-basic{
+  width: 100%;
+}
+.page-backdrop{
+  background: $white;
+}
+.page-backdrop-gray{
+  background: $grayDark
+}
+.page-backdrop-dark{
+  background: $dark
+}
+.page-backdrop-search{
+  background: $graySearch
+}
+.page-backdrop-content{
+  margin: 0 auto;
+}
+@media screen and (min-width: 1760px){
+  .page-backdrop-content{
+    width: 1536px;
+  }
+}
+@media screen and (min-width: 1300px) and (max-width: 1759px){
+  .page-backdrop-content{
+    width: 1360px;
+  }
+}
+@media screen and (max-width: 1299px){
+  .page-backdrop-content{
+    width: 1024px;
+  }
+}

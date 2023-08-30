@@ -1,0 +1,22 @@
+@import '../styles/variables';
+.logo{
+  display: table;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 5px;
+  .img-line{
+    display: table-cell;
+    width: 100px;
+    margin: 0 20px;
+  }
+  .img-no-line{
+    width: 100px;
+  }
+  .logo-line{
+    width:50%;
+    display: table-cell;
+    border-bottom: 1px solid $grayTable;
+    position: relative;
+    bottom: 2px;
+  }
+}

@@ -1,0 +1,136 @@
+@import '../styles/variables';
+.por-menu {
+  height: 57px;
+  line-height: 57px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $grayTable;
+  .item {
+    float: left;
+    position: relative;
+    margin-right: 40px;
+    font-size: $moderateFontSize;
+    color: $defaultColor;
+    >a{
+      color: $defaultColor;
+    }
+    .menu-pop-up{
+      width: 240px;
+      background: $white;
+      font-size: $defaultFontSize;
+      box-sizing: border-box;
+      border: 1px solid $grayTable;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      z-index: 200;
+      .menu-content{
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        box-sizing: border-box;
+        .menu-item-text{
+          padding: 0 24px;
+          .nav-content{
+            width: 100%;
+            border-bottom: 1px solid $grayTable;
+            text-align: left;
+            .address{
+              color: $defaultColor;
+              text-align: left;
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
+            }
+          }
+          .nav-text{
+            overflow: hidden;
+            >span{
+              float: left;
+            }
+            >svg{
+              float: right;
+              height: 48px;
+              line-height: 48px;
+            }
+          }
+        }
+        .isSelected{
+          cursor: pointer;
+          background: $red;
+          color: $white;
+          .nav-content{
+            border-bottom: 1px solid $red;
+            height: 50px;
+            line-height: 50px;
+            .address{
+              color: $white;
+            }
+            >svg{
+              fill: $white;
+            }
+          }
+        }
+      }
+      .menu-content:last-child{
+        border-bottom: none;
+      }
+      .triangle{
+        margin: 0;
+        border-width: 12px;
+        border-style: solid;
+        border-color: transparent transparent $grayTable;
+        padding: 0;
+        width: 0;
+        height: 0;
+        top: -24px;
+        left: 20px;
+        position: absolute;
+      }
+      .triangle_inner{
+        margin: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent transparent $white;
+        padding: 0;
+        width: 0;
+        height: 0;
+        left: -10px;
+        top: -8px;
+        position: absolute;
+      }
+      .isHover_triangle_inner{
+        border-color: transparent transparent $red;
+      }
+    }
+  }
+  .item::after{
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .jump-icon{
+    margin-left: 5px;
+  }
+  .item-parent:hover{
+    color: $red;
+    cursor: pointer;
+    >a{
+      color: $red;
+    }
+    svg{
+      fill: $red;
+    }
+  }
+  .isHover{
+    color: $red;
+    cursor: pointer;
+  }
+  .isChecked{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: $red;
+  }
+}
