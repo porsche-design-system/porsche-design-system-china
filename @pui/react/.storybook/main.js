@@ -6,7 +6,8 @@ module.exports = {
 
   addons: [
     { name: '@storybook/addon-docs', options: { configureJSX: true } },
-    getAbsolutePath("@storybook/preset-scss")
+    getAbsolutePath("@storybook/preset-scss"),
+    getAbsolutePath("@storybook/addon-essentials"),
   ],
 
   framework: {
