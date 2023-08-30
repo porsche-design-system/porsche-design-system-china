@@ -55,6 +55,7 @@
     "typescript": "^4.2.2",
     "update-notifier": "^6.0.2",
     "vinyl-fs": "^4.0.0",
-    "yargs-parser": "^20.2.6"
+    "yargs-parser": "^20.2.6",
+    "semver": "^7.5.4"
   }
 }
