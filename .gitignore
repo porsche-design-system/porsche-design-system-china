@@ -21,6 +21,14 @@ node_modules
 /@pui/react/override.scss
 /@pui/react/coverage
 
+/@pui/react-mobile/coverage
+/@pui/react-mobile/es
+/@pui/react-mobile/es/**/*
+/@pui/react-mobile/lib
+/@pui/react-mobile/lib/**/*
+/@pui/react-mobile/override.scss
+/@pui/react-mobile/coverage
+
 # misc
 .DS_Store
 .env.local

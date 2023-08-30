@@ -1,6 +1,6 @@
 {
   "name": "@pui/react-mobile",
-  "version": "0.1.67",
+  "version": "0.0.1",
   "module": "es/index.js",
   "main": "es/index.js",
   "typings": "es/index.d.ts",
