@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
+import { Markdown } from '@storybook/blocks'
 import '../..'
 import './doc.scss'
 
 // @ts-ignore
-import Develop from '../../../README.md'
+import Develop from '../../../README.md?raw'
 
 const DevelopPUI = () => (
   <div className="custom-doc">
-    <Develop />
+    <Markdown>{Develop}</Markdown>
   </div>
 )
 
