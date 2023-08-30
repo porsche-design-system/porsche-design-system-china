@@ -1,0 +1,9 @@
+@import "../../styles/variables.sass";
+.por-footer{
+  width:100%;
+  height: 114px;
+  line-height: 114px;
+  background: $dark;
+  font-size: $smallFontSize;
+  color: $white;
+}

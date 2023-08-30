@@ -1,0 +1,14 @@
+*.log
+
+node_modules
+
+.idea
+
+webpack-assets.json
+package-lock.json
+dist
+jsconfig.json
+
+build
+
+yarn.lock
