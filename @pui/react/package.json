@@ -48,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "7.18.2",
     "@lottiefiles/react-lottie-player": "3.4.7",
+    "storybook": "^7.4.0",
     "@storybook/addon-actions": "7.4.0",
     "@storybook/addon-docs": "7.4.0",
     "@storybook/addon-essentials": "7.4.0",
