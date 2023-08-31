@@ -1,23 +1,30 @@
-import SVGO from "svgo";
-import { mergeRight } from "ramda";
-import { base } from "./base";
+import { optimize, Config } from "svgo";
 import { createTrasformStreamAsync } from "../creator";
 
-const config: SVGO.Options = mergeRight(base, {
+const config: Config = {
+  floatPrecision: 2,
   plugins: [
-    ...(base.plugins || []),
+    // set of built-in plugins enabled by default
     {
-      removeAttrs: {
-        attrs: ["class"]
+      name: "preset-default",
+      params: {
+        overrides: {
+          removeViewBox: false
+        }
+      }
+    },
+    {
+      name: "removeAttrs",
+      params: {
+        attrs: "class"
       }
     }
   ]
-});
+};
 
 export const svgo = () => {
-  const optimizer = new SVGO(config);
   return createTrasformStreamAsync(async (before) => {
-    const { data } = await optimizer.optimize(before);
+    const { data } = optimize(before, config as any);
     return data;
   });
 };
