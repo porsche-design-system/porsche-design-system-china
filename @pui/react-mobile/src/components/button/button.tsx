@@ -74,7 +74,7 @@ const Button = (buttonProps: ButtonProps) => {
   const newSize = size || defaultSize
 
   let paddingStyle = {}
-  let padding = '11px'
+  const padding = '11px'
 
   if (!children || (icon && suffixIcon)) {
     paddingStyle = { padding: '0 ' + padding }

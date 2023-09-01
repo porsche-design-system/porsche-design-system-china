@@ -1,5 +1,4 @@
 import React, { CSSProperties } from 'react'
-import classNames from 'classnames'
 import { componentClassNames } from '../../shared/class-util'
 
 import './tag.scss'
@@ -33,7 +32,7 @@ interface DefaultTagProps
 export type TagProps = Compute<DefaultTagProps>
 
 const Tag = (tagProps: TagProps) => {
-  const { className, children, style, type = 'gray', onClick } = tagProps
+  const { className, children, type = 'gray', onClick } = tagProps
 
   return (
     <div

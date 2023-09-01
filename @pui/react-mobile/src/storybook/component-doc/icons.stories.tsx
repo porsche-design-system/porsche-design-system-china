@@ -34,6 +34,7 @@ export const IconsStoryBook = () => {
             onClick={() => {
               const text = '<' + icon + ' />'
               copyToClipboard(text)
+              // eslint-disable-next-line no-alert
               alert(text + ' copied')
             }}
           >
