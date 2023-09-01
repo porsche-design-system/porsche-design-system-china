@@ -50,6 +50,7 @@
     "@discoveryjs/json-ext": "^0.5.7",
     "@lottiefiles/react-lottie-player": "3.4.7",
     "storybook": "^7.4.0",
+    "@storybook/addons": "7.4.0",
     "@storybook/addon-actions": "7.4.0",
     "@storybook/addon-docs": "7.4.0",
     "@storybook/addon-essentials": "7.4.0",

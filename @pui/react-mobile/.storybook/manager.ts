@@ -2,5 +2,6 @@ import { addons } from '@storybook/addons'
 import globalTheme from './global-theme'
 
 addons.setConfig({
-  theme: globalTheme
+  theme: globalTheme,
+  showToolbar: false
 })
