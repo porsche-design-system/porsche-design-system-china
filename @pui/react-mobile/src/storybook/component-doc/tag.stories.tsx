@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react'
-import { IconArrowHeadRight, IconConfigurate } from '@pui/icons'
-
-import { Tag, Row, Col } from '../..'
+import React from 'react'
+import { Tag } from '../..'
 import './tag.stories.scss'
-import { MobileFrame } from '../utils/mobileFrame'
-import { Title } from '../utils/title'
-import { Center } from '../utils/center'
-import { Space } from '../utils/space'
 
 export default {
   title: 'Foundation/Tag',
