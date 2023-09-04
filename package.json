@@ -20,5 +20,8 @@
     "@pui/react-mobile",
     "@pui/icons",
     "@pui/tools"
-  ]
+  ],
+  "overrides": {
+    "glob-parent": "6.0.2"
+  }
 }
