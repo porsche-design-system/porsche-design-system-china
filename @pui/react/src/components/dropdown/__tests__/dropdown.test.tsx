@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, fireEvent } from '@testing-library/react'
+import { render, waitFor, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Menu } from '../../menu'
 import { Button } from '../../button/button'
@@ -14,6 +14,71 @@ describe('Dropdown component', () => {
       <Menu.Item index="Contact">Contact</Menu.Item>
     </Menu>
   )
+  it('Rendering default Dropdown Button', () => {
+    const { getByText } = render(
+      <Dropdown overlay={defaultMenu}>Click me</Dropdown>
+    )
+    expect(getByText('Click me')).toBeInTheDocument()
+  })
+  it('Rendering Dropdown buttons of different sizes', () => {
+    const { container, getByRole } = render(
+      <Dropdown overlay={defaultMenu} size="small">
+        <Button size="small">Small</Button>
+      </Dropdown>
+    )
+    waitFor(() => {
+      userEvent.hover(getByRole('button'))
+      const elementWithClassName = container.getElementsByClassName(
+        'pui-menu-mode-dropdown'
+      )[0]
+      expect(elementWithClassName).toHaveClass('pui-menu-size-small')
+      userEvent.unhover(getByRole('button'))
+    })
+  })
+  it('handles disabled state', () => {
+    const { getByRole } = render(
+      <Dropdown overlay={defaultMenu} disabled>
+        <Button size="small">Disabled</Button>
+      </Dropdown>
+    )
+    waitFor(() => {
+      userEvent.hover(getByRole('button'))
+      expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument()
+    })
+  })
+
+  it('custom overlayClassName and overlayStyle', () => {
+    const customMenu = (
+      <Menu>
+        <Menu.Item index="Home">Home</Menu.Item>
+        <Menu.Item index="About">About</Menu.Item>
+        <Menu.SubMenu index="SubMenu" title="SubMenu">
+          <Menu.Item index="One">One</Menu.Item>
+          <Menu.Item index="Two">Two</Menu.Item>
+          <Menu.Item index="Three">Three</Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    )
+    const { container, getByRole } = render(
+      <Dropdown
+        overlay={customMenu}
+        overlayClassName="custom-class"
+        overlayStyle={{ color: 'red' }}
+      >
+        <Button>Toggle</Button>
+      </Dropdown>
+    )
+    waitFor(() => {
+      userEvent.hover(getByRole('button'))
+      expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument()
+      const customOverlayElement = container.getElementsByClassName(
+        'pui-menu-mode-dropdown'
+      )[0]
+      expect(customOverlayElement).toHaveClass('custom-class')
+      expect(customOverlayElement).toHaveStyle('color: red')
+    })
+  })
+
   it('should show Dropdown content on mouse hover', async () => {
     const { queryByText, getByRole } = render(
       <Dropdown overlay={defaultMenu}>
@@ -103,6 +168,31 @@ describe('Dropdown component', () => {
       const subMenuItem = getByText('About')
       fireEvent.click(subMenuItem)
       expect(onClick).toHaveBeenCalledWith('About')
+      userEvent.click(getByRole('button'))
+    })
+  })
+
+  it('controls by another event', async () => {
+    const onVisibleChange = jest.fn()
+    let visible = false
+    const { getByRole } = render(
+      <>
+        <Dropdown
+          onVisibleChange={value => (visible = value)}
+          overlay={defaultMenu}
+          trigger="click"
+          visible={visible}
+          overlayClassName="test-dropdown"
+        >
+          <Button onClick={() => (visible = true)} type="primary">
+            Dropdown
+          </Button>
+        </Dropdown>
+      </>
+    )
+    waitFor(() => {
+      userEvent.click(getByRole('button'))
+      expect(onVisibleChange).toBeCalled()
       userEvent.click(getByRole('button'))
     })
   })
