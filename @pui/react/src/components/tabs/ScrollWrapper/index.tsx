@@ -121,4 +121,4 @@ const ScrollWrapper: FC<Props> = ({
   )
 }
 
-export default ScrollWrapper
+export { ScrollWrapper }

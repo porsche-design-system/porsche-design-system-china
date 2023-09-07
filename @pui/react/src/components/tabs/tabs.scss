@@ -99,12 +99,12 @@
             }
           }
 
-          &-showArrow-true {
+          &-scrollable-true {
             flex-shrink: 0;
           }
         }
 
-        &-showArrow-true {
+        &-scrollable-true {
           position: static;
         }
       }
@@ -131,7 +131,7 @@
               background-color: $border-color-2;
             }
           }
-          &-showArrow-true {
+          &-scrollable-true {
             position: static;
           }
         }
