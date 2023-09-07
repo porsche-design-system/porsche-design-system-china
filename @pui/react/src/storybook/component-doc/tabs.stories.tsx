@@ -11,7 +11,7 @@ export default {
 
 export const TabsStoryBook = () => {
   const [currentTab, setCurrentTab] = useState('Tab3')
-  const [currentTab2, setCurrentTab2] = useState('Tab7')
+  const [currentTab2, setCurrentTab2] = useState('Tab18')
   const tabArray = new Array(30).fill(1).map((_, index) => `Tab${index + 1}`)
 
   return (
@@ -63,7 +63,7 @@ export const TabsStoryBook = () => {
       <div className="showcase">
         <div className="tabs-session-title">溢出Tab</div>
         <Tabs
-          showArrow
+          scrollable
           hasLine
           activeKey={currentTab2}
           onActiveKeyChange={setCurrentTab2}

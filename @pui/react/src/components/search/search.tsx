@@ -51,9 +51,6 @@ export interface SearchProps {
   /** 显示清除按钮 */
   showClearButton?: boolean
 
-  /** 清除时搜索 */
-  searchOnClear?: boolean
-
   /** 显示清除按钮 */
   showSearchButtonBg?: boolean
 
@@ -71,6 +68,9 @@ export interface SearchProps {
 
   /** 失去焦点回调 */
   onBlur?: FocusEventHandler<HTMLInputElement>
+
+  /** 清除时回调 */
+  onClear?: (() => void) | null
 
   /** 表单属性 */
   name?: string
@@ -93,13 +93,13 @@ const Search = (searchProps: SearchProps) => {
     size,
     onValueChange,
     showClearButton,
-    searchOnClear = false,
     showSearchButtonBg = false,
     marginLeft,
     marginRight,
     rules,
     onBlur,
     onSearch,
+    onClear,
     name
   } = searchProps
 
@@ -184,13 +184,7 @@ const Search = (searchProps: SearchProps) => {
             />
           </>
         }
-        onClear={
-          searchOnClear && onSearch
-            ? () => {
-                onSearch('')
-              }
-            : null
-        }
+        onClear={onClear}
       />
       <ErrorText show={errList.length > 0} message={errList[0]?.message} />
     </div>

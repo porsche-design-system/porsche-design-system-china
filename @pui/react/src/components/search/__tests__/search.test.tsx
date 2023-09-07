@@ -106,7 +106,12 @@ describe('search', () => {
   it('should search onClear', () => {
     const onSearch = jest.fn()
     render(
-      <Search value="123" onSearch={onSearch} showClearButton searchOnClear />
+      <Search
+        value="123"
+        onSearch={onSearch}
+        showClearButton
+        onClear={onSearch}
+      />
     )
     const clearElement = document.getElementsByClassName('pui-input-clear')[0]
     waitFor(() => {

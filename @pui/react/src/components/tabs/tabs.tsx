@@ -7,7 +7,7 @@ import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
 import { TabPaneProps } from './tabpane'
 
-import ScrollWrapper from './ScrollWrapper'
+import { ScrollWrapper } from './ScrollWrapper'
 import './tabs.scss'
 
 export interface TabsProps {
@@ -35,7 +35,7 @@ export interface TabsProps {
   activeKey?: string
 
   /** tabs溢出是否箭头提示滚动 */
-  showArrow?: boolean
+  scrollable?: boolean
 
   /** 选中面板更改事件 */
   onActiveKeyChange?: (activeKey: string) => void
@@ -49,7 +49,7 @@ const Tabs = ({
   defaultActiveKey = '',
   activeKey,
   children,
-  showArrow = false,
+  scrollable = false,
   onActiveKeyChange
 }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(
@@ -82,7 +82,7 @@ const Tabs = ({
     <div
       className={componentClassNames('pui-tabs-header', {
         line: hasLine + '',
-        showArrow: showArrow + ''
+        scrollable: scrollable + ''
       })}
       ref={tabHeaderRef}
     >
@@ -91,7 +91,7 @@ const Tabs = ({
           className={componentClassNames('pui-tab', {
             size: size as string,
             active: (tabProps.tabKey === tabActiveKey) + '',
-            showArrow: showArrow + ''
+            scrollable: scrollable + ''
           })}
           key={'TabKey' + inx}
           onClick={() => {
@@ -120,7 +120,7 @@ const Tabs = ({
   }, [activeKey])
 
   useEffect(() => {
-    if (showArrow && tabHeaderRef.current) {
+    if (scrollable && tabHeaderRef.current) {
       const activeChild = Array.from(tabHeaderRef.current.children).find(
         child => child.className.includes('pui-tab-active-true')
       )
@@ -140,7 +140,7 @@ const Tabs = ({
       )}
       style={style}
     >
-      {showArrow ? <ScrollWrapper>{tabsHeader}</ScrollWrapper> : tabsHeader}
+      {scrollable ? <ScrollWrapper>{tabsHeader}</ScrollWrapper> : tabsHeader}
       <div className="pui-tabs-body">{newChildren}</div>
     </div>
   )
