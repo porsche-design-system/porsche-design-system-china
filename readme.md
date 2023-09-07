@@ -54,4 +54,4 @@ See [Contributing Guide](http://react-dev.qa4.porsche-preview.cn/?path=/docs/cod
 
 ## License
 
-[LICENSE](./LICENSE) License © 2021-Present
+[LICENSE](./LICENSE.md) License © 2021-Present
