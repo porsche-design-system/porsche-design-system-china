@@ -1,4 +1,5 @@
 import React from 'react'
+// eslint-disable-next-line react/no-deprecated
 import ReactDOM, { unmountComponentAtNode } from 'react-dom'
 
 const IsReact18 = React.version.split('.')[0] === '18'
@@ -45,6 +46,7 @@ export const unmountNode = (container: Element | DocumentFragment) => {
   if (IsReact18) {
     renderRootMap[(container as any).id].unmount()
   } else {
+    // eslint-disable-next-line react/no-deprecated
     unmountComponentAtNode(container)
   }
 }
