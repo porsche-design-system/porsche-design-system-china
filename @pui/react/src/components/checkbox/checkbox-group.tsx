@@ -39,7 +39,7 @@ export interface CheckBoxGroupProps<T> {
   itemsDistance?: { x?: string; y?: string }
 }
 
-const sortFunc = (a: unknown, b: unknown): number => {
+export const sortFunc = (a: unknown, b: unknown): number => {
   if (typeof a === 'string') {
     return a.localeCompare(b as string)
   } else {
