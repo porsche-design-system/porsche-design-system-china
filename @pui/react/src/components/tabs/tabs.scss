@@ -98,6 +98,14 @@
               }
             }
           }
+
+          &-showArrow-true {
+            flex-shrink: 0;
+          }
+        }
+
+        &-showArrow-true {
+          position: static;
         }
       }
 
@@ -122,6 +130,9 @@
               height: 1px;
               background-color: $border-color-2;
             }
+          }
+          &-showArrow-true {
+            position: static;
           }
         }
       }

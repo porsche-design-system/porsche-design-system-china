@@ -102,4 +102,16 @@ describe('search', () => {
       expect(onBlur).toBeCalled()
     })
   })
+
+  it('should search onClear', () => {
+    const onSearch = jest.fn()
+    render(
+      <Search value="123" onSearch={onSearch} showClearButton searchOnClear />
+    )
+    const clearElement = document.getElementsByClassName('pui-input-clear')[0]
+    waitFor(() => {
+      fireEvent.click(clearElement)
+      expect(onSearch).toBeCalled()
+    })
+  })
 })

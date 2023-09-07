@@ -1,0 +1,42 @@
+@import '../../../styles/theme/index';
+
+@each $theme in $themes {
+  .pui-theme-#{$theme} {
+    @include theme($theme);
+    .horizontal-scroll-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex-grow: 1;
+    }
+    
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .arrow {
+      position: absolute;
+      cursor: pointer;
+      z-index: 2;
+      background-color: $container-bg-color-2;
+    }
+    
+    .left-arrow {
+      left: 0;
+    }
+    
+    .right-arrow {
+      right: 0;
+    }
+  }
+}

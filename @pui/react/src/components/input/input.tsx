@@ -90,6 +90,9 @@ export interface InputProps {
 
   /** 中文打字结束 */
   onCompositionEnd?: CompositionEventHandler<HTMLInputElement>
+
+  /** 清除时回调 */
+  onClear?: (() => void) | null
 }
 
 /**
@@ -116,6 +119,7 @@ const Input = FormItem(
     showViewPasswordButton,
     onCompositionStart,
     onCompositionEnd,
+    onClear,
     suffixIcon,
     suffixStyle,
     suffixContent,
@@ -217,6 +221,7 @@ const Input = FormItem(
               onChange && onChange({ target: inputReference.current } as any)
               onValueChange && onValueChange('')
               setValueLength(0)
+              onClear && onClear()
             }}
           />
         )}
