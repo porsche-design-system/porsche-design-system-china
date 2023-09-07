@@ -38,6 +38,7 @@ export const renderNode = (node: any, container: any) => {
     renderRootMap[(container as any).id] = root
     toggleWarning(false)
   } else {
+    // eslint-disable-next-line react/no-deprecated
     ReactDOM.render(node, container)
   }
 }
@@ -46,7 +47,6 @@ export const unmountNode = (container: Element | DocumentFragment) => {
   if (IsReact18) {
     renderRootMap[(container as any).id].unmount()
   } else {
-    // eslint-disable-next-line react/no-deprecated
     unmountComponentAtNode(container)
   }
 }
