@@ -11,6 +11,8 @@ export default {
 
 export const TabsStoryBook = () => {
   const [currentTab, setCurrentTab] = useState('Tab3')
+  const [currentTab2, setCurrentTab2] = useState('Tab7')
+  const tabArray = new Array(30).fill(1).map((_, index) => `Tab${index + 1}`)
 
   return (
     <div className="group">
@@ -52,6 +54,25 @@ export const TabsStoryBook = () => {
           <TabPane title="标题三" tabKey="Tab3">
             <Input label="用户名" />
           </TabPane>
+        </Tabs>
+      </div>
+
+      <br />
+      <br />
+
+      <div className="showcase">
+        <div className="tabs-session-title">溢出Tab</div>
+        <Tabs
+          showArrow
+          hasLine
+          activeKey={currentTab2}
+          onActiveKeyChange={setCurrentTab2}
+        >
+          {tabArray.map((tab, index) => (
+            <TabPane title={`标题${index + 1}`} tabKey={tab}>
+              内容{index + 1}
+            </TabPane>
+          ))}
         </Tabs>
       </div>
     </div>

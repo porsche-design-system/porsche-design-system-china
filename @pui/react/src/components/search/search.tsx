@@ -51,6 +51,9 @@ export interface SearchProps {
   /** 显示清除按钮 */
   showClearButton?: boolean
 
+  /** 清除时搜索 */
+  searchOnClear?: boolean
+
   /** 显示清除按钮 */
   showSearchButtonBg?: boolean
 
@@ -90,6 +93,7 @@ const Search = (searchProps: SearchProps) => {
     size,
     onValueChange,
     showClearButton,
+    searchOnClear = false,
     showSearchButtonBg = false,
     marginLeft,
     marginRight,
@@ -179,6 +183,13 @@ const Search = (searchProps: SearchProps) => {
               }}
             />
           </>
+        }
+        onClear={
+          searchOnClear && onSearch
+            ? () => {
+                onSearch('')
+              }
+            : null
         }
       />
       <ErrorText show={errList.length > 0} message={errList[0]?.message} />

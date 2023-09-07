@@ -2,11 +2,12 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { useDefaultSize } from '../../shared/hooks'
 import { componentClassNames, overrideChildren } from '../../shared/class-util'
 import { TabPaneProps } from './tabpane'
 
+import ScrollWrapper from './ScrollWrapper'
 import './tabs.scss'
 
 export interface TabsProps {
@@ -33,6 +34,9 @@ export interface TabsProps {
   /** 激活面板的TabKey  */
   activeKey?: string
 
+  /** tabs溢出是否箭头提示滚动 */
+  showArrow?: boolean
+
   /** 选中面板更改事件 */
   onActiveKeyChange?: (activeKey: string) => void
 }
@@ -45,6 +49,7 @@ const Tabs = ({
   defaultActiveKey = '',
   activeKey,
   children,
+  showArrow = false,
   onActiveKeyChange
 }: TabsProps) => {
   const [tabActiveKey, setTabActiveKey] = useState(
@@ -52,6 +57,8 @@ const Tabs = ({
   )
   const [defaultSize] = useDefaultSize()
   size = size || defaultSize
+
+  const tabHeaderRef = useRef<HTMLDivElement | null>(null)
 
   const tabHead: TabPaneProps[] = []
   let keyIndex = 0
@@ -71,6 +78,35 @@ const Tabs = ({
     }
   )
 
+  const tabsHeader = (
+    <div
+      className={componentClassNames('pui-tabs-header', {
+        line: hasLine + '',
+        showArrow: showArrow + ''
+      })}
+      ref={tabHeaderRef}
+    >
+      {tabHead.map((tabProps, inx) => (
+        <div
+          className={componentClassNames('pui-tab', {
+            size: size as string,
+            active: (tabProps.tabKey === tabActiveKey) + '',
+            showArrow: showArrow + ''
+          })}
+          key={'TabKey' + inx}
+          onClick={() => {
+            if (!activeKey) {
+              setTabActiveKey(tabProps.tabKey!)
+            }
+            onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
+          }}
+        >
+          <span>{tabProps.title}</span>
+        </div>
+      ))}
+    </div>
+  )
+
   useEffect(() => {
     if (!defaultActiveKey) {
       setTabActiveKey(tabHead[0].tabKey!)
@@ -83,6 +119,18 @@ const Tabs = ({
     }
   }, [activeKey])
 
+  useEffect(() => {
+    if (showArrow && tabHeaderRef.current) {
+      const activeChild = Array.from(tabHeaderRef.current.children).find(
+        child => child.className.includes('pui-tab-active-true')
+      )
+
+      if (activeChild && activeChild instanceof HTMLElement) {
+        activeChild.click()
+      }
+    }
+  }, [])
+
   return (
     <div
       className={componentClassNames(
@@ -92,29 +140,7 @@ const Tabs = ({
       )}
       style={style}
     >
-      <div
-        className={componentClassNames('pui-tabs-header', {
-          line: hasLine + ''
-        })}
-      >
-        {tabHead.map((tabProps, inx) => (
-          <div
-            className={componentClassNames('pui-tab', {
-              size: size as string,
-              active: (tabProps.tabKey === tabActiveKey) + ''
-            })}
-            key={'TabKey' + inx}
-            onClick={() => {
-              if (!activeKey) {
-                setTabActiveKey(tabProps.tabKey!)
-              }
-              onActiveKeyChange && onActiveKeyChange(tabProps.tabKey!)
-            }}
-          >
-            <span>{tabProps.title}</span>
-          </div>
-        ))}
-      </div>
+      {showArrow ? <ScrollWrapper>{tabsHeader}</ScrollWrapper> : tabsHeader}
       <div className="pui-tabs-body">{newChildren}</div>
     </div>
   )
