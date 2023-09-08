@@ -1,7 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Form } from '../form'
 import { Input, Button, RadioGroup, Radio, Select } from '../../..'
 
@@ -58,13 +56,13 @@ describe('Test Form', () => {
       </Form>
     )
 
-    await userEvent.type(getByPlaceholderText('请输入姓名'), '测试姓名1')
-    await userEvent.type(getByPlaceholderText('请输入年龄'), '28')
-    await userEvent.click(getByText('医生'))
-    await userEvent.click(getByText('请选择性别'))
-    await userEvent.click(getByText('男'))
+    fireEvent.input(getByPlaceholderText('请输入姓名'), '测试姓名1')
+    fireEvent.input(getByPlaceholderText('请输入年龄'), '28')
+    fireEvent.click(getByText('医生'))
+    fireEvent.click(getByText('请选择性别'))
+    fireEvent.click(getByText('男'))
 
-    await userEvent.click(getByText('提交'))
+    fireEvent.click(getByText('提交'))
 
     expect(handleSubmit).not.toBeCalledWith({
       name: '',

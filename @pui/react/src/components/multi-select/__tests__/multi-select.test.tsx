@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { act } from 'react-dom/test-utils'
 import { MultiSelect } from '../multi-select'
 import { Form } from '../../form/form'
 
@@ -8,12 +9,8 @@ describe('multi-select', () => {
   const user = userEvent.setup()
 
   async function toggleOpen(trigger?: HTMLElement) {
-    await user.click(trigger || screen.getByRole('button', { name: '请选择' }))
+    fireEvent.click(trigger || screen.getByRole('button', { name: '请选择' }))
   }
-
-  // afterEach(async () => {
-  //   await user.click(document.body)
-  // })
 
   it('should multi-select component render correct', async () => {
     render(
@@ -99,7 +96,7 @@ describe('multi-select', () => {
       />
     )
 
-    await user.click(screen.getByRole('button', { name: '老虎' }))
+    fireEvent.click(screen.getByRole('button', { name: '老虎' }))
 
     const customOption = screen.getByRole('heading', { name: '老虎' })
 
@@ -111,7 +108,7 @@ describe('multi-select', () => {
     ).toBeChecked()
 
     // 取消选中的option
-    await user.click(customOption)
+    fireEvent.click(customOption)
 
     expect(customOption.parentElement).not.toHaveClass(
       'pui-multi-select-option-selected'
@@ -140,8 +137,8 @@ describe('multi-select', () => {
 
     expect(document.querySelector('.pui-multi-select-list')).toBeTruthy()
 
-    await user.click(screen.getByText(/狗/))
-    await user.click(screen.getByText(/猫/))
+    fireEvent.click(screen.getByText(/狗/))
+    fireEvent.click(screen.getByText(/猫/))
 
     expect(returnValue).toEqual(['dog', '猫'])
   })
@@ -168,13 +165,13 @@ describe('multi-select', () => {
 
     expect(screen.getByRole('button', { name: '狗' })).toBeTruthy()
 
-    await user.click(screen.getByRole('button', { name: '狗' }))
+    fireEvent.click(screen.getByRole('button', { name: '狗' }))
 
     expect(document.querySelector('.pui-multi-select-list')).toBeTruthy()
 
     const optionItem = screen.getByText(/猫/)
 
-    await user.click(optionItem)
+    fireEvent.click(optionItem)
 
     expect(optionItem).toHaveClass('pui-multi-select-option-selected')
     expect(optionItem.querySelector('input[type="checkbox"]')).toBeChecked()
@@ -199,7 +196,9 @@ describe('multi-select', () => {
     const filterInput = screen.getByPlaceholderText('查找动物')
     expect(filterInput).toBeTruthy()
 
-    await user.type(filterInput, '动物')
+    await act(async () => {
+      await user.type(filterInput, '动物')
+    })
 
     const allFilterOptions = document.querySelectorAll(
       '.pui-multi-select-option-wrap .pui-multi-select-option'
@@ -211,7 +210,7 @@ describe('multi-select', () => {
 
     // 触发全选
     const allCheckedTrigger = screen.getByText(/全选/)
-    await user.click(allCheckedTrigger)
+    fireEvent.click(allCheckedTrigger)
 
     expect(
       allCheckedTrigger?.querySelector('input[type="checkbox"]')
@@ -232,7 +231,9 @@ describe('multi-select', () => {
     ).toBeChecked()
 
     // 筛选不存在的关键词 “驴”
-    await user.type(filterInput, '驴')
+    await act(async () => {
+      await user.type(filterInput, '驴')
+    })
     expect(screen.getByText('暂无数据')).toBeTruthy()
   })
 
@@ -248,11 +249,11 @@ describe('multi-select', () => {
     )
 
     await toggleOpen()
-    await user.click(screen.getByText(/猫/))
+    fireEvent.click(screen.getByText(/猫/))
 
     expect(screen.getByRole('button', { name: '猫' })).toBeTruthy()
 
-    await user.click(screen.getByRole('img', { name: 'icon_-errorFilled' }))
+    fireEvent.click(screen.getByRole('img', { name: 'icon_-errorFilled' }))
 
     expect(screen.queryByRole('button', { name: '猫' })).toBeNull()
     expect(screen.getByRole('button', { name: '请选择' })).toBeTruthy()
@@ -326,7 +327,7 @@ describe('multi-select', () => {
       disabledOption.querySelector('input[type="checkbox"]')
     ).toBeDisabled()
 
-    await user.click(disabledOption)
+    fireEvent.click(disabledOption)
 
     expect(screen.queryByRole('button', { name: '兔子' })).toBeNull()
     expect(screen.getByRole('button', { name: '请选择' })).toBeTruthy()
@@ -361,7 +362,7 @@ describe('multi-select', () => {
     render(<App />)
 
     expect(document.querySelector('.pui-multi-select-list')).toBeNull()
-    await user.click(screen.getByRole('button', { name: 'toggle button' }))
+    fireEvent.click(screen.getByRole('button', { name: 'toggle button' }))
     expect(document.querySelector('.pui-multi-select-list')).toBeInTheDocument()
   })
 })

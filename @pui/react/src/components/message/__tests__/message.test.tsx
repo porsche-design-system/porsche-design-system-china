@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  fireEvent,
   render,
   screen,
   waitForElementToBeRemoved
@@ -19,7 +20,7 @@ describe('Test Message', () => {
   test('test render info message', async () => {
     render(<div onClick={() => Message.info('提示message')}>中文按钮</div>)
 
-    await userEvent.click(screen.getByText('中文按钮'))
+    fireEvent.click(screen.getByText('中文按钮'))
 
     expect(screen.getByText('提示message')).not.toBeNull()
 
@@ -33,7 +34,7 @@ describe('Test Message', () => {
 
     render(<div onClick={() => Message.warning('警告message')}>中文按钮</div>)
 
-    await userEvent.click(screen.getByText('中文按钮'))
+    fireEvent.click(screen.getByText('中文按钮'))
 
     expect(screen.getByText('警告message')).not.toBeNull()
 
@@ -47,7 +48,7 @@ describe('Test Message', () => {
 
     render(<div onClick={() => Message.success('成功message')}>中文按钮</div>)
 
-    await userEvent.click(screen.getByText('中文按钮'))
+    fireEvent.click(screen.getByText('中文按钮'))
 
     expect(screen.getByText('成功message')).not.toBeNull()
 
@@ -61,7 +62,7 @@ describe('Test Message', () => {
 
     render(<div onClick={() => Message.error('错误message')}>中文按钮</div>)
 
-    await userEvent.click(screen.getByText('中文按钮'))
+    fireEvent.click(screen.getByText('中文按钮'))
 
     expect(screen.getByText('错误message')).not.toBeNull()
 
@@ -79,11 +80,11 @@ describe('Test Message', () => {
       </div>
     )
 
-    await userEvent.click(screen.getByText('按钮'))
+    fireEvent.click(screen.getByText('按钮'))
 
     expect(screen.getByText('可关闭弹窗')).toBeInTheDocument()
 
-    await userEvent.click(screen.getByLabelText('icon_-close'))
+    fireEvent.click(screen.getByLabelText('icon_-close'))
 
     await waitForElementToBeRemoved(() => screen.getByText('可关闭弹窗'))
   })
