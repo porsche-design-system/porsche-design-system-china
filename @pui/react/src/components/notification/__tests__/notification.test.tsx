@@ -1,7 +1,6 @@
 import React from 'react'
 import { IconAugmentedReality, IconAuthCode } from '@pui/icons'
-import { screen, act, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, screen, act, waitFor } from '@testing-library/react'
 import { Notification } from '../notification'
 import type { NotificationConfigProps } from '../notification'
 
@@ -221,7 +220,6 @@ describe('notification', () => {
 
   it('trigger callback', async () => {
     const callback = jest.fn()
-    const user = userEvent.setup()
 
     act(() => {
       Notification.pop({
@@ -237,7 +235,7 @@ describe('notification', () => {
 
     expect(document.querySelector('.pui-notification')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('img', { name: 'icon_-close' }))
+    fireEvent.click(screen.getByRole('img', { name: 'icon_-close' }))
 
     await waitFor(() => {
       expect(callback).toHaveBeenCalled()
@@ -246,7 +244,6 @@ describe('notification', () => {
 
   it('trigger onOk', async () => {
     const onOk = jest.fn()
-    const user = userEvent.setup()
 
     act(() => {
       Notification.pop({
@@ -262,14 +259,13 @@ describe('notification', () => {
 
     expect(document.querySelectorAll('.pui-notification')).toHaveLength(1)
 
-    await user.click(screen.getByRole('button', { name: /OK Button/ }))
+    fireEvent.click(screen.getByRole('button', { name: /OK Button/ }))
 
     expect(onOk).toBeCalled()
   })
 
   it('trigger onCancel', async () => {
     const onClick = jest.fn()
-    const user = userEvent.setup()
 
     act(() => {
       Notification.pop({
@@ -285,7 +281,7 @@ describe('notification', () => {
 
     expect(document.querySelector('.pui-notification')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: /Cancel Button/ }))
+    fireEvent.click(screen.getByRole('button', { name: /Cancel Button/ }))
 
     expect(onClick).toHaveBeenCalled()
   })
