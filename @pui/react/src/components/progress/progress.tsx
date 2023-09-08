@@ -3,7 +3,7 @@ import { IconCorrectFilled, IconErrorFilled } from '@pui/icons'
 import { componentClassNames } from '../../shared/class-util'
 import './progress.scss'
 
-function validProgress(progress: number | undefined) {
+export function validProgress(progress: number | undefined) {
   if (!progress || progress < 0) {
     return 0
   }
@@ -27,7 +27,7 @@ export interface ProgressProps {
   onStop?: () => void
 }
 
-const Info = ({ status = 'normal', percent = 0 }: ProgressProps) => {
+export const Info = ({ status = 'normal', percent = 0 }: ProgressProps) => {
   if (status === 'success') {
     return <IconCorrectFilled />
   }
