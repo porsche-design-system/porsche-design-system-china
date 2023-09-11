@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IconArrowHeadDown, IconArrowHeadRight } from '@pui/icons'
 
 import { Button, Tabs, TabPane, Menu, Dropdown } from '../..'
@@ -10,20 +10,23 @@ export default {
 }
 
 export const ButtonStoryBook = () => {
-  useEffect(() => {
-    const mainStory = document.getElementById(
-      'anchor--foundation-button--button-story-book'
-    )
-    if (mainStory) {
-      mainStory.style.display = 'none'
-    }
-    const mainTitles = document.getElementsByClassName('sbdocs-title')
-    if (mainTitles.length > 0) {
-      const mainTitle = mainTitles[0] as HTMLElement
-      mainTitle.style.marginBottom = '48px'
-    }
-  })
-  return <div />
+  return (
+    <div>
+      <Button type="primary" marginRight="40px">
+        Primary
+      </Button>
+      <Button type="primary" marginRight="40px" icon={IconArrowHeadRight}>
+        Secondary
+      </Button>
+      <Button type="primary" marginRight="40px" icon={IconArrowHeadRight} />
+      <Button type="text" marginRight="40px">
+        Text
+      </Button>
+      <Button type="link" marginRight="40px">
+        Link
+      </Button>
+    </div>
+  )
 }
 
 ButtonStoryBook.storyName = 'Button'

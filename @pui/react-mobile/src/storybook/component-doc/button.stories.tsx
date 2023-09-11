@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IconArrowHeadRight, IconConfigurate } from '@pui/icons'
 
 import { Button, Row, Col } from '../..'
@@ -14,20 +14,21 @@ export default {
 }
 
 export const ButtonStoryBook = () => {
-  useEffect(() => {
-    const mainStory = document.getElementById(
-      'anchor--foundation-button--button-story-book'
-    )
-    if (mainStory) {
-      mainStory.style.display = 'none'
-    }
-    const mainTitles = document.getElementsByClassName('sbdocs-title')
-    if (mainTitles.length > 0) {
-      const mainTitle = mainTitles[0] as HTMLElement
-      mainTitle.style.marginBottom = '48px'
-    }
-  })
-  return <div />
+  return (
+    <div style={{ display: 'flex', gap: '20px' }}>
+      <Button size="medium" type="default">
+        默认按钮样式
+      </Button>
+      <Space />
+      <Button size="medium" type="default" icon={IconConfigurate}>
+        默认按钮
+      </Button>
+      <Space />
+      <Button size="medium" type="default" suffixIcon={IconArrowHeadRight}>
+        默认按钮
+      </Button>
+    </div>
+  )
 }
 
 ButtonStoryBook.storyName = 'Button'

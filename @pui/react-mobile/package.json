@@ -47,6 +47,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.18.2",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "@discoveryjs/json-ext": "^0.5.7",
     "@lottiefiles/react-lottie-player": "3.4.7",
     "storybook": "^7.4.0",
