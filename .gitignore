@@ -10,24 +10,24 @@ node_modules
 
 # production
 /dist
-/@pui/**/dist
-/@pui/**/storybook-static
+/@pui-cn/**/dist
+/@pui-cn/**/storybook-static
 
-/@pui/react/coverage
-/@pui/react/es
-/@pui/react/es/**/*
-/@pui/react/lib
-/@pui/react/lib/**/*
-/@pui/react/override.scss
-/@pui/react/coverage
+/@pui-cn/react/coverage
+/@pui-cn/react/es
+/@pui-cn/react/es/**/*
+/@pui-cn/react/lib
+/@pui-cn/react/lib/**/*
+/@pui-cn/react/override.scss
+/@pui-cn/react/coverage
 
-/@pui/react-mobile/coverage
-/@pui/react-mobile/es
-/@pui/react-mobile/es/**/*
-/@pui/react-mobile/lib
-/@pui/react-mobile/lib/**/*
-/@pui/react-mobile/override.scss
-/@pui/react-mobile/coverage
+/@pui-cn/react-mobile/coverage
+/@pui-cn/react-mobile/es
+/@pui-cn/react-mobile/es/**/*
+/@pui-cn/react-mobile/lib
+/@pui-cn/react-mobile/lib/**/*
+/@pui-cn/react-mobile/override.scss
+/@pui-cn/react-mobile/coverage
 
 # misc
 .DS_Store

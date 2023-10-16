@@ -4,7 +4,7 @@
     "install-all": "npm -ws install"
   },
   "changelog": {
-    "repo": "https://gitlab.porsche-preview.cn/porsche-digital-china/web/pui/",
+    "repo": "https://github.com/porsche-design-system/porsche-design-system-china",
     "labels": {
       "enhancement": ":rocket Enhancement",
       "fix": ":bug: Bug Fix",
@@ -16,10 +16,9 @@
   },
   "dependencies": {},
   "workspaces": [
-    "@pui/react",
-    "@pui/react-mobile",
-    "@pui/icons",
-    "@pui/tools"
+    "@pui-cn/react",
+    "@pui-cn/icons",
+    "@pui-cn/tools"
   ],
   "overrides": {
     "glob-parent": "6.0.2"

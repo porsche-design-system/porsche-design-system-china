@@ -28,7 +28,7 @@ A Porsche styled enterprise React UI library.
 ## 📦 Install
 
 ```sh
-npm install @pui/react
+npm install @pui-cn/react
 ```
 
 <br/>
@@ -37,7 +37,7 @@ npm install @pui/react
 ## 🔨 Usage
 
 ```ts
-import { Button } from '@pui/react';
+import { Button } from '@pui-cn/react';
 
 export const Page = () => {
   return <Button>按钮</Button>;
@@ -49,7 +49,7 @@ export const Page = () => {
 
 ## 🤝 Contribution
 
-See [Contributing Guide](http://react-dev.qa4.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book)
+See [Contributing Guide](./CONTRIBUTING.md)
 
 <br/>
 

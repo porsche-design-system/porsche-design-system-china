@@ -1,7 +1,0 @@
-
-node_modules
-coverage
-dist
-
-*.spec.js
-*.spec.ts
