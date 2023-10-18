@@ -25,7 +25,7 @@
   },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
-  "license": "ISC",
+  "license": "Apache License",
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },

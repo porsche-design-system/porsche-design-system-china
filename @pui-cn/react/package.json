@@ -42,7 +42,7 @@
   },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
-  "license": "ISC",
+  "license": "Apache License",
   "devDependencies": {
     "@babel/core": "7.18.2",
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",

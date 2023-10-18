@@ -9,7 +9,7 @@
 A Porsche styled enterprise React UI library.
 <div>
 <div align="center">
-  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/badge/ver%200.1.67-black"></a>
+  <a href="https://www.npmjs.com/package/@pui-cn/react"><img src="https://img.shields.io/badge/ver%200.1.67-black"></a>
 <div>
 
 <div align="center">
