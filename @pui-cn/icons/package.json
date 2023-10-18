@@ -21,10 +21,7 @@
     "pipeline-generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "npm run entry && pui-tools build --watch",
     "build": "pui-tools build",
-    "vinstall": "npm install --registry http://s1.web.porsche-preview.cn/repository/npm-group/",
-    "vrelease": "npm publish --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
-    "vrelease-old": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",
-    "test": "jest"
+    "vrelease": "npm publish"
   },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",
