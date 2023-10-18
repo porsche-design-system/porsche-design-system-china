@@ -11,7 +11,7 @@
     "lint": "eslint --ignore-path=.eslintignore --ext .jsx,.ts,.tsx .",
     "lint-fix": "eslint --fix --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
     "storybook": "storybook dev -p 6006 --docs",
-    "build-storybook": "storybook build --docs",
+    "build-storybook": "rm -rdf ../../docs && storybook build --docs && mv ./storybook-static ../../docs",
     "build": "git pull && rm -rf ./es && tsc -p tsconfig-build-es6.json && copyfiles -u 1 \"./src/**/*.scss\" \"./src/**/*.js\" \"./src/assets/**/*\" \"./src/styles/**/*\" \"./src/assets/**/*\" es && rm ./es/**/**/*.stories.scss",
     "vrelease": "npm publish --registry https://devops.porsche-preview.cn/nexus/repository/npm-pcn-hosted/",
     "vrelease-old": "npm publish --registry http://s1.web.porsche-preview.cn/repository/npm-hosted/",

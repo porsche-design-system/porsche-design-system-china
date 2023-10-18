@@ -13,7 +13,7 @@ A Porsche styled enterprise React UI library.
 <div>
 
 <div align="center">
- <a href="https://pui-cn.porsche-preview.cn/">Documentation</a> | <a href="https://pui-cn.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book">Develop PUI</a> | <a href="https://pui-cn.porsche-preview.cn/?path=/docs/coding-change-logs--getting-start-story-book">Change Logs</a> | <a href="https://github.com/porsche-design-system/porsche-design-system-china/blob/develop/NOTICE.txt">Open Source Software Notice</a>
+ <a href="https://porsche-design-system.github.io/porsche-design-system-china/docs/">Documentation</a> | <a href="https://pui-cn.porsche-preview.cn/?path=/docs/coding-develop-pui--getting-start-story-book">Develop PUI</a> | <a href="https://pui-cn.porsche-preview.cn/?path=/docs/coding-change-logs--getting-start-story-book">Change Logs</a> | <a href="https://github.com/porsche-design-system/porsche-design-system-china/blob/develop/NOTICE.txt">Open Source Software Notice</a>
 </div>
 <img src="pui.png" >
 

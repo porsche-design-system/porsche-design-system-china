@@ -1,4 +1,4 @@
-import { dirname, join } from "path";
+import { dirname, join } from 'path'
 const path = require('path')
 
 module.exports = {
@@ -6,12 +6,12 @@ module.exports = {
 
   addons: [
     { name: '@storybook/addon-docs', options: { configureJSX: true } },
-    getAbsolutePath("@storybook/preset-scss"),
-    getAbsolutePath("@storybook/addon-essentials"),
+    getAbsolutePath('@storybook/preset-scss'),
+    getAbsolutePath('@storybook/addon-essentials')
   ],
 
   framework: {
-    name: getAbsolutePath("@storybook/react-vite"),
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {}
   },
 
@@ -32,5 +32,5 @@ module.exports = {
 }
 
 function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, "package.json")));
+  return dirname(require.resolve(join(value, 'package.json')))
 }
