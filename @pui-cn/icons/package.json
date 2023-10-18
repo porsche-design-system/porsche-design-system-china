@@ -21,7 +21,7 @@
     "pipeline-generate": "cross-env TS_NODE_PROJECT=tsconfig.task.json gulp --require ts-node/register/transpile-only",
     "start": "npm run entry && pui-tools build --watch",
     "build": "pui-tools build",
-    "vrelease": "npm publish"
+    "vrelease": "npm publish --access public"
   },
   "keywords": [],
   "author": "Porsche Digital China Web: to be the best web frontend team all arount the world",

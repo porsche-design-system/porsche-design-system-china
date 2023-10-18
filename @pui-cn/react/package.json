@@ -13,7 +13,7 @@
     "storybook": "storybook dev -p 6006 --docs",
     "build-storybook": "rm -rdf ../../docs && storybook build --docs && mv ./storybook-static ../../docs",
     "build": "git pull && rm -rf ./es && tsc -p tsconfig-build-es6.json && copyfiles -u 1 \"./src/**/*.scss\" \"./src/**/*.js\" \"./src/assets/**/*\" \"./src/styles/**/*\" \"./src/assets/**/*\" es && rm ./es/**/**/*.stories.scss",
-    "vrelease": "npm publish",
+    "vrelease": "npm publish --access public",
     "test": "jest",
     "test-cov": "jest --coverage",
     "vfixed": "standard-version",
