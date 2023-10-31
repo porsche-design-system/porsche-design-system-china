@@ -1,4 +1,15 @@
-import{a as e}from"./jsx-runtime-e43ccb36.js";import{M as r}from"./index-8fc8427d.js";/* empty css              */import"./custom-picker-86da82ae.js";/* empty css            */import"./index-1b03fe98.js";import"./iframe-7c6d5f29.js";import"../sb-preview/runtime.js";import"./chunk-6P7RB4HF-36fee097.js";import"./index-6fd5a17b.js";import"./inheritsLoose-de3cf643.js";import"./index-4d52b68d.js";import"./index-356e4a49.js";const i=`#### 安装所有依赖
+import { a as e } from './jsx-runtime-e43ccb36.js';
+import { M as r } from './index-8fc8427d.js';
+/* empty css              */ import './custom-picker-86da82ae.js';
+/* empty css            */ import './index-1b03fe98.js';
+import './iframe-7c6d5f29.js';
+import '../sb-preview/runtime.js';
+import './chunk-6P7RB4HF-36fee097.js';
+import './index-6fd5a17b.js';
+import './inheritsLoose-de3cf643.js';
+import './index-4d52b68d.js';
+import './index-356e4a49.js';
+const i = `#### 安装所有依赖
 
 在项目根目录运行：
 
@@ -218,12 +229,27 @@ pui 的组件属性支持多重载写法，例如 DatePicker 组件 value 可以
 
 #### 提交代码
 
-提交代码，应该建立新分支，完成代码之后找 立超 或 莫哥 检查合并
+提交代码，应该建立新分支
 
-#### 发版
-
-由立超与莫哥定期发版
-`,p=()=>e("div",{className:"custom-doc",children:e(r,{children:i})}),S={title:"Coding/Develop PUI",parameters:{docs:{page:p}}},n=()=>e("div",{children:"-"});n.storyName="Develop PUI";var t,o,s;n.parameters={...n.parameters,docs:{...(t=n.parameters)==null?void 0:t.docs,source:{originalSource:`() => {
+ 
+`,
+  p = () => e('div', { className: 'custom-doc', children: e(r, { children: i }) }),
+  S = { title: 'Coding/Develop PUI', parameters: { docs: { page: p } } },
+  n = () => e('div', { children: '-' });
+n.storyName = 'Develop PUI';
+var t, o, s;
+n.parameters = {
+  ...n.parameters,
+  docs: {
+    ...((t = n.parameters) == null ? void 0 : t.docs),
+    source: {
+      originalSource: `() => {
   return <div>-</div>;
-}`,...(s=(o=n.parameters)==null?void 0:o.docs)==null?void 0:s.source}}};const k=["GettingStartStoryBook"];export{n as GettingStartStoryBook,k as __namedExportsOrder,S as default};
+}`,
+      ...((s = (o = n.parameters) == null ? void 0 : o.docs) == null ? void 0 : s.source)
+    }
+  }
+};
+const k = ['GettingStartStoryBook'];
+export { n as GettingStartStoryBook, k as __namedExportsOrder, S as default };
 //# sourceMappingURL=develop-pui.stories-4c558dd0.js.map
