@@ -1,6 +1,6 @@
 {
   "name": "@pui-cn/react",
-  "version": "0.1.68",
+  "version": "0.1.69",
   "module": "es/index.js",
   "main": "es/index.js",
   "typings": "es/index.d.ts",
@@ -87,7 +87,7 @@
     "typescript": "4.6.3"
   },
   "dependencies": {
-    "@pui-cn/icons": "^0.0.15",
+    "@pui-cn/icons": "^0.0.16",
     "async-validator": "3.5.2",
     "axios": "0.27.2",
     "classnames": "2.3.1",
