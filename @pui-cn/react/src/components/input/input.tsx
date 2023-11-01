@@ -92,7 +92,7 @@ export interface InputProps {
   onCompositionEnd?: CompositionEventHandler<HTMLInputElement>
 
   /** 清除时回调 */
-  onClear?: (() => void) | null
+  onClear?: () => void
 }
 
 /**
